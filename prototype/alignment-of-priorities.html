@@ -146,6 +146,17 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 .card.c2 .dotbtn{background:var(--t2s);border:2px solid var(--t2s)}
 .card.c3 .dotbtn{background:var(--t3s);border:2px solid var(--t3s)}
 .card .nm{font-weight:600;font-size:14.5px}
+.pick{display:flex;justify-content:space-between;align-items:center;gap:6px;width:100%;text-align:left;border:0;background:transparent;font-weight:700;font-size:14.5px;color:var(--ink);padding:3px 4px;border-radius:4px;cursor:pointer;min-height:30px}
+.pick:hover{background:color-mix(in srgb,var(--cyan) 10%,transparent)}
+.pick span{color:var(--muted);font-size:12px}
+.pick.none{color:var(--blue);font-weight:600;border:1.5px dashed color-mix(in srgb,var(--blue) 45%,transparent)}
+.card .ds:disabled{opacity:.5}
+.colh small{font-weight:600;letter-spacing:0;color:var(--muted);font-size:11.5px}
+.pop .choices{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pop .choices button{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:8px;text-align:left;font-size:13.5px;cursor:pointer;min-height:40px;color:var(--ink)}
+.pop .choices button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}
+.pop .choices button:disabled{opacity:.4;cursor:default}
+.pop .choices button small{display:block;font-size:11px;opacity:.8}
 .card .ds{font-size:13px;color:var(--muted);padding-left:30px}
 .card .ds:focus{color:var(--ink)}
 .card .foot{display:flex;flex-wrap:wrap;gap:4px;padding-left:26px}
@@ -183,6 +194,7 @@ svg.layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z
 }
 /* popover */
 .pop{position:fixed;z-index:30;background:var(--paper);border:1px solid var(--rule);border-radius:10px;box-shadow:0 10px 30px rgb(0 0 0 / .18);padding:10px;width:min(320px,calc(100vw - 32px));display:grid;gap:8px;max-height:min(420px,70vh);overflow:auto}
+.pop.sheet{left:max(12px,env(safe-area-inset-left,0px))!important;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));top:auto!important;width:auto;max-height:75vh}
 .pop h5{margin:0;font-size:13px;color:var(--muted)}
 .pop label{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:6px;border-radius:6px;cursor:pointer}
 .pop label:hover{background:var(--bg)}
@@ -285,7 +297,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
   <section id="viewAid" role="tabpanel" aria-labelledby="tabAid" hidden>
     <div class="work">
       <main class="sheet">
-        <p class="coach">Factor in the external factors first. Then work left to right and say what each box serves: tap <b>Serves</b> on a box to tie it to the column before. Tap any box to light its whole chain. Tap the dot to tag it with a color.</p>
+        <p class="coach">The standards are the choices. For each box, <b>choose from KA's standard list</b>, then write what supports that choice for this client. Solutions are in your own words. Factor in the external factors first, then work left to right: tap <b>Serves</b> to tie a box to the column before, and tap any box to light its whole chain.</p>
         <div class="ext" id="ext"></div>
         <p class="headline">Aligning Priorities from Organization to Operational to Infrastructure</p>
         <div class="toolbar">
@@ -346,6 +358,14 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 
 <script>
 /* ---------- The aid's structure, as in the original PDF ---------- */
+/* KA's standard choices, from the PDF's drop-down lists (forced: no other entry). Abbreviations written out:
+   Perf. & Risk Mgmt., Compliance & Cert., High Performance Cult. */
+const CHOICES = {
+  goals:["Cash Flow","Profit","Revenue","Market Share"],
+  strategies:["Cash Management","Asset Usage","Leverage","Product Development","Customer Support","Restructure","Costs","Skills","Price","Acquisition","Image","Channels","Production","Enabling Infrastructure"],
+  processes:["Business Planning","Performance & Risk Management","Compliance & Certification","Market Development","Revenue Cycle","Innovation & Design","Product Development","Sourcing","Monitoring","Prevention & Intervention","Diagnosis","Prep & Treatment","Recovery & Rehab"],
+  initiatives:["Sustainable Growth","Engage & Retain","High Performance Culture","Improve Health & Well-Being","Operational Excellence","Cost Competitiveness"]
+};
 const COLS = [
   {k:"goals",      label:"Goals",       one:"goal",       n:2, verb:"OBTAIN",  walk:"Goals: what the business must obtain."},
   {k:"strategies", label:"Strategies",  one:"strategy",   n:5, verb:"EXECUTE", walk:"Strategies obtain the goals."},
@@ -365,7 +385,7 @@ function blank(){
   return {title:"Gain Business Clarity",situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},legend:["","",""],
     ext:Object.fromEntries(EXT.map(([k])=>[k,{t:"",d:""}])),notes:{},items};
 }
-const KEY="ka-aop-v1";
+const KEY="ka-aop-v2";
 let S;
 try{ S=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)||"null")||{}); }catch(e){ S=blank(); }
 COLS.forEach(c=>{ const a=S.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); S.items[c.k]=a.slice(0,c.n); });
@@ -443,8 +463,9 @@ function cardHTML(c,ix,i){
   }
   return `<div class="card ${it.c?"c"+it.c:""} ${it.t.trim()?"":"empty"}" data-id="${id}">
     <div class="top"><button class="dotbtn" data-dot="${id}" aria-label="Color tag for ${esc(nameOf(id))}: ${it.c?["","teal","orange","pink"][it.c]:"none"}"></button>
-    <textarea class="nm" rows="1" data-f="${id}.t" placeholder="Add a ${c.one}" aria-label="${c.label} ${i+1}">${esc(it.t)}</textarea></div>
-    <textarea class="ds" rows="1" data-f="${id}.d" placeholder="Details" aria-label="${c.label} ${i+1} details">${esc(it.d)}</textarea>
+    ${CHOICES[c.k]?`<button class="pick ${it.t?"":"none"}" data-pick="${id}" aria-haspopup="dialog" aria-label="${c.label} ${i+1}: ${it.t?esc(it.t)+". Change":"choose a "+c.one}">${it.t?esc(it.t):`Choose a ${c.one}`}<span aria-hidden="true">▾</span></button>`
+      :`<textarea class="nm" rows="1" data-f="${id}.t" placeholder="Name a ${c.one}" aria-label="${c.label} ${i+1}">${esc(it.t)}</textarea>`}</div>
+    <textarea class="ds" rows="1" data-f="${id}.d" placeholder="${CHOICES[c.k]?(it.t?`What supports ${esc(it.t)} for them?`:"Then say what supports it"):"What it is and what it does"}" aria-label="${c.label} ${i+1}: what supports it" ${CHOICES[c.k]&&!it.t?"disabled":""}>${esc(it.d)}</textarea>
     ${foot?`<div class="foot">${foot}</div>`:""}</div>`;
 }
 function renderCasc(){
@@ -453,7 +474,7 @@ function renderCasc(){
   COLS.forEach((c,ix)=>{
     const col=document.createElement("div"); col.className="col"; col.dataset.col=c.k;
     col.style.paddingTop=`calc(var(--step) * ${ix})`;
-    col.innerHTML=`<button class="colh" data-note="${c.k}" aria-label="${c.label}: notes">▷ ${c.label.toUpperCase()}${S.notes[c.k]?.trim()?'<span class="hasnote" aria-hidden="true"></span>':""}</button>`+S.items[c.k].map((_,i)=>cardHTML(c,ix,i)).join("");
+    col.innerHTML=`<button class="colh" data-note="${c.k}" aria-label="${c.label}: notes"><span>▷ ${c.label.toUpperCase()}<br><small>${CHOICES[c.k]?`${CHOICES[c.k].length} standard choices`:"your own words"}</small></span>${S.notes[c.k]?.trim()?'<span class="hasnote" aria-hidden="true"></span>':""}</button>`+S.items[c.k].map((_,i)=>cardHTML(c,ix,i)).join("");
     casc.appendChild(col);
   });
   casc.querySelectorAll("textarea").forEach(autosize);
@@ -519,6 +540,7 @@ $("casc").addEventListener("click",e=>{
   const dot=e.target.closest("[data-dot]"), sv=e.target.closest("[data-serves]"), nt=e.target.closest("[data-note]"), card=e.target.closest(".card");
   if(dot){ const it=item(dot.dataset.dot); it.c=(it.c+1)%4; save(); renderCasc(); renderGuide(); return; }
   if(sv){ openServes(sv.dataset.serves,sv); return; }
+  const pk=e.target.closest("[data-pick]"); if(pk){ select(pk.dataset.pick); openPick(pk.dataset.pick,pk); return; }
   if(nt){ openNote(nt.dataset.note,nt); return; }
   if(card){ select(sel===card.dataset.id&&e.target.tagName!=="TEXTAREA"?null:card.dataset.id); }
 });
@@ -540,7 +562,10 @@ $("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]")
 /* popovers */
 let popEl=null;
 function closePop(){ if(popEl){ popEl.remove(); popEl=null; } }
-function place(pop,anchor){ document.body.appendChild(pop); const r=anchor.getBoundingClientRect(), pw=pop.offsetWidth, ph=pop.offsetHeight;
+let popAt=0;
+function place(pop,anchor){ document.body.appendChild(pop); popAt=scrollY;
+  if(innerWidth<700){ pop.classList.add("sheet"); return; }
+  const r=anchor.getBoundingClientRect(), pw=pop.offsetWidth, ph=pop.offsetHeight;
   let x=Math.min(Math.max(16,r.left),innerWidth-pw-16), y=r.bottom+6; if(y+ph>innerHeight-16) y=Math.max(16,r.top-ph-6); pop.style.left=x+"px"; pop.style.top=y+"px"; }
 function openServes(id,anchor){
   closePop(); const [k]=id.split("."), ix=ci(k), prev=COLS[ix-1], it=item(id);
@@ -550,7 +575,21 @@ function openServes(id,anchor){
   place(pop,anchor); popEl=pop;
   pop.addEventListener("change",e=>{ const v=e.target.value; it.serves=e.target.checked?[...new Set([...it.serves,v])]:it.serves.filter(x=>x!==v); save(); refreshChips(); renderCheck(); renderGuide(); applyFocus(); });
   pop.querySelector("[data-done]").onclick=()=>{ closePop(); anchor.isConnected?anchor.focus():null; };
-  pop.querySelector("input,button")?.focus();
+  pop.querySelector("input,button")?.focus({preventScroll:true});
+}
+function openPick(id,anchor){
+  closePop(); const [k,i]=id.split("."), c=COLS[ci(k)], it=item(id);
+  const used=S.items[k].map((x,j)=>j!==+i&&x.t).filter(Boolean);
+  const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",`Choose a ${c.one}`);
+  pop.innerHTML=`<h5>Choose a ${c.one} · KA's ${CHOICES[k].length} standard ${c.label.toLowerCase()}</h5><div class="choices">${CHOICES[k].map(v=>`<button data-v="${esc(v)}" aria-pressed="${it.t===v}" ${used.includes(v)?"disabled":""}>${esc(v)}${used.includes(v)?"<small>already chosen</small>":""}</button>`).join("")}</div>${it.t?`<div class="arow"><button class="btn small ghost" data-clear>Clear this choice</button></div>`:""}`;
+  place(pop,anchor); popEl=pop;
+  pop.addEventListener("click",e=>{
+    const b=e.target.closest("[data-v]"), cl=e.target.closest("[data-clear]");
+    if(b){ it.t=b.dataset.v; } else if(cl){ it.t=""; it.d=""; it.serves=[]; COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id||it.t))); } else return;
+    save(); closePop(); renderCasc(); renderCheck(); renderGuide(); select(id);
+    if(b) setTimeout(()=>document.querySelector(`.card[data-id="${id}"] .ds`)?.focus(),0);
+  });
+  (pop.querySelector('[aria-pressed="true"]')||pop.querySelector("button:not(:disabled)"))?.focus({preventScroll:true});
 }
 function openNote(k,anchor){
   closePop(); const l=COLS.find(c=>c.k===k)?.label;
@@ -561,9 +600,9 @@ function openNote(k,anchor){
   pop.querySelector("[data-done]").onclick=()=>{ closePop(); renderCasc(); };
   pop.querySelector("textarea").focus();
 }
-document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-serves],[data-note]")) closePop(); });
+document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-serves],[data-note],[data-pick]")) closePop(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ if(popEl) closePop(); else if(sel){ select(null); } } });
-addEventListener("scroll",()=>closePop(),{passive:true});
+addEventListener("scroll",()=>{ if(popEl&&!popEl.classList.contains("sheet")&&Math.abs(scrollY-popAt)>60) closePop(); },{passive:true});
 
 /* walk the chain */
 const WALK=[{t:"Factor in the external factors: Economy, Industry, Financials.",col:-1}].concat(COLS.map((c,i)=>({t:c.walk,col:i})));
@@ -598,11 +637,11 @@ const EXAMPLE = {
   ext:{economy:{t:"Premiums rising; clients shop harder at renewal",d:""},industry:{t:"Carriers consolidating; direct digital competitors",d:""},financials:{t:"Commission revenue flat while service costs climb",d:""}},
   gaps:{people:{on:true,note:"COO and VP of Sales haven't agreed who owns renewals."},policies:{on:true,note:"No budget set aside for new tools this year."}},
   items:{
-    goals:[{t:"Grow renewals 10% this year",d:"Renewals are about 70% of revenue",c:1,serves:[]},{t:"Raise margin per account",d:"",c:0,serves:[]}],
-    strategies:[{t:"Joint account management with carriers",d:"",c:1,serves:["goals.0"]},{t:"Segment the book by value and risk",d:"",c:0,serves:["goals.0","goals.1"]},{t:"Cross-sell benefits to P&C clients",d:"",c:2,serves:["goals.1"]},{t:"Make service the reason to stay",d:"",c:0,serves:["goals.0"]},{t:"",d:"",c:0,serves:[]}],
-    processes:[{t:"Quarterly account reviews",d:"",c:0,serves:["strategies.0","strategies.3"]},{t:"Renewal planning at 120 days",d:"",c:0,serves:["strategies.0"]},{t:"Account tiering",d:"",c:0,serves:["strategies.1"]},{t:"Cross-team referrals",d:"",c:0,serves:["strategies.2"]},{t:"",d:"",c:0,serves:[]}],
-    initiatives:[{t:"Renewal early-warning",d:"Flag accounts at risk 120 days out",c:0,serves:["processes.1","processes.2"]},{t:"Account team playbook",d:"",c:0,serves:["processes.0","processes.3"]},{t:"Client portal refresh",d:"",c:2,serves:[]}],
-    solutions:[{t:"CRM renewal dashboard",d:"",c:0,serves:["initiatives.0"]},{t:"Review templates and coaching",d:"",c:0,serves:["initiatives.1"]},{t:"New portal vendor",d:"",c:3,serves:["initiatives.2"]}]
+    goals:[{t:"Revenue",d:"Renewals fell 8% last year; they're about 70% of revenue",c:1,serves:[]},{t:"Profit",d:"Margin per account is slipping as service costs climb",c:0,serves:[]}],
+    strategies:[{t:"Customer Support",d:"Joint account management with carriers, so clients see one team",c:1,serves:["goals.0"]},{t:"Skills",d:"Account teams able to run a renewal review, not just a quote",c:0,serves:["goals.0","goals.1"]},{t:"Costs",d:"Lower cost to serve the smallest accounts",c:2,serves:["goals.1"]},{t:"Image",d:"Service becomes the reason clients stay",c:0,serves:["goals.0"]},{t:"",d:"",c:0,serves:[]}],
+    processes:[{t:"Revenue Cycle",d:"Renewal planning starts 120 days out",c:0,serves:["strategies.0"]},{t:"Performance & Risk Management",d:"Tier the book by value and risk",c:0,serves:["strategies.0","strategies.2"]},{t:"Monitoring",d:"Quarterly account reviews with the client",c:0,serves:["strategies.0","strategies.3"]},{t:"Business Planning",d:"An annual plan for each top-50 account",c:0,serves:["strategies.1"]},{t:"",d:"",c:0,serves:[]}],
+    initiatives:[{t:"Engage & Retain",d:"Renewal early warning and a steady review rhythm",c:0,serves:["processes.0","processes.2"]},{t:"High Performance Culture",d:"An account team playbook with coaching",c:0,serves:["processes.3"]},{t:"Cost Competitiveness",d:"Self-service for small accounts",c:2,serves:[]}],
+    solutions:[{t:"CRM renewal dashboard",d:"Flags accounts at risk 120 days out",c:0,serves:["initiatives.0"]},{t:"Review templates and coaching",d:"",c:0,serves:["initiatives.1"]},{t:"New client portal",d:"",c:3,serves:["initiatives.2"]}]
   }
 };
 let undoState=null;
@@ -638,7 +677,7 @@ function snapshot(){
   return {title:S.title,external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),columnNotes:S.notes,items,
     gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)};
 }
-const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. The aid aligns priorities of key stakeholders: external factors (Economy, Industry, Financials), then Goals (2 slots), Strategies (5), Processes (5), Initiatives (3) and Solutions (3), across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item "serves" items in the column to its left. KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific to the situation, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
+const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. The aid aligns priorities of key stakeholders: external factors (Economy, Industry, Financials), then Goals (2 slots), Strategies (5), Processes (5), Initiatives (3) and Solutions (3), across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item "serves" items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative name must be exactly one of KA's standard choices, and its details say what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific to the situation, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
 const ctx=()=>`${BASE}\n\nSituation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
 function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!sel)); $("stopBtn").hidden=!on; }
 function off(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); $("assistNote").textContent=msg; }
@@ -665,14 +704,18 @@ async function ask(prompt,{json=false}={}){
 $("stopBtn").onclick=()=>ctl?.abort();
 $("aBox").onclick=async()=>{
   if(!sel) return; const id=sel, c=COLS[ci(id.split(".")[0])];
-  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 alternatives for this one ${c.one}, each name under 10 words, details under 20, why under 15.`,{json:true});
+  const std=CHOICES[c.k];
+  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 options for this one ${c.one}${std?`; each name must be exactly one of ${JSON.stringify(std.filter(v=>!S.items[c.k].some((x,j)=>x.t===v&&`${c.k}.${j}`!==id)))}; details say what supports that choice for this client (under 25 words)`:"; name under 10 words, details under 20"}; why under 15 words.`,{json:true});
   if(!r||!Array.isArray(r.options)) return;
+  if(std) r.options=r.options.map(o=>({...o,name:std.find(v=>v.toLowerCase()===String(o.name||"").trim().toLowerCase())})).filter(o=>o.name);
+  if(!r.options.length){ $("answer").textContent="No standard choice fit. Try adding more to the situation."; return; }
   $("sugg").innerHTML=r.options.slice(0,3).map((o,i)=>`<div class="s"><b>${esc(o.name)}</b><span>${esc(o.details||"")}</span><small>${esc(o.why||"")}</small><button class="btn small" data-use="${i}">Use this</button></div>`).join("");
   $("sugg").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{ const o=r.options[+b.dataset.use]; Object.assign(item(id),{t:String(o.name||""),d:String(o.details||"")}); save(); clearSugg(); renderCasc(); renderCheck(); renderGuide(); $("answer").textContent="Added. Now tap Serves to tie it in."; });
 };
 $("aFill").onclick=async()=>{
-  const r=await ask(`${ctx()}\n\nDraft the whole aid for this situation. Keep every existing entry at its same position, word for word. Fill empty slots only where the situation supports it; leave others empty. Names under 10 words, details under 20. "serves" lists ids in the column to the left (goals serve nothing). Reply with only JSON: {"external":{"economy":string,"industry":string,"financials":string},"items":{"goals":[{"name":string,"details":string,"serves":[]}] x2,"strategies":[... x5],"processes":[... x5],"initiatives":[... x3],"solutions":[... x3]}}`,{json:true});
+  const r=await ask(`${ctx()}\n\nDraft the whole aid for this situation. Goal, Strategy, Process and Initiative names must be exact standard choices (never the same choice twice in a column); details say what supports each choice for this client. Keep every existing entry at its same position, word for word. Fill empty slots only where the situation supports it; leave others empty. Names under 10 words, details under 20. "serves" lists ids in the column to the left (goals serve nothing). Reply with only JSON: {"external":{"economy":string,"industry":string,"financials":string},"items":{"goals":[{"name":string,"details":string,"serves":[]}] x2,"strategies":[... x5],"processes":[... x5],"initiatives":[... x3],"solutions":[... x3]}}`,{json:true});
   if(!r||typeof r!=="object"||!r.items) return;
+  COLS.forEach(c=>{ if(!CHOICES[c.k]) return; const seen=new Set(); (r.items[c.k]||[]).forEach(d=>{ if(!d) return; const m=CHOICES[c.k].find(v=>v.toLowerCase()===String(d.name||"").trim().toLowerCase()); d.name=m&&!seen.has(m)?m:""; if(m) seen.add(m); }); });
   pending=r; const rows=[];
   EXT.forEach(([k,l])=>{ const v=r.external?.[k]; if(v&&v.trim()) rows.push(`<div class="s"><small>${l}${S.ext[k].t.trim()?" · you have text here":""}</small>${esc(v)}</div>`); });
   COLS.forEach(c=>(r.items[c.k]||[]).slice(0,c.n).forEach((d,i)=>{ if(!d?.name?.trim()) return; const has=S.items[c.k][i].t.trim();
