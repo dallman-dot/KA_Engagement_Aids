@@ -1,0 +1,28 @@
+# KA Engagement Aids
+
+Guide for Claude Code sessions. The owner is **Dave** (Knowledge-Advantage, Inc., KA). Record each new decision here in a line or two: Dave's words, the date, the files. Replace a superseded rule instead of adding beside it.
+
+## Purpose
+
+KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sales, marketing and product. Its engagement aids were interactive Adobe PDFs (2015–2016). This product rebuilds them for the web (Dave, November 13, 2026: "recreate a set of existing interactive engagement PDFs… add real-time assistance to help users fill them out and then make them interactive to use with their prospects and clients"; "This is a separate Knowledge Advantage product!"). It is not Worthwhile Today and shares no code, data or accounts with it.
+
+## Rules
+
+- **The originals are the source.** Keep each aid's structure, the guide's words and the configurator's rules as found (`docs/original-pdfs.md`, `data/configurator-original.json`); fix only plain slips, and list each fix. `tests/data.test.mjs` fails if the catalog, the rules and the prototype drift apart.
+- **The assistant helps, never invents.** It never states facts about a client that the user didn't give; anything unknown comes back as a question or a marked assumption. Every draft is shown for review before it changes the aid (fill the empty boxes, replace everything, or discard).
+- **Use with a client** hides the assistant and coaching and enlarges the aid.
+- **No KA PDFs in git while the repository is public** (`.gitignore`).
+- Phone and computer, light and dark; nothing widens the page sideways.
+
+## Now (November 13, 2026)
+
+- `prototype/index.html`: one self-contained page, published privately at https://claude.ai/artifact/NuW3xuJ7QVoTN8ytH7R47L with the `sample` capability (Claude on the viewer's own account). Built: Aids Configurator, Alignment of Priorities, 4 Box Grid, 9 Box Grid, 4D Matrix (3 or 4 items). Work is saved in the browser only (`ka-aids-v1`).
+- When the prototype's rules change, change `data/configurator.json` with them; run `npm test`.
+
+## Open for Dave
+
+- The rest of the PDFs; first the configurator's most recommended: Session Plan, Assessment Roadmap, Assessment Questions, Fast Path/Gap, Solution Snapshot, Criteria Proposition.
+- Public or private repository (it was created public).
+- Sharing with clients: a link the client fills in while the advisor watches (needs sign-in and shared saving), or screen-sharing only for now.
+- The configurator's slips: Assessment Roadmap twice, Outcomes Map's missing description, 531 with no optional aids.
+- The app's stack once more aids exist (the prototype is one page on purpose).

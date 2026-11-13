@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+# Original KA PDFs stay out of git while this repository is public.
+originals/
+*.pdf

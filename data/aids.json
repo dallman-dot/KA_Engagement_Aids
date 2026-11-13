@@ -1,0 +1,208 @@
+{
+ "aids": [
+  {
+   "name": "Session Plan",
+   "description": "A visual aid to facilitate meetings (face to face or virtual).",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Alignment of Priorities",
+   "description": "A visual aid to align priorities of key stakeholders.",
+   "built": true,
+   "route": "alignment"
+  },
+  {
+   "name": "Priorities Map",
+   "description": "A visual aid to map and compare top of mind priorities for individual and organizational stakeholders.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Criteria Proposition",
+   "description": "A visual aid to express the full worth of a solution to stakeholders.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Assessment Roadmap",
+   "description": "A visual aid to assist stakeholders through their assessment (decision making) process.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Assessment Questions",
+   "description": "A set of questions to assist stakeholders through their assessment (decision making) process.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Assessment Snapshot",
+   "description": "A visual aid to summarize the key dimensions of success for an initiative or solution.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Decision Criteria Map",
+   "description": "A visual aid to evaluate alternatives to select the best answer.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Decision Criteria Matrix",
+   "description": "A visual aid to evaluate alternatives to select the best answer.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Decision Matrix",
+   "description": "A visual aid to assist stakeholders through their decision making process.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Dimensions of Success",
+   "description": "A visual aid to summarize the priorities, requirements, and criteria among stakeholders for an initiative or solution.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Fast Path/Gap",
+   "description": "A visual aid to illustrate the different roads an initiative can take.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Guiding Principles",
+   "description": "A visual aid to highlight a mind-set for healthy dialogues to make better business decisions.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Initiative Assessment",
+   "description": "A visual aid to qualify an initiative with potential sponsors.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Napkin",
+   "description": "A visual aid to compare contrasting approaches to making business decisions.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Option Snapshot",
+   "description": "A visual aid to highlight potential solutions.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Outcomes Map",
+   "description": "",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "PRC Notes",
+   "description": "A visual aid to qualify organizational strategies (from the set of possible solutions) based on their potential value and usage.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Pros & Cons",
+   "description": "A visual aid to organize the positives and negatives for a given topic to make better decisions.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Requirements Blueprint",
+   "description": "A visual aid to frame a set of high-level requirements to create meaningful and worthwhile outcomes (results).",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Rollout Timeline",
+   "description": "A visual aid to show the timing (delivery) for the major phases of an initiative or solution.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Solution Snapshot",
+   "description": "A visual aid to highlight potential solutions.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Solutions Map",
+   "description": "A visual aid to map the impact of capabilities to the top of mind initiatives of key stakeholders.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Stakeholder Profile",
+   "description": "A visual aid to understand a stakeholder's role within a business and/or decision-making process.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Strategy to Execution",
+   "description": "A visual aid to qualify organizational strategies (from the set of possible solutions) based on their potential value and usage.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Three Column",
+   "description": "A visual aid to organize information and facilitate better decision making based on predefined KA attributes.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Understanding Positions",
+   "description": "A visual aid to show the opposing positions of stakeholders to identify the common ground they share.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Understanding a Problem",
+   "description": "A visual aid to accurately decompose and frame the key attributes of a business problem.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Voting Map",
+   "description": "A visual aid to facilitate the voting (preference) for initiatives or solutions based on predefined KA criteria.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "4 Box Grid",
+   "description": "A visual aid to place items against two axes, low to high.",
+   "built": true,
+   "route": "four-box"
+  },
+  {
+   "name": "9 Box Grid",
+   "description": "A visual aid to place items against two axes, low, medium and high.",
+   "built": true,
+   "route": "nine-box"
+  },
+  {
+   "name": "4D Matrix",
+   "description": "A visual aid to show the relationships between groupings of items.",
+   "built": true,
+   "route": "matrix"
+  },
+  {
+   "name": "SWOT",
+   "description": "A visual aid to show the strengths, weaknesses, opportunities, and threats to facilitate better decision making.",
+   "built": false,
+   "route": null
+  },
+  {
+   "name": "Venn",
+   "description": "A visual aid to show the similarities and/or differences between three items/topics.",
+   "built": false,
+   "route": null
+  }
+ ]
+}

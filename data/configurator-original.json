@@ -1,0 +1,344 @@
+{
+ "111": {
+  "A": [
+   "Session Plan",
+   "Alignment of Priorities",
+   "Priorities Map",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Dimensions of Success",
+   "Guiding Principles",
+   "Napkin",
+   "PRC Notes",
+   "Stakeholder Profile",
+   "Strategy to Execution"
+  ],
+  "B": []
+ },
+ "112": {
+  "A": [
+   "Session Plan",
+   "Alignment of Priorities",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Napkin"
+  ],
+  "B": []
+ },
+ "211": {
+  "A": [
+   "Session Plan",
+   "Fast Path/Gap",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Understanding a Problem",
+   "Solutions Map",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Guiding Principles",
+   "Initiative Assessment",
+   "Napkin",
+   "PRC Notes",
+   "Requirements BluePrint",
+   "Understanding Positions"
+  ],
+  "B": []
+ },
+ "212": {
+  "A": [
+   "Session Plan",
+   "Fast Path/Gap",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Understanding a Problem",
+   "Solutions Map",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": []
+ },
+ "321": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Option Snapshot",
+   "Decision Criteria Matrix",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Assessment Snapshot",
+   "Decision Matrix",
+   "Dimensions of Success",
+   "Fast Path/Gap",
+   "Guiding Principles",
+   "Napkin",
+   "PRC Notes",
+   "Pros & Cons",
+   "Three Column",
+   "Voting Map"
+  ],
+  "B": []
+ },
+ "322": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Option Snapshot",
+   "Decision Criteria Matrix",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": []
+ },
+ "331": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Solutions Map",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes",
+   "Decision Criteria Map",
+   "Decision Matrix",
+   "Option Snapshot"
+  ],
+  "B": []
+ },
+ "332": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Solutions Map",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes",
+   "Assessment Questions",
+   "Decision Criteria Map",
+   "Decision Matrix",
+   "Option Snapshot"
+  ],
+  "B": []
+ },
+ "421": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Assessment Snapshot",
+   "Decision Matrix",
+   "Dimensions of Success",
+   "Fast Path/Gap",
+   "Guiding Principles",
+   "Napkin",
+   "Option Snapshot",
+   "Outcomes Map",
+   "PRC Notes",
+   "Priorities Map"
+  ],
+  "B": []
+ },
+ "422": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Assessment Questions",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": []
+ },
+ "431": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Understanding a Problem",
+   "Solutions Map",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes",
+   "Option Snapshot"
+  ],
+  "B": []
+ },
+ "432": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Understanding a Problem",
+   "Solutions Map",
+   "Solution Snapshot",
+   "Criteria Proposition",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes",
+   "Assessment Questions",
+   "Option Snapshot"
+  ],
+  "B": []
+ },
+ "521": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Alignment of Priorities",
+   "Solution Snapshot",
+   "Solutions Map",
+   "Criteria Proposition",
+   "Rollout Timeline",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "Assessment Snapshot",
+   "Dimensions of Success",
+   "Guiding Principles",
+   "Napkin",
+   "Outcomes Map",
+   "PRC Notes",
+   "Strategy to Execution"
+  ],
+  "B": [
+   "Options Snapshot",
+   "Priorities Map",
+   "Understanding a Problem",
+   "Understanding Positions"
+  ]
+ },
+ "522": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Alignment of Priorities",
+   "Solution Snapshot",
+   "Solutions Map",
+   "Criteria Proposition",
+   "Rollout Timeline",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": []
+ },
+ "531": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Solution Snapshot",
+   "Solutions Map",
+   "Criteria Proposition",
+   "Rollout Timeline",
+   "Assessment Roadmap"
+  ],
+  "O": [],
+  "B": []
+ },
+ "532": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Alignment of Priorities",
+   "Solution Snapshot",
+   "Solutions Map",
+   "Criteria Proposition",
+   "Rollout Timeline",
+   "Assessment Roadmap"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": []
+ },
+ "641": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Alignment of Priorities",
+   "Solution Snapshot",
+   "Criteria Proposition"
+  ],
+  "O": [
+   "Assessment Snapshot",
+   "Dimensions of Success",
+   "Guiding Principles",
+   "PRC Notes",
+   "Requirements Blueprint",
+   "Stakeholder Profile",
+   "Strategy to Execution",
+   "Voting Map"
+  ],
+  "B": [
+   "Priorities Map",
+   "Rollout Timeline",
+   "Solutions Map",
+   "Understanding a Problem",
+   "Understanding Postions"
+  ]
+ },
+ "642": {
+  "A": [
+   "Session Plan",
+   "Assessment Roadmap",
+   "Fast Path/Gap",
+   "Assessment Questions",
+   "Alignment of Priorities",
+   "Solution Snapshot",
+   "Criteria Proposition"
+  ],
+  "O": [
+   "PRC Notes"
+  ],
+  "B": [
+   "Priorities Map",
+   "Rollout Timeline",
+   "Solutions Map",
+   "Understanding a Problem",
+   "Understanding Postions"
+  ]
+ }
+}

@@ -1,0 +1,485 @@
+<title>KA Engagement Aids</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap">
+<style>
+/* Layout: KA's aid sheet as a working surface. Masthead, aid canvas on the left, the assistant docked right (a sheet below on phones). Client mode drops the assistant and coaching. */
+:root{
+  --bg:#f4f5f8; --paper:#ffffff; --ink:#1f2430; --muted:#5d6577; --rule:#d9dce4;
+  --blue:#2c4f9b; --plum:#9e2a55; --rust:#97482a; --violet:#5a2d9c; --orange:#e2814f; --cue:#0aa7c7;
+  --cue-soft:#e3f6fa; --plum-soft:#f6e6ec; --blue-soft:#e8edf8;
+  --on-blue:#ffffff; --font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141821; --paper:#1d2230; --ink:#e7eaf1; --muted:#a3abbd; --rule:#333a4c;
+  --blue:#9fb7ec; --plum:#e98aae; --rust:#e6a07f; --violet:#bfa3f0; --orange:#f0a57c; --cue:#5fd3ea;
+  --cue-soft:#163039; --plum-soft:#3a2230; --blue-soft:#222b42; --on-blue:#141821; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141821; --paper:#1d2230; --ink:#e7eaf1; --muted:#a3abbd; --rule:#333a4c;
+  --blue:#9fb7ec; --plum:#e98aae; --rust:#e6a07f; --violet:#bfa3f0; --orange:#f0a57c; --cue:#5fd3ea;
+  --cue-soft:#163039; --plum-soft:#3a2230; --blue-soft:#222b42; --on-blue:#141821; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.side .h [contenteditable]:empty::before{color:#fff;opacity:.8}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 48px}
+.shell{max-width:1320px;margin:0 auto;display:grid;gap:16px}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.ka{border:2px solid var(--ink);font:600 20px/1 var(--font);padding:7px 8px;color:var(--blue)}
+.brand span{color:var(--blue);font-size:15px}
+.mode{display:flex;gap:6px}
+.btn{font:600 14px/1.2 var(--font);border-radius:8px;border:1.5px solid var(--blue);background:var(--paper);color:var(--blue);padding:10px 14px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.primary{background:var(--blue);color:var(--on-blue);border-color:var(--blue)}
+.btn.plum{border-color:var(--plum);color:var(--plum)}
+.btn.small{min-height:36px;padding:7px 11px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible,select:focus-visible,[contenteditable]:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--cue);outline-offset:2px}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--rule);scrollbar-width:none}
+nav.tabs a{flex:0 0 auto;text-decoration:none;color:var(--muted);font-weight:600;padding:10px 14px;border-bottom:3px solid transparent;font-size:14px}
+nav.tabs a[aria-current="page"]{color:var(--plum);border-bottom-color:var(--plum)}
+.situation{display:grid;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:12px 14px}
+.situation label{font-weight:600;font-size:13px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.situation textarea{font:15px/1.45 var(--font);border:1px solid var(--rule);border-radius:8px;padding:9px 10px;background:var(--bg);color:var(--ink);resize:vertical;min-height:52px;width:100%}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+body.client .work,body.no-assist .work{grid-template-columns:minmax(0,1fr)}
+body.client .assist,body.client .coach,body.client .situation,body.client .cue{display:none!important}
+@media (max-width:980px){.work{grid-template-columns:minmax(0,1fr)}}
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px;min-width:0}
+.sheet-head{display:flex;justify-content:space-between;gap:10px;align-items:start;flex-wrap:wrap;margin-bottom:12px}
+.sheet-title small{display:block;color:var(--muted);font-size:13px}
+.sheet-title h1{margin:0;font-weight:300;font-size:clamp(28px,4.2vw,42px);line-height:1.1;color:var(--rust)}
+body.client .sheet-title h1{color:var(--rust)}
+.coach{background:var(--cue-soft);border-left:4px solid var(--cue);border-radius:6px;padding:9px 12px;font-size:14px;margin:0 0 14px}
+[contenteditable]{border-radius:4px;cursor:text;min-height:1.4em;outline:none;transition:background .15s}
+[contenteditable]:hover{background:var(--blue-soft)}
+[contenteditable]:empty::before{content:attr(data-ph);color:var(--muted);opacity:.75;font-weight:400}
+.ed-focus{box-shadow:0 0 0 2px var(--cue)}
+/* grids */
+.grid-wrap{display:grid;grid-template-columns:auto auto minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto auto;gap:6px}
+.yaxis{grid-row:1;grid-column:1;writing-mode:vertical-rl;transform:rotate(180deg);font-weight:700;color:var(--violet);font-size:17px;letter-spacing:.04em;text-align:center;text-transform:uppercase;padding:4px 0}
+.ylevels{grid-row:1;grid-column:2;display:grid;color:var(--rust);font-weight:600;font-size:13px}
+.ylevels div{writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;display:flex;align-items:center;justify-content:center}
+.cells{grid-row:1;grid-column:3;display:grid;border-left:3px solid var(--ink);border-bottom:3px solid var(--ink);min-width:0}
+.cell{border:1px solid var(--rule);padding:10px;display:grid;gap:6px;align-content:start;min-height:130px;min-width:0;position:relative}
+.cell .tag{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.cell .txt{font-size:15px;white-space:pre-wrap;word-wrap:break-word}
+.cell details{font-size:13.5px;color:var(--muted)}
+.cell summary{cursor:pointer;color:var(--blue);font-weight:600;list-style:none}
+.cell summary::before{content:"▷ "}
+.cell details[open] summary::before{content:"▽ "}
+.cell details div{margin-top:4px;white-space:pre-wrap;color:var(--ink)}
+.xlevels{grid-row:2;grid-column:3;display:grid;color:var(--rust);font-weight:600;font-size:13px;text-align:center}
+.xaxis{grid-row:3;grid-column:3;text-align:center;font-weight:700;color:var(--violet);font-size:17px;letter-spacing:.04em;text-transform:uppercase}
+body.client .cell{min-height:170px}
+body.client .cell .txt{font-size:17px}
+/* 4D matrix */
+.mx{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);grid-template-rows:auto auto auto;gap:10px;align-items:stretch}
+.side{border-radius:10px;overflow:hidden;display:grid;min-width:0;background:var(--paper);border:2px solid}
+.side .h{color:#fff;font-weight:600;text-align:center;padding:9px 10px;font-size:14.5px}
+.side .items{display:grid}
+.side .it{padding:8px 10px;border-top:1px solid var(--rule);text-align:center;font-size:14px;white-space:pre-wrap}
+.s0{grid-column:2;grid-row:1;border-color:#2b4f9a}.s0 .h{background:#2b4f9a}
+.s1{grid-column:1;grid-row:2;border-color:#9e2a55}.s1 .h{background:#9e2a55}
+.s2{grid-column:3;grid-row:2;border-color:#e0804e}.s2 .h{background:#c9643a}
+.s3{grid-column:2;grid-row:3;border-color:#6a2d9c}.s3 .h{background:#6a2d9c}
+.s0 .items,.s3 .items{grid-auto-flow:column;grid-auto-columns:1fr}
+.s0 .it,.s3 .it{border-top:none;border-left:1px solid var(--rule)}
+.s0 .it:first-child,.s3 .it:first-child{border-left:none}
+.core{grid-column:2;grid-row:2;border:3px solid var(--ink);border-radius:50%;display:grid;place-content:center;text-align:center;padding:28px 18px;min-height:220px;gap:6px}
+.core .t{color:var(--rust);font-size:20px;font-weight:600;text-transform:uppercase}
+.core .b{font-size:15px}
+@media (max-width:700px){
+  .mx{grid-template-columns:minmax(0,1fr);}
+  .s0,.s1,.s2,.s3,.core{grid-column:1;grid-row:auto}
+  .core{border-radius:18px;min-height:0;order:-1}
+  .s0 .items,.s3 .items{grid-auto-flow:row}
+  .s0 .it,.s3 .it{border-left:none;border-top:1px solid var(--rule)}
+}
+/* alignment */
+.ext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.ext > div{border:2px solid var(--cue);border-radius:10px;padding:8px 10px;min-width:0}
+.ext h3,.casc h3{margin:0 0 4px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
+.ext .txt{white-space:pre-wrap;font-size:14px}
+.casc{display:grid;grid-template-columns:30px repeat(5,minmax(0,1fr));gap:0 8px}
+.casc .band{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--muted);display:flex;align-items:center;justify-content:center;border-radius:6px}
+.casc .b1{background:var(--blue-soft)}.casc .b2{background:var(--bg)}.casc .b3{background:var(--blue-soft)}
+.casc .c{border-top:1px dashed var(--rule);padding:8px 2px;font-size:14px;white-space:pre-wrap;min-width:0}
+.casc .colh{font-weight:700;color:var(--blue);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:2px 2px 6px}
+.chain{margin:12px 0 0;text-align:center;color:var(--plum);font-weight:600;font-size:14px}
+@media (max-width:820px){.ext{grid-template-columns:minmax(0,1fr)}.casc{grid-template-columns:minmax(0,1fr)}.casc .band,.casc .colh.hide-m{display:none}.casc .c::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}}
+/* configurator */
+.cfg-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px}
+@media (max-width:760px){.cfg-steps{grid-template-columns:minmax(0,1fr)}}
+.cfg-step{display:grid;gap:8px;align-content:start}
+.cfg-step .n{display:flex;align-items:center;gap:10px;font-weight:700}
+.dot{width:34px;height:34px;border-radius:50%;background:var(--plum);color:#fff;display:grid;place-items:center;font-weight:700;flex:0 0 auto}
+select{font:15px var(--font);padding:10px;border-radius:8px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);min-height:44px;width:100%}
+.aaa{display:flex;gap:4px;align-items:flex-end;flex-wrap:wrap;margin:4px 0 14px;font-size:13px;color:var(--muted)}
+.aaa span{padding:3px 8px;border-radius:999px;border:1px solid var(--rule)}
+.aaa span.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.aaa i{font-style:normal;color:var(--blue);font-weight:600;padding:0 4px}
+.aidlist{display:grid;gap:8px;margin:0 0 18px;padding:0;list-style:none}
+.aidlist li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:9px 10px;background:var(--paper)}
+.aidlist .k{font-weight:700;color:var(--muted);text-align:center}
+.aidlist b{display:block}
+.aidlist small{color:var(--muted)}
+.band-h{color:#fff;font-weight:700;font-size:13px;letter-spacing:.06em;padding:7px 10px;border-radius:6px;margin:0 0 8px}
+.band-h.pri{background:var(--blue)}.band-h.opt{background:var(--plum)}.band-h.bak{background:#4b5872}
+.pill{font-size:12px;border-radius:999px;padding:3px 8px;background:var(--bg);color:var(--muted);white-space:nowrap}
+/* assistant */
+.assist{position:sticky;top:12px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:14px;display:grid;gap:10px;max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:980px){.assist{position:static;max-height:none}}
+.assist h2{margin:0;font-size:16px;color:var(--blue);display:flex;gap:8px;align-items:center}
+.assist .focusline{font-size:13.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:8px 10px}
+.assist .focusline b{color:var(--ink)}
+.assist .row{display:flex;gap:6px;flex-wrap:wrap}
+.assist .row .btn{flex:1 1 140px}
+.answer{white-space:pre-wrap;font-size:14.5px;background:var(--bg);border-radius:8px;padding:10px 12px;min-height:44px}
+.answer:empty{display:none}
+.suggest{display:grid;gap:6px}
+.suggest .s{border:1px solid var(--rule);border-radius:8px;padding:8px 10px;font-size:14px;display:grid;gap:4px}
+.suggest .s small{color:var(--muted);font-size:12px}
+.ask{display:grid;gap:6px}
+.ask textarea{font:14.5px var(--font);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;background:var(--bg);color:var(--ink);min-height:60px;resize:vertical}
+.note{font-size:12.5px;color:var(--muted)}
+.cue{font-size:12.5px;color:var(--cue);font-weight:600}
+footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:10px}
+@media (prefers-reduced-motion:reduce){[contenteditable]{transition:none}}
+</style>
+
+<div class="shell">
+  <header class="mast">
+    <div class="brand"><span class="ka">ka</span><span>Knowledge-Advantage, Inc. · Engagement Aids</span></div>
+    <div class="mode" role="group" aria-label="Mode">
+      <button class="btn small primary" id="modeBuild" aria-pressed="true">Prepare</button>
+      <button class="btn small" id="modeClient" aria-pressed="false">Use with a client</button>
+    </div>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Aids"></nav>
+  <div class="situation" id="situationBox">
+    <label for="situation">The situation · who it's for and what you're working on</label>
+    <textarea id="situation" placeholder="Example: Regional insurance broker, VP of Account Management. Renewals fell 8% last year; they want to know which accounts to rescue first."></textarea>
+  </div>
+  <div class="work">
+    <main class="sheet" id="sheet"></main>
+    <aside class="assist" id="assist" aria-label="Assistant">
+      <h2>Assistant</h2>
+      <div class="focusline" id="focusline">Tap any box to work on it. The assistant sees the situation and everything on the aid.</div>
+      <div class="row">
+        <button class="btn small" id="aBox">Suggest for this box</button>
+        <button class="btn small" id="aFill">Draft the whole aid</button>
+      </div>
+      <div class="row">
+        <button class="btn small plum" id="aChallenge">Challenge what's here</button>
+        <button class="btn small" id="aQuestions">Questions to ask the client</button>
+      </div>
+      <div class="answer" id="answer" aria-live="polite"></div>
+      <div class="suggest" id="suggest"></div>
+      <div class="row" id="suggestActions" hidden>
+        <button class="btn small primary" id="useEmpty">Fill the empty boxes</button>
+        <button class="btn small" id="useAll">Replace everything</button>
+        <button class="btn small" id="discard">Discard</button>
+      </div>
+      <form class="ask" id="askForm">
+        <label for="askBox" class="note">Ask anything about this aid</label>
+        <textarea id="askBox" placeholder="How should I position the low-value, high-execution box with a skeptical CFO?"></textarea>
+        <div class="row"><button class="btn small primary" type="submit" id="askBtn">Ask</button><button class="btn small" type="button" id="stopBtn" hidden>Stop</button></div>
+      </form>
+      <p class="note" id="assistNote">Answers use your own Claude account. The first time, Claude asks you to allow it.</p>
+    </aside>
+  </div>
+  <footer><span>Prototype rebuilt from KA's interactive PDFs (4 Box Grid, 9 Box Grid, 4D Matrix, Alignment of Priorities, Aids Configurator).</span><span>Your work stays in this browser.</span></footer>
+</div>
+
+<script>
+/* ---------- Catalog and configurator rules, taken from Aid Configurator - KA.pdf ---------- */
+const CATALOG = {
+ "Session Plan":"A visual aid to facilitate meetings (face to face or virtual).",
+ "Alignment of Priorities":"A visual aid to align priorities of key stakeholders.",
+ "Priorities Map":"A visual aid to map and compare top of mind priorities for individual and organizational stakeholders.",
+ "Criteria Proposition":"A visual aid to express the full worth of a solution to stakeholders.",
+ "Assessment Roadmap":"A visual aid to assist stakeholders through their assessment (decision making) process.",
+ "Assessment Questions":"A set of questions to assist stakeholders through their assessment (decision making) process.",
+ "Assessment Snapshot":"A visual aid to summarize the key dimensions of success for an initiative or solution.",
+ "Decision Criteria Map":"A visual aid to evaluate alternatives to select the best answer.",
+ "Decision Criteria Matrix":"A visual aid to evaluate alternatives to select the best answer.",
+ "Decision Matrix":"A visual aid to assist stakeholders through their decision making process.",
+ "Dimensions of Success":"A visual aid to summarize the priorities, requirements, and criteria among stakeholders for an initiative or solution.",
+ "Fast Path/Gap":"A visual aid to illustrate the different roads an initiative can take.",
+ "Guiding Principles":"A visual aid to highlight a mind-set for healthy dialogues to make better business decisions.",
+ "Initiative Assessment":"A visual aid to qualify an initiative with potential sponsors.",
+ "Napkin":"A visual aid to compare contrasting approaches to making business decisions.",
+ "Option Snapshot":"A visual aid to highlight potential solutions.",
+ "Outcomes Map":"",
+ "PRC Notes":"A visual aid to qualify organizational strategies (from the set of possible solutions) based on their potential value and usage.",
+ "Pros & Cons":"A visual aid to organize the positives and negatives for a given topic to make better decisions.",
+ "Requirements Blueprint":"A visual aid to frame a set of high-level requirements to create meaningful and worthwhile outcomes (results).",
+ "Rollout Timeline":"A visual aid to show the timing (delivery) for the major phases of an initiative or solution.",
+ "Solution Snapshot":"A visual aid to highlight potential solutions.",
+ "Solutions Map":"A visual aid to map the impact of capabilities to the top of mind initiatives of key stakeholders.",
+ "Stakeholder Profile":"A visual aid to understand a stakeholder's role within a business and/or decision-making process.",
+ "Strategy to Execution":"A visual aid to qualify organizational strategies (from the set of possible solutions) based on their potential value and usage.",
+ "Three Column":"A visual aid to organize information and facilitate better decision making based on predefined KA attributes.",
+ "Understanding Positions":"A visual aid to show the opposing positions of stakeholders to identify the common ground they share.",
+ "Understanding a Problem":"A visual aid to accurately decompose and frame the key attributes of a business problem.",
+ "Voting Map":"A visual aid to facilitate the voting (preference) for initiatives or solutions based on predefined KA criteria.",
+ "4 Box Grid":"A visual aid to place items against two axes, low to high.",
+ "9 Box Grid":"A visual aid to place items against two axes, low, medium and high.",
+ "4D Matrix":"A visual aid to show the relationships between groupings of items.",
+ "SWOT":"A visual aid to show the strengths, weaknesses, opportunities, and threats to facilitate better decision making.",
+ "Venn":"A visual aid to show the similarities and/or differences between three items/topics."
+};
+const BUILT = {"Alignment of Priorities":"alignment","4 Box Grid":"four-box","9 Box Grid":"nine-box","4D Matrix":"matrix"};
+const LOCATIONS = [[1,"Awareness","Problem space"],[2,"Analysis","Problem space"],[3,"Alternatives","Solution space"],[4,"Answer","Solution space"],[5,"Acceptance","Solution space"],[6,"Actions","Solution space"]];
+const SCENARIOS = {1:"Demand Creation",2:"Demand Development",3:"Demand Reaction",4:"Demand Management"};
+const SCEN_FOR = {1:[1],2:[1],3:[2,3],4:[2,3],5:[2,3],6:[4]};
+const CONFIG = {
+ "111":{A:["Session Plan","Alignment of Priorities","Priorities Map","Criteria Proposition","Assessment Roadmap"],O:["Dimensions of Success","Guiding Principles","Napkin","PRC Notes","Stakeholder Profile","Strategy to Execution"],B:[]},
+ "112":{A:["Session Plan","Alignment of Priorities","Criteria Proposition","Assessment Roadmap"],O:["Napkin"],B:[]},
+ "211":{A:["Session Plan","Fast Path/Gap","Assessment Roadmap","Assessment Questions","Understanding a Problem","Solutions Map","Assessment Roadmap"],O:["Guiding Principles","Initiative Assessment","Napkin","PRC Notes","Requirements Blueprint","Understanding Positions"],B:[]},
+ "212":{A:["Session Plan","Fast Path/Gap","Assessment Roadmap","Assessment Questions","Understanding a Problem","Solutions Map","Assessment Roadmap"],O:["PRC Notes"],B:[]},
+ "321":{A:["Session Plan","Assessment Roadmap","Assessment Questions","Option Snapshot","Decision Criteria Matrix","Assessment Roadmap"],O:["Assessment Snapshot","Decision Matrix","Dimensions of Success","Fast Path/Gap","Guiding Principles","Napkin","PRC Notes","Pros & Cons","Three Column","Voting Map"],B:[]},
+ "322":{A:["Session Plan","Assessment Roadmap","Assessment Questions","Option Snapshot","Decision Criteria Matrix","Assessment Roadmap"],O:["PRC Notes"],B:[]},
+ "331":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Solutions Map","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["PRC Notes","Decision Criteria Map","Decision Matrix","Option Snapshot"],B:[]},
+ "332":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Solutions Map","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["PRC Notes","Assessment Questions","Decision Criteria Map","Decision Matrix","Option Snapshot"],B:[]},
+ "421":{A:["Session Plan","Assessment Roadmap","Assessment Questions","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["Assessment Snapshot","Decision Matrix","Dimensions of Success","Fast Path/Gap","Guiding Principles","Napkin","Option Snapshot","Outcomes Map","PRC Notes","Priorities Map"],B:[]},
+ "422":{A:["Session Plan","Assessment Roadmap","Assessment Questions","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["PRC Notes"],B:[]},
+ "431":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Understanding a Problem","Solutions Map","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["PRC Notes","Option Snapshot"],B:[]},
+ "432":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Understanding a Problem","Solutions Map","Solution Snapshot","Criteria Proposition","Assessment Roadmap"],O:["PRC Notes","Assessment Questions","Option Snapshot"],B:[]},
+ "521":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Alignment of Priorities","Solution Snapshot","Solutions Map","Criteria Proposition","Rollout Timeline","Assessment Roadmap"],O:["Assessment Snapshot","Dimensions of Success","Guiding Principles","Napkin","Outcomes Map","PRC Notes","Strategy to Execution"],B:["Option Snapshot","Priorities Map","Understanding a Problem","Understanding Positions"]},
+ "522":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Alignment of Priorities","Solution Snapshot","Solutions Map","Criteria Proposition","Rollout Timeline","Assessment Roadmap"],O:["PRC Notes"],B:[]},
+ "531":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Solution Snapshot","Solutions Map","Criteria Proposition","Rollout Timeline","Assessment Roadmap"],O:[],B:[]},
+ "532":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Alignment of Priorities","Solution Snapshot","Solutions Map","Criteria Proposition","Rollout Timeline","Assessment Roadmap"],O:["PRC Notes"],B:[]},
+ "641":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Alignment of Priorities","Solution Snapshot","Criteria Proposition"],O:["Assessment Snapshot","Dimensions of Success","Guiding Principles","PRC Notes","Requirements Blueprint","Stakeholder Profile","Strategy to Execution","Voting Map"],B:["Priorities Map","Rollout Timeline","Solutions Map","Understanding a Problem","Understanding Positions"]},
+ "642":{A:["Session Plan","Assessment Roadmap","Fast Path/Gap","Assessment Questions","Alignment of Priorities","Solution Snapshot","Criteria Proposition"],O:["PRC Notes"],B:["Priorities Map","Rollout Timeline","Solutions Map","Understanding a Problem","Understanding Positions"]}
+};
+
+/* ---------- State ---------- */
+const blank = () => ({
+  situation:"",
+  cfg:{loc:1,scen:1,will:1},
+  fourBox:{title:"",x:"Ability to execute",y:"Value realization",xl:"Low",xh:"High",yl:"Low",yh:"High",cells:Array.from({length:4},()=>({t:"",d:""}))},
+  nineBox:{title:"",x:"Ability to execute",y:"Value realization",xl:"Low",xm:"Medium",xh:"High",yl:"Low",ym:"Medium",yh:"High",cells:Array.from({length:9},()=>({t:"",d:""}))},
+  matrix:{title:"",size:4,core:"",body:"",sides:Array.from({length:4},()=>({h:"",items:["","","",""]}))},
+  alignment:{title:"",ext:{economy:"",industry:"",financials:""},g:{}}
+});
+let S;
+try { S = Object.assign(blank(), JSON.parse(localStorage.getItem("ka-aids-v1")||"null")||{}); } catch(e){ S = blank(); }
+let saveT;
+function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{ try{ localStorage.setItem("ka-aids-v1",JSON.stringify(S)); }catch(e){} },250); }
+function getP(path){ return path.split(".").reduce((o,k)=>o==null?undefined:o[k],S); }
+function setP(path,v){ const ks=path.split("."); let o=S; ks.slice(0,-1).forEach((k,i)=>{ if(o[k]==null) o[k]=/^\d+$/.test(ks[i+1])?[]:{}; o=o[k]; }); o[ks.at(-1)]=v; save(); }
+
+/* ---------- Aid definitions: structure, coaching (the PDFs' own callouts) and field labels ---------- */
+const COLS=["Goals","Strategies","Processes","Initiatives","Solutions"], BANDS=["Organizational","Operational","Infrastructure"];
+const AIDS = {
+  configurator:{name:"Aids Configurator",purpose:"Pick the right set of aids for where the customer is, the engagement scenario and how willing they are to participate."},
+  "four-box":{name:"4 Box Grid",key:"fourBox",purpose:CATALOG["4 Box Grid"],
+    coach:"Name the two axes first (the PDF's callouts: \"Identifies the vertical axis headers\", \"Identifies the horizontal axis headers\"). Each box holds content relative to where its two headers meet. Use ▷ for the detail behind each box."},
+  "nine-box":{name:"9 Box Grid",key:"nineBox",purpose:CATALOG["9 Box Grid"],
+    coach:"Same as the 4 Box Grid with a Medium step on both axes. Each box holds content relative to where its two headers meet; ▷ opens the details."},
+  matrix:{name:"4D Matrix",key:"matrix",purpose:CATALOG["4D Matrix"],
+    coach:"Label and describe the situation in the center. Titles for the four groupings and their items change with the situation, so you can see the relationships (similarities, differences) between them."},
+  alignment:{name:"Alignment of Priorities",key:"alignment",purpose:CATALOG["Alignment of Priorities"],
+    coach:"Factor in the external factors first, then align to the roles of key executives in each band. Solutions ENHANCE initiatives to IMPROVE processes to EXECUTE strategies to OBTAIN goals. Best in the Problem Space during Awareness (1.1); also confirms alignment in the Solution Space."}
+};
+const TABS=[["configurator","Configurator"],["alignment","Alignment of Priorities"],["four-box","4 Box Grid"],["nine-box","9 Box Grid"],["matrix","4D Matrix"]];
+
+/* ---------- Rendering helpers ---------- */
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function ed(path,label,ph,cls="txt"){ return `<div class="${cls}" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-label="${esc(label)}" data-path="${path}" data-label="${esc(label)}" data-ph="${esc(ph)}">${esc(getP(path)||"")}</div>`; }
+let view = "configurator", focus = null;
+
+function render(){
+  const v = view;
+  document.getElementById("tabs").innerHTML = TABS.map(([id,l])=>`<a href="#${id}" ${id===v?'aria-current="page"':""}>${l}</a>`).join("");
+  const sh = document.getElementById("sheet");
+  document.getElementById("assist").hidden = v==="configurator"; document.body.classList.toggle("no-assist",v==="configurator");
+  document.getElementById("situationBox").hidden = false;
+  if(v==="configurator") sh.innerHTML = configHTML();
+  if(v==="four-box") sh.innerHTML = gridHTML("fourBox",2);
+  if(v==="nine-box") sh.innerHTML = gridHTML("nineBox",3);
+  if(v==="matrix") sh.innerHTML = matrixHTML();
+  if(v==="alignment") sh.innerHTML = alignHTML();
+  wire();
+  setFocus(null);
+  clearSuggest(); document.getElementById("answer").textContent="";
+}
+function head(aid,extra=""){
+  const k=AIDS[aid].key;
+  return `<div class="sheet-head"><div class="sheet-title">${k?ed(k+".title","Title","Title",""):""}<h1>${AIDS[aid].name}</h1></div>${extra}</div><p class="coach">${esc(AIDS[aid].coach||AIDS[aid].purpose)}</p>`;
+}
+function gridHTML(k,n){
+  const a=S[k], lv = n===2?["h","l"]:["h","m","l"], xl = n===2?["l","h"]:["l","m","h"];
+  const nm={l:"Low",m:"Medium",h:"High"};
+  let cells="";
+  lv.forEach((yr,ri)=>xl.forEach((xc,ci)=>{
+    const i=ri*n+ci;
+    const lab=`${nm[yr]} ${a.y||"vertical"} / ${nm[xc]} ${a.x||"horizontal"}`;
+    cells+=`<div class="cell"><span class="tag" data-y="${yr}" data-x="${xc}">${esc(a["y"+yr]||nm[yr])} · ${esc(a["x"+xc]||nm[xc])}</span>${ed(`${k}.cells.${i}.t`,"Box: "+lab,"Add content")}<details><summary>Details</summary>${ed(`${k}.cells.${i}.d`,"Details: "+lab,"Add the detail behind it","")}</details></div>`;
+  }));
+  return head(k==="fourBox"?"four-box":"nine-box")+`
+  <div class="grid-wrap">
+    ${ed(k+".y","Vertical axis header","Vertical axis","yaxis")}
+    <div class="ylevels" style="grid-template-rows:repeat(${n},1fr)">${lv.map(l=>`<div>${ed(`${k}.y${l}`,"Vertical level","Level","")}</div>`).join("")}</div>
+    <div class="cells" style="grid-template-columns:repeat(${n},minmax(0,1fr))">${cells}</div>
+    <div class="xlevels" style="grid-template-columns:repeat(${n},1fr)">${xl.map(l=>ed(`${k}.x${l}`,"Horizontal level","Level","")).join("")}</div>
+    ${ed(k+".x","Horizontal axis header","Horizontal axis","xaxis")}
+  </div>`;
+}
+function matrixHTML(){
+  const m=S.matrix, n=m.size;
+  m.sides.forEach(s=>{ while(s.items.length<4) s.items.push(""); });
+  const side=(i)=>`<div class="side s${i}"><div class="h">${ed(`matrix.sides.${i}.h`,`Grouping ${i+1} title`,`Grouping ${i+1}`,"")}</div><div class="items">${Array.from({length:n},(_,j)=>ed(`matrix.sides.${i}.items.${j}`,`Grouping ${i+1}, item ${j+1}`,"Item","it")).join("")}</div></div>`;
+  const toggle=`<div class="row" role="group" aria-label="Items per grouping" style="display:flex;gap:6px"><button class="btn small ${n===3?"primary":""}" data-size="3">3 items</button><button class="btn small ${n===4?"primary":""}" data-size="4">4 items</button></div>`;
+  return head("matrix",toggle)+`<div class="mx">${side(0)}${side(1)}<div class="core">${ed("matrix.core","Situation title","Title goes here","t")}${ed("matrix.body","Situation description","Body text: describe the situation","b")}</div>${side(2)}${side(3)}</div>`;
+}
+function alignHTML(){
+  const ext=[["economy","Economy"],["industry","Industry"],["financials","Financials"]].map(([k,l])=>`<div><h3>${l}</h3>${ed(`alignment.ext.${k}`,"External factor: "+l,"What's happening in "+l.toLowerCase())}</div>`).join("");
+  let g=`<div></div>`+COLS.map(c=>`<div class="colh hide-m">▷ ${c}</div>`).join("");
+  BANDS.forEach((b,bi)=>{
+    g+=`<div class="band b${bi+1}">${b.toUpperCase()}</div>`;
+    COLS.forEach(c=>{ g+=`<div class="c" data-label="${c} · ${b}">${ed(`alignment.g.${c}_${bi}`,`${c}, ${b}`,"Add")}</div>`; });
+  });
+  return head("alignment")+`<div class="ext">${ext}</div><div class="casc">${g}</div><p class="chain">Solutions enhance initiatives to improve processes to execute strategies to obtain goals.</p>`;
+}
+function configHTML(){
+  const c=S.cfg; if(!SCEN_FOR[c.loc].includes(c.scen)) c.scen=SCEN_FOR[c.loc][0];
+  const code=`${c.loc}${c.scen}${c.will}`, set=CONFIG[code];
+  const li=(arr,cls,label)=> arr.length?`<h3 class="band-h ${cls}">${label}</h3><ol class="aidlist">${arr.map((n,i)=>{
+    const seen=arr.slice(0,i).includes(n);
+    const act=BUILT[n]?`<a class="btn small" href="#${BUILT[n]}">Open</a>`:`<span class="pill">Not rebuilt yet</span>`;
+    return `<li><span class="k">${cls==="pri"?i+1:"·"}</span><div><b>${esc(n)}${seen?" · revisit":""}</b><small>${esc(CATALOG[n]||"No description in the original.")}</small></div>${act}</li>`;}).join("")}</ol>`:"";
+  return `<div class="sheet-head"><div class="sheet-title"><small>Pick the aids for this engagement</small><h1>Aids Configurator</h1></div></div>
+  <div class="aaa" aria-label="Where the customer is">${LOCATIONS.map(([n,l])=>`<span class="${n===c.loc?"on":""}">${l}</span>${n===2?"<i>│</i>":""}`).join("")}</div>
+  <div class="cfg-steps">
+    <div class="cfg-step"><div class="n"><span class="dot">1</span><label for="cLoc">Customer location</label></div><select id="cLoc">${LOCATIONS.map(([n,l,s])=>`<option value="${n}" ${n===c.loc?"selected":""}>${l} · ${s}</option>`).join("")}</select></div>
+    <div class="cfg-step"><div class="n"><span class="dot">2</span><label for="cScen">Engagement scenario</label></div><select id="cScen">${SCEN_FOR[c.loc].map(s=>`<option value="${s}" ${s===c.scen?"selected":""}>${SCENARIOS[s]}</option>`).join("")}</select></div>
+    <div class="cfg-step"><div class="n"><span class="dot">3</span><label for="cWill">Customer willingness to participate</label></div><select id="cWill"><option value="1" ${c.will===1?"selected":""}>Yes</option><option value="2" ${c.will===2?"selected":""}>No</option></select></div>
+  </div>
+  ${li(set.A,"pri","THE AIDS, IN ORDER")}${li(set.O,"opt","OPTIONAL")}${li(set.B,"bak","BACKUP")}
+  ${!set.O.length&&!set.B.length?`<p class="note">The original lists no optional or backup aids for this combination.</p>`:""}`;
+}
+
+/* ---------- Wiring ---------- */
+function wire(){
+  document.querySelectorAll("[data-path]").forEach(el=>{
+    el.addEventListener("input",()=>{ setP(el.dataset.path,el.textContent); if(/\.(x|y)[lmh]$/.test(el.dataset.path)) retag(); });
+    el.addEventListener("focus",()=>setFocus(el));
+  });
+  document.querySelectorAll("[data-size]").forEach(b=>b.addEventListener("click",()=>{ S.matrix.size=+b.dataset.size; save(); render(); }));
+  const cl=document.getElementById("cLoc");
+  if(cl){
+    cl.onchange=()=>{ S.cfg.loc=+cl.value; save(); render(); };
+    document.getElementById("cScen").onchange=e=>{ S.cfg.scen=+e.target.value; save(); render(); };
+    document.getElementById("cWill").onchange=e=>{ S.cfg.will=+e.target.value; save(); render(); };
+  }
+}
+function retag(){ const k=AIDS[view].key, a=S[k], nm={l:"Low",m:"Medium",h:"High"};
+  document.querySelectorAll(".cell .tag[data-y]").forEach(t=>{ t.textContent=`${a["y"+t.dataset.y]||nm[t.dataset.y]} · ${a["x"+t.dataset.x]||nm[t.dataset.x]}`; }); }
+function setFocus(el){
+  document.querySelectorAll(".ed-focus").forEach(e=>e.classList.remove("ed-focus"));
+  focus = el && el.dataset.path ? {path:el.dataset.path,label:el.dataset.label} : focus && document.querySelector(`[data-path="${focus.path}"]`) ? focus : null;
+  if(el) el.classList.add("ed-focus");
+  const fl=document.getElementById("focusline");
+  fl.innerHTML = focus ? `Working on <b>${esc(focus.label)}</b>` : "Tap any box to work on it. The assistant sees the situation and everything on the aid.";
+  document.getElementById("aBox").disabled = assistOff || !focus;
+}
+document.getElementById("situation").value = S.situation||"";
+document.getElementById("situation").addEventListener("input",e=>{ S.situation=e.target.value; save(); });
+function setMode(client){
+  document.body.classList.toggle("client",client);
+  const b=document.getElementById("modeBuild"), c=document.getElementById("modeClient");
+  b.classList.toggle("primary",!client); c.classList.toggle("primary",client);
+  b.setAttribute("aria-pressed",String(!client)); c.setAttribute("aria-pressed",String(client));
+}
+document.getElementById("modeBuild").onclick=()=>setMode(false);
+document.getElementById("modeClient").onclick=()=>setMode(true);
+function route(){ const h=location.hash.slice(1); view = TABS.some(t=>t[0]===h)?h:"configurator"; render(); }
+addEventListener("hashchange",route);
+
+/* ---------- Assistant (Claude, on the viewer's own account) ---------- */
+let sample=null, ctl=null;
+const answer=document.getElementById("answer"), note=document.getElementById("assistNote");
+const btns=["aBox","aFill","aChallenge","aQuestions","askBtn"].map(id=>document.getElementById(id));
+function aidSnapshot(){
+  const a=AIDS[view], k=a.key, d=JSON.parse(JSON.stringify(S[k]));
+  if(k==="matrix"){ d.sides.forEach(s=>s.items=s.items.slice(0,d.size)); }
+  return {aid:a.name,purpose:a.purpose,how:a.coach,content:d};
+}
+function structureFor(k){
+  if(k==="fourBox") return 'cells index 0=High vertical/Low horizontal, 1=High/High, 2=Low/Low, 3=Low/High (vertical first). JSON: {"title":string,"x":string,"y":string,"cells":[{"t":string,"d":string} x4]}';
+  if(k==="nineBox") return 'cells are rows top (High vertical) to bottom (Low), columns Low to High horizontal, index row*3+col. JSON: {"title":string,"x":string,"y":string,"cells":[{"t":string,"d":string} x9]}';
+  if(k==="matrix") return `sides 0=top,1=left,2=right,3=bottom, each with ${S.matrix.size} items. JSON: {"title":string,"core":string,"body":string,"sides":[{"h":string,"items":[string x${S.matrix.size}]} x4]}`;
+  return 'g keys are "<Column>_<band index>" with columns Goals, Strategies, Processes, Initiatives, Solutions and bands 0 Organizational, 1 Operational, 2 Infrastructure; each value is a short list, one item per line. JSON: {"title":string,"ext":{"economy":string,"industry":string,"financials":string},"g":{"Goals_0":string,...}}';
+}
+const BASE = "You are a Knowledge-Advantage (KA) engagement coach helping a sales or advisory professional fill in a KA visual aid they will use with a prospect or client. Be specific to the situation, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.";
+function ctxText(){ return `${BASE}\n\nSituation: ${S.situation||"(not given)"}\n\nAid: ${JSON.stringify(aidSnapshot())}`; }
+let assistOff=false;
+function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!focus)); document.getElementById("stopBtn").hidden=!on; }
+function failCopy(e){
+  if(e.code==="not_granted"||e.code==="sampling_disabled"||e.code==="capability_disabled"){ hideAssist("The assistant is off for this view. The aids still work by hand."); return ""; }
+  if(e.code==="rate_limited") return "Too many requests just now. Try again in a minute.";
+  if(e.code==="refused") return "Claude couldn't help with that wording. Try rephrasing.";
+  if(e.code==="invalid_json") return "The draft came back in a shape I couldn't read. Try again.";
+  if(e.code==="cancelled") return null;
+  return "Something interrupted the answer. Try again.";
+}
+function hideAssist(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); note.textContent=msg; }
+async function ask(prompt,{json=false,cache=false}={}){
+  if(!sample){ note.textContent="The assistant needs this page opened in Claude."; return null; }
+  ctl=new AbortController(); busy(true); clearSuggest(); answer.textContent="Thinking…";
+  try{
+    if(json){ const r=await sample.json(prompt,{signal:ctl.signal,cache}); answer.textContent=""; return r; }
+    const r=await sample(prompt,{signal:ctl.signal,cache,onText:({text})=>{answer.textContent=text;}});
+    if(r.truncated) note.textContent="That answer was cut short. Ask for less at a time.";
+    return r.text;
+  }catch(e){ const m=failCopy(e); answer.textContent = m===null ? (e.text||"") : (e.text?e.text+"\n\n":"")+(m||""); return null; }
+  finally{ busy(false); }
+}
+document.getElementById("stopBtn").onclick=()=>ctl?.abort();
+document.getElementById("aBox").onclick=async()=>{
+  if(!focus) return;
+  const r=await ask(`${ctxText()}\n\nThe user is working on: ${focus.label} (current text: "${getP(focus.path)||""}").\nReply with only JSON: {"options":[{"text":string,"why":string}]} with 3 short alternative entries for that one field (each under 25 words; "why" under 15 words).`,{json:true});
+  if(!r||!Array.isArray(r.options)) return;
+  const box=document.getElementById("suggest"); const p=focus.path;
+  box.innerHTML = r.options.slice(0,3).map((o,i)=>`<div class="s"><div>${esc(o.text)}</div><small>${esc(o.why||"")}</small><button class="btn small" data-use="${i}">Use this</button></div>`).join("");
+  box.querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{ const t=String(r.options[+b.dataset.use].text||""); setP(p,t); const el=document.querySelector(`[data-path="${p}"]`); if(el) el.textContent=t; clearSuggest(); answer.textContent="Added."; });
+};
+let pending=null;
+document.getElementById("aFill").onclick=async()=>{
+  const k=AIDS[view].key;
+  const r=await ask(`${ctxText()}\n\nDraft the whole aid for this situation. Keep what the user already wrote unless it's clearly a placeholder. Keep every entry short (under 20 words; details under 35). Structure: ${structureFor(k)}\nReply with only that JSON.`,{json:true});
+  if(!r||typeof r!=="object") return;
+  pending={k,data:r};
+  const flat=flatten(k,r);
+  document.getElementById("suggest").innerHTML = `<p class="note">Draft for review. Nothing changes until you choose.</p>`+flat.map(([path,label,v])=>`<div class="s"><small>${esc(label)}${getP(path)?" · you have text here":""}</small><div>${esc(v)}</div></div>`).join("");
+  document.getElementById("suggestActions").hidden=false;
+};
+function flatten(k,r){
+  const out=[], add=(path,label,v)=>{ if(typeof v==="string"&&v.trim()) out.push([path,label,v.trim()]); };
+  add(k+".title","Title",r.title);
+  if(k==="fourBox"||k==="nineBox"){ add(k+".y","Vertical axis",r.y); add(k+".x","Horizontal axis",r.x);
+    (r.cells||[]).forEach((c,i)=>{ if(i<(k==="fourBox"?4:9)&&c){ add(`${k}.cells.${i}.t`,`Box ${i+1}`,c.t); add(`${k}.cells.${i}.d`,`Box ${i+1} details`,c.d); } }); }
+  if(k==="matrix"){ add("matrix.core","Center title",r.core); add("matrix.body","Center description",r.body);
+    (r.sides||[]).slice(0,4).forEach((s,i)=>{ if(!s) return; add(`matrix.sides.${i}.h`,`Grouping ${i+1}`,s.h); (s.items||[]).slice(0,S.matrix.size).forEach((t,j)=>add(`matrix.sides.${i}.items.${j}`,`Grouping ${i+1}, item ${j+1}`,t)); }); }
+  if(k==="alignment"){ const e=r.ext||{}; ["economy","industry","financials"].forEach(x=>add(`alignment.ext.${x}`,x[0].toUpperCase()+x.slice(1),e[x]));
+    const g=r.g||{}; COLS.forEach(c=>[0,1,2].forEach(b=>add(`alignment.g.${c}_${b}`,`${c} · ${BANDS[b]}`,Array.isArray(g[`${c}_${b}`])?g[`${c}_${b}`].join("\n"):g[`${c}_${b}`]))); }
+  return out;
+}
+function applyPending(all){
+  if(!pending) return; flatten(pending.k,pending.data).forEach(([p,,v])=>{ if(all||!String(getP(p)||"").trim()) setP(p,v); });
+  pending=null; render(); answer.textContent = all?"Draft applied. Everything is editable.":"Empty boxes filled. Your own text was kept.";
+}
+document.getElementById("useEmpty").onclick=()=>applyPending(false);
+document.getElementById("useAll").onclick=()=>applyPending(true);
+document.getElementById("discard").onclick=()=>{ pending=null; clearSuggest(); answer.textContent=""; };
+function clearSuggest(){ document.getElementById("suggest").innerHTML=""; document.getElementById("suggestActions").hidden=true; }
+document.getElementById("aChallenge").onclick=()=>ask(`${ctxText()}\n\nChallenge this aid as an experienced KA principal would before it goes in front of the client: what's vague, what's missing, what doesn't follow from the situation, and the gaps to scope, time and resources (Position, People, Policies, Procedures, Politics) it exposes. At most 6 short bullets, most important first. Plain text, "- " bullets.`);
+document.getElementById("aQuestions").onclick=()=>ask(`${ctxText()}\n\nWrite 5 open questions to ask the client while filling this aid in together, each tied to a specific part of the aid (name it in brackets first). Plain text, numbered.`);
+document.getElementById("askForm").onsubmit=e=>{ e.preventDefault(); const q=document.getElementById("askBox").value.trim(); if(!q) return;
+  ask(`${ctxText()}${focus?`\n\nThe user is looking at: ${focus.label}.`:""}\n\nQuestion: ${q}\n\nAnswer in under 150 words, plain text.`); };
+
+(async()=>{ try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample=null; }
+  if(!sample) hideAssist("The assistant works when this page is opened in Claude. The aids work by hand everywhere."); })();
+route();
+</script>
