@@ -1,0 +1,40 @@
+{
+ "kicker": "Set Expectations",
+ "name": "Fast Path/Gap",
+ "purpose": "A visual aid to illustrate the different roads an initiative can take.",
+ "why": "We will highlight the consequences when standardized assessments (decision-making) are not followed.",
+ "whereUsed": "The Fast Path/Gap is best used in the Problem Space during the Awareness Phase (1.0) to highlight the results stakeholders get based on the decision- making approach they take. It’s also useful in the Solution Space to remind stakeholders the probable consequences of skipping (past, present, future) decision-making phases and activities.",
+ "outcomes": [
+  "Recognition that variation wastes time, people, resources, and capital",
+  "Agreement that the use of standards eliminates variation",
+  "Willingness to consider the use of a standardized assessment (decision-making) process"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Compare and contrast the two roads an assessment or an initiative can take.",
+    "Document ways to stay on the “Fast Path” and avoid falling into “The Gap”.",
+    "Emphasize the importance of “checking-in” routinely to avoid falling into “The Gap”.",
+    "Reinforce if/when “The Gap” occurs there must be a concerted effort to get back on the “Fast Path”."
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Remind stakeholders the importance of using standardized assessments (decision-making).",
+    "Acknowledge it is common to go back and forth between the Fast Path and The Gap.",
+    "Assess the status of an assessment or initiative (On the Fast Path, Falling into The Gap, In The Gap).",
+    "Identify a course of action and assign owners to stay/get on the “Fast Path”."
+   ]
+  }
+ ],
+ "source": "Gap_-_KA_-_Guide.pdf"
+}

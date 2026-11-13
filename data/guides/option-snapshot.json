@@ -1,0 +1,40 @@
+{
+ "kicker": "Title",
+ "name": "Option Snapshot",
+ "purpose": "A visual aid to brainstorm and identify viable options.",
+ "whereUsed": "The Option Snapshot is best introduced in the Solution Space during the Alternatives Phase (3.2) to “Identify Viable Options”. It can also be useful in subsequent phases (Answer, Acceptance, Actions) to communicate and reinforce all the alternatives that were taken into consideration.",
+ "why": "We will qualify options based on business priorities, requirements, criteria, and our known constraints (timeline, resources, dependencies, constraints) to cultivate options for further evaluation.",
+ "outcomes": [
+  "Understanding among stakeholders of the option’s relevance to business priorities, requirements, and criteria",
+  "Sensitivity to realities and constraints within the business",
+  "Filter non-viable options and identify viable options (those well positioned for success)"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “ALTERNATIVES PHASE” WE NEED TO:",
+   "steps": [
+    "Review stated priorities, requirements, and criteria",
+    "Frame potential options using consistent filters and lenses (easier to compare apples to apples)",
+    "Identify and/or adjust potential options based on known factors (timeline, resources, dependencies, constraints)",
+    "Facilitate a candid dialog to capture viable options and gaps"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “ANSWER, ACCEPTANCE, OR ACTIONS PHASE” WE NEED TO:",
+   "steps": [
+    "Consistently communicate considerations used to select viable options",
+    "Highlight characteristics of viable options",
+    "Recap decision dynamics that occurred while brainstorming to find viable options",
+    "Identify any potential gaps"
+   ]
+  }
+ ],
+ "source": "Option_Snapshot_-_KA_-_Guide.pdf"
+}

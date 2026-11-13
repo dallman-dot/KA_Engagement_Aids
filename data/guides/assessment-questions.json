@@ -1,0 +1,40 @@
+{
+ "kicker": "Assess Readiness",
+ "name": "Assessment Questions",
+ "purpose": "A set of questions to assist stakeholders through their assessment (decision making) process.",
+ "whereUsed": "The Assessment Questions is best used in the Problem Space during the Analysis Phase (2.5) to “Assess Readiness”. It’s also useful in the Solution Space to determine a solutions probability of success.",
+ "why": "We will respond to key questions intentionally designed to uncover critical business priorities, requirements and criteria. This will avoid wasting time and resources for all stakeholders involved.",
+ "outcomes": [
+  "Identification of early potential issues that will prevent the success of an initiative",
+  "Early-on and ongoing expectations for key stakeholders",
+  "Scope, time and resource expectations critical for success of an initiative or solution"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Compare outcomes of the “Fast Path” vs. “The Gap”",
+    "Recognize the purpose for the questions is to increase the “odds of success” for an initiative or solution",
+    "Objectively review and refine answers to questions",
+    "List key takeaways (gaps, risks, actions, etc.)"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Determine initiative or solution status (Fast Path, The Gap) and current “odds of success”",
+    "Confirm mutual interest to improve the “odds of success”",
+    "Objectively review and refine answers to questions",
+    "List key takeaways (gaps, risks, actions, etc.)"
+   ]
+  }
+ ],
+ "source": "Assessment_Questions_-_KA_-_Guide.pdf"
+}

@@ -1,0 +1,39 @@
+{
+ "kicker": "Design a Blueprint",
+ "name": "Requirements Blueprint",
+ "purpose": "A visual aid to frame a set of high-level requirements to create meaningful and worthwhile outcomes (results).",
+ "whereUsed": "The Requirements Blueprint is best used in the Problem Space during the Analysis Phase (2.2) to “Design a Blueprint”. It’s also useful in the Solution Space to confirm solutions and address business requirements.",
+ "why": "We will have a shared visual design that represents what it takes to achieve desired outcomes. That design will permit us to more quickly offer meaningful solutions.",
+ "outcomes": [
+  "Confirmation that complex business environments require complete, intentional approaches",
+  "Agreement among stakeholders to a high-level set of requirements to address the problems impacting the business"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review and agree to the need for a blueprint to solve business problems",
+    "Agree that multiple parties are needed to realize outcomes",
+    "Establish who/how each of the major blueprint components is currently addressed",
+    "Brainstorm and illustrate how current needs/gaps can be addressed with various capabilities"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Validate the solution under consideration fits into the short and long-term set of requirements for the organization",
+    "Reaffirm commitment to the blueprint’s essential role in ensuring everyone is working to the same picture",
+    "Demonstrate how the initiative or solution contributes to the blueprint",
+    "Document any recently disclosed requirements gaps"
+   ]
+  }
+ ],
+ "source": "Requirements_Blueprint_-_KA_-_Guide.pdf"
+}

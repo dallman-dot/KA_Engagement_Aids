@@ -1,0 +1,40 @@
+{
+ "kicker": "Title",
+ "name": "PRC Notes",
+ "purpose": "A visual aid to facilitate active participation and note-taking during meet- ings to understand, frame, and qualify potential initiatives or solutions.",
+ "whereUsed": "The PRC Notes aid can be used during any phase of the Assessment Roadmap. Using consistent filters and lenses to qualify initiatives and solutions will facilitate better decision-making, assignment of activities, and allocation of resources.",
+ "why": "We will establish consistent lenses for making decisions about initiatives or solutions to ensure they align with business priorities and meet specific requirements and criteria for success.",
+ "outcomes": [
+  "Recognition of key decision qualifiers (Priorities, Requirements, Criteria)",
+  "Facilitate dialogue to uncover priorities, requirements, and criteria",
+  "Identification of GAPS (missing information) for key qualifiers",
+  "Document dialogues for later reference within the Assessment Roadmap"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Understand how/if solving this problem aligns with our broader business priorities",
+    "Identify requirements for successfully solving the problem. What does our ideal solution include? What is our minimum business need?",
+    "Establish criteria for measuring the value we expect to receive from investing in this solution",
+    "Facilitate a candid dialog to capture decision dynamics and missing information"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Validate a solution’s alignment with business priorities, requirements and criteria for success",
+    "Recap decisions-to-date (priorities, requirements and criteria)",
+    "Facilitate a candid dialog to capture decision dynamics and missing information"
+   ]
+  }
+ ],
+ "source": "PRC_Notes_-_KA_-_Guide.pdf"
+}

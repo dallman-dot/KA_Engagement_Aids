@@ -1,0 +1,39 @@
+{
+ "kicker": "Title",
+ "name": "Napkin",
+ "purpose": "A visual aid to compare contrasting approaches to making business decisions.",
+ "whereUsed": "The Napkin is best used in the Problem Space during the Awareness Phase to overview how KA Standards will be applied. It’s also useful in the Solution Space to remind stakeholders of the need for and value of using business decision-making standards.",
+ "why": "We will gain agreement that the intentional use of standards produce scalable decisions that consume fewer resources and less time than traditional practices without a standards framework.",
+ "outcomes": [
+  "Confirmation that the common practices of organizational decision-making defy common sense.",
+  "Understanding of how variation creates wastes in time, people, resources, and capital.",
+  "Commitment to learn how better business decisions get made through the collaborative use of the KA standards."
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm how business decisions are derived today (front of the napkin)",
+    "Suggest there is a better approach to produce better results with fewer resources in less time",
+    "Highlight the approach to be taken through the KA Standards",
+    "Start using the KA Standards to facilitate the Phases and supporting activities of Assessment Roadmap"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm how business decisions have been derived to date (completeness, consensus, confidence)",
+    "If appropriate, challenge the approach through the use of The Napkin",
+    "Start using KA Standards to revisit and facilitate the Phases that were skipped within the Assessment Roadmap"
+   ]
+  }
+ ],
+ "source": "Napkin_-_KA_-_Guide.pdf"
+}

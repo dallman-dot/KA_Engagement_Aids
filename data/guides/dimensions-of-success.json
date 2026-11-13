@@ -1,0 +1,39 @@
+{
+ "kicker": "Set The Context the Context",
+ "name": "Dimensions of Success",
+ "purpose": "A visual aid to summarize the priorities, requirements, and criteria among stakeholders for an initiative or solution.",
+ "whereUsed": "The Dimensions of Success is best used in the Problem Space during the Awareness Phase (1.0) to “Set the Context”. It’s also useful in the Solution Space to confirm relevance.",
+ "why": "We will reduce and avoid the waste of time and resources that result from a lack of agreement among stakeholders.",
+ "outcomes": [
+  "Disclosure of key business priorities, requirements, success criteria",
+  "Confirmation of key stakeholders involved or impacted by an initiative or solution",
+  "A succinct summary for an initiative or solution"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Establish definitions for categories of stakeholders (organizational, operational, infrastructure)",
+    "Determine key stakeholders for each category",
+    "Determine a means for ensuring all key stakeholders are involved to an appropriate degree",
+    "Document any disclosed gaps to success"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Verify ongoing relevance of the initiative or solution to key stakeholders",
+    "Verify initiative or solution is properly positioned for success as defined by each dimension and key stakeholder",
+    "List key takeaways (gaps, risks, actions, etc.)"
+   ]
+  }
+ ],
+ "source": "Dimensions_of_Success_-_KA_-_Guide.pdf"
+}

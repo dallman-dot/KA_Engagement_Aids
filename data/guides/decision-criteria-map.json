@@ -1,0 +1,40 @@
+{
+ "kicker": "Title",
+ "name": "Decision Criteria Map",
+ "purpose": "A visual aid to evaluate alternatives to select the best answer.",
+ "whereUsed": "The Decision Criteria Map is best introduced in the Solution Space during the Alternatives Phase to Determine Value, Costs & Risks of Options. It’s also useful in subsequent phases (Answer, Acceptance, Actions) to communicate and reinforce how a decision (selecting the best answer) was made.",
+ "why": "We will make a better decision (select the best answer) to alternatives being considered.",
+ "outcomes": [
+  "Clear definition of decision criteria",
+  "Understanding of similarities and differences among alternatives",
+  "Objective scoring of alternatives to determine the best answer"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “ALTERNATIVES PHASE” WE NEED TO:",
+   "steps": [
+    "Establish the decision criteria to evaluate alternatives",
+    "Identify potential alternatives",
+    "Score potential alternatives based on the decision criteria",
+    "Facilitate a candid dialog to capture decision dynamics"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “ANSWER, ACCEPTANCE, OR ACTIONS PHASE” WE NEED TO:",
+   "steps": [
+    "Explain the decision criteria used to evaluate alternatives",
+    "Outline all the alternatives that were considered",
+    "Recap decision dynamics and scoring for the alternatives",
+    "Highlight the rationale for the selected answer"
+   ]
+  }
+ ],
+ "source": "Decision_Criteria_Map_-_KA_-_Guide.pdf"
+}

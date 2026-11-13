@@ -1,0 +1,41 @@
+{
+ "kicker": "Title Establish Timeline with Milestones",
+ "name": "Assessment Snapshot",
+ "purpose": "A visual aid to assist stakeholders through their assessment (decision making) process.",
+ "whereUsed": "The Assessment Roadmap is best used in the Problem Space during the Awareness Phase (1.5) to “Establish Timeline with Milestones”. It’s also use- ful in the Solution Space to review and verify status of decisions.",
+ "why": "We will eliminate ambiguity and accelerate productivity by providing a process for decision making that is applicable, both internally and externally.",
+ "outcomes": [
+  "Agreement to use a defined decision-making process",
+  "Confirmation as to where stakeholders are in their decision making",
+  "Consent to review prior phases before proceeding"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review and agree to the major phases and activities",
+    "Identify the location of the current decision",
+    "Confirm the importance of the “problem space”",
+    "Establish timeline to complete decision-making process",
+    "Document any gaps in understanding about decision making"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Establish location of current decision",
+    "Confirm what “due-diligence” has been done",
+    "Identify potential “gaps” in decision-making process",
+    "Assign owners and timeline to review and close “gaps”"
+   ]
+  }
+ ],
+ "source": "Assessment_Snapshot_-_KA_-_Guide.pdf"
+}

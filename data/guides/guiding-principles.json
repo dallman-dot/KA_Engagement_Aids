@@ -1,0 +1,39 @@
+{
+ "kicker": "Mind-Set Title",
+ "name": "Guiding Principles",
+ "purpose": "A visual aid to highlight a mind-set for healthy dialogues to make better business decisions.",
+ "whereUsed": "The Guiding Principles are best used in the Problem Space during the Awareness and Analysis Phases to confirm the expected mind-set required for healthy dialogues and better decision-making. They are also useful in the Solution Space to serve as a reminder of the mind-set required to ensure the productive use of resources to get the best possible results (outcomes).",
+ "why": "We will create a more collaborative environment to ensure the best use of our collective time and resources.",
+ "outcomes": [
+  "Acknowledgment of unproductive behaviors",
+  "Willingness to use (reference) guiding principles",
+  "A more comfortable and resourceful atmosphere"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Acknowledge the lack of guiding principles contribute to wasting time, people (talent), resources, and capital",
+    "Confirm how the guiding principles will enable better dialogues to make better business decisions with less waste",
+    "Introduce the guiding principles as an integrated part of the KA DecisionMaking Standards (Mind-set, Skill-set, Tool-set)",
+    "Agree to continuously reference and apply the guiding principles (Mind-Set)"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm how business decisions have been made to date (completeness, consensus, confidence)",
+    "Challenge how “business as usual/ expected” can be dramatically improved through the use of the guiding principles (Mind-set)",
+    "Agree to start using the guiding principles as an integrated part of the KA Decision-Making Standards (Mind-set, Skill-set, Tool-set)"
+   ]
+  }
+ ],
+ "source": "Guiding_Principles_-_KA_-_Guide.pdf"
+}

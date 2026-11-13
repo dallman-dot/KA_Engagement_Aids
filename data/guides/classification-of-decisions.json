@@ -1,0 +1,40 @@
+{
+ "kicker": "Title",
+ "name": "Classification of Decisions",
+ "purpose": "A visual aid to facilitate better group decision- making.",
+ "whereUsed": "The Classification of Decisions aid can be used during any phase of the Assessment Roadmap. By identifying key stakeholders and their role in the decision-making process, everyone has clarity on what is expected of participants.",
+ "why": "We will establish the roles and expectations for participants involved in making a decision.",
+ "outcomes": [
+  "Acknowledgement of where the decision is within the Assessment Roadmap",
+  "Agreement to the level of collaboration and ownership required to make the decision",
+  "Focus participants on activities that facilitate the decision making process"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Assess stakeholder/participant roles in the decision at hand",
+    "Confirm participant expectations for collaboration in decision-making",
+    "Identify owner(s) for the decision",
+    "Facilitate a candid dialog to capture decision dynamics"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Recap decisions-to-date (classifications, owners, outcomes)",
+    "Confirm participant expectations for collaboration in decisionmaking",
+    "Identify owner(s) for the decision",
+    "Facilitate a candid dialog to capture decision dynamics"
+   ]
+  }
+ ],
+ "source": "Classification_of_Decisions_-_KA_-_Guide.pdf"
+}

@@ -1,0 +1,39 @@
+{
+ "kicker": "Measure What Matters",
+ "name": "Criteria Proposition",
+ "purpose": "A visual aid to express the full worth of a solution to stakeholders.",
+ "whereUsed": "The Criteria Proposition is best used in the Problem Space during the Awareness Phase (1.4) to “Verify Success Criteria” and during the Analysis Phase (2.4) to “Highlight the Value of Solving Business Problems”. It’s also useful in the Solution Space to confirm worth.",
+ "why": "We will understand a stakeholder’s willingness to commit to an initiative or solution on the basis of what is most valuable to them. Additionally, we will be positioned to gain consensus among various stakeholders.",
+ "outcomes": [
+  "Agreement on key measures and worth of anticipated business outcomes (results)",
+  "Agreement on the worth of an initiative or solution in terms of stakeholder value and expectations",
+  "Consensus and commitment among stakeholders for an initiative or solution"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review types of criteria based on different stakeholders",
+    "Illustrate potential examples for each category",
+    "Determine success criteria for the initiative or solution",
+    "Identify gaps in measures and metrics considered relevant"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm mutual interest to deliver value and reduce costs",
+    "Illustrate estimates of value and cost reductions",
+    "Verify success criteria for the initiative or solution"
+   ]
+  }
+ ],
+ "source": "Criteria_Proposition_-_KA_-_Guide.pdf"
+}

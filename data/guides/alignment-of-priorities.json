@@ -1,0 +1,41 @@
+{
+ "kicker": "Gain Business Clarity",
+ "name": "Alignment of Priorities",
+ "purpose": "A visual aid to align priorities of key stakeholders.",
+ "whereUsed": "The Alignment of Priorities is best used in the Problem Space during the Awareness Phase (1.1) to “Gain Business Clarity”. It’s also useful in the Solution Space to confirm alignment.",
+ "why": "We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.",
+ "outcomes": [
+  "Confirm that organizational alignment is of importance to stakeholders",
+  "Initial “draft” of the priorities for stakeholders across the organization",
+  "Clarification of business goals and strategies",
+  "Executive clarity as to how solutions address top of mind business initiatives"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review structure and use of colors within visual",
+    "Review and refine what is known for each of the columns",
+    "Understand the relationships within and across columns",
+    "Challenge the relevance of initiatives or solutions under consideration",
+    "Document any ambiguity that creates gaps to success"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm how an initiative or solution aligns to the business priorities of key stakeholders",
+    "Test the importance of an initiative or solution based on the business priorities",
+    "Identify potential “gaps” in business priorities"
+   ]
+  }
+ ],
+ "source": "Alignment_of_Priorities_-_KA_-_Guide.pdf"
+}

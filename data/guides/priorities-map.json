@@ -1,0 +1,40 @@
+{
+ "kicker": "Frame Points of View",
+ "name": "Priorities Map",
+ "purpose": "A visual aid to map and compare top of mind pri- orities for individual and organizational stakeholders.",
+ "whereUsed": "The Priorities Map is best used in the Problem Space during the Awareness Phase (1.2 & 1.3) to “Identify Key Stakeholders” and “Frame Points of View.” It’s also useful in the Solution Space to confirm the priorities of various stakeholders.",
+ "why": "We will quickly gain an understanding of how different stakeholders prioritize the same initiatives, their relative importance, their measures for success and the trade-offs they’re willing to make.",
+ "outcomes": [
+  "Clear view of the relative importance of multiple stakeholder priorities",
+  "Understanding of similarities and differences among stakeholders",
+  "Definition of criteria by which stakeholders measure success"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review and refine top of mind initiatives",
+    "Confirm key stakeholders directly/indirectly impacted",
+    "Determine priority of each initiative for each stakeholder",
+    "By initiative, establish success criteria for each stakeholder"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm priorities of different stakeholders have been taken into consideration for the initiative or solution",
+    "Compare and contrast importance of priorities to the different stakeholders",
+    "Identify potential conflicts among stakeholders",
+    "List key takeaways (Gaps, Risks, Actions, etc.)"
+   ]
+  }
+ ],
+ "source": "Priorities_Map_-_KA_-_Guide.pdf"
+}

@@ -1,0 +1,40 @@
+{
+ "kicker": "Assess Readiness",
+ "name": "Decision Matrix",
+ "purpose": "A visual aid to assist stake- holders through their decision making process.",
+ "whereUsed": "The Decisions Matrix is best used in the Problem Space during the Analysis Phase (2.5) to “Assess Readiness”. It’s also useful in the Solution Space to review and verify the dynamics driving a business decision.",
+ "why": "We will bring explicit attention to all of the aspects that should be considered when making important business decisions.",
+ "outcomes": [
+  "Agreement among stakeholders that decision making is impacted by business, professional, and personal factors",
+  "Willingness to share typically “unspoken” factors",
+  "More complete understanding of the dynamics driving a specific business decision"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review business, professional, and personal factors driving business decision",
+    "Highlight these factors consciously or unconsciously impact decisions",
+    "Emphasize the need to share typically “unspoken” factors",
+    "Facilitate a candid dialogue to capture decision dynamics"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm known factors driving business decision",
+    "Establish agreement there are most likely additional factors",
+    "Provide examples of typically “unspoken” factors",
+    "Facilitate a candid dialogue to capture decision dynamics"
+   ]
+  }
+ ],
+ "source": "Decision_Matrix_-_KA_-_Guide.pdf"
+}
