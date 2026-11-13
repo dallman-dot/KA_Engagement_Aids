@@ -1,0 +1,41 @@
+{
+ "kicker": "Pinpoint Core Business Problems",
+ "name": "Understanding a Problem",
+ "purpose": "A visual aid to accurately decompose and frame the key attributes of a busi- ness problem.",
+ "whereUsed": "The Understanding a Problem is best used in the Problem Space during the Analysis Phase (2.1) to “Pinpoint Core Business Problems.” It’s also useful in the Solution Space to illustrate the complexity of business problems.",
+ "why": "We will frame and address root cause problems, as opposed to solving for generic issues that result in limited worth to the business.",
+ "outcomes": [
+  "A thorough understanding of the problem being confronted",
+  "Decision to pursue or stop pursuit of a solution to solve a problem",
+  "Agreement to the importance of addressing a business problem"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review major elements to consider and understand when framing a business problem",
+    "Confirm understanding and agreement to business problems worth solving",
+    "Compare similarities and differences among business problems",
+    "Document possible gaps to resolving problems"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Illustrate how previous business problems have been framed",
+    "Confirm a complete understanding of the business problem the solution addresses",
+    "Challenge assumptions among stakeholders about a potential business problem",
+    "Brainstorm potential alternatives to already considered solutions",
+    "List key takeaways (gaps, risks, actions, etc.)"
+   ]
+  }
+ ],
+ "source": "Understanding_a_Problem_-_KA_-_Guide.pdf"
+}

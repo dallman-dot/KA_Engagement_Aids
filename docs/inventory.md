@@ -1,6 +1,6 @@
 # Inventory of KA PDFs received
 
-45 distinct files (same content counted once). Guide pages parsed into data/guides/.
+55 distinct files (same content counted once). Guide pages parsed into data/guides/.
 
 | File | Pages | Notes |
 | --- | --- | --- |
@@ -49,3 +49,13 @@
 | Rollout Timeline - KA | 1 |  |
 | Rows and Columns - KA | 1 |  |
 | Rows and Columns - KA - old | 1 |  |
+| Solution Snapshot - KA - Guide | 2 | guide page parsed |
+| Solutions Map - KA - Guide | 2 | guide page parsed |
+| Stakeholder Profile - KA - Guide | 2 | guide page parsed |
+| Strategy to Execution - KA | 2 |  |
+| SWOT Analaysis - KA | 1 |  |
+| Three Column - KA | 1 |  |
+| Understanding a Problem - KA - Guide | 2 | guide page parsed |
+| Understanding Positions - KA - Guide | 2 | guide page parsed |
+| Venn 2 Diagram - KA - Guide | 3 | guide, no guide page |
+| Venn Diagram - KA - old | 2 |  |

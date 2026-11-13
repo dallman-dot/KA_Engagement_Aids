@@ -1,0 +1,41 @@
+{
+ "kicker": "Title",
+ "name": "Solution Snapshot",
+ "purpose": "A visual aid to highlight potential solutions.",
+ "why": "We will take into consideration a stated priorities, requirements, and criteria to provide succinctly highlight a potential solution.",
+ "whereUsed": "The Solution Snapshot is best introduced in the Problem Space during the Analysis Phase (2.3) to “Illustrate Innovative Solutions”. It can also be useful in the Solution Space (Answer, Acceptance, Actions) to highlight and reinforce proposed (recommended) solutions.",
+ "outcomes": [
+  "Concise, consistent description of proposed solution(s)",
+  "Define expected positives and negatives to be realized from the solution",
+  "Identify outstanding questions about the solution",
+  "Draw conclusions (recommendation) about the solution’s impact"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review stated priorities, requirements, and criteria",
+    "Clearly describe the solution",
+    "Highlight implications (+, -, ?, !) for the solution",
+    "Refine implications and agree on next steps"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Explain what was taken into consideration for the solution",
+    "Clearly describe the solution",
+    "Highlight implications (+, -, ?, !) for the solution",
+    "Refine implications and agree on next steps"
+   ]
+  }
+ ],
+ "source": "Solution_Snapshot_-_KA_-_Guide.pdf"
+}

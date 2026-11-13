@@ -1,0 +1,41 @@
+{
+ "kicker": "Title",
+ "name": "Stakeholder Profile",
+ "purpose": "A visual aid to understand a stakeholder’s role within a business and/or decision-making process.",
+ "whereUsed": "The Stakeholder Profile is best introduced in the Problem Space during the Awareness Phase (1.3) “Frame Points of View”. It can also be useful in sub- sequent phases to communicate and reinforce the roles and motivations of key stakeholders.",
+ "why": "We will gain mutual understanding of a stakeholder’s professional and business motivators driving their actions and decisions.",
+ "outcomes": [
+  "Common understanding of a stakeholder’s responsibilities and motivations",
+  "Sensitivity to challenges and constraints within the role and possible implications",
+  "Clarity on how best to collaborate and build a meaningful relationship",
+  "Identify common drivers (motivations, challenges, desired results among stakeholders"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Create an initial profile for each of the key stakeholders",
+    "Document potential constraints within the business and their respective role",
+    "Understand the value and control of the stakeholder in the decision-making process",
+    "Facilitate a candid dialog to capture opportunities and risks for the stakeholder"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Review Stakeholder Profiles to keep professional and business motivators in the forefront",
+    "Take into consideration roles and dynamics among key stakeholders",
+    "Identify potential risks and generate next steps to mitigate",
+    "Facilitate candid dialogues among stakeholders to ensure alignment"
+   ]
+  }
+ ],
+ "source": "Stakeholder_Profile_-_KA_-_Guide.pdf"
+}

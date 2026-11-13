@@ -1,0 +1,39 @@
+{
+ "kicker": "Find Common Ground",
+ "name": "Understanding Positions",
+ "purpose": "A visual aid to show the opposing positions of stakeholders to identify the common ground they share.",
+ "whereUsed": "The Understanding Positions is best used in the Problem Space during the Analysis Phase (2.5) to “Assess Readiness”. It’s also useful in the Solution Space to verify an ongoing common understanding.",
+ "why": "We will establish a common ground from which to build a foundation for a solution.",
+ "outcomes": [
+  "A deeper understanding of the positions taken by stakeholders",
+  "Identification of the facts, feelings, and real impact of stakeholder positions",
+  "Expansion of the “common” ground between opposing positions to a business problem"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Review major elements to consider and understand when framing positions taken by different stakeholders",
+    "Confirm understanding and gain agreement to reasons for respective positions.",
+    "Determine “common ground” (facts/feelings/real impact) among stakeholders",
+    "Document any gaps to reaching an agreement"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Confirm the common ground among stakeholders who may have strong opposing positions",
+    "Ensure stakeholders have an simple way to express their true thoughts and feelings",
+    "Document any gaps that might jeopardize agreement"
+   ]
+  }
+ ],
+ "source": "Understanding_Positions_-_KA_-_Guide.pdf"
+}

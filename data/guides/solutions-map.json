@@ -1,0 +1,38 @@
+{
+ "kicker": "Illustrate Innovative Solutions",
+ "name": "Solutions Map",
+ "purpose": "A visual aid to map the impact of capabilities to the top of mind initiatives of key stakeholders.",
+ "whereUsed": "The Solutions Map is best used in the Problem Space during the Analysis Phase (2.3) to “Illustrate Innovative Solutions”. It’s also useful in the Solu- tion Space to demonstrate integration points of solutions.",
+ "why": "We will demonstrate the tangible worth of a set of capabilities (solution) by illustrating how those capabilities relate to business priorities.",
+ "outcomes": [
+  "Understanding of how a set of capabilities (solution) contribute to personal, professional and business priorities for stakeholders",
+  "Confirmation that a complete set of integrated, innovative capabilities addresses multiple priorities for the business"
+ ],
+ "gaps": [
+  "Position (Relevance)",
+  "People (Decision Makers)",
+  "Policies (Budget)",
+  "Procedures (Sign-offs)",
+  "Politics (Agendas)"
+ ],
+ "spaces": [
+  {
+   "heading": "IF WE ARE IN THE “PROBLEM SPACE” WE NEED TO:",
+   "steps": [
+    "Validate “top of mind” initiatives",
+    "Explain and confirm an understanding for a set of integrated capabilities",
+    "Map and agree to the impact of the capabilities to address “top of mind” initiatives",
+    "Determine gaps in capabilities to fully address business priorities"
+   ]
+  },
+  {
+   "heading": "IF WE ARE IN THE “SOLUTION SPACE” WE NEED TO:",
+   "steps": [
+    "Highlight how a solution fits into an enterprise-wide set of integrated capabilities",
+    "Demonstrate the synergies to be gained by bringing multiple capabilities together",
+    "Demonstrate how capabilities close gaps created by business problems"
+   ]
+  }
+ ],
+ "source": "Solutions_Map_-_KA_-_Guide.pdf"
+}
