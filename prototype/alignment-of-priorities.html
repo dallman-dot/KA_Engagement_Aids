@@ -1,0 +1,709 @@
+<title>Alignment of Priorities</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: KA's two-page aid. Page 1 the guide (three numbered blocks), page 2 the staircase: five columns stepping down a plum diagonal across three bands, lines showing what serves what. Assistant docked right while preparing; hidden with a client. */
+:root{
+  --bg:#f2f4f8; --paper:#ffffff; --ink:#1f2430; --muted:#5b6476; --rule:#d8dce5;
+  --blue:#2c4f9b; --title:#4a6bb3; --cyan:#0fa3c2; --cyan-soft:#e2f5f9; --plum:#9e2a55; --plum-soft:#f7e7ed;
+  --band1:#eef1f8; --band2:#f6f7fa; --band3:#eef1f8;
+  --t1:rgb(116 184 191 / .55); --t2:rgb(247 178 109 / .6); --t3:rgb(221 150 184 / .6);
+  --t1s:rgb(116 184 191); --t2s:rgb(247 178 109); --t3s:rgb(221 150 184);
+  --ok:#2d7a52; --warn:#a6501d; --warn-soft:#fbeadf; --on-blue:#fff; --line:#9e2a55;
+  --font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --hand:"Kalam","Comic Sans MS",cursive;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161f; --paper:#1b2130; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
+  --blue:#a9bff0; --title:#b7c8f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#ec8fb2; --plum-soft:#3a2230;
+  --band1:#1e2535; --band2:#181e2b; --band3:#1e2535;
+  --t1:rgb(116 184 191 / .32); --t2:rgb(247 178 109 / .3); --t3:rgb(221 150 184 / .3);
+  --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#12161f; --line:#ec8fb2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161f; --paper:#1b2130; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
+  --blue:#a9bff0; --title:#b7c8f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#ec8fb2; --plum-soft:#3a2230;
+  --band1:#1e2535; --band2:#181e2b; --band3:#1e2535;
+  --t1:rgb(116 184 191 / .32); --t2:rgb(247 178 109 / .3); --t3:rgb(221 150 184 / .3);
+  --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#12161f; --line:#ec8fb2; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 56px}
+.shell{max-width:1360px;margin:0 auto;display:grid;gap:14px}
+button{font:inherit;color:inherit}
+.btn{font:600 14px/1.2 var(--font);border-radius:8px;border:1.5px solid var(--blue);background:var(--paper);color:var(--blue);padding:9px 14px;min-height:42px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn.primary{background:var(--blue);color:var(--on-blue)}
+.btn.plum{border-color:var(--plum);color:var(--plum)}
+.btn.ghost{border-color:transparent;background:transparent}
+.btn.small{min-height:34px;padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:default}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+textarea{font:inherit;color:inherit;background:transparent;border:0;resize:none;width:100%;padding:2px 4px;border-radius:4px;overflow:hidden;display:block}
+textarea::placeholder{color:var(--muted);opacity:.7}
+textarea:hover{background:color-mix(in srgb,var(--cyan) 8%,transparent)}
+textarea:focus{outline:none;background:color-mix(in srgb,var(--cyan) 12%,transparent)}
+
+/* masthead */
+.mast{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}
+.titles{display:grid;gap:0;min-width:0}
+.kicker textarea{font-size:15px;color:var(--muted);padding-left:0}
+.titles h1{margin:0;font-weight:300;font-size:clamp(32px,5.4vw,58px);line-height:1.02;color:var(--title);letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:10px;justify-self:end}
+.ka{border:2px solid var(--ink);font:600 21px/1 var(--font);padding:7px 9px;color:var(--blue)}
+.brand span{color:var(--blue);font-size:14px}
+@media (max-width:600px){.brand span{display:none}}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:none;padding:10px 12px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;display:flex;gap:8px;align-items:center}
+.tabs button[aria-selected="true"]{color:var(--plum);border-bottom-color:var(--plum)}
+.tabs .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--rule);color:var(--ink);font-size:12px}
+.tabs button[aria-selected="true"] .n{background:var(--plum);color:#fff}
+.modes{display:flex;gap:6px}
+.situation{display:grid;gap:4px;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.situation label{font-weight:600;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.situation textarea{font-size:15px;min-height:44px;background:var(--bg);border:1px solid var(--rule);padding:8px 10px;overflow:auto}
+
+/* guide */
+.guide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:900px){.guide{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.step{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px}
+.num{width:40px;height:40px;border-radius:50%;background:var(--plum);color:#fff;display:grid;place-items:center;font:700 20px var(--font)}
+.step > div{display:grid;gap:10px;min-width:0}
+.lead{font-size:18px;margin:0;line-height:1.4}
+h3{margin:0;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.checks li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:start}
+.tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--plum);background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;margin-top:1px}
+.tick[aria-checked="true"]{background:var(--plum)}
+.tick[aria-checked="true"]::after{content:"";width:9px;height:5px;border:solid #fff;border-width:0 0 2px 2px;transform:rotate(-45deg) translate(1px,-1px)}
+.live{display:block;font-size:12.5px;color:var(--cyan);font-weight:600}
+.live.warn{color:var(--warn)}
+.gaps{display:grid;gap:8px}
+.gap{border:1px solid var(--rule);border-radius:8px;padding:8px 10px;display:grid;gap:6px}
+.gap.on{border-color:var(--plum);background:var(--plum-soft)}
+.gap button.gt{display:flex;gap:10px;align-items:center;border:0;background:none;padding:0;cursor:pointer;font-weight:600;text-align:left;min-height:28px}
+.box{width:20px;height:20px;border:2px solid var(--muted);border-radius:3px;display:grid;place-items:center;flex:0 0 auto;font-weight:700;color:var(--plum);font-size:14px}
+.gap.on .box{border-color:var(--plum)}
+.gap textarea{font-size:14px;background:var(--paper);border:1px solid var(--rule);padding:6px 8px}
+.phases{display:grid;gap:6px;background:var(--bg);border-radius:10px;padding:12px 12px 8px}
+.astrip{display:grid;grid-template-columns:repeat(2,1fr) 14px repeat(4,1fr);align-items:end;text-align:center;font-family:var(--hand)}
+.astrip .ph{display:grid;gap:0;color:var(--ink)}
+.astrip .ph small{font-size:14px;color:var(--muted);line-height:1.1}
+.astrip .ph b{font-size:34px;line-height:1;font-weight:400}
+.astrip .ph.p small{color:var(--blue)}
+.astrip .ph.p b{color:var(--blue)}
+.astrip .ph.here b{color:var(--plum)}
+.astrip .ph.here small::after{content:" 1.1";font-family:var(--font);font-size:11px;font-weight:700;color:var(--plum)}
+.astrip .div{align-self:stretch;border-left:3px double var(--blue);margin:0 auto;width:0}
+.spaces2{display:grid;grid-template-columns:1fr 1fr;font:15px var(--hand);text-align:center;color:var(--blue)}
+.spaces2 span:last-child{color:var(--ink)}
+.spacepick{display:flex;gap:6px;flex-wrap:wrap}
+.spacepick button[aria-pressed="true"]{background:var(--blue);color:var(--on-blue)}
+.spacelist{display:grid;gap:8px}
+.spacelist h3{color:var(--plum)}
+.spacelist.dim{opacity:.55}
+.where{margin:0;color:var(--muted);font-size:14.5px}
+
+/* aid */
+.work{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:16px;align-items:start}
+body.client .work,body.noassist .work{grid-template-columns:minmax(0,1fr)}
+@media (max-width:1100px){.work{grid-template-columns:minmax(0,1fr)}}
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:16px;display:grid;gap:14px;min-width:0}
+.coach{background:var(--cyan-soft);border-left:4px solid var(--cyan);border-radius:6px;padding:8px 12px;font-size:14px;margin:0}
+.ext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.ext{grid-template-columns:minmax(0,1fr)}}
+.extc{border:2px solid var(--cyan);border-radius:10px;padding:6px 8px 8px;min-width:0;display:grid;gap:2px}
+.extc header{display:flex;justify-content:space-between;align-items:center}
+.extc h4{margin:0;font-size:12.5px;letter-spacing:.1em;color:var(--blue)}
+.headline{text-align:center;font-weight:600;color:var(--blue);font-size:16px;margin:0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+.legend label{display:flex;align-items:center;gap:4px;border:1px solid var(--rule);border-radius:999px;padding:2px 8px 2px 4px;background:var(--paper)}
+.legend input{font:13px var(--font);border:0;background:transparent;color:var(--ink);width:110px;padding:3px 0}
+.legend input::placeholder{color:var(--muted)}
+.lgname{display:none}
+body.client .lgname{display:inline}
+body.client .legend label.unnamed{display:none}
+.sw{width:16px;height:16px;border-radius:50%;flex:0 0 auto;border:1px solid rgb(0 0 0 / .15)}
+.sw.c1{background:var(--t1s)}.sw.c2{background:var(--t2s)}.sw.c3{background:var(--t3s)}
+.casc-wrap{overflow-x:auto;margin:0 -4px;padding:0 4px}
+.casc{--step:58px;position:relative;display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:24px;padding:0 4px 18px 38px;min-width:900px}
+.bands{position:absolute;inset:44px 0 0 0;display:grid;grid-template-rows:1fr 1fr 1fr;z-index:0;border-radius:10px;overflow:hidden}
+.bands div{display:flex;align-items:center;justify-content:flex-start}
+.bands div:nth-child(1){background:var(--band1)}.bands div:nth-child(2){background:var(--band2)}.bands div:nth-child(3){background:var(--band3)}
+.bands span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--muted);width:34px;text-align:center}
+svg.layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
+.col{position:relative;z-index:2;display:grid;gap:10px;align-content:start;min-width:0}
+.col:nth-of-type(1){padding-top:0}
+.colh{display:flex;align-items:center;gap:6px;border:0;background:var(--paper);border-radius:6px;padding:6px 8px;font-weight:700;letter-spacing:.08em;color:var(--blue);font-size:13px;cursor:pointer;text-align:left;justify-content:space-between;min-height:34px;box-shadow:0 0 0 1px var(--rule)}
+.colh .hasnote{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:6px 6px 6px 4px;display:grid;gap:2px;transition:opacity .2s,box-shadow .2s,border-color .2s;position:relative;min-width:0}
+.card.c1{background:linear-gradient(var(--t1),var(--t1)),var(--paper)}
+.card.c2{background:linear-gradient(var(--t2),var(--t2)),var(--paper)}
+.card.c3{background:linear-gradient(var(--t3),var(--t3)),var(--paper)}
+.card .top{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px;align-items:start}
+.dotbtn{width:20px;height:20px;border-radius:50%;border:2px dashed var(--muted);background:transparent;cursor:pointer;margin-top:4px;padding:0}
+.card.c1 .dotbtn{background:var(--t1s);border:2px solid var(--t1s)}
+.card.c2 .dotbtn{background:var(--t2s);border:2px solid var(--t2s)}
+.card.c3 .dotbtn{background:var(--t3s);border:2px solid var(--t3s)}
+.card .nm{font-weight:600;font-size:14.5px}
+.card .ds{font-size:13px;color:var(--muted);padding-left:30px}
+.card .ds:focus{color:var(--ink)}
+.card .foot{display:flex;flex-wrap:wrap;gap:4px;padding-left:26px}
+.chip{font-size:12px;border-radius:6px;padding:3px 8px;border:1px solid var(--rule);background:var(--bg);color:var(--muted);cursor:pointer;min-height:26px;text-align:left;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.card .foot{display:grid!important;gap:4px}
+.chip.serves{border-color:var(--plum);color:var(--plum);background:transparent}
+.chip.none{border-style:dashed}
+.card.empty{opacity:.62;border-style:dashed}
+.card.empty:focus-within{opacity:1}
+.card.sel{border-color:var(--plum);box-shadow:0 0 0 2px var(--plum)}
+.casc.focusing .card:not(.lit){opacity:.22}
+.casc.focusing .card.lit:not(.sel){box-shadow:0 0 0 2px var(--cyan)}
+.casc.walk .col:not(.walkon) .card{opacity:.2}
+.casc.walk .col.walkon .colh{box-shadow:0 0 0 2px var(--plum)}
+.chain{text-align:center;color:var(--plum);font-weight:600;font-size:14px;margin:0}
+.chain b{letter-spacing:.06em}
+.trace{background:var(--plum-soft);border-radius:8px;padding:10px 12px;font-size:14.5px;margin:0}
+.trace b{color:var(--plum)}
+.walkbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg);border-radius:10px;padding:8px 10px}
+.walkbar p{margin:0;flex:1 1 220px;font-weight:600}
+.check{display:grid;gap:8px}
+.check ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.check li{display:flex;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--rule);border-radius:8px;padding:7px 10px;font-size:14px}
+.check li.warn{border-color:color-mix(in srgb,var(--warn) 50%,var(--rule));background:var(--warn-soft)}
+.check li.ok{color:var(--ok)}
+.check .meter{display:flex;gap:16px;flex-wrap:wrap;font-size:14px}
+.check .meter b{font-size:20px;color:var(--blue);font-variant-numeric:tabular-nums}
+/* phone */
+@media (max-width:900px){
+  .casc-wrap{overflow:visible}
+  .casc{grid-template-columns:minmax(0,1fr);min-width:0;padding:0;gap:16px}
+  .bands,svg.layer{display:none}
+  .col{padding-top:0!important}
+  .card .foot .chip.serves{display:inline-block}
+}
+/* popover */
+.pop{position:fixed;z-index:30;background:var(--paper);border:1px solid var(--rule);border-radius:10px;box-shadow:0 10px 30px rgb(0 0 0 / .18);padding:10px;width:min(320px,calc(100vw - 32px));display:grid;gap:8px;max-height:min(420px,70vh);overflow:auto}
+.pop h5{margin:0;font-size:13px;color:var(--muted)}
+.pop label{display:flex;gap:8px;align-items:flex-start;font-size:14px;padding:6px;border-radius:6px;cursor:pointer}
+.pop label:hover{background:var(--bg)}
+.pop input[type=checkbox]{width:18px;height:18px;margin-top:2px;accent-color:var(--plum)}
+.pop textarea{border:1px solid var(--rule);background:var(--bg);min-height:120px;padding:8px;overflow:auto}
+/* assistant */
+.assist{position:sticky;top:12px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:14px;display:grid;gap:10px;max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:1100px){.assist{position:static;max-height:none}}
+.assist h2{margin:0;font-size:16px;color:var(--blue)}
+.focusline{font-size:13.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:8px 10px}
+.focusline b{color:var(--ink)}
+.arow{display:flex;gap:6px;flex-wrap:wrap}
+.arow .btn{flex:1 1 140px}
+.answer{white-space:pre-wrap;font-size:14.5px;background:var(--bg);border-radius:8px;padding:10px 12px}
+.answer:empty{display:none}
+.sugg{display:grid;gap:6px}
+.sugg .s{border:1px solid var(--rule);border-radius:8px;padding:8px 10px;font-size:14px;display:grid;gap:4px}
+.sugg small{color:var(--muted);font-size:12px}
+.ask{display:grid;gap:6px}
+.ask textarea{border:1px solid var(--rule);background:var(--bg);min-height:56px;padding:8px 10px;overflow:auto}
+.note{font-size:12.5px;color:var(--muted);margin:0}
+body.client .assist,body.client .coach,body.client .situation,body.client .check,body.client .legend input,body.client .card.empty,body.client .chip.none,body.client .prep-only{display:none!important}
+body.client .card .nm{font-size:16px}
+body.client .card .ds{font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:40}
+footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:10px}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+
+<div class="shell">
+  <header class="mast">
+    <div class="titles">
+      <div class="kicker"><textarea id="title" rows="1" aria-label="Title" placeholder="Title"></textarea></div>
+      <h1>Alignment of Priorities</h1>
+    </div>
+    <div class="brand"><span class="ka">ka</span><span>Knowledge-Advantage, Inc.</span></div>
+  </header>
+
+  <div class="bar">
+    <div class="tabs" role="tablist" aria-label="Pages">
+      <button role="tab" id="tabGuide" aria-selected="true" aria-controls="viewGuide"><span class="n">1</span>The guide</button>
+      <button role="tab" id="tabAid" aria-selected="false" aria-controls="viewAid"><span class="n">2</span>The aid</button>
+    </div>
+    <div class="modes" role="group" aria-label="Mode">
+      <button class="btn small primary" id="modePrep" aria-pressed="true">Prepare</button>
+      <button class="btn small" id="modeClient" aria-pressed="false">Use with a client</button>
+    </div>
+  </div>
+
+  <div class="situation">
+    <label for="situation">The situation · who it's for and what you're working on</label>
+    <textarea id="situation" rows="2" placeholder="Example: Regional insurance broker. The COO and VP of Sales want renewals back up after an 8% drop. First meeting Thursday."></textarea>
+  </div>
+
+  <!-- PAGE 1 · THE GUIDE -->
+  <section id="viewGuide" role="tabpanel" aria-labelledby="tabGuide" class="guide">
+    <div class="panel">
+      <div class="step"><div class="num">1</div><div>
+        <p class="lead">A visual aid to align priorities of key stakeholders.</p>
+        <h3>Why is it important for us?</h3>
+        <p style="margin:0">We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.</p>
+        <h3>Expected outcomes</h3>
+        <ul class="checks" id="outcomes"></ul>
+      </div></div>
+      <div class="step"><div class="num">2</div><div>
+        <p class="lead">A clear sense of threats to scope, time and resources is required before solving any business problem.</p>
+        <h3>Potential gaps / challenges</h3>
+        <p class="note prep-only">Tick a gap you see and note what you know. The assistant uses these.</p>
+        <div class="gaps" id="gaps"></div>
+      </div></div>
+    </div>
+    <div class="panel">
+      <div class="step"><div class="num">3</div><div>
+        <p class="where">The Alignment of Priorities is best used in the Problem Space during the Awareness Phase (1.1) to “Gain Business Clarity”. It’s also useful in the Solution Space to confirm alignment.</p>
+        <div class="phases" aria-label="Phases: Awareness and Analysis are the Problem Space; Alternatives, Answer, Acceptance and Actions are the Solution Space">
+          <div class="astrip" aria-hidden="true">
+            <div class="ph p here"><small>Awareness</small><b>A</b></div>
+            <div class="ph p"><small>Analysis</small><b>A</b></div>
+            <div class="div"></div>
+            <div class="ph"><small>Alternatives</small><b>a</b></div>
+            <div class="ph"><small>Answer</small><b>a</b></div>
+            <div class="ph"><small>Acceptance</small><b>a</b></div>
+            <div class="ph"><small>Actions</small><b>a</b></div>
+          </div>
+          <div class="spaces2" aria-hidden="true"><span>Problem Space</span><span>Solution Space</span></div>
+        </div>
+        <div class="spacepick" role="group" aria-label="Where we are">
+          <span class="note" style="align-self:center">We are in the</span>
+          <button class="btn small" id="spProblem" aria-pressed="true">Problem Space</button>
+          <button class="btn small" id="spSolution" aria-pressed="false">Solution Space</button>
+        </div>
+        <div class="spacelist" id="listProblem"><h3>If we are in the “Problem Space” we need to:</h3><ul class="checks" id="stepsProblem"></ul></div>
+        <div class="spacelist dim" id="listSolution"><h3>If we are in the “Solution Space” we need to:</h3><ul class="checks" id="stepsSolution"></ul></div>
+        <div class="arow"><button class="btn primary" id="toAid">Open the aid →</button></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 · THE AID -->
+  <section id="viewAid" role="tabpanel" aria-labelledby="tabAid" hidden>
+    <div class="work">
+      <main class="sheet">
+        <p class="coach">Factor in the external factors first. Then work left to right and say what each box serves: tap <b>Serves</b> on a box to tie it to the column before. Tap any box to light its whole chain. Tap the dot to tag it with a color.</p>
+        <div class="ext" id="ext"></div>
+        <p class="headline">Aligning Priorities from Organization to Operational to Infrastructure</p>
+        <div class="toolbar">
+          <div class="legend" id="legend" aria-label="What the colors mean"></div>
+          <div class="arow" style="flex:0 1 auto">
+            <button class="btn small" id="walkBtn">Walk the chain</button>
+            <button class="btn small prep-only" id="copyBtn">Copy summary</button>
+            <button class="btn small prep-only" id="exampleBtn">Load an example</button>
+            <button class="btn small ghost prep-only" id="clearBtn">Clear</button>
+          </div>
+        </div>
+        <div class="walkbar" id="walkbar" hidden>
+          <button class="btn small" id="walkPrev" aria-label="Previous">←</button>
+          <p id="walkText" aria-live="polite"></p>
+          <button class="btn small" id="walkNext" aria-label="Next">→</button>
+          <button class="btn small ghost" id="walkEnd">End</button>
+        </div>
+        <div class="casc-wrap"><div class="casc" id="casc">
+          <div class="bands" aria-hidden="true"><div><span>ORGANIZATIONAL</span></div><div><span>OPERATIONAL</span></div><div><span>INFRASTRUCTURE</span></div></div>
+          <svg class="layer" id="layer" aria-hidden="true"></svg>
+        </div></div>
+        <p class="trace" id="trace" hidden></p>
+        <p class="chain">Solutions <b>ENHANCE</b> Initiatives to <b>IMPROVE</b> Processes to <b>EXECUTE</b> Strategies to <b>OBTAIN</b> Goals.</p>
+        <div class="check" id="check"></div>
+      </main>
+      <aside class="assist" id="assist" aria-label="Assistant">
+        <h2>Assistant</h2>
+        <div class="focusline" id="focusline">Tap any box to work on it. The assistant sees the situation, the gaps you ticked and everything on the aid.</div>
+        <div class="arow">
+          <button class="btn small" id="aBox">Suggest for this box</button>
+          <button class="btn small" id="aFill">Draft the whole aid</button>
+        </div>
+        <div class="arow">
+          <button class="btn small" id="aLinks">Suggest the connections</button>
+          <button class="btn small plum" id="aChallenge">Challenge the alignment</button>
+        </div>
+        <div class="arow"><button class="btn small" id="aQuestions">Questions to ask the client</button></div>
+        <div class="answer" id="answer" aria-live="polite"></div>
+        <div class="sugg" id="sugg"></div>
+        <div class="arow" id="suggActs" hidden>
+          <button class="btn small primary" id="useEmpty">Fill the empty boxes</button>
+          <button class="btn small" id="useAll">Replace everything</button>
+          <button class="btn small" id="discard">Discard</button>
+        </div>
+        <form class="ask" id="askForm">
+          <label for="askBox" class="note">Ask anything about this aid</label>
+          <textarea id="askBox" rows="2" placeholder="Which of these initiatives would a CFO challenge first?"></textarea>
+          <div class="arow"><button class="btn small primary" type="submit" id="askBtn">Ask</button><button class="btn small" type="button" id="stopBtn" hidden>Stop</button></div>
+        </form>
+        <p class="note" id="assistNote">Answers use your own Claude account. The first time, Claude asks you to allow it.</p>
+      </aside>
+    </div>
+  </section>
+
+  <footer><span>Rebuilt from Knowledge-Advantage's Alignment of Priorities guide (© 2015). A prototype.</span><span>Your work stays in this browser.</span></footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ---------- The aid's structure, as in the original PDF ---------- */
+const COLS = [
+  {k:"goals",      label:"Goals",       one:"goal",       n:2, verb:"OBTAIN",  walk:"Goals: what the business must obtain."},
+  {k:"strategies", label:"Strategies",  one:"strategy",   n:5, verb:"EXECUTE", walk:"Strategies obtain the goals."},
+  {k:"processes",  label:"Processes",   one:"process",    n:5, verb:"IMPROVE", walk:"Processes execute the strategies."},
+  {k:"initiatives",label:"Initiatives", one:"initiative", n:3, verb:"ENHANCE", walk:"Initiatives improve the processes."},
+  {k:"solutions",  label:"Solutions",   one:"solution",   n:3, verb:"",        walk:"Solutions enhance the initiatives."}
+];
+const EXT = [["economy","Economy"],["industry","Industry"],["financials","Financials"]];
+const OUTCOMES = ["Confirm that organizational alignment is of importance to stakeholders","Initial “draft” of the priorities for stakeholders across the organization","Clarification of business goals and strategies","Executive clarity as to how solutions address top of mind business initiatives"];
+const GAPS = [["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]];
+const PROBLEM = ["Review structure and use of colors within visual","Review and refine what is known for each of the columns","Understand the relationships within and across columns","Challenge the relevance of initiatives or solutions under consideration","Document any ambiguity that creates gaps to success"];
+const SOLUTION = ["Confirm how an initiative or solution aligns to the business priorities of key stakeholders","Test the importance of an initiative or solution based on the business priorities","Identify potential “gaps” in business priorities"];
+
+/* ---------- State ---------- */
+function blank(){
+  const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
+  return {title:"Gain Business Clarity",situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},legend:["","",""],
+    ext:Object.fromEntries(EXT.map(([k])=>[k,{t:"",d:""}])),notes:{},items};
+}
+const KEY="ka-aop-v1";
+let S;
+try{ S=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)||"null")||{}); }catch(e){ S=blank(); }
+COLS.forEach(c=>{ const a=S.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); S.items[c.k]=a.slice(0,c.n); });
+let saveT; function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{ try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} },250); }
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ci=k=>COLS.findIndex(c=>c.k===k);
+const item=id=>{ const [k,i]=id.split("."); return S.items[k]?.[+i]; };
+const filled=id=>!!(item(id)?.t||"").trim();
+const nameOf=id=>{ const it=item(id); return (it&&it.t.trim())||`${COLS[ci(id.split(".")[0])].one} ${+id.split(".")[1]+1}`; };
+function toast(m){ const t=$("toast"); t.textContent=m; t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>t.hidden=true,2200); }
+function autosize(t){ t.style.height="auto"; t.style.height=t.scrollHeight+"px"; }
+
+/* ---------- Links and chains ---------- */
+function servedBy(id){ // items in the next column that serve id
+  const [k]=id.split("."), n=COLS[ci(k)+1]; if(!n) return [];
+  return S.items[n.k].map((it,i)=>`${n.k}.${i}`).filter(x=>filled(x)&&item(x).serves.includes(id));
+}
+function up(id,acc=new Set()){ (item(id)?.serves||[]).forEach(t=>{ if(filled(t)&&!acc.has(t)){acc.add(t);up(t,acc);} }); return acc; }
+function down(id,acc=new Set()){ servedBy(id).forEach(t=>{ if(!acc.has(t)){acc.add(t);down(t,acc);} }); return acc; }
+function cleanLinks(){ COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach(it=>{ it.serves=(it.serves||[]).filter(t=>t.startsWith(COLS[ix-1].k+".")); }); }); }
+
+/* ---------- Page 1 ---------- */
+function liveFor(kind,i){
+  const all=COLS.flatMap(c=>S.items[c.k].map((_,j)=>`${c.k}.${j}`)).filter(filled);
+  const links=all.reduce((n,id)=>n+(item(id).serves||[]).filter(filled).length,0);
+  const orph=orphans();
+  if(kind==="p"){
+    if(i===0){ const n=all.filter(id=>item(id).c).length; return n?[`${n} tagged with a color`,0]:["No colors used yet",1]; }
+    if(i===1){ const n=COLS.filter(c=>S.items[c.k].some(it=>it.t.trim())).length; return [`${n} of 5 columns started`,n<5]; }
+    if(i===2){ return links?[`${links} connection${links>1?"s":""} made`,0]:["No connections yet",1]; }
+    if(i===3){ const n=orph.filter(o=>o.k==="initiatives"||o.k==="solutions").length; return n?[`${n} initiative or solution not tied to the column before`,1]:(all.some(id=>/^(initiatives|solutions)/.test(id))?["Every initiative and solution is tied in",0]:["",0]); }
+    if(i===4){ const n=Object.values(S.gaps).filter(g=>g.on&&g.note?.trim()).length; return n?[`${n} gap${n>1?"s":""} documented`,0]:["No gaps noted yet",1]; }
+  } else {
+    const sols=all.filter(id=>id.startsWith("solutions"));
+    if(i===0){ const n=sols.filter(id=>[...up(id)].some(x=>x.startsWith("goals"))).length; return sols.length?[`${n} of ${sols.length} solutions trace to a goal`,n<sols.length]:["",0]; }
+    if(i===2){ const g=all.filter(id=>id.startsWith("goals")), n=g.filter(id=>[...down(id)].some(x=>x.startsWith("solutions"))).length; return g.length?[`${n} of ${g.length} goals reached by a solution`,n<g.length]:["",0]; }
+  }
+  return ["",0];
+}
+function renderGuide(){
+  $("outcomes").innerHTML=OUTCOMES.map((o,i)=>`<li><button class="tick" role="checkbox" aria-checked="${!!S.outcomes[i]}" data-o="${i}" aria-label="Reached: ${esc(o)}"></button><span>${esc(o)}</span></li>`).join("");
+  $("gaps").innerHTML=GAPS.map(([k,l])=>{ const g=S.gaps[k]||{}; return `<div class="gap ${g.on?"on":""}"><button class="gt" data-gap="${k}" aria-pressed="${!!g.on}"><span class="box">${g.on?"✕":""}</span>${esc(l)}</button>${g.on?`<textarea rows="1" data-gapnote="${k}" placeholder="What do you know? What's still unclear?" aria-label="Notes on ${esc(l)}">${esc(g.note||"")}</textarea>`:""}</div>`; }).join("");
+  const steps=(arr,kind,key)=>arr.map((s,i)=>{ const [lv,w]=liveFor(kind,i); return `<li><button class="tick" role="checkbox" aria-checked="${!!S[key][i]}" data-step="${key}.${i}" aria-label="Done: ${esc(s)}"></button><span>${esc(s)}${lv?`<span class="live ${w?"warn":""}">${esc(lv)}</span>`:""}</span></li>`; }).join("");
+  $("stepsProblem").innerHTML=steps(PROBLEM,"p","stepsP");
+  $("stepsSolution").innerHTML=steps(SOLUTION,"s","stepsS");
+  $("spProblem").setAttribute("aria-pressed",S.space==="problem"); $("spSolution").setAttribute("aria-pressed",S.space==="solution");
+  $("listProblem").classList.toggle("dim",S.space!=="problem"); $("listSolution").classList.toggle("dim",S.space!=="solution");
+  document.querySelectorAll("#gaps textarea").forEach(autosize);
+}
+$("viewGuide").addEventListener("click",e=>{
+  const o=e.target.closest("[data-o]"), st=e.target.closest("[data-step]"), g=e.target.closest("[data-gap]");
+  if(o){ S.outcomes[+o.dataset.o]=!S.outcomes[+o.dataset.o]; save(); renderGuide(); }
+  if(st){ const [k,i]=st.dataset.step.split("."); S[k][+i]=!S[k][+i]; save(); renderGuide(); }
+  if(g){ const k=g.dataset.gap; S.gaps[k]=Object.assign(S.gaps[k]||{},{on:!(S.gaps[k]?.on)}); save(); renderGuide(); if(S.gaps[k].on) document.querySelector(`[data-gapnote="${k}"]`)?.focus(); }
+});
+$("viewGuide").addEventListener("input",e=>{ const n=e.target.dataset.gapnote; if(n){ S.gaps[n].note=e.target.value; autosize(e.target); save(); } });
+$("spProblem").onclick=()=>{ S.space="problem"; save(); renderGuide(); };
+$("spSolution").onclick=()=>{ S.space="solution"; save(); renderGuide(); };
+
+/* ---------- Page 2 ---------- */
+let sel=null, walk=-1;
+function renderExt(){
+  $("ext").innerHTML=EXT.map(([k,l])=>`<div class="extc"><header><h4>${l.toUpperCase()}</h4></header><textarea rows="1" data-ext="${k}" placeholder="What's happening in ${l.toLowerCase()} that matters here?" aria-label="${l}">${esc(S.ext[k].t)}</textarea></div>`).join("");
+  $("legend").innerHTML=["c1","c2","c3"].map((c,i)=>`<label class="${S.legend[i].trim()?"":"unnamed"}"><span class="sw ${c}"></span><input data-legend="${i}" value="${esc(S.legend[i])}" placeholder="${["Teal","Orange","Pink"][i]} means…" aria-label="What ${["teal","orange","pink"][i]} means"><span class="lgname">${esc(S.legend[i])}</span></label>`).join("")+(S.legend.some(Boolean)?"":`<span class="note prep-only">Name the colors so everyone reads them the same way.</span>`);
+  $("ext").querySelectorAll("textarea").forEach(autosize);
+}
+function cardHTML(c,ix,i){
+  const id=`${c.k}.${i}`, it=S.items[c.k][i], prev=COLS[ix-1];
+  let foot="";
+  if(prev){
+    const tied=(it.serves||[]).filter(filled);
+    foot=tied.length?tied.map(t=>`<button class="chip serves" data-serves="${id}" title="Serves ${esc(nameOf(t))}. Tap to change.">${prev.one[0].toUpperCase()+prev.one.slice(1)}: ${esc(nameOf(t))}</button>`).join("")
+      :`<button class="chip none" data-serves="${id}">Serves… ${prev.one}</button>`;
+  }
+  return `<div class="card ${it.c?"c"+it.c:""} ${it.t.trim()?"":"empty"}" data-id="${id}">
+    <div class="top"><button class="dotbtn" data-dot="${id}" aria-label="Color tag for ${esc(nameOf(id))}: ${it.c?["","teal","orange","pink"][it.c]:"none"}"></button>
+    <textarea class="nm" rows="1" data-f="${id}.t" placeholder="Add a ${c.one}" aria-label="${c.label} ${i+1}">${esc(it.t)}</textarea></div>
+    <textarea class="ds" rows="1" data-f="${id}.d" placeholder="Details" aria-label="${c.label} ${i+1} details">${esc(it.d)}</textarea>
+    ${foot?`<div class="foot">${foot}</div>`:""}</div>`;
+}
+function renderCasc(){
+  const casc=$("casc");
+  casc.querySelectorAll(".col").forEach(e=>e.remove());
+  COLS.forEach((c,ix)=>{
+    const col=document.createElement("div"); col.className="col"; col.dataset.col=c.k;
+    col.style.paddingTop=`calc(var(--step) * ${ix})`;
+    col.innerHTML=`<button class="colh" data-note="${c.k}" aria-label="${c.label}: notes">▷ ${c.label.toUpperCase()}${S.notes[c.k]?.trim()?'<span class="hasnote" aria-hidden="true"></span>':""}</button>`+S.items[c.k].map((_,i)=>cardHTML(c,ix,i)).join("");
+    casc.appendChild(col);
+  });
+  casc.querySelectorAll("textarea").forEach(autosize);
+  applyFocus(); requestAnimationFrame(drawLines);
+}
+function renderCheck(){
+  const all=COLS.flatMap(c=>S.items[c.k].map((_,j)=>`${c.k}.${j}`)).filter(filled);
+  if(!all.length){ $("check").innerHTML=`<h3>Alignment check</h3><p class="note">Fill in a few boxes and connect them. This shows what isn't tied in yet.</p>`; return; }
+  const sols=all.filter(id=>id.startsWith("solutions")), goals=all.filter(id=>id.startsWith("goals"));
+  const sOK=sols.filter(id=>[...up(id)].some(x=>x.startsWith("goals"))).length, gOK=goals.filter(id=>[...down(id)].some(x=>x.startsWith("solutions"))).length;
+  const o=orphans();
+  const rows=o.map(x=>`<li class="warn"><span><b>${esc(nameOf(x.id))}</b> · ${esc(x.why)}</span><button class="btn small" data-show="${x.id}">Show</button></li>`).join("");
+  $("check").innerHTML=`<h3>Alignment check</h3><div class="meter"><span><b>${sOK}/${sols.length}</b> solutions trace to a goal</span><span><b>${gOK}/${goals.length}</b> goals reached by a solution</span></div><ul>${rows||`<li class="ok">Everything filled in is tied to the column before it.</li>`}</ul>`;
+}
+function orphans(){
+  const out=[];
+  COLS.forEach((c,ix)=>S.items[c.k].forEach((it,i)=>{ const id=`${c.k}.${i}`; if(!filled(id)) return;
+    if(ix>0 && !(it.serves||[]).some(filled)) out.push({id,k:c.k,why:`not tied to a ${COLS[ix-1].one}`});
+    if(ix<COLS.length-1 && !servedBy(id).length) out.push({id,k:c.k,why:`no ${COLS[ix+1].one} supports it`});
+  }));
+  return out;
+}
+function renderAll(){ renderExt(); renderCasc(); renderCheck(); renderGuide(); }
+
+/* lines */
+function drawLines(){
+  const svg=$("layer"), casc=$("casc");
+  if(getComputedStyle(svg).display==="none"){ svg.innerHTML=""; return; }
+  const box=casc.getBoundingClientRect(); let h="";
+  const lit=sel?new Set([sel,...up(sel),...down(sel)]):null;
+  COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
+    (it.serves||[]).filter(filled).forEach(to=>{
+      const a=casc.querySelector(`[data-id="${from}"]`)?.getBoundingClientRect(), b=casc.querySelector(`[data-id="${to}"]`)?.getBoundingClientRect(); if(!a||!b) return;
+      const x1=a.left-box.left, y1=a.top-box.top+18, x2=b.right-box.left, y2=b.top-box.top+18, mx=(x1+x2)/2;
+      const on=!lit||(lit.has(from)&&lit.has(to));
+      h+=`<path d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" fill="none" stroke="var(--line)" stroke-width="${on&&lit?2.6:1.6}" stroke-opacity="${on?(lit?.95:.55):.08}"/><circle cx="${x2}" cy="${y2}" r="3" fill="var(--line)" fill-opacity="${on?.8:.1}"/>`;
+    }); }); });
+  // the plum diagonal from the PDF
+  const w=box.width, hh=box.height;
+  h=`<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--plum)"/></marker></defs><line x1="44" y1="54" x2="${w-12}" y2="${hh-12}" stroke="var(--plum)" stroke-opacity=".14" stroke-width="10" stroke-linecap="round"/><line x1="${w-60}" y1="${hh-12-(hh-66)*(48/(w-56))}" x2="${w-14}" y2="${hh-13}" stroke="var(--plum)" stroke-opacity=".5" stroke-width="3" marker-end="url(#ah)"/>`+h;
+  svg.innerHTML=h;
+}
+new ResizeObserver(()=>drawLines()).observe($("casc"));
+
+/* focus & trace */
+function applyFocus(){
+  const casc=$("casc"), lit=sel&&filled(sel)?new Set([sel,...up(sel),...down(sel)]):null;
+  casc.classList.toggle("focusing",!!lit);
+  casc.querySelectorAll(".card").forEach(cd=>{ cd.classList.toggle("lit",!!lit&&lit.has(cd.dataset.id)); cd.classList.toggle("sel",cd.dataset.id===sel); });
+  const tr=$("trace");
+  if(lit){
+    const ups=[...up(sel)], downs=[...down(sel)];
+    const by=k=>ups.concat(downs).filter(x=>x.startsWith(k)).map(nameOf);
+    const parts=COLS.map(c=>c.k===sel.split(".")[0]?`<b>${esc(nameOf(sel))}</b>`:(by(c.k).length?esc(by(c.k).join(", ")):null));
+    let s=""; for(let i=COLS.length-1;i>=0;i--){ if(!parts[i]) continue; s+=(s?` → `:"")+`${parts[i]}`; }
+    tr.innerHTML=`${s}<br><span class="note">Read right to left: solution → initiative → process → strategy → goal.</span>`;
+    tr.hidden=false;
+  } else tr.hidden=true;
+  setFocusLine(); drawLines();
+}
+function select(id){ sel=id; applyFocus(); }
+$("casc").addEventListener("click",e=>{
+  const dot=e.target.closest("[data-dot]"), sv=e.target.closest("[data-serves]"), nt=e.target.closest("[data-note]"), card=e.target.closest(".card");
+  if(dot){ const it=item(dot.dataset.dot); it.c=(it.c+1)%4; save(); renderCasc(); renderGuide(); return; }
+  if(sv){ openServes(sv.dataset.serves,sv); return; }
+  if(nt){ openNote(nt.dataset.note,nt); return; }
+  if(card){ select(sel===card.dataset.id&&e.target.tagName!=="TEXTAREA"?null:card.dataset.id); }
+});
+$("casc").addEventListener("focusin",e=>{ const card=e.target.closest(".card"); if(card&&card.dataset.id!==sel) select(card.dataset.id); });
+$("casc").addEventListener("input",e=>{
+  const f=e.target.dataset.f; if(!f) return;
+  const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; autosize(e.target); save();
+  const card=e.target.closest(".card"); card.classList.toggle("empty",!S.items[k][+i].t.trim());
+  clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); refreshChips(); applyFocus(); },400);
+});
+function refreshChips(){ // update chip labels without re-rendering textareas
+  COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((_,i)=>{ const id=`${c.k}.${i}`, cd=document.querySelector(`.card[data-id="${id}"]`); if(!cd) return;
+    const old=cd.querySelector(".foot"); const tmp=document.createElement("div"); tmp.innerHTML=cardHTML(c,ix,i); old.replaceWith(tmp.querySelector(".foot")); }); });
+}
+$("ext").addEventListener("input",e=>{ const k=e.target.dataset.ext; if(k){ S.ext[k].t=e.target.value; autosize(e.target); save(); } });
+$("legend").addEventListener("input",e=>{ const i=e.target.dataset.legend; if(i!=null){ S.legend[+i]=e.target.value; const l=e.target.closest("label"); l.querySelector(".lgname").textContent=e.target.value; l.classList.toggle("unnamed",!e.target.value.trim()); save(); } });
+$("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ select(b.dataset.show); document.querySelector(`.card[data-id="${b.dataset.show}"]`)?.scrollIntoView({block:"center",behavior:"smooth",inline:"center"}); } });
+
+/* popovers */
+let popEl=null;
+function closePop(){ if(popEl){ popEl.remove(); popEl=null; } }
+function place(pop,anchor){ document.body.appendChild(pop); const r=anchor.getBoundingClientRect(), pw=pop.offsetWidth, ph=pop.offsetHeight;
+  let x=Math.min(Math.max(16,r.left),innerWidth-pw-16), y=r.bottom+6; if(y+ph>innerHeight-16) y=Math.max(16,r.top-ph-6); pop.style.left=x+"px"; pop.style.top=y+"px"; }
+function openServes(id,anchor){
+  closePop(); const [k]=id.split("."), ix=ci(k), prev=COLS[ix-1], it=item(id);
+  const opts=S.items[prev.k].map((p,i)=>`${prev.k}.${i}`).filter(filled);
+  const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","What this serves");
+  pop.innerHTML=`<h5>${esc(nameOf(id))} serves which ${prev.label.toLowerCase()}?</h5>`+(opts.length?opts.map(o=>`<label><input type="checkbox" value="${o}" ${it.serves.includes(o)?"checked":""}><span>${esc(nameOf(o))}</span></label>`).join(""):`<p class="note">Add a ${prev.one} in the column to the left first.</p>`)+`<div class="arow"><button class="btn small primary" data-done>Done</button></div>`;
+  place(pop,anchor); popEl=pop;
+  pop.addEventListener("change",e=>{ const v=e.target.value; it.serves=e.target.checked?[...new Set([...it.serves,v])]:it.serves.filter(x=>x!==v); save(); refreshChips(); renderCheck(); renderGuide(); applyFocus(); });
+  pop.querySelector("[data-done]").onclick=()=>{ closePop(); anchor.isConnected?anchor.focus():null; };
+  pop.querySelector("input,button")?.focus();
+}
+function openNote(k,anchor){
+  closePop(); const l=COLS.find(c=>c.k===k)?.label;
+  const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",l+" notes");
+  pop.innerHTML=`<h5>${l}: more detail</h5><textarea id="noteBox" placeholder="Enter details here">${esc(S.notes[k]||"")}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button></div>`;
+  place(pop,anchor); popEl=pop;
+  pop.querySelector("textarea").addEventListener("input",e=>{ S.notes[k]=e.target.value; save(); });
+  pop.querySelector("[data-done]").onclick=()=>{ closePop(); renderCasc(); };
+  pop.querySelector("textarea").focus();
+}
+document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-serves],[data-note]")) closePop(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ if(popEl) closePop(); else if(sel){ select(null); } } });
+addEventListener("scroll",()=>closePop(),{passive:true});
+
+/* walk the chain */
+const WALK=[{t:"Factor in the external factors: Economy, Industry, Financials.",col:-1}].concat(COLS.map((c,i)=>({t:c.walk,col:i})));
+function setWalk(n){
+  walk=n; const on=n>=0; $("walkbar").hidden=!on; $("walkBtn").hidden=on;
+  const casc=$("casc"); casc.classList.toggle("walk",on&&WALK[n]?.col>=0);
+  casc.querySelectorAll(".col").forEach((c,i)=>c.classList.toggle("walkon",on&&WALK[n].col===i));
+  document.querySelectorAll(".extc").forEach(e=>e.style.boxShadow=on&&n===0?"0 0 0 3px var(--plum)":"");
+  if(on){ $("walkText").textContent=`${n+1} of ${WALK.length} · ${WALK[n].t}`; $("walkPrev").disabled=n===0; $("walkNext").textContent=n===WALK.length-1?"Done":"→"; }
+  drawLines();
+}
+$("walkBtn").onclick=()=>{ select(null); setWalk(0); };
+$("walkPrev").onclick=()=>setWalk(Math.max(0,walk-1));
+$("walkNext").onclick=()=>walk>=WALK.length-1?setWalk(-1):setWalk(walk+1);
+$("walkEnd").onclick=()=>setWalk(-1);
+
+/* summary, example, clear */
+function summary(){
+  const L=[]; L.push(`ALIGNMENT OF PRIORITIES · ${S.title||""}`.trim()); if(S.situation) L.push(S.situation); L.push("");
+  EXT.forEach(([k,l])=>{ if(S.ext[k].t.trim()) L.push(`${l}: ${S.ext[k].t.trim()}`); });
+  COLS.forEach((c,ix)=>{ const its=S.items[c.k].map((it,i)=>[it,`${c.k}.${i}`]).filter(([it])=>it.t.trim()); if(!its.length) return;
+    L.push("",c.label.toUpperCase()); its.forEach(([it,id])=>{ const tag=it.c&&S.legend[it.c-1]?` [${S.legend[it.c-1]}]`:""; L.push(`- ${it.t.trim()}${tag}${it.d.trim()?` · ${it.d.trim()}`:""}`); const sv=(it.serves||[]).filter(filled).map(nameOf); if(sv.length) L.push(`    serves: ${sv.join("; ")}`); }); });
+  const o=orphans(); if(o.length){ L.push("","NOT TIED IN YET"); o.forEach(x=>L.push(`- ${nameOf(x.id)}: ${x.why}`)); }
+  const gs=GAPS.filter(([k])=>S.gaps[k]?.on); if(gs.length){ L.push("","GAPS"); gs.forEach(([k,l])=>L.push(`- ${l}${S.gaps[k].note?`: ${S.gaps[k].note}`:""}`)); }
+  return L.join("\n");
+}
+$("copyBtn").onclick=async()=>{ const t=summary(); try{ await navigator.clipboard.writeText(t); toast("Summary copied"); }catch(e){ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast("Summary copied");}catch(_){ toast("Copy didn't work in this view"); } ta.remove(); } };
+const EXAMPLE = {
+  title:"Gain Business Clarity",
+  situation:"EXAMPLE · A regional insurance broker. Renewals fell 8% last year; the COO and VP of Sales want them back up. (Not a real client.)",
+  legend:["Agreed","Open question","At risk"],
+  ext:{economy:{t:"Premiums rising; clients shop harder at renewal",d:""},industry:{t:"Carriers consolidating; direct digital competitors",d:""},financials:{t:"Commission revenue flat while service costs climb",d:""}},
+  gaps:{people:{on:true,note:"COO and VP of Sales haven't agreed who owns renewals."},policies:{on:true,note:"No budget set aside for new tools this year."}},
+  items:{
+    goals:[{t:"Grow renewals 10% this year",d:"Renewals are about 70% of revenue",c:1,serves:[]},{t:"Raise margin per account",d:"",c:0,serves:[]}],
+    strategies:[{t:"Joint account management with carriers",d:"",c:1,serves:["goals.0"]},{t:"Segment the book by value and risk",d:"",c:0,serves:["goals.0","goals.1"]},{t:"Cross-sell benefits to P&C clients",d:"",c:2,serves:["goals.1"]},{t:"Make service the reason to stay",d:"",c:0,serves:["goals.0"]},{t:"",d:"",c:0,serves:[]}],
+    processes:[{t:"Quarterly account reviews",d:"",c:0,serves:["strategies.0","strategies.3"]},{t:"Renewal planning at 120 days",d:"",c:0,serves:["strategies.0"]},{t:"Account tiering",d:"",c:0,serves:["strategies.1"]},{t:"Cross-team referrals",d:"",c:0,serves:["strategies.2"]},{t:"",d:"",c:0,serves:[]}],
+    initiatives:[{t:"Renewal early-warning",d:"Flag accounts at risk 120 days out",c:0,serves:["processes.1","processes.2"]},{t:"Account team playbook",d:"",c:0,serves:["processes.0","processes.3"]},{t:"Client portal refresh",d:"",c:2,serves:[]}],
+    solutions:[{t:"CRM renewal dashboard",d:"",c:0,serves:["initiatives.0"]},{t:"Review templates and coaching",d:"",c:0,serves:["initiatives.1"]},{t:"New portal vendor",d:"",c:3,serves:["initiatives.2"]}]
+  }
+};
+let undoState=null;
+function replaceState(n,msg){ undoState=JSON.stringify(S); S=n; save(); syncTop(); renderAll(); select(null); toast(msg); }
+$("exampleBtn").onclick=()=>{ const n=Object.assign(blank(),JSON.parse(JSON.stringify(EXAMPLE))); replaceState(n,"Example loaded. Clear brings back a blank aid."); };
+$("clearBtn").onclick=()=>{ const b=$("clearBtn"); if(!b.dataset.sure){ b.dataset.sure="1"; b.textContent="Tap again to clear"; setTimeout(()=>{ b.textContent="Clear"; delete b.dataset.sure; },3000); return; } b.textContent="Clear"; delete b.dataset.sure; replaceState(blank(),"Cleared"); };
+
+/* top-level wiring */
+function syncTop(){ $("title").value=S.title||""; $("situation").value=S.situation||""; autosize($("title")); }
+$("title").addEventListener("input",e=>{ S.title=e.target.value; autosize(e.target); save(); });
+$("situation").addEventListener("input",e=>{ S.situation=e.target.value; save(); });
+function show(view){
+  const g=view==="guide"; $("viewGuide").hidden=!g; $("viewAid").hidden=g;
+  $("tabGuide").setAttribute("aria-selected",g); $("tabAid").setAttribute("aria-selected",!g);
+  if(!g){ renderCasc(); renderCheck(); } else renderGuide();
+  try{ history.replaceState(null,"",g?"#guide":"#aid"); }catch(e){}
+}
+$("tabGuide").onclick=()=>show("guide"); $("tabAid").onclick=()=>show("aid"); $("toAid").onclick=()=>{ show("aid"); scrollTo({top:0}); };
+function setMode(client){ document.body.classList.toggle("client",client); $("modePrep").classList.toggle("primary",!client); $("modeClient").classList.toggle("primary",client);
+  $("modePrep").setAttribute("aria-pressed",!client); $("modeClient").setAttribute("aria-pressed",client); requestAnimationFrame(()=>{ document.querySelectorAll("#casc textarea").forEach(autosize); drawLines(); }); }
+$("modePrep").onclick=()=>setMode(false); $("modeClient").onclick=()=>setMode(true);
+addEventListener("hashchange",()=>show(location.hash==="#aid"?"aid":"guide"));
+
+/* ---------- Assistant ---------- */
+let sample=null, ctl=null, assistOff=false, pending=null;
+const btns=["aBox","aFill","aLinks","aChallenge","aQuestions","askBtn"].map($);
+function setFocusLine(){
+  $("focusline").innerHTML=sel?`Working on <b>${esc(COLS[ci(sel.split(".")[0])].label)}: ${esc(nameOf(sel))}</b>`:"Tap any box to work on it. The assistant sees the situation, the gaps you ticked and everything on the aid.";
+  $("aBox").disabled=assistOff||!sel;
+}
+function snapshot(){
+  const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,name:it.t,details:it.d,tag:it.c?(S.legend[it.c-1]||["teal","orange","pink"][it.c-1]):null,serves:(it.serves||[]).filter(filled)})));
+  return {title:S.title,external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),columnNotes:S.notes,items,
+    gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)};
+}
+const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. The aid aligns priorities of key stakeholders: external factors (Economy, Industry, Financials), then Goals (2 slots), Strategies (5), Processes (5), Initiatives (3) and Solutions (3), across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item "serves" items in the column to its left. KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific to the situation, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
+const ctx=()=>`${BASE}\n\nSituation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
+function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!sel)); $("stopBtn").hidden=!on; }
+function off(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); $("assistNote").textContent=msg; }
+function failMsg(e){
+  if(["not_granted","sampling_disabled","capability_disabled","not_declared"].includes(e.code)){ off("The assistant is off for this view. The aid still works by hand."); return ""; }
+  if(e.code==="cancelled") return null;
+  if(e.code==="rate_limited") return "Too many requests just now. Try again in a minute.";
+  if(e.code==="refused") return "Claude couldn't help with that wording. Try rephrasing.";
+  if(e.code==="invalid_json") return "The draft came back in a shape I couldn't read. Try again.";
+  return "Something interrupted the answer. Try again.";
+}
+function clearSugg(){ $("sugg").innerHTML=""; $("suggActs").hidden=true; }
+async function ask(prompt,{json=false}={}){
+  if(!sample){ return null; }
+  ctl=new AbortController(); busy(true); clearSugg(); $("answer").textContent="Thinking…";
+  try{
+    if(json){ const r=await sample.json(prompt,{signal:ctl.signal,cache:false}); $("answer").textContent=""; return r; }
+    const r=await sample(prompt,{signal:ctl.signal,cache:false,onText:({text})=>{$("answer").textContent=text;}});
+    if(r.truncated) $("assistNote").textContent="That answer was cut short. Ask for less at a time.";
+    return r.text;
+  }catch(e){ const m=failMsg(e); $("answer").textContent=m===null?(e.text||""):((e.text?e.text+"\n\n":"")+(m||"")); return null; }
+  finally{ busy(false); }
+}
+$("stopBtn").onclick=()=>ctl?.abort();
+$("aBox").onclick=async()=>{
+  if(!sel) return; const id=sel, c=COLS[ci(id.split(".")[0])];
+  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 alternatives for this one ${c.one}, each name under 10 words, details under 20, why under 15.`,{json:true});
+  if(!r||!Array.isArray(r.options)) return;
+  $("sugg").innerHTML=r.options.slice(0,3).map((o,i)=>`<div class="s"><b>${esc(o.name)}</b><span>${esc(o.details||"")}</span><small>${esc(o.why||"")}</small><button class="btn small" data-use="${i}">Use this</button></div>`).join("");
+  $("sugg").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{ const o=r.options[+b.dataset.use]; Object.assign(item(id),{t:String(o.name||""),d:String(o.details||"")}); save(); clearSugg(); renderCasc(); renderCheck(); renderGuide(); $("answer").textContent="Added. Now tap Serves to tie it in."; });
+};
+$("aFill").onclick=async()=>{
+  const r=await ask(`${ctx()}\n\nDraft the whole aid for this situation. Keep every existing entry at its same position, word for word. Fill empty slots only where the situation supports it; leave others empty. Names under 10 words, details under 20. "serves" lists ids in the column to the left (goals serve nothing). Reply with only JSON: {"external":{"economy":string,"industry":string,"financials":string},"items":{"goals":[{"name":string,"details":string,"serves":[]}] x2,"strategies":[... x5],"processes":[... x5],"initiatives":[... x3],"solutions":[... x3]}}`,{json:true});
+  if(!r||typeof r!=="object"||!r.items) return;
+  pending=r; const rows=[];
+  EXT.forEach(([k,l])=>{ const v=r.external?.[k]; if(v&&v.trim()) rows.push(`<div class="s"><small>${l}${S.ext[k].t.trim()?" · you have text here":""}</small>${esc(v)}</div>`); });
+  COLS.forEach(c=>(r.items[c.k]||[]).slice(0,c.n).forEach((d,i)=>{ if(!d?.name?.trim()) return; const has=S.items[c.k][i].t.trim();
+    rows.push(`<div class="s"><small>${c.label} ${i+1}${has?(has===d.name.trim()?" · unchanged":" · replaces yours"):""}</small><b>${esc(d.name)}</b>${d.details?`<span>${esc(d.details)}</span>`:""}${(d.serves||[]).length?`<small>serves ${esc(d.serves.join(", "))}</small>`:""}</div>`); }));
+  $("sugg").innerHTML=`<p class="note">A draft for review. Nothing changes until you choose.</p>`+rows.join(""); $("suggActs").hidden=false;
+};
+function applyDraft(all){
+  const r=pending; if(!r) return; pending=null;
+  EXT.forEach(([k])=>{ const v=r.external?.[k]; if(v&&v.trim()&&(all||!S.ext[k].t.trim())) S.ext[k].t=v.trim(); });
+  COLS.forEach((c,ix)=>(r.items[c.k]||[]).slice(0,c.n).forEach((d,i)=>{ if(!d?.name?.trim()) return; const it=S.items[c.k][i]; const empty=!it.t.trim();
+    if(all||empty){ it.t=d.name.trim(); it.d=String(d.details||"").trim(); }
+    if(ix>0&&(all||empty||!it.serves.length)){ const sv=(d.serves||[]).filter(x=>typeof x==="string"&&x.startsWith(COLS[ix-1].k+".")); if(sv.length) it.serves=[...new Set(sv)]; } }));
+  cleanLinks(); save(); clearSugg(); renderAll(); $("answer").textContent=all?"Draft applied. Everything stays editable.":"Empty boxes filled. Your own words were kept.";
+}
+$("useEmpty").onclick=()=>applyDraft(false); $("useAll").onclick=()=>applyDraft(true); $("discard").onclick=()=>{ pending=null; clearSugg(); $("answer").textContent=""; };
+$("aLinks").onclick=async()=>{
+  const r=await ask(`${ctx()}\n\nSuggest which filled item serves which filled item in the column to its left (strategy→goal, process→strategy, initiative→process, solution→initiative). Only use ids that have a name. Reply with only JSON: {"links":[{"from":id,"to":id,"why":string}]} (why under 12 words). Include links that already exist only if you'd keep them.`,{json:true});
+  if(!r||!Array.isArray(r.links)) return;
+  const ok=r.links.filter(l=>filled(l.from)&&filled(l.to)&&ci(l.from.split(".")[0])===ci(l.to.split(".")[0])+1);
+  if(!ok.length){ $("answer").textContent="No connections to suggest yet. Fill in more boxes first."; return; }
+  pending={links:ok};
+  $("sugg").innerHTML=`<p class="note">Suggested connections. New ones are marked.</p>`+ok.map(l=>`<div class="s"><small>${item(l.from).serves.includes(l.to)?"already connected":"new"}</small><span><b>${esc(nameOf(l.from))}</b> serves <b>${esc(nameOf(l.to))}</b></span><small>${esc(l.why||"")}</small></div>`).join("")+`<div class="arow"><button class="btn small primary" id="addLinks">Add the new connections</button><button class="btn small" id="noLinks">Discard</button></div>`;
+  $("addLinks").onclick=()=>{ ok.forEach(l=>{ const it=item(l.from); if(!it.serves.includes(l.to)) it.serves.push(l.to); }); save(); pending=null; clearSugg(); renderAll(); $("answer").textContent="Connections added. Tap a box to see its chain."; };
+  $("noLinks").onclick=()=>{ pending=null; clearSugg(); $("answer").textContent=""; };
+};
+$("aChallenge").onclick=()=>ask(`${ctx()}\n\nChallenge this alignment as an experienced KA principal would before it goes in front of the client. Use KA's own Problem Space steps: challenge the relevance of initiatives or solutions under consideration, and document any ambiguity that creates gaps to success. Name specific items. Cover what isn't tied in, what's vague, and which of the five gaps (Position, People, Policies, Procedures, Politics) it exposes. At most 6 short bullets, most important first. Plain text, "- " bullets.`);
+$("aQuestions").onclick=()=>ask(`${ctx()}\n\nWrite 5 open questions to ask the client while filling this aid in together, each tied to a specific column or item (name it in brackets first), aimed at the gaps and the items not tied in. Plain text, numbered.`);
+$("askForm").onsubmit=e=>{ e.preventDefault(); const q=$("askBox").value.trim(); if(!q) return; ask(`${ctx()}${sel?`\n\nThe user is looking at: ${nameOf(sel)} (${sel}).`:""}\n\nQuestion: ${q}\n\nAnswer in under 150 words, plain text.`); };
+
+(async()=>{ try{ sample=window.claude?await window.claude.use("sample"):null; }catch(e){ sample=null; }
+  if(!sample) off("The assistant works when this page is opened in Claude. The aid works by hand everywhere."); })();
+
+syncTop(); renderAll(); show(location.hash==="#aid"?"aid":"guide");
+</script>
