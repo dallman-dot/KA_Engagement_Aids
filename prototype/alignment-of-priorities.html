@@ -680,14 +680,25 @@ const ABBR=[[/\band\b/gi,"&"],[/\bwith\b/gi,"w/"],[/\bwithout\b/gi,"w/o"],[/\bma
   [/\btechnology\b/gi,"tech"],[/\byears\b/gi,"yrs"],[/\byear\b/gi,"yr"],[/\bmillion\b/gi,"M"],[/\bbillion\b/gi,"B"],[/\bthousand\b/gi,"K"],[/\bdepartment\b/gi,"dept."],[/\bexecutives?\b/gi,"execs"],
   [/\bincluding\b/gi,"incl."],[/\bversus\b/gi,"vs."],[/\bbecause\b/gi,"b/c"],[/\bgovernment\b/gi,"gov't"],[/\binfrastructure\b/gi,"infra."],[/\bperformance\b/gi,"perf."],[/\bproducts\b/gi,"prods"],
   [/\bservices\b/gi,"svcs"],[/\bacross\b/gi,"across"],[/\bthe\s+/gi,""],[/\b(a|an)\s+/gi,""],[/\.$/,""]];
+function abbrOne(x,re,to){ return x.replace(re,m=>(/^[A-Z]/.test(m)&&/^[a-z]/.test(to))?to[0].toUpperCase()+to.slice(1):to).replace(/\s+/g," ").trim(); }
 function abbreviate(t){ return String(t||"").replace(/\s+/g," ").trim(); }
-function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [re,to] of ABBR){ if(x.length<=max) break; x=x.replace(re,to).replace(/\s+/g," ").trim(); } return x; }
-function fitDescs(){ const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
+function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [re,to] of ABBR){ if(x.length<=max) break; x=abbrOne(x,re,to); } return x; }
+/* choice names must fit their bar: smaller type first, then a logical short form (display only; the stored choice stays KA's standard) */
+const SHORT={"Enabling Infrastructure":"Enabling Infra.","Prevention & Intervention":"Prevention & Interv.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Innovation & Design":"Innov. & Design","Product Development":"Product Dev.","Market Development":"Market Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Recovery & Rehab":"Recovery & Rehab","Compliance & Cert.":"Compliance & Cert."};
+const NAME_MIN=2.6;
+function overX(el){ return el.scrollWidth>el.clientWidth; }
+function fitNames(){ const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
+  cv.querySelectorAll(".slot:not(.empty) .namebar").forEach(nb=>{ const v=nb.querySelector(".v"), id=nb.dataset.pick, full=item(id).t; v.textContent=full; nb.title="";
+    let f=3.15; nb.style.fontSize=(f*mm)+"px"; while(overX(v)&&f>NAME_MIN){ f-=.05; nb.style.fontSize=(f*mm)+"px"; }
+    if(overX(v)&&SHORT[full]){ v.textContent=SHORT[full]; nb.title=full; f=3.15; nb.style.fontSize=(f*mm)+"px"; while(overX(v)&&f>NAME_MIN){ f-=.05; nb.style.fontSize=(f*mm)+"px"; } } });
+  cv.querySelectorAll(".slot input.nameinput").forEach(inp=>{ let f=3.15; inp.style.fontSize=(f*mm)+"px"; if(inp===document.activeElement||!inp.value) return; while(overX(inp)&&f>NAME_MIN){ f-=.05; inp.style.fontSize=(f*mm)+"px"; } inp.closest(".slot").classList.toggle("nameover",overX(inp)); }); }
+function fitDescs(){ fitNames(); const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
   cv.querySelectorAll(".slot .desc").forEach(el=>{ if(el===document.activeElement) return; let f=2.75; el.style.fontSize=(f*mm)+"px"; el.style.lineHeight="1.3";
     el.scrollTop=0; while(el.scrollHeight>el.clientHeight+1&&f>2.25){ f-=.1; el.style.fontSize=(f*mm)+"px"; if(f<2.4) el.style.lineHeight="1.2"; }
     el.scrollTop=0; const over=el.scrollHeight>el.clientHeight+1; el.closest(".slot").classList.toggle("over",over&&!!el.value.trim()); el.title=over?"Too long for the printed box: shorten it in Build":""; }); }
 new ResizeObserver(()=>fitDescs()).observe($("stage"));
 addEventListener("beforeprint",fitDescs);
+try{ document.fonts.ready.then(()=>fitDescs()); document.fonts.addEventListener("loadingdone",()=>fitDescs()); }catch(e){}
 function linkPt(id,side){ const [k,i]=id.split("."), c=COLS[ci(k)]; return [side==="r"?c.x+W:c.x, c.ys[+i]+c.nh/2]; }
 /* line colour = the goal a line ultimately leads to */
 function goalsOf(id){ const g=new Set(id.startsWith("goals.")?[id]:[]); up(id).forEach(x=>{ if(x.startsWith("goals.")) g.add(x); }); return [...g]; }
@@ -755,7 +766,14 @@ $("cv").addEventListener("click",e=>{
   if(!e.target.closest("button,textarea,input")) select(null);
 });
 $("cv").addEventListener("focusin",e=>{ const s=e.target.closest(".slot"); if(s&&s.dataset.id!==sel&&e.target.matches("textarea,input")) select(s.dataset.id); });
-$("cv").addEventListener("focusout",e=>{ if(e.target.matches(".desc")) setTimeout(fitDescs,0); });
+$("cv").addEventListener("focusout",e=>{ if(e.target.matches(".desc")) setTimeout(fitDescs,0);
+  if(e.target.matches("input.nameinput")){ const inp=e.target; setTimeout(()=>{ fitNames(); if(inp.closest(".slot").classList.contains("nameover")) forceSolution(inp); },0); } });
+function forceSolution(inp){ const [k,i]=inp.dataset.f.split("."), it=S.items[k][+i], before=it.t; let x=before;
+  const over=()=>inp.closest(".slot").classList.contains("nameover");
+  for(const [re,to] of ABBR){ inp.value=x; fitNames(); if(!over()) break; x=abbrOne(x,re,to); }
+  inp.value=x; fitNames();
+  while(over()&&x.includes(" ")){ x=x.replace(/\s+\S+$/,""); inp.value=x; fitNames(); }
+  if(inp.closest(".slot").classList.contains("nameover")===false&&inp.value!==before){ it.t=inp.value; save(); toast(`Shortened to fit: ${inp.value}`); } }
 $("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; save();
   if(p==="t"){ e.target.closest(".slot").classList.toggle("empty",!e.target.value.trim()); }
   clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); applyFocus(); },500); });
@@ -921,7 +939,7 @@ function miniSVG({active=-1,pair=null,labels=true}={}){
     h+=`<text x="${c.hd[0]}" y="${c.hd[1]+3.4}" font-size="4.4" font-weight="700" fill="${on?"var(--plum)":"var(--blue)"}" opacity="${dim?.35:1}" font-family="Open Sans,sans-serif">${c.label.toUpperCase()}</text>`;
     c.ys.forEach((y,i)=>{ const it=S.items[c.k][i], f=!!it.t.trim(), col=f?(it.c?["","var(--t1)","var(--t2)","var(--t3)"][it.c]:"var(--blue)"):"var(--paper)";
       h+=`<rect x="${c.x}" y="${y}" width="${W}" height="${c.nh}" rx="1.2" fill="${col}" stroke="${on?"var(--plum)":"var(--muted)"}" stroke-width="${on?.9:.35}" ${f?"":'stroke-dasharray="1.4 1"'} opacity="${dim?.3:1}"/>`;
-      if(f&&labels) h+=`<text x="${c.x+1.6}" y="${y+c.nh-1.8}" font-size="3.2" font-weight="700" fill="${it.c?"#1f2430":"#fff"}" opacity="${dim?.4:1}" font-family="Open Sans,sans-serif">${esc(it.t.length>21?it.t.slice(0,20)+"…":it.t)}</text>`; }); });
+      if(f&&labels) h+=`<text x="${c.x+1.6}" y="${y+c.nh-1.8}" font-size="3.2" font-weight="700" fill="${it.c?"#1f2430":"#fff"}" opacity="${dim?.4:1}" font-family="Open Sans,sans-serif">${esc((t=>t.length>21?t.slice(0,20)+"…":t)(SHORT[it.t]||it.t))}</text>`; }); });
   return h+`</svg>`;
 }
 
@@ -1025,7 +1043,7 @@ function renderCol(ix){
     <div class="cgrid">${std.map(v=>{ const on=items.some(x=>x.t===v); return `<button class="ccard ${on?"on":""}" data-choose="${esc(v)}" aria-pressed="${on}" ${!on&&used>=c.n?"disabled":""}><b>${esc(v)}</b><span>${esc(meaningOf(k,v))}</span></button>`; }).join("")}</div>`;
   h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
   items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
-    h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1}" aria-label="Solution ${i+1}">`}</div>
+    h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1} (short name, about 24 characters)" aria-label="Solution ${i+1}" maxlength="40">`}</div>
       <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
   h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
@@ -1045,6 +1063,8 @@ $("bcol").addEventListener("click",e=>{
   const sh=e.target.closest("[data-shorten]"); if(sh){ shorten(sh.dataset.shorten,sh); return; }
   const cc=e.target.closest("[data-clearcol]"); if(cc) armed(cc,`Tap again to clear ${c.label.toLowerCase()}`,()=>clearColumn(cc.dataset.clearcol));
 });
+$("bcol").addEventListener("focusout",e=>{ const f=e.target.dataset.f2; if(!f||!f.endsWith(".t")) return; const [k,i]=f.split("."), it=S.items[k][+i];
+  if(it.t.length>24){ let x=it.t; for(const [re,to] of ABBR){ if(x.length<=24) break; x=abbrOne(x,re,to); } while(x.length>24&&x.includes(" ")) x=x.replace(/\s+\S+$/,""); if(x!==it.t){ it.t=x; e.target.value=x; save(); toast(`Shortened to fit the box: ${x}`); } } });
 $("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value;
   if(p==="d"){ const fl=document.querySelector(`[data-fit="${k}.${i}"]`); if(fl) fl.outerHTML=fitLineHTML(k,`${k}.${i}`,e.target.value); } if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
@@ -1071,7 +1091,7 @@ async function suggestCol(ix){
   const c=COLS[ix], std=CHOICES[c.k], free=S.items[c.k].filter(x=>!x.t.trim()).length; openAssist();
   if(!free){ $("answer").textContent=`All ${c.n} ${c.label.toLowerCase()} are chosen. Remove one to make room.`; return; }
   const avail=std?std.filter(v=>!S.items[c.k].some(x=>x.t===v)):null;
-  const r=await ask(`${ctx()}\n\nSuggest up to ${free} ${c.label.toLowerCase()} for this client${std?`, each exactly one of ${JSON.stringify(avail)}`:" (short names, under 8 words)"}. For each, write what would support it for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically; mark assumptions) and why it fits (under 15 words). Reply with only JSON: {"options":[{"name":string,"supports":string,"why":string}]}`,{json:true});
+  const r=await ask(`${ctx()}\n\nSuggest up to ${free} ${c.label.toLowerCase()} for this client${std?`, each exactly one of ${JSON.stringify(avail)}`:" (short names, at most 24 characters)"}. For each, write what would support it for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically; mark assumptions) and why it fits (under 15 words). Reply with only JSON: {"options":[{"name":string,"supports":string,"why":string}]}`,{json:true});
   if(!r||!Array.isArray(r.options)) return;
   let opts=r.options.map(o=>({...o,name:std?stdMatch(c.k,o.name):String(o.name||"").trim()})).filter(o=>o.name);
   if(!opts.length){ $("answer").textContent="Nothing fit well enough to suggest. Add more to the situation and try again."; return; }
@@ -1221,7 +1241,7 @@ async function ask(prompt,{json=false}={}){ if(!sample) return null; ctl=new Abo
 const stdMatch=(k,v)=>CHOICES[k]?.find(x=>x.toLowerCase()===String(v||"").trim().toLowerCase());
 $("stopBtn").onclick=()=>ctl?.abort();
 $("aBox").onclick=async()=>{ if(!sel) return; const id=sel, c=COLS[ci(id.split(".")[0])], std=CHOICES[c.k];
-  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 options for this one ${c.one}${std?`; each name must be exactly one of ${JSON.stringify(std.filter(v=>!S.items[c.k].some((x,j)=>x.t===v&&`${c.k}.${j}`!==id)))}; details say what supports that choice for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically)`:"; name under 8 words, details at most ${BUDGET[c.k]} characters, abbreviated logically"}; why under 15 words.`,{json:true});
+  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 options for this one ${c.one}${std?`; each name must be exactly one of ${JSON.stringify(std.filter(v=>!S.items[c.k].some((x,j)=>x.t===v&&`${c.k}.${j}`!==id)))}; details say what supports that choice for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically)`:"; name at most 24 characters, details at most ${BUDGET[c.k]} characters, abbreviated logically"}; why under 15 words.`,{json:true});
   if(!r||!Array.isArray(r.options)) return;
   let opts=r.options; if(std) opts=opts.map(o=>({...o,name:stdMatch(c.k,o.name)})).filter(o=>o.name);
   if(!opts.length){ $("answer").textContent="No standard choice fit. Add more to the situation and try again."; return; }
