@@ -214,6 +214,9 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 body.client .bside .btn,body.client .prep-only,body.client .slot.empty,body.client .helpbox,body.client .check,body.client .legend input{display:none!important}
 body.client .lgname{display:inline}
 body.client .legend label.unnamed{display:none}
+.tundo{margin-left:10px;border:0;background:transparent;color:var(--cyan);font-weight:700;text-decoration:underline;cursor:pointer;font-size:14px;padding:4px}
+.btn.danger{border-color:var(--warn);color:var(--warn)}
+.btn.danger[data-armed]{background:var(--warn);color:#fff}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:40}
 footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:10px}
 /* ===== Learn ===== */
@@ -382,6 +385,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <button class="minibtn" id="mini" aria-label="Open the full sheet"></button>
         <div id="askClient" class="askclient"></div>
         <button class="btn small" id="bAssist">Ask the assistant</button>
+        <button class="btn small danger" id="bClearAll">Clear all</button>
       </aside>
     </div>
     <div class="bnav"><button class="btn" id="bBack">← Back</button><span id="bpos" class="note"></span><button class="btn primary" id="bNext">Next →</button></div>
@@ -458,6 +462,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
             <button class="btn small" id="howBtn" aria-pressed="false">Show me how</button>
             <button class="btn small" id="walkBtn">Walk the chain</button>
             <button class="btn small" id="assistBtn">Assistant</button>
+            <button class="btn small danger" id="sClearAll">Clear all</button>
           </div>
           <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small" id="walkBtn2">Walk the chain</button></div>
           <div class="legend" id="legend" aria-label="What the colors mean"></div>
@@ -524,7 +529,11 @@ const ci=k=>COLS.findIndex(c=>c.k===k);
 const item=id=>{ const [k,i]=String(id).split("."); return S.items[k]?.[+i]; };
 const filled=id=>!!(item(id)?.t||"").trim();
 const nameOf=id=>{ const it=item(id); return (it&&it.t.trim())||`${COLS[ci(id.split(".")[0])].one} ${+id.split(".")[1]+1}`; };
-function toast(m){ const t=$("toast"); t.textContent=m; t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>t.hidden=true,2200); }
+function toast(m,undo){ const t=$("toast"); t.textContent=m; if(undo){ const b=document.createElement("button"); b.className="tundo"; b.textContent="Undo"; b.onclick=()=>{ undo(); t.hidden=true; }; t.append(" ",b); }
+  t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>t.hidden=true,undo?6000:2200); }
+/* a second tap confirms; the label says so for 3 seconds */
+function armed(btn,label,fn){ if(btn.dataset.armed){ delete btn.dataset.armed; clearTimeout(btn._a); btn.textContent=btn.dataset.label; fn(); return; }
+  btn.dataset.label=btn.textContent; btn.dataset.armed="1"; btn.textContent=label; btn._a=setTimeout(()=>{ delete btn.dataset.armed; btn.textContent=btn.dataset.label; },3000); }
 function autosize(t){ t.style.height="auto"; t.style.height=t.scrollHeight+"px"; }
 
 function servedBy(id){ const [k]=id.split("."), n=COLS[ci(k)+1]; if(!n) return []; return S.items[n.k].map((_,i)=>`${n.k}.${i}`).filter(x=>filled(x)&&item(x).serves.includes(id)); }
@@ -690,10 +699,11 @@ function openPick(id,anchor){
 function openNote(key,anchor){
   closePop(); const ext=key.startsWith("ext:"), k=ext?key.slice(4):key, l=ext?EXT.find(e=>e[0]===k)[1]:COLS.find(c=>c.k===k).label;
   const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",l);
-  pop.innerHTML=`<h5>${l}: view or add additional details</h5><textarea placeholder="${ext?`What's happening in ${l.toLowerCase()} that matters here?`:"Enter details here"}">${esc(ext?S.ext[k].t:(S.notes[k]||""))}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button></div>`;
+  pop.innerHTML=`<h5>${l}: view or add additional details</h5><textarea placeholder="${ext?`What's happening in ${l.toLowerCase()} that matters here?`:"Enter details here"}">${esc(ext?S.ext[k].t:(S.notes[k]||""))}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button>${ext?"":`<button class="btn small danger prep-only" data-clearcol="${k}" ${S.items[k].some(x=>x.t.trim())?"":"disabled"}>Clear ${l.toLowerCase()}</button>`}</div>`;
   place(pop,anchor); popEl=pop;
   pop.querySelector("textarea").addEventListener("input",e=>{ if(ext) S.ext[k].t=e.target.value; else S.notes[k]=e.target.value; save(); });
   pop.querySelector("[data-done]").onclick=()=>{ closePop(); renderPicture(); };
+  const pc=pop.querySelector("[data-clearcol]"); if(pc) pc.onclick=()=>armed(pc,`Tap again to clear ${l.toLowerCase()}`,()=>{ closePop(); clearColumn(k); });
   pop.querySelector("textarea").focus({preventScroll:true});
 }
 function openMenu(anchor){
@@ -701,7 +711,7 @@ function openMenu(anchor){
   pop.innerHTML=`<h5>More options</h5><div class="menu">
     <button data-m="how">Show me how</button><button data-m="walk">Walk the chain</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
-    <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear the aid</button></div>`;
+    <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
     ({how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
@@ -760,8 +770,12 @@ const EXAMPLE={
 };
 function replaceState(n,msg){ S=n; save(); syncTop(); sel=null; wasAligned=true; setWalk(-1); renderAll(true); toast(msg); }
 function loadExample(){ replaceState(Object.assign(blank(),JSON.parse(JSON.stringify(EXAMPLE))),"Example loaded. Clear the aid from the ≡ menu."); }
-let clearArmed=0;
-function clearAid(){ if(Date.now()-clearArmed>4000){ clearArmed=Date.now(); toast("Choose Clear the aid again to confirm"); return; } clearArmed=0; replaceState(blank(),"Cleared"); }
+function restore(snap){ const keep=S.bIdx; S=JSON.parse(snap); S.bIdx=keep; save(); syncTop(); sel=null; renderAll(); toast("Brought back"); }
+function clearAll(){ const snap=JSON.stringify(S), keep=S.bIdx; S=blank(); S.bIdx=keep; save(); syncTop(); sel=null; wasAligned=false; setWalk(-1); renderAll(); toast("Everything cleared",()=>restore(snap)); }
+function clearColumn(k){ const snap=JSON.stringify(S), c=COLS[ci(k)];
+  S.items[k].forEach((it,i)=>{ const id=`${k}.${i}`; COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); Object.assign(it,{t:"",d:"",c:0,serves:[]}); });
+  save(); if(sel&&sel.startsWith(k+".")) sel=null; renderAll(); toast(`${c.label} cleared`,()=>restore(snap)); }
+function clearAid(){ clearAll(); }
 
 function syncTop(){ $("situation").value=S.situation||""; }
 $("situation").addEventListener("input",e=>{ S.situation=e.target.value; save(); });
@@ -776,6 +790,7 @@ $("modePrep").onclick=()=>setMode(false); $("modeClient").onclick=()=>setMode(tr
 addEventListener("hashchange",()=>{ const v=viewFromHash(); if(v&&v!==curView) show(v); });
 function openAssist(){ $("assist").classList.add("open"); setFocusLine(); }
 function closeAssist(){ $("assist").classList.remove("open"); }
+$("sClearAll").onclick=e=>armed(e.currentTarget,"Tap again to clear everything",clearAll);
 $("helpBox").onclick=openAssist; $("assistBtn").onclick=openAssist; $("assistClose").onclick=closeAssist;
 
 
@@ -893,6 +908,7 @@ $("bBack").onclick=()=>goBuild(bIdx-1);
 $("bNext").onclick=()=>{ if(bIdx===7) show("aid"); else goBuild(bIdx+1); };
 $("mini").onclick=()=>show("aid");
 $("bAssist").onclick=()=>openAssist();
+$("bClearAll").onclick=e=>armed(e.currentTarget,"Tap again to clear everything",clearAll);
 $("toSheet2").onclick=()=>show("aid"); $("toClient").onclick=()=>{ setMode(true); show("aid"); }; $("copy2").onclick=()=>copySummary();
 $("viewBuild").addEventListener("input",e=>{ const k=e.target.dataset.ext2; if(k){ S.ext[k].t=e.target.value; autosize(e.target); save(); } });
 $("check2").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ const id=b.dataset.show; show("aid"); setTimeout(()=>select(id),50); } });
@@ -907,7 +923,7 @@ function renderCol(ix){
     h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1}" aria-label="Solution ${i+1}">`}</div>
       <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea></div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
-  h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
+  h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
   $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
 }
 $("bcol").addEventListener("click",e=>{
@@ -921,6 +937,7 @@ $("bcol").addEventListener("click",e=>{
   if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[]}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
   if(dot){ const it=item(dot.dataset.dot2); it.c=(it.c+1)%4; save(); renderCol(ix); renderMini(); return; }
   if(sg){ suggestCol(+sg.dataset.suggest); }
+  const cc=e.target.closest("[data-clearcol]"); if(cc) armed(cc,`Tap again to clear ${c.label.toLowerCase()}`,()=>clearColumn(cc.dataset.clearcol));
 });
 $("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
