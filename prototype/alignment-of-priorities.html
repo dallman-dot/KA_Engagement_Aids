@@ -313,7 +313,9 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .pulse{animation:pulse .6s ease-out}
 @keyframes pulse{50%{transform:scale(1.03);box-shadow:0 0 0 4px color-mix(in srgb,var(--plum) 30%,transparent)}}
 /* company research */
-.coCard{border:1.5px solid var(--blue);border-radius:14px;padding:14px;display:grid;gap:10px;background:color-mix(in srgb,var(--blue) 5%,var(--paper))}
+.coTop{border-color:var(--plum);color:var(--plum);margin-left:auto}
+.coCard.pulse{animation:pulse .8s ease-out 2}
+.coCard{scroll-margin-top:20px;border:1.5px solid var(--blue);border-radius:14px;padding:14px;display:grid;gap:10px;background:color-mix(in srgb,var(--blue) 5%,var(--paper))}
 .coHead{display:flex;gap:10px;align-items:flex-start}
 .coBadge{background:var(--plum);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;border-radius:999px;padding:3px 8px;text-transform:uppercase}
 .coGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -351,6 +353,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
       <button role="tab" id="tabBuild" aria-selected="false" aria-controls="viewBuild"><span class="n">2</span>Build</button>
       <button role="tab" id="tabAid" aria-selected="true" aria-controls="viewAid"><span class="n">3</span>The sheet</button>
     </div>
+    <button class="btn small coTop prep-only" id="coTopBtn">＋ Start from a company</button>
     <div class="modes" role="group" aria-label="Mode">
       <button class="btn small primary" id="modePrep" aria-pressed="true">Prepare</button>
       <button class="btn small" id="modeClient" aria-pressed="false">Use with a client</button>
@@ -418,6 +421,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <p class="minicap">The sheet, as you build it</p>
         <button class="minibtn" id="mini" aria-label="Open the full sheet"></button>
         <div id="askClient" class="askclient"></div>
+        <button class="btn small" id="bCompany">＋ Start from a company</button>
         <button class="btn small" id="bAssist">Ask the assistant</button>
         <button class="btn small danger" id="bClearAll">Clear all</button>
       </aside>
@@ -743,12 +747,12 @@ function openNote(key,anchor){
 function openMenu(anchor){
   closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","More options");
   pop.innerHTML=`<h5>More options</h5><div class="menu">
-    <button data-m="how">Show me how</button><button data-m="walk">Walk the chain</button>
+    <button data-m="company" class="prep-only">Start from a company</button><button data-m="how">Show me how</button><button data-m="walk">Walk the chain</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
-    ({how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
+    ({company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
   pop.querySelector("button[data-m]").focus({preventScroll:true});
 }
 $("menuBtn").onclick=e=>{ e.stopPropagation(); openMenu($("menuBtn")); };
@@ -892,7 +896,7 @@ const LEARN=[
  {t:"Threats first", r:()=>`<p class="lkick">5 of 5 · Threats first</p><h2>A clear sense of threats to scope, time and resources is required before solving any business problem.</h2>
    <div class="gapgrid">${GAPS.map(([k,l])=>`<div><b>${esc(l)}</b>${esc(GAP_MEANING[k])}</div>`).join("")}</div>
    <p class="draft">The questions under each gap are draft wording for KA to confirm.</p>
-   <div class="arow"><button class="btn primary" data-go="build">Start building →</button><button class="btn" data-go="example">See a finished example</button></div>`}
+   <div class="arow"><button class="btn primary" data-go="build">Start building →</button><button class="btn" data-go="company">Start from a company</button><button class="btn" data-go="example">See a finished example</button></div>`}
 ];
 function renderLearn(){
   $("ldots").innerHTML=LEARN.map((c,i)=>`<li><button data-l="${i}" aria-current="${i===lIdx?"step":"false"}" class="${lSeen.has(i)?"seen":""}">${i+1} · ${c.t}</button></li>`).join("");
@@ -908,7 +912,7 @@ $("lcard").addEventListener("click",e=>{
   if(v){ const a=+v.dataset.verb; learnPair=learnPair&&learnPair[0]===a?null:[a,a-1]; renderLearn(); }
   if(qa&&!quiz.answered){ quiz.answered=qa.dataset.qa; if(quiz.answered===quiz.k){ streak++; best=Math.max(best,streak); } else streak=0; renderLearn(); }
   if(qn){ newQuiz(); renderLearn(); }
-  if(go){ if(go.dataset.go==="build") show("build"); else { loadExample(); show("aid"); } }
+  if(go){ if(go.dataset.go==="build") show("build"); else if(go.dataset.go==="company") goCompany(); else { loadExample(); show("aid"); } }
 });
 
 /* ---------- Build ---------- */
@@ -1091,6 +1095,8 @@ $("coGo").onclick=async()=>{
   finally{ clearInterval(tick); $("coGo").disabled=false; $("coStop").hidden=true; }
 };
 $("coStop").onclick=()=>coCtl?.abort();
+function goCompany(){ setMode(false); show("build"); bIdx=0; renderBuild(); const c=$("coCard"); c.scrollIntoView({block:"start",behavior:"smooth"}); c.classList.remove("pulse"); void c.offsetWidth; c.classList.add("pulse"); setTimeout(()=>$("coName").focus({preventScroll:true}),400); }
+$("coTopBtn").onclick=goCompany; $("bCompany").onclick=goCompany;
 $("coReview").addEventListener("click",e=>{ const b=e.target.closest("[data-coapply]"); if(!b) return; const how=b.dataset.coapply, d=coDraft;
   if(how==="discard"){ coDraft=null; renderCoReview(); $("coStatus").textContent="Draft discarded."; return; }
   const snap=JSON.stringify(S), all=how==="all";
