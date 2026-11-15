@@ -150,6 +150,11 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 @keyframes draw{from{stroke-dashoffset:240}}
 @keyframes fadein{from{opacity:0}}
 .links path{fill:none;stroke:var(--plum)}
+.cv.rippling .slot.lit:not(.sel){animation:ripIn .4s ease-out both;animation-delay:calc(var(--rd,0) * 450ms)}
+.cv.rippling .links path.on{animation:linkdraw .45s ease-out both;animation-delay:calc((var(--rd,1) - 1) * 450ms + 80ms)}
+.cv.rippling .links circle{animation:fadein .3s both;animation-delay:calc((var(--rd,1) - 1) * 450ms + 380ms)}
+@keyframes ripIn{from{opacity:.18;transform:scale(.96)}60%{transform:scale(1.03)}to{opacity:1;transform:none}}
+.cv.walk .slot.won{animation:ripIn .45s ease-out both}
 .slot.over .desc{box-shadow:0 0 0 calc(.35*var(--mm)) var(--warn)}
 .slot.over::after{content:"!";position:absolute;right:calc(-1.2*var(--mm));top:calc((var(--dy) + var(--dh) - 3.2) * var(--mm));width:calc(3.2*var(--mm));height:calc(3.2*var(--mm));border-radius:50%;background:var(--warn);color:#fff;font:700 calc(2.3*var(--mm))/calc(3.2*var(--mm)) var(--font);text-align:center;z-index:6}
 @media print{.slot.over .desc{box-shadow:none}.slot.over::after{display:none}}
@@ -545,7 +550,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <button class="btn small" id="walkPrev" aria-label="Previous">←</button>
         <p id="walkText" aria-live="polite"></p>
         <button class="btn small" id="walkNext" aria-label="Next">→</button>
-        <button class="btn small ghost" id="walkEnd">End</button>
+        <button class="btn small" id="walkReplay" hidden>▶ Replay</button><button class="btn small ghost" id="walkEnd">End</button>
       </div>
       <p class="trace" id="trace" hidden></p>
       <div class="under">
@@ -730,15 +735,19 @@ function lineColor(to){ const g=goalsOf(to); return !g.length?"var(--gnone)":g.l
 function showLinks(){ return S.showLinks!==false; }
 function drawLinks(){
   const lit=sel&&filled(sel)?new Set([sel,...up(sel),...down(sel)]):null; let h="";
-  if(showLinks()||lit) COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
+  if(showLinks()||lit||walk>=0) COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
     (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"), [x2,y2]=linkPt(to,"r"), mx=(x1+x2)/2, on=lit&&lit.has(from)&&lit.has(to), col=lineColor(to), none=col==="var(--gnone)";
       if(lit&&!on&&!showLinks()) return;
-      h+=`<path class="${on?"on":""}" d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" style="stroke:${col}" stroke-width="${on?.9:.55}" stroke-opacity="${lit?(on?1:.08):.85}" ${none?'stroke-dasharray="1.6 1.2"':""}/><circle cx="${x2}" cy="${y2}" r="${on?1:.7}" fill="${col}" opacity="${lit?(on?1:.08):.85}"/>`; }); }); });
+      let cls=on?"on":"", rd="";
+      if(walk>=0&&!lit){ const mc=WALK[walk].col; if(ix>mc) return; if(ix===mc&&animOn()) cls="on"; }
+      if(on){ const six=ci(sel.split(".")[0]); rd=`--rd:${Math.max(Math.abs(ix-six),Math.abs(ix-1-six))};`; }
+      h+=`<path class="${cls}" d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" style="${rd}stroke:${col}" stroke-width="${on?.9:.55}" stroke-opacity="${lit?(on?1:.08):.85}" ${none?'stroke-dasharray="1.6 1.2"':""}/><circle style="${rd}" cx="${x2}" cy="${y2}" r="${on?1:.7}" fill="${col}" opacity="${lit?(on?1:.08):.85}"/>`; }); }); });
   $("links").innerHTML=h; renderLineKey();
 }
 function renderLineKey(){ const k=$("lineKey"); if(!k) return; const g=S.items.goals.map((x,i)=>x.t.trim()?[i,x.t]:null).filter(Boolean);
-  k.innerHTML=`<button class="btn small sw-toggle" id="linksBtn" role="switch" aria-checked="${showLinks()}"><span class="knob" aria-hidden="true"></span>Connections ${showLinks()?"on":"off"}</button>
+  k.innerHTML=`<button class="btn small sw-toggle" id="linksBtn" role="switch" aria-checked="${showLinks()}"><span class="knob" aria-hidden="true"></span>Connections ${showLinks()?"on":"off"}</button><button class="btn small sw-toggle" id="animBtn" role="switch" aria-checked="${S.animate!==false}"><span class="knob" aria-hidden="true"></span>Animation ${S.animate!==false?"on":"off"}</button>
     ${showLinks()?`<span class="lk">${g.map(([i,t])=>`<span><i style="background:var(--g${i+1})"></i>Leads to ${esc(t)}</span>`).join("")}${g.length>1?`<span><i style="background:var(--g12)"></i>Leads to both</span>`:""}<span><i class="dash"></i>Doesn't reach a goal yet</span></span>`:`<span class="note">Tap any box to see its own connections.</span>`}`; }
+document.addEventListener("click",e=>{ if(e.target.closest("#animBtn")){ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); if(S.animate) playRipple(); return; } });
 document.addEventListener("click",e=>{ if(e.target.closest("#linksBtn")){ S.showLinks=!showLinks(); save(); drawLinks(); if(curView==="build") renderMini(); } });
 function applyFocus(){
   const cv=$("cv"), lit=sel&&filled(sel)?new Set([sel,...up(sel),...down(sel)]):null;
@@ -761,6 +770,7 @@ function applyFocus(){
       ${fitMode&&!document.body.classList.contains("client")?`<span class="tacts"><button class="btn small" data-editbox="${sel}">Edit in Build</button><button class="btn small" data-zoomto="${sel}">Zoom in here</button></span>`:""}
       <span class="tline"><span class="tup">↑ Upstream · what it serves</span> ${six===0?"Goals are the top of the alignment.":ups.length?fmt(ups,true):"nothing yet"}</span>
       <span class="tline"><span class="tdown">↓ Downstream · what serves it</span> ${six===COLS.length-1?"Solutions are the base of the alignment.":downs.length?fmt(downs,false):"nothing yet"}</span>
+      ${animOn()?`<span class="tacts"><button class="btn small" data-replay>▶ Replay</button></span>`:""}
       <span class="note">${six>0&&!document.body.classList.contains("client")?`Tap + on the ${COLS[six-1].label.toLowerCase()} to change what it serves. `:""}${CHOICES[sel.split(".")[0]]?"Tap the box again, or ▾, to change the choice.":""}</span>`; tr.hidden=false;
   } else tr.hidden=true;
   drawLinks(); setFocusLine(); alignedBadge();
@@ -772,7 +782,13 @@ function alignedBadge(){
   if(ok){ cv.insertAdjacentHTML("beforeend",`<div class="aligned" style="left:calc(222 * var(--mm));top:calc(124.5 * var(--mm))">✓ Every solution reaches a goal</div>`); if(!wasAligned) spark(COLS.length-1,true); }
   wasAligned=ok;
 }
-function select(id){ sel=id; applyFocus(); }
+const RIPPLE_MS=450;   /* one column every 0.45 s */
+function animOn(){ return S.animate!==false&&!matchMedia("(prefers-reduced-motion: reduce)").matches; }
+function select(id){ const changed=id!==sel; sel=id; applyFocus(); if(id&&changed) playRipple(); }
+function playRipple(){ const cv=$("cv"); cv.classList.remove("rippling"); if(!sel||!filled(sel)||!animOn()) return;
+  const six=ci(sel.split(".")[0]); let max=0;
+  cv.querySelectorAll(".slot.lit").forEach(s=>{ const d=Math.abs(ci(s.dataset.id.split(".")[0])-six); max=Math.max(max,d); s.style.setProperty("--rd",d); });
+  void cv.offsetWidth; cv.classList.add("rippling"); clearTimeout(cv._rip); cv._rip=setTimeout(()=>cv.classList.remove("rippling"),max*RIPPLE_MS+700); }
 function spark(ix,all){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const svg=document.querySelector(".base"), x1=56.6,y1=41.6,x2=268.6,y2=118;
@@ -850,12 +866,12 @@ function openNote(key,anchor){
 function openMenu(anchor){
   closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","More options");
   pop.innerHTML=`<h5>More options</h5><div class="menu">
-    <button data-m="company" class="prep-only">Start from a company</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
+    <button data-m="company" class="prep-only">Start from a company</button><button data-m="anim">Turn animation ${S.animate!==false?"off":"on"}</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
-    ({links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
+    ({anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
   pop.querySelector("button[data-m]").focus({preventScroll:true});
 }
 $("menuBtn").onclick=e=>{ e.stopPropagation(); openMenu($("menuBtn")); };
@@ -875,15 +891,21 @@ const WALK=[{t:"Factor in the external factors: Economy, Industry, Financials.",
 function setWalk(n){
   walk=n; const on=n>=0, cv=$("cv"); $("walkbar").hidden=!on;
   cv.classList.toggle("walk",on);
-  cv.querySelectorAll(".slot").forEach(s=>s.classList.toggle("won",on&&WALK[n].col===ci(s.dataset.id.split(".")[0])));
-  cv.querySelectorAll(".colhd").forEach(h=>h.classList.toggle("won",on&&(WALK[n].col===-1?h.classList.contains("exthd"):+h.dataset.col===WALK[n].col)));
-  if(on){ $("walkText").textContent=`${n+1} of ${WALK.length} · ${WALK[n].t}`; $("walkPrev").disabled=n===0; $("walkNext").textContent=n===WALK.length-1?"Done":"→"; if(WALK[n].col>0) spark(WALK[n].col); }
+  clearTimeout(walkT);
+  cv.querySelectorAll(".slot").forEach(s=>{ const c=ci(s.dataset.id.split(".")[0]); const was=s.classList.contains("won"); s.classList.toggle("won",on&&c<=WALK[n].col); if(was&&on) s.style.animation="none"; else s.style.animation=""; });
+  cv.querySelectorAll(".colhd").forEach(h=>h.classList.toggle("won",on&&(h.classList.contains("exthd")||+h.dataset.col<=WALK[n].col)));
+  drawLinks();
+  if(on){ $("walkText").textContent=`${n+1} of ${WALK.length} · ${WALK[n].t}`; $("walkPrev").disabled=n===0; $("walkNext").textContent=n===WALK.length-1?"Done":"→"; $("walkReplay").hidden=n<WALK.length-1;
+    if(WALK[n].col>0) spark(WALK[n].col);
+    if(walkAuto&&animOn()&&n<WALK.length-1) walkT=setTimeout(()=>setWalk(n+1),n===0?1400:1100); }
 }
-function startWalk(){ select(null); setHow(false); setWalk(0); $("walkbar").scrollIntoView({block:"nearest",behavior:"smooth"}); }
+let walkT=0, walkAuto=false;
+function startWalk(){ select(null); setHow(false); walkAuto=true; setWalk(0); $("walkbar").scrollIntoView({block:"nearest",behavior:"smooth"}); }
 $("walkBtn").onclick=startWalk; $("walkBtn2").onclick=startWalk;
-$("walkPrev").onclick=()=>setWalk(Math.max(0,walk-1));
-$("walkNext").onclick=()=>walk>=WALK.length-1?setWalk(-1):setWalk(walk+1);
-$("walkEnd").onclick=()=>setWalk(-1);
+$("walkPrev").onclick=()=>{ walkAuto=false; setWalk(Math.max(0,walk-1)); };
+$("walkNext").onclick=()=>{ walkAuto=false; walk>=WALK.length-1?setWalk(-1):setWalk(walk+1); };
+$("walkEnd").onclick=()=>{ walkAuto=false; setWalk(-1); };
+$("walkReplay").onclick=()=>{ walkAuto=true; setWalk(0); };
 
 /* summary, example, clear */
 function summary(){
@@ -1313,7 +1335,7 @@ function setZoom(z,focusId){ const small=innerWidth<980; zoomed=small?!!z:true; 
 $("zoomBtn").onclick=()=>setZoom(!zoomed);
 addEventListener("resize",()=>{ const small=innerWidth<980; if(!small&&zoomed!==true) setZoom(true); else if(small&&zoomed===true&&!$("stage")._userZoom) setZoom(false); });
 $("zoomBtn").addEventListener("click",()=>{ $("stage")._userZoom=true; });
-$("trace").addEventListener("click",e=>{ const ed=e.target.closest("[data-editbox]"), zt=e.target.closest("[data-zoomto]");
+$("trace").addEventListener("click",e=>{ if(e.target.closest("[data-replay]")){ playRipple(); return; } const ed=e.target.closest("[data-editbox]"), zt=e.target.closest("[data-zoomto]");
   if(ed){ const id=ed.dataset.editbox, ix=ci(id.split(".")[0]); show("build"); goBuild(ix+1); setTimeout(()=>document.querySelector(`.pcard[data-pid="${id}"] textarea`)?.focus(),350); }
   if(zt){ $("stage")._userZoom=true; setZoom(true,zt.dataset.zoomto); } });
 function sheetInView(){ if(innerWidth>=980&&curView==="aid") $("stage").scrollIntoView({block:"start"}); }
