@@ -552,11 +552,11 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <div style="display:grid;gap:8px;align-content:start">
           <div class="arow prep-only" style="flex:0 1 auto">
             <button class="btn small" id="howBtn" aria-pressed="false">Show me how</button>
-            <button class="btn small" id="walkBtn">Walk the chain</button>
+            <button class="btn small" id="walkBtn">Show the alignment</button>
             <button class="btn small" id="assistBtn">Assistant</button>
             <button class="btn small danger" id="sClearAll">Clear all</button>
           </div>
-          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small" id="walkBtn2">Walk the chain</button></div>
+          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small" id="walkBtn2">Show the alignment</button></div>
           <div class="lineKey" id="lineKey" aria-label="Connection lines"></div>
           <div class="legend" id="legend" aria-label="What the colors mean"></div>
           <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves. The colored square tags a box.</p>
@@ -759,8 +759,8 @@ function applyFocus(){
     const sit=item(sel), fitMode=$("stage").classList.contains("fit");
     tr.innerHTML=`<b>${esc(nameOf(sel))}</b> · ${COLS[six].label}${sit.d?`<span class="tline tsup">${esc(sit.d)}</span>`:""}
       ${fitMode&&!document.body.classList.contains("client")?`<span class="tacts"><button class="btn small" data-editbox="${sel}">Edit in Build</button><button class="btn small" data-zoomto="${sel}">Zoom in here</button></span>`:""}
-      <span class="tline"><span class="tup">↑ Upstream · what it serves</span> ${six===0?"Goals are the top of the staircase.":ups.length?fmt(ups,true):"nothing yet"}</span>
-      <span class="tline"><span class="tdown">↓ Downstream · what serves it</span> ${six===COLS.length-1?"Solutions are the base of the staircase.":downs.length?fmt(downs,false):"nothing yet"}</span>
+      <span class="tline"><span class="tup">↑ Upstream · what it serves</span> ${six===0?"Goals are the top of the alignment.":ups.length?fmt(ups,true):"nothing yet"}</span>
+      <span class="tline"><span class="tdown">↓ Downstream · what serves it</span> ${six===COLS.length-1?"Solutions are the base of the alignment.":downs.length?fmt(downs,false):"nothing yet"}</span>
       <span class="note">${six>0&&!document.body.classList.contains("client")?`Tap + on the ${COLS[six-1].label.toLowerCase()} to change what it serves. `:""}${CHOICES[sel.split(".")[0]]?"Tap the box again, or ▾, to change the choice.":""}</span>`; tr.hidden=false;
   } else tr.hidden=true;
   drawLinks(); setFocusLine(); alignedBadge();
@@ -850,7 +850,7 @@ function openNote(key,anchor){
 function openMenu(anchor){
   closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","More options");
   pop.innerHTML=`<h5>More options</h5><div class="menu">
-    <button data-m="company" class="prep-only">Start from a company</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Walk the chain</button>
+    <button data-m="company" class="prep-only">Start from a company</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
@@ -870,7 +870,7 @@ function setHow(on){ howOn=on; const y=$("how"); $("cv").classList.toggle("howon
 $("howBtn").onclick=()=>setHow(!howOn);
 $("cv").addEventListener("pointerdown",e=>{ if(howOn&&!e.target.closest("#menuBtn")) setHow(false); },true);
 
-/* walk the chain */
+/* show the alignment */
 const WALK=[{t:"Factor in the external factors: Economy, Industry, Financials.",col:-1}].concat(COLS.map((c,i)=>({t:c.walk,col:i})));
 function setWalk(n){
   walk=n; const on=n>=0, cv=$("cv"); $("walkbar").hidden=!on;
@@ -979,7 +979,7 @@ const LEARN=[
  {t:"What it's for", r:()=>`<p class="lkick">1 of 5 · What it's for</p><h2>A visual aid to align priorities of key stakeholders.</h2>
    <p class="big">We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.</p>
    <h3>Expected outcomes</h3><ul class="lbul">${OUTCOMES.map(o=>`<li>${esc(o)}</li>`).join("")}</ul><p class="src">In KA's words, from the guide.</p>`},
- {t:"The staircase", r:()=>`<p class="lkick">2 of 5 · The staircase</p><h2>Five columns, one direction.</h2>
+ {t:"The alignment", r:()=>`<p class="lkick">2 of 5 · The alignment</p><h2>Five columns, one direction.</h2>
    <div class="lsplit"><div>${withItems(EXAMPLE.items,()=>miniSVG({pair:learnPair}))}<p class="src">A finished example, read right to left.</p></div><div class="verbs">
    <p class="big" style="font-size:16px">Read it right to left. Tap each word to see which two columns it joins.</p>
    ${VERBS.map(([w,a,b,t])=>`<button data-verb="${a}" aria-pressed="${!!(learnPair&&learnPair[0]===a)}"><b>${w}</b><span>${t}</span></button>`).join("")}
