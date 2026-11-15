@@ -9,6 +9,7 @@
   --tan:#a39a83; --band-dark:#c6c7ca; --band-mid:#e6e7e9; --band-light:#f1f1f2; --strip:#e3e3e5; --bandtext:#4d4d52;
   --t1:rgb(116 184 191); --t2:rgb(247 178 109); --t3:rgb(221 150 184);
   --hl:#ffe600; --callout:#8a8a8a; --ok:#2d7a52; --warn:#a6501d; --warn-soft:#fbeadf; --on-blue:#fff;
+  --org-a:#f3d4d2; --org-b:#f9e8e7; --org-s:#ecc2bf; --op-a:#fbefc8; --op-b:#fdf6e1; --op-s:#f5e2a6; --inf-a:#dcebe0; --inf-b:#edf5ef; --inf-s:#c9e0cf;
   --g1:#2f6fd6; --g2:#1f9a62; --g12:#7b4bd1; --gnone:#9aa1ad;
   --font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --hand:"Kalam","Comic Sans MS",cursive;
 }
@@ -16,12 +17,12 @@
   --bg:#10141c; --paper:#1a1f2b; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
   --blue:#a9bff0; --title:#b5c6f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#e0789f; --plum-soft:#3a2230;
   --tan:#b8af98; --band-dark:#3a404e; --band-mid:#272c38; --band-light:#20242f; --strip:#2a2f3b; --bandtext:#b9bdc8;
-  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}}
+  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#10141c; --paper:#1a1f2b; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
   --blue:#a9bff0; --title:#b5c6f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#e0789f; --plum-soft:#3a2230;
   --tan:#b8af98; --band-dark:#3a404e; --band-mid:#272c38; --band-light:#20242f; --strip:#2a2f3b; --bandtext:#b9bdc8;
-  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}
+  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 56px}
@@ -467,16 +468,16 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
           <defs>
             <linearGradient id="fadeR" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".72" stop-color="#fff"/><stop offset=".95" stop-color="#fff" stop-opacity="0"/></linearGradient>
             <mask id="fade"><rect x="0" y="0" width="279.4" height="215.9" fill="url(#fadeR)"/></mask>
-            <linearGradient id="gOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--band-dark)"/><stop offset="1" stop-color="var(--band-mid)"/></linearGradient>
-            <linearGradient id="gOp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--band-mid)"/><stop offset=".5" stop-color="var(--band-light)"/><stop offset="1" stop-color="var(--band-mid)"/></linearGradient>
-            <linearGradient id="gInf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--band-mid)"/><stop offset="1" stop-color="var(--band-dark)"/></linearGradient>
+            <linearGradient id="gOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--org-a)"/><stop offset="1" stop-color="var(--org-b)"/></linearGradient>
+            <linearGradient id="gOp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--op-b)"/><stop offset=".5" stop-color="var(--op-a)"/><stop offset="1" stop-color="var(--op-b)"/></linearGradient>
+            <linearGradient id="gInf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--inf-b)"/><stop offset="1" stop-color="var(--inf-a)"/></linearGradient>
           </defs>
           <g mask="url(#fade)">
             <rect x="23" y="52" width="200" height="31" fill="url(#gOrg)"/>
             <rect x="23" y="83" width="200" height="30" fill="url(#gOp)"/>
             <rect x="23" y="113" width="200" height="35" fill="url(#gInf)"/>
           </g>
-          <rect x="10.4" y="52" width="12.6" height="96" fill="var(--strip)"/>
+          <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
           <g fill="var(--bandtext)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1" letter-spacing=".25" text-anchor="middle">
             <text transform="translate(18.6 67.5) rotate(-90)">ORGANIZATIONAL</text>
             <text transform="translate(18.6 98) rotate(-90)">OPERATIONAL</text>
@@ -930,7 +931,7 @@ const OBTAINS=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
 
 /* the sheet in miniature */
 function miniSVG({active=-1,pair=null,labels=true}={}){
-  let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="212" height="96" fill="var(--band-mid)"/>`;
+  let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="212" height="31" fill="var(--org-a)"/><rect x="10.4" y="83" width="212" height="30" fill="var(--op-a)"/><rect x="10.4" y="113" width="212" height="35" fill="var(--inf-a)"/>`;
   h+=`<line x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="var(--plum)" stroke-width="1.7"/><path d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="var(--plum)"/>`;
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
     (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"),[x2,y2]=linkPt(to,"r"),mx=(x1+x2)/2, on=pair&&pair.includes(ix)&&pair.includes(ix-1);
