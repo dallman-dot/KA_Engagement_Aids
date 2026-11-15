@@ -24,7 +24,8 @@
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 56px}
-.shell{max-width:1320px;margin:0 auto;display:grid;gap:12px}
+.shell{max-width:1320px;margin:0 auto;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.shell>*{min-width:0}
 button{font:inherit;color:inherit}
 .btn{font:600 14px/1.2 var(--font);border-radius:8px;border:1.5px solid var(--blue);background:var(--paper);color:var(--blue);padding:9px 14px;min-height:42px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
 .btn.primary{background:var(--blue);color:var(--on-blue)}
@@ -210,11 +211,104 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .ask{display:grid;gap:6px}
 .ask textarea{border:1px solid var(--rule);background:var(--bg);min-height:56px;padding:8px 10px}
 .note{font-size:12.5px;color:var(--muted);margin:0}
-body.client .situation,body.client .prep-only,body.client .slot.empty,body.client .helpbox,body.client .check,body.client .legend input{display:none!important}
+body.client .bside .btn,body.client .prep-only,body.client .slot.empty,body.client .helpbox,body.client .check,body.client .legend input{display:none!important}
 body.client .lgname{display:inline}
 body.client .legend label.unnamed{display:none}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:40}
 footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:10px}
+/* ===== Learn ===== */
+.gsub{margin:4px 0 0;color:var(--muted);font-size:16px}
+.lwrap{display:grid;gap:12px;margin-top:14px}
+.ldots{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.ldots button{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;min-height:36px}
+.ldots button[aria-current="step"]{background:var(--plum);border-color:var(--plum);color:#fff}
+.ldots button.seen:not([aria-current="step"]){border-color:var(--plum);color:var(--plum)}
+.lcard{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:clamp(18px,3vw,32px);display:grid;gap:14px;animation:rise2 .35s ease-out;min-width:0}
+@keyframes rise2{from{opacity:0;transform:translateY(8px)}}
+.lcard h2{margin:0;font-weight:300;font-size:clamp(24px,3.4vw,36px);line-height:1.15;color:var(--title)}
+.lkick{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--plum)}
+.big{font-size:18px;line-height:1.5;margin:0;max-width:70ch}
+.lbul{margin:0;padding-left:20px;display:grid;gap:6px;font-size:16px}
+.src{margin:0;font-size:12.5px;color:var(--muted)}
+.draft{font-size:12px;color:var(--muted);font-style:italic}
+.lsplit{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:center}
+@media (max-width:800px){.lsplit{grid-template-columns:minmax(0,1fr)}}
+.verbs{display:grid;gap:8px}
+.verbs button{display:flex;gap:12px;align-items:center;text-align:left;border:1.5px solid var(--rule);background:var(--bg);border-radius:10px;padding:10px 12px;cursor:pointer;min-height:48px;font-size:15px}
+.verbs button b{color:var(--plum);letter-spacing:.06em;min-width:84px}
+.verbs button[aria-pressed="true"]{border-color:var(--plum);background:var(--plum-soft)}
+.minisvg{width:100%;height:auto;display:block}
+.quiz{display:grid;gap:12px;background:var(--bg);border-radius:12px;padding:16px}
+.quiz .qv{font-size:26px;font-weight:700;color:var(--ink)}
+.qopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:700px){.qopts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.qopts button{min-height:48px;border-radius:10px;border:1.5px solid var(--blue);background:var(--paper);color:var(--blue);font-weight:700;cursor:pointer}
+.qopts button.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.qopts button.wrong{background:var(--warn);border-color:var(--warn);color:#fff}
+.qfb{margin:0;font-size:15px}
+.streak{font-size:13px;color:var(--muted)}
+.streak b{color:var(--plum);font-size:18px}
+.gapgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.gapgrid div{border:1px solid var(--rule);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.gapgrid b{display:block;color:var(--plum)}
+.lnav{display:flex;justify-content:space-between;gap:10px}
+/* ===== Build ===== */
+.bsteps{display:flex;gap:4px;list-style:none;margin:0;padding:0;overflow-x:auto;scrollbar-width:none}
+.bsteps button{display:flex;gap:6px;align-items:center;border:0;background:none;padding:8px 10px;border-radius:999px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;min-height:38px}
+.bsteps button span{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--rule);color:var(--ink);font-size:12px}
+.bsteps button.done span{background:var(--ok);color:#fff}
+.bsteps button[aria-current="step"]{background:var(--plum-soft);color:var(--plum)}
+.bsteps button[aria-current="step"] span{background:var(--plum);color:#fff}
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start;margin-top:10px}
+@media (max-width:980px){.bwrap{grid-template-columns:minmax(0,1fr)}.bside{order:-1}}
+.bmain{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:clamp(16px,2.6vw,28px);min-width:0}
+.bstep{display:grid;gap:14px;animation:rise2 .3s ease-out}
+.bstep h2{margin:0;font-weight:300;font-size:clamp(26px,3.4vw,36px);color:var(--title)}
+.verbline{margin:0;font-weight:700;color:var(--plum);font-size:15px}
+.teach{margin:0;font-size:16px;max-width:68ch}
+.field{display:grid;gap:4px}
+.field label{font-weight:600;font-size:13px;color:var(--muted)}
+.field textarea,.pcard textarea,.pcard input{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:15px;color:var(--ink);font-family:var(--font)}
+.ext3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.ext3{grid-template-columns:minmax(0,1fr)}}
+.count{float:right;font-weight:700;color:var(--plum);letter-spacing:0;text-transform:none;font-size:13px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.ccard{display:grid;gap:3px;text-align:left;border:1.5px solid var(--rule);background:var(--paper);border-radius:12px;padding:10px 12px;cursor:pointer;min-height:64px;transition:transform .15s,border-color .15s,background .15s;color:var(--ink)}
+.ccard b{font-size:15px}
+.ccard span{font-size:13px;color:var(--muted);line-height:1.35}
+.ccard:hover:not(:disabled){transform:translateY(-2px);border-color:var(--blue)}
+.ccard.on{border-color:var(--blue);background:var(--blue);color:var(--on-blue)}
+.ccard.on span{color:var(--on-blue);opacity:.85}
+.ccard.on b::before{content:"✓ "}
+.ccard:disabled{opacity:.4;cursor:default}
+.picked{display:grid;gap:10px}
+.pcard{border:1.5px solid var(--rule);border-radius:12px;padding:10px;display:grid;gap:8px;animation:pop .25s ease-out;background:var(--paper)}
+.pcard.c1{border-color:var(--t1);background:color-mix(in srgb,var(--t1) 18%,var(--paper))}
+.pcard.c2{border-color:var(--t2);background:color-mix(in srgb,var(--t2) 18%,var(--paper))}
+.pcard.c3{border-color:var(--t3);background:color-mix(in srgb,var(--t3) 18%,var(--paper))}
+.pcard .ph{display:flex;align-items:center;gap:8px}
+.pcard .ph b{flex:1;font-size:16px}
+.pcard .ph input{flex:1;font-weight:700}
+.sq2{width:22px;height:22px;border-radius:5px;border:2px solid var(--callout);background:transparent;cursor:pointer;flex:0 0 auto;padding:0}
+.pcard.c1 .sq2{background:var(--t1);border-color:var(--t1)}.pcard.c2 .sq2{background:var(--t2);border-color:var(--t2)}.pcard.c3 .sq2{background:var(--t3);border-color:var(--t3)}
+.x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:16px;min-width:36px;min-height:36px;border-radius:8px}
+.x:hover{background:var(--bg);color:var(--warn)}
+.crow{display:grid;gap:6px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip2{border:1.5px solid var(--plum);color:var(--plum);background:transparent;border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600;cursor:pointer;min-height:36px}
+.chip2.on{background:var(--plum);color:#fff}
+.chip2.on::before{content:"✓ "}
+.bstep h3 small{font-weight:600;color:var(--plum);letter-spacing:.04em}
+.bside{position:sticky;top:12px;display:grid;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:14px}
+@media (max-width:980px){.bside{position:static}}
+.minicap{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.minibtn{border:1px solid var(--rule);border-radius:10px;padding:4px;background:var(--paper);cursor:zoom-in;display:block;width:100%}
+.minibtn:hover{border-color:var(--plum)}
+.askclient h4{margin:0 0 6px;font-size:13px;color:var(--blue);letter-spacing:.06em;text-transform:uppercase}
+.askclient ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.bnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;position:sticky;bottom:0;background:color-mix(in srgb,var(--bg) 92%,transparent);padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(6px);z-index:5}
+.pulse{animation:pulse .6s ease-out}
+@keyframes pulse{50%{transform:scale(1.03);box-shadow:0 0 0 4px color-mix(in srgb,var(--plum) 30%,transparent)}}
 /* one 8.5 x 11 page, landscape */
 @page{size:11in 8.5in;margin:0}
 @media print{
@@ -231,55 +325,66 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 <div class="shell">
   <div class="bar">
     <div class="tabs" role="tablist" aria-label="Pages">
-      <button role="tab" id="tabGuide" aria-selected="false" aria-controls="viewGuide"><span class="n">1</span>The guide</button>
-      <button role="tab" id="tabAid" aria-selected="true" aria-controls="viewAid"><span class="n">2</span>The aid</button>
+      <button role="tab" id="tabLearn" aria-selected="false" aria-controls="viewLearn"><span class="n">1</span>Learn</button>
+      <button role="tab" id="tabBuild" aria-selected="false" aria-controls="viewBuild"><span class="n">2</span>Build</button>
+      <button role="tab" id="tabAid" aria-selected="true" aria-controls="viewAid"><span class="n">3</span>The sheet</button>
     </div>
     <div class="modes" role="group" aria-label="Mode">
       <button class="btn small primary" id="modePrep" aria-pressed="true">Prepare</button>
       <button class="btn small" id="modeClient" aria-pressed="false">Use with a client</button>
     </div>
   </div>
-  <div class="situation">
-    <label for="situation">The situation · who it's for and what you're working on</label>
-    <textarea id="situation" rows="2" placeholder="Example: Regional insurance broker. The COO and VP of Sales want renewals back up after an 8% drop. First meeting Thursday."></textarea>
-  </div>
 
-  <section id="viewGuide" role="tabpanel" aria-labelledby="tabGuide" hidden>
-    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
-    <div class="guide" style="margin-top:12px">
-      <div class="panel">
-        <div class="step"><div class="num">1</div><div>
-          <p class="lead">A visual aid to align priorities of key stakeholders.</p>
-          <h3>Why is it important for us?</h3>
-          <p style="margin:0">We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.</p>
-          <h3>Expected outcomes</h3>
-          <ul class="checks" id="outcomes"></ul>
-        </div></div>
-        <div class="step"><div class="num">2</div><div>
-          <p class="lead">A clear sense of threats to scope, time and resources is required before solving any business problem.</p>
-          <h3>Potential gaps / challenges</h3>
-          <p class="note prep-only">Tick a gap you see and note what you know. The assistant uses these.</p>
-          <div class="gaps" id="gaps"></div>
-        </div></div>
-      </div>
-      <div class="panel">
-        <div class="step"><div class="num">3</div><div>
-          <p class="where">The Alignment of Priorities is best used in the Problem Space during the Awareness Phase (1.1) to “Gain Business Clarity”. It’s also useful in the Solution Space to confirm alignment.</p>
-          <div class="phases" aria-label="Phases: Awareness and Analysis are the Problem Space; Alternatives, Answer, Acceptance and Actions are the Solution Space">
-            <div class="astrip" aria-hidden="true">
-              <div class="ph p here"><small>Awareness</small><b>A</b></div><div class="ph p"><small>Analysis</small><b>A</b></div><div class="div"></div>
-              <div class="ph"><small>Alternatives</small><b>a</b></div><div class="ph"><small>Answer</small><b>a</b></div><div class="ph"><small>Acceptance</small><b>a</b></div><div class="ph"><small>Actions</small><b>a</b></div>
-            </div>
-            <div class="spaces2" aria-hidden="true"><span>Problem Space</span><span>Solution Space</span></div>
+  <section id="viewLearn" role="tabpanel" aria-labelledby="tabLearn" hidden>
+    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1><p class="gsub">Learn the framework in five short cards. Then build your own.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
+    <div class="lwrap">
+      <ol class="ldots" id="ldots" aria-label="Cards"></ol>
+      <article class="lcard" id="lcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="lPrev">← Back</button><button class="btn primary" id="lNext">Next →</button></div>
+    </div>
+  </section>
+
+  <section id="viewBuild" role="tabpanel" aria-labelledby="tabBuild" hidden>
+    <ol class="bsteps" id="bsteps" aria-label="Steps"></ol>
+    <div class="bwrap">
+      <div class="bmain">
+        <div class="bstep" data-s="0">
+          <p class="lkick">Step 1 of 8</p><h2>Start with the situation</h2>
+          <p class="teach">Factor in "external" factors first. A clear sense of threats to scope, time and resources is required before solving any business problem.</p>
+          <div class="field"><label for="situation">Who it's for and what you're working on</label>
+            <textarea id="situation" rows="2" placeholder="Example: Regional insurance broker. The COO and VP of Sales want renewals back up after an 8% drop. First meeting Thursday."></textarea></div>
+          <h3>External factors</h3>
+          <div class="ext3">
+            <div class="field"><label for="ext2-economy">Economy</label><textarea id="ext2-economy" data-ext2="economy" rows="2" placeholder="What's happening in the economy that matters here?"></textarea></div>
+            <div class="field"><label for="ext2-industry">Industry</label><textarea id="ext2-industry" data-ext2="industry" rows="2" placeholder="What's happening in their industry?"></textarea></div>
+            <div class="field"><label for="ext2-financials">Financials</label><textarea id="ext2-financials" data-ext2="financials" rows="2" placeholder="What do their financials say?"></textarea></div>
           </div>
+          <h3>Potential gaps / challenges</h3>
+          <p class="note">Tick a gap you see and note what you know. The assistant uses these.</p>
+          <div class="gaps" id="gaps"></div>
+        </div>
+        <div class="bstep" id="bcol" data-s="col"></div>
+        <div class="bstep" id="bconnect" data-s="6"></div>
+        <div class="bstep" data-s="7">
+          <p class="lkick">Step 8 of 8</p><h2>Check the alignment</h2>
+          <p class="teach">Before it goes in front of the client, test it the way KA's guide asks.</p>
+          <div class="check" id="check2"></div>
           <div class="spacepick" role="group" aria-label="Where we are"><span class="note" style="align-self:center">We are in the</span>
             <button class="btn small" id="spProblem" aria-pressed="true">Problem Space</button><button class="btn small" id="spSolution" aria-pressed="false">Solution Space</button></div>
           <div class="spacelist" id="listProblem"><h3>If we are in the “Problem Space” we need to:</h3><ul class="checks" id="stepsProblem"></ul></div>
           <div class="spacelist dim" id="listSolution"><h3>If we are in the “Solution Space” we need to:</h3><ul class="checks" id="stepsSolution"></ul></div>
-          <div class="arow"><button class="btn primary" id="toAid">Open the aid →</button></div>
-        </div></div>
+          <h3>Expected outcomes</h3><ul class="checks" id="outcomes"></ul>
+          <div class="arow"><button class="btn primary" id="toSheet2">See the sheet →</button><button class="btn" id="toClient">Use it with a client</button><button class="btn" id="copy2">Copy summary</button></div>
+        </div>
       </div>
+      <aside class="bside">
+        <p class="minicap">The sheet, as you build it</p>
+        <button class="minibtn" id="mini" aria-label="Open the full sheet"></button>
+        <div id="askClient" class="askclient"></div>
+        <button class="btn small" id="bAssist">Ask the assistant</button>
+      </aside>
     </div>
+    <div class="bnav"><button class="btn" id="bBack">← Back</button><span id="bpos" class="note"></span><button class="btn primary" id="bNext">Next →</button></div>
   </section>
 
   <section id="viewAid" role="tabpanel" aria-labelledby="tabAid">
@@ -458,13 +563,13 @@ function renderGuide(){
   $("listProblem").classList.toggle("dim",S.space!=="problem"); $("listSolution").classList.toggle("dim",S.space!=="solution");
   document.querySelectorAll("#gaps textarea").forEach(autosize);
 }
-$("viewGuide").addEventListener("click",e=>{
+$("viewBuild").addEventListener("click",e=>{
   const o=e.target.closest("[data-o]"), st=e.target.closest("[data-step]"), g=e.target.closest("[data-gap]");
   if(o){ S.outcomes[+o.dataset.o]=!S.outcomes[+o.dataset.o]; save(); renderGuide(); }
   if(st){ const [k,i]=st.dataset.step.split("."); S[k][+i]=!S[k][+i]; save(); renderGuide(); }
   if(g){ const k=g.dataset.gap; S.gaps[k]=Object.assign(S.gaps[k]||{},{on:!(S.gaps[k]?.on)}); save(); renderGuide(); if(S.gaps[k].on) document.querySelector(`[data-gapnote="${k}"]`)?.focus(); }
 });
-$("viewGuide").addEventListener("input",e=>{ const n=e.target.dataset.gapnote; if(n){ S.gaps[n].note=e.target.value; autosize(e.target); save(); } });
+$("viewBuild").addEventListener("input",e=>{ const n=e.target.dataset.gapnote; if(n){ S.gaps[n].note=e.target.value; autosize(e.target); save(); } });
 $("spProblem").onclick=()=>{ S.space="problem"; save(); renderGuide(); };
 $("spSolution").onclick=()=>{ S.space="solution"; save(); renderGuide(); };
 
@@ -552,7 +657,8 @@ function renderLegend(){
   $("legend").innerHTML=["c1","c2","c3"].map((c,i)=>`<label class="${S.legend[i].trim()?"":"unnamed"}"><span class="sw ${c}"></span><input data-legend="${i}" value="${esc(S.legend[i])}" placeholder="${["Teal","Orange","Pink"][i]} means…" aria-label="What ${["teal","orange","pink"][i]} means"><span class="lgname">${esc(S.legend[i])}</span></label>`).join("");
 }
 $("legend").addEventListener("input",e=>{ const i=e.target.dataset.legend; if(i!=null){ S.legend[+i]=e.target.value; const l=e.target.closest("label"); l.querySelector(".lgname").textContent=e.target.value; l.classList.toggle("unnamed",!e.target.value.trim()); save(); } });
-function renderCheck(){
+function renderCheck(){ renderCheck0(); const c2=$("check2"); if(c2) c2.innerHTML=$("check").innerHTML; }
+function renderCheck0(){
   const all=allFilled();
   if(!all.length){ $("check").innerHTML=`<h3>Alignment check</h3><p class="note">Choose a goal to begin. This shows what isn't tied in yet.</p>`; return; }
   const sols=all.filter(id=>id.startsWith("solutions")), goals=all.filter(id=>id.startsWith("goals"));
@@ -561,7 +667,7 @@ function renderCheck(){
   $("check").innerHTML=`<h3>Alignment check</h3><div class="meter"><span><b>${sOK}/${sols.length}</b> solutions trace to a goal</span><span><b>${gOK}/${goals.length}</b> goals reached by a solution</span></div><ul>${rows||`<li class="ok">Everything chosen is tied to the column before it.</li>`}</ul>`;
 }
 $("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ select(b.dataset.show); document.querySelector(`.slot[data-id="${b.dataset.show}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); } });
-function renderAll(intro){ renderPicture(intro); renderLegend(); renderCheck(); renderGuide(); }
+function renderAll(intro){ renderPicture(intro); renderLegend(); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
 
 /* popovers */
 let popEl=null, popAt=0;
@@ -659,16 +765,197 @@ function clearAid(){ if(Date.now()-clearArmed>4000){ clearArmed=Date.now(); toas
 
 function syncTop(){ $("situation").value=S.situation||""; }
 $("situation").addEventListener("input",e=>{ S.situation=e.target.value; save(); });
-function show(view){ const g=view==="guide"; $("viewGuide").hidden=!g; $("viewAid").hidden=g; $("tabGuide").setAttribute("aria-selected",g); $("tabAid").setAttribute("aria-selected",!g);
-  if(g) renderGuide(); try{ history.replaceState(null,"",g?"#guide":"#aid"); }catch(e){} }
-$("tabGuide").onclick=()=>show("guide"); $("tabAid").onclick=()=>{ show("aid"); renderPicture(true); requestAnimationFrame(sheetInView); }; $("toAid").onclick=()=>{ show("aid"); renderPicture(true); requestAnimationFrame(sheetInView); };
+let curView="aid";
+function show(view){ curView=view; [["learn","Learn"],["build","Build"],["aid","Aid"]].forEach(([v,n])=>{ $("view"+n).hidden=v!==view; $("tab"+n).setAttribute("aria-selected",v===view); });
+  try{ history.replaceState(null,"","#"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") renderLearn(); if(view==="build") renderBuild(); if(view==="aid"){ closePop(); renderPicture(true); requestAnimationFrame(sheetInView); } }
+$("tabLearn").onclick=()=>show("learn"); $("tabBuild").onclick=()=>show("build"); $("tabAid").onclick=()=>show("aid");
 function setMode(client){ document.body.classList.toggle("client",client); $("modePrep").classList.toggle("primary",!client); $("modeClient").classList.toggle("primary",client);
   $("modePrep").setAttribute("aria-pressed",!client); $("modeClient").setAttribute("aria-pressed",client); $("clientBar").hidden=!client; if(client){ closeAssist(); setHow(false); } applyFocus(); }
 $("modePrep").onclick=()=>setMode(false); $("modeClient").onclick=()=>setMode(true);
-addEventListener("hashchange",()=>show(location.hash==="#guide"?"guide":"aid"));
+addEventListener("hashchange",()=>{ const v=viewFromHash(); if(v&&v!==curView) show(v); });
 function openAssist(){ $("assist").classList.add("open"); setFocusLine(); }
 function closeAssist(){ $("assist").classList.remove("open"); }
 $("helpBox").onclick=openAssist; $("assistBtn").onclick=openAssist; $("assistClose").onclick=closeAssist;
+
+
+/* ---------- Teaching copy: plain-language meanings (draft wording, for KA to confirm) ---------- */
+const MEANING={
+ "Cash Flow":"Having cash on hand to run and invest, when it's needed.","Profit":"Keeping more of each dollar earned.","Revenue":"Growing the money coming in.","Market Share":"Winning a bigger share of the market.",
+ "Cash Management":"Managing cash in and out to free up money.","Asset Usage":"Getting more out of what the business already owns.","Leverage":"Using borrowing, partners or scale to do more with less.","Product Development":"Creating new or better products and services.","Customer Support":"Serving customers so they stay and buy more.","Restructure":"Changing how the business is organized.","Costs":"Lowering what it costs to operate.","Skills":"Building what people are able to do.","Price":"Changing what is charged, and how.","Acquisition":"Buying or merging to grow.","Image":"Strengthening reputation and brand.","Channels":"Reaching customers through new or better routes.","Production":"Making or delivering more efficiently.","Enabling Infrastructure":"The systems and technology everything else runs on.",
+ "Business Planning":"Setting direction, budgets and plans.","Perf. & Risk Mgmt.":"Measuring results and managing risk.","Compliance & Cert.":"Meeting regulations and certifications.","Market Development":"Finding and growing markets.","Revenue Cycle":"Everything from order to cash collected.","Innovation & Design":"Generating and shaping new ideas.","Sourcing":"Buying what the business needs.","Monitoring":"Watching ongoing performance or condition.","Prevention & Intervention":"Stepping in early to stop problems.","Diagnosis":"Finding what's wrong, and why.","Prep & Treatment":"Preparing for and carrying out the fix or care.","Recovery & Rehab":"Restoring full strength afterward.",
+ "Sustainable Growth":"Growth that lasts.","Engage & Retain":"Keeping customers and people committed.","High Performance Cult.":"A culture that consistently delivers.","Improve Health & Well-Being":"Better health for the people served or employed.","Operational Excellence":"Running the business reliably and efficiently.","Cost Competitiveness":"Costs low enough to compete."
+};
+const PROCESS_PD="Taking products from idea to launch.";
+const meaningOf=(k,v)=>k==="processes"&&v==="Product Development"?PROCESS_PD:(MEANING[v]||"");
+const TEACH={
+ goals:{verb:"Goals: what the business must OBTAIN.",lead:"The business outcomes everything else serves. Two at most, so the priorities stay real.",ask:["If this year goes well, which number moves?","Which matters more right now: growth or margin?","Who owns that goal?"]},
+ strategies:{verb:"Strategies EXECUTE to obtain the goals.",lead:"How the business intends to reach its goals. Each strategy should obtain at least one goal.",ask:["What are you already doing to get there?","Where are you investing this year?","What would you stop doing?"]},
+ processes:{verb:"Processes IMPROVE to execute the strategies.",lead:"The ongoing, day-to-day work that carries out the strategies.",ask:["Which processes make or break that strategy?","Where does work slow down or get redone?","Who runs it today?"]},
+ initiatives:{verb:"Initiatives ENHANCE the processes.",lead:"The funded projects meant to improve those processes.",ask:["What projects are already underway?","Which have a sponsor and a budget?","What would you launch if you could?"]},
+ solutions:{verb:"Solutions enhance the initiatives.",lead:"The specific capabilities, products or services that make an initiative work. These are in your own words.",ask:["What have you tried before?","What would 'solved' look like?","Who has to approve it?"]}
+};
+const GAP_MEANING={position:"Does this matter to them, now?",people:"Who decides, and who influences?",policies:"Is there money for it, and whose?",procedures:"What approvals stand in the way?",politics:"Whose agenda does this help, or threaten?"};
+const OBTAINS=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
+
+/* the sheet in miniature */
+function miniSVG({active=-1,pair=null,labels=true}={}){
+  let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="212" height="96" fill="var(--band-mid)"/>`;
+  h+=`<line x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="var(--plum)" stroke-width="1.7"/><path d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="var(--plum)"/>`;
+  COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
+    (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"),[x2,y2]=linkPt(to,"r"),mx=(x1+x2)/2, on=pair&&pair.includes(ix)&&pair.includes(ix-1);
+      h+=`<path d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" fill="none" stroke="var(--plum)" stroke-width="${on?1:.5}" opacity="${pair&&!on?.15:.7}"/>`; }); }); });
+  COLS.forEach((c,ix)=>{ const on=active===ix||(pair&&pair.includes(ix)), dim=(active>=0||pair)&&!on;
+    h+=`<text x="${c.hd[0]}" y="${c.hd[1]+3.4}" font-size="4.4" font-weight="700" fill="${on?"var(--plum)":"var(--blue)"}" opacity="${dim?.35:1}" font-family="Open Sans,sans-serif">${c.label.toUpperCase()}</text>`;
+    c.ys.forEach((y,i)=>{ const it=S.items[c.k][i], f=!!it.t.trim(), col=f?(it.c?["","var(--t1)","var(--t2)","var(--t3)"][it.c]:"var(--blue)"):"var(--paper)";
+      h+=`<rect x="${c.x}" y="${y}" width="${W}" height="${c.nh}" rx="1.2" fill="${col}" stroke="${on?"var(--plum)":"var(--muted)"}" stroke-width="${on?.9:.35}" ${f?"":'stroke-dasharray="1.4 1"'} opacity="${dim?.3:1}"/>`;
+      if(f&&labels) h+=`<text x="${c.x+1.6}" y="${y+c.nh-1.8}" font-size="3.2" font-weight="700" fill="${it.c?"#1f2430":"#fff"}" opacity="${dim?.4:1}" font-family="Open Sans,sans-serif">${esc(it.t.length>21?it.t.slice(0,20)+"…":it.t)}</text>`; }); });
+  return h+`</svg>`;
+}
+
+/* ---------- Learn ---------- */
+function withItems(items,fn){ const o=S.items; S.items=items; try{ return fn(); } finally{ S.items=o; } }
+let lIdx=0, lSeen=new Set([0]), learnPair=null, quiz=null, streak=0, best=0;
+const QUIZ_POOL=Object.entries(CHOICES).flatMap(([k,vs])=>vs.filter(v=>v!=="Product Development").map(v=>[k,v]));
+function newQuiz(){ let q; do{ q=QUIZ_POOL[Math.floor(Math.random()*QUIZ_POOL.length)]; }while(quiz&&q[1]===quiz.v); quiz={k:q[0],v:q[1],answered:null}; }
+const VERBS=[["ENHANCE",4,3,"Solutions enhance initiatives."],["IMPROVE",3,2,"Initiatives improve processes."],["EXECUTE",2,1,"Processes execute strategies."],["OBTAIN",1,0,"Strategies obtain goals."]];
+const LEARN=[
+ {t:"What it's for", r:()=>`<p class="lkick">1 of 5 · What it's for</p><h2>A visual aid to align priorities of key stakeholders.</h2>
+   <p class="big">We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.</p>
+   <h3>Expected outcomes</h3><ul class="lbul">${OUTCOMES.map(o=>`<li>${esc(o)}</li>`).join("")}</ul><p class="src">In KA's words, from the guide.</p>`},
+ {t:"The staircase", r:()=>`<p class="lkick">2 of 5 · The staircase</p><h2>Five columns, one direction.</h2>
+   <div class="lsplit"><div>${withItems(EXAMPLE.items,()=>miniSVG({pair:learnPair}))}<p class="src">A finished example, read right to left.</p></div><div class="verbs">
+   <p class="big" style="font-size:16px">Read it right to left. Tap each word to see which two columns it joins.</p>
+   ${VERBS.map(([w,a,b,t])=>`<button data-verb="${a}" aria-pressed="${!!(learnPair&&learnPair[0]===a)}"><b>${w}</b><span>${t}</span></button>`).join("")}
+   <p class="src">“Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.”</p></div></div>`},
+ {t:"Forced choices", r:()=>{ if(!quiz) newQuiz(); const a=quiz.answered, right=a===quiz.k, lab={goals:"Goal",strategies:"Strategy",processes:"Process",initiatives:"Initiative"};
+   return `<p class="lkick">3 of 5 · The standards are the choices</p><h2>Choose the standard, then say what supports it.</h2>
+   <p class="big">Goals, Strategies, Processes and Initiatives come only from KA's standard lists: 4 goals, 14 strategies, 13 processes and 6 initiatives. The standard keeps everyone speaking the same language. Your words go into what supports each choice. Solutions are your own words.</p>
+   <div class="quiz"><span class="streak">Quick check · Which column is this standard from? ${best?`Best run: <b>${best}</b>`:""}${streak?` · Run: <b>${streak}</b>`:""}</span>
+   <div class="qv">${esc(quiz.v)}</div>
+   <div class="qopts">${Object.keys(lab).map(k=>`<button data-qa="${k}" class="${a?(k===quiz.k?"right":(k===a?"wrong":"")):""}" ${a?"disabled":""}>${lab[k]}</button>`).join("")}</div>
+   ${a?`<p class="qfb">${right?"Right.":"Not quite."} <b>${esc(quiz.v)}</b> is one of KA's standard ${quiz.k}: ${esc(meaningOf(quiz.k,quiz.v))}</p><div><button class="btn small primary" data-qnext>Another one</button></div>`:""}</div>
+   <p class="draft">The one-line meanings are draft wording for KA to confirm.</p>`; }},
+ {t:"When to use it", r:()=>`<p class="lkick">4 of 5 · When to use it</p><h2>Best early, in the Problem Space.</h2>
+   <p class="big">The Alignment of Priorities is best used in the Problem Space during the Awareness Phase (1.1) to “Gain Business Clarity”. It’s also useful in the Solution Space to confirm alignment.</p>
+   <div class="phases"><div class="astrip" aria-hidden="true"><div class="ph p here"><small>Awareness</small><b>A</b></div><div class="ph p"><small>Analysis</small><b>A</b></div><div class="div"></div><div class="ph"><small>Alternatives</small><b>a</b></div><div class="ph"><small>Answer</small><b>a</b></div><div class="ph"><small>Acceptance</small><b>a</b></div><div class="ph"><small>Actions</small><b>a</b></div></div><div class="spaces2" aria-hidden="true"><span>Problem Space</span><span>Solution Space</span></div></div>
+   <div class="lsplit" style="align-items:start"><div><h3>In the Problem Space we need to:</h3><ul class="lbul">${PROBLEM.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>In the Solution Space we need to:</h3><ul class="lbul">${SOLUTION.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
+ {t:"Threats first", r:()=>`<p class="lkick">5 of 5 · Threats first</p><h2>A clear sense of threats to scope, time and resources is required before solving any business problem.</h2>
+   <div class="gapgrid">${GAPS.map(([k,l])=>`<div><b>${esc(l)}</b>${esc(GAP_MEANING[k])}</div>`).join("")}</div>
+   <p class="draft">The questions under each gap are draft wording for KA to confirm.</p>
+   <div class="arow"><button class="btn primary" data-go="build">Start building →</button><button class="btn" data-go="example">See a finished example</button></div>`}
+];
+function renderLearn(){
+  $("ldots").innerHTML=LEARN.map((c,i)=>`<li><button data-l="${i}" aria-current="${i===lIdx?"step":"false"}" class="${lSeen.has(i)?"seen":""}">${i+1} · ${c.t}</button></li>`).join("");
+  $("lcard").innerHTML=LEARN[lIdx].r(); $("lcard").style.animation="none"; void $("lcard").offsetWidth; $("lcard").style.animation="";
+  $("lPrev").disabled=lIdx===0; $("lNext").textContent=lIdx===LEARN.length-1?"Start building →":`Next: ${LEARN[lIdx+1].t} →`;
+}
+function goLearn(i){ lIdx=Math.max(0,Math.min(LEARN.length-1,i)); lSeen.add(lIdx); renderLearn(); }
+$("ldots").addEventListener("click",e=>{ const b=e.target.closest("[data-l]"); if(b) goLearn(+b.dataset.l); });
+$("lPrev").onclick=()=>goLearn(lIdx-1);
+$("lNext").onclick=()=>{ if(lIdx===LEARN.length-1) show("build"); else goLearn(lIdx+1); };
+$("lcard").addEventListener("click",e=>{
+  const v=e.target.closest("[data-verb]"), qa=e.target.closest("[data-qa]"), qn=e.target.closest("[data-qnext]"), go=e.target.closest("[data-go]");
+  if(v){ const a=+v.dataset.verb; learnPair=learnPair&&learnPair[0]===a?null:[a,a-1]; renderLearn(); }
+  if(qa&&!quiz.answered){ quiz.answered=qa.dataset.qa; if(quiz.answered===quiz.k){ streak++; best=Math.max(best,streak); } else streak=0; renderLearn(); }
+  if(qn){ newQuiz(); renderLearn(); }
+  if(go){ if(go.dataset.go==="build") show("build"); else { loadExample(); show("aid"); } }
+});
+
+/* ---------- Build ---------- */
+const BSTEPS=["Situation","Goals","Strategies","Processes","Initiatives","Solutions","Connect","Check"];
+let bIdx=Math.min(7,Math.max(0,+S.bIdx||0));
+function stepDone(i){
+  if(i===0) return !!(S.situation.trim()||EXT.some(([k])=>S.ext[k].t.trim()));
+  if(i>=1&&i<=5) return S.items[COLS[i-1].k].some(it=>it.t.trim());
+  if(i===6) return allFilled().length>1&&!orphans().some(o=>o.why.startsWith("not tied"));
+  return false;
+}
+function renderBuild(){
+  $("bsteps").innerHTML=BSTEPS.map((n,i)=>`<li><button data-bs="${i}" aria-current="${i===bIdx?"step":"false"}" class="${stepDone(i)?"done":""}"><span>${stepDone(i)&&i!==bIdx?"✓":i+1}</span>${n}</button></li>`).join("");
+  document.querySelectorAll(".bstep").forEach(d=>d.hidden=true);
+  if(bIdx===0){ document.querySelector('.bstep[data-s="0"]').hidden=false; renderGuide(); EXT.forEach(([k])=>{ const t=$("ext2-"+k); if(document.activeElement!==t) t.value=S.ext[k].t; autosize(t); }); }
+  else if(bIdx<=5){ $("bcol").hidden=false; renderCol(bIdx-1); }
+  else if(bIdx===6){ $("bconnect").hidden=false; renderConnect(); }
+  else { document.querySelector('.bstep[data-s="7"]').hidden=false; renderCheck(); renderGuide(); }
+  renderMini();
+  const col=bIdx>=1&&bIdx<=5?COLS[bIdx-1]:null;
+  $("askClient").innerHTML=col?`<h4>Ask the client</h4><ul>${TEACH[col.k].ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>`
+    :bIdx===0?`<h4>Ask the client</h4><ul><li>What's changed for you in the last year?</li><li>What's top of mind for the leadership team?</li><li>Who else needs to agree?</li></ul>`
+    :bIdx===6?`<h4>Ask the client</h4><ul><li>Which of these would you fund first?</li><li>What happens to the goal if this stops?</li></ul>`:"";
+  $("bBack").disabled=bIdx===0; $("bNext").textContent=bIdx===7?"See the sheet →":`Next: ${BSTEPS[bIdx+1]} →`; $("bpos").textContent=`Step ${bIdx+1} of 8`;
+  S.bIdx=bIdx; save();
+}
+function renderMini(){ $("mini").innerHTML=miniSVG({active:bIdx>=1&&bIdx<=5?bIdx-1:-1}); }
+function goBuild(i){ bIdx=Math.max(0,Math.min(7,i)); renderBuild(); $("viewBuild").scrollIntoView({block:"start",behavior:"smooth"}); }
+$("bsteps").addEventListener("click",e=>{ const b=e.target.closest("[data-bs]"); if(b) goBuild(+b.dataset.bs); });
+$("bBack").onclick=()=>goBuild(bIdx-1);
+$("bNext").onclick=()=>{ if(bIdx===7) show("aid"); else goBuild(bIdx+1); };
+$("mini").onclick=()=>show("aid");
+$("bAssist").onclick=()=>openAssist();
+$("toSheet2").onclick=()=>show("aid"); $("toClient").onclick=()=>{ setMode(true); show("aid"); }; $("copy2").onclick=()=>copySummary();
+$("viewBuild").addEventListener("input",e=>{ const k=e.target.dataset.ext2; if(k){ S.ext[k].t=e.target.value; autosize(e.target); save(); } });
+$("check2").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ const id=b.dataset.show; show("aid"); setTimeout(()=>select(id),50); } });
+
+function renderCol(ix){
+  const c=COLS[ix], k=c.k, std=CHOICES[k], T=TEACH[k], items=S.items[k], used=items.filter(x=>x.t.trim()).length;
+  let h=`<p class="lkick">Step ${ix+2} of 8</p><h2>${c.label}</h2><p class="verbline">${T.verb}</p><p class="teach">${esc(T.lead)}</p>`;
+  if(std) h+=`<h3>Choose up to ${c.n} of KA's ${std.length} standard ${c.label.toLowerCase()} <span class="count">${used} of ${c.n} chosen</span></h3>
+    <div class="cgrid">${std.map(v=>{ const on=items.some(x=>x.t===v); return `<button class="ccard ${on?"on":""}" data-choose="${esc(v)}" aria-pressed="${on}" ${!on&&used>=c.n?"disabled":""}><b>${esc(v)}</b><span>${esc(meaningOf(k,v))}</span></button>`; }).join("")}</div>`;
+  h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
+  items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
+    h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1}" aria-label="Solution ${i+1}">`}</div>
+      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea></div>`; });
+  if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
+  h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
+  $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
+}
+$("bcol").addEventListener("click",e=>{
+  const ch=e.target.closest("[data-choose]"), un=e.target.closest("[data-unchoose]"), dot=e.target.closest("[data-dot2]"), sg=e.target.closest("[data-suggest]");
+  const ix=bIdx-1, c=COLS[ix]; if(!c) return;
+  if(ch){ const v=ch.dataset.choose, items=S.items[c.k], have=items.findIndex(x=>x.t===v);
+    if(have>=0){ document.querySelector(`.pcard[data-pid="${c.k}.${have}"] textarea`)?.focus(); return; }
+    const slot=items.findIndex(x=>!x.t.trim()); if(slot<0) return;
+    items[slot].t=v; save(); renderCol(ix); renderMini(); renderBuildSteps();
+    const pc=document.querySelector(`.pcard[data-pid="${c.k}.${slot}"]`); pc?.classList.add("pulse"); pc?.querySelector("textarea")?.focus({preventScroll:false}); return; }
+  if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[]}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
+  if(dot){ const it=item(dot.dataset.dot2); it.c=(it.c+1)%4; save(); renderCol(ix); renderMini(); return; }
+  if(sg){ suggestCol(+sg.dataset.suggest); }
+});
+$("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
+  clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
+function renderBuildSteps(){ document.querySelectorAll("#bsteps [data-bs]").forEach(b=>{ const i=+b.dataset.bs, d=stepDone(i); b.classList.toggle("done",d); b.querySelector("span").textContent=d&&i!==bIdx?"✓":i+1; }); }
+
+function renderConnect(){
+  let h=`<p class="lkick">Step 7 of 8</p><h2>Connect them</h2><p class="verbline">Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.</p>
+    <p class="teach">Each box should serve at least one box in the column before it. Tap what each one serves. Anything that serves nothing is worth challenging.</p>`;
+  let any=false;
+  for(let ix=1; ix<COLS.length; ix++){ const c=COLS[ix], prev=COLS[ix-1], its=S.items[c.k].map((it,i)=>[it,`${c.k}.${i}`]).filter(([it])=>it.t.trim()); if(!its.length) continue; any=true;
+    const opts=S.items[prev.k].map((_,j)=>`${prev.k}.${j}`).filter(filled);
+    h+=`<h3>${c.label} <small>${OBTAINS[ix]}</small> ${prev.label}</h3>`;
+    its.forEach(([it,id])=>{ const n=(it.serves||[]).filter(filled).length;
+      h+=`<div class="crow"><b>${esc(it.t)} ${n?"":`<span class="note" style="color:var(--warn)">· serves nothing yet</span>`}</b><div class="chips">${opts.length?opts.map(o=>{ const on=it.serves.includes(o); return `<button class="chip2 ${on?"on":""}" data-sv="${id}|${o}" aria-pressed="${on}">${esc(nameOf(o))}</button>`; }).join(""):`<span class="note">Choose ${prev.label.toLowerCase()} first.</span>`}</div></div>`; }); }
+  if(!any) h+=`<p class="note">Choose some strategies, processes, initiatives or solutions first.</p>`;
+  h+=`<div class="arow" style="flex:0 1 auto"><button class="btn small" id="cSuggest">Suggest the connections</button></div>`;
+  $("bconnect").innerHTML=h;
+}
+$("bconnect").addEventListener("click",e=>{ const b=e.target.closest("[data-sv]");
+  if(b){ const [id,o]=b.dataset.sv.split("|"), it=item(id); it.serves=it.serves.includes(o)?it.serves.filter(x=>x!==o):[...it.serves,o]; save(); renderConnect(); renderMini(); renderBuildSteps(); return; }
+  if(e.target.closest("#cSuggest")){ openAssist(); $("aLinks").click(); } });
+
+async function suggestCol(ix){
+  const c=COLS[ix], std=CHOICES[c.k], free=S.items[c.k].filter(x=>!x.t.trim()).length; openAssist();
+  if(!free){ $("answer").textContent=`All ${c.n} ${c.label.toLowerCase()} are chosen. Remove one to make room.`; return; }
+  const avail=std?std.filter(v=>!S.items[c.k].some(x=>x.t===v)):null;
+  const r=await ask(`${ctx()}\n\nSuggest up to ${free} ${c.label.toLowerCase()} for this client${std?`, each exactly one of ${JSON.stringify(avail)}`:" (short names, under 8 words)"}. For each, write what would support it for this client (under 25 words, marking assumptions) and why it fits (under 15 words). Reply with only JSON: {"options":[{"name":string,"supports":string,"why":string}]}`,{json:true});
+  if(!r||!Array.isArray(r.options)) return;
+  let opts=r.options.map(o=>({...o,name:std?stdMatch(c.k,o.name):String(o.name||"").trim()})).filter(o=>o.name);
+  if(!opts.length){ $("answer").textContent="Nothing fit well enough to suggest. Add more to the situation and try again."; return; }
+  $("sugg").innerHTML=`<p class="note">Suggested ${c.label.toLowerCase()}. Add the ones that fit.</p>`+opts.slice(0,free).map((o,i)=>`<div class="s"><b>${esc(o.name)}</b><span>${esc(o.supports||"")}</span><small>${esc(o.why||"")}</small><button class="btn small" data-addopt="${i}">Add</button></div>`).join("");
+  $("sugg").querySelectorAll("[data-addopt]").forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.addopt], items=S.items[c.k]; if(items.some(x=>x.t===o.name)){ b.disabled=true; return; }
+    const slot=items.findIndex(x=>!x.t.trim()); if(slot<0){ b.textContent="No room"; b.disabled=true; return; }
+    Object.assign(items[slot],{t:o.name,d:String(o.supports||"")}); save(); b.textContent="Added"; b.disabled=true; renderAll(); });
+}
 
 /* ---------- Assistant ---------- */
 let sample=null, ctl=null, assistOff=false, pending=null;
@@ -725,9 +1012,10 @@ $("aQuestions").onclick=()=>ask(`${ctx()}\n\nWrite 5 open questions to ask the c
 $("askForm").onsubmit=e=>{ e.preventDefault(); const q=$("askBox").value.trim(); if(!q) return; ask(`${ctx()}${sel?`\n\nThe user is looking at: ${nameOf(sel)} (${sel}).`:""}\n\nQuestion: ${q}\n\nAnswer in under 150 words, plain text.`); };
 (async()=>{ try{ sample=window.claude?await window.claude.use("sample"):null; }catch(e){ sample=null; } if(!sample) off("The assistant works when this page is opened in Claude. The aid works by hand everywhere."); })();
 
-syncTop(); $("clientBar").hidden=true; renderAll(true); show(location.hash==="#guide"?"guide":"aid");
-function sheetInView(){ if(innerWidth>=980) $("stage").scrollIntoView({block:"start"}); }
-if(location.hash!=="#guide") requestAnimationFrame(sheetInView);
+function viewFromHash(){ const h=location.hash.slice(1); return h==="learn"?"learn":h==="build"?"build":(h==="sheet"||h==="aid")?"aid":null; }
+function sheetInView(){ if(innerWidth>=980&&curView==="aid") $("stage").scrollIntoView({block:"start"}); }
+syncTop(); $("clientBar").hidden=true; renderAll(true);
+show(viewFromHash()||(allFilled().length||S.situation?"build":"learn"));
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
-if(firstHow&&!allFilled().length) setTimeout(()=>setHow(true),1700);
+if(firstHow&&!allFilled().length&&curView==="aid") setTimeout(()=>setHow(true),1700);
 </script>
