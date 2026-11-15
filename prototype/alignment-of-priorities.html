@@ -149,6 +149,12 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 @keyframes draw{from{stroke-dashoffset:240}}
 @keyframes fadein{from{opacity:0}}
 .links path{fill:none;stroke:var(--plum)}
+.slot.over .desc{box-shadow:0 0 0 calc(.35*var(--mm)) var(--warn)}
+.slot.over::after{content:"!";position:absolute;right:calc(-1.2*var(--mm));top:calc((var(--dy) + var(--dh) - 3.2) * var(--mm));width:calc(3.2*var(--mm));height:calc(3.2*var(--mm));border-radius:50%;background:var(--warn);color:#fff;font:700 calc(2.3*var(--mm))/calc(3.2*var(--mm)) var(--font);text-align:center;z-index:6}
+@media print{.slot.over .desc{box-shadow:none}.slot.over::after{display:none}}
+.fitline{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.fitline.bad{color:var(--warn);font-weight:600}
+.fitline .btn{min-height:30px;padding:4px 10px;font-size:12.5px}
 .cv.focusing .slot.cand:not(.lit){opacity:.85}
 .slot.upst .namebar{box-shadow:0 0 0 calc(.5*var(--mm)) var(--plum)}
 .slot.downst .namebar{box-shadow:none;outline:calc(.45*var(--mm)) dashed var(--plum);outline-offset:calc(.2*var(--mm))}
@@ -665,8 +671,23 @@ function renderPicture(intro){
   $("slots").innerHTML=h.join("");
   cv.classList.toggle("intro",!!intro);
   if(intro){ clearTimeout(cv._t); cv._t=setTimeout(()=>cv.classList.remove("intro"),2200); }
-  applyFocus();
+  applyFocus(); requestAnimationFrame(fitDescs);
 }
+/* ---------- supporting text must fit its box on the sheet ---------- */
+const BUDGET={goals:90,strategies:70,processes:48,initiatives:48,solutions:48};  /* characters that fit at full size (measured) */
+const ABBR=[[/\band\b/gi,"&"],[/\bwith\b/gi,"w/"],[/\bwithout\b/gi,"w/o"],[/\bmanagement\b/gi,"mgmt"],[/\bcustomers\b/gi,"cust."],[/\bcustomer\b/gi,"cust."],[/\bpercent\b/gi,"%"],
+  [/\bapproximately\b/gi,"~"],[/\binformation\b/gi,"info"],[/\bdevelopment\b/gi,"dev."],[/\bbusiness\b/gi,"bus."],[/\borganization(al)?\b/gi,"org."],[/\boperations\b/gi,"ops"],[/\boperational\b/gi,"ops"],
+  [/\btechnology\b/gi,"tech"],[/\byears\b/gi,"yrs"],[/\byear\b/gi,"yr"],[/\bmillion\b/gi,"M"],[/\bbillion\b/gi,"B"],[/\bthousand\b/gi,"K"],[/\bdepartment\b/gi,"dept."],[/\bexecutives?\b/gi,"execs"],
+  [/\bincluding\b/gi,"incl."],[/\bversus\b/gi,"vs."],[/\bbecause\b/gi,"b/c"],[/\bgovernment\b/gi,"gov't"],[/\binfrastructure\b/gi,"infra."],[/\bperformance\b/gi,"perf."],[/\bproducts\b/gi,"prods"],
+  [/\bservices\b/gi,"svcs"],[/\bacross\b/gi,"across"],[/\bthe\s+/gi,""],[/\b(a|an)\s+/gi,""],[/\.$/,""]];
+function abbreviate(t){ return String(t||"").replace(/\s+/g," ").trim(); }
+function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [re,to] of ABBR){ if(x.length<=max) break; x=x.replace(re,to).replace(/\s+/g," ").trim(); } return x; }
+function fitDescs(){ const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
+  cv.querySelectorAll(".slot .desc").forEach(el=>{ if(el===document.activeElement) return; let f=2.75; el.style.fontSize=(f*mm)+"px"; el.style.lineHeight="1.3";
+    el.scrollTop=0; while(el.scrollHeight>el.clientHeight+1&&f>2.25){ f-=.1; el.style.fontSize=(f*mm)+"px"; if(f<2.4) el.style.lineHeight="1.2"; }
+    el.scrollTop=0; const over=el.scrollHeight>el.clientHeight+1; el.closest(".slot").classList.toggle("over",over&&!!el.value.trim()); el.title=over?"Too long for the printed box: shorten it in Build":""; }); }
+new ResizeObserver(()=>fitDescs()).observe($("stage"));
+addEventListener("beforeprint",fitDescs);
 function linkPt(id,side){ const [k,i]=id.split("."), c=COLS[ci(k)]; return [side==="r"?c.x+W:c.x, c.ys[+i]+c.nh/2]; }
 /* line colour = the goal a line ultimately leads to */
 function goalsOf(id){ const g=new Set(id.startsWith("goals.")?[id]:[]); up(id).forEach(x=>{ if(x.startsWith("goals.")) g.add(x); }); return [...g]; }
@@ -734,6 +755,7 @@ $("cv").addEventListener("click",e=>{
   if(!e.target.closest("button,textarea,input")) select(null);
 });
 $("cv").addEventListener("focusin",e=>{ const s=e.target.closest(".slot"); if(s&&s.dataset.id!==sel&&e.target.matches("textarea,input")) select(s.dataset.id); });
+$("cv").addEventListener("focusout",e=>{ if(e.target.matches(".desc")) setTimeout(fitDescs,0); });
 $("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; save();
   if(p==="t"){ e.target.closest(".slot").classList.toggle("empty",!e.target.value.trim()); }
   clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); applyFocus(); },500); });
@@ -988,6 +1010,14 @@ $("toSheet2").onclick=()=>show("aid"); $("toClient").onclick=()=>{ setMode(true)
 $("viewBuild").addEventListener("input",e=>{ const k=e.target.dataset.ext2; if(k){ S.ext[k].t=e.target.value; autosize(e.target); save(); } });
 $("check2").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ const id=b.dataset.show; show("aid"); setTimeout(()=>select(id),50); } });
 
+function fitLineHTML(k,id,d){ const n=(d||"").trim().length, max=BUDGET[k]; if(!n) return `<div class="fitline" data-fit="${id}"><span>Fits the printed box: about ${max} characters</span></div>`;
+  return `<div class="fitline ${n>max?"bad":""}" data-fit="${id}"><span>${n} of about ${max} characters · ${n>max?"too long for the printed box":"fits the printed box"}</span>${n>max?`<button class="btn small" data-shorten="${id}">Shorten</button>`:""}</div>`; }
+async function shorten(id,btn){ const [k]=id.split("."), it=item(id), max=BUDGET[k];
+  let x=fitText(k,it.d);
+  if(x.length>max&&sample){ btn&&(btn.disabled=true,btn.textContent="Shortening…");
+    try{ const r=await sample(`Shorten this to at most ${max} characters so it fits a small printed box on a business aid. Keep the meaning and every fact; add nothing. Abbreviate logically (& for and, w/, mgmt, ops, %, $M, yr). Reply with only the shortened text.\n\n${it.d}`,{modelTier:"quick",cache:false}); const t=r.text.trim().replace(/^"|"$/g,""); if(t&&t.length<x.length) x=t; }
+    catch(e){} }
+  it.d=x; save(); if(curView==="build") renderCol(bIdx-1); renderPicture(); toast(x.length<=max?"Shortened to fit":"Shortened; still a little long, so the sheet sets it smaller"); }
 function renderCol(ix){
   const c=COLS[ix], k=c.k, std=CHOICES[k], T=TEACH[k], items=S.items[k], used=items.filter(x=>x.t.trim()).length;
   let h=`<p class="lkick">Step ${ix+2} of 8</p><h2>${c.label}</h2><p class="verbline">${T.verb}</p><p class="teach">${esc(T.lead)}</p>`;
@@ -996,7 +1026,7 @@ function renderCol(ix){
   h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
   items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
     h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1}" aria-label="Solution ${i+1}">`}</div>
-      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
+      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
   h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
   $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
@@ -1012,9 +1042,11 @@ $("bcol").addEventListener("click",e=>{
   if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[],src:""}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
   if(dot){ const it=item(dot.dataset.dot2); it.c=(it.c+1)%4; save(); renderCol(ix); renderMini(); return; }
   if(sg){ suggestCol(+sg.dataset.suggest); }
+  const sh=e.target.closest("[data-shorten]"); if(sh){ shorten(sh.dataset.shorten,sh); return; }
   const cc=e.target.closest("[data-clearcol]"); if(cc) armed(cc,`Tap again to clear ${c.label.toLowerCase()}`,()=>clearColumn(cc.dataset.clearcol));
 });
-$("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
+$("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value;
+  if(p==="d"){ const fl=document.querySelector(`[data-fit="${k}.${i}"]`); if(fl) fl.outerHTML=fitLineHTML(k,`${k}.${i}`,e.target.value); } if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
 function renderBuildSteps(){ document.querySelectorAll("#bsteps [data-bs]").forEach(b=>{ const i=+b.dataset.bs, d=stepDone(i); b.classList.toggle("done",d); b.querySelector("span").textContent=d&&i!==bIdx?"✓":i+1; }); }
 
@@ -1039,14 +1071,14 @@ async function suggestCol(ix){
   const c=COLS[ix], std=CHOICES[c.k], free=S.items[c.k].filter(x=>!x.t.trim()).length; openAssist();
   if(!free){ $("answer").textContent=`All ${c.n} ${c.label.toLowerCase()} are chosen. Remove one to make room.`; return; }
   const avail=std?std.filter(v=>!S.items[c.k].some(x=>x.t===v)):null;
-  const r=await ask(`${ctx()}\n\nSuggest up to ${free} ${c.label.toLowerCase()} for this client${std?`, each exactly one of ${JSON.stringify(avail)}`:" (short names, under 8 words)"}. For each, write what would support it for this client (under 25 words, marking assumptions) and why it fits (under 15 words). Reply with only JSON: {"options":[{"name":string,"supports":string,"why":string}]}`,{json:true});
+  const r=await ask(`${ctx()}\n\nSuggest up to ${free} ${c.label.toLowerCase()} for this client${std?`, each exactly one of ${JSON.stringify(avail)}`:" (short names, under 8 words)"}. For each, write what would support it for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically; mark assumptions) and why it fits (under 15 words). Reply with only JSON: {"options":[{"name":string,"supports":string,"why":string}]}`,{json:true});
   if(!r||!Array.isArray(r.options)) return;
   let opts=r.options.map(o=>({...o,name:std?stdMatch(c.k,o.name):String(o.name||"").trim()})).filter(o=>o.name);
   if(!opts.length){ $("answer").textContent="Nothing fit well enough to suggest. Add more to the situation and try again."; return; }
   $("sugg").innerHTML=`<p class="note">Suggested ${c.label.toLowerCase()}. Add the ones that fit.</p>`+opts.slice(0,free).map((o,i)=>`<div class="s"><b>${esc(o.name)}</b><span>${esc(o.supports||"")}</span><small>${esc(o.why||"")}</small><button class="btn small" data-addopt="${i}">Add</button></div>`).join("");
   $("sugg").querySelectorAll("[data-addopt]").forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.addopt], items=S.items[c.k]; if(items.some(x=>x.t===o.name)){ b.disabled=true; return; }
     const slot=items.findIndex(x=>!x.t.trim()); if(slot<0){ b.textContent="No room"; b.disabled=true; return; }
-    Object.assign(items[slot],{t:o.name,d:String(o.supports||""),src:""}); save(); b.textContent="Added"; b.disabled=true; renderAll(); });
+    Object.assign(items[slot],{t:o.name,d:fitText(c.k,String(o.supports||"")),src:""}); save(); b.textContent="Added"; b.disabled=true; renderAll(); });
 }
 
 
@@ -1084,7 +1116,7 @@ Goals (choose exactly 2): ${JSON.stringify(CHOICES.goals)}
 Strategies (up to 5): ${JSON.stringify(CHOICES.strategies)}
 Processes (up to 5): ${JSON.stringify(CHOICES.processes)}
 Initiatives (up to 3): ${JSON.stringify(CHOICES.initiatives)}
-Use each choice once per column, spelled exactly as given, most important first. For each, "supports" says what about this company supports the choice: one or two specific sentences (under 40 words). "source" is where it came from: "Built-in knowledge" or "Material: <its name>". Do not invent numbers, people or events; if unsure, say what to confirm instead.
+Use each choice once per column, spelled exactly as given, most important first. For each, "supports" says what about this company supports the choice: one specific line that fits the printed box: at most ${BUDGET.goals} characters for goals, ${BUDGET.strategies} for strategies, ${BUDGET.processes} for processes and initiatives. Abbreviate logically where needed (& for and, w/, mgmt, ops, %, $M, yr). "source" is where it came from: "Built-in knowledge" or "Material: <its name>". Do not invent numbers, people or events; if unsure, say what to confirm instead.
 "serves" connects each strategy to goal ids it obtains ("goals.0" or "goals.1"), each process to strategy ids it executes ("strategies.N"), each initiative to process ids it improves ("processes.N"), with N = position in your own list.
 External factors: one or two plain sentences each on what in the economy, the company's industry and its financials matters here.
 Leave Solutions out; the user brings those.
@@ -1098,7 +1130,7 @@ function cleanDraft(r){
   EXT.forEach(([k])=>{ const e=r?.external?.[k]; d.external[k]=e&&typeof e==="object"?{text:String(e.text||"").trim(),source:String(e.source||"")}:{text:String(e||"").trim(),source:""}; });
   ["goals","strategies","processes","initiatives"].forEach((k,ix)=>{ const c=COLS[ix], seen=new Set(), map={};
     d.cols[k]=[]; (Array.isArray(r?.[k])?r[k]:[]).forEach((o,j)=>{ const m=stdMatch(k,o?.name); if(!m||seen.has(m)||d.cols[k].length>=c.n) return; seen.add(m); map[j]=d.cols[k].length;
-      d.cols[k].push({t:m,d:String(o.supports||"").trim(),src:String(o.source||"Built-in knowledge"),serves:Array.isArray(o.serves)?o.serves.map(String):[]}); });
+      d.cols[k].push({t:m,d:fitText(k,String(o.supports||"").trim()),src:String(o.source||"Built-in knowledge"),serves:Array.isArray(o.serves)?o.serves.map(String):[]}); });
     d.cols[k]._map=map; });
   // remap serves to cleaned positions in the column to the left
   ["strategies","processes","initiatives"].forEach((k,ii)=>{ const prev=["goals","strategies","processes"][ii], pm=d.cols[prev]._map;
@@ -1189,14 +1221,14 @@ async function ask(prompt,{json=false}={}){ if(!sample) return null; ctl=new Abo
 const stdMatch=(k,v)=>CHOICES[k]?.find(x=>x.toLowerCase()===String(v||"").trim().toLowerCase());
 $("stopBtn").onclick=()=>ctl?.abort();
 $("aBox").onclick=async()=>{ if(!sel) return; const id=sel, c=COLS[ci(id.split(".")[0])], std=CHOICES[c.k];
-  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 options for this one ${c.one}${std?`; each name must be exactly one of ${JSON.stringify(std.filter(v=>!S.items[c.k].some((x,j)=>x.t===v&&`${c.k}.${j}`!==id)))}; details say what supports that choice for this client (under 25 words)`:"; name under 8 words, details under 20"}; why under 15 words.`,{json:true});
+  const r=await ask(`${ctx()}\n\nThe user is working on ${c.label} slot ${id} (now: "${item(id).t}"). Reply with only JSON: {"options":[{"name":string,"details":string,"why":string}]}: 3 options for this one ${c.one}${std?`; each name must be exactly one of ${JSON.stringify(std.filter(v=>!S.items[c.k].some((x,j)=>x.t===v&&`${c.k}.${j}`!==id)))}; details say what supports that choice for this client (at most ${BUDGET[c.k]} characters so it fits the printed box; abbreviate logically)`:"; name under 8 words, details at most ${BUDGET[c.k]} characters, abbreviated logically"}; why under 15 words.`,{json:true});
   if(!r||!Array.isArray(r.options)) return;
   let opts=r.options; if(std) opts=opts.map(o=>({...o,name:stdMatch(c.k,o.name)})).filter(o=>o.name);
   if(!opts.length){ $("answer").textContent="No standard choice fit. Add more to the situation and try again."; return; }
   $("sugg").innerHTML=opts.slice(0,3).map((o,i)=>`<div class="s"><b>${esc(o.name)}</b><span>${esc(o.details||"")}</span><small>${esc(o.why||"")}</small><button class="btn small" data-use="${i}">Use this</button></div>`).join("");
-  $("sugg").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.use]; Object.assign(item(id),{t:String(o.name||""),d:String(o.details||"")}); save(); clearSugg(); renderPicture(); renderCheck(); renderGuide(); select(id); spark(ci(c.k)); $("answer").textContent="Added. Tap + on the column to its left to tie it in."; }); };
+  $("sugg").querySelectorAll("[data-use]").forEach(b=>b.onclick=()=>{ const o=opts[+b.dataset.use]; Object.assign(item(id),{t:String(o.name||""),d:fitText(c.k,String(o.details||""))}); save(); clearSugg(); renderPicture(); renderCheck(); renderGuide(); select(id); spark(ci(c.k)); $("answer").textContent="Added. Tap + on the column to its left to tie it in."; }); };
 $("aFill").onclick=async()=>{
-  const r=await ask(`${ctx()}\n\nDraft the whole aid for this situation. Keep every existing entry at its same position, word for word. Goal, Strategy, Process and Initiative names must be exact standard choices, never the same choice twice in a column; details say what supports each choice for this client. Fill empty slots only where the situation supports it; leave others empty. Details under 20 words. "serves" lists ids in the column to the left (goals serve nothing). Reply with only JSON: {"external":{"economy":string,"industry":string,"financials":string},"items":{"goals":[{"name":string,"details":string,"serves":[]}] x2,"strategies":[... x5],"processes":[... x5],"initiatives":[... x3],"solutions":[... x3]}}`,{json:true});
+  const r=await ask(`${ctx()}\n\nDraft the whole aid for this situation. Keep every existing entry at its same position, word for word. Goal, Strategy, Process and Initiative names must be exact standard choices, never the same choice twice in a column; details say what supports each choice for this client. Fill empty slots only where the situation supports it; leave others empty. Details must fit the printed boxes: at most these characters per column ${JSON.stringify(BUDGET)}; abbreviate logically (& for and, w/, mgmt, ops, %, $M). "serves" lists ids in the column to the left (goals serve nothing). Reply with only JSON: {"external":{"economy":string,"industry":string,"financials":string},"items":{"goals":[{"name":string,"details":string,"serves":[]}] x2,"strategies":[... x5],"processes":[... x5],"initiatives":[... x3],"solutions":[... x3]}}`,{json:true});
   if(!r||typeof r!=="object"||!r.items) return;
   COLS.forEach(c=>{ if(!CHOICES[c.k]) return; const seen=new Set(); (r.items[c.k]||[]).forEach(d=>{ if(!d) return; const m=stdMatch(c.k,d.name); d.name=m&&!seen.has(m)?m:""; if(m) seen.add(m); }); });
   pending=r; const rows=[];
@@ -1207,7 +1239,7 @@ $("aFill").onclick=async()=>{
 function applyDraft(all){ const r=pending; if(!r) return; pending=null;
   EXT.forEach(([k])=>{ const v=r.external?.[k]; if(v&&v.trim()&&(all||!S.ext[k].t.trim())) S.ext[k].t=v.trim(); });
   COLS.forEach((c,ix)=>(r.items[c.k]||[]).slice(0,c.n).forEach((d,i)=>{ if(!d?.name?.trim()) return; const it=S.items[c.k][i], empty=!it.t.trim();
-    if(all||empty){ it.t=d.name.trim(); it.d=String(d.details||"").trim(); }
+    if(all||empty){ it.t=d.name.trim(); it.d=fitText(c.k,String(d.details||"").trim()); }
     if(ix>0&&(all||empty||!it.serves.length)){ const sv=(d.serves||[]).filter(x=>typeof x==="string"&&x.startsWith(COLS[ix-1].k+".")); if(sv.length) it.serves=[...new Set(sv)]; } }));
   cleanLinks(); save(); clearSugg(); renderAll(true); $("answer").textContent=all?"Draft applied. Everything stays editable.":"Empty boxes filled. Your own words were kept."; }
 $("useEmpty").onclick=()=>applyDraft(false); $("useAll").onclick=()=>applyDraft(true); $("discard").onclick=()=>{ pending=null; clearSugg(); $("answer").textContent=""; };
