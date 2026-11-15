@@ -7,7 +7,6 @@
   --bg:#eef1f6; --paper:#ffffff; --ink:#1f2430; --muted:#5b6476; --rule:#d8dce5;
   --blue:#2c4f9b; --title:#3f62ad; --cyan:#0fa3c2; --cyan-soft:#e2f5f9; --plum:#9e2a55; --plum-soft:#f7e7ed;
   --tan:#a39a83; --band-dark:#c6c7ca; --band-mid:#e6e7e9; --band-light:#f1f1f2; --strip:#e3e3e5; --bandtext:#4d4d52;
-  --t1:rgb(116 184 191); --t2:rgb(247 178 109); --t3:rgb(221 150 184);
   --hl:#ffe600; --callout:#8a8a8a; --ok:#2d7a52; --warn:#a6501d; --warn-soft:#fbeadf; --on-blue:#fff;
   --org-a:#f3d4d2; --org-b:#f9e8e7; --org-s:#ecc2bf; --op-a:#fbefc8; --op-b:#fdf6e1; --op-s:#f5e2a6; --inf-a:#dcebe0; --inf-b:#edf5ef; --inf-s:#c9e0cf;
   --g1:#2f6fd6; --g2:#1f9a62; --g12:#7b4bd1; --gnone:#9aa1ad;
@@ -127,12 +126,6 @@ input.nameinput{position:absolute;inset:0 0 auto 0;height:calc(var(--nh) * var(-
 input.nameinput::placeholder{color:var(--blue);font-weight:600;opacity:.6}
 .slot.empty input.nameinput{background:transparent;box-shadow:none;outline:calc(.25*var(--mm)) dashed color-mix(in srgb,var(--blue) 35%,transparent)}
 input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cyan)}
-.sq{position:absolute;left:calc(-5.6 * var(--mm));top:0;width:calc(4.4*var(--mm));height:calc(var(--nh)*var(--mm));border:calc(.3*var(--mm)) solid var(--callout);border-radius:calc(.7*var(--mm));background:transparent;cursor:pointer;padding:0}
-.slot.empty .sq{opacity:.25}
-.c1 .namebar,.c1 .desc,.c1 input.nameinput{background:color-mix(in srgb,var(--t1) 70%,var(--paper))}
-.c2 .namebar,.c2 .desc,.c2 input.nameinput{background:color-mix(in srgb,var(--t2) 70%,var(--paper))}
-.c3 .namebar,.c3 .desc,.c3 input.nameinput{background:color-mix(in srgb,var(--t3) 70%,var(--paper))}
-.c1 .sq{background:var(--t1);border-color:var(--t1)}.c2 .sq{background:var(--t2);border-color:var(--t2)}.c3 .sq{background:var(--t3);border-color:var(--t3)}
 .link{position:absolute;right:calc(-4.9*var(--mm));top:calc(.8*var(--mm));width:calc(4.4*var(--mm));height:calc(4.4*var(--mm));border-radius:50%;border:calc(.4*var(--mm)) solid var(--plum);background:var(--paper);color:var(--plum);font:700 calc(2.8*var(--mm))/1 var(--font);display:grid;place-items:center;cursor:pointer;padding:0;z-index:6;animation:pop .25s ease-out}
 .link[aria-pressed="true"]{background:var(--plum);color:#fff}
 @keyframes pop{from{transform:scale(.3);opacity:0}}
@@ -197,12 +190,6 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .spark{fill:#fff;stroke:var(--plum);stroke-width:.6}
 .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 @media (max-width:800px){.under{grid-template-columns:minmax(0,1fr)}}
-.legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
-.legend label{display:flex;align-items:center;gap:4px;border:1px solid var(--rule);border-radius:999px;padding:2px 8px 2px 4px;background:var(--paper)}
-.legend input{font:13px var(--font);border:0;background:transparent;color:var(--ink);width:110px;padding:3px 0}
-.sw{width:16px;height:16px;border-radius:4px;flex:0 0 auto}
-.sw.c1{background:var(--t1)}.sw.c2{background:var(--t2)}.sw.c3{background:var(--t3)}
-.lgname{display:none}
 .trace{background:var(--plum-soft);border-radius:8px;padding:10px 12px;font-size:14.5px;margin:0}
 .trace b{color:var(--plum)}
 .walkbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--bg);border-radius:10px;padding:8px 10px}
@@ -242,9 +229,7 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .ask{display:grid;gap:6px}
 .ask textarea{border:1px solid var(--rule);background:var(--bg);min-height:56px;padding:8px 10px}
 .note{font-size:12.5px;color:var(--muted);margin:0}
-body.client .bside .btn,body.client .prep-only,body.client .slot.empty,body.client .helpbox,body.client .check,body.client .legend input{display:none!important}
-body.client .lgname{display:inline}
-body.client .legend label.unnamed{display:none}
+body.client .bside .btn,body.client .prep-only,body.client .slot.empty,body.client .helpbox,body.client .check{display:none!important}
 .tundo{margin-left:10px;border:0;background:transparent;color:var(--cyan);font-weight:700;text-decoration:underline;cursor:pointer;font-size:14px;padding:4px}
 .btn.danger{border-color:var(--warn);color:var(--warn)}
 .btn.danger[data-armed]{background:var(--warn);color:#fff}
@@ -340,14 +325,9 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .ccard:disabled{opacity:.4;cursor:default}
 .picked{display:grid;gap:10px}
 .pcard{border:1.5px solid var(--rule);border-radius:12px;padding:10px;display:grid;gap:8px;animation:pop .25s ease-out;background:var(--paper)}
-.pcard.c1{border-color:var(--t1);background:color-mix(in srgb,var(--t1) 18%,var(--paper))}
-.pcard.c2{border-color:var(--t2);background:color-mix(in srgb,var(--t2) 18%,var(--paper))}
-.pcard.c3{border-color:var(--t3);background:color-mix(in srgb,var(--t3) 18%,var(--paper))}
 .pcard .ph{display:flex;align-items:center;gap:8px}
 .pcard .ph b{flex:1;font-size:16px}
 .pcard .ph input{flex:1;font-weight:700}
-.sq2{width:22px;height:22px;border-radius:5px;border:2px solid var(--callout);background:transparent;cursor:pointer;flex:0 0 auto;padding:0}
-.pcard.c1 .sq2{background:var(--t1);border-color:var(--t1)}.pcard.c2 .sq2{background:var(--t2);border-color:var(--t2)}.pcard.c3 .sq2{background:var(--t3);border-color:var(--t3)}
 .x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:16px;min-width:36px;min-height:36px;border-radius:8px}
 .x:hover{background:var(--bg);color:var(--warn)}
 .crow{display:grid;gap:6px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
@@ -563,8 +543,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
           </div>
           <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small" id="walkBtn2">Show the alignment</button></div>
           <div class="lineKey" id="lineKey" aria-label="Connection lines"></div>
-          <div class="legend" id="legend" aria-label="What the colors mean"></div>
-          <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves. The colored square tags a box.</p>
+          <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves.</p>
         </div>
         <div class="check" id="check"></div>
       </div>
@@ -616,7 +595,7 @@ const PROBLEM=["Review structure and use of colors within visual","Review and re
 const SOLUTION=["Confirm how an initiative or solution aligns to the business priorities of key stakeholders","Test the importance of an initiative or solution based on the business priorities","Identify potential “gaps” in business priorities"];
 
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
-  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},legend:["","",""],ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},items}; }
+  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},items}; }
 const KEY="ka-aop-v3";
 let S; try{ S=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)||"null")||{}); }catch(e){ S=blank(); }
 COLS.forEach(c=>{ const a=S.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); S.items[c.k]=a.slice(0,c.n); });
@@ -649,7 +628,7 @@ const allFilled=()=>COLS.flatMap(c=>S.items[c.k].map((_,j)=>`${c.k}.${j}`)).filt
 function liveFor(kind,i){
   const all=allFilled(), links=all.reduce((n,id)=>n+(item(id).serves||[]).filter(filled).length,0), orph=orphans();
   if(kind==="p"){
-    if(i===0){ const n=all.filter(id=>item(id).c).length; return n?[`${n} tagged with a color`,0]:["No colors used yet",1]; }
+    if(i===0) return ["",0];
     if(i===1){ const n=COLS.filter(c=>S.items[c.k].some(it=>it.t.trim())).length; return [`${n} of 5 columns started`,n<5]; }
     if(i===2){ return links?[`${links} connection${links>1?"s":""} made`,0]:["No connections yet",1]; }
     if(i===3){ const n=orph.filter(o=>o.k==="initiatives"||o.k==="solutions").length; return n?[`${n} initiative or solution not tied in`,1]:(all.some(id=>/^(initiatives|solutions)/.test(id))?["Every initiative and solution is tied in",0]:["",0]); }
@@ -689,8 +668,7 @@ function slotHTML(c,ix,i){
     ?`<button class="namebar" data-pick="${id}" aria-haspopup="dialog" aria-label="${c.label} ${i+1}: ${it.t?esc(it.t)+". Change":"choose "+(c.an||"a "+c.one)}"><span class="v">${it.t?esc(it.t):`Choose ${c.an||"a "+c.one}`}</span><span class="car" aria-hidden="true">▾</span></button>`
     :`<input class="nameinput" data-f="${id}.t" value="${esc(it.t)}" placeholder="Name a ${c.one}" aria-label="${c.label} ${i+1}">`;
   const desc=`<textarea class="desc" data-f="${id}.d" placeholder="${std?`What supports ${esc(it.t||"it")} for them?`:"What it is and what it does"}" aria-label="${c.label} ${i+1}: what supports it">${esc(it.d)}</textarea>`;
-  return `<div class="slot at rise ${c.k} ${it.t.trim()?"":"empty"} ${it.c?"c"+it.c:""}" data-id="${id}" style="${at(c.x,y,W,c.dy+c.dh)};--nh:${c.nh};--dy:${c.dy};--dh:${c.dh};--d:${.35+ix*.12+i*.04}s">
-    <button class="sq" data-dot="${id}" aria-label="Color for ${esc(nameOf(id))}: ${["none","teal","orange","pink"][it.c]}. Change"></button>${name}${desc}</div>`;
+  return `<div class="slot at rise ${c.k} ${it.t.trim()?"":"empty"}" data-id="${id}" style="${at(c.x,y,W,c.dy+c.dh)};--nh:${c.nh};--dy:${c.dy};--dh:${c.dh};--d:${.35+ix*.12+i*.04}s">${name}${desc}</div>`;
 }
 function renderPicture(intro){
   const cv=$("cv"), h=[];
@@ -799,9 +777,8 @@ function spark(ix,all){
     if(p<1) requestAnimationFrame(step); else c.remove(); })(start);
 }
 $("cv").addEventListener("click",e=>{
-  const dot=e.target.closest("[data-dot]"), pk=e.target.closest("[data-pick]"), nt=e.target.closest("[data-note]"), ln=e.target.closest("[data-link]"), slot=e.target.closest(".slot");
+  const pk=e.target.closest("[data-pick]"), nt=e.target.closest("[data-note]"), ln=e.target.closest("[data-link]"), slot=e.target.closest(".slot");
   if(ln){ const it=item(sel), p=ln.dataset.link; it.serves=it.serves.includes(p)?it.serves.filter(x=>x!==p):[...it.serves,p]; save(); applyFocus(); renderCheck(); renderGuide(); if(it.serves.includes(p)) spark(ci(sel.split(".")[0])); return; }
-  if(dot){ const it=item(dot.dataset.dot); it.c=(it.c+1)%4; save(); const s=dot.closest(".slot"); s.classList.remove("c1","c2","c3"); if(it.c) s.classList.add("c"+it.c); dot.setAttribute("aria-label",`Color: ${["none","teal","orange","pink"][it.c]}. Change`); renderGuide(); return; }
   if(pk){ const id=pk.dataset.pick; if(!filled(id)||e.target.closest(".car")||sel===id){ select(id); openPick(id,pk); } else select(id); return; }
   if(nt){ openNote(nt.dataset.note,nt); return; }
   if(slot){ if(slot.dataset.id!==sel) select(slot.dataset.id); return; }
@@ -819,10 +796,6 @@ function forceSolution(inp){ const [k,i]=inp.dataset.f.split("."), it=S.items[k]
 $("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; save();
   if(p==="t"){ e.target.closest(".slot").classList.toggle("empty",!e.target.value.trim()); }
   clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); applyFocus(); },500); });
-function renderLegend(){
-  $("legend").innerHTML=["c1","c2","c3"].map((c,i)=>`<label class="${S.legend[i].trim()?"":"unnamed"}"><span class="sw ${c}"></span><input data-legend="${i}" value="${esc(S.legend[i])}" placeholder="${["Teal","Orange","Pink"][i]} means…" aria-label="What ${["teal","orange","pink"][i]} means"><span class="lgname">${esc(S.legend[i])}</span></label>`).join("");
-}
-$("legend").addEventListener("input",e=>{ const i=e.target.dataset.legend; if(i!=null){ S.legend[+i]=e.target.value; const l=e.target.closest("label"); l.querySelector(".lgname").textContent=e.target.value; l.classList.toggle("unnamed",!e.target.value.trim()); save(); } });
 function renderCheck(){ renderCheck0(); const c2=$("check2"); if(c2) c2.innerHTML=$("check").innerHTML; }
 function renderCheck0(){
   const all=allFilled();
@@ -833,7 +806,7 @@ function renderCheck0(){
   $("check").innerHTML=`<h3>Alignment check</h3><div class="meter"><span><b>${sOK}/${sols.length}</b> solutions trace to a goal</span><span><b>${gOK}/${goals.length}</b> goals reached by a solution</span></div><ul>${rows||`<li class="ok">Everything chosen is tied to the column before it.</li>`}</ul>`;
 }
 $("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ select(b.dataset.show); document.querySelector(`.slot[data-id="${b.dataset.show}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); } });
-function renderAll(intro){ renderPicture(intro); renderLegend(); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
+function renderAll(intro){ renderPicture(intro); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
 
 /* popovers */
 let popEl=null, popAt=0;
@@ -912,7 +885,7 @@ function summary(){
   const L=["ALIGNMENT OF PRIORITIES · Gain Business Clarity"]; if(S.company?.name) L.push(`Company: ${S.company.name}${S.company.eyes?` · through the eyes of ${S.company.eyes}`:""}`); if(S.situation) L.push(S.situation); L.push("");
   EXT.forEach(([k,l])=>{ if(S.ext[k].t.trim()) L.push(`${l}: ${S.ext[k].t.trim()}`); });
   COLS.forEach(c=>{ const its=S.items[c.k].filter(it=>it.t.trim()); if(!its.length) return;
-    L.push("",c.label.toUpperCase()); its.forEach(it=>{ const tag=it.c&&S.legend[it.c-1]?` [${S.legend[it.c-1]}]`:""; L.push(`- ${it.t.trim()}${tag}${it.d.trim()?`: ${it.d.trim()}`:""}${it.src?` (source: ${it.src})`:""}`); const sv=(it.serves||[]).filter(filled).map(nameOf); if(sv.length) L.push(`    serves: ${sv.join("; ")}`); }); });
+    L.push("",c.label.toUpperCase()); its.forEach(it=>{ L.push(`- ${it.t.trim()}${it.d.trim()?`: ${it.d.trim()}`:""}${it.src?` (source: ${it.src})`:""}`); const sv=(it.serves||[]).filter(filled).map(nameOf); if(sv.length) L.push(`    serves: ${sv.join("; ")}`); }); });
   const o=orphans(); if(o.length){ L.push("","NOT TIED IN YET"); o.forEach(x=>L.push(`- ${nameOf(x.id)}: ${x.why}`)); }
   const gs=GAPS.filter(([k])=>S.gaps[k]?.on); if(gs.length){ L.push("","GAPS"); gs.forEach(([k,l])=>L.push(`- ${l}${S.gaps[k].note?`: ${S.gaps[k].note}`:""}`)); }
   return L.join("\n");
@@ -920,7 +893,6 @@ function summary(){
 async function copySummary(){ const t=summary(); try{ await navigator.clipboard.writeText(t); toast("Summary copied"); }catch(e){ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast("Summary copied");}catch(_){ toast("Copy didn't work in this view"); } ta.remove(); } }
 const EXAMPLE={
   situation:"EXAMPLE · A regional insurance broker. Renewals fell 8% last year; the COO and VP of Sales want them back up. (Not a real client.)",
-  legend:["Agreed","Open question","At risk"],
   ext:{economy:{t:"Premiums rising; clients shop harder at renewal"},industry:{t:"Carriers consolidating; direct digital competitors"},financials:{t:"Commission revenue flat while service costs climb"}},
   gaps:{people:{on:true,note:"COO and VP of Sales haven't agreed who owns renewals."},policies:{on:true,note:"No budget set aside for new tools this year."}},
   items:{
@@ -985,9 +957,9 @@ function miniSVG({active=-1,pair=null,labels=true}={}){
       h+=`<path d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" fill="none" stroke="${lineColor(to)}" stroke-width="${on?1.1:.7}" opacity="${pair&&!on?.15:.9}"/>`; }); }); });
   COLS.forEach((c,ix)=>{ const on=active===ix||(pair&&pair.includes(ix)), dim=(active>=0||pair)&&!on;
     h+=`<text x="${c.hd[0]}" y="${c.hd[1]+3.4}" font-size="4.4" font-weight="700" fill="${on?"var(--plum)":"var(--blue)"}" opacity="${dim?.35:1}" font-family="Open Sans,sans-serif">${c.label.toUpperCase()}</text>`;
-    c.ys.forEach((y,i)=>{ const it=S.items[c.k][i], f=!!it.t.trim(), col=f?(it.c?["","var(--t1)","var(--t2)","var(--t3)"][it.c]:"var(--blue)"):"var(--paper)";
+    c.ys.forEach((y,i)=>{ const it=S.items[c.k][i], f=!!it.t.trim(), col=f?"var(--blue)":"var(--paper)";
       h+=`<rect x="${c.x}" y="${y}" width="${W}" height="${c.nh}" rx="1.2" fill="${col}" stroke="${on?"var(--plum)":"var(--muted)"}" stroke-width="${on?.9:.35}" ${f?"":'stroke-dasharray="1.4 1"'} opacity="${dim?.3:1}"/>`;
-      if(f&&labels) h+=`<text x="${c.x+1.6}" y="${y+c.nh-1.8}" font-size="3.2" font-weight="700" fill="${it.c?"#1f2430":"#fff"}" opacity="${dim?.4:1}" font-family="Open Sans,sans-serif">${esc((t=>t.length>21?t.slice(0,20)+"…":t)(SHORT[it.t]||it.t))}</text>`; }); });
+      if(f&&labels) h+=`<text x="${c.x+1.6}" y="${y+c.nh-1.8}" font-size="3.2" font-weight="700" fill="#fff" opacity="${dim?.4:1}" font-family="Open Sans,sans-serif">${esc((t=>t.length>21?t.slice(0,20)+"…":t)(SHORT[it.t]||it.t))}</text>`; }); });
   return h+`</svg>`;
 }
 
@@ -1092,14 +1064,14 @@ function renderCol(ix){
     <div class="cgrid">${std.map(v=>{ const on=items.some(x=>x.t===v); return `<button class="ccard ${on?"on":""}" data-choose="${esc(v)}" aria-pressed="${on}" ${!on&&used>=c.n?"disabled":""}><b>${esc(v)}</b><span>${esc(meaningOf(k,v))}</span></button>`; }).join("")}</div>`;
   h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
   items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
-    h+=`<div class="pcard ${it.c?"c"+it.c:""}" data-pid="${id}"><div class="ph"><button class="sq2" data-dot2="${id}" aria-label="Color tag: ${["none","teal","orange","pink"][it.c]}. Change"></button>${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1} (short name, about 24 characters)" aria-label="Solution ${i+1}" maxlength="40">`}</div>
+    h+=`<div class="pcard" data-pid="${id}"><div class="ph">${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1} (short name, about 24 characters)" aria-label="Solution ${i+1}" maxlength="40">`}</div>
       <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
   h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
   $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
 }
 $("bcol").addEventListener("click",e=>{
-  const ch=e.target.closest("[data-choose]"), un=e.target.closest("[data-unchoose]"), dot=e.target.closest("[data-dot2]"), sg=e.target.closest("[data-suggest]");
+  const ch=e.target.closest("[data-choose]"), un=e.target.closest("[data-unchoose]"), sg=e.target.closest("[data-suggest]");
   const ix=bIdx-1, c=COLS[ix]; if(!c) return;
   if(ch){ const v=ch.dataset.choose, items=S.items[c.k], have=items.findIndex(x=>x.t===v);
     if(have>=0){ document.querySelector(`.pcard[data-pid="${c.k}.${have}"] textarea`)?.focus(); return; }
@@ -1107,7 +1079,6 @@ $("bcol").addEventListener("click",e=>{
     items[slot].t=v; save(); renderCol(ix); renderMini(); renderBuildSteps();
     const pc=document.querySelector(`.pcard[data-pid="${c.k}.${slot}"]`); pc?.classList.add("pulse"); pc?.querySelector("textarea")?.focus({preventScroll:false}); return; }
   if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[],src:""}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
-  if(dot){ const it=item(dot.dataset.dot2); it.c=(it.c+1)%4; save(); renderCol(ix); renderMini(); return; }
   if(sg){ suggestCol(+sg.dataset.suggest); }
   const sh=e.target.closest("[data-shorten]"); if(sh){ shorten(sh.dataset.shorten,sh); return; }
   const cc=e.target.closest("[data-clearcol]"); if(cc) armed(cc,`Tap again to clear ${c.label.toLowerCase()}`,()=>clearColumn(cc.dataset.clearcol));
@@ -1274,7 +1245,7 @@ function coApply(how){ const d=coDraft;
 let sample=null, ctl=null, assistOff=false, pending=null;
 const btns=["aBox","aFill","aLinks","aChallenge","aQuestions","askBtn"].map($);
 function setFocusLine(){ $("focusline").innerHTML=sel?`Working on <b>${esc(COLS[ci(sel.split(".")[0])].label)}: ${esc(nameOf(sel))}</b>`:"Tap any box in the picture to work on it. The assistant sees the situation, the gaps you ticked and everything on the aid."; $("aBox").disabled=assistOff||!sel; }
-function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,tag:it.c?(S.legend[it.c-1]||["teal","orange","pink"][it.c-1]):null,serves:(it.serves||[]).filter(filled)})));
+function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled)})));
   return {external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),columnNotes:S.notes,items,gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)}; }
 const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
 const ctx=()=>`${BASE}\n\n${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
