@@ -325,6 +325,11 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .coFiles{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .fileList{list-style:none;margin:0;padding:0;display:grid;gap:4px}
 .fileList li{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13.5px;border:1px solid var(--rule);border-radius:8px;padding:4px 4px 4px 10px;background:var(--paper)}
+.coDone{margin:0;font-weight:700;color:var(--ok);font-size:16px}
+.coCounts{display:flex;flex-wrap:wrap;gap:8px}
+.coCount{display:grid;justify-items:center;min-width:92px;border:1px solid var(--rule);border-radius:10px;padding:6px 10px;background:var(--paper);font-size:12.5px;color:var(--muted);cursor:pointer}
+.coCount b{font-size:22px;color:var(--blue)}
+.coCount.off{cursor:default;opacity:.7}
 .coRev{display:grid;gap:12px;border-top:1px solid var(--rule);padding-top:12px}
 .coRev h4{margin:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
 .coItem{border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--paper);display:grid;gap:2px}
@@ -376,7 +381,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <div class="bstep" data-s="0">
           <p class="lkick">Step 1 of 8</p><h2>Start with the situation</h2>
           <div class="coCard" id="coCard">
-            <div class="coHead"><span class="coBadge">New</span><div><h3 style="margin:0">Start from a company</h3><p class="note" style="margin:2px 0 0">Name a company and Claude drafts the whole aid from what it knows, plus anything you add, forced into KA's standard choices.</p></div></div>
+            <div class="coHead"><span class="coBadge">New</span><div><h3 style="margin:0">Start from a company</h3><p class="note" style="margin:2px 0 0">Name a company and Claude fills in the aid from what it knows, plus anything you add, forced into KA's standard choices.</p></div></div>
             <div class="coGrid">
               <div class="field"><label for="coName">Company</label><input id="coName" class="tin" placeholder="e.g. Brown & Brown Insurance" autocomplete="off"></div>
               <div class="field"><label for="coSite">Website or ticker <span class="opt">optional</span></label><input id="coSite" class="tin" placeholder="e.g. bbinsurance.com or BRO" autocomplete="off"></div>
@@ -386,7 +391,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
               <textarea id="coPaste" rows="3" placeholder="Paste from an annual report, earnings call, investor deck, the company's website or your own notes."></textarea></div>
             <div class="coFiles"><label class="btn small" for="coFile">Add a file</label><input id="coFile" type="file" accept=".pdf,.txt,.md,.html,.htm,.csv" multiple hidden><span class="note">PDF or text. Read on this device only.</span></div>
             <ul class="fileList" id="coFileList"></ul>
-            <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="coGo">Research and draft</button><button class="btn" id="coStop" hidden>Stop</button></div>
+            <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="coGo">Research and fill in</button><button class="btn" id="coStop" hidden>Stop</button></div>
             <p class="note" id="coStatus" aria-live="polite">Uses Claude's built-in knowledge, current to its training date, plus anything you add. It doesn't search the web. Solutions are left for you.</p>
             <div id="coReview" hidden></div>
           </div>
@@ -1068,6 +1073,18 @@ function cleanDraft(r){
     d.cols[k].forEach(it=>{ it.serves=[...new Set(it.serves.map(x=>{ const [pk,n]=x.split("."); return pk===prev&&pm[+n]!=null?`${prev}.${pm[+n]}`:null; }).filter(Boolean))]; }); });
   return d;
 }
+let coUndo=null;
+function renderCoResult(d,all){ const box=$("coReview"); box.hidden=false;
+  const n=k=>S.items[k].filter(x=>x.t.trim()&&x.src).length;
+  box.innerHTML=`<div class="coRev"><p class="coDone">✓ Filled in from ${esc(S.company.name)}${all?"":" (your own entries were kept)"}</p>
+    <p style="margin:0">${esc(d.summary)}</p>
+    <p class="srcline">Built-in knowledge ${esc(d.asOf||"to Claude's training date")}${coFiles.length||$("coPaste").value.trim()?", plus your material":""}. Public information: confirm with the client.</p>
+    <div class="coCounts">${["goals","strategies","processes","initiatives"].map((k,ix)=>`<button class="coCount" data-cogo="${ix+1}"><b>${n(k)}</b>${COLS[ix].label}</button>`).join("")}<span class="coCount off"><b>0</b>Solutions · yours to add</span></div>
+    ${d.toConfirm.length?`<h4>Confirm with the client</h4><ul class="lbul" style="font-size:14.5px">${d.toConfirm.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`:""}
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-cogo="sheet">See it on the sheet</button><button class="btn" data-cogo="1">Review it step by step</button><button class="btn ghost" data-coundo>Undo</button></div></div>`; }
+$("coReview").addEventListener("click",e=>{ const g=e.target.closest("[data-cogo]"), u=e.target.closest("[data-coundo]");
+  if(g){ if(g.dataset.cogo==="sheet") show("aid"); else goBuild(+g.dataset.cogo); }
+  if(u&&coUndo){ S=JSON.parse(coUndo); coUndo=null; save(); syncTop(); renderAll(); renderBuild(); $("coReview").hidden=true; $("coStatus").textContent="Undone. The aid is back as it was."; } });
 function renderCoReview(){
   const d=coDraft, box=$("coReview"); if(!d){ box.hidden=true; return; } box.hidden=false;
   if(!d.known){ box.innerHTML=`<div class="coRev"><p class="coWarn">Claude doesn't know enough about this company to draft it honestly. Add material (an annual report, the company's website text, your notes) and try again.</p></div>`; return; }
@@ -1090,15 +1107,17 @@ $("coGo").onclick=async()=>{
   const t0=Date.now(), tick=setInterval(()=>{ $("coStatus").textContent=`Researching ${name} and fitting it to KA's standards… ${Math.round((Date.now()-t0)/1000)}s`; },1000);
   $("coStatus").textContent=`Researching ${name}…`;
   try{ const r=await sample.json(coPrompt(),{signal:coCtl.signal,cache:false,modelTier:"complex"}); coDraft=cleanDraft(r);
-    $("coStatus").textContent=coDraft.known?"Here's the draft. Nothing changes until you choose.":"Not enough to go on."; renderCoReview(); $("coReview").scrollIntoView({block:"start",behavior:"smooth"}); }
+    if(!coDraft.known){ $("coStatus").textContent="Not enough to go on."; renderCoReview(); }
+    else { coApply(allFilled().length?"empty":"all"); $("coStatus").textContent="Done. The fields below and every step are filled in; refine anything you like."; }
+    $("coReview").scrollIntoView({block:"start",behavior:"smooth"}); }
   catch(e){ const m=failMsg(e); $("coStatus").textContent=m===null?"Stopped.":(m||"The assistant is off for this view."); }
   finally{ clearInterval(tick); $("coGo").disabled=false; $("coStop").hidden=true; }
 };
 $("coStop").onclick=()=>coCtl?.abort();
+["coName","coSite","coEyes"].forEach(id=>$(id).addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("coGo").click(); } }));
 function goCompany(){ setMode(false); show("build"); bIdx=0; renderBuild(); const c=$("coCard"); c.scrollIntoView({block:"start",behavior:"smooth"}); c.classList.remove("pulse"); void c.offsetWidth; c.classList.add("pulse"); setTimeout(()=>$("coName").focus({preventScroll:true}),400); }
 $("coTopBtn").onclick=goCompany; $("bCompany").onclick=goCompany;
-$("coReview").addEventListener("click",e=>{ const b=e.target.closest("[data-coapply]"); if(!b) return; const how=b.dataset.coapply, d=coDraft;
-  if(how==="discard"){ coDraft=null; renderCoReview(); $("coStatus").textContent="Draft discarded."; return; }
+function coApply(how){ const d=coDraft;
   const snap=JSON.stringify(S), all=how==="all";
   S.company.summary=d.summary; S.company.asOf=d.asOf;
   if(!S.situation.trim()) S.situation=`${S.company.name}${S.company.eyes?`, through the eyes of ${S.company.eyes}`:""}. ${d.summary}`;
@@ -1113,10 +1132,10 @@ $("coReview").addEventListener("click",e=>{ const b=e.target.closest("[data-coap
   if(all) S.items.solutions.forEach(it=>it.serves=[]);
   ["strategies","processes","initiatives"].forEach(k=>d.cols[k].forEach((it,j)=>{ const id=idmap[`${k}.${j}`]; if(!id) return; const tgt=item(id);
     it.serves.forEach(x=>{ const to=idmap[x]; if(to&&!tgt.serves.includes(to)) tgt.serves.push(to); }); }));
-  cleanLinks(); save(); coDraft=null; renderCoReview(); syncTop(); renderAll(); renderBuild();
-  toast(all?"Draft applied":"Empty boxes filled",()=>{ S=JSON.parse(snap); save(); syncTop(); renderAll(); });
-  $("coStatus").textContent="Applied. Work through the steps to refine it; Solutions are yours to add.";
-});
+  cleanLinks(); save(); syncTop(); renderAll(); renderBuild();
+  coUndo=snap; renderCoResult(d,all);
+  }
+
 
 /* ---------- Assistant ---------- */
 let sample=null, ctl=null, assistOff=false, pending=null;
