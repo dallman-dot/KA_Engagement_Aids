@@ -1,0 +1,442 @@
+<title>Engagement Aids Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap">
+<style>
+/* Layout: a mock-up page. A short diagnosis, then one clickable app frame (desktop or phone) with the thinking pinned onto it. KA's own palette and type. */
+:root{
+  --bg:#eef0f5; --paper:#ffffff; --ink:#1f2430; --muted:#5b6476; --rule:#dde1ea; --soft:#f5f6f9;
+  --blue:#2c4f9b; --title:#3f62ad; --plum:#9e2a55; --tan:#a39a83; --ok:#1f8a55; --warn:#c2611f;
+  --org:#f3d4d2; --org-s:#e9bcb9; --org-ink:#8c2b33; --op:#fbefc8; --op-s:#f1dc98; --op-ink:#7a5606; --inf:#dcebe0; --inf-s:#bfdcc8; --inf-ink:#2c6142;
+  --shadow:0 1px 2px rgb(20 30 60 /.06),0 8px 30px rgb(20 30 60 /.08);
+  --font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12151d; --paper:#1b202b; --ink:#e7eaf2; --muted:#9aa3b6; --rule:#2c3343; --soft:#222837;
+  --blue:#8fb0f5; --title:#a9c0f5; --plum:#e58bb0; --tan:#bdb39b; --ok:#5fd09a; --warn:#f0a26b;
+  --org:#3b2629; --org-s:#4d2f33; --org-ink:#f2aeb2; --op:#383220; --op-s:#4a4128; --op-ink:#f0d48a; --inf:#22322a; --inf-s:#2d4335; --inf-ink:#a3d8b5;
+  --shadow:0 1px 2px rgb(0 0 0 /.3),0 8px 30px rgb(0 0 0 /.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151d; --paper:#1b202b; --ink:#e7eaf2; --muted:#9aa3b6; --rule:#2c3343; --soft:#222837;
+  --blue:#8fb0f5; --title:#a9c0f5; --plum:#e58bb0; --tan:#bdb39b; --ok:#5fd09a; --warn:#f0a26b;
+  --org:#3b2629; --org-s:#4d2f33; --org-ink:#f2aeb2; --op:#383220; --op-s:#4a4128; --op-ink:#f0d48a; --inf:#22322a; --inf-s:#2d4335; --inf-ink:#a3d8b5;
+  --shadow:0 1px 2px rgb(0 0 0 /.3),0 8px 30px rgb(0 0 0 /.35); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--font)}
+.wrap{max-width:1240px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:26px}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+.kick{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--plum)}
+.lede h1{font-size:clamp(28px,4vw,40px);font-weight:300;color:var(--title);letter-spacing:-.01em;margin-top:6px}
+.lede p{max-width:70ch;color:var(--muted);margin:10px 0 0;font-size:16px}
+button{font:inherit;color:inherit}
+.btn{border:1px solid var(--rule);background:var(--paper);border-radius:10px;padding:8px 14px;font-weight:600;font-size:14px;cursor:pointer;min-height:38px;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0e1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0e1424}}
+.btn.plum{background:var(--plum);border-color:var(--plum);color:#fff}
+.btn.ghost{background:transparent}
+.btn:focus-visible,.chip:focus-visible,.tab:focus-visible{outline:3px solid color-mix(in srgb,var(--blue) 45%,transparent);outline-offset:2px}
+
+/* ---------- diagnosis ---------- */
+.diag{background:var(--paper);border-radius:16px;box-shadow:var(--shadow);padding:20px 22px;display:grid;gap:14px}
+.diag-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.diag-head h2{font-size:19px}
+.drows{display:grid;gap:0}
+.drow{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);gap:12px;align-items:start;padding:11px 0;border-top:1px solid var(--rule)}
+.drow:first-child{border-top:0}
+.drow .was b,.drow .now b{display:block;font-size:14.5px}
+.drow span{color:var(--muted);font-size:13.5px}
+.drow .arr{color:var(--tan);font-size:18px;text-align:center;padding-top:2px}
+.drow .now b{color:var(--blue)}
+.dlab{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);gap:12px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:640px){.drow,.dlab{grid-template-columns:minmax(0,1fr)}.drow .arr{display:none}.dlab span:nth-child(2){display:none}.drow .now{padding-left:12px;border-left:3px solid var(--blue)}}
+
+/* ---------- the prototype ---------- */
+.proto{display:grid;gap:12px}
+.ptools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.screens{display:flex;flex-wrap:wrap;gap:6px}
+.screens button{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer;min-height:34px}
+.screens button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.toggles{display:flex;gap:8px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--paper);gap:2px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer;min-height:30px}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+:root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#0e1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{color:#0e1424}}
+.stagebox{display:flex;justify-content:center}
+.device{width:100%;max-width:1240px;background:var(--paper);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;container-type:inline-size;position:relative;transition:max-width .35s ease}
+.device.phone{max-width:392px;border-radius:34px;border:10px solid #10131b}
+.chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--soft);border-bottom:1px solid var(--rule)}
+.chrome i{width:10px;height:10px;border-radius:50%;background:var(--rule)}
+.chrome span{margin-left:10px;font-size:12px;color:var(--muted)}
+.device.phone .chrome{display:none}
+.app{min-height:680px;position:relative;display:flex;flex-direction:column}
+.device.phone .app{min-height:760px}
+
+/* app shell */
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--rule);background:var(--paper);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14.5px;white-space:nowrap}
+.kabox{display:grid;place-items:center;width:26px;height:30px;border:1.6px solid var(--ink);font-weight:700;color:var(--blue);font-size:13px}
+.crumbs{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);min-width:0;flex:1}
+.crumbs b{color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumbs .sep{color:var(--tan)}
+.search{border:1px solid var(--rule);border-radius:10px;padding:6px 10px;color:var(--muted);font-size:13px;display:flex;gap:8px;align-items:center;background:var(--soft);cursor:pointer;min-height:36px}
+.search kbd{font:600 11px var(--font);border:1px solid var(--rule);border-radius:5px;padding:1px 5px;background:var(--paper)}
+.avatar{width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--blue) 18%,var(--paper));display:grid;place-items:center;font-weight:700;color:var(--blue);font-size:13px}
+.body{flex:1;display:flex;min-height:0}
+.main{flex:1;min-width:0;padding:22px 24px 28px;display:grid;gap:18px;align-content:start}
+.screen{display:none}.screen.on{display:contents}
+.h-title{font-size:26px;font-weight:300;color:var(--title)}
+.sub{color:var(--muted);font-size:14px}
+
+/* home */
+.homehead{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ecard{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px;display:grid;gap:10px;cursor:pointer;text-align:left;transition:border-color .2s,transform .2s}
+.ecard:hover{border-color:var(--blue);transform:translateY(-2px)}
+.ecard h3{font-size:17px}
+.ecard .meta{font-size:13px;color:var(--muted)}
+.jbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.jbar span{height:6px;border-radius:3px;background:var(--rule)}
+.jbar span.done{background:var(--ok)}.jbar span.part{background:linear-gradient(90deg,var(--blue) var(--p,50%),var(--rule) var(--p,50%))}
+.jlab{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.nextline{font-size:13.5px;border-top:1px solid var(--rule);padding-top:10px;display:flex;gap:8px;align-items:baseline}
+.nextline b{color:var(--plum);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.newcard{border:1.5px dashed color-mix(in srgb,var(--blue) 45%,var(--rule));background:color-mix(in srgb,var(--blue) 4%,var(--paper));display:grid;place-items:center;text-align:center;align-content:center;gap:6px}
+.newcard .plus{font-size:28px;color:var(--blue);font-weight:300}
+.learnband{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+.quote{background:var(--soft);border-radius:14px;padding:18px;border-left:4px solid var(--plum)}
+.quote p{margin:0;font-size:17px;font-weight:300;font-style:italic;color:var(--ink)}
+.quote small{display:block;margin-top:8px;color:var(--muted)}
+.method{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px;display:grid;gap:10px}
+.mrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mrow div{border-radius:10px;padding:10px;font-size:13px}
+.mrow b{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.m1{background:var(--org)}.m1 b{color:var(--org-ink)}.m2{background:var(--op)}.m2 b{color:var(--op-ink)}.m3{background:var(--inf)}.m3 b{color:var(--inf-ink)}
+
+/* new engagement */
+.setup{max-width:720px;margin:0 auto;width:100%;display:grid;gap:16px}
+.setup .panel{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:20px;display:grid;gap:14px}
+.f{display:grid;gap:5px}.f label{font-size:13px;font-weight:600}.f .hint{font-size:12.5px;color:var(--muted)}
+.inp{border:1px solid var(--rule);border-radius:10px;padding:10px 12px;font:16px var(--font);background:var(--soft);color:var(--ink);width:100%}
+.f2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.prog{display:grid;gap:8px}
+.pstep{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--muted)}
+.pstep i{width:20px;height:20px;border-radius:50%;border:2px solid var(--rule);flex:none;display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:700}
+.pstep.done{color:var(--ink)}.pstep.done i{background:var(--ok);border-color:var(--ok);color:#fff}
+.pstep.doing i{border-color:var(--blue);border-top-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* engagement header & overview */
+.ehead{display:grid;gap:10px}
+.ehead-top{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap}
+.ehead h2{font-size:26px;font-weight:300;color:var(--title)}
+.lenses{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.chip{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:4px 11px;font-size:13px;font-weight:600;cursor:pointer;min-height:30px}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+:root[data-theme="dark"] .chip[aria-pressed="true"]{color:#0e1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip[aria-pressed="true"]{color:#0e1424}}
+.chip.add{border-style:dashed;color:var(--blue)}
+.chip.cmp{border-color:var(--plum);color:var(--plum)}
+.ovgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.journey{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px;display:grid;gap:14px}
+.journey h3{font-size:15px}
+.dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;position:relative}
+.dim{display:grid;gap:10px;align-content:start}
+.dimh{display:grid;gap:2px}
+.dimh b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
+.dimh span{font-size:13px;color:var(--muted)}
+.aidc{border:1px solid var(--rule);border-radius:12px;padding:12px;display:grid;gap:8px;background:var(--paper);cursor:pointer;text-align:left}
+.aidc:hover{border-color:var(--blue)}
+.aidc.soon{background:var(--soft);cursor:default;opacity:.75}
+.aidc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.aidc-top b{font-size:14.5px}
+.ring{width:38px;height:38px;flex:none}
+.thumb{height:64px;border-radius:8px;overflow:hidden;display:grid;grid-template-rows:1fr 1fr 1fr;border:1px solid var(--rule)}
+.thumb div{position:relative}
+.thumb .t1{background:var(--org)}.thumb .t2{background:var(--op)}.thumb .t3{background:var(--inf)}
+.thumb .bar{position:absolute;height:4px;border-radius:2px;background:color-mix(in srgb,var(--ink) 30%,transparent);top:calc(50% - 2px)}
+.aidc .tiny{font-size:12.5px;color:var(--muted)}
+.carry{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12.5px}
+.carry div{border-radius:10px;padding:8px 10px;display:flex;gap:6px;align-items:center}
+.carry div:nth-child(1){background:var(--org);color:var(--org-ink)}.carry div:nth-child(2){background:var(--op);color:var(--op-ink)}.carry div:nth-child(3){background:var(--inf);color:var(--inf-ink)}
+.side{display:grid;gap:14px}
+.sidecard{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;display:grid;gap:8px}
+.sidecard h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nextcard{border:1.5px solid var(--plum);background:color-mix(in srgb,var(--plum) 5%,var(--paper))}
+.nextcard p{margin:0;font-size:15px;font-weight:600}
+.ratios{display:grid;gap:6px;font-size:13px}
+.ratios div{display:flex;justify-content:space-between;gap:8px}
+.tr{font-weight:700;font-size:12px}.tr.up{color:var(--ok)}.tr.dn{color:var(--warn)}
+.gapl{display:grid;gap:6px;font-size:13px}
+.gapl div{display:flex;gap:8px}.gapl b{white-space:nowrap}
+
+/* aid workspace */
+.aidbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between}
+.aidbar h2{font-size:22px;font-weight:300;color:var(--title)}
+.nextpill{display:flex;align-items:center;gap:8px;border:1px solid color-mix(in srgb,var(--plum) 45%,var(--rule));background:color-mix(in srgb,var(--plum) 5%,var(--paper));border-radius:999px;padding:4px 6px 4px 12px;font-size:13px}
+.nextpill b{color:var(--plum);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.nextpill .btn{min-height:28px;padding:3px 10px;font-size:12.5px;border-radius:999px}
+.ws{display:grid;grid-template-columns:200px minmax(0,1fr) 300px;gap:16px;align-items:start}
+.rail{display:grid;gap:4px}
+.rail>button:not(.pin){display:flex;gap:10px;align-items:center;border:0;background:transparent;border-radius:10px;padding:8px 10px;text-align:left;cursor:pointer;font-size:14px;min-height:40px}
+.rail>button:not(.pin) i{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;font-style:normal;font-size:11.5px;font-weight:700;border:2px solid var(--rule);color:var(--muted)}
+.rail>button.done i{background:var(--ok);border-color:var(--ok);color:#fff}
+.rail>button[aria-current="step"]{background:color-mix(in srgb,var(--blue) 9%,var(--paper));font-weight:700}
+.rail>button[aria-current="step"] i{border-color:var(--blue);color:var(--blue)}
+.rail small{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+.stepc{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px;display:grid;gap:12px}
+.verb{font-size:13px;font-weight:700;color:var(--plum)}
+.stepc h3{font-size:20px;font-weight:600}
+.crit{border:1px solid var(--rule);border-left:4px solid var(--op-s);border-radius:12px;padding:12px;display:grid;gap:8px}
+.critrow{display:flex;gap:10px;align-items:center}
+.dir{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden}
+.dir button{border:0;background:transparent;padding:4px 10px;font-size:13px;cursor:pointer;min-height:30px}
+.dir button[aria-pressed="true"]{background:var(--blue);color:#fff}
+:root[data-theme="dark"] .dir button[aria-pressed="true"]{color:#0e1424}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dir button[aria-pressed="true"]{color:#0e1424}}
+.critrow .inp{flex:1;min-width:0;padding:8px 10px;font-size:15px}
+.meas{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px}
+.meas span.l{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mchip{border-radius:999px;padding:3px 10px;font-weight:600;background:var(--op);color:var(--op-ink);border:1px solid var(--op-s)}
+.agree{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);flex-wrap:wrap}
+.agree .yes{color:var(--ok);font-weight:700}
+.coach{background:var(--paper);border:1px solid var(--rule);border-radius:16px;display:grid}
+.coachtabs{border-radius:16px 16px 0 0;overflow:hidden}
+.coachtabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--rule)}
+.coachtabs button{border:0;background:transparent;padding:10px 6px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;min-height:40px}
+.coachtabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+.coachbody{padding:14px;display:grid;gap:10px;font-size:13.5px}
+.coachbody ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.sugg{border:1px dashed color-mix(in srgb,var(--blue) 40%,var(--rule));border-radius:10px;padding:10px;display:grid;gap:6px;background:color-mix(in srgb,var(--blue) 4%,var(--paper))}
+.sugg .acts{display:flex;gap:6px}
+.sugg .acts .btn{min-height:30px;padding:3px 10px;font-size:12.5px}
+.coachfoot{border-top:1px solid var(--rule);padding:10px 14px;display:flex;gap:8px}
+.coachfoot .inp{padding:7px 10px;font-size:14px}
+
+/* the sheet */
+.sheettools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tg{display:flex;gap:6px;flex-wrap:wrap}
+.sheet{background:var(--paper);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);aspect-ratio:279.4/215.9;position:relative;container-type:inline-size;max-width:980px;width:100%;margin:0 auto}
+.sheet .mast{position:absolute;left:3.7%;top:4%;display:grid}
+.sheet .mast small{color:var(--tan);font-weight:700;font-size:1.5cqw}
+.sheet .mast b{font-weight:300;color:var(--title);font-size:4.9cqw;line-height:1.05}
+.sheet .ka{position:absolute;right:4%;top:4.5%;display:flex;gap:1cqw;align-items:center;color:var(--blue);font-size:1.3cqw}
+.sheet .ka i{display:grid;place-items:center;width:4.8cqw;height:5.8cqw;border:.2cqw solid var(--ink);font-style:normal;font-size:2.4cqw;font-weight:600}
+.bands{position:absolute;left:3.7%;right:0;top:22%;bottom:7%;display:grid;grid-template-rows:1fr 1fr 1fr}
+.band{position:relative;display:grid;grid-template-columns:4.5% 1fr;background:linear-gradient(90deg,var(--b) 92%,transparent)}
+.band .lab{background:var(--bs);display:grid;place-items:center}
+.band .lab span{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;font-size:1.15cqw;letter-spacing:.08em;color:var(--bi)}
+.b1{--b:var(--org);--bs:var(--org-s);--bi:var(--org-ink)}.b2{--b:var(--op);--bs:var(--op-s);--bi:var(--op-ink)}.b3{--b:var(--inf);--bs:var(--inf-s);--bi:var(--inf-ink)}
+.rows{display:grid;align-content:space-evenly;padding:0 4% 0 18%}
+.srow{display:flex;align-items:center;gap:1.4cqw}
+.srow i{font-style:normal;color:var(--blue);font-size:1.7cqw;width:2.4cqw;text-align:center}
+.srow span{flex:1;background:var(--paper);border-radius:.6cqw;padding:.55cqw 1.1cqw;font-size:1.25cqw;box-shadow:0 0 0 .1cqw var(--rule);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.srow.ok span{background:var(--bs)}
+.srow .tick{width:2cqw;height:2cqw;border-radius:50%;background:var(--bi);color:var(--paper);display:grid;place-items:center;font-size:1.1cqw}
+
+/* meet */
+.meetgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mode{border:1px solid var(--rule);border-radius:16px;padding:18px;display:grid;gap:10px;cursor:pointer;text-align:left;background:var(--paper)}
+.mode:hover{border-color:var(--blue)}
+.mode .ic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--blue) 12%,var(--paper));color:var(--blue)}
+.mode h3{font-size:17px}
+.mode p{margin:0;font-size:13.5px;color:var(--muted)}
+.mode.rec{border-color:var(--blue);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 15%,transparent)}
+.private{display:flex;gap:10px;align-items:start;border-radius:12px;padding:12px 14px;background:var(--soft);font-size:13.5px}
+.private b{color:var(--ink)}
+.clientview{background:#fff;color:#1f2430;border-radius:14px;border:1px solid var(--rule);overflow:hidden;display:grid}
+.cvbar{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-bottom:1px solid #e3e6ee;font-size:13px;color:#5b6476;gap:10px;flex-wrap:wrap}
+.cvbar b{color:#1f2430}
+.cvsteps{display:flex;gap:4px}.cvsteps i{width:26px;height:4px;border-radius:2px;background:#e3e6ee}.cvsteps i.on{background:#9e2a55}
+.cvbody{padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:16px;align-items:center}
+.cvcap{border-left:4px solid #9e2a55;padding:4px 0 4px 14px;display:grid;gap:6px}
+.cvcap small{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9e2a55}
+.cvcap b{font-size:19px;color:#3f62ad;font-weight:600}
+.cvcap span{font-size:13.5px;color:#3b4254}
+.clientview .sheet{background:#fff;border-color:#e3e6ee;box-shadow:none;--paper:#fff;--ink:#1f2430;--rule:#e3e6ee;--blue:#2c4f9b;--title:#3f62ad;--tan:#a39a83;--org:#f3d4d2;--org-s:#e9bcb9;--org-ink:#8c2b33;--op:#fbefc8;--op-s:#f1dc98;--op-ink:#7a5606;--inf:#dcebe0;--inf-s:#bfdcc8;--inf-ink:#2c6142}
+.clientview .srow.dim{opacity:.25}
+.presbar{display:flex;justify-content:center;gap:8px;padding:10px;border-top:1px solid #e3e6ee;background:#fafbfd}
+.presbar .btn{background:#fff;color:#1f2430;border-color:#e3e6ee}
+
+/* phone tab bar */
+.tabbar{display:none;border-top:1px solid var(--rule);background:var(--paper);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbar button{flex:1;border:0;background:transparent;display:grid;justify-items:center;gap:2px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;padding:4px;min-height:44px}
+.tabbar button span{font-size:18px}
+.tabbar button[aria-selected="true"]{color:var(--blue)}
+
+/* the app responds to its own width (desktop frame or phone frame) */
+@container (max-width:900px){.ws{grid-template-columns:minmax(0,1fr)}.rail{display:flex;overflow-x:auto;gap:4px}.rail>button{white-space:nowrap}.rail small{display:none}.ovgrid{grid-template-columns:minmax(0,1fr)}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container (max-width:560px){
+  .topbar{padding:10px 14px}.search{display:none}.crumbs .hidep,.brand .hidep{display:none}.aidbar .btn.plum{display:none}.nextpill{width:100%;justify-content:space-between}
+  .main{padding:16px 14px 20px}
+  .cards,.learnband,.meetgrid,.dims,.carry,.f2,.mrow{grid-template-columns:minmax(0,1fr)}
+  .tabbar{display:flex}.coach.desk{display:none}
+  .cvbody{grid-template-columns:minmax(0,1fr)}
+  .h-title,.ehead h2{font-size:22px}
+}
+
+/* the thinking, pinned on */
+.pin{position:absolute;z-index:20;width:24px;height:24px;border-radius:50%;background:var(--plum);color:#fff;font:700 12px/24px var(--font);text-align:center;box-shadow:0 0 0 4px color-mix(in srgb,var(--plum) 25%,transparent);cursor:pointer;display:none;border:0;padding:0}
+.thinking .pin{display:block}
+.pinwrap{position:relative}
+.notes{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.thinking .notes{display:grid}
+.note{background:var(--paper);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;box-shadow:var(--shadow);font-size:13.5px;transition:box-shadow .2s}
+.note .n{width:24px;height:24px;border-radius:50%;background:var(--plum);color:#fff;font:700 12px/24px var(--font);text-align:center}
+.note b{display:block;font-size:14px}
+.note span{color:var(--muted)}
+.note.hl{box-shadow:0 0 0 2px var(--plum),var(--shadow)}
+@media (max-width:760px){.notes{grid-template-columns:minmax(0,1fr)}}
+.foot{color:var(--muted);font-size:13px;max-width:70ch}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap" id="top">
+  <header class="lede">
+    <span class="kick">KA Engagement Aids · UX mock-up</span>
+    <h1>One engagement, one path, one next step.</h1>
+    <p>Today the app is organised around its tools: an aid switch, three tabs, two modes, a Controls card, a drawer and a menu, with the same action in up to four places. This proposal organises it around what a seller actually manages, a client engagement, and around KA's own method, Priorities → Requirements → Criteria. Click through the screens below; turn on <b>Show the thinking</b> to see why each choice was made.</p>
+  </header>
+
+  <section class="diag" aria-labelledby="dh">
+    <div class="diag-head"><h2 id="dh">What's getting in the way today, and the fix</h2><span class="sub">Nine problems, nine changes</span></div>
+    <div class="dlab"><span>Today</span><span></span><span>Proposed</span></div>
+    <div class="drows" id="drows"></div>
+  </section>
+
+  <section class="proto" aria-label="Clickable mock-up">
+    <div class="ptools">
+      <div class="screens" id="screens" role="group" aria-label="Screens"></div>
+      <div class="toggles">
+        <div class="seg" role="group" aria-label="Device"><button id="dDesk" aria-pressed="true">Desktop</button><button id="dPhone" aria-pressed="false">Phone</button></div>
+        <div class="seg" role="group" aria-label="Thinking"><button id="thinkOn" aria-pressed="true">Show the thinking</button><button id="thinkOff" aria-pressed="false">Just the app</button></div>
+      </div>
+    </div>
+    <div class="stagebox thinking" id="stagebox">
+      <div class="device" id="device">
+        <div class="chrome"><i></i><i></i><i></i><span>KA Engagement Aids</span></div>
+        <div class="app pinwrap" id="app">
+          <div class="topbar">
+            <div class="brand"><span class="kabox">ka</span><span class="hidep">Engagement Aids</span></div>
+            <nav class="crumbs" id="crumbs" aria-label="Where you are"></nav>
+            <button class="search" id="cmdk" aria-label="Search or run an action"><span>Search or do anything</span><kbd>⌘K</kbd></button>
+            <span class="avatar" aria-hidden="true">DA</span>
+          </div>
+          <div class="body"><div class="main" id="main"></div></div>
+          <nav class="tabbar" id="tabbar" aria-label="Engagement"></nav>
+          <button class="pin" data-pin="1" style="left:14px;top:62px">1</button>
+        </div>
+      </div>
+    </div>
+    <div class="notes thinking" id="notes"></div>
+  </section>
+
+  <p class="foot">Everything shown here already exists in the current build except the Home, the guided setup and the Meet screen; the change is where things live and how they connect. Data is Kevin Cooper's Morgan Industries engagement from <i>Dimensions of Success</i>, plus two illustrative engagements.</p>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const DIAG=[
+ ["Where am I?","The app opens in whichever aid and tab you left. There's no home and no sense of the client.","One home: your engagements","Every client is a card showing where it stands on KA's path and its next step. Breadcrumbs say where you are."],
+ ["Five layers of navigation","Aid switch, Learn/Build/Sheet tabs, 5–8 steps, Prepare/Client modes, and a ≡ menu.","Two layers","The engagement (its path of aids) and the aid you're in (Build or Sheet). Nothing else navigates."],
+ ["The same action in many places","Start from a company appears in 4 places, Present in 4, Download PDF in 3.","Each action lives once","In the place it belongs, plus ⌘K to find or run anything from anywhere."],
+ ["Setup is scattered","Company research sits in the AoP's step 1; the solution provider is in two places; the CP drafts separately.","One guided setup","Name the client, your company and whose eyes. Research runs once and fills every aid, ready to review."],
+ ["The aids feel separate","The Criteria Proposition depends on the AoP, but you only see that inside its first step.","The method is the map","Overview shows Priorities (WHY) → Requirements (WHAT) → Criteria (HOW), and what carries forward between aids."],
+ ["Three competing progress signals","Alignment score, alignment check, criteria check and next move, each in its own box.","One Next step","A single pill in the aid header and one card on Overview. The detail opens only when you ask."],
+ ["Help is everywhere and nowhere","Assistant buttons change by aid and hide in a drawer; Ask the client and book quotes sit elsewhere.","One Coach panel","Beside every step: Ask the client, Draft with Claude, From the book. Same place, same three tabs."],
+ ["Client-facing states overlap","Use with a client, Present and Presenter view behave differently and leave internal detail on screen.","One Meet button","Present the story, work through it together, or interview. Screen-safe by design: no scores, sources or coaching."],
+ ["Learn is a permanent tab","A tab you use once stays in the way forever.","A guide you open","A two-minute first-run tour per aid, then a ? in the aid header. The method lives on Home."]];
+$("drows").innerHTML=DIAG.map(d=>`<div class="drow"><div class="was"><b>${d[0]}</b><span>${d[1]}</span></div><div class="arr" aria-hidden="true">→</div><div class="now"><b>${d[2]}</b><span>${d[3]}</span></div></div>`).join("");
+
+const NOTES={
+ home:[[1,"Home is the engagements","The client, not the tool, is what a seller manages. Each card shows the path (Priorities · Requirements · Criteria) and one next step."],[2,"New engagement is the only way in","Replaces four Start-from-a-company buttons with one guided setup."],[3,"The method lives on Home","Kevin's line and the three dimensions teach the why once, without a Learn tab."]],
+ setup:[[1,"Three answers, then Claude does the legwork","Client, your company, whose eyes. The process list (book or health system) is chosen here once, per engagement."],[2,"Research once, fill everything","Ratios, the alignment, solutions from your provider and the first criteria are drafted together, each marked to confirm."],[3,"Review, don't hunt","It lands on Overview with every aid filled in and the first thing to check highlighted."]],
+ overview:[[1,"Stakeholders belong to the engagement","Chips in the header switch every aid at once. Compare is one toggle here, not per aid."],[2,"Navigation is KA's own path","Priorities (WHY) → Requirements (WHAT) → Criteria (HOW), from the book. Each aid is a stop with its progress; future aids sit in place, marked Coming."],[3,"Hand-offs are visible","Goals become ROA, processes become ROI, initiatives and solutions become TCO. The user sees why the next aid is already started."],[4,"One next step","The single most useful thing to do, with Do it. Before the meeting and Outside in sit underneath, quiet."]],
+ build:[[1,"One header per aid","Breadcrumb, Build | Sheet, the Next step pill and Meet. The aid switch, tabs, modes, menu and Controls card are gone."],[2,"The step rail is the same in every aid","Done steps tick; the current step is clear; nothing else competes."],[3,"Provenance on every line","Measures chips show which AoP items a criterion measures, in the band's colour."],[4,"The Coach is one panel","Ask the client, Draft with Claude and From the book. Suggestions arrive as drafts to Use or Skip, never silently."]],
+ sheet:[[1,"The sheet is just the sheet","A slim toolbar replaces the Controls card: view toggles left, Download and History right."],[2,"The PDF's picture, untouched","The formal layout stays exactly as KA designed it."]],
+ meet:[[1,"One Meet button, three ways","Present the story, work through it together, or interview the client. The recommended one is marked."],[2,"Screen-safe by design","What's hidden from the client is listed plainly: scores, sources, coaching, notes, Claude."],[3,"The client sees a calm, branded view","Their company, a progress line, the sheet and one caption. Presenter controls stay small and low."]]};
+
+let screen="home", device="desk";
+const SCREENS=[["home","1 · Home"],["setup","2 · New engagement"],["overview","3 · Engagement"],["build","4 · Build"],["sheet","5 · Sheet"],["meet","6 · Meet the client"]];
+$("screens").innerHTML=SCREENS.map(([k,l])=>`<button data-s="${k}" aria-pressed="${k===screen}">${l}</button>`).join("");
+
+const ring=(p,c)=>`<svg class="ring" viewBox="0 0 40 40" aria-label="${p}%"><circle cx="20" cy="20" r="16" fill="none" stroke="var(--rule)" stroke-width="5"/><circle cx="20" cy="20" r="16" fill="none" stroke="${c||"var(--blue)"}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${p/100*100.5} 100.5" transform="rotate(-90 20 20)"/><text x="20" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)" font-family="Open Sans,sans-serif">${p}</text></svg>`;
+const thumb=()=>`<div class="thumb">${["t1","t2","t3"].map((t,i)=>`<div class="${t}">${[0,1,2].map(j=>`<span class="bar" style="left:${18+j*22+i*5}%;width:16%;top:${30+j*12}%"></span>`).join("")}</div>`).join("")}</div>`;
+const SHEETROWS=[[["▲","Revenue per customer by 10–12%",1],["▲","Profit per customer by 5–7%",1],["▼","Sales/marketing operating expenses by > 10%",0],["▼","Cash flow needs for sales/marketing ops by > 10%",0]],[["▲","Cross-selling opportunities by > 15%",1],["▼","Non-qualified sales activities by > 20%",0],["▼","Average sales cycle-times by 10–20%",1],["▲","Utilization (yield) of sales/marketing ops by > 15%",0]],[["▲","Intended usage of infrastructure by sales & marketing > 25%",0],["▲","Adoption of previous sales operations investments > 30%",0],["▼","Redundant applications and systems support by > 20%",1],["▼","Sales ops/marketing infrastructure resources by > 15%",0]]];
+const sheetHTML=(spot)=>`<div class="sheet"><div class="mast"><small>Measure What Matters</small><b>Criteria Proposition</b></div><div class="ka"><i>ka</i>Knowledge-Advantage, Inc.</div>
+  <div class="bands">${["ORGANIZATIONAL","OPERATIONAL","INFRASTRUCTURE"].map((l,b)=>`<div class="band b${b+1}"><div class="lab"><span>${l}</span></div><div class="rows">${SHEETROWS[b].map((r,i)=>`<div class="srow ${r[2]?"ok":""} ${spot&&!(spot[0]===b&&spot[1]===i)?"dim":""}"><i>${r[0]}</i><span>${r[1]}</span>${r[2]?'<b class="tick">✓</b>':""}</div>`).join("")}</div></div>`).join("")}</div></div>`;
+
+function crumbs(){ const c={home:"<b>Engagements</b>",setup:'<span class="hidep">Engagements</span><span class="sep hidep">›</span><b>New engagement</b>',overview:'<span class="hidep">Engagements</span><span class="sep hidep">›</span><b>Morgan Industries</b>',build:'<span class="hidep">Morgan Industries</span><span class="sep hidep">›</span><b>Criteria Proposition</b>',sheet:'<span class="hidep">Morgan Industries</span><span class="sep hidep">›</span><b>Criteria Proposition</b>',meet:'<span class="hidep">Morgan Industries</span><span class="sep hidep">›</span><b>Meet the client</b>'}; $("crumbs").innerHTML=c[screen]; }
+const aidHeader=(view)=>`<div class="aidbar pinwrap"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h2>Criteria Proposition</h2>
+  <div class="seg" role="group" aria-label="View"><button data-s="build" aria-pressed="${view==="build"}">Build</button><button data-s="sheet" aria-pressed="${view==="sheet"}">Sheet</button></div><button class="btn ghost" title="Guide to this aid" aria-label="Guide">?</button></div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="nextpill"><b>Next</b><span>Agree 6 criteria with Sue Jacobs</span><button class="btn primary">Do it</button></div><button class="btn plum" data-s="meet">Meet the client</button></div>
+  <button class="pin" data-pin="1" style="left:-10px;top:-12px">1</button></div>`;
+
+const VIEWS={
+ home:()=>`<div class="homehead pinwrap"><div><div class="sub">Good afternoon, Dave</div><h2 class="h-title">Your engagements</h2></div><button class="btn primary" data-s="setup">＋ New engagement</button><button class="pin" data-pin="2" style="right:-8px;top:-12px">2</button></div>
+  <div class="cards">
+   ${[["Morgan Industries","eBusiness initiative · through the eyes of Mike Abernathy",[["done"],["part",30],["part",64]],"Agree 6 criteria with Sue Jacobs","Meeting Thu 10:00"],["Gartner","Research subscriptions · through the eyes of the COO",[["part",78],[""],[""]],"Tie 2 initiatives to a process","Updated yesterday"],["Northside Health System","Patient access · health-system processes",[["part",40],[""],[""]],"Choose the second goal","Updated Nov 12"]].map((e,i)=>`<button class="ecard" data-s="overview"><h3>${e[0]}</h3><span class="meta">${e[1]}</span><div class="jbar">${e[2].map(([c,p])=>`<span class="${c}" style="${p?`--p:${p}%`:""}"></span>`).join("")}</div><div class="jlab"><span>Priorities</span><span>Requirements</span><span>Criteria</span></div><div class="nextline"><b>Next</b><span>${e[3]}</span></div><span class="meta">${e[4]}</span></button>`).join("")}
+  </div>
+  <div class="learnband pinwrap"><div class="quote"><p>“My goal is not to be right, but to get it right. Please correct me where I am off track.”</p><small>Kevin Cooper, in KA's <i>Dimensions of Success</i></small></div>
+   <div class="method"><b style="font-size:14px">The method behind every engagement</b><div class="mrow"><div class="m1"><b>Priorities</b>Why it matters</div><div class="m2"><b>Requirements</b>What it takes</div><div class="m3"><b>Criteria</b>How success is measured</div></div><button class="btn ghost" style="justify-self:start">See Kevin's example engagement →</button></div>
+   <button class="pin" data-pin="3" style="left:-10px;top:-12px">3</button></div>`,
+ setup:()=>`<div class="setup"><div><div class="sub">New engagement</div><h2 class="h-title">Who are you meeting?</h2></div>
+   <div class="panel pinwrap"><div class="f2"><div class="f"><label for="u1">Client company</label><input id="u1" class="inp" value="Morgan Industries"></div><div class="f"><label for="u2">Your company (the solutions you offer)</label><input id="u2" class="inp" value="ISAP"></div></div>
+    <div class="f2"><div class="f"><label for="u3">Through whose eyes?</label><input id="u3" class="inp" value="Mike Abernathy, VP eBusiness"><span class="hint">Add more stakeholders later.</span></div><div class="f"><label>Process list</label><div class="seg"><button aria-pressed="true">From the book · 15</button><button aria-pressed="false">Health system · 13</button></div><span class="hint">Choose once for this engagement.</span></div></div>
+    <div class="f"><label for="u4">Add material <span class="hint">optional · annual report, notes, the client's site</span></label><input id="u4" class="inp" placeholder="Paste text or drop a PDF"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="runSetup">Research and set up the engagement</button><button class="btn ghost" data-s="home">Cancel</button></div>
+    <button class="pin" data-pin="1" style="left:-10px;top:-12px">1</button></div>
+   <div class="panel pinwrap" id="progPanel"><b>What Claude prepares</b><div class="prog" id="prog">${["Reading what's public about Morgan Industries","Key ratios: solvency, asset effectiveness, profitability, now and 24 months ago","Alignment of Priorities: 2 goals, 5 strategies, 3 processes, 1 initiative","Solutions from ISAP's own descriptions of what it offers","First criteria for ROA, ROI and TCO, targets marked [?] to confirm"].map(t=>`<div class="pstep"><i></i><span>${t}</span></div>`).join("")}</div>
+    <button class="btn primary" id="openEng" data-s="overview" hidden>Open the engagement →</button><button class="pin" data-pin="2" style="left:-10px;top:-12px">2</button><button class="pin" data-pin="3" style="right:-8px;bottom:-10px">3</button></div></div>`,
+ overview:()=>`<div class="ehead pinwrap"><div class="ehead-top"><div><div class="sub">eBusiness initiative · meeting Thursday 10:00</div><h2>Morgan Industries</h2></div><button class="btn plum" data-s="meet">Meet the client</button></div>
+   <div class="lenses"><span>Through the eyes of</span><button class="chip" aria-pressed="true">Mike Abernathy</button><button class="chip" aria-pressed="false">Sue Jacobs</button><button class="chip" aria-pressed="false">Jim Bowman</button><button class="chip add">＋ Stakeholder</button><button class="chip cmp">Compare</button></div>
+   <button class="pin" data-pin="1" style="left:-10px;top:40px">1</button></div>
+  <div class="ovgrid"><div class="journey pinwrap"><h3>The path</h3>
+    <div class="dims">
+     <div class="dim"><div class="dimh"><b>Priorities</b><span>Why is this initiative important?</span></div><button class="aidc" data-s="build"><div class="aidc-top"><b>Alignment of Priorities</b>${ring(92,"var(--ok)")}</div>${thumb()}<span class="tiny">Every solution reaches a goal</span></button></div>
+     <div class="dim"><div class="dimh"><b>Requirements</b><span>What is required to make it successful?</span></div><div class="aidc soon"><div class="aidc-top"><b>Assessment Questions</b><span class="tiny">Coming</span></div><span class="tiny">“The Gap” and the questions that keep you on the Fast Path.</span></div></div>
+     <div class="dim"><div class="dimh"><b>Criteria</b><span>How will success be measured?</span></div><button class="aidc" data-s="build"><div class="aidc-top"><b>Criteria Proposition</b>${ring(64)}</div>${thumb()}<span class="tiny">12 criteria · 6 agreed · 2 need a target</span></button></div>
+    </div>
+    <div><div class="sub" style="font-size:12.5px;margin-bottom:6px">What the alignment hands to the criteria</div><div class="carry"><div>Goals → ROA criteria</div><div>Processes → ROI criteria</div><div>Solutions → TCO criteria</div></div></div>
+    <button class="pin" data-pin="2" style="left:-10px;top:-12px">2</button><button class="pin" data-pin="3" style="left:-10px;bottom:30px">3</button></div>
+   <aside class="side pinwrap"><div class="sidecard nextcard"><h4>Next step</h4><p>Agree the six open criteria with Sue Jacobs, the operational owner.</p><button class="btn plum" data-s="build" style="justify-self:start">Do it</button></div>
+    <div class="sidecard"><h4>Before the meeting</h4><div class="gapl"><div><b>People</b><span>Sue Jacobs sets the success criteria.</span></div><div><b>Position</b><span>Get consensus on the Assessment Questions.</span></div></div></div>
+    <div class="sidecard"><h4>Outside in · key ratios</h4><div class="ratios"><div><span>Solvency</span><span class="tr dn">▼ Watch</span></div><div><span>Asset effectiveness</span><span class="tr dn">▼ Weak</span></div><div><span>Profitability</span><span class="tr dn">▼ Weak</span></div></div></div>
+    <div class="sidecard"><h4>History</h4><span class="sub">Before the meeting · Nov 14<br>After Jim Bowman call · Nov 15</span></div>
+    <button class="pin" data-pin="4" style="left:-10px;top:-12px">4</button></aside></div>`,
+ build:()=>aidHeader("build")+`<div class="ws"><nav class="rail pinwrap" aria-label="Steps">${[["From the alignment","Goals, processes, solutions",1],["Organizational · ROA","4 criteria",1],["Operational · ROI","4 criteria · 2 to agree",0,1],["Infrastructure · TCO","4 criteria",1],["Check","2 targets missing",0]].map((s,i)=>`<button class="${s[2]?"done":""}" ${s[3]?'aria-current="step"':""}><i>${s[2]?"✓":i+1}</i><span>${s[0]}<small>${s[1]}</small></span></button>`).join("")}<button class="pin" data-pin="2" style="left:-10px;top:-12px">2</button></nav>
+   <div class="stepc pinwrap"><span class="verb">Return on Investment · efficiency, cycle-time and effectiveness gains</span><h3>Operational · ROI</h3>
+    ${[["▼","Average sales cycle-times by 10–20% within 12 mo",["Customer Creation · Cycle-time"],1],["▲","Cross-selling opportunities by > 15%",["Customer Relations · Effectiveness"],1],["▼","Non-qualified sales activities by [?]%",["Customer Creation"],0]].map(c=>`<div class="crit"><div class="critrow"><div class="dir"><button aria-pressed="${c[0]==="▲"}">▲</button><button aria-pressed="${c[0]==="▼"}">▼</button><button aria-pressed="false">►</button></div><input class="inp" value="${c[1]}" aria-label="Criterion"></div><div class="meas"><span class="l">Measures</span>${c[2].map(m=>`<span class="mchip">${m}</span>`).join("")}</div><div class="agree"><span>${c[3]?'<span class="yes">✓ Agreed with Sue Jacobs</span>':"Not agreed yet"}</span><span>${c[1].includes("[?]")?"Needs a target from the client":"Drafted from the alignment"}</span></div></div>`).join("")}
+    <div style="display:flex;justify-content:space-between;gap:8px"><button class="btn">← Organizational</button><button class="btn primary">Next: Infrastructure →</button></div>
+    <button class="pin" data-pin="3" style="right:-8px;top:96px">3</button></div>
+   <aside class="coach desk pinwrap" aria-label="Coach"><div class="coachtabs" role="tablist"><button role="tab" aria-selected="false">Ask the client</button><button role="tab" aria-selected="true">Draft</button><button role="tab" aria-selected="false">From the book</button></div>
+    <div class="coachbody"><span class="sub">Claude, from your alignment</span><div class="sugg"><b>▼ Order-to-cash cycle by [?] days within 12 mo</b><span class="sub">Measures Customer Service · Cycle-time</span><div class="acts"><button class="btn primary">Use</button><button class="btn">Skip</button></div></div><button class="btn">Sharpen “Non-qualified sales…”</button><button class="btn">🎙 Interview the client</button></div>
+    <div class="coachfoot"><input class="inp" placeholder="Ask anything about this step" aria-label="Ask the coach"><button class="btn primary">Ask</button></div>
+    <button class="pin" data-pin="4" style="left:-10px;top:-12px">4</button></aside></div>`,
+ sheet:()=>aidHeader("sheet")+`<div class="sheettools pinwrap"><div class="tg"><button class="chip" aria-pressed="true">Agreed</button><button class="chip" aria-pressed="false">Compare with Sue</button><button class="chip" aria-pressed="false">Since Nov 14</button></div><div class="tg"><button class="btn">Download PDF</button><button class="btn">Leave-behind</button></div><button class="pin" data-pin="1" style="left:-10px;top:-12px">1</button></div>
+   <div class="pinwrap">${sheetHTML()}<button class="pin" data-pin="2" style="right:10px;top:10px">2</button></div>`,
+ meet:()=>`<div><div class="sub">Morgan Industries · Thursday 10:00</div><h2 class="h-title">How do you want to meet?</h2></div>
+  <div class="meetgrid pinwrap">${[["▶","Present the story","Title, from the alignment, the whole sheet, then each band in Kevin's order: TCO, ROI, ROA. Ends with “Where am I off track?”",1],["✎","Work through it together","The sheet, full screen and editable, with nothing internal showing. Agree rows as you go.",0],["🎙","Interview the client","Claude asks one question at a time on your screen; the client's answers fill the rows.",0]].map(m=>`<button class="mode ${m[3]?"rec":""}"><span class="ic">${m[0]}</span><h3>${m[1]}${m[3]?' <span class="sub" style="font-size:12px;font-weight:600">· recommended</span>':""}</h3><p>${m[2]}</p></button>`).join("")}<button class="pin" data-pin="1" style="left:-10px;top:-12px">1</button></div>
+  <div class="private pinwrap"><span aria-hidden="true">🔒</span><span><b>Hidden from the client:</b> scores and next steps, sources and “confirm with the client”, coaching and Ask the client, your notes, and Claude. Your presenter view keeps them on your laptop.</span><button class="pin" data-pin="2" style="right:-8px;top:-12px">2</button></div>
+  <div class="clientview pinwrap"><div class="cvbar"><span><b>Morgan Industries</b> · Criteria Proposition</span><span class="cvsteps">${Array.from({length:8},(_,i)=>`<i class="${i<5?"on":""}"></i>`).join("")}</span></div>
+   <div class="cvbody">${sheetHTML([1,2])}<div class="cvcap"><small>ROI · 3 of 4</small><b>▼ Decrease</b><span>Average sales cycle-times by 10–20%</span><span>Measures Customer Creation · Cycle-time</span></div></div>
+   <div class="presbar"><button class="btn">◀</button><button class="btn">Notes</button><button class="btn">▶</button></div><button class="pin" data-pin="3" style="left:-10px;top:-12px">3</button></div>`};
+
+const TABS=[["overview","◎","Engagement"],["build","✎","Build"],["sheet","▦","Sheet"],["meet","▶","Meet"]];
+function render(){ crumbs(); $("main").innerHTML=VIEWS[screen](); document.querySelectorAll("#screens [data-s]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.s===screen)));
+  $("tabbar").innerHTML=screen==="home"||screen==="setup"?TABS.slice(0,1).map(()=>`<button data-s="home" aria-selected="true"><span>⌂</span>Engagements</button><button data-s="setup" aria-selected="false"><span>＋</span>New</button>`).join(""):TABS.map(([k,i,l])=>`<button data-s="${k}" aria-selected="${k===screen}"><span>${i}</span>${l}</button>`).join("");
+  const N=NOTES[screen]||[]; $("notes").innerHTML=N.map(([n,t,d])=>`<div class="note" data-note="${n}"><span class="n">${n}</span><div><b>${t}</b><span>${d}</span></div></div>`).join("");
+  document.querySelectorAll(".pin").forEach(p=>{ const has=N.some(x=>String(x[0])===p.dataset.pin); p.hidden=!has||(p.parentElement===$("app")&&screen!=="home"&&p.dataset.pin==="1"); });
+  if(screen==="home") document.querySelector('#app>.pin[data-pin="1"]').hidden=false; else document.querySelector('#app>.pin[data-pin="1"]').hidden=true; }
+document.addEventListener("click",e=>{ const s=e.target.closest("[data-s]"); if(s&&!s.disabled){ screen=s.dataset.s; render(); if(e.target.closest("#screens")) return; return; }
+  const p=e.target.closest(".pin"); if(p){ document.querySelectorAll(".note").forEach(n=>n.classList.toggle("hl",n.dataset.note===p.dataset.pin)); document.querySelector(`.note[data-note="${p.dataset.pin}"]`)?.scrollIntoView({block:"nearest",behavior:"smooth"}); }
+  if(e.target.closest("#runSetup")){ const st=[...document.querySelectorAll("#prog .pstep")]; let i=0; const tick=()=>{ st.forEach((x,j)=>{ x.classList.toggle("done",j<i); x.classList.toggle("doing",j===i); x.querySelector("i").textContent=j<i?"✓":""; }); if(i<st.length){ i++; setTimeout(tick,650); } else $("openEng").hidden=false; }; tick(); }
+  if(e.target.closest("#cmdk")){ const b=e.target.closest("#cmdk"); b.querySelector("span").textContent="Present · Draft criteria · Add stakeholder · Download PDF…"; setTimeout(()=>{ b.querySelector("span").textContent="Search or do anything"; },2200); } });
+$("dDesk").onclick=()=>{ device="desk"; $("device").classList.remove("phone"); $("dDesk").setAttribute("aria-pressed","true"); $("dPhone").setAttribute("aria-pressed","false"); };
+$("dPhone").onclick=()=>{ device="phone"; $("device").classList.add("phone"); $("dPhone").setAttribute("aria-pressed","true"); $("dDesk").setAttribute("aria-pressed","false"); };
+const think=on=>{ $("stagebox").classList.toggle("thinking",on); $("notes").classList.toggle("thinking",on); $("thinkOn").setAttribute("aria-pressed",String(on)); $("thinkOff").setAttribute("aria-pressed",String(!on)); };
+$("thinkOn").onclick=()=>think(true); $("thinkOff").onclick=()=>think(false);
+render();
+</script>
