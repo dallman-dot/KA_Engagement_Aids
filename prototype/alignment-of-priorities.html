@@ -1,4 +1,4 @@
-<title>Alignment of Priorities</title>
+<title>KA Engagement Aids</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Kalam:wght@400;700&display=swap">
 <style>
@@ -660,10 +660,78 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
 .pkeys,.pvhelp{background:#fff;color:#1f2430;border:1px solid #e3e6ee;box-shadow:0 18px 44px rgb(30 45 80 /.18)}
 .pkeys dt{color:#1f2430}.pkeys dd,.pkeys .note{color:#5b6476}
 @media (orientation:portrait) and (max-width:700px){body.presenting #viewAid .stagewrap::before{color:#7a8296}}
+
+/* ===== the aid switch and the Criteria Proposition ===== */
+.aidswitch{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;gap:3px;background:var(--paper);margin-left:auto}
+.aidswitch button{border:0;background:transparent;color:var(--ink);font:600 13px var(--font);padding:6px 12px;border-radius:999px;cursor:pointer;min-height:34px}
+.aidswitch button[aria-selected="true"]{background:var(--blue);color:#fff}
+@media (max-width:600px){.aidswitch{margin-left:0;width:100%}.aidswitch button{flex:1;font-size:12.5px;padding:6px 6px}}
+body.cp .coTop{display:none}
+.client-only{display:none!important}body.client .client-only{display:grid!important}
+.cpscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cpstage{position:relative;width:min(100%, calc((100svh - 150px) * 279.4 / 215.9));min-width:760px;margin:0 auto;container-type:inline-size;background:var(--paper);box-shadow:0 1px 3px rgb(0 0 0 /.12),0 8px 28px rgb(0 0 0 /.08);border-radius:6px}
+.cpcv{position:relative;width:100%;aspect-ratio:279.4/215.9;--mm:calc(100cqw / 279.4);container-type:inline-size}
+.cpcv .cpbase{position:absolute;inset:0;width:100%;height:100%}
+.cpcv .cpband.dim,.cpcv rect.dim{opacity:.35}
+.cprowx>*{position:absolute}
+.cpdot{border:0;background:transparent;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:50%}
+.cpdot svg{width:74%;height:74%}.cpdot path{fill:var(--blue)}.cpdot.flat path,.cpdot.none path{fill:var(--tan)}.cpdot.none{opacity:.35}
+.cpdot:hover{background:color-mix(in srgb,var(--blue) 10%,transparent)}
+.cpbox{display:flex;align-items:center;gap:calc(1*var(--mm));background:color-mix(in srgb,var(--paper) 86%,transparent);border-radius:calc(.9*var(--mm));padding:0 calc(1.6*var(--mm));box-shadow:0 0 0 calc(.22*var(--mm)) var(--rule)}
+.cprowx.empty .cpbox{background:transparent;box-shadow:none;outline:calc(.25*var(--mm)) dashed color-mix(in srgb,var(--blue) 30%,transparent)}
+.cpin,.cptext{flex:1;min-width:0;border:0;background:transparent;font:400 calc(3.15*var(--mm)) var(--font);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0;height:100%}
+.cpin:focus{outline:none}.cpbox:focus-within{box-shadow:0 0 0 calc(.5*var(--mm)) var(--cyan)}
+.cpin::placeholder{color:var(--blue);opacity:.5}
+.cpok{border:0;border-radius:50%;width:calc(5.4*var(--mm));height:calc(5.4*var(--mm));font:700 calc(3*var(--mm)) var(--font);cursor:pointer;background:transparent;color:var(--muted);box-shadow:0 0 0 calc(.25*var(--mm)) var(--rule);flex:none}
+.cpok[aria-pressed="true"],.cpokv{color:#fff}
+.cprowx.org.ok .cpbox{background:var(--org-s)}.cprowx.op.ok .cpbox{background:var(--op-s)}.cprowx.inf.ok .cpbox{background:var(--inf-s)}
+.cprowx.org .cpok[aria-pressed="true"],.cprowx.org .cpokv{background:var(--org-ink)}.cprowx.op .cpok[aria-pressed="true"],.cprowx.op .cpokv{background:var(--op-ink)}.cprowx.inf .cpok[aria-pressed="true"],.cprowx.inf .cpokv{background:var(--inf-ink)}
+.cpokv{display:grid;place-items:center;border-radius:50%;width:calc(5.4*var(--mm));height:calc(5.4*var(--mm));font:700 calc(3*var(--mm)) var(--font);flex:none}
+.cpbox.over{box-shadow:0 0 0 calc(.35*var(--mm)) var(--warn)}
+.cpnote{border:0;background:transparent;color:var(--blue);font:600 calc(3.4*var(--mm)) var(--font);cursor:pointer;position:absolute}
+.cpnote i{display:inline-block;width:calc(1.4*var(--mm));height:calc(1.4*var(--mm));border-radius:50%;background:var(--cyan);margin-left:calc(.6*var(--mm));vertical-align:middle}
+.cpmini{width:100%;padding:0;border:1px solid var(--rule);border-radius:10px;background:var(--paper);overflow:hidden;cursor:pointer;container-type:inline-size}
+.cpmini .cpcv{pointer-events:none}
+.cpfrom{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.cpfrom>div{border-radius:10px;padding:10px;display:grid;gap:4px;align-content:start}
+.cpfrom .org{background:var(--org-b);border:1px solid var(--org-s)}.cpfrom .op{background:var(--op-b);border:1px solid var(--op-s)}.cpfrom .inf{background:var(--inf-b);border:1px solid var(--inf-s)}
+.cpfrom ul{margin:4px 0 0;padding-left:16px;display:grid;gap:4px;font-size:13.5px}.cpfrom li span{color:var(--muted)}.cpfrom li em{color:var(--plum);font-style:normal;font-size:12px}.cpfrom li.used{color:var(--ok)}
+@media (max-width:820px){.cpfrom{grid-template-columns:minmax(0,1fr)}}
+.cpcard.org{border-left:4px solid var(--org-s)}.cpcard.op{border-left:4px solid var(--op-s)}.cpcard.inf{border-left:4px solid var(--inf-s)}
+.cpdirs,.cpm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.cpm>span{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.cpchecks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 12px}.cpchecks>div{border:1px solid var(--rule);border-radius:12px;padding:10px;text-align:center;background:var(--paper)}.cpchecks b{display:block;font-size:22px;color:var(--blue)}.cpchecks span{font-size:12.5px;color:var(--muted)}
+@media (max-width:600px){.cpchecks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cplens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:10px 0}
+.cplens>div{border-radius:12px;padding:12px;display:grid;gap:4px}.cplens b{font-size:22px}.cplens span{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.cplens p{margin:0;font-size:14px}
+.cplens .org{background:var(--org-b);border:1px solid var(--org-s)}.cplens .org b{color:var(--org-ink)}.cplens .op{background:var(--op-b);border:1px solid var(--op-s)}.cplens .op b{color:var(--op-ink)}.cplens .inf{background:var(--inf-b);border:1px solid var(--inf-s)}.cplens .inf b{color:var(--inf-ink)}
+@media (max-width:820px){.cplens{grid-template-columns:minmax(0,1fr)}}
+/* the CP in Present */
+.ps.cps{padding:0;background:#fff}
+.ps.cps .cpcv{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
+.cpcv.present .cprowx{transition:opacity .5s}
+.cpcv.present .cprowx.dim{opacity:.22}
+.cpcv.present .cpbox{background:#fff;box-shadow:0 0 0 calc(.22*var(--mm)) #e2e6ef,0 calc(.4*var(--mm)) calc(1.4*var(--mm)) rgb(30 45 80 /.07)}
+.cpcv.present .cprowx.org.ok .cpbox{background:var(--org-s)}.cpcv.present .cprowx.op.ok .cpbox{background:var(--op-s)}.cpcv.present .cprowx.inf.ok .cpbox{background:var(--inf-s)}
+.cpcv.present .cprowx.spot .cpbox{box-shadow:0 0 0 calc(.45*var(--mm)) var(--plum),0 calc(1.6*var(--mm)) calc(4*var(--mm)) rgb(158 42 85 /.18);transform:translateY(calc(-.4*var(--mm)))}
+.cpcv.present .cptext{font-size:calc(3.15*var(--mm))}
+.cptext{height:auto!important;line-height:1.3}
+.ps.cps::after{display:none}
+.cpcap{position:absolute;left:calc(25.5*var(--mm));width:calc(41*var(--mm));display:flex;flex-direction:column;justify-content:center;gap:calc(1*var(--mm));background:#fff;border-left:calc(.7*var(--mm)) solid var(--plum);border-radius:calc(1.2*var(--mm));padding:calc(2*var(--mm)) calc(2.4*var(--mm));box-shadow:0 calc(.8*var(--mm)) calc(3*var(--mm)) rgb(30 45 80 /.10);animation:psrise .7s cubic-bezier(.2,.8,.2,1) both}
+.cpcap .pc-kick{font-size:calc(2.2*var(--mm));color:var(--plum);font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.cpcap .pc-title{font-size:calc(3.6*var(--mm));color:var(--title);line-height:1.2;font-weight:600}
+.cpcap .pc-sub{font-size:calc(2.6*var(--mm));color:#3b4254;line-height:1.35}
+.cpcap .pc-meta{display:flex;flex-direction:column;font-size:calc(2.5*var(--mm));color:#4b5366}.cpcap .pc-meta em{font-style:normal;font-weight:700;color:var(--plum);margin-right:calc(.8*var(--mm))}
+.cpfromps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.4cqw}
+.cpfromps>div{border-radius:1.2cqw;padding:1.6cqw}.cpfromps .org{background:var(--org-b)}.cpfromps .op{background:var(--op-b)}.cpfromps .inf{background:var(--inf-b)}
+.cpfromps ul{list-style:none;margin:0;padding:0;display:grid;gap:1cqw}.cpfromps li{display:grid;gap:.2cqw}.cpfromps b{font-size:1.5cqw;color:var(--ink)}.cpfromps em{font-style:normal;font-size:1.1cqw;color:var(--muted)}
+.cpsucc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8cqw}
+.cpsucc>div{border-radius:1.2cqw;padding:1.6cqw}.cpsucc .org{background:var(--org-b)}.cpsucc .op{background:var(--op-b)}.cpsucc .inf{background:var(--inf-b)}
+.cpsucc ul{list-style:none;margin:0;padding:0;display:grid;gap:.9cqw}.cpsucc li{display:grid;grid-template-columns:1.6cqw 1fr auto;gap:.8cqw;align-items:start;font-size:1.2cqw;line-height:1.35;color:var(--ink)}
+.cpsucc li b{color:var(--ok)}.cpar svg{width:1.5cqw;height:1.5cqw}.cpar path{fill:var(--blue)}.cpar.flat path{fill:var(--tan)}
 </style>
 
 <div class="shell">
-  <div class="aidrow"><button class="aidbtn" id="aidBtn" aria-haspopup="dialog"><span class="aidlbl">Aid</span><b id="aidName">Untitled aid</b><span aria-hidden="true">▾</span></button><span class="note" id="aidMeta"></span></div>
+  <div class="aidrow"><button class="aidbtn" id="aidBtn" aria-haspopup="dialog"><span class="aidlbl">Aid</span><b id="aidName">Untitled aid</b><span aria-hidden="true">▾</span></button><span class="note" id="aidMeta"></span><div class="aidswitch" role="tablist" aria-label="Engagement aid"><button role="tab" id="swAop" aria-selected="true">Alignment of Priorities</button><button role="tab" id="swCp" aria-selected="false">Criteria Proposition</button></div></div>
   <div class="bar">
     <div class="tabs" role="tablist" aria-label="Pages">
       <button role="tab" id="tabLearn" aria-selected="false" aria-controls="viewLearn"><span class="n">1</span>Learn</button>
@@ -837,7 +905,47 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
       </div>
     </div>
   </section>
-  <footer><span>Rebuilt from Knowledge-Advantage's Alignment of Priorities (© 2015). A prototype.</span><span>Your work stays in this browser.</span></footer>
+
+  <section id="viewLearnCP" class="cpview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Measure What Matters</small><h1>Criteria Proposition</h1><p class="gsub">Learn the framework in five short cards. Then build it from your alignment.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
+    <div class="lwrap">
+      <ol class="ldots" id="cpLdots" aria-label="Cards"></ol>
+      <article class="lcard" id="cpLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="cpLPrev">← Back</button><button class="btn primary" id="cpLNext">Next →</button></div>
+    </div>
+  </section>
+  <section id="viewBuildCP" class="cpview" role="tabpanel" hidden>
+    <div class="scorebar" id="cpScore2"></div>
+    <ol class="bsteps" id="cpBsteps" aria-label="Steps"></ol>
+    <div class="bwrap">
+      <div class="bmain" id="cpBmain"></div>
+      <aside class="bside" id="cpBside">
+        <p class="minicap">The sheet, as you build it</p>
+        <button class="minibtn cpmini" id="cpMini" aria-label="Open the full sheet"></button>
+        <div id="cpAsk" class="askclient"></div>
+        <button class="btn small" id="cpBDraft">Draft from the alignment</button>
+        <button class="btn small danger" id="cpBClear">Clear all criteria</button>
+      </aside>
+    </div>
+    <div class="bnav"><button class="btn" id="cpBBack">← Back</button><span id="cpBpos" class="note"></span><button class="btn primary" id="cpBNext">Next →</button></div>
+  </section>
+  <section id="viewAidCP" class="cpview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <div class="scorebar" id="cpScore"></div>
+      <div class="lensbar" id="cpLens"></div>
+      <div class="cpscroll"><div class="cpstage" id="cpSheet"></div></div>
+      <section class="ctlcard" aria-label="Controls">
+        <h3>Controls</h3>
+        <div class="ctlrow prep-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="cpPresent">▶ Present</button><button class="btn small" id="cpPdf">Download PDF</button><button class="btn small" id="cpDeck">Leave-behind PDF</button><button class="btn small" id="cpCopyBtn">Copy summary</button></div></div>
+        <div class="ctlrow client-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="cpPresent2">▶ Present</button><button class="btn small" id="cpPdf2">Download PDF</button><button class="btn small" id="cpDeck2">Leave-behind PDF</button></div></div>
+        <div class="ctlrow prep-only"><span class="ctllab">Work</span><div class="arow" style="flex:0 1 auto"><button class="btn small" id="cpDraftBtn">Draft from the alignment</button><button class="btn small" id="cpToAop">Open the Alignment of Priorities</button><button class="btn small danger" id="cpClearBtn">Clear all criteria</button></div></div>
+        <p class="note prep-only" style="margin:0">Tap ▲ ▼ ► to set each row's direction, type the measure and target, and tap ✓ once the stakeholder agrees: the row fills with its band's colour. ▷ opens a band's notes.</p>
+      </section>
+      <div class="nextbox" id="cpNext"></div>
+      <div class="check" id="cpCheck"></div>
+    </div>
+  </section>
+  <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2015). A prototype.</span><span>Your work stays in this browser.</span></footer>
 </div>
 
 <aside class="assist" id="assist" aria-label="Assistant">
@@ -954,7 +1062,7 @@ const SOLUTION=["Confirm how an initiative or solution aligns to the business pr
 
 function blankProv(){ return {name:"",site:"",summary:"",asOf:"",offerings:[]}; }
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
-  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},provider:blankProv(),fin:{},items}; }
+  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},provider:blankProv(),fin:{},cp:{},cpg:{outcomes:[],stepsP:[],stepsS:[],notes:{}},items}; }
 const KEY="ka-aop-v3";
 /* process names before the book's list (Nov 16): only the clear equivalents carry over */
 const OLD_PROC={"Perf. & Risk Mgmt.":"Performance Mgt.","Product Development":"Product Dev.","Market Development":"Marketing"};
@@ -1276,6 +1384,10 @@ const EXAMPLE={
   company:{name:"Morgan Industries (MI)",site:"",eyes:"",summary:"",asOf:""},
   ext:{economy:{t:"Overall downturn is driving more desperate actions by industry players"},industry:{t:"Industry pressures increasing dramatically"},financials:{t:"Revenue doubled through acquisitions, but revenue and margins are down year to year; assets from acquisitions are under-used"}},
   fin:{ros:{read:"weak",note:"Profit margins down year to year"},roa:{read:"weak",note:"Under-used assets from acquisitions"},assetTurn:{read:"weak",note:"Acquired assets not yet earning their keep"},debtNw:{read:"watch",note:"Resources don't support more growth through acquisitions"}},
+  cp:{main:{
+    org:[{dir:"up",t:"Revenue per customer by 10-12%",ok:true,m:["goals.1"],src:""},{dir:"up",t:"Profit per customer by 5-7%",ok:true,m:["goals.0"],src:""},{dir:"down",t:"Sales/marketing operating expenses by > 10%",ok:false,m:["goals.0"],src:""},{dir:"down",t:"Cash flow requirements for sales/marketing operations by > 10%",ok:false,m:["goals.0"],src:""}],
+    op:[{dir:"up",t:"Cross selling opportunities by > 15%",ok:true,m:["processes.1"],src:""},{dir:"down",t:"Non-qualified sales activities by > 20%",ok:false,m:["processes.0"],src:""},{dir:"down",t:"Average sales cycle-times by 10-20%",ok:true,m:["processes.0"],src:""},{dir:"up",t:"Utilization (Yield) of sales/marketing operations by > 15%",ok:false,m:["processes.2"],src:""}],
+    inf:[{dir:"up",t:"Intended usage of Infrastructure by sales and marketing > 25%",ok:false,m:["solutions.1"],src:""},{dir:"up",t:"Acceptance/adoption of previous sales operations investments by > 30%",ok:false,m:["initiatives.0"],src:""},{dir:"down",t:"Redundant applications and systems support by > 20%",ok:true,m:["solutions.0"],src:""},{dir:"down",t:"Sales operations/marketing infrastructure resources by > 15%",ok:false,m:["solutions.1"],src:""}]}},
   gaps:{people:{on:true,note:"Sue Jacobs (VP Sales & Marketing) is the operational owner who sets success criteria."},position:{on:true,note:"Get consensus on the Assessment Questions to stay on the Fast Path."}},
   items:{
     goals:[{t:"Profit",d:"EPS up year to year",c:0,serves:[]},{t:"Revenue",d:"10% growth year to year",c:0,serves:[]}],
@@ -1297,8 +1409,9 @@ function clearAid(){ clearAll(); }
 function syncTop(){ $("situation").value=S.situation||""; }
 $("situation").addEventListener("input",e=>{ S.situation=e.target.value; save(); });
 let curView="aid";
-function show(view){ curView=view; document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); [["learn","Learn"],["build","Build"],["aid","Aid"]].forEach(([v,n])=>{ $("view"+n).hidden=v!==view; $("tab"+n).setAttribute("aria-selected",v===view); });
-  try{ history.replaceState(null,"","#"+(view==="aid"?"sheet":view)); }catch(e){}
+function show(view){ curView=view; document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); [["learn","Learn"],["build","Build"],["aid","Aid"]].forEach(([v,n])=>{ $("view"+n).hidden=cpMode||v!==view; const c=$("view"+n+"CP"); if(c) c.hidden=!cpMode||v!==view; $("tab"+n).setAttribute("aria-selected",v===view); });
+  try{ history.replaceState(null,"","#"+(cpMode?"cp-":"")+(view==="aid"?"sheet":view)); }catch(e){}
+  if(cpMode){ closePop(); if(view==="learn") cpLearn(); if(view==="build") cpBuild(); if(view==="aid") cpSheet(); return; }
   if(view==="learn") renderLearn(); if(view==="build") renderBuild(); if(view==="aid"){ closePop(); renderPicture(true); requestAnimationFrame(sheetInView); } }
 $("tabLearn").onclick=()=>show("learn"); $("tabBuild").onclick=()=>show("build"); $("tabAid").onclick=()=>show("aid");
 function setMode(client){ document.body.classList.toggle("client",client); $("modePrep").classList.toggle("primary",!client); $("modeClient").classList.toggle("primary",client);
@@ -1642,7 +1755,7 @@ $("coGo").onclick=async()=>{
 };
 $("coStop").onclick=()=>coCtl?.abort();
 ["coName","coSite","coEyes"].forEach(id=>$(id).addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("coGo").click(); } }));
-function goCompany(){ setMode(false); show("build"); bIdx=0; renderBuild(); const c=$("coCard"); c.scrollIntoView({block:"start",behavior:"smooth"}); c.classList.remove("pulse"); void c.offsetWidth; c.classList.add("pulse"); setTimeout(()=>$("coName").focus({preventScroll:true}),400); }
+function goCompany(){ if(cpMode) setAidMode(false); setMode(false); show("build"); bIdx=0; renderBuild(); const c=$("coCard"); c.scrollIntoView({block:"start",behavior:"smooth"}); c.classList.remove("pulse"); void c.offsetWidth; c.classList.add("pulse"); setTimeout(()=>$("coName").focus({preventScroll:true}),400); }
 $("coTopBtn").onclick=goCompany; $("bCompany").onclick=goCompany;
 function coApply(how){ const d=coDraft;
   const snap=JSON.stringify(S), all=how==="all";
@@ -1845,18 +1958,18 @@ function chainsHeard(){ const paths=[];
   while(pick.length<3&&paths.length){ let best=null,bs=-1; paths.forEach(p=>{ const sc=p.filter(x=>!seen.has(x)).length+(pick.some(q=>q[q.length-1]===p[p.length-1])?0:.5); if(sc>bs){ bs=sc; best=p; } });
     if(bs<1) break; pick.push(best); best.forEach(x=>seen.add(x)); paths.splice(paths.indexOf(best),1); }
   return pick.map(p=>p.slice().reverse()); }
-function buildSlides(){ const sl=[{k:"title"}]; if(hasOutside()) sl.push({k:"outside"});
+function buildSlides(){ if(presCP) return cpSlides(); const sl=[{k:"title"}]; if(hasOutside()) sl.push({k:"outside"});
   /* the whole alignment first, then each column and box in sequence (Dave, Nov 16) */
   sl.push({k:"whole"});
   COLS.forEach((c,ix)=>{ const ids=colFilled(ix); if(!ids.length) return; sl.push({k:"col",ix}); ids.forEach(id=>sl.push({k:"box",ix,id})); });
   if(allFilled().length) sl.push({k:"heard"}); return sl; }
-function slideLabel(sl){ if(!sl) return ""; return sl.k==="title"?aidTitle():sl.k==="outside"?"Outside in":sl.k==="col"?COLS[sl.ix].label:sl.k==="box"?`${COLS[sl.ix].label}: ${nameOf(sl.id)}`:sl.k==="whole"?"The whole alignment":"What we heard"; }
+function slideLabel(sl){ if(!sl) return ""; if(sl.k.startsWith("cp")) return cpSlideLabel(sl); return sl.k==="title"?aidTitle():sl.k==="outside"?"Outside in":sl.k==="col"?COLS[sl.ix].label:sl.k==="box"?`${COLS[sl.ix].label}: ${nameOf(sl.id)}`:sl.k==="whole"?"The whole alignment":"What we heard"; }
 
 /* ---- the slides that aren't the sheet ---- */
 const KA_MARK=`<span class="ps-ka"><b>ka</b><span>Knowledge-Advantage, Inc.</span></span>`;
 function ratioStrip(){ return RATIO_GROUPS.map(g=>{ const rd=groupRead(g); const rows=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>{ const t=trendOf(k); return `<li><span>${l}</span><b>${esc(S.fin[k].v)}</b>${t?`<i class="rtrend ${t.t}">${t.arrow} ${t.t==="steady"?"Steady":`from ${esc(S.fin[k].v0)}`}</i>`:""}</li>`; }).join("");
   return `<div class="ps-rg"><div class="ps-rgh"><span>${g.l}</span>${rd?`<em class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</em>`:""}</div>${rows?`<ul>${rows}</ul>`:`<p class="ps-muted">${esc(g.q)}</p>`}</div>`; }).join(""); }
-function slideHTML(sl){
+function slideHTML(sl){ if(sl.k.startsWith("cp")) return cpSlideHTML(sl);
   if(sl.k==="title"){ const eyes=eyesOf();
     return `<div class="ps ps-title">
       <div class="ps-top"><span class="ps-kick">Alignment of Priorities · Gain Business Clarity</span>${KA_MARK}</div>
@@ -1924,12 +2037,13 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
 function go(i){ if(!presenting) return; const n=Math.max(0,Math.min(slides.length-1,i)); if(n===presIx&&slides[n]) return presRender(); presIx=n; presRender(); }
 
 let presTheme=null;
-function startPresent(){ if(presenting) return; show("aid"); presenting=true; presTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; bandsWide(true); closePop(); closeAssist(); setHow(false); setWalk(-1); setZoom(false);
+let presCP=false;
+function startPresent(cp){ if(presenting) return; presCP=cp===true; show("aid"); if(presCP){ $("viewAid").hidden=false; $("viewAidCP").hidden=true; } presenting=true; presTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; bandsWide(true); closePop(); closeAssist(); setHow(false); setWalk(-1); setZoom(false);
   document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false; $("pprog").hidden=false;
   slides=buildSlides(); presIx=0; presT0=Date.now(); select(null);
   try{ const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){}
   requestAnimationFrame(()=>{ fitDescs(); presRender(); }); wake(); bc(stateMsg(true)); }
-function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null; presNewCol=null; bandsWide(false);
+function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null; presNewCol=null; bandsWide(false); if(presCP){ presCP=false; setTimeout(()=>show(curView),0); }
   document.body.classList.remove("presenting","pidle","laser"); ["presbar","pprog","pslide","pcap","presNotes","pblank","laser","pkeysBox","pvHelp"].forEach(id=>$(id).hidden=true);
   $("pNotes").setAttribute("aria-pressed","false"); $("pKeys").setAttribute("aria-pressed","false"); laserOn=false; blankOn=false;
   presUnlayout(); renderPicture();
@@ -1938,7 +2052,7 @@ function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null;
   try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); bc({type:"end"}); }
 
 /* ---- notes, shared by the panel and the presenter view ---- */
-function notesHTML(sl){ if(!sl) return "";
+function notesHTML(sl){ if(!sl) return ""; if(sl.k.startsWith("cp")) return cpNotesHTML(sl);
   const ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
   if(sl.k==="title") return `<p style="margin:0">Open the way Kevin does: “${esc(KEVIN)}”</p>${S.situation?`<p class="note" style="margin:0">${esc(S.situation)}</p>`:""}<h4>Ask</h4>${ul(["What has changed for you since we last spoke?","Who else needs to see this?"])}`;
   if(sl.k==="outside") return `<p style="margin:0">Start outside in, as Kevin does: the economy, the industry, then their financials against competitors.</p>${finLine()?`<h4>Key ratios</h4><p style="margin:0">${esc(finLine())}</p>`:""}<h4>Ask</h4>${ul(["Which of these worries you most?","Is this how you'd describe your financials?"])}`;
@@ -1970,7 +2084,7 @@ function presKey(k){
 document.addEventListener("keydown",e=>{ if(!presenting||e.target.matches?.("input,textarea,select")) return; if(e.key===" "&&e.target.closest?.("button")) return; if(presKey(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); wake(); } },true);
 $("pPrev").onclick=()=>go(presIx-1); $("pNext").onclick=()=>go(presIx+1); $("pExit").onclick=stopPresent;
 $("pNotes").onclick=()=>{ const n=$("presNotes"), on=n.hidden; n.hidden=!on; $("pNotes").setAttribute("aria-pressed",String(on)); if(on) renderNotes(); };
-$("pKeys").onclick=toggleKeys; $("pDeck").onclick=()=>downloadDeck(); $("pPresenter").onclick=()=>openPresenter(); $("pvHelpOk").onclick=()=>$("pvHelp").hidden=true;
+$("pKeys").onclick=toggleKeys; $("pDeck").onclick=()=>presCP?cpDownload(true):downloadDeck(); $("pPresenter").onclick=()=>openPresenter(); $("pvHelpOk").onclick=()=>$("pvHelp").hidden=true;
 $("pblank").onclick=toggleBlank;
 $("pslide").addEventListener("click",()=>go(presIx+1));
 $("cv").addEventListener("click",e=>{ if(!presenting) return; e.preventDefault(); e.stopPropagation();
@@ -1983,15 +2097,15 @@ $("presentBtn").onclick=startPresent; $("presentBtn2").onclick=startPresent;
 /* ---- presenter view: a second window that stays in step ---- */
 const PCH=("BroadcastChannel" in window)?new BroadcastChannel("ka-aop-present"):null;
 function bc(m){ try{ PCH&&PCH.postMessage(m); }catch(e){} }
-function stateMsg(full){ return Object.assign({type:"state",i:presIx,n:slides.length,t0:presT0,aid:LIBD.cur},full?{data:JSON.stringify(S)}:{}); }
+function stateMsg(full){ return Object.assign({type:"state",i:presIx,n:slides.length,t0:presT0,aid:LIBD.cur,cp:presCP},full?{data:JSON.stringify(S)}:{}); }
 let pvMode=false, pvT0=0, pvTick=0, pvLast=0, pvHello=0;
 PCH&&PCH.addEventListener("message",e=>{ const m=e.data||{};
   if(!pvMode){ if(!presenting) return; if(m.type==="hello") bc(stateMsg(true)); else if(m.type==="go") go(m.i); else if(m.type==="key"){ presKey(m.key); wake(); } return; }
-  if(m.type==="state"){ if(m.data){ S=norm(JSON.parse(m.data)); slides=buildSlides(); } if(!slides.length) slides=buildSlides(); presIx=m.i; if(!pvT0||m.t0&&m.t0<pvT0) pvT0=m.t0||Date.now(); pvLast=Date.now(); renderPv(); }
+  if(m.type==="state"){ presCP=!!m.cp; if(m.data){ S=norm(JSON.parse(m.data)); slides=buildSlides(); } if(!slides.length) slides=buildSlides(); presIx=m.i; if(!pvT0||m.t0&&m.t0<pvT0) pvT0=m.t0||Date.now(); pvLast=Date.now(); renderPv(); }
   else if(m.type==="end"){ pvLast=0; renderPv(true); } });
 function openPresenter(){ let w=null; try{ w=window.open(location.href.split("#")[0]+"#presenter","ka-aop-presenter","popup,width=1180,height=780"); }catch(e){ w=null; }
   if(!w||w.closed) $("pvHelp").hidden=false; else toast("Presenter view opened. Move that window to your laptop screen.",null,true); }
-function cardText(sl){ if(!sl) return "";
+function cardText(sl){ if(!sl) return ""; if(sl.k.startsWith("cp")) return cpCardText(sl);
   if(sl.k==="title") return `<small>Title</small><b>${esc(aidTitle())}</b><span>${esc([eyesOf()&&`Through the eyes of ${eyesOf()}`,longDate()].filter(Boolean).join(" · "))}</span>`;
   if(sl.k==="outside") return `<small>Outside in</small><b>Economy, industry, financials</b><span>${esc(finLine()||EXT.map(([k])=>S.ext[k].t).filter(Boolean).join(" · "))}</span>`;
   if(sl.k==="col") return `<small>${COLS[sl.ix].label}</small><b>${esc(COLS[sl.ix].walk)}</b>`;
@@ -2291,7 +2405,335 @@ $("aQuestions").onclick=()=>ask(`${ctx()}\n\nWrite 5 open questions to ask the c
 $("askForm").onsubmit=e=>{ e.preventDefault(); const q=$("askBox").value.trim(); if(!q) return; ask(`${ctx()}${sel?`\n\nThe user is looking at: ${nameOf(sel)} (${sel}).`:""}\n\nQuestion: ${q}\n\nAnswer in under 150 words, plain text.`); };
 (async()=>{ try{ sample=window.claude?await window.claude.use("sample"):null; }catch(e){ sample=null; } if(!sample) off("The assistant works when this page is opened in Claude. The aid works by hand everywhere."); })();
 
-function viewFromHash(){ const h=location.hash.slice(1); return h==="learn"?"learn":h==="build"?"build":(h==="sheet"||h==="aid")?"aid":null; }
+/* ===================== Criteria Proposition (Dave, Nov 17: "start the build out of the Criteria Proposition… information from the AoP will heavily determine what goes into the Criteria Proposition"; "go with your recommendations on all four") ===================== */
+/* the three bands, their lens from the book (Dimensions of Success, p. 51), and the PDF's own coordinates (mm, page 2) */
+const CPB=[
+ {k:"org",l:"Organizational",lens:"ROA",full:"Return on Assets",what:"Balance Sheet and Income Statement impact",color:"red",band:[47.5,100.6],ys:[52.843,64.635,76.372,88.147],src:["goals","strategies"],
+  book:"Return on Assets (ROA) is an Organizational (red) criteria based on the focus/link to the Balance Sheet and Income Statement.",
+  ask:["Which number would the CFO report to the board?","What's the baseline today, and by when should it move?","Which goal does this prove?"]},
+ {k:"op",l:"Operational",lens:"ROI",full:"Return on Investment",what:"efficiency, cycle-time and effectiveness gains of operational processes",color:"yellow",band:[100.6,149.4],ys:[102.539,114.017,125.791,137.323],src:["processes"],
+  book:"Return on Investments (ROI) is an Operational (yellow) criteria based on the focus/link to efficiency, cycle-time, and effectiveness gains of operational processes.",
+  ask:["Which process does this speed up, free up or improve?","How is it measured today, and who owns it?","What would ‘better’ look like in 90 days?"]},
+ {k:"inf",l:"Infrastructure",lens:"TCO",full:"Total Cost of Ownership",what:"reducing infrastructure costs over the lifecycle",color:"green",band:[149.4,200.4],ys:[153.388,164.81,176.342,187.727],src:["initiatives","solutions"],
+  book:"Total Cost of Ownership (TCO) is an Infrastructure (green) criteria based on the constant focus/link to reducing infrastructure costs over the lifecycle of a business initiative or solution.",
+  ask:["Which costs go away or shrink?","What's in place today that this replaces?","How will adoption be measured?"]}];
+const CPX={dot:68.754,dotw:8.89,box:80.045,boxw:187.452,boxh:9.398}, CP_BUDGET=88;
+const CP_GUIDE={purpose:"A visual aid to express the full worth of a solution to stakeholders.",
+ why:"We will understand a stakeholder’s willingness to commit to an initiative or solution on the basis of what is most valuable to them. Additionally, we will be positioned to gain consensus among various stakeholders.",
+ where:"The Criteria Proposition is best used in the Problem Space during the Awareness Phase (1.4) to “Verify Success Criteria” and during the Analysis Phase (2.4) to “Highlight the Value of Solving Business Problems”. It’s also useful in the Solution Space to confirm worth.",
+ outcomes:["Agreement on key measures and worth of anticipated business outcomes (results)","Agreement on the worth of an initiative or solution in terms of stakeholder value and expectations","Consensus and commitment among stakeholders for an initiative or solution"],
+ problem:["Review types of criteria based on different stakeholders","Illustrate potential examples for each category","Determine success criteria for the initiative or solution","Identify gaps in measures and metrics considered relevant"],
+ solution:["Confirm mutual interest to deliver value and reduce costs","Illustrate estimates of value and cost reductions","Verify success criteria for the initiative or solution"]};
+/* Kevin's Value Proposition for MI's eBusiness initiative (the book, p. 52) */
+const CP_KEVIN=[["org","up","Revenue per customer by 10-12%"],["org","up","Profit per customer by 5-7%"],["org","down","Sales/marketing operating expenses by > 10%"],["org","down","Cash flow requirements for sales/marketing operations by > 10%"],
+ ["op","up","Cross selling opportunities by > 15%"],["op","down","Non-qualified sales activities by > 20%"],["op","down","Average sales cycle-times by 10-20%"],["op","up","Utilization (Yield) of sales/marketing operations by > 15%"],
+ ["inf","up","Intended usage of Infrastructure by sales and marketing > 25%"],["inf","up","Acceptance/adoption of previous sales operations investments by > 30%"],["inf","down","Redundant applications and systems support by > 20%"],["inf","down","Sales operations/marketing infrastructure resources by > 15%"]];
+const CP_DIRS=[["up","▲","Increase"],["down","▼","Decrease"],["flat","►","Hold"]];
+const cpB=k=>CPB.find(b=>b.k===k);
+let cpMode=false;
+function cpData(){ S.cp=S.cp||{}; const L=S.lens||"main"; const o=S.cp[L]=S.cp[L]||{}; CPB.forEach(b=>{ o[b.k]=o[b.k]||[]; while(o[b.k].length<4) o[b.k].push({dir:"",t:"",ok:false,m:[],src:""}); o[b.k]=o[b.k].slice(0,4); }); return o; }
+function cpG(){ S.cpg=S.cpg||{outcomes:[],stepsP:[],stepsS:[],notes:{}}; ["outcomes","stepsP","stepsS"].forEach(k=>S.cpg[k]=S.cpg[k]||[]); S.cpg.notes=S.cpg.notes||{}; return S.cpg; }
+const cpRow=id=>{ const [k,i]=id.split("."); return cpData()[k][+i]; };
+const cpFilled=r=>!!(r&&r.t.trim());
+const cpAll=()=>CPB.flatMap(b=>cpData()[b.k].map((r,i)=>[b.k,i,r]).filter(([,,r])=>cpFilled(r)));
+const cpHasTarget=t=>/\d/.test(t)&&!/\[\?\]/.test(t);
+function cpName(id){ if(id.startsWith("ratio:")){ const k=id.slice(6), g=RATIO_GROUPS.flatMap(g=>g.r).find(r=>r[0]===k); return g?`${g[1]}${S.fin?.[k]?.v?` ${S.fin[k].v}`:""}`:k; } return filled(id)?nameOf(id):""; }
+/* what each band can measure from the alignment */
+function cpSources(k){ const out=[]; const b=cpB(k);
+  b.src.forEach(col=>S.items[col].forEach((it,i)=>{ const id=`${col}.${i}`; if(filled(id)) out.push({id,label:it.t,sub:col==="processes"&&gainsOf(it).length?gainsOf(it).join(" · "):COLS[ci(col)].one}); }));
+  if(k==="org") RATIO_GROUPS.forEach(g=>g.r.forEach(([rk,l])=>{ const o=S.fin?.[rk]; if(o&&(o.v||o.read)) out.push({id:"ratio:"+rk,label:l,sub:[o.v,trendOf(rk)?.word].filter(Boolean).join(" · ")||g.l}); }));
+  return out; }
+function cpCoverage(){ const used=new Set(cpAll().flatMap(([,,r])=>r.m||[])); const miss=[];
+  ["goals","processes","solutions"].forEach(col=>S.items[col].forEach((it,i)=>{ const id=`${col}.${i}`; if(filled(id)&&!used.has(id)) miss.push(id); })); return miss; }
+function cpScore(){ const rows=cpAll(); if(!rows.length) return 0; const per=rows.reduce((a,[,,r])=>a+(.4+(cpHasTarget(r.t)?.2:0)+((r.m||[]).length?.2:0)+(r.ok?.2:0)),0)/rows.length;
+  const bandsCovered=CPB.filter(b=>cpData()[b.k].some(cpFilled)).length/3, need=["goals","processes","solutions"].reduce((a,c)=>a+S.items[c].filter(x=>x.t.trim()).length,0), cov=need?1-cpCoverage().length/need:0;
+  return Math.round(100*(per*.55+bandsCovered*.25+cov*.2)); }
+function cpNextMove(){ const rows=cpAll();
+  if(!allFilled().length) return {t:"Build the Alignment of Priorities first; the criteria come from it.",go:()=>setAidMode(false)};
+  if(!rows.length) return {t:"Draft the criteria from your alignment.",go:()=>{ show("build"); cpGo(0); }};
+  const nb=CPB.find(b=>!cpData()[b.k].some(cpFilled)); if(nb) return {t:`Add ${nb.lens} criteria in ${nb.l}.`,go:()=>{ show("build"); cpGo(CPB.indexOf(nb)+1); }};
+  const nt=rows.find(([,,r])=>!cpHasTarget(r.t)); if(nt) return {t:`Give “${nt[2].t.slice(0,40)}” a target number.`,go:()=>{ show("build"); cpGo(CPB.findIndex(b=>b.k===nt[0])+1); }};
+  const miss=cpCoverage(); if(miss.length) return {t:`Nothing measures ${cpName(miss[0])} yet.`,go:()=>{ show("build"); cpGo(4); }};
+  const na=rows.find(([,,r])=>!r.ok); if(na) return {t:"Agree each criterion with the stakeholder.",go:()=>{ show("build"); cpGo(CPB.findIndex(b=>b.k===na[0])+1); }};
+  return {t:"Every criterion is measurable, tied to the alignment and agreed. Present it.",done:true,go:()=>startPresent(true)}; }
+function cpScoreHTML(){ const sc=cpScore(), nm=cpNextMove();
+  const r=19, C=2*Math.PI*r, col=sc>=80?"var(--ok)":sc>=50?"var(--blue)":"var(--plum)";
+  return `<svg class="ring" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="var(--rule)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C*sc/100} ${C}" transform="rotate(-90 23 23)"/><text x="23" y="27.5" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="Open Sans,sans-serif">${sc}</text></svg><div class="scoretxt"><b>Criteria ${sc}%</b><span>${nm.done?"":"Next: "}<em>${esc(nm.t)}</em></span></div>${document.body.classList.contains("client")&&!nm.done?"":`<button class="btn small ${nm.done?"primary":""}" data-cpnext>${nm.done?"▶ Present":"Do it"}</button>`}`; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-cpnext]")) cpNextMove().go(); });
+
+/* ---------- the switch between the two aids (one engagement, one app) ---------- */
+function setAidMode(cp){ cpMode=!!cp; document.body.classList.toggle("cp",cpMode); try{ localStorage.setItem("ka-aid-mode",cpMode?"cp":"aop"); }catch(e){}
+  $("swAop").setAttribute("aria-selected",!cpMode); $("swCp").setAttribute("aria-selected",cpMode); document.title=cpMode?"Criteria Proposition":"Alignment of Priorities";
+  show(curView||"build"); }
+$("swAop").onclick=()=>setAidMode(false); $("swCp").onclick=()=>setAidMode(true);
+
+/* ---------- the sheet, on the PDF's coordinates ---------- */
+let cpUid=0;
+function cpArrow(dir){ const d=dir==="up"?"M4.45 1.6 L7.6 7.3 L1.3 7.3 Z":dir==="down"?"M1.3 1.6 L7.6 1.6 L4.45 7.3 Z":"M2.2 1.4 L7.6 4.45 L2.2 7.5 Z"; return `<svg viewBox="0 0 8.89 8.89" aria-hidden="true"><path d="${d}"/></svg>`; }
+function cpSheetHTML({mode="edit",spot=null,band=null}={}){ const R=cpData(), u="c"+(++cpUid), N=cpG().notes;
+  let h=`<svg class="cpbase" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true"><defs>
+    <linearGradient id="${u}o" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--org-a)"/><stop offset="1" stop-color="var(--org-b)"/></linearGradient>
+    <linearGradient id="${u}p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--op-b)"/><stop offset=".5" stop-color="var(--op-a)"/><stop offset="1" stop-color="var(--op-b)"/></linearGradient>
+    <linearGradient id="${u}i" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--inf-b)"/><stop offset="1" stop-color="var(--inf-a)"/></linearGradient>
+    <linearGradient id="${u}f" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".975" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="${u}m"><rect width="279.4" height="215.9" fill="url(#${u}f)"/></mask></defs>
+    <g mask="url(#${u}m)">`;
+  CPB.forEach((b,ix)=>{ const [y0,y1]=b.band, g=["o","p","i"][ix]; h+=`<rect class="cpband ${b.k} ${band&&band!==b.k?"dim":""}" x="23" y="${y0}" width="256.4" height="${y1-y0}" fill="url(#${u}${g})"/>`; });
+  h+=`</g>`;
+  CPB.forEach(b=>{ const [y0,y1]=b.band; h+=`<rect class="${band&&band!==b.k?"dim":""}" x="10.4" y="${y0}" width="12.6" height="${y1-y0}" fill="var(--${b.k}-s)"/>
+    <text fill="var(--${b.k}-ink)" font-family="Open Sans,sans-serif" font-weight="800" font-size="3.35" letter-spacing=".3" text-anchor="middle" transform="translate(17.95 ${(y0+y1)/2}) rotate(-90)" ${b.k==="org"?'textLength="28.5" lengthAdjust="spacingAndGlyphs"':""}>${b.l.toUpperCase()}</text>`; });
+  h+=`<text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Measure What Matters</text>
+    <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="109" lengthAdjust="spacingAndGlyphs">Criteria Proposition</text>
+    <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
+    <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/><text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
+    <text x="225" y="21.2" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="3.6">Knowledge-Advantage, Inc.</text>
+    <rect x="10.9" y="204" width="4.3" height="5.5" fill="none" stroke="var(--ink)" stroke-width=".3"/><text x="13.05" y="208" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="2.4">ka</text>
+    <text x="16.2" y="207.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2015</text></svg>`;
+  const at2=(x,y,w,hh)=>`left:calc(${x}*var(--mm));top:calc(${y}*var(--mm));width:calc(${w}*var(--mm));height:calc(${hh}*var(--mm))`;
+  if(mode==="edit") CPB.forEach(b=>h+=`<button class="cpnote prep-only" data-cpnote="${b.k}" style="${at2(14.6,b.band[0]+1.4,6.6,4.6)}" aria-label="${b.l}: view or add details">▷${N[b.k]?.trim()?'<i></i>':""}</button>`);
+  CPB.forEach(b=>R[b.k].forEach((r,i)=>{ const id=`${b.k}.${i}`, y=b.ys[i], f=cpFilled(r), on=spot===id, dim=(spot&&!on)||(band&&band!==b.k);
+    if(mode!=="edit"&&!f) return;
+    h+=`<div class="cprowx ${b.k} ${f?"":"empty"} ${r.ok&&f?"ok":""} ${on?"spot":""} ${dim?"dim":""}" data-cpid="${id}">
+      <button class="cpdot ${r.dir||"none"}" style="${at2(CPX.dot,y,CPX.dotw,CPX.dotw)}" ${mode==="edit"?`data-cpcycle="${id}" aria-label="Direction: ${r.dir||"not set"}. Change"`:'tabindex="-1" aria-hidden="true"'}>${cpArrow(r.dir||"flat")}</button>
+      <div class="cpbox" style="${at2(CPX.box,y,CPX.boxw,CPX.boxh)}">${mode==="edit"?`<input class="cpin" data-cpt="${id}" value="${esc(r.t)}" placeholder="Specific measure and metric associated with ${b.l}" aria-label="${b.l} criterion ${i+1}" autocomplete="off"><button class="cpok" data-cpok="${id}" aria-pressed="${!!r.ok}" title="${r.ok?"Agreed with the stakeholder · tap to undo":"Mark as agreed with the stakeholder"}" ${f?"":"hidden"}>✓</button>`:`<span class="cptext">${esc(r.t)}</span>${r.ok?`<span class="cpokv" aria-label="Agreed">✓</span>`:""}`}</div></div>`; }));
+  return h; }
+function cpFit(root){ root.querySelectorAll(".cpbox").forEach(bx=>{ const el=bx.querySelector(".cpin,.cptext"); if(!el) return; const mm=bx.closest(".cpcv").clientWidth/279.4; if(!mm) return;
+  let f=3.15; el.style.fontSize=(f*mm)+"px"; if(el.matches(":focus")) return; while(el.scrollWidth>el.clientWidth+1&&f>2.3){ f-=.05; el.style.fontSize=(f*mm)+"px"; } bx.classList.toggle("over",el.scrollWidth>el.clientWidth+1); }); }
+function cpPaintSheet(target,opts){ const el=typeof target==="string"?$(target):target; if(!el) return; el.innerHTML=`<div class="cpcv">${cpSheetHTML(opts)}</div>`; requestAnimationFrame(()=>cpFit(el)); }
+new ResizeObserver(()=>{ document.querySelectorAll(".cpcv").forEach(cv=>cpFit(cv.parentElement)); }).observe(document.body);
+
+/* editing on the sheet and in Build share these handlers */
+function cpTouch(r){ if(r.src&&r.src!=="Your words") r.src="Your words"; }
+document.addEventListener("input",e=>{ const id=e.target.dataset?.cpt; if(!id) return; const r=cpRow(id); r.t=e.target.value; cpTouch(r); if(r.ok){ r.ok=false; toast("Changed after it was agreed: mark it agreed again once the stakeholder confirms"); const ob=e.target.closest(".cpbox")?.querySelector(".cpok"); if(ob) ob.setAttribute("aria-pressed","false"); e.target.closest(".cprowx")?.classList.remove("ok"); } save();
+  const box=e.target.closest(".cpbox"); if(box){ box.querySelector(".cpok")?.toggleAttribute("hidden",!r.t.trim()); box.closest(".cprowx")?.classList.toggle("empty",!r.t.trim()); }
+  const fl=document.querySelector(`[data-cpfit="${id}"]`); if(fl) fl.outerHTML=cpFitLine(id);
+  clearTimeout(window._cpT); window._cpT=setTimeout(()=>{ cpRefreshSide(); if(!e.target.closest("#cpSheet")) cpPaintSheet("cpSheet",{mode:"edit"}); },400); });
+document.addEventListener("focusout",e=>{ if(e.target.dataset?.cpt) setTimeout(()=>{ document.querySelectorAll(".cpcv").forEach(cv=>cpFit(cv.parentElement)); },0); });
+document.addEventListener("click",e=>{
+  const cy=e.target.closest("[data-cpcycle]"); if(cy){ const r=cpRow(cy.dataset.cpcycle), order=["up","down","flat"]; r.dir=order[(order.indexOf(r.dir)+1)%3]; cpTouch(r); save(); cpRefresh(); return; }
+  const ok=e.target.closest("[data-cpok]"); if(ok){ const r=cpRow(ok.dataset.cpok); if(!cpFilled(r)) return; r.ok=!r.ok; save(); cpRefresh(); if(r.ok) toast("Agreed with the stakeholder"); return; }
+  const nt=e.target.closest("[data-cpnote]"); if(nt){ cpOpenNote(nt.dataset.cpnote,nt); return; } });
+function cpOpenNote(k,anchor){ closePop(); const b=cpB(k), N=cpG().notes; const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog");
+  pop.innerHTML=`<h5>${b.l} · ${b.lens}: view or add additional details</h5><p class="note" style="margin:0 0 6px">${esc(b.full)}: ${esc(b.what)}.</p><textarea placeholder="Who owns these measures, how they're tracked today, anything to confirm">${esc(N[k]||"")}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button></div>`;
+  place(pop,anchor); popEl=pop; pop.querySelector("textarea").addEventListener("input",e=>{ N[k]=e.target.value; save(); }); pop.querySelector("[data-done]").onclick=()=>{ closePop(); cpRefresh(); }; pop.querySelector("textarea").focus(); }
+function cpRefresh(){ if(!cpMode) return; if(curView==="aid") cpSheet(); else if(curView==="build") cpBuild(); else cpLearn(); }
+function cpRefreshSide(){ const s=$("cpScore"); if(s) s.innerHTML=cpScoreHTML(); const s2=$("cpScore2"); if(s2) s2.innerHTML=cpScoreHTML(); cpPaintSheet("cpMini",{mode:"view"}); }
+
+/* ---------- Learn ---------- */
+let cpL=0, cpQuiz=null, cpRun=0, cpBest=0;
+function cpNewQuiz(){ let q; do{ q=CP_KEVIN[Math.floor(Math.random()*CP_KEVIN.length)]; }while(cpQuiz&&q[2]===cpQuiz.t); cpQuiz={k:q[0],dir:q[1],t:q[2],a:null}; }
+const CP_LEARN=[
+ {t:"What it's for",r:()=>`<p class="lkick">1 of 5 · What it's for</p><h2>${esc(CP_GUIDE.purpose)}</h2><p class="big">${esc(CP_GUIDE.why)}</p><h3>Expected outcomes</h3><ul class="lbul">${CP_GUIDE.outcomes.map(o=>`<li>${esc(o)}</li>`).join("")}</ul><p class="src">In KA's words, from the guide.</p>`},
+ {t:"ROA · ROI · TCO",r:()=>`<p class="lkick">2 of 5 · From the book</p><h2>Each band measures worth its own way.</h2>
+   <div class="cplens">${CPB.map(b=>`<div class="${b.k}"><b>${b.lens}</b><span>${b.l} · ${b.color}</span><p>${esc(b.book)}</p></div>`).join("")}</div>
+   <p class="big">Kevin “described the potential value first in Green (TCO) terms, then Yellow (ROI) terms and concluded in Red (ROA) terms.” Present mode follows his order.</p><p class="src">From KA's book, Dimensions of Success (pp. 51–52).</p>`},
+ {t:"Writing a criterion",r:()=>{ if(!cpQuiz) cpNewQuiz(); const q=cpQuiz, a=q.a, right=a===q.k, d=CP_DIRS.find(x=>x[0]===q.dir);
+   return `<p class="lkick">3 of 5 · Writing a criterion</p><h2>A direction, a measure, a target.</h2><p class="big">Every row reads like Kevin's: which way it moves, what is measured, and by how much (and by when). Each one traces back to something in your alignment.</p>
+   <div class="quiz"><span class="streak">Quick check · Which lens is this from Kevin's MI proposition? ${cpBest?`Best run: <b>${cpBest}</b>`:""}${cpRun?` · Run: <b>${cpRun}</b>`:""}</span>
+   <div class="qv">${d[1]} ${esc(q.t)}</div><div class="qopts">${CPB.map(b=>`<button data-cpqa="${b.k}" class="${a?(b.k===q.k?"right":(b.k===a?"wrong":"")):""}" ${a?"disabled":""}>${b.lens} · ${b.l}</button>`).join("")}</div>
+   ${a?`<p class="qfb">${right?"Right.":"Not quite."} It's ${cpB(q.k).lens}: ${esc(cpB(q.k).what)}.</p><div><button class="btn small primary" data-cpqn>Another one</button></div>`:""}</div>`; }},
+ {t:"When to use it",r:()=>`<p class="lkick">4 of 5 · When to use it</p><h2>Verify success criteria, then highlight the value.</h2><p class="big">${esc(CP_GUIDE.where)}</p>
+   <div class="lsplit" style="align-items:start"><div><h3>In the Problem Space we need to:</h3><ul class="lbul">${CP_GUIDE.problem.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>In the Solution Space we need to:</h3><ul class="lbul">${CP_GUIDE.solution.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
+ {t:"Threats first",r:()=>`<p class="lkick">5 of 5 · Threats first</p><h2>A clear sense of threats to scope, time and resources is required before solving any business problem.</h2>
+   <div class="gapgrid">${GAPS.map(([k,l])=>`<div><b>${esc(l)}</b>${esc(GAP_MEANING[k])}</div>`).join("")}</div>
+   <div class="arow"><button class="btn primary" data-cpgo="build">Start from your alignment →</button><button class="btn" data-cpgo="example">See Kevin's example</button></div>`}];
+function cpLearn(){ $("cpLdots").innerHTML=CP_LEARN.map((c,i)=>`<li><button data-cpl="${i}" aria-current="${i===cpL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join("");
+  $("cpLcard").innerHTML=CP_LEARN[cpL].r(); $("cpLPrev").disabled=cpL===0; $("cpLNext").textContent=cpL===CP_LEARN.length-1?"Start building →":`Next: ${CP_LEARN[cpL+1].t} →`; }
+$("viewLearnCP").addEventListener("click",e=>{ const l=e.target.closest("[data-cpl]"); if(l){ cpL=+l.dataset.cpl; cpLearn(); return; }
+  const qa=e.target.closest("[data-cpqa]"); if(qa&&!cpQuiz.a){ cpQuiz.a=qa.dataset.cpqa; if(cpQuiz.a===cpQuiz.k){ cpRun++; cpBest=Math.max(cpBest,cpRun); } else cpRun=0; cpLearn(); return; }
+  if(e.target.closest("[data-cpqn]")){ cpNewQuiz(); cpLearn(); return; }
+  const g=e.target.closest("[data-cpgo]"); if(g){ if(g.dataset.cpgo==="example"){ loadExample(); show("aid"); } else { show("build"); cpGo(0); } } });
+$("cpLPrev").onclick=()=>{ if(cpL>0){ cpL--; cpLearn(); } }; $("cpLNext").onclick=()=>{ if(cpL<CP_LEARN.length-1){ cpL++; cpLearn(); } else { show("build"); cpGo(0); } };
+
+/* ---------- Build ---------- */
+const CP_STEPS=["From your alignment","Organizational · ROA","Operational · ROI","Infrastructure · TCO","Check"];
+let cpIdx=0; try{ cpIdx=+(localStorage.getItem("ka-cp-step")||0)||0; }catch(e){}
+function cpGo(i){ cpIdx=Math.max(0,Math.min(4,i)); try{ localStorage.setItem("ka-cp-step",cpIdx); }catch(e){} cpBuild(); $("cpBmain").scrollTop=0; }
+function cpStepDone(i){ if(i===0) return allFilled().length>0&&cpAll().length>0; if(i<4) return cpData()[CPB[i-1].k].some(cpFilled); return cpAll().length>0&&!cpCoverage().length&&cpAll().every(([,,r])=>r.ok); }
+function cpFitLine(id){ const r=cpRow(id), n=r.t.length, over=n>CP_BUDGET; return `<p class="fitline ${over?"over":""}" data-cpfit="${id}">${n} of about ${CP_BUDGET} characters${over?" · too long for the printed row":" · fits the printed row"}${cpHasTarget(r.t)||!r.t.trim()?"":` · <b>no target number yet</b>`}</p>`; }
+function cpSrcLine(r){ if(!r.src||!r.t.trim()) return ""; return r.src==="Your words"?`<p class="srcline"><b>Your words</b> · written over the draft</p>`:`<p class="srcline"><b>${esc(r.src)}</b> · confirm with the client</p>`; }
+function cpBuild(){ cpData(); $("cpScore2").innerHTML=cpScoreHTML();
+  $("cpBsteps").innerHTML=CP_STEPS.map((n,i)=>`<li><button data-cpbs="${i}" aria-current="${i===cpIdx?"step":"false"}" class="${cpStepDone(i)?"done":""}"><span>${cpStepDone(i)&&i!==cpIdx?"✓":i+1}</span>${n}</button></li>`).join("");
+  let h="";
+  if(cpIdx===0){ const has=allFilled().length;
+    h=`<p class="lkick">Step 1 of 5</p><h2>From your alignment</h2><p class="teach">The Criteria Proposition measures what the Alignment of Priorities set out. Goals and strategies become ${cpB("org").lens} criteria, processes become ${cpB("op").lens} criteria, initiatives and solutions become ${cpB("inf").lens} criteria.</p>`;
+    if(!has) h+=`<div class="coCard"><h3 style="margin:0">Start with the Alignment of Priorities</h3><p class="note">There's nothing in the alignment yet. Build it first, or start from a company and let Claude fill it in.</p><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-cpaop="build">Go to the Alignment of Priorities</button><button class="btn" data-cpaop="company">＋ Start from a company</button><button class="btn" data-cpgo="example">See Kevin's example</button></div></div>`;
+    else { const cols=[["org","Goals & strategies",["goals","strategies"]],["op","Processes",["processes"]],["inf","Initiatives & solutions",["initiatives","solutions"]]];
+      const used=new Set(cpAll().flatMap(([,,r])=>r.m||[]));
+      h+=`<div class="coCard"><div class="coHead"><span class="coBadge">AoP</span><div><h3 style="margin:0">${esc(S.company?.name||LIBD.aids[LIBD.cur]?.name||"Your alignment")}${eyesOf()?` · through the eyes of ${esc(eyesOf())}`:""}</h3><p class="note" style="margin:2px 0 0">What the criteria will measure. A ✓ means something already measures it.</p></div></div>
+        <div class="cpfrom">${cols.map(([k,l,cs])=>`<div class="${k}"><b>${l}</b><span class="note">${cpB(k).lens} · ${esc(cpB(k).full)}</span><ul>${cs.flatMap(c=>S.items[c].map((it,i)=>[`${c}.${i}`,it])).filter(([id])=>filled(id)).map(([id,it])=>`<li class="${used.has(id)?"used":""}"><b>${esc(it.t)}</b>${it.d?` <span>${esc(it.d)}</span>`:""}${c0(id)==="processes"&&gainsOf(it).length?` <em>${esc(gainsOf(it).join(" · "))}</em>`:""}${used.has(id)?" ✓":""}</li>`).join("")||"<li class='note'>Nothing yet</li>"}</ul></div>`).join("")}</div>
+        ${finLine()?`<p class="note" style="margin:8px 0 0"><b>Key ratios:</b> ${esc(finLine())}</p>`:""}
+        <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="cpDraftAll">Draft the criteria from the alignment</button><button class="btn" id="cpStop" hidden>Stop</button>${cpUndo?`<button class="btn" id="cpUndoBtn">Undo</button>`:""}</div>
+        <p class="note" id="cpStatus" aria-live="polite">${esc(cpMsg||"Claude drafts up to four criteria per band from the alignment and the key ratios. It never invents a number: a target it can't know comes back as [?] for you to confirm.")}</p></div>`; } }
+  else if(cpIdx<4){ const b=CPB[cpIdx-1], R=cpData()[b.k], srcs=cpSources(b.k);
+    h=`<p class="lkick">Step ${cpIdx+1} of 5</p><h2>${b.l} · ${b.lens}</h2><p class="verbline">${esc(b.full)}: ${esc(b.what)}.</p><p class="bookq">“${esc(b.book)}”<small>From KA's book, Dimensions of Success</small></p>
+      <h3>Up to four criteria: a direction, a measure, a target</h3><div class="picked">`;
+    R.forEach((r,i)=>{ const id=`${b.k}.${i}`;
+      h+=`<div class="pcard cpcard ${b.k}"><div class="ph"><b>Criterion ${i+1}</b>${r.t.trim()?`<button class="x" data-cpclear="${id}" aria-label="Clear criterion ${i+1}">✕</button>`:""}</div>
+        <div class="cpdirs" role="group" aria-label="Direction">${CP_DIRS.map(([d,g,l])=>`<button class="chip2 ${r.dir===d?"on":""}" data-cpdir="${id}|${d}" aria-pressed="${r.dir===d}">${g} ${l}</button>`).join("")}</div>
+        <input class="tin" data-cpt="${id}" value="${esc(r.t)}" placeholder="e.g. ${esc(CP_KEVIN.find(x=>x[0]===b.k)[2])}" aria-label="Criterion ${i+1}">${cpFitLine(id)}
+        ${srcs.length?`<div class="cpm"><span>Measures</span>${srcs.map(s=>{ const on=(r.m||[]).includes(s.id); return `<button class="chip2 ${on?"on":""}" data-cpm="${id}|${s.id}" aria-pressed="${on}" title="${esc(s.sub)}">${esc(s.label)}</button>`; }).join("")}</div>`:`<p class="note">Nothing in the alignment for this band yet.</p>`}
+        <div class="arow" style="flex:0 1 auto"><button class="btn small ${r.ok?"primary":""}" data-cpok="${id}" ${r.t.trim()?"":"disabled"}>${r.ok?"✓ Agreed with the stakeholder":"Mark as agreed"}</button><button class="btn small" data-cpsharpen="${id}" ${r.t.trim()?"":"disabled"}>Sharpen</button></div>${cpSrcLine(r)}${r.why&&r.src&&r.src!=="Your words"?`<p class="note" style="margin:0">Why: ${esc(r.why)}</p>`:""}</div>`; });
+    h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-cpdraftband="${b.k}">Draft ${b.lens} from the alignment</button><button class="btn small danger" data-cpclearband="${b.k}" ${R.some(cpFilled)?"":"disabled"}>Clear ${b.l.toLowerCase()}</button></div><p class="note" id="cpStatus" aria-live="polite">${esc(cpMsg)}</p>`; }
+  else { const miss=cpCoverage(), rows=cpAll(), nt=rows.filter(([,,r])=>!cpHasTarget(r.t)), na=rows.filter(([,,r])=>!r.ok), G=cpG();
+    h=`<p class="lkick">Step 5 of 5</p><h2>Check the criteria</h2>
+      <div class="cpchecks"><div><b>${rows.length}</b><span>criteria</span></div><div><b>${rows.length-nt.length}/${rows.length}</b><span>with a target</span></div><div><b>${rows.length-na.length}/${rows.length}</b><span>agreed</span></div><div><b>${miss.length?miss.length:"✓"}</b><span>${miss.length?"not measured yet":"everything measured"}</span></div></div>
+      ${miss.length?`<h3>Not measured yet</h3><ul class="lbul">${miss.map(id=>`<li>${esc(cpName(id))} <span class="note">· ${COLS[ci(id.split(".")[0])].one} → ${cpB(id.startsWith("processes")?"op":id.startsWith("goals")?"org":"inf").lens}</span></li>`).join("")}</ul>`:""}
+      ${nt.length?`<h3>No target number yet</h3><ul class="lbul">${nt.map(([k,,r])=>`<li>${cpB(k).lens} · ${esc(r.t)}</li>`).join("")}</ul>`:""}
+      <div class="spacelist ${S.space!=="problem"?"dim":""}"><h3>If we are in the “Problem Space” we need to:</h3><ul class="checks">${CP_GUIDE.problem.map((s,i)=>`<li><button class="tick" role="checkbox" aria-checked="${!!G.stepsP[i]}" data-cptick="stepsP.${i}" aria-label="Done: ${esc(s)}"></button><span>${esc(s)}</span></li>`).join("")}</ul></div>
+      <div class="spacelist ${S.space!=="solution"?"dim":""}"><h3>If we are in the “Solution Space” we need to:</h3><ul class="checks">${CP_GUIDE.solution.map((s,i)=>`<li><button class="tick" role="checkbox" aria-checked="${!!G.stepsS[i]}" data-cptick="stepsS.${i}" aria-label="Done: ${esc(s)}"></button><span>${esc(s)}</span></li>`).join("")}</ul></div>
+      <h3>Expected outcomes</h3><ul class="checks">${CP_GUIDE.outcomes.map((s,i)=>`<li><button class="tick" role="checkbox" aria-checked="${!!G.outcomes[i]}" data-cptick="outcomes.${i}" aria-label="Reached: ${esc(s)}"></button><span>${esc(s)}</span></li>`).join("")}</ul>
+      <div class="arow"><button class="btn primary" data-cpview="aid">See the sheet →</button><button class="btn" data-cppresent>▶ Present</button><button class="btn" data-cpcopy>Copy summary</button></div>`; }
+  $("cpBmain").innerHTML=h;
+  const b=CPB[cpIdx-1]; $("cpAsk").innerHTML=`<h3>Ask the client</h3><ul>${(b?b.ask:["Is this still the alignment we agreed?","Who has to agree these measures?","How will we know we got there?"]).map(a=>`<li>${esc(a)}</li>`).join("")}</ul>`;
+  cpPaintSheet("cpMini",{mode:"view"});
+  $("cpBBack").disabled=cpIdx===0; $("cpBNext").textContent=cpIdx===4?"See the sheet →":`Next: ${CP_STEPS[cpIdx+1]} →`; $("cpBpos").textContent=`Step ${cpIdx+1} of 5`; }
+const c0=id=>id.split(".")[0];
+$("cpBsteps").addEventListener("click",e=>{ const b=e.target.closest("[data-cpbs]"); if(b) cpGo(+b.dataset.cpbs); });
+$("cpBBack").onclick=()=>cpGo(cpIdx-1); $("cpBNext").onclick=()=>{ if(cpIdx===4) show("aid"); else cpGo(cpIdx+1); };
+$("cpMini").onclick=()=>show("aid");
+$("cpBside").addEventListener("click",e=>{ if(e.target.closest("#cpBDraft")){ cpGo(0); setTimeout(()=>$("cpDraftAll")?.click(),50); } if(e.target.closest("#cpBClear")) armed(e.target.closest("#cpBClear"),"Tap again to clear every criterion",cpClearAll); });
+$("cpBmain").addEventListener("click",e=>{
+  const d=e.target.closest("[data-cpdir]"); if(d){ const [id,dir]=d.dataset.cpdir.split("|"), r=cpRow(id); r.dir=r.dir===dir?"":dir; cpTouch(r); save(); cpBuild(); return; }
+  const m=e.target.closest("[data-cpm]"); if(m){ const [id,sid]=m.dataset.cpm.split("|"), r=cpRow(id); r.m=r.m||[]; r.m=r.m.includes(sid)?r.m.filter(x=>x!==sid):[...r.m,sid]; save(); m.classList.toggle("on"); m.setAttribute("aria-pressed",r.m.includes(sid)); cpRefreshSide(); return; }
+  const cl=e.target.closest("[data-cpclear]"); if(cl){ const snap=JSON.stringify(S); Object.assign(cpRow(cl.dataset.cpclear),{dir:"",t:"",ok:false,m:[],src:"",why:""}); save(); cpBuild(); toast("Criterion cleared",()=>{ S=norm(JSON.parse(snap)); save(); cpBuild(); }); return; }
+  const cb=e.target.closest("[data-cpclearband]"); if(cb){ armed(cb,"Tap again to clear this band",()=>{ const snap=JSON.stringify(S); cpData()[cb.dataset.cpclearband].forEach(r=>Object.assign(r,{dir:"",t:"",ok:false,m:[],src:"",why:""})); save(); cpBuild(); toast("Band cleared",()=>{ S=norm(JSON.parse(snap)); save(); cpBuild(); }); }); return; }
+  const sh=e.target.closest("[data-cpsharpen]"); if(sh){ cpSharpen(sh.dataset.cpsharpen,sh); return; }
+  const db=e.target.closest("[data-cpdraftband]"); if(db){ cpDraft([db.dataset.cpdraftband]); return; }
+  if(e.target.closest("#cpDraftAll")){ cpDraft(CPB.map(b=>b.k)); return; }
+  if(e.target.closest("#cpStop")){ cpCtl?.abort(); return; }
+  if(e.target.closest("#cpUndoBtn")){ if(cpUndo){ S=norm(JSON.parse(cpUndo)); cpUndo=null; cpMsg="Undone."; save(); cpBuild(); } return; }
+  const t=e.target.closest("[data-cptick]"); if(t){ const [k,i]=t.dataset.cptick.split("."), G=cpG(); G[k][+i]=!G[k][+i]; save(); cpBuild(); return; }
+  const a=e.target.closest("[data-cpaop]"); if(a){ if(a.dataset.cpaop==="company") goCompany(); else { setAidMode(false); show("build"); } return; }
+  const g=e.target.closest("[data-cpgo]"); if(g&&g.dataset.cpgo==="example"){ loadExample(); show("aid"); return; }
+  if(e.target.closest("[data-cpview]")){ show("aid"); return; } if(e.target.closest("[data-cppresent]")){ startPresent(true); return; } if(e.target.closest("[data-cpcopy]")){ cpCopy(); return; } });
+function cpClearAll(){ const snap=JSON.stringify(S); S.cp[S.lens]={}; cpData(); save(); cpRefresh(); toast("Every criterion cleared",()=>{ S=norm(JSON.parse(snap)); save(); cpRefresh(); }); }
+
+/* ---------- Claude: draft from the alignment, sharpen a row ---------- */
+let cpCtl=null, cpUndo=null, cpMsg="";
+function cpAopSnapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled),...(c.k==="processes"&&gainsOf(it).length?{improveFor:gainsOf(it)}:{})})).filter(x=>x.choice.trim()));
+  return {company:S.company?.name||"",throughTheEyesOf:eyesOf(),situation:S.situation,external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),keyRatios:finSnapshot(),provider:S.provider?.name||"",alignment:items}; }
+function cpDraftPrompt(bands){ const cur=Object.fromEntries(bands.map(k=>[k,cpData()[k].map((r,i)=>({id:`${k}.${i}`,dir:r.dir,text:r.t})).filter(x=>x.text.trim())]));
+  return `You are a Knowledge-Advantage (KA) engagement coach drafting KA's "Criteria Proposition" (the book Dimensions of Success calls it the Value Proposition): "Measure What Matters" — a visual aid to express the full worth of a solution to stakeholders. It has three bands, each measured its own way:
+${CPB.map(b=>`- ${b.k} = ${b.l} (${b.color}) · ${b.lens}, ${b.full}: ${b.book}`).join("\n")}
+Each criterion is one line: a direction (up, down or flat) plus a specific measure and a target, ideally with a timeframe, like Kevin's for MI: ${CP_KEVIN.slice(0,6).map(x=>`${x[1]==="up"?"▲":"▼"} ${x[2]}`).join("; ")}.
+Draft criteria for these bands only: ${bands.join(", ")}, up to 4 per band, most important first. Every criterion must MEASURE something in this Alignment of Priorities: Organizational from the goals and strategies (and the key ratios as baselines), Operational from the processes (their efficiency, cycle-time and effectiveness gains), Infrastructure from the initiatives and solutions. "measures" lists the ids it measures (e.g. "goals.0", "processes.2", "solutions.1", or "ratio:roa" for a key ratio). Never invent a number: use numbers only when the alignment or key ratios give them (e.g. a ratio's current value as the baseline); otherwise write the target as [?] for the user to confirm with the client (e.g. "Average sales cycle-time by [?]% within 12 mo"). Each text at most ${CP_BUDGET} characters, no arrow symbols in the text (direction is separate), abbreviate logically. Keep these existing criteria as they are and don't repeat them: ${JSON.stringify(cur)}.
+THE ALIGNMENT: ${JSON.stringify(cpAopSnapshot())}
+Reply with only JSON: {"rows":{"org":[{"dir":"up|down|flat","text":string,"measures":[string],"why":string (one short line)}],"op":[...],"inf":[...]}}`; }
+async function cpDraft(bands){ if(!sample){ cpMsg="This needs the page opened in Claude, where the assistant can run."; cpBuild(); return; } if(!allFilled().length){ cpMsg="Build the Alignment of Priorities first."; cpBuild(); return; }
+  cpCtl=new AbortController(); cpMsg=`Drafting ${bands.map(k=>cpB(k).lens).join(", ")} criteria from the alignment…`; cpBuild(); const st=$("cpStop"); if(st) st.hidden=false;
+  try{ const r=await sample.json(cpDraftPrompt(bands),{signal:cpCtl.signal,cache:false,modelTier:"complex"}); const snap=JSON.stringify(S); let n=0;
+    const ok=new Set([...COLS.flatMap(c=>S.items[c.k].map((_,i)=>`${c.k}.${i}`).filter(filled)),...RATIO_GROUPS.flatMap(g=>g.r.map(x=>"ratio:"+x[0]))]);
+    bands.forEach(k=>{ const R=cpData()[k]; (Array.isArray(r?.rows?.[k])?r.rows[k]:[]).forEach(o=>{ const text=fitText("goals",String(o?.text||"").replace(/[▲▼►↑↓→]/g,"").trim()).slice(0,CP_BUDGET+10); if(!text) return;
+      if(R.some(x=>x.t.trim().toLowerCase()===text.toLowerCase())) return; const at=R.findIndex(x=>!x.t.trim()); if(at<0) return;
+      Object.assign(R[at],{dir:["up","down","flat"].includes(o.dir)?o.dir:"",t:text,ok:false,m:(Array.isArray(o.measures)?o.measures:[]).map(String).filter(x=>ok.has(x)),src:"Drafted from the alignment",why:String(o.why||"").slice(0,140)}); n++; }); });
+    save(); cpUndo=n?snap:null; cpMsg=n?`✓ ${n} criteria drafted from the alignment. Targets marked [?] need a number from the client. Write over anything.`:"Nothing new to add: the bands are full or already cover it."; }
+  catch(e){ const m=failMsg(e); cpMsg=m===null?"Stopped.":(m||"The assistant is off for this view."); }
+  finally{ cpCtl=null; cpBuild(); } }
+async function cpSharpen(id,btn){ if(!sample){ toast("The assistant works when this page is opened in Claude."); return; } const r=cpRow(id), b=cpB(id.split(".")[0]); btn.disabled=true; btn.textContent="Sharpening…";
+  try{ const o=await sample.json(`Rewrite this ${b.l} (${b.lens}: ${b.what}) criterion from KA's Criteria Proposition as one sharp line: a specific measure, a target and a timeframe, at most ${CP_BUDGET} characters, no arrow symbols. Keep every fact and number exactly; never add a number that isn't there (use [?] for a missing target or timeframe). Direction now: ${r.dir||"not set"}. Criterion: "${r.t}". It measures: ${(r.m||[]).map(cpName).join(", ")||"(not linked)"}. Reply with only JSON: {"dir":"up|down|flat","text":string}`,{cache:false,modelTier:"quick"});
+    if(o?.text){ const before=r.t; r.t=String(o.text).replace(/[▲▼►↑↓→]/g,"").trim(); if(["up","down","flat"].includes(o.dir)) r.dir=o.dir; r.src="Sharpened by Claude"; r.ok=false; save(); cpBuild(); toast("Sharpened",()=>{ r.t=before; save(); cpBuild(); }); } }
+  catch(e){ toast(failMsg(e)||"Couldn't sharpen it here."); } finally{ cpBuild(); } }
+
+/* ---------- the sheet view ---------- */
+function cpSheet(){ cpData(); $("cpScore").innerHTML=cpScoreHTML();
+  $("cpLens").innerHTML=Object.keys(S.lenses).length>1?`<span class="note">Through the eyes of</span>${Object.entries(S.lenses).map(([id,L])=>`<button class="lchip" data-cplens="${id}" aria-pressed="${id===S.lens}">${esc(L.name)}</button>`).join("")}`:"";
+  cpPaintSheet("cpSheet",{mode:"edit"});
+  const miss=cpCoverage(), rows=cpAll();
+  $("cpCheck").innerHTML=`<h3>Criteria check</h3><p class="note" style="margin:0">${rows.length} criteria · ${rows.filter(([,,r])=>cpHasTarget(r.t)).length} with a target · ${rows.filter(([,,r])=>r.ok).length} agreed</p>${miss.length?`<ul class="lbul">${miss.map(id=>`<li>Nothing measures <b>${esc(cpName(id))}</b> yet</li>`).join("")}</ul>`:rows.length?`<p class="ok" style="margin:6px 0 0">✓ Every goal, process and solution has a measure.</p>`:""}`;
+  cpNextBox(); }
+$("cpLens").addEventListener("click",e=>{ const b=e.target.closest("[data-cplens]"); if(b){ switchLens(b.dataset.cplens); cpSheet(); } });
+function cpNextBox(){ const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"], at=Q.seq.indexOf("Criteria Proposition"), next=Q.seq.slice(at+1).filter(n=>NEXT_DESC[n]).slice(0,3);
+  $("cpNext").innerHTML=cpScore()<60||!next.length?"":`<div class="nextcard"><h3>What comes next</h3><p class="note" style="margin:0">In KA's Aids Configurator, for ${esc(Q.where)}, the Criteria Proposition is followed by:</p>
+    <div class="nseq">${Q.seq.map(n=>`<span class="${n==="Criteria Proposition"?"here":""}">${esc(n)}</span>`).join("→")}</div>
+    <div class="naids">${next.map(n=>`<div class="naid"><b>${esc(n)}</b><span>${esc(NEXT_DESC[n])}</span>${NEXT_CARRY[n]?`<em>Carries over: ${esc(NEXT_CARRY[n])}.</em>`:""}</div>`).join("")}</div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn small" data-cpcopy>Copy what carries over</button><a class="btn small" href="https://claude.ai/artifact/NuW3xuJ7QVoTN8ytH7R47L" target="_blank" rel="noopener">Open the Aids Configurator ↗</a></div></div>`; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-cpcopy]")) cpCopy(); });
+$("cpPresent").onclick=()=>startPresent(true); $("cpPresent2").onclick=()=>startPresent(true);
+$("cpPdf").onclick=()=>cpDownload(false); $("cpPdf2").onclick=()=>cpDownload(false); $("cpDeck").onclick=()=>cpDownload(true); $("cpDeck2").onclick=()=>cpDownload(true);
+$("cpCopyBtn").onclick=()=>cpCopy(); $("cpDraftBtn").onclick=()=>{ show("build"); cpGo(0); setTimeout(()=>$("cpDraftAll")?.click(),60); };
+$("cpClearBtn").onclick=e=>armed(e.currentTarget,"Tap again to clear every criterion",cpClearAll);
+$("cpToAop").onclick=()=>setAidMode(false);
+
+function cpSummary(){ const L=["CRITERIA PROPOSITION · Measure What Matters"]; if(S.company?.name) L.push(`Company: ${S.company.name}${eyesOf()?` · through the eyes of ${eyesOf()}`:""}`);
+  CPB.forEach(b=>{ const rows=cpData()[b.k].filter(cpFilled); if(!rows.length) return; L.push("",`${b.l.toUpperCase()} · ${b.lens} (${b.full})`);
+    rows.forEach(r=>{ const d=CP_DIRS.find(x=>x[0]===r.dir); L.push(`- ${d?d[1]+" ":""}${r.t}${r.ok?" [agreed]":""}`); if((r.m||[]).length) L.push(`    measures: ${r.m.map(cpName).filter(Boolean).join("; ")}`); }); });
+  const miss=cpCoverage(); if(miss.length){ L.push("","NOT MEASURED YET"); miss.forEach(id=>L.push(`- ${cpName(id)}`)); } return L.join("\n"); }
+async function cpCopy(){ const t=cpSummary(); try{ await navigator.clipboard.writeText(t); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } }
+
+/* ---------- Present: Kevin's order, green → yellow → red ---------- */
+function cpSlides(){ const sl=[{k:"cpTitle"},{k:"cpFrom"},{k:"cpWhole"}];
+  ["inf","op","org"].forEach(k=>{ const R=cpData()[k]; if(!R.some(cpFilled)) return; sl.push({k:"cpBand",b:k}); R.forEach((r,i)=>{ if(cpFilled(r)) sl.push({k:"cpRow",b:k,id:`${k}.${i}`}); }); });
+  sl.push({k:"cpSuccess"}); return sl; }
+function cpSlideLabel(sl){ return sl.k==="cpTitle"?aidTitle():sl.k==="cpFrom"?"From the alignment":sl.k==="cpWhole"?"The Criteria Proposition":sl.k==="cpBand"?`${cpB(sl.b).lens} · ${cpB(sl.b).l}`:sl.k==="cpRow"?`${cpB(sl.b).lens}: ${cpRow(sl.id).t.slice(0,42)}`:"What success looks like"; }
+function cpCap(b,inner){ const [y0,y1]=b.band; return `<div class="cpcap" style="top:calc(${y0+3}*var(--mm));height:calc(${y1-y0-6}*var(--mm))">${inner}</div>`; }
+function cpSlideHTML(sl){
+  if(sl.k==="cpTitle"){ const eyes=eyesOf(); return `<div class="ps ps-title"><div class="ps-top"><span class="ps-kick">Criteria Proposition · Measure What Matters</span>${KA_MARK}</div><div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div><blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
+  if(sl.k==="cpFrom"){ const cols=[["org","Goals & strategies",["goals","strategies"]],["op","Processes",["processes"]],["inf","Initiatives & solutions",["initiatives","solutions"]]];
+    return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">From the alignment</span>${KA_MARK}</div><h2>What we agreed matters, and how we'll measure it</h2>
+      <div class="cpfromps">${cols.map(([k,l,cs])=>`<div class="${k}"><span class="ps-lab">${l} · ${cpB(k).lens}</span><ul>${cs.flatMap(c=>S.items[c].filter(x=>x.t.trim()).map(it=>`<li><b>${esc(it.t)}</b>${c==="processes"&&gainsOf(it).length?`<em>${esc(gainsOf(it).join(" · "))}</em>`:it.d?`<em>${esc(it.d)}</em>`:""}</li>`)).join("")}</ul></div>`).join("")}</div></div>`; }
+  if(sl.k==="cpWhole") return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present"})}</div></div>`;
+  if(sl.k==="cpBand"){ const b=cpB(sl.b); return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present",band:b.k})}${cpCap(b,`<span class="pc-kick">${b.lens} · ${b.color}</span><b class="pc-title">${esc(b.full)}</b><span class="pc-sub">${esc(b.what)}</span>`)}</div></div>`; }
+  if(sl.k==="cpRow"){ const b=cpB(sl.b), r=cpRow(sl.id), R=cpData()[b.k].map((x,i)=>[x,i]).filter(([x])=>cpFilled(x)), n=R.findIndex(([,i])=>`${b.k}.${i}`===sl.id)+1, ms=(r.m||[]).map(cpName).filter(Boolean);
+    const dw=(CP_DIRS.find(x=>x[0]===r.dir)||["","►","Hold"]); return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present",spot:sl.id})}${cpCap(b,`<span class="pc-kick">${b.lens} · ${n} of ${R.length}</span><b class="pc-title">${dw[1]} ${dw[2]}</b>${ms.length?`<span class="pc-meta"><span><em>Measures</em> ${esc(ms.join(", "))}</span></span>`:""}<span class="pc-meta"><span>${r.ok?"<em>✓ Agreed</em>":"<em>To agree</em>"}</span></span>`)}</div></div>`; }
+  return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What success looks like</span>${KA_MARK}</div><h2>How we'll know it was worth it</h2>
+    <div class="cpsucc">${["inf","op","org"].map(k=>{ const b=cpB(k), rows=cpData()[k].filter(cpFilled); return `<div class="${k}"><span class="ps-lab">${b.lens} · ${esc(b.full)}</span><ul>${rows.map(r=>`<li><i class="cpar ${r.dir||"flat"}">${cpArrow(r.dir||"flat")}</i><span>${esc(r.t)}</span>${r.ok?"<b>✓</b>":""}</li>`).join("")||"<li class='ps-muted'>—</li>"}</ul></div>`; }).join("")}</div>
+    <div class="ps-foot"><p class="ps-close">Where am I off track?</p><p class="ps-next">${esc(cpNextStep())}</p></div></div>`; }
+function cpNextStep(){ const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"], at=Q.seq.indexOf("Criteria Proposition"), n=Q.seq[at+1]; return n?`Agree these criteria together, then build the ${n}.`:"Agree these criteria together."; }
+function cpNotesHTML(sl){ const ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(sl.k==="cpTitle") return `<p style="margin:0">Open the way Kevin does: “${esc(KEVIN)}”</p><p class="note" style="margin:0">Then describe the value green first (TCO), then yellow (ROI), and conclude in red (ROA).</p>`;
+  if(sl.k==="cpFrom") return `<p style="margin:0">Remind them what was agreed in the Alignment of Priorities. Every criterion that follows measures one of these.</p><h4>Ask</h4>${ul(["Is this still the alignment?","Has anything changed since we agreed it?"])}`;
+  if(sl.k==="cpWhole") return `<p style="margin:0">The whole Criteria Proposition. Next we take it band by band, starting with Infrastructure.</p>`;
+  if(sl.k==="cpBand"){ const b=cpB(sl.b); return `<p style="margin:0"><b>${b.lens}:</b> ${esc(b.book)}</p><h4>Ask the client</h4>${ul(b.ask)}`; }
+  if(sl.k==="cpRow"){ const r=cpRow(sl.id), b=cpB(sl.b); return `<p style="margin:0"><b>${esc(r.t)}</b></p>${(r.m||[]).length?`<h4>Measures</h4><p style="margin:0">${esc(r.m.map(cpName).filter(Boolean).join(", "))}</p>`:""}${r.src?`<p class="note" style="margin:0">${esc(r.src)}</p>`:""}<h4>Ask the client</h4>${ul(["Who owns this number?","What's the baseline today?",...b.ask.slice(0,1)])}`; }
+  return `<p style="margin:0">Read each band aloud, TCO, then ROI, then ROA. Then ask: “Where am I off track?”</p><h4>Next step</h4><p style="margin:0">${esc(cpNextStep())}</p>`; }
+function cpCardText(sl){ if(sl.k==="cpRow"){ const r=cpRow(sl.id); return `<small>${cpB(sl.b).lens}</small><b>${esc(r.t)}</b>${(r.m||[]).length?`<span>Measures ${esc(r.m.map(cpName).filter(Boolean).join(", "))}</span>`:""}`; }
+  if(sl.k==="cpBand"){ const b=cpB(sl.b); return `<small>${b.l}</small><b>${b.lens} · ${esc(b.full)}</b><span>${esc(b.what)}</span>`; }
+  return `<small>Criteria Proposition</small><b>${esc(cpSlideLabel(sl))}</b>`; }
+
+/* ---------- PDFs: the sheet on one page, and the leave-behind ---------- */
+function cpDrawSheet(doc){ const PT=2.8346, fill=c=>doc.setFillColor(c), color=c=>doc.setTextColor(c), R=cpData();
+  CPB.forEach((b,ix)=>{ const [y0,y1]=b.band, h=y1-y0, P=[PDFC.org,PDFC.op,PDFC.inf][ix]; fill(P[0]); doc.rect(23,y0,239,h,"F");
+    for(let i=0;i<10;i++){ doc.setGState(new doc.GState({opacity:1-(i+1)/10})); doc.rect(262+i*1.74,y0,1.79,h,"F"); } doc.setGState(new doc.GState({opacity:1}));
+    fill(P[2]); doc.rect(10.4,y0,12.6,h,"F"); color(["#8c2b33","#7a5606","#2c6142"][ix]); doc.setFont("helvetica","bold"); let lf=3.35; doc.setFontSize(lf*PT); while(doc.getTextWidth(b.l.toUpperCase())>h-3&&lf>2.6){ lf-=.05; doc.setFontSize(lf*PT); } doc.text(b.l.toUpperCase(),18.1,(y0+y1)/2+doc.getTextWidth(b.l.toUpperCase())/2,{angle:90});
+    R[b.k].forEach((r,i)=>{ if(!cpFilled(r)) return; const y=b.ys[i];
+      fill(r.ok?P[2]:"#ffffff"); doc.setDrawColor(PDFC.rule); doc.setLineWidth(.25); doc.roundedRect(CPX.box,y,CPX.boxw,CPX.boxh,.9,.9,"FD");
+      fill(PDFC.blue); const x=CPX.dot, c=y+CPX.dotw/2; if(r.dir==="up") doc.triangle(x+4.45,y+1.6,x+7.6,y+7.3,x+1.3,y+7.3,"F"); else if(r.dir==="down") doc.triangle(x+1.3,y+1.6,x+7.6,y+1.6,x+4.45,y+7.3,"F"); else { fill(PDFC.tan); doc.triangle(x+2.2,y+1.4,x+7.6,c,x+2.2,y+7.5,"F"); }
+      color(PDFC.ink); doc.setFont("helvetica","normal"); let f=3.15; doc.setFontSize(f*PT); while(doc.getTextWidth(r.t)>CPX.boxw-(r.ok?9:4)&&f>2.3){ f-=.05; doc.setFontSize(f*PT); } doc.text(r.t,CPX.box+2,y+CPX.boxh/2+f*.35);
+      if(r.ok){ color(["#8c2b33","#7a5606","#2c6142"][ix]); doc.setFont("helvetica","bold"); doc.setFontSize(3.2*PT); doc.text("agreed",CPX.box+CPX.boxw-2,y+CPX.boxh/2+1.1,{align:"right"}); } }); });
+  color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Measure What Matters",10.4,14.2);
+  color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Criteria Proposition",10.4,28.4);
+  doc.setDrawColor(PDFC.ink); doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
+  doc.setDrawColor(PDFC.ink); doc.setLineWidth(.3); doc.rect(10.9,204,4.3,5.5); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(2.4*PT); doc.text("ka",13.05,208,{align:"center"});
+  color(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2*PT); doc.text("© Copyright 2015",16.2,207.6);
+  const who=[S.company?.name,eyesOf()&&`through the eyes of ${eyesOf()}`,longDate()].filter(Boolean).join(" · "); doc.setFontSize(2.6*PT); doc.text(who,139.7,207.6,{align:"center"}); }
+async function cpBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, PW=279.4, PH=215.9, M=20;
+  if(!deck){ cpDrawSheet(doc); return doc; }
+  const font=(w,sz,c)=>{ doc.setFont("helvetica",w); doc.setFontSize(sz*PT); doc.setTextColor(c); }, wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(String(t||""),w); };
+  let pageNo=1; const frame=(kick,title)=>{ doc.addPage("letter","landscape"); pageNo++; doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
+    font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text(kick.toUpperCase(),M,22); doc.setCharSpace(0); font("normal",9.5,PDFC.title); doc.text(title,M,36);
+    doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42); font("normal",2.8,PDFC.muted); doc.text(`${aidTitle()} · Criteria Proposition`,M,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
+  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("CRITERIA PROPOSITION · MEASURE WHAT MATTERS",M,28); doc.setCharSpace(0);
+  font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96); const eyes=eyesOf(); font("normal",5,"#c8d2ea"); doc.text([eyes&&`Through the eyes of ${eyes}`,longDate()].filter(Boolean).join(" · "),M,112);
+  font("italic",4.4,"#e8ecf6"); doc.text(wrap(`“${KEVIN}”`,PW-2*M-30,4.4),M,170);
+  frame("From the alignment","What we agreed matters"); const cw=(PW-2*M-16)/3;
+  [["org","Goals & strategies",["goals","strategies"]],["op","Processes",["processes"]],["inf","Initiatives & solutions",["initiatives","solutions"]]].forEach(([k,l,cs],i)=>{ const x=M+i*(cw+8); let y=54;
+    font("bold",3.2,PDFC.plum); doc.text(`${l.toUpperCase()} · ${cpB(k).lens}`,x,y); y+=7;
+    cs.forEach(c=>S.items[c].forEach(it=>{ if(!it.t.trim()||y>190) return; font("bold",3.8,PDFC.ink); doc.text(it.t,x,y); y+=5; const sub=c==="processes"&&gainsOf(it).length?gainsOf(it).join(" · "):it.d; if(sub){ font("normal",3.1,PDFC.muted); const ls=wrap(sub,cw,3.1).slice(0,2); doc.text(ls,x,y); y+=ls.length*4.2; } y+=2.5; })); });
+  doc.addPage("letter","landscape"); pageNo++; cpDrawSheet(doc);
+  if(allFilled().length){ doc.addPage("letter","landscape"); pageNo++; await buildPdf(doc); }
+  frame("What success looks like","How we'll know it was worth it");
+  ["inf","op","org"].forEach((k,i)=>{ const b=cpB(k), x=M+i*(cw+8); let y=54; doc.setFillColor([PDFC.inf,PDFC.op,PDFC.org][i][1]); doc.roundedRect(x,y-6,cw,130,2,2,"F");
+    font("bold",3.4,["#2c6142","#7a5606","#8c2b33"][i]); doc.text(`${b.lens} · ${b.full}`,x+4,y+1); y+=9;
+    cpData()[k].filter(cpFilled).forEach(r=>{ font("normal",3.5,PDFC.ink); const ls=wrap(`${r.dir==="up"?"Up:":r.dir==="down"?"Down:":"Hold:"} ${r.t}${r.ok?" (agreed)":""}`,cw-8,3.5).slice(0,3); doc.text(ls,x+4,y); y+=ls.length*4.6+3; }); });
+  font("normal",7,PDFC.title); doc.text("Where am I off track?",M,192); font("normal",4,PDFC.ink); doc.text(cpNextStep(),M,200);
+  return doc; }
+async function cpDownload(deck){ toast(deck?"Making the leave-behind PDF…":"Making the PDF…",null,true); let doc; try{ doc=await cpBuildPdf(deck); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
+  const base=(LIBD.aids[LIBD.cur].name||"Criteria Proposition").replace(/[\\/:*?"<>|]+/g," ").trim(), filename=`Criteria Proposition - ${base}${deck?" - leave-behind":""}.pdf`;
+  if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved",null,true); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view",null,true); } }
+  else { try{ doc.save(filename); toast("PDF downloaded",null,true); }catch(e){ toast("Saving isn't available in this view",null,true); } } }
+
+function viewFromHash(){ const h=location.hash.slice(1).replace(/^cp-/,""); return h==="learn"?"learn":h==="build"?"build":(h==="sheet"||h==="aid")?"aid":null; }
 /* the sheet fits the screen on phones and tablets in portrait; Zoom in for the full-size page that scrolls sideways */
 let zoomed=null;
 function setZoom(z,focusId){ const small=innerWidth<980; zoomed=small?!!z:true; const st=$("stage"); st.classList.toggle("fit",small&&!zoomed);
@@ -2306,6 +2748,7 @@ $("trace").addEventListener("click",e=>{ if(e.target.closest("[data-replay]")){ 
   if(zt){ $("stage")._userZoom=true; setZoom(true,zt.dataset.zoomto); } });
 function sheetInView(){ if(innerWidth>=980&&curView==="aid") $("stage").scrollIntoView({block:"start"}); }
 syncTop(); $("clientBar").hidden=true; setZoom(false); renderAidRow(); renderAll(true);
+{ const h=location.hash.slice(1); let m=null; try{ m=localStorage.getItem("ka-aid-mode"); }catch(e){} if(h.startsWith("cp-")||(!h&&m==="cp")){ cpMode=true; document.body.classList.add("cp"); $("swAop").setAttribute("aria-selected","false"); $("swCp").setAttribute("aria-selected","true"); document.title="Criteria Proposition"; } }
 show(viewFromHash()||(allFilled().length||S.situation?"build":"learn"));
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
 if(firstHow&&!allFilled().length&&curView==="aid") setTimeout(()=>setHow(true),1700);
