@@ -616,10 +616,15 @@ body.presenting .toast{bottom:84px}
 body.presenting #viewAid .stagewrap{background:#fff!important}
 body.presenting #viewAid .stage{border-radius:0!important;box-shadow:none!important;border:0!important;outline:0!important;background:#fff}
 body.presenting .cv{transform:none!important}
-body.presenting .slot:not(.empty){height:auto!important;background:#fff;border:calc(.22*var(--mm)) solid #e2e6ef;border-radius:calc(1.3*var(--mm));box-shadow:0 calc(.5*var(--mm)) calc(1.6*var(--mm)) rgb(30 45 80 /.07)}
+body.presenting .slot:not(.empty){background:#fff;border:calc(.22*var(--mm)) solid #e2e6ef;border-radius:calc(1.3*var(--mm));box-shadow:0 calc(.5*var(--mm)) calc(1.6*var(--mm)) rgb(30 45 80 /.07)}
 body.presenting .slot .namebar{position:relative;background:transparent!important;box-shadow:none!important;outline:none!important;transform:none!important;color:#1f2430;padding-top:calc(.3*var(--mm))}
 body.presenting .slot .desc{display:none!important}
-body.presenting .slot input.nameinput{position:relative;display:block;width:100%;height:calc(var(--nh)*var(--mm));background:transparent!important;box-shadow:none!important;outline:none!important;border:0!important;color:#1f2430;font-weight:700;pointer-events:none}
+body.presenting .slot .namebar{height:auto!important;min-height:calc(var(--nh)*var(--mm));padding-top:calc(1*var(--mm));padding-bottom:calc(.4*var(--mm));align-items:flex-start}
+body.presenting .slot .namebar{font-size:calc(3.1*var(--mm))!important}
+body.presenting .slot .namebar span.v{white-space:normal;overflow:visible;text-overflow:clip;line-height:1.18}
+body.presenting #links path:not(.on){stroke-opacity:.55}
+body.presenting .slot .pname{padding:calc(1*var(--mm)) calc(1.4*var(--mm)) calc(.4*var(--mm));font:700 calc(3.1*var(--mm))/1.18 var(--font);color:#1f2430}
+body.presenting .slot input.nameinput{display:none!important;position:relative;display:block;width:100%;height:calc(var(--nh)*var(--mm));background:transparent!important;box-shadow:none!important;outline:none!important;border:0!important;color:#1f2430;font-weight:700;pointer-events:none}
 body.presenting .slot .pdesc{display:block;padding:0 calc(1.4*var(--mm)) calc(1.5*var(--mm));margin-top:calc(-.6*var(--mm));font-size:calc(2.9*var(--mm));line-height:1.32;color:#4b5366}
 body.presenting .slot.sel{transform:translateY(calc(-.6*var(--mm)));filter:none;border-color:var(--plum);box-shadow:0 0 0 calc(.35*var(--mm)) var(--plum),0 calc(2*var(--mm)) calc(5*var(--mm)) rgb(158 42 85 /.18)}
 body.presenting .slot.lit:not(.sel){border-color:color-mix(in srgb,var(--plum) 45%,#e2e6ef)}
@@ -629,11 +634,12 @@ body.presenting .slot.pcur{animation:pcardin .7s cubic-bezier(.2,.8,.2,1) both;a
 @keyframes pcardin{from{opacity:0;transform:translateY(calc(1.6*var(--mm)))}}
 body.presenting #arrowLine{stroke-width:1.15;opacity:.85}body.presenting #arrowHead{opacity:.85}
 body.presenting #links path{stroke-width:.5px}
-body.presenting .pcap{container-type:normal;left:calc(10.4 * 100cqw / 279.4);top:calc(151 * 100cqw / 279.4);bottom:auto;width:calc(82 * 100cqw / 279.4);transform:translateY(.8cqw);background:#fff;color:#1f2430;border:0;border-left:.35cqw solid var(--plum);border-radius:0;box-shadow:none;backdrop-filter:none;padding:.4cqw 0 .4cqw 1.6cqw;gap:.45cqw}
+body.presenting .pcap{container-type:normal;left:calc(27 * 100cqw / 279.4);top:calc(var(--capy,122) * 100cqw / 279.4);bottom:auto;width:calc(68 * 100cqw / 279.4);transform:translateY(.8cqw);background:#fff;color:#1f2430;border:0;border-left:.3cqw solid var(--plum);border-radius:.5cqw;box-shadow:0 .4cqw 1.6cqw rgb(30 45 80 /.10);backdrop-filter:none;padding:1cqw 1.3cqw;gap:.4cqw}
 body.presenting .pcap.in{transform:none}
 body.presenting .pc-kick{font-size:.95cqw;color:var(--plum)}
-body.presenting .pc-title{font-size:1.85cqw;font-weight:600;color:var(--title)}
-body.presenting .pc-sub{font-size:1.3cqw;color:#3b4254}
+body.presenting .pc-title{font-size:1.6cqw;font-weight:600;color:var(--title)}
+body.presenting .pcap.quiet .pc-title{font-size:1.15cqw;font-weight:500;color:#3b4254;line-height:1.4}
+body.presenting .pc-sub{font-size:1.15cqw;color:#3b4254}
 body.presenting .pc-meta{font-size:1.02cqw;color:#5b6476;gap:.3cqw 1.6cqw;flex-direction:column}
 body.presenting .pc-meta em{color:var(--plum)}
 .ps-title{background:#fff;color:#1f2430}
@@ -764,13 +770,13 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
           <g mask="url(#fadeP)" id="bandsG">
             <rect class="bandr" x="23" y="52" width="256.4" height="31" fill="url(#gOrg)"/>
             <rect class="bandr" x="23" y="83" width="256.4" height="30" fill="url(#gOp)"/>
-            <rect class="bandr" x="23" y="113" width="256.4" height="35" fill="url(#gInf)"/>
+            <rect class="bandr" id="bandInf" x="23" y="113" width="256.4" height="35" fill="url(#gInf)"/>
           </g>
-          <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
+          <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect id="stripInf" x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
           <g class="bandlab" font-family="Open Sans,sans-serif" font-weight="800" font-size="3.35" letter-spacing=".3" text-anchor="middle">
             <text fill="var(--org-ink)" transform="translate(17.95 67.5) rotate(-90)" textLength="28.5" lengthAdjust="spacingAndGlyphs">ORGANIZATIONAL</text>
             <text fill="var(--op-ink)" transform="translate(17.95 98) rotate(-90)">OPERATIONAL</text>
-            <text fill="var(--inf-ink)" transform="translate(17.95 130.5) rotate(-90)">INFRASTRUCTURE</text>
+            <text id="labInf" fill="var(--inf-ink)" transform="translate(17.95 130.5) rotate(-90)">INFRASTRUCTURE</text>
           </g>
           <text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Gain Business Clarity</text>
           <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="125.5" lengthAdjust="spacingAndGlyphs">Alignment of Priorities</text>
@@ -1061,7 +1067,7 @@ function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [
 const SHORT={"Enabling Infrastructure":"Enabling Infra.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Product Development":"Product Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Sales Forecasting":"Sales Forecast.","Order Fulfillment":"Order Fulfill.","Order Processing":"Order Process.","Customer Relations":"Cust. Relations","Customer Creation":"Cust. Creation","Customer Service":"Cust. Service"};
 const NAME_MIN=2.6;
 function overX(el){ return el.scrollWidth>el.clientWidth; }
-function fitNames(){ const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
+function fitNames(){ const cv=$("cv"); if(!cv||(typeof presenting!=="undefined"&&presenting)) return; const mm=cv.clientWidth/279.4; if(!mm) return;
   cv.querySelectorAll(".slot:not(.empty) .namebar").forEach(nb=>{ const v=nb.querySelector(".v"), id=nb.dataset.pick, full=item(id).t; v.textContent=full; nb.title="";
     let f=3.15; nb.style.fontSize=(f*mm)+"px"; while(overX(v)&&f>NAME_MIN){ f-=.05; nb.style.fontSize=(f*mm)+"px"; }
     if(overX(v)&&SHORT[full]){ v.textContent=SHORT[full]; nb.title=full; f=3.15; nb.style.fontSize=(f*mm)+"px"; while(overX(v)&&f>NAME_MIN){ f-=.05; nb.style.fontSize=(f*mm)+"px"; } } });
@@ -1073,7 +1079,8 @@ function fitDescs(){ fitNames(); const cv=$("cv"); if(!cv) return; const mm=cv.c
 new ResizeObserver(()=>fitDescs()).observe($("stage"));
 addEventListener("beforeprint",fitDescs);
 try{ document.fonts.ready.then(()=>fitDescs()); document.fonts.addEventListener("loadingdone",()=>fitDescs()); }catch(e){}
-function linkPt(id,side){ const [k,i]=id.split("."), c=COLS[ci(k)]; return [side==="r"?c.x+W:c.x, c.ys[+i]+c.nh/2]; }
+let PRES_Y={};
+function linkPt(id,side){ const [k,i]=id.split("."), c=COLS[ci(k)], y=(presenting&&PRES_Y[id]!=null)?PRES_Y[id]:c.ys[+i]; return [side==="r"?c.x+W:c.x, y+c.nh/2]; }
 /* line colour = the goal a line ultimately leads to */
 function goalsOf(id){ const g=new Set(id.startsWith("goals.")?[id]:[]); up(id).forEach(x=>{ if(x.startsWith("goals.")) g.add(x); }); return [...g]; }
 function lineColor(to){ const g=goalsOf(to); return !g.length?"var(--gnone)":g.length>1?"var(--g12)":(g[0]==="goals.0"?"var(--g1)":"var(--g2)"); }
@@ -1873,6 +1880,17 @@ function capHTML(sl){
   if(sl.k==="whole") return `<span class="pc-kick">The whole alignment</span><b class="pc-title">Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.</b>`;
   return ""; }
 
+/* ---- tidy layout for Present: equal-height cards per column, evenly spaced from the PDF's first box, the green band grown to hold them ---- */
+function presLayout(){ const cv=$("cv"), mm=cv.clientWidth/279.4; if(!mm) return; PRES_Y={}; let bottom=148, goalsEnd=110;
+  COLS.forEach(c=>{ const ids=S.items[c.k].map((_,i)=>`${c.k}.${i}`).filter(filled), els=ids.map(id=>cv.querySelector(`.slot[data-id="${id}"]`)).filter(Boolean); if(!els.length) return;
+    els.forEach(el=>el.style.setProperty("--h","auto")); els.forEach(el=>el.style.height="auto");
+    const h=Math.max(...els.map(el=>el.getBoundingClientRect().height/(el.matches(".sel")?1.0:1)))/mm+.4, gap=c.k==="goals"?4:2.8; let y=Math.min(c.ys[0],198-(els.length*h+(els.length-1)*gap)); const hd=cv.querySelector(`.colhd[data-col="${COLS.indexOf(c)}"]`); if(hd) hd.style.setProperty("--y",y-(c.ys[0]-c.hd[1]));
+    els.forEach((el,j)=>{ el.style.height=""; el.style.setProperty("--y",y); el.style.setProperty("--h",h); PRES_Y[ids[j]]=y; y+=h+gap; });
+    if(c.k==="goals") goalsEnd=y; bottom=Math.max(bottom,y-gap+5); });
+  const bi=$("bandInf"), si=$("stripInf"), li=$("labInf"), hh=bottom-113; if(bi){ bi.setAttribute("height",hh); si.setAttribute("height",hh); li.setAttribute("transform",`translate(17.95 ${113+hh/2}) rotate(-90)`); }
+  $("pcap").style.setProperty("--capy",Math.max(goalsEnd+4,118)); }
+function presUnlayout(){ PRES_Y={}; const bi=$("bandInf"); if(bi){ bi.setAttribute("height",35); $("stripInf").setAttribute("height",35); $("labInf").setAttribute("transform","translate(17.95 130.5) rotate(-90)"); } }
+addEventListener("resize",()=>{ if(presenting) requestAnimationFrame(()=>{ presLayout(); drawLinks(); }); });
 /* ---- the camera: glide to a column (and the one it serves) ---- */
 function camera(ix){ presCam=ix; const cv=$("cv"), st=$("stage"); if(ix==null){ cv.style.transform=""; return; }
   const W0=st.clientWidth, H0=st.clientHeight, mm=W0/279.4, cols=[Math.max(0,ix-1),ix];
@@ -1891,11 +1909,13 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
   presUpto=sl.k==="col"||sl.k==="box"?sl.ix:null; presNewCol=sl.k==="col"?sl.ix:null;
   cv.querySelectorAll(".slot").forEach(x=>x.classList.toggle("ghost",presUpto!=null&&ci(x.dataset.id.split(".")[0])>presUpto));
   cv.querySelectorAll(".colhd[data-col]").forEach(h=>{ const ix=+h.dataset.col; h.classList.toggle("ghost",presUpto!=null&&ix>presUpto); h.classList.toggle("pnone",!colFilled(ix).length); });
-  select(sl.k==="box"?sl.id:null); drawLinks();
-  cv.querySelectorAll(".slot").forEach(x=>{ x.classList.remove("pcur"); x.querySelector(".pdesc")?.remove(); const it=item(x.dataset.id); if(it&&it.t.trim()&&it.d.trim()) x.insertAdjacentHTML("beforeend",`<div class="pdesc">${esc(it.d.trim())}</div>`); });
+  select(sl.k==="box"?sl.id:null);
+  cv.querySelectorAll(".slot").forEach(x=>{ x.classList.remove("pcur"); x.querySelector(".pdesc")?.remove(); x.querySelector(".pname")?.remove(); const it=item(x.dataset.id); if(it?.t?.trim()&&x.querySelector("input.nameinput")) x.insertAdjacentHTML("afterbegin",`<div class="pname">${esc(it.t.trim())}</div>`); const nv=x.querySelector(".namebar .v"); if(nv&&it?.t){ nv.textContent=it.t; x.querySelector(".namebar").title=""; } if(it&&it.t.trim()&&it.d.trim()) x.insertAdjacentHTML("beforeend",`<div class="pdesc">${esc(it.d.trim())}</div>`); });
+  presLayout();
   if(sl.k==="col"){ colFilled(sl.ix).forEach((id,j)=>{ const x=cv.querySelector(`.slot[data-id="${id}"]`); if(x){ x.style.setProperty("--pi",j); void x.offsetWidth; x.classList.add("pcur"); } }); }
+  drawLinks();
   if(onSheet){ camera(null); ps.classList.remove("in"); clearTimeout(ps._t); ps._t=setTimeout(()=>{ if(!ps.classList.contains("in")) ps.hidden=true; },500);
-    cap.innerHTML=capHTML(sl); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
+    cap.innerHTML=capHTML(sl); cap.classList.toggle("quiet",sl.k==="whole"||sl.k==="col"); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
   else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
   $("pText").textContent=`${slideLabel(sl)} · ${presIx+1} of ${slides.length}`;
   $("pPrev").disabled=presIx<=0; $("pNext").disabled=presIx>=slides.length-1;
@@ -1912,7 +1932,8 @@ function startPresent(){ if(presenting) return; show("aid"); presenting=true; pr
 function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null; presNewCol=null; bandsWide(false);
   document.body.classList.remove("presenting","pidle","laser"); ["presbar","pprog","pslide","pcap","presNotes","pblank","laser","pkeysBox","pvHelp"].forEach(id=>$(id).hidden=true);
   $("pNotes").setAttribute("aria-pressed","false"); $("pKeys").setAttribute("aria-pressed","false"); laserOn=false; blankOn=false;
-  const cv=$("cv"); cv.style.transform=""; cv.querySelectorAll(".ghost,.pnone,.pcur").forEach(x=>x.classList.remove("ghost","pnone","pcur")); cv.querySelectorAll(".pdesc").forEach(x=>x.remove()); select(null);
+  presUnlayout(); renderPicture();
+  const cv=$("cv"); cv.style.transform=""; cv.querySelectorAll(".ghost,.pnone,.pcur").forEach(x=>x.classList.remove("ghost","pnone","pcur")); cv.querySelectorAll(".pdesc,.pname").forEach(x=>x.remove()); select(null);
   if(presTheme===null) delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme=presTheme;
   try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); bc({type:"end"}); }
 
