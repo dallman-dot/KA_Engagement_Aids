@@ -195,6 +195,9 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 .ctlcard{border:1px solid var(--rule);border-radius:12px;background:var(--paper);padding:12px 14px;display:grid;gap:10px}
 .ctlcard h3{margin:0}
+.procset{display:inline-flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:999px;padding:3px;gap:3px;background:var(--bg)}
+.procset button{border:0;background:transparent;color:var(--ink);font:600 13px var(--font);padding:6px 12px;border-radius:999px;cursor:pointer;min-height:34px}
+.procset button[aria-checked="true"]{background:var(--blue);color:#fff}
 .provCard{margin-bottom:14px}.provlist{display:grid;gap:6px;margin-top:6px}.provlist h4{margin:0 0 2px;font-size:14px}
 .provitem{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--paper)}
 .provitem div{display:grid;gap:2px;min-width:0}.provitem span{font-size:13px;color:var(--muted)}
@@ -709,6 +712,10 @@ body.cp .coTop{display:none}
 .ps.cps{padding:0;background:#fff}
 .ps.cps .cpcv{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto}
 .cpcv.present .cprowx{transition:opacity .5s}
+.cpbadge{position:absolute;width:calc(4.2*var(--mm));height:calc(4.2*var(--mm));border-radius:50%;display:grid;place-items:center;color:#fff;font:700 calc(2.6*var(--mm)) var(--font)}
+.cpbadge.ag{background:var(--ok)}.cpbadge.df{background:var(--warn)}.cpbadge.nw{background:var(--cyan)}.cpbadge.ch{background:var(--plum)}
+@media print{.cpbadge{display:none}}
+body.cp #aBox,body.cp #aFill,body.cp #aLinks,body.cp #aChallenge,body.cp #aQuestions,body.cp #focusline{display:none!important}
 .cpcv.present .cprowx.dim{opacity:.22}
 .cpcv.present .cpbox{background:#fff;box-shadow:0 0 0 calc(.22*var(--mm)) #e2e6ef,0 calc(.4*var(--mm)) calc(1.4*var(--mm)) rgb(30 45 80 /.07)}
 .cpcv.present .cprowx.org.ok .cpbox{background:var(--org-s)}.cpcv.present .cprowx.op.ok .cpbox{background:var(--op-s)}.cpcv.present .cprowx.inf.ok .cpbox{background:var(--inf-s)}
@@ -894,6 +901,7 @@ body.cp .coTop{display:none}
         <div class="ctlrow prep-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn">▶ Present</button><button class="btn small" id="walkBtn">Show the alignment</button><button class="btn small" id="pdfBtn">Download PDF</button><button class="btn small" id="deckBtn">Leave-behind PDF</button><button class="btn small" id="copyBtn">Copy summary</button></div></div>
         <div class="ctlrow" id="clientBar"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button><button class="btn small" id="deckBtn2">Leave-behind PDF</button></div></div>
         <div class="ctlrow prep-only"><span class="ctllab">Work</span><div class="arow" style="flex:0 1 auto"><button class="btn small" id="snapBtn">Snapshots</button><button class="btn small" id="assistBtn">Assistant</button><button class="btn small" id="howBtn" aria-pressed="false">Show me how</button><button class="btn small danger" id="sClearAll">Clear all</button></div></div>
+        <div class="ctlrow prep-only"><span class="ctllab">Processes</span><div class="procset" role="radiogroup" aria-label="Process list"><button role="radio" data-procset="book" aria-checked="true">From the book · 15 operational</button><button role="radio" data-procset="health" aria-checked="false">Health system · 13 original</button></div></div>
         <div class="ctlrow"><span class="ctllab">View</span><div class="lineKey" id="lineKey" aria-label="Connection lines"></div></div>
       </section>
       <div class="nextbox" id="nextbox"></div>
@@ -916,6 +924,7 @@ body.cp .coTop{display:none}
   </section>
   <section id="viewBuildCP" class="cpview" role="tabpanel" hidden>
     <div class="scorebar" id="cpScore2"></div>
+    <div class="lensbar" id="cpLens2"></div>
     <ol class="bsteps" id="cpBsteps" aria-label="Steps"></ol>
     <div class="bwrap">
       <div class="bmain" id="cpBmain"></div>
@@ -934,11 +943,13 @@ body.cp .coTop{display:none}
       <div class="scorebar" id="cpScore"></div>
       <div class="lensbar" id="cpLens"></div>
       <div class="cpscroll"><div class="cpstage" id="cpSheet"></div></div>
+      <div class="cmpbox" id="cpCmp" hidden></div>
+      <div class="cmpbox" id="cpSnapBox" hidden></div>
       <section class="ctlcard" aria-label="Controls">
         <h3>Controls</h3>
         <div class="ctlrow prep-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="cpPresent">▶ Present</button><button class="btn small" id="cpPdf">Download PDF</button><button class="btn small" id="cpDeck">Leave-behind PDF</button><button class="btn small" id="cpCopyBtn">Copy summary</button></div></div>
         <div class="ctlrow client-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="cpPresent2">▶ Present</button><button class="btn small" id="cpPdf2">Download PDF</button><button class="btn small" id="cpDeck2">Leave-behind PDF</button></div></div>
-        <div class="ctlrow prep-only"><span class="ctllab">Work</span><div class="arow" style="flex:0 1 auto"><button class="btn small" id="cpDraftBtn">Draft from the alignment</button><button class="btn small" id="cpToAop">Open the Alignment of Priorities</button><button class="btn small danger" id="cpClearBtn">Clear all criteria</button></div></div>
+        <div class="ctlrow prep-only"><span class="ctllab">Work</span><div class="arow" style="flex:0 1 auto"><button class="btn small" id="cpDraftBtn">Draft from the alignment</button><button class="btn small" id="cpIvBtn">🎙 Interview the client</button><button class="btn small" id="cpSnapBtn">Snapshots</button><button class="btn small" id="cpToAop">Open the Alignment of Priorities</button><button class="btn small danger" id="cpClearBtn">Clear all criteria</button></div></div>
         <p class="note prep-only" style="margin:0">Tap ▲ ▼ ► to set each row's direction, type the measure and target, and tap ✓ once the stakeholder agrees: the row fills with its band's colour. ▷ opens a band's notes.</p>
       </section>
       <div class="nextbox" id="cpNext"></div>
@@ -1005,6 +1016,10 @@ body.cp .coTop{display:none}
 
 <script>
 /* ---------- KA's standards: the PDF's drop-down lists, exactly as printed ---------- */
+/* two process lists (Dave, Nov 16: "toggle between the current processes and the original health system processes"): the book's fifteen, and the PDF's original thirteen */
+const PROC_SETS={book:["Performance Mgt.","Business Planning","Sourcing","Product Dev.","Production","Collections","Distribution","Marketing","Sales Forecasting","Sales Analysis","Order Fulfillment","Order Processing","Customer Service","Customer Relations","Customer Creation"],
+  health:["Business Planning","Perf. & Risk Mgmt.","Compliance & Cert.","Market Development","Revenue Cycle","Innovation & Design","Product Development","Sourcing","Monitoring","Prevention & Intervention","Diagnosis","Prep & Treatment","Recovery & Rehab"]};
+const PROC_TO_HEALTH={"Performance Mgt.":"Perf. & Risk Mgmt.","Product Dev.":"Product Development","Marketing":"Market Development"};
 const CHOICES = {
   goals:["Cash Flow","Profit","Revenue","Market Share"],
   strategies:["Cash Management","Asset Usage","Leverage","Product Development","Customer Support","Restructure","Costs","Skills","Price","Acquisition","Image","Channels","Production","Enabling Infrastructure"],
@@ -1062,14 +1077,16 @@ const SOLUTION=["Confirm how an initiative or solution aligns to the business pr
 
 function blankProv(){ return {name:"",site:"",summary:"",asOf:"",offerings:[]}; }
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
-  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},provider:blankProv(),fin:{},cp:{},cpg:{outcomes:[],stepsP:[],stepsS:[],notes:{}},items}; }
+  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},procSet:"book",provider:blankProv(),fin:{},cp:{},cpg:{outcomes:[],stepsP:[],stepsS:[],notes:{}},items}; }
 const KEY="ka-aop-v3";
 /* process names before the book's list (Nov 16): only the clear equivalents carry over */
+function applyProcSet(k){ CHOICES.processes=PROC_SETS[k==="health"?"health":"book"]; try{ QUIZ_POOL=Object.entries(CHOICES).flatMap(([kk,vs])=>vs.filter(v=>Object.values(CHOICES).filter(l=>l.includes(v)).length===1).map(v=>[kk,v])); }catch(e){} }
 const OLD_PROC={"Perf. & Risk Mgmt.":"Performance Mgt.","Product Development":"Product Dev.","Market Development":"Marketing"};
 /* stakeholder lenses: each aid holds up to 4 views of the same company; S.items is always the active one */
 function norm(o){ o=Object.assign(blank(),o||{});
   if(!o.lenses||!o.lens||!o.lenses[o.lens]){ o.lenses={main:{name:"Company",items:o.items}}; o.lens="main"; }
-  Object.values(o.lenses).forEach(L=>{ L.items=L.items||blank().items; (L.items.processes||[]).forEach(it=>{ if(OLD_PROC[it.t]) it.t=OLD_PROC[it.t]; }); COLS.forEach(c=>{ const a=L.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); L.items[c.k]=a.slice(0,c.n); }); });
+  if(o.procSet!=="health") o.procSet="book"; applyProcSet(o.procSet);
+  Object.values(o.lenses).forEach(L=>{ L.items=L.items||blank().items; if(o.procSet==="book") (L.items.processes||[]).forEach(it=>{ if(OLD_PROC[it.t]) it.t=OLD_PROC[it.t]; }); COLS.forEach(c=>{ const a=L.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); L.items[c.k]=a.slice(0,c.n); }); });
   o.items=o.lenses[o.lens].items; if(o.compare&&(!o.lenses[o.compare]||o.compare===o.lens)) o.compare=null; return o; }
 /* the library: every aid saved in this browser */
 const LIB="ka-aop-lib";
@@ -1172,7 +1189,7 @@ function abbrOne(x,re,to){ return x.replace(re,m=>(/^[A-Z]/.test(m)&&/^[a-z]/.te
 function abbreviate(t){ return String(t||"").replace(/\s+/g," ").trim(); }
 function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [re,to] of ABBR){ if(x.length<=max) break; x=abbrOne(x,re,to); } return x; }
 /* choice names must fit their bar: smaller type first, then a logical short form (display only; the stored choice stays KA's standard) */
-const SHORT={"Enabling Infrastructure":"Enabling Infra.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Product Development":"Product Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Sales Forecasting":"Sales Forecast.","Order Fulfillment":"Order Fulfill.","Order Processing":"Order Process.","Customer Relations":"Cust. Relations","Customer Creation":"Cust. Creation","Customer Service":"Cust. Service"};
+const SHORT={"Enabling Infrastructure":"Enabling Infra.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Product Development":"Product Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Sales Forecasting":"Sales Forecast.","Order Fulfillment":"Order Fulfill.","Order Processing":"Order Process.","Customer Relations":"Cust. Relations","Customer Creation":"Cust. Creation","Customer Service":"Cust. Service","Prevention & Intervention":"Prevention & Interv.","Innovation & Design":"Innov. & Design","Market Development":"Market Dev.","Compliance & Cert.":"Compliance & Cert."};
 const NAME_MIN=2.6;
 function overX(el){ return el.scrollWidth>el.clientWidth; }
 function fitNames(){ const cv=$("cv"); if(!cv||(typeof presenting!=="undefined"&&presenting)) return; const mm=cv.clientWidth/279.4; if(!mm) return;
@@ -1292,7 +1309,13 @@ function renderCheck0(){
   $("check").innerHTML=`<h3>Alignment check</h3><div class="meter"><span><b>${sOK}/${sols.length}</b> solutions trace to a goal</span><span><b>${gOK}/${goals.length}</b> goals reached by a solution</span></div><ul>${rows||`<li class="ok">Everything chosen is tied to the column before it.</li>`}</ul>`;
 }
 $("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ select(b.dataset.show); document.querySelector(`.slot[data-id="${b.dataset.show}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); } });
-function renderAll(intro){ renderLenses(); renderPicture(intro); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
+function renderProcSet(){ document.querySelectorAll("[data-procset]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.procset===S.procSet))); }
+function setProcSet(k){ if(k===S.procSet) return; const snap=JSON.stringify(S), map=k==="health"?PROC_TO_HEALTH:OLD_PROC, list=PROC_SETS[k]; let off=0;
+  Object.values(S.lenses).forEach(L=>L.items.processes.forEach(it=>{ if(!it.t.trim()) return; if(map[it.t]) it.t=map[it.t]; if(!list.includes(it.t)) off++; }));
+  S.procSet=k; applyProcSet(k); save(); renderAll(); if(curView==="build") renderBuild(); if(curView==="learn") renderLearn();
+  toast(`Processes: ${k==="health"?"the original health-system list (13)":"the book's fifteen operational processes"}.${off?` ${off} chosen process${off>1?"es aren't":" isn't"} on this list and stay${off>1?"":"s"} until you change ${off>1?"them":"it"}.`:""}`,()=>{ S=norm(JSON.parse(snap)); save(); renderAll(); if(curView==="build") renderBuild(); }); }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-procset]"); if(b) setProcSet(b.dataset.procset); });
+function renderAll(intro){ renderProcSet(); renderLenses(); renderPicture(intro); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
 
 /* popovers */
 let popEl=null, popAt=0;
@@ -1432,14 +1455,15 @@ const MEANING={
 };
 /* the processes' meanings; Customer Relations is the book's own definition (p. 84) */
 const PROC_MEANING={"Performance Mgt.":"Measuring results and acting on them.","Business Planning":"Setting direction, budgets and plans.","Sourcing":"Buying what the business needs.","Product Dev.":"Taking products from idea to launch.","Production":"Making the product or delivering the service.","Collections":"Turning invoices into cash.","Distribution":"Moving products to customers and channels.","Marketing":"Creating awareness and demand.","Sales Forecasting":"Predicting what will sell, and when.","Sales Analysis":"Understanding what sells, to whom, and why.","Order Fulfillment":"Delivering what was ordered, complete and on time.","Order Processing":"Taking and entering orders accurately.","Customer Service":"Helping customers when they need it.","Customer Relations":"Processes needed to expand relationships with current customers through existing and new channels.","Customer Creation":"Winning new customers: “net” new."};
-const meaningOf=(k,v)=>k==="processes"?(PROC_MEANING[v]||""):(MEANING[v]||"");
+const PROC_MEANING_HEALTH={"Business Planning":"Setting direction, budgets and plans.","Perf. & Risk Mgmt.":"Measuring results and managing risk.","Compliance & Cert.":"Meeting regulations and certifications.","Market Development":"Finding and growing markets.","Revenue Cycle":"Everything from order to cash collected.","Innovation & Design":"Generating and shaping new ideas.","Product Development":"Taking products from idea to launch.","Sourcing":"Buying what the business needs.","Monitoring":"Watching ongoing performance or condition.","Prevention & Intervention":"Stepping in early to stop problems.","Diagnosis":"Finding what's wrong, and why.","Prep & Treatment":"Preparing for and carrying out the fix or care.","Recovery & Rehab":"Restoring full strength afterward."};
+const meaningOf=(k,v)=>k==="processes"?(((typeof S!=="undefined"&&S.procSet==="health")?PROC_MEANING_HEALTH:PROC_MEANING)[v]||""):(MEANING[v]||"");
 /* an initiative improves a process in three ways (the book, pp. 49 and 84) */
 const GAINS=[["eff","Efficiency","free up resources"],["cyc","Cycle-time","faster thru-put"],["res","Effectiveness","better results"]];
 const gainsOf=it=>GAINS.filter(([g])=>(it.g||[]).includes(g)).map(([,l])=>l);
 const TEACH={
  goals:{book:"A company can only have some combination of four organizational goals.",verb:"Goals: what the business must OBTAIN.",lead:"The business outcomes everything else serves. Two at most, so the priorities stay real.",ask:["If this year goes well, which number moves?","Which matters more right now: growth or margin?","Who owns that goal?"]},
  strategies:{book:"…and some combination of fourteen organizational strategies that must be executed to achieve the goals.",verb:"Strategies EXECUTE to obtain the goals.",lead:"How the business intends to reach its goals. Each strategy should obtain at least one goal.",ask:["What are you already doing to get there?","Where are you investing this year?","What would you stop doing?"]},
- processes:{book:"There are only fifteen high-level operational processes a company can improve. Kevin picked the three that mattered most to MI.",verb:"Processes IMPROVE to execute the strategies.",lead:"The ongoing, day-to-day work that carries out the strategies.",ask:["Which processes make or break that strategy?","Where does work slow down or get redone?","Who runs it today?"]},
+ processes:{get book(){ return S.procSet==="health"?"":"There are only fifteen high-level operational processes a company can improve. Kevin picked the three that mattered most to MI."; },verb:"Processes IMPROVE to execute the strategies.",lead:"The ongoing, day-to-day work that carries out the strategies.",ask:["Which processes make or break that strategy?","Where does work slow down or get redone?","Who runs it today?"]},
  initiatives:{book:"An initiative is intended to improve the efficiency, cycle-time and effectiveness of key operational processes.",verb:"Initiatives ENHANCE the processes.",lead:"The funded projects meant to improve those processes.",ask:["What projects are already underway?","Which have a sponsor and a budget?","What would you launch if you could?"]},
  solutions:{book:"Infrastructure investments are worth what they improve in the operational processes: efficiency, cycle-time and effectiveness gains.",verb:"Solutions enhance the initiatives.",lead:"The specific capabilities, products or services that make an initiative work. These are in your own words.",ask:["What have you tried before?","What would 'solved' look like?","Who has to approve it?"]}
 };
@@ -1464,7 +1488,7 @@ function miniSVG({active=-1,pair=null,labels=true}={}){
 /* ---------- Learn ---------- */
 function withItems(items,fn){ const o=S.items; S.items=items; try{ return fn(); } finally{ S.items=o; } }
 let lIdx=0, lSeen=new Set([0]), learnPair=null, quiz=null, streak=0, best=0;
-const QUIZ_POOL=Object.entries(CHOICES).flatMap(([k,vs])=>vs.filter(v=>Object.values(CHOICES).filter(l=>l.includes(v)).length===1).map(v=>[k,v]));
+let QUIZ_POOL=Object.entries(CHOICES).flatMap(([k,vs])=>vs.filter(v=>Object.values(CHOICES).filter(l=>l.includes(v)).length===1).map(v=>[k,v]));
 function newQuiz(){ let q; do{ q=QUIZ_POOL[Math.floor(Math.random()*QUIZ_POOL.length)]; }while(quiz&&q[1]===quiz.v); quiz={k:q[0],v:q[1],answered:null}; }
 const VERBS=[["ENHANCE",4,3,"Solutions enhance initiatives."],["IMPROVE",3,2,"Initiatives improve processes."],["EXECUTE",2,1,"Processes execute strategies."],["OBTAIN",1,0,"Strategies obtain goals."]];
 const LEARN=[
@@ -1483,7 +1507,7 @@ const LEARN=[
    <p class="src">“Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.”</p></div></div>`},
  {t:"Forced choices", r:()=>{ if(!quiz) newQuiz(); const a=quiz.answered, right=a===quiz.k, lab={goals:"Goal",strategies:"Strategy",processes:"Process",initiatives:"Initiative"};
    return `<p class="lkick">4 of 6 · The standards are the choices</p><h2>Choose the standard, then say what supports it.</h2>
-   <p class="big">Goals, Strategies, Processes and Initiatives come only from KA's standard lists: 4 goals, 14 strategies, 15 processes and 6 initiatives (the fifteen high-level operational processes from KA\'s book). The standard keeps everyone speaking the same language. Your words go into what supports each choice. Solutions are your own words.</p>
+   <p class="big">Goals, Strategies, Processes and Initiatives come only from KA's standard lists: 4 goals, 14 strategies, ${CHOICES.processes.length} processes and 6 initiatives (${S.procSet==="health"?"the original health-system processes":"the fifteen high-level operational processes from KA\'s book"}). The standard keeps everyone speaking the same language. Your words go into what supports each choice. Solutions are your own words.</p>
    <div class="quiz"><span class="streak">Quick check · Which column is this standard from? ${best?`Best run: <b>${best}</b>`:""}${streak?` · Run: <b>${streak}</b>`:""}</span>
    <div class="qv">${esc(quiz.v)}</div>
    <div class="qopts">${Object.keys(lab).map(k=>`<button data-qa="${k}" class="${a?(k===quiz.k?"right":(k===a?"wrong":"")):""}" ${a?"disabled":""}>${lab[k]}</button>`).join("")}</div>
@@ -1833,6 +1857,27 @@ document.addEventListener("click",async e=>{
   const u=e.target.closest("[data-provuse]"); if(u){ const o=S.provider.offerings[+u.dataset.provuse], slots=S.items.solutions; let at=slots.findIndex(x=>!x.t.trim());
     if(at<0){ toast("Solutions is full. Take one off first."); return; }
     Object.assign(slots[at],{t:o.name,d:o.desc,serves:[],src:`Provider: ${S.provider.name}`}); save(); renderAll(); renderBuild(); toast(`${o.name} added to Solutions. Tie it to the initiatives it enhances in Connect.`); } });
+/* the client interview, for the Criteria Proposition */
+async function cpIvTurn(answer,recent){
+  const rows=Object.fromEntries(CPB.map(b=>[b.k,cpData()[b.k].map((r,i)=>({id:`${b.k}.${i}`,dir:r.dir,text:r.t,agreed:!!r.ok})).filter(x=>x.text.trim())]));
+  const prompt=`You are a Knowledge-Advantage (KA) engagement coach helping the user interview their client live to fill in KA's Criteria Proposition ("Measure What Matters"): how success for the initiative will be measured, in three bands: ${CPB.map(b=>`${b.k} = ${b.l}, ${b.lens} (${b.full}: ${b.what})`).join("; ")}. Each criterion is one line: a direction (up, down or flat), a specific measure and a target with a timeframe, at most ${CP_BUDGET} characters, no arrow symbols.
+THE ALIGNMENT IT MEASURES: ${JSON.stringify(cpAopSnapshot())}
+THE CRITERIA SO FAR: ${JSON.stringify(rows)}
+${answer?`The client just answered your question "${iv.q}" with: "${answer}"\nMap ONLY what the client actually said. Never invent a number: if they gave no target, write [?]. "measures" lists alignment ids it measures. Set "agreed" true only if the client clearly agreed to that criterion as stated. To change an existing criterion, give its id in "id".`:"The interview is starting; there is no answer yet."}
+Then ask the single best next question: open, plain spoken, under 25 words, aimed at the biggest gap (a band with no criteria, a criterion with no target or baseline, something in the alignment nothing measures, who owns a number), never repeating a question already asked. Follow Kevin's order when starting a new band: TCO, then ROI, then ROA.
+Conversation so far:\n${recent||"(none)"}
+Reply with only JSON: {"updates":[{"band":"org|op|inf","id":string (optional),"dir":"up|down|flat","text":string,"measures":[string],"agreed":boolean}],"heard":string,"question":string}`;
+  try{ const r=await sample.json(prompt,{signal:ivCtl.signal,cache:false});
+    if(answer){ const done=[], okIds=new Set([...COLS.flatMap(c=>S.items[c.k].map((_,i)=>`${c.k}.${i}`).filter(filled)),...RATIO_GROUPS.flatMap(g=>g.r.map(x=>"ratio:"+x[0]))]);
+      (Array.isArray(r?.updates)?r.updates:[]).forEach(u=>{ const b=cpB(String(u.band||"")); if(!b) return; const R=cpData()[b.k], text=String(u.text||"").replace(/[▲▼►↑↓→]/g,"").trim(); if(!text) return;
+        let at=-1; if(u.id&&String(u.id).startsWith(b.k+".")) at=+String(u.id).split(".")[1]; if(!(at>=0&&at<4)) at=R.findIndex(x=>cpKey(x.t)===cpKey(text)); if(at<0) at=R.findIndex(x=>!x.t.trim()); if(at<0){ done.push(`${b.l} is full, so “${esc(text)}” wasn't added (clear one, then ask again)`); return; }
+        const isNew=!R[at].t.trim(); Object.assign(R[at],{t:text,dir:["up","down","flat"].includes(u.dir)?u.dir:R[at].dir,ok:!!u.agreed,src:"Client interview",m:[...new Set([...(R[at].m||[]),...(Array.isArray(u.measures)?u.measures:[]).map(String).filter(x=>okIds.has(x))])]});
+        done.push(`${isNew?"Added":"Updated"} <b>${esc(text)}</b> in ${b.lens}${u.agreed?" · agreed":""}`); });
+      save(); cpRefresh(); iv.log.push({k:"c",t:done.length?`<b>✓</b> ${done.join(" · ")}`:(r&&r.heard?esc(r.heard):"Nothing to add to the criteria from that answer.")}); }
+    iv.q=String(r&&r.question||"How will you know, a year from now, that this was worth doing?"); iv.log.push({k:"q",t:iv.q}); }
+  catch(e){ const m=failMsg(e); if(m) iv.log.push({k:"c",t:esc(m)}); }
+  finally{ iv.busy=false; ivRender(); $("ivMeta").textContent=`Criteria ${cpScore()}% · ${iv.log.filter(m=>m.k==="a").length} answers`; } }
+
 /* ===================== 4 · Saved aids (library) ===================== */
 function renderAidRow(){ const a=LIBD.aids[LIBD.cur]; if(!$("aidName")) return; $("aidName").textContent=a.name||"Untitled aid"; const n=Object.keys(LIBD.aids).length; $("aidMeta").textContent=n>1?`${n} saved in this browser`:"Saved in this browser"; }
 function flushSave(){ clearTimeout(saveT); persist(); }
@@ -1874,7 +1919,7 @@ function renderLenses(){
     ${client?"":`<button class="lchip ghost" data-lensedit title="Rename or remove ${esc(S.lenses[S.lens].name)}">✎</button>`}
     ${!client&&ids.length<MAX_LENSES?`<button class="lchip ghost" data-addlens>＋ Stakeholder</button>`:""}
     ${one?"":`<button class="lchip cmp" data-compare aria-pressed="${!!S.compare}">${S.compare?`Comparing with ${esc(S.lenses[S.compare].name)} ✕`:"Compare"}</button>`}`;
-  ["lensbar","lensbar2"].forEach(k=>{ const el=$(k); if(el) el.innerHTML=h; });
+  ["lensbar","lensbar2","cpLens","cpLens2"].forEach(k=>{ const el=$(k); if(el) el.innerHTML=h; });
 }
 document.addEventListener("click",e=>{
   const ln=e.target.closest("[data-lens]"), add=e.target.closest("[data-addlens]"), ed=e.target.closest("[data-lensedit]"), cm=e.target.closest("[data-compare]");
@@ -1883,7 +1928,7 @@ document.addEventListener("click",e=>{
     pop.innerHTML=`<h5>Add a stakeholder · up to ${MAX_LENSES}</h5><input class="tin" id="lnName" placeholder="e.g. CFO, VP of Sales"><label class="note"><input type="radio" name="lnStart" value="copy" checked> Start from a copy of ${esc(S.lenses[S.lens].name)}</label><label class="note"><input type="radio" name="lnStart" value="blank"> Start blank</label><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="lnOk">Add</button></div>`;
     place(pop,add); popEl=pop; const inp=pop.querySelector("#lnName"); inp.focus();
     const ok=()=>{ const name=inp.value.trim(); if(!name){ inp.focus(); return; } const copy=pop.querySelector('input[name="lnStart"]:checked').value==="copy"; const id="l"+Date.now().toString(36);
-      S.lenses[id]={name,items:copy?JSON.parse(JSON.stringify(S.items)):blank().items}; closePop(); const prev=S.lens; switchLens(id); S.compare=prev; save(); renderAll(); toast(`${name} added. Change their choices; ≠ marks where they differ from ${S.lenses[prev].name}.`); };
+      S.lenses[id]={name,items:copy?JSON.parse(JSON.stringify(S.items)):blank().items}; if(copy&&S.cp&&S.cp[S.lens]) S.cp[id]=JSON.parse(JSON.stringify(S.cp[S.lens])); closePop(); const prev=S.lens; switchLens(id); S.compare=prev; save(); renderAll(); toast(`${name} added. Change their choices; ≠ marks where they differ from ${S.lenses[prev].name}.`); };
     pop.querySelector("#lnOk").onclick=ok; inp.onkeydown=ev=>{ if(ev.key==="Enter") ok(); }; return; }
   if(ed){ closePop(); const L=S.lenses[S.lens], many=Object.keys(S.lenses).length>1; const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Rename stakeholder");
     pop.innerHTML=`<h5>This view</h5><input class="tin" id="lnRen" value="${esc(L.name)}"><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="lnRenOk">Save</button>${many?`<button class="btn small danger" id="lnDel">Remove ${esc(L.name)}</button>`:""}</div>`;
@@ -2263,7 +2308,7 @@ new MutationObserver(()=>{ $("asCoStatus").textContent=$("coStatus").textContent
 
 /* ===================== 6 · Snapshots: before and after ===================== */
 let snapCmp=null;
-function snapData(){ return JSON.parse(JSON.stringify({lenses:S.lenses,lens:S.lens,ext:S.ext,situation:S.situation})); }
+function snapData(){ return JSON.parse(JSON.stringify({lenses:S.lenses,lens:S.lens,ext:S.ext,situation:S.situation,cp:S.cp||{},cpg:S.cpg||{}})); }
 function openSnaps(anchor){
   closePop(); S.snaps=S.snaps||[]; const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Snapshots");
   const def=`Before the meeting · ${new Date().toLocaleDateString(undefined,{month:"short",day:"numeric"})}`;
@@ -2336,6 +2381,7 @@ async function ivTurn(answer){
   if(!sample){ off("The interview needs this page opened in Claude."); return; }
   iv.busy=true; ivRender(); ivCtl=new AbortController();
   const recent=iv.log.filter(m=>m.k!=="c").slice(-12).map(m=>(m.k==="q"?"You asked: ":"Client said: ")+m.t).join("\n");
+  if(cpMode) return cpIvTurn(answer,recent);
   const prompt=`${ctx()}\n\nINTERVIEW MODE. You are helping the user interview their client live to fill in the Alignment of Priorities. ${answer?`The client just answered your question "${iv.q}" with: "${answer}"\nMap ONLY what the client actually said into the aid. Goals, Strategies, Processes and Initiatives must be exact standard choices; "supports" is the client's point in their words, at most these characters per column ${JSON.stringify(BUDGET)}, abbreviated logically; "serves" names items already in the column to the left that this serves. Do not invent anything the client didn't say; if nothing maps, return no updates.`:"The interview is starting; there is no answer yet."}\nThen ask the single best next question: open, plain spoken English, under 25 words, aimed at the most important gap (empty column, a choice with no support, an item not connected), never repeating a question already asked.\nConversation so far:\n${recent||"(none)"}\nReply with only JSON: {"updates":[{"column":"goals|strategies|processes|initiatives|solutions","name":string,"supports":string,"serves":[string]}],"external":{"economy"?:string,"industry"?:string,"financials"?:string},"heard":string (one short line on what you captured, or ""),"question":string}`;
   try{ const r=await sample.json(prompt,{signal:ivCtl.signal,cache:false});
     if(answer){ const done=applyInterview(r||{}); iv.log.push({k:"c",t:done.length?`<b>✓</b> ${done.join(" · ")}`:(r&&r.heard?esc(r.heard):"Nothing to add to the aid from that answer.")}); }
@@ -2347,7 +2393,7 @@ $("ivStart").onclick=()=>{ iv={on:true,log:[],busy:false,undo:null,q:""}; $("iv"
 $("ivSend").onclick=()=>{ const a=$("ivAns").value.trim(); if(!a||iv.busy) return; if(dict&&dict.active()) dict.stop().catch(()=>{}); iv.undo=JSON.stringify(S); iv.log.push({k:"a",t:a}); $("ivAns").value=""; ivTurn(a); };
 $("ivAns").addEventListener("keydown",e=>{ if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){ e.preventDefault(); $("ivSend").click(); } });
 $("ivSkip").onclick=()=>{ if(iv.busy) return; iv.log.push({k:"c",t:"Skipped."}); ivTurn(""); };
-$("ivUndo").onclick=()=>{ if(!iv.undo) return; S=norm(JSON.parse(iv.undo)); iv.undo=null; save(); syncTop(); renderAll(); if(curView==="build") renderBuild(); iv.log.push({k:"c",t:"Undid the last answer's changes."}); ivRender(); };
+$("ivUndo").onclick=()=>{ if(!iv.undo) return; S=norm(JSON.parse(iv.undo)); iv.undo=null; save(); syncTop(); renderAll(); if(curView==="build") renderBuild(); if(cpMode) cpRefresh(); iv.log.push({k:"c",t:"Undid the last answer's changes."}); ivRender(); };
 $("ivEnd").onclick=()=>{ ivCtl?.abort(); if(dict&&dict.active()) dict.stop().catch(()=>{}); iv.on=false; $("iv").hidden=true; $("ivStart").hidden=false; toast(`Interview ended · Alignment ${alignScore()}%`); };
 
 /* ---------- Assistant ---------- */
@@ -2356,8 +2402,8 @@ const btns=["aBox","aFill","aLinks","aChallenge","aQuestions","askBtn"].map($);
 function setFocusLine(){ $("focusline").innerHTML=sel?`Working on <b>${esc(COLS[ci(sel.split(".")[0])].label)}: ${esc(nameOf(sel))}</b>`:"Tap any box in the picture to work on it. The assistant sees the situation, the gaps you ticked and everything on the aid."; $("aBox").disabled=assistOff||!sel; }
 function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled),...(c.k==="processes"&&gainsOf(it).length?{improveFor:gainsOf(it)}:{})})));
   return {external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),keyRatios:finSnapshot(),columnNotes:S.notes,items,gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)}; }
-const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. The Processes are the fifteen high-level operational processes from KA's book Dimensions of Success; an initiative improves a process's efficiency (free up resources), cycle-time (faster thru-put) or effectiveness (better results). KA reads Financials with its key ratios in three groups: solvency (can it meet what it owes), asset effectiveness (how hard its assets work), profitability (how much it keeps); weak solvency points to Cash Flow and Cash Management, weak asset effectiveness to Asset Usage, weak profitability to Profit, Costs and Price. Coach the way Kevin Cooper does in the book: "My goal is not to be right, but to get it right, please correct me where I am off track." KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
-const ctx=()=>`${BASE}\n\n${S.provider?.name?`The user sells the solutions of ${S.provider.name}${S.provider.offerings?.length?`, which offers: ${S.provider.offerings.map(o=>`${o.name} (${o.desc})`).join("; ")}`:""}. Solutions should come from what this provider offers.\n\n`:""}${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
+const baseText=()=>`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. ${S.procSet==="health"?"The Processes are the original health-system processes from the PDF;":"The Processes are the fifteen high-level operational processes from KA's book Dimensions of Success;"} an initiative improves a process's efficiency (free up resources), cycle-time (faster thru-put) or effectiveness (better results). KA reads Financials with its key ratios in three groups: solvency (can it meet what it owes), asset effectiveness (how hard its assets work), profitability (how much it keeps); weak solvency points to Cash Flow and Cash Management, weak asset effectiveness to Asset Usage, weak profitability to Profit, Costs and Price. Coach the way Kevin Cooper does in the book: "My goal is not to be right, but to get it right, please correct me where I am off track." KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
+const ctx=()=>`${baseText()}\n\n${S.provider?.name?`The user sells the solutions of ${S.provider.name}${S.provider.offerings?.length?`, which offers: ${S.provider.offerings.map(o=>`${o.name} (${o.desc})`).join("; ")}`:""}. Solutions should come from what this provider offers.\n\n`:""}${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}${cpMode?`\n\nThe user is working on the Criteria Proposition now (ROA / ROI / TCO criteria that measure this alignment): ${JSON.stringify(Object.fromEntries(CPB.map(b=>[b.k,cpData()[b.k].filter(cpFilled).map(r=>({dir:r.dir,text:r.t,agreed:!!r.ok,measures:r.m}))])))}`:""}`;
 function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!sel)); $("stopBtn").hidden=!on; }
 function off(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); if($("ivStart")) $("ivStart").disabled=true; if($("asCoGo")) $("asCoGo").disabled=true; $("assistNote").textContent=msg; }
 function failMsg(e){ if(["not_granted","sampling_disabled","capability_disabled","not_declared"].includes(e.code)){ off("The assistant is off for this view. The aid still works by hand."); return ""; }
@@ -2552,7 +2598,7 @@ function cpGo(i){ cpIdx=Math.max(0,Math.min(4,i)); try{ localStorage.setItem("ka
 function cpStepDone(i){ if(i===0) return allFilled().length>0&&cpAll().length>0; if(i<4) return cpData()[CPB[i-1].k].some(cpFilled); return cpAll().length>0&&!cpCoverage().length&&cpAll().every(([,,r])=>r.ok); }
 function cpFitLine(id){ const r=cpRow(id), n=r.t.length, over=n>CP_BUDGET; return `<p class="fitline ${over?"over":""}" data-cpfit="${id}">${n} of about ${CP_BUDGET} characters${over?" · too long for the printed row":" · fits the printed row"}${cpHasTarget(r.t)||!r.t.trim()?"":` · <b>no target number yet</b>`}</p>`; }
 function cpSrcLine(r){ if(!r.src||!r.t.trim()) return ""; return r.src==="Your words"?`<p class="srcline"><b>Your words</b> · written over the draft</p>`:`<p class="srcline"><b>${esc(r.src)}</b> · confirm with the client</p>`; }
-function cpBuild(){ cpData(); $("cpScore2").innerHTML=cpScoreHTML();
+function cpBuild(){ cpData(); $("cpScore2").innerHTML=cpScoreHTML(); renderLenses();
   $("cpBsteps").innerHTML=CP_STEPS.map((n,i)=>`<li><button data-cpbs="${i}" aria-current="${i===cpIdx?"step":"false"}" class="${cpStepDone(i)?"done":""}"><span>${cpStepDone(i)&&i!==cpIdx?"✓":i+1}</span>${n}</button></li>`).join("");
   let h="";
   if(cpIdx===0){ const has=allFilled().length;
@@ -2637,12 +2683,34 @@ async function cpSharpen(id,btn){ if(!sample){ toast("The assistant works when t
 
 /* ---------- the sheet view ---------- */
 function cpSheet(){ cpData(); $("cpScore").innerHTML=cpScoreHTML();
-  $("cpLens").innerHTML=Object.keys(S.lenses).length>1?`<span class="note">Through the eyes of</span>${Object.entries(S.lenses).map(([id,L])=>`<button class="lchip" data-cplens="${id}" aria-pressed="${id===S.lens}">${esc(L.name)}</button>`).join("")}`:"";
-  cpPaintSheet("cpSheet",{mode:"edit"});
+  renderLenses();
+  cpPaintSheet("cpSheet",{mode:"edit"}); requestAnimationFrame(cpMarks);
   const miss=cpCoverage(), rows=cpAll();
   $("cpCheck").innerHTML=`<h3>Criteria check</h3><p class="note" style="margin:0">${rows.length} criteria · ${rows.filter(([,,r])=>cpHasTarget(r.t)).length} with a target · ${rows.filter(([,,r])=>r.ok).length} agreed</p>${miss.length?`<ul class="lbul">${miss.map(id=>`<li>Nothing measures <b>${esc(cpName(id))}</b> yet</li>`).join("")}</ul>`:rows.length?`<p class="ok" style="margin:6px 0 0">✓ Every goal, process and solution has a measure.</p>`:""}`;
   cpNextBox(); }
-$("cpLens").addEventListener("click",e=>{ const b=e.target.closest("[data-cplens]"); if(b){ switchLens(b.dataset.cplens); cpSheet(); } });
+/* any change to the stakeholder views, compare or snapshots refreshes the CP */
+document.addEventListener("click",e=>{ if(cpMode&&e.target.closest("[data-lens],[data-cmpwith],[data-compare],#lnOk,#lnRenOk,#lnDel,[data-snapoff],[data-snapcmp],[data-snaprest]")) setTimeout(()=>{ cpRefresh(); },30); });
+const cpKey=t=>String(t||"").toLowerCase().replace(/[^a-z0-9%]+/g," ").trim();
+/* compare with another stakeholder view, and what changed since a snapshot: badges on the rows, a panel under the sheet */
+function cpMarks(){ const sheet=$("cpSheet"); if(!sheet) return; sheet.querySelectorAll(".cpbadge").forEach(x=>x.remove()); sheet.querySelectorAll(".cprowx").forEach(r=>r.classList.remove("agree","differ"));
+  const box=$("cpCmp"), sbox=$("cpSnapBox"), R=cpData(), O=S.compare&&S.lenses[S.compare]?((S.cp||{})[S.compare]||{}):null;
+  const badge=(id,cls,txt,title)=>{ const row=sheet.querySelector(`.cprowx[data-cpid="${id}"]`); if(!row) return; if(cls==="ag"||cls==="df") row.classList.add(cls==="ag"?"agree":"differ"); const b=cpB(id.split(".")[0]), y=b.ys[+id.split(".")[1]];
+    row.insertAdjacentHTML("beforeend",`<span class="cpbadge ${cls}" style="left:calc(${CPX.box+CPX.boxw+.9}*var(--mm));top:calc(${y+2.3}*var(--mm))" title="${esc(title)}">${txt}</span>`); };
+  if(O&&box){ let agree=0,total=0; const A=S.lenses[S.lens], B=S.lenses[S.compare];
+    const rows=CPB.map(b=>{ const a=R[b.k].filter(cpFilled), o=(O[b.k]||[]).filter(cpFilled), ok=new Set(o.map(r=>cpKey(r.t))), ak=new Set(a.map(r=>cpKey(r.t)));
+      R[b.k].forEach((r,i)=>{ if(!cpFilled(r)) return; total++; const same=ok.has(cpKey(r.t)); if(same) agree++; badge(`${b.k}.${i}`,same?"ag":"df",same?"✓":"≠",same?`${B.name} has this too`:`Only ${A.name}`); });
+      const both=a.filter(r=>ok.has(cpKey(r.t))), onlyA=a.filter(r=>!ok.has(cpKey(r.t))), onlyB=o.filter(r=>!ak.has(cpKey(r.t))); if(!a.length&&!o.length) return "";
+      return `<div class="cmprow"><b>${b.lens} · ${b.l}</b><span>${both.length?`<span class="ag">✓ Both:</span> ${esc(both.map(r=>r.t).join("; "))}<br>`:""}${onlyA.length?`<span class="df">≠ Only ${esc(A.name)}:</span> ${esc(onlyA.map(r=>r.t).join("; "))}<br>`:""}${onlyB.length?`<span class="df">≠ Only ${esc(B.name)}:</span> ${esc(onlyB.map(r=>r.t).join("; "))}`:""}</span></div>`; }).join("");
+    box.hidden=false; box.innerHTML=`<h3>${esc(A.name)} and ${esc(B.name)} share ${agree} of ${total} criteria</h3><p class="note" style="margin:0">✓ on a row: ${esc(B.name)} has the same criterion. ≠: only ${esc(A.name)} has it. Where they measure worth differently is the conversation.</p>${rows}`; }
+  else if(box) box.hidden=true;
+  const sn=snapCmp&&(S.snaps||[]).find(x=>x.id===snapCmp);
+  if(sn&&sbox){ const old=(sn.data.cp||{})[S.lens]||{}; let nN=0,nC=0,nR=0;
+    const rows=CPB.map(b=>{ const now=R[b.k].map((r,i)=>[r,i]).filter(([r])=>cpFilled(r)), was=(old[b.k]||[]).filter(cpFilled);
+      const added=[], changed=[]; now.forEach(([r,i])=>{ const w=was.find(w=>cpKey(w.t)===cpKey(r.t)); if(!w){ added.push(r); badge(`${b.k}.${i}`,"nw","+","New since the snapshot"); } else if(w.dir!==r.dir||!!w.ok!==!!r.ok||JSON.stringify((w.m||[]).slice().sort())!==JSON.stringify((r.m||[]).slice().sort())){ changed.push(r); badge(`${b.k}.${i}`,"ch","✎","Changed since the snapshot"); } });
+      const gone=was.filter(w=>!now.some(([r])=>cpKey(r.t)===cpKey(w.t))); nN+=added.length; nC+=changed.length; nR+=gone.length; if(!added.length&&!changed.length&&!gone.length) return "";
+      return `<div class="cmprow"><b>${b.lens} · ${b.l}</b><span>${added.length?`<span class="nw">+ New:</span> ${esc(added.map(r=>r.t).join("; "))}<br>`:""}${changed.length?`<span class="ch">✎ Changed:</span> ${esc(changed.map(r=>r.t).join("; "))}<br>`:""}${gone.length?`<span class="rm">− Gone:</span> ${esc(gone.map(r=>r.t).join("; "))}`:""}</span></div>`; }).join("");
+    sbox.hidden=false; sbox.innerHTML=`<h3>Since “${esc(sn.name)}”: ${nN} new, ${nC} changed, ${nR} gone</h3><p class="note" style="margin:0">+ marks a new criterion, ✎ one whose direction, agreement or measures changed. <button class="btn small" data-snapoff>Stop comparing</button></p>${rows||`<p class="note" style="margin:0">Nothing has changed yet.</p>`}`; }
+  else if(sbox) sbox.hidden=true; }
 function cpNextBox(){ const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"], at=Q.seq.indexOf("Criteria Proposition"), next=Q.seq.slice(at+1).filter(n=>NEXT_DESC[n]).slice(0,3);
   $("cpNext").innerHTML=cpScore()<60||!next.length?"":`<div class="nextcard"><h3>What comes next</h3><p class="note" style="margin:0">In KA's Aids Configurator, for ${esc(Q.where)}, the Criteria Proposition is followed by:</p>
     <div class="nseq">${Q.seq.map(n=>`<span class="${n==="Criteria Proposition"?"here":""}">${esc(n)}</span>`).join("→")}</div>
@@ -2654,6 +2722,8 @@ $("cpPdf").onclick=()=>cpDownload(false); $("cpPdf2").onclick=()=>cpDownload(fal
 $("cpCopyBtn").onclick=()=>cpCopy(); $("cpDraftBtn").onclick=()=>{ show("build"); cpGo(0); setTimeout(()=>$("cpDraftAll")?.click(),60); };
 $("cpClearBtn").onclick=e=>armed(e.currentTarget,"Tap again to clear every criterion",cpClearAll);
 $("cpToAop").onclick=()=>setAidMode(false);
+$("cpSnapBtn").onclick=e=>{ e.stopPropagation(); openSnaps($("cpSnapBtn")); };
+$("cpIvBtn").onclick=()=>{ openAssist(); if($("iv").hidden) $("ivStart").click(); };
 
 function cpSummary(){ const L=["CRITERIA PROPOSITION · Measure What Matters"]; if(S.company?.name) L.push(`Company: ${S.company.name}${eyesOf()?` · through the eyes of ${eyesOf()}`:""}`);
   CPB.forEach(b=>{ const rows=cpData()[b.k].filter(cpFilled); if(!rows.length) return; L.push("",`${b.l.toUpperCase()} · ${b.lens} (${b.full})`);
