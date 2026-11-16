@@ -189,6 +189,14 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .aligned{position:absolute;z-index:8;font:700 calc(2.8*var(--mm)) var(--font);color:#fff;background:var(--plum);border-radius:999px;padding:calc(.7*var(--mm)) calc(2.2*var(--mm));white-space:nowrap;animation:pop .4s ease-out}
 .spark{fill:#fff;stroke:var(--plum);stroke-width:.6}
 .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.ctlcard{border:1px solid var(--rule);border-radius:12px;background:var(--paper);padding:12px 14px;display:grid;gap:10px}
+.ctlcard h3{margin:0}
+.provCard{margin-bottom:14px}.provlist{display:grid;gap:6px;margin-top:6px}.provlist h4{margin:0 0 2px;font-size:14px}
+.provitem{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px solid var(--rule);border-radius:10px;padding:8px 10px;background:var(--paper)}
+.provitem div{display:grid;gap:2px;min-width:0}.provitem span{font-size:13px;color:var(--muted)}
+.ctlrow{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center;border-top:1px solid var(--rule);padding-top:10px}
+.ctllab{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:600px){.ctlrow{grid-template-columns:minmax(0,1fr);gap:6px}}
 @media (max-width:800px){.under{grid-template-columns:minmax(0,1fr)}}
 .trace{background:var(--plum-soft);border-radius:8px;padding:10px 12px;font-size:14.5px;margin:0}
 .trace b{color:var(--plum)}
@@ -489,7 +497,7 @@ body.presenting.laser,body.presenting.laser *{cursor:none!important}
 .ps-chains{display:grid;gap:1.8cqw;align-content:start}
 .ps-chain{display:flex;align-items:stretch}
 .ps-node{flex:1 1 0;min-width:0;border-radius:1cqw;padding:1.1cqw 1.2cqw;display:grid;gap:.3cqw;align-content:start;box-shadow:0 .2cqw .8cqw rgb(20 30 60 /.08)}
-.ps-node.c0,.ps-node.c1{background:var(--org-b);border:1px solid var(--org-s)}.ps-node.c2,.ps-node.c3{background:var(--op-b);border:1px solid var(--op-s)}.ps-node.c4{background:var(--inf-b);border:1px solid var(--inf-s)}
+.ps-node.c0,.ps-node.c1{background:var(--org-b);border:1px solid var(--org-s)}.ps-node.c2{background:var(--op-b);border:1px solid var(--op-s)}.ps-node.c3,.ps-node.c4{background:var(--inf-b);border:1px solid var(--inf-s)}
 .ps-node small{font-size:.9cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
 .ps-node b{font-size:1.5cqw;line-height:1.2;color:var(--ink)}
 .ps-node em{font-style:normal;font-size:1.05cqw;line-height:1.35;color:var(--muted)}
@@ -679,12 +687,13 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
               <div class="field"><label for="coSite">Website or ticker <span class="opt">optional</span></label><input id="coSite" class="tin" placeholder="e.g. bbinsurance.com or BRO" autocomplete="off"></div>
               <div class="field"><label for="coEyes">Through whose eyes? <span class="opt">optional</span></label><input id="coEyes" class="tin" placeholder="e.g. the COO" autocomplete="off"></div>
             </div>
+            <div class="field"><label for="coProv">Solution provider <span class="opt">optional · whose solutions you offer</span></label><input id="coProv" class="tin" data-prov="name" placeholder="e.g. your company, or the vendor you represent" autocomplete="off"></div>
             <div class="field"><label for="coPaste">Add material <span class="opt">optional · makes it current and specific</span></label>
               <textarea id="coPaste" rows="3" placeholder="Paste from an annual report, earnings call, investor deck, the company's website or your own notes."></textarea></div>
             <div class="coFiles"><label class="btn small" for="coFile">Add a file</label><input id="coFile" type="file" accept=".pdf,.txt,.md,.html,.htm,.csv" multiple hidden><span class="note">PDF or text. Read on this device only.</span></div>
             <ul class="fileList" id="coFileList"></ul>
             <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="coGo">Research and fill in</button><button class="btn" id="coStop" hidden>Stop</button></div>
-            <p class="note" id="coStatus" aria-live="polite">Uses Claude's built-in knowledge, current to its training date, plus anything you add. It doesn't search the web. Solutions are left for you.</p>
+            <p class="note" id="coStatus" aria-live="polite">Uses Claude's built-in knowledge, current to its training date, plus anything you add. It doesn't search the web. With a solution provider named, it also picks the Solutions from what that provider says it offers.</p>
             <div id="coReview" hidden></div>
           </div>
           <p class="teach">Factor in "external" factors first. A clear sense of threats to scope, time and resources is required before solving any business problem.</p>
@@ -756,8 +765,7 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
             <text transform="translate(18.6 130.5) rotate(-90)">INFRASTRUCTURE</text>
           </g>
           <text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Gain Business Clarity</text>
-          <text x="21.8" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="125.5" lengthAdjust="spacingAndGlyphs">Alignment of Priorities</text>
-          <g transform="translate(10.4 18.3)" fill="var(--ink)"><rect width="9.6" height="9.6" fill="none" stroke="var(--ink)" stroke-width=".6"/><rect x="1.3" y="1.3" width="2.6" height="2.6"/><rect x="5.7" y="1.3" width="2.6" height="2.6"/><rect x="1.3" y="5.7" width="2.6" height="2.6"/><circle cx="6.9" cy="6.9" r="1.6" fill="var(--blue)"/></g>
+          <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="125.5" lengthAdjust="spacingAndGlyphs">Alignment of Priorities</text>
           <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
           <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/>
           <text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
@@ -799,20 +807,16 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
       <p class="trace" id="trace" hidden></p>
       <div class="cmpbox" id="cmpbox" hidden></div>
       <div class="cmpbox" id="snapbox" hidden></div>
+      <section class="ctlcard" aria-label="Controls">
+        <h3>Controls</h3>
+        <div class="ctlrow prep-only"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn">▶ Present</button><button class="btn small" id="walkBtn">Show the alignment</button><button class="btn small" id="pdfBtn">Download PDF</button><button class="btn small" id="deckBtn">Leave-behind PDF</button><button class="btn small" id="copyBtn">Copy summary</button></div></div>
+        <div class="ctlrow" id="clientBar"><span class="ctllab">Present &amp; share</span><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button><button class="btn small" id="deckBtn2">Leave-behind PDF</button></div></div>
+        <div class="ctlrow prep-only"><span class="ctllab">Work</span><div class="arow" style="flex:0 1 auto"><button class="btn small" id="snapBtn">Snapshots</button><button class="btn small" id="assistBtn">Assistant</button><button class="btn small" id="howBtn" aria-pressed="false">Show me how</button><button class="btn small danger" id="sClearAll">Clear all</button></div></div>
+        <div class="ctlrow"><span class="ctllab">View</span><div class="lineKey" id="lineKey" aria-label="Connection lines"></div></div>
+      </section>
       <div class="nextbox" id="nextbox"></div>
       <div class="under">
         <div style="display:grid;gap:8px;align-content:start">
-          <div class="arow prep-only" style="flex:0 1 auto">
-            <button class="btn small" id="howBtn" aria-pressed="false">Show me how</button>
-            <button class="btn small" id="walkBtn">Show the alignment</button>
-            <button class="btn small primary" id="presentBtn">▶ Present</button>
-            <button class="btn small" id="pdfBtn">Download PDF</button><button class="btn small" id="deckBtn">Leave-behind PDF</button>
-            <button class="btn small" id="snapBtn">Snapshots</button>
-            <button class="btn small" id="assistBtn">Assistant</button>
-            <button class="btn small danger" id="sClearAll">Clear all</button>
-          </div>
-          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button><button class="btn small" id="deckBtn2">Leave-behind PDF</button></div>
-          <div class="lineKey" id="lineKey" aria-label="Connection lines"></div>
           <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves.</p>
         </div>
         <div class="check" id="check"></div>
@@ -934,8 +938,9 @@ const GAPS=[["position","Position (Relevance)"],["people","People (Decision Make
 const PROBLEM=["Review structure and use of colors within visual","Review and refine what is known for each of the columns","Understand the relationships within and across columns","Challenge the relevance of initiatives or solutions under consideration","Document any ambiguity that creates gaps to success"];
 const SOLUTION=["Confirm how an initiative or solution aligns to the business priorities of key stakeholders","Test the importance of an initiative or solution based on the business priorities","Identify potential “gaps” in business priorities"];
 
+function blankProv(){ return {name:"",site:"",summary:"",asOf:"",offerings:[]}; }
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
-  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},fin:{},items}; }
+  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},provider:blankProv(),fin:{},items}; }
 const KEY="ka-aop-v3";
 /* process names before the book's list (Nov 16): only the clear equivalents carry over */
 const OLD_PROC={"Perf. & Risk Mgmt.":"Performance Mgt.","Product Development":"Product Dev.","Market Development":"Marketing"};
@@ -972,7 +977,7 @@ function down(id,acc=new Set()){ servedBy(id).forEach(t=>{ if(!acc.has(t)){acc.a
 function cleanLinks(){ COLS.forEach((c,ix)=>{ S.items[c.k].forEach(it=>{ it.serves=ix?(it.serves||[]).filter(t=>t.startsWith(COLS[ix-1].k+".")):[]; }); }); }
 function orphans(){ const out=[];
   COLS.forEach((c,ix)=>S.items[c.k].forEach((it,i)=>{ const id=`${c.k}.${i}`; if(!filled(id)) return;
-    if(ix>0&&!(it.serves||[]).some(filled)) out.push({id,k:c.k,why:`not tied to a ${COLS[ix-1].one}`});
+    if(ix>0&&!(it.serves||[]).some(filled)) out.push({id,k:c.k,why:`not tied to ${COLS[ix-1].an||"a "+COLS[ix-1].one}`});
     if(ix<COLS.length-1&&!servedBy(id).length) out.push({id,k:c.k,why:`no ${COLS[ix+1].one} supports it`}); }));
   return out; }
 const allFilled=()=>COLS.flatMap(c=>S.items[c.k].map((_,j)=>`${c.k}.${j}`)).filter(filled);
@@ -1148,7 +1153,7 @@ function forceSolution(inp){ const [k,i]=inp.dataset.f.split("."), it=S.items[k]
   inp.value=x; fitNames();
   while(over()&&x.includes(" ")){ x=x.replace(/\s+\S+$/,""); inp.value=x; fitNames(); }
   if(inp.closest(".slot").classList.contains("nameover")===false&&inp.value!==before){ it.t=inp.value; save(); toast(`Shortened to fit: ${inp.value}`); } }
-$("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; save();
+$("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; if(S.items[k][+i].src) S.items[k][+i].src="Your words"; save();
   if(p==="t"){ e.target.closest(".slot").classList.toggle("empty",!e.target.value.trim()); }
   clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); applyFocus(); },500); });
 function renderCheck(){ renderCheck0(); const c2=$("check2"); if(c2) c2.innerHTML=$("check").innerHTML; renderScore(); renderCompare(); renderSnapDiff(); renderNext(); }
@@ -1176,7 +1181,7 @@ function openPick(id,anchor){
   pop.innerHTML=`<h5>Choose ${c.an||"a "+c.one} · KA's ${CHOICES[k].length} standard ${c.label.toLowerCase()}</h5><div class="choices">${CHOICES[k].map(v=>`<button data-v="${esc(v)}" aria-pressed="${it.t===v}" ${used.includes(v)?"disabled":""}>${esc(v)}${used.includes(v)?"<small>already chosen</small>":""}</button>`).join("")}</div>${it.t?`<div class="arow"><button class="btn small ghost" data-clear>Clear this choice</button></div>`:""}`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const b=e.target.closest("[data-v]"), cl=e.target.closest("[data-clear]");
-    if(b){ if(it.t!==b.dataset.v) it.src=""; it.t=b.dataset.v; } else if(cl){ it.t=""; it.d=""; it.serves=[]; it.src=""; COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); } else return;
+    if(b){ if(it.t!==b.dataset.v&&it.src) it.src="Your words"; it.t=b.dataset.v; } else if(cl){ it.t=""; it.d=""; it.serves=[]; it.src=""; COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); } else return;
     save(); closePop(); renderPicture(); renderCheck(); renderGuide(); select(id);
     if(b){ spark(ci(k)); setTimeout(()=>document.querySelector(`.slot[data-id="${id}"] .desc`)?.focus({preventScroll:true}),30); } });
   (pop.querySelector('[aria-pressed="true"]')||pop.querySelector("button:not(:disabled)"))?.focus({preventScroll:true});
@@ -1338,7 +1343,7 @@ const LEARN=[
  {t:"From the book", r:()=>`<p class="lkick">2 of 6 · From the book</p><h2>“My goal is not to be right, but to get it right.”</h2>
    <p class="big">In KA's book <i>Dimensions of Success</i>, Kevin Cooper meets Morgan Industries (MI) with an Alignment of Priorities he built for their eBusiness initiative from public information alone: the annual report and quarterly filings.</p>
    <ol class="lbul bookbeats"><li><b>Outside in.</b> He weighed the economy, MI's industry and MI's financials against its competitors.</li><li><b>Two goals, five strategies.</b> From four possible goals and fourteen strategies.</li><li><b>Three processes.</b> Of the only fifteen high-level operational processes a company can improve.</li><li><b>One initiative.</b> Improving those processes' efficiency, cycle-time and effectiveness.</li><li><b>Left to right, asking all the way.</b> “Please correct me where I am off track.”</li></ol>
-   <div class="gapgrid"><div><b style="color:var(--org-ink,#8a3a3a)">Organizational · red</b>Goals and strategies. Judged by ROA.</div><div><b style="color:var(--op-ink,#7a6012)">Operational · yellow</b>Processes. Judged by ROI: efficiency, cycle-time, effectiveness.</div><div><b style="color:var(--inf-ink,#3c6a4c)">Infrastructure · green</b>Solutions. Judged by TCO.</div></div>
+   <div class="gapgrid"><div><b style="color:var(--org-ink,#8a3a3a)">Organizational · red</b>Goals and strategies. Judged by ROA.</div><div><b style="color:var(--op-ink,#7a6012)">Operational · yellow</b>Processes. Judged by ROI: efficiency, cycle-time, effectiveness.</div><div><b style="color:var(--inf-ink,#3c6a4c)">Infrastructure · green</b>Initiatives and solutions. Judged by TCO.</div></div>
    <div class="arow"><button class="btn" data-go="example">See Kevin's aid for MI</button></div><p class="src">From KA's book, Dimensions of Success (pp. 48–49, 58–60).</p>`},
  {t:"The alignment", r:()=>`<p class="lkick">3 of 6 · The alignment</p><h2>Five columns, one direction.</h2>
    <div class="lsplit"><div>${withItems(EXAMPLE.items,()=>miniSVG({pair:learnPair}))}<p class="src">A finished example, read right to left.</p></div><div class="verbs">
@@ -1429,13 +1434,14 @@ function renderCol(ix){
   let h=`<p class="lkick">Step ${ix+2} of 8</p><h2>${c.label}</h2><p class="verbline">${T.verb}</p><p class="teach">${esc(T.lead)}</p>${T.book?`<p class="bookq">“${esc(T.book)}”<small>From KA's book, Dimensions of Success</small></p>`:""}`;
   if(std) h+=`<h3>Choose up to ${c.n} of KA's ${std.length} standard ${c.label.toLowerCase()} <span class="count">${used} of ${c.n} chosen</span></h3>
     <div class="cgrid">${std.map(v=>{ const on=items.some(x=>x.t===v); return `<button class="ccard ${on?"on":""}" data-choose="${esc(v)}" aria-pressed="${on}" ${!on&&used>=c.n?"disabled":""}><b>${esc(v)}</b><span>${esc(meaningOf(k,v))}</span></button>`; }).join("")}</div>`;
-  h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
+  h+=`<h3>${std?"Then say what supports each choice":`Up to ${c.n} solutions: a short name and what it does in up to two lines`}</h3><div class="picked">`;
   items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
     h+=`<div class="pcard" data-pid="${id}"><div class="ph">${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1} (short name, about 24 characters)" aria-label="Solution ${i+1}" maxlength="40">`}</div>
-      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${k==="processes"?`<div class="gains"><span>Improve it for:</span>${GAINS.map(([g,l,m])=>{ const on=(it.g||[]).includes(g); return `<button class="chip2 ${on?"on":""}" data-gain="${id}|${g}" aria-pressed="${on}" title="${m}">${l}</button>`; }).join("")}</div>`:""}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
+      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it does for them, in up to two lines"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${k==="processes"?`<div class="gains"><span>Improve it for:</span>${GAINS.map(([g,l,m])=>{ const on=(it.g||[]).includes(g); return `<button class="chip2 ${on?"on":""}" data-gain="${id}|${g}" aria-pressed="${on}" title="${m}">${l}</button>`; }).join("")}</div>`:""}${it.src&&it.t?(it.src==="Your words"?`<p class="srcline"><b>Your words</b> · written over the research</p>`:`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":/^provider/i.test(it.src)?"From the provider":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`):""}</div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
   h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
-  $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
+  if(k==="solutions") h=`<div class="coCard provCard" id="provCard"></div>`+h;
+  $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize); if(k==="solutions") renderProvCard();
 }
 $("bcol").addEventListener("click",e=>{
   const ch=e.target.closest("[data-choose]"), un=e.target.closest("[data-unchoose]"), sg=e.target.closest("[data-suggest]");
@@ -1453,7 +1459,7 @@ $("bcol").addEventListener("click",e=>{
 });
 $("bcol").addEventListener("focusout",e=>{ const f=e.target.dataset.f2; if(!f||!f.endsWith(".t")) return; const [k,i]=f.split("."), it=S.items[k][+i];
   if(it.t.length>24){ let x=it.t; for(const [re,to] of ABBR){ if(x.length<=24) break; x=abbrOne(x,re,to); } while(x.length>24&&x.includes(" ")) x=x.replace(/\s+\S+$/,""); if(x!==it.t){ it.t=x; e.target.value=x; save(); toast(`Shortened to fit the box: ${x}`); } } });
-$("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value;
+$("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; if(S.items[k][+i].src&&S.items[k][+i].src!=="Your words"){ S.items[k][+i].src="Your words"; const sl=e.target.closest(".pcard")?.querySelector(".srcline"); if(sl) sl.innerHTML="<b>Your words</b> · written over the research"; }
   if(p==="d"){ const fl=document.querySelector(`[data-fit="${k}.${i}"]`); if(fl) fl.outerHTML=fitLineHTML(k,`${k}.${i}`,e.target.value); } if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
 /* ---------- KA's key ratios ---------- */
@@ -1516,7 +1522,8 @@ async function suggestCol(ix){
 /* ---------- Start from a company: built-in knowledge + the user's material, forced into KA's choices ---------- */
 let coFiles=[], coCtl=null, coDraft=null;
 const CO_LIMIT=60000;
-function coSync(){ const c=S.company||(S.company={name:"",site:"",eyes:"",summary:"",asOf:""}); $("coName").value=c.name||""; $("coSite").value=c.site||""; $("coEyes").value=c.eyes||""; }
+function coSync(){ const c=S.company||(S.company={name:"",site:"",eyes:"",summary:"",asOf:""}); $("coName").value=c.name||""; $("coSite").value=c.site||""; $("coEyes").value=c.eyes||""; if(document.activeElement!==$("coProv")) $("coProv").value=S.provider?.name||""; }
+$("coProv").addEventListener("input",e=>{ S.provider=S.provider||blankProv(); if(S.provider.name!==e.target.value){ S.provider.name=e.target.value; } save(); });
 ["coName","coSite","coEyes"].forEach(id=>$(id).addEventListener("input",e=>{ S.company=S.company||{}; S.company[{coName:"name",coSite:"site",coEyes:"eyes"}[id]]=e.target.value; save(); }));
 function renderFiles(){ $("coFileList").innerHTML=coFiles.map((f,i)=>`<li><span>${esc(f.name)} · ${Math.round(f.text.length/1000)||1}k characters</span><button class="x" data-rmfile="${i}" aria-label="Remove ${esc(f.name)}">✕</button></li>`).join(""); }
 $("coFileList").addEventListener("click",e=>{ const b=e.target.closest("[data-rmfile]"); if(b){ coFiles.splice(+b.dataset.rmfile,1); renderFiles(); } });
@@ -1609,7 +1616,8 @@ $("coGo").onclick=async()=>{
   $("coStatus").textContent=`Researching ${name}…`;
   try{ const r=await sample.json(coPrompt(),{signal:coCtl.signal,cache:false,modelTier:"complex"}); coDraft=cleanDraft(r);
     if(!coDraft.known){ $("coStatus").textContent="Not enough to go on."; renderCoReview(); }
-    else { coApply(allFilled().length?"empty":"all"); $("coStatus").textContent="Done. The fields below and every step are filled in; refine anything you like."; }
+    else { coApply(allFilled().length?"empty":"all"); $("coStatus").textContent="Done. The fields below and every step are filled in; refine anything you like.";
+      if(S.provider?.name?.trim()){ clearInterval(tick); $("coStatus").textContent=`Scanning what ${S.provider.name.trim()} offers and fitting Solutions…`; await fitSolutions({status:$("coStatus"),signal:coCtl.signal}); } }
     $("coReview").scrollIntoView({block:"start",behavior:"smooth"}); }
   catch(e){ const m=failMsg(e); $("coStatus").textContent=m===null?"Stopped.":(m||"The assistant is off for this view."); }
   finally{ clearInterval(tick); $("coGo").disabled=false; $("coStop").hidden=true; }
@@ -1640,6 +1648,60 @@ function coApply(how){ const d=coDraft;
 
 
 
+
+/* ===================== Solutions from a provider (Dave, Nov 16: "I want B… enter the solution company's name and have you scan what they say is available and then have you determine the solutions (capabilities). Solutions will need to include a short description (up to two lines).") ===================== */
+let provCtl=null, provBusy=false, provMsg="";
+function provPrompt(){ const P=S.provider, mat=($("provPaste")?.value||"").trim().slice(0,30000);
+  const inits=S.items.initiatives.map((it,i)=>it.t.trim()?{id:`initiatives.${i}`,choice:it.t,supports:it.d,improves:(it.serves||[]).filter(filled).map(nameOf)}:null).filter(Boolean);
+  const procs=S.items.processes.filter(it=>it.t.trim()).map(it=>({process:it.t,supports:it.d,improveFor:gainsOf(it)}));
+  return `You are a Knowledge-Advantage (KA) engagement analyst. A salesperson or advisor sells the solutions of a SOLUTION PROVIDER and is preparing KA's Alignment of Priorities for a CLIENT. Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.
+SOLUTION PROVIDER: ${P.name}${P.site?` (${P.site})`:""}
+CLIENT: ${S.company?.name||"(not named)"}${S.company?.summary?`. ${S.company.summary}`:""}${S.situation?`\nSituation: ${S.situation}`:""}
+The client's initiatives: ${JSON.stringify(inits)}
+Processes they improve: ${JSON.stringify(procs)}
+Step 1 · Scan what the provider says it offers: from your knowledge of the provider's own public descriptions (its website, product pages, filings, announcements) and the provider material below, list up to 8 capabilities it offers, in its own terms. Only what the provider publicly says it offers; never invent products. If you don't know this provider and the material doesn't describe it, set "known" false and leave the lists empty.
+Step 2 · Determine the Solutions: choose up to 3 of those capabilities that best ENHANCE the client's initiatives, most important first. Each solution: "name" a short capability name of at most 24 characters (abbreviate logically), "desc" what it does for this client in at most two short lines, at most 48 characters (abbreviate logically: & for and, w/, mgmt, ops), "serves" the initiative ids it enhances (from the list above), "why" one line on why it fits.
+Reply with only JSON: {"known":boolean,"summary":string (one sentence on what the provider does),"asOf":string (how current your knowledge is),"offerings":[{"name":string,"desc":string}],"solutions":[{"name":string,"desc":string,"serves":[string],"why":string}]}
+${mat?`\nPROVIDER MATERIAL PROVIDED BY THE USER:\n${mat}`:""}`; }
+function fitName(t){ let x=String(t||"").replace(/\s+/g," ").trim(); for(const [re,to] of ABBR){ if(x.length<=24) break; x=abbrOne(x,re,to); } while(x.length>24&&x.includes(" ")) x=x.replace(/\s+\S+$/,""); return x.slice(0,28); }
+async function fitSolutions({status,signal,all}={}){ const P=S.provider||(S.provider=blankProv()), say=t=>{ provMsg=t; if(status) status.textContent=t; const ps=$("provStatus"); if(ps&&ps!==status) ps.textContent=t; };
+  if(!P.name.trim()){ say("Name the solution provider first."); return false; }
+  if(!sample){ say("This needs the page opened in Claude, where the assistant can run."); return false; }
+  if(!S.items.initiatives.some(it=>it.t.trim())) say(`Scanning ${P.name}… (no initiatives chosen yet, so the Solutions will be tied in once you choose them)`);
+  provBusy=true; renderProvCard();
+  try{ const r=await sample.json(provPrompt(),{signal,cache:false,modelTier:"complex"});
+    if(!r||r.known===false){ say(`Not enough is known about ${P.name}. Paste a page from their website about what they offer, then try again.`); return false; }
+    P.summary=String(r.summary||""); P.asOf=String(r.asOf||""); P.offerings=(Array.isArray(r.offerings)?r.offerings:[]).slice(0,8).map(o=>({name:fitName(o?.name),desc:fitText("solutions",String(o?.desc||""))})).filter(o=>o.name);
+    const snap=JSON.stringify(S), slots=S.items.solutions, okIds=new Set(S.items.initiatives.map((_,i)=>`initiatives.${i}`).filter(filled)); let placed=0;
+    if(all) slots.forEach(it=>{ if(it.src!=="Your words") Object.assign(it,{t:"",d:"",serves:[],src:""}); });
+    (Array.isArray(r.solutions)?r.solutions:[]).slice(0,3).forEach(o=>{ const name=fitName(o?.name); if(!name) return; if(slots.some(x=>x.t.trim().toLowerCase()===name.toLowerCase())) return;
+      const at=slots.findIndex(x=>!x.t.trim()); if(at<0) return;
+      Object.assign(slots[at],{t:name,d:fitText("solutions",String(o.desc||"")),serves:(Array.isArray(o.serves)?o.serves:[]).map(String).filter(x=>okIds.has(x)),src:`Provider: ${P.name}`,why:String(o.why||"").slice(0,140)}); placed++; });
+    save(); renderAll(); if(curView==="build") renderBuild();
+    say(placed?`✓ ${placed} Solution${placed>1?"s":""} from ${P.name} filled in and tied to the initiatives they enhance. Write over anything you like.`:`Scanned ${P.name}. The Solutions boxes are full, so nothing was replaced; use a capability below to swap one in.`);
+    provUndo=placed?snap:null; renderProvCard(); return true; }
+  catch(e){ const m=failMsg(e); say(m===null?"Stopped.":(m||"The assistant is off for this view.")); return false; }
+  finally{ provBusy=false; renderProvCard(); } }
+let provUndo=null;
+function renderProvCard(){ const box=$("provCard"); if(!box) return; const P=S.provider||blankProv(), sl=S.items.solutions;
+  box.innerHTML=`<div class="coHead"><span class="coBadge">New</span><div><h3 style="margin:0">Solutions from a provider</h3><p class="note" style="margin:2px 0 0">Name whose solutions you offer. Claude scans what they say they offer, then picks the capabilities that enhance this client's initiatives. Everything stays yours to write over.</p></div></div>
+    <div class="coGrid"><div class="field"><label for="provName">Solution provider</label><input id="provName" class="tin" data-prov="name" value="${esc(P.name)}" placeholder="e.g. your company, or the vendor you represent" autocomplete="off"></div>
+      <div class="field"><label for="provSite">Website <span class="opt">optional</span></label><input id="provSite" class="tin" data-prov="site" value="${esc(P.site)}" placeholder="e.g. isap.com" autocomplete="off"></div></div>
+    <div class="field"><label for="provPaste">What they offer <span class="opt">optional · paste a product or services page to make it current</span></label><textarea id="provPaste" rows="2" placeholder="Paste from the provider's website, a capabilities sheet or a proposal."></textarea></div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="provGo" ${provBusy?"disabled":""}>Scan their offerings and pick Solutions</button>${provBusy?`<button class="btn" id="provStop">Stop</button>`:""}${provUndo&&!provBusy?`<button class="btn" id="provUndo">Undo</button>`:""}</div>
+    <p class="note" id="provStatus" aria-live="polite">${provBusy?"Scanning…":provMsg?esc(provMsg):`Uses Claude's built-in knowledge of the provider, plus anything you paste. It doesn't search the web.`}</p>
+    ${P.offerings.length?`<div class="provlist"><h4>What ${esc(P.name)} says it offers${P.asOf?` <span class="note">· ${esc(P.asOf)}</span>`:""}</h4>${P.summary?`<p class="note" style="margin:0 0 6px">${esc(P.summary)}</p>`:""}
+      ${P.offerings.map((o,i)=>{ const used=sl.some(x=>x.t.trim().toLowerCase()===o.name.toLowerCase()); return `<div class="provitem"><div><b>${esc(o.name)}</b><span>${esc(o.desc)}</span></div><button class="btn small" data-provuse="${i}" ${used?"disabled":""}>${used?"✓ In Solutions":"Use"}</button></div>`; }).join("")}
+      <p class="note" style="margin:6px 0 0">From the provider's public descriptions: confirm what's current with them.</p></div>`:""}`;
+  const keep=$("provStatusKeep"); }
+document.addEventListener("input",e=>{ const k=e.target.dataset?.prov; if(!k) return; S.provider=S.provider||blankProv(); S.provider[k]=e.target.value; save(); if(e.target.id!=="coProv"&&$("coProv")) $("coProv").value=S.provider.name; });
+document.addEventListener("click",async e=>{
+  if(e.target.closest("#provGo")){ provCtl=new AbortController(); await fitSolutions({status:$("provStatus"),signal:provCtl.signal}); return; }
+  if(e.target.closest("#provStop")){ provCtl?.abort(); return; }
+  if(e.target.closest("#provUndo")){ if(provUndo){ S=norm(JSON.parse(provUndo)); provUndo=null; save(); renderAll(); renderBuild(); toast("Solutions put back"); } return; }
+  const u=e.target.closest("[data-provuse]"); if(u){ const o=S.provider.offerings[+u.dataset.provuse], slots=S.items.solutions; let at=slots.findIndex(x=>!x.t.trim());
+    if(at<0){ toast("Solutions is full. Take one off first."); return; }
+    Object.assign(slots[at],{t:o.name,d:o.desc,serves:[],src:`Provider: ${S.provider.name}`}); save(); renderAll(); renderBuild(); toast(`${o.name} added to Solutions. Tie it to the initiatives it enhances in Connect.`); } });
 /* ===================== 4 · Saved aids (library) ===================== */
 function renderAidRow(){ const a=LIBD.aids[LIBD.cur]; if(!$("aidName")) return; $("aidName").textContent=a.name||"Untitled aid"; const n=Object.keys(LIBD.aids).length; $("aidMeta").textContent=n>1?`${n} saved in this browser`:"Saved in this browser"; }
 function flushSave(){ clearTimeout(saveT); persist(); }
@@ -1961,7 +2023,7 @@ async function buildDeck(){
     ids.forEach(id=>{ const it=item(id), sv=(it.serves||[]).filter(filled).map(nameOf), by=servedBy(id).filter(filled).map(nameOf), g=gainsOf(it);
       const sup=it.d.trim()?wrap(it.d.trim(),PW-2*M-70,3.9):[], meta=[sv.length&&`${VERB_OF[ix]}S: ${sv.join(", ")}`,by.length&&`Served by: ${by.join(", ")}`,g.length&&`Improve for: ${g.join(", ")}`].filter(Boolean).join("   ·   ");
       const h=Math.max(16,8+sup.length*5.4+(meta?6:0)); if(y+h>PH-20) return;
-      doc.setFillColor("#f5f6f9"); doc.roundedRect(M,y,PW-2*M,h,2,2,"F"); doc.setFillColor([PDFC.org[2],PDFC.org[2],PDFC.op[2],PDFC.op[2],PDFC.inf[2]][ix]); doc.rect(M,y,2.2,h,"F");
+      doc.setFillColor("#f5f6f9"); doc.roundedRect(M,y,PW-2*M,h,2,2,"F"); doc.setFillColor([PDFC.org[2],PDFC.org[2],PDFC.op[2],PDFC.inf[2],PDFC.inf[2]][ix]); doc.rect(M,y,2.2,h,"F");
       font("bold",4.6,PDFC.ink); doc.text(clean(it.t),M+7,y+8.5); if(sup.length){ font("normal",3.9,PDFC.ink); doc.text(sup,M+66,y+8.5,{lineHeightFactor:1.35}); }
       if(meta){ font("normal",3,PDFC.muted); doc.text(clean(meta),M+66,y+h-4.5,{maxWidth:PW-2*M-70}); }
       y+=h+5; }); });
@@ -1971,7 +2033,7 @@ async function buildDeck(){
   const ch=chainsHeard(); frame("What we heard","How it comes together");
   let y=54; const n=5, gap=11, bw=(PW-2*M-gap*(n-1))/n;
   (ch.length?ch:[colFilled(0)]).forEach(c=>{ c.forEach((id,j)=>{ const ix=ci(id.split(".")[0]), x=M+j*(bw+gap), it=item(id);
-      doc.setFillColor([PDFC.org[1],PDFC.org[1],PDFC.op[1],PDFC.op[1],PDFC.inf[1]][ix]); doc.setDrawColor(PDFC.rule); doc.roundedRect(x,y,bw,30,2,2,"FD");
+      doc.setFillColor([PDFC.org[1],PDFC.org[1],PDFC.op[1],PDFC.inf[1],PDFC.inf[1]][ix]); doc.setDrawColor(PDFC.rule); doc.roundedRect(x,y,bw,30,2,2,"FD");
       font("bold",2.6,PDFC.plum); doc.text(COLS[ix].one.toUpperCase(),x+3.5,y+6); font("bold",3.9,PDFC.ink); doc.text(wrap(it.t,bw-7,3.9).slice(0,2),x+3.5,y+12.5,{lineHeightFactor:1.2});
       if(it.d.trim()){ font("normal",3,PDFC.muted); doc.text(wrap(it.d.trim(),bw-7,3).slice(0,2),x+3.5,y+22,{lineHeightFactor:1.25}); }
       if(j){ const ax=x-gap+1.2, ay=y+15; font("bold",2.1,PDFC.plum); doc.text(VERB_OF[ix],ax+(gap-1.2)/2,ay-2.2,{align:"center"}); doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.line(ax+1.5,ay,ax+gap-2.4,ay); doc.setFillColor(PDFC.plum); doc.triangle(ax,ay,ax+2,ay-1.2,ax+2,ay+1.2,"F"); } });
@@ -2001,8 +2063,7 @@ async function buildPdf(doc0){
     color("#4d4d52"); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*PT); doc.text(label,18.6,y+h/2+doc.getTextWidth(label)/2,{angle:90}); });
   // masthead
   color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Gain Business Clarity",10.4,14.2);
-  color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",21.8,28.4);
-  draw(PDFC.ink); doc.setLineWidth(.4); doc.rect(10.4,18.3,9.6,9.6); fill(PDFC.ink); [[11.7,19.6],[16.1,19.6],[11.7,24]].forEach(([x,y])=>doc.rect(x,y,2.6,2.6,"F")); fill(PDFC.blue); doc.circle(17.3,25.2,1.6,"F");
+  color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",10.4,28.4);
   doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
   color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Priorities from Organization to Operational to Infrastructure"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
   // external factors and column headers
@@ -2043,7 +2104,7 @@ async function downloadPdf(){
   if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view"); } }
   else { try{ doc.save(filename); toast("PDF downloaded"); }catch(e){ toast("Saving isn't available in this view"); } }
 }
-$("pdfBtn").onclick=downloadPdf; $("pdfBtn2").onclick=downloadPdf; $("deckBtn").onclick=()=>downloadDeck(); $("deckBtn2").onclick=()=>downloadDeck();
+$("copyBtn").onclick=copySummary; $("pdfBtn").onclick=downloadPdf; $("pdfBtn2").onclick=downloadPdf; $("deckBtn").onclick=()=>downloadDeck(); $("deckBtn2").onclick=()=>downloadDeck();
 
 /* research a company from the assistant panel */
 $("asCoGo").onclick=()=>{ const v=$("asCo").value.trim(); if(!v){ $("asCoStatus").textContent="Type a company name first."; $("asCo").focus(); return; }
@@ -2148,7 +2209,7 @@ function setFocusLine(){ $("focusline").innerHTML=sel?`Working on <b>${esc(COLS[
 function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled),...(c.k==="processes"&&gainsOf(it).length?{improveFor:gainsOf(it)}:{})})));
   return {external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),keyRatios:finSnapshot(),columnNotes:S.notes,items,gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)}; }
 const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. The Processes are the fifteen high-level operational processes from KA's book Dimensions of Success; an initiative improves a process's efficiency (free up resources), cycle-time (faster thru-put) or effectiveness (better results). KA reads Financials with its key ratios in three groups: solvency (can it meet what it owes), asset effectiveness (how hard its assets work), profitability (how much it keeps); weak solvency points to Cash Flow and Cash Management, weak asset effectiveness to Asset Usage, weak profitability to Profit, Costs and Price. Coach the way Kevin Cooper does in the book: "My goal is not to be right, but to get it right, please correct me where I am off track." KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
-const ctx=()=>`${BASE}\n\n${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
+const ctx=()=>`${BASE}\n\n${S.provider?.name?`The user sells the solutions of ${S.provider.name}${S.provider.offerings?.length?`, which offers: ${S.provider.offerings.map(o=>`${o.name} (${o.desc})`).join("; ")}`:""}. Solutions should come from what this provider offers.\n\n`:""}${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
 function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!sel)); $("stopBtn").hidden=!on; }
 function off(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); if($("ivStart")) $("ivStart").disabled=true; if($("asCoGo")) $("asCoGo").disabled=true; $("assistNote").textContent=msg; }
 function failMsg(e){ if(["not_granted","sampling_disabled","capability_disabled","not_declared"].includes(e.code)){ off("The assistant is off for this view. The aid still works by hand."); return ""; }
