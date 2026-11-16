@@ -634,7 +634,7 @@ body.presenting .slot.pcur{animation:pcardin .7s cubic-bezier(.2,.8,.2,1) both;a
 @keyframes pcardin{from{opacity:0;transform:translateY(calc(1.6*var(--mm)))}}
 body.presenting #arrowLine{stroke-width:1.15;opacity:.85}body.presenting #arrowHead{opacity:.85}
 body.presenting #links path{stroke-width:.5px}
-body.presenting .pcap{container-type:normal;left:calc(27 * 100cqw / 279.4);top:calc(var(--capy,122) * 100cqw / 279.4);bottom:auto;width:calc(68 * 100cqw / 279.4);transform:translateY(.8cqw);background:#fff;color:#1f2430;border:0;border-left:.3cqw solid var(--plum);border-radius:.5cqw;box-shadow:0 .4cqw 1.6cqw rgb(30 45 80 /.10);backdrop-filter:none;padding:1cqw 1.3cqw;gap:.4cqw}
+body.presenting .pcap{container-type:normal;left:calc(10.4 * 100cqw / 279.4);top:calc(var(--capy,152) * 100cqw / 279.4);bottom:auto;width:calc(84 * 100cqw / 279.4);transform:translateY(.8cqw);background:#fff;color:#1f2430;border:0;border-left:.3cqw solid var(--plum);border-radius:.5cqw;box-shadow:0 .4cqw 1.6cqw rgb(30 45 80 /.10);backdrop-filter:none;padding:1cqw 1.3cqw;gap:.4cqw}
 body.presenting .pcap.in{transform:none}
 body.presenting .pc-kick{font-size:.95cqw;color:var(--plum)}
 body.presenting .pc-title{font-size:1.6cqw;font-weight:600;color:var(--title)}
@@ -1887,8 +1887,8 @@ function presLayout(){ const cv=$("cv"), mm=cv.clientWidth/279.4; if(!mm) return
     const h=Math.max(...els.map(el=>el.getBoundingClientRect().height/(el.matches(".sel")?1.0:1)))/mm+.4, gap=c.k==="goals"?4:2.8; let y=Math.min(c.ys[0],198-(els.length*h+(els.length-1)*gap)); const hd=cv.querySelector(`.colhd[data-col="${COLS.indexOf(c)}"]`); if(hd) hd.style.setProperty("--y",y-(c.ys[0]-c.hd[1]));
     els.forEach((el,j)=>{ el.style.height=""; el.style.setProperty("--y",y); el.style.setProperty("--h",h); PRES_Y[ids[j]]=y; y+=h+gap; });
     if(c.k==="goals") goalsEnd=y; bottom=Math.max(bottom,y-gap+5); });
-  const bi=$("bandInf"), si=$("stripInf"), li=$("labInf"), hh=bottom-113; if(bi){ bi.setAttribute("height",hh); si.setAttribute("height",hh); li.setAttribute("transform",`translate(17.95 ${113+hh/2}) rotate(-90)`); }
-  $("pcap").style.setProperty("--capy",Math.max(goalsEnd+4,118)); }
+  /* the bands keep their own heights (Dave, Nov 16: "the green should stay the same width as operational and organizational"); the caption sits in the white below them */
+  $("pcap").style.setProperty("--capy",152); }
 function presUnlayout(){ PRES_Y={}; const bi=$("bandInf"); if(bi){ bi.setAttribute("height",35); $("stripInf").setAttribute("height",35); $("labInf").setAttribute("transform","translate(17.95 130.5) rotate(-90)"); } }
 addEventListener("resize",()=>{ if(presenting) requestAnimationFrame(()=>{ presLayout(); drawLinks(); }); });
 /* ---- the camera: glide to a column (and the one it serves) ---- */
