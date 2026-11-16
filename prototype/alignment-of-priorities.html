@@ -138,6 +138,8 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .intro .rise{opacity:0;transform:translateY(calc(2*var(--mm)));animation:rise .5s ease-out forwards;animation-delay:var(--d,0s)}
 @keyframes rise{to{opacity:1;transform:none}}
 #arrowLine{stroke-dasharray:240;stroke-dashoffset:0}
+/* the diagonal in white (Dave, Nov 16: "the pink arrow is jarring. Use white."), with a soft edge so it reads on white paper */
+#arrowLine,#arrowHead,.minisvg .arrw{filter:drop-shadow(0 0 .45px rgb(40 50 80 /.38))}
 .intro #arrowLine{animation:draw 1.3s ease-out both}
 .intro #arrowHead{animation:fadein .3s 1.2s both}
 @keyframes draw{from{stroke-dashoffset:240}}
@@ -637,7 +639,7 @@ body.presenting .pc-meta em{color:var(--plum)}
 .ps-title .ps-kick{color:var(--plum)}.ps-title .ps-ka{color:var(--blue)}
 .ps-title h1{color:var(--title)}.ps-who{color:#1f2430}.ps-date{color:#7a8296}
 .ps-q{color:#3b4254;border-left-color:var(--plum)}
-.ps-diag line{stroke:var(--plum);opacity:.85;stroke-width:.4}
+.ps-diag line{stroke:#fff;opacity:1;stroke-width:.55;filter:drop-shadow(0 0 .25px rgb(40 50 80 /.4))}
 .ps-out,.ps-heard{background:#fff}
 .ps-rg{background:#f6f7fa}
 body.presenting .presbar{background:#fff;color:#1f2430;border:1px solid #e3e6ee;box-shadow:0 8px 28px rgb(30 45 80 /.14)}
@@ -770,12 +772,12 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
           <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/>
           <text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
           <text x="225" y="21.2" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="3.6">Knowledge-Advantage, Inc.</text>
-          <text x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Priorities from Organization to Operational to Infrastructure</text>
+          <text x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Organizational, Operational, and Infrastructure Priorities</text>
           <rect x="10.9" y="204" width="4.3" height="5.5" fill="none" stroke="var(--ink)" stroke-width=".3"/>
           <text x="13.05" y="208" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="2.4">ka</text>
           <text x="16.2" y="207.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2015</text>
-          <line id="arrowLine" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="var(--plum)" stroke-width="1.9" stroke-linecap="round"/>
-          <path id="arrowHead" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="var(--plum)"/>
+          <line id="arrowLine" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
+          <path id="arrowHead" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="#fff"/>
         </svg>
         <svg class="links" id="links" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true" style="pointer-events:none;z-index:2"></svg>
         <div id="slots"></div>
@@ -1318,7 +1320,7 @@ const OBTAINS=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
 /* the sheet in miniature */
 function miniSVG({active=-1,pair=null,labels=true}={}){
   let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="212" height="31" fill="var(--org-a)"/><rect x="10.4" y="83" width="212" height="30" fill="var(--op-a)"/><rect x="10.4" y="113" width="212" height="35" fill="var(--inf-a)"/>`;
-  h+=`<line x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="var(--plum)" stroke-width="1.7"/><path d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="var(--plum)"/>`;
+  h+=`<line class="arrw" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="#fff" stroke-width="1.7"/><path class="arrw" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="#fff"/>`;
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
     (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"),[x2,y2]=linkPt(to,"r"),mx=(x1+x2)/2, on=pair&&pair.includes(ix)&&pair.includes(ix-1);
       h+=`<path d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" fill="none" stroke="${lineColor(to)}" stroke-width="${on?1.1:.7}" opacity="${pair&&!on?.15:.9}"/>`; }); }); });
@@ -2001,7 +2003,7 @@ async function buildDeck(){
   const wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(clean(t),w); };
   // 1 · title
   doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor("#1d2d52"); doc.circle(PW*.78,PH*.2,120,"F"); doc.setFillColor("#14203b"); doc.rect(0,PH*.86,PW,PH*.14,"F");
-  doc.setDrawColor(PDFC.plum); doc.setLineWidth(1.6); doc.setLineCap("round"); doc.line(-5,40,PW+5,128); doc.setLineCap("butt");
+  doc.setDrawColor("#ffffff"); doc.setLineWidth(1.6); doc.setLineCap("round"); doc.line(-5,40,PW+5,128); doc.setLineCap("butt");
   font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("ALIGNMENT OF PRIORITIES · GAIN BUSINESS CLARITY",M,28); doc.setCharSpace(0);
   font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96);
   if(who){ font("normal",5,"#c8d2ea"); doc.text(clean(who),M,112); }
@@ -2065,14 +2067,14 @@ async function buildPdf(doc0){
   color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Gain Business Clarity",10.4,14.2);
   color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",10.4,28.4);
   doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
-  color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Priorities from Organization to Operational to Infrastructure"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
+  color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Organizational, Operational, and Infrastructure Priorities"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
   // external factors and column headers
   const tri=(x,y)=>{ draw(PDFC.muted); doc.setLineWidth(.25); doc.triangle(x,y-2,x,y,x+1.7,y-1,"S"); };
   doc.setFont("helvetica","bold"); doc.setFontSize(3.4*PT); color(PDFC.blue);
   EXT.forEach(([k,l,y])=>{ tri(17.4,y+2.9); doc.text(l.toUpperCase(),20.2,y+2.9); });
   COLS.forEach(c=>{ tri(c.hd[0],c.hd[1]+3.2); doc.setFontSize(3.7*PT); doc.text(c.label.toUpperCase(),c.hd[0]+2.8,c.hd[1]+3.2); });
   // the plum diagonal
-  draw(PDFC.plum); doc.setLineWidth(1.9); doc.setLineCap("round"); doc.line(56.6,41.6,268.6,118); fill(PDFC.plum); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
+  doc.setLineCap("round"); draw("#d3d7e0"); doc.setLineWidth(2.5); doc.line(56.6,41.6,268.6,118); fill("#d3d7e0"); doc.triangle(274.3,120,264,122.4,267.6,112.4,"F"); draw("#ffffff"); doc.setLineWidth(1.9); doc.line(56.6,41.6,268.6,118); fill("#ffffff"); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
   // connections
   doc.setLineCap("butt");
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
