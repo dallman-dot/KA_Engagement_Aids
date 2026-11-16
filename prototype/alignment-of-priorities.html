@@ -317,7 +317,10 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .rgrp{border-radius:10px;padding:10px;background:var(--paper);border:1px solid var(--line);min-width:0}
 .rgrp>b{display:flex;justify-content:space-between;gap:6px;align-items:center}.rgrp>small{display:block;color:var(--muted);margin-bottom:6px}
 .rrow{border-top:1px dashed var(--line);padding:7px 0 4px}.rrow label{font-weight:600;font-size:13px;display:block}.rrow .fx{font-size:11.5px;color:var(--muted);display:block;margin-bottom:4px}
-.rrow .rin{display:flex;gap:4px;align-items:center;flex-wrap:nowrap}.rrow input{width:4.4em;min-width:0;min-height:34px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:var(--bg);color:var(--ink)}
+.rvals{display:flex;gap:6px;align-items:flex-end;flex-wrap:wrap;margin-bottom:5px}.rrow label.rv{display:grid;gap:1px;font-weight:400}.rv small{font-size:11px;color:var(--muted);font-weight:600}
+.rtrend{font-size:12px;font-weight:700;border-radius:999px;padding:4px 8px;white-space:nowrap;align-self:center}.rtrend.better{background:#dfeee3;color:#22573a}.rtrend.worse{background:#f6dcdc;color:#7a2424}.rtrend.steady{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.rfigs{margin-top:10px;font-size:13px}.rfigs summary{cursor:pointer;font-weight:600;color:var(--blue)}.rfigs table{border-collapse:collapse;margin-top:6px;width:100%;max-width:520px}.rfigs td,.rfigs th{padding:3px 8px;border-bottom:1px solid var(--line);text-align:right}.rfigs td:first-child,.rfigs th:first-child{text-align:left}
+.rrow .rin{display:flex;gap:4px;align-items:center;flex-wrap:nowrap}.rrow input{width:5.2em;min-width:0;min-height:34px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:var(--bg);color:var(--ink)}
 .rrow .note2{width:100%;margin-top:4px;font-size:12.5px;color:var(--muted)}
 .rdpill{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 7px;font:inherit;font-size:12px;min-height:32px;cursor:pointer;white-space:nowrap}
 .rdpill[aria-pressed="true"].strong,.rbadge.strong{background:#dfeee3;border-color:#7fae8c;color:#244d30}
@@ -414,6 +417,118 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .ascorow{display:flex;gap:6px}
 .ascorow .tin{flex:1;min-width:0}
 /* present */
+/* theatre: a stage, the sheet as a floating page, only what's chosen */
+body.presenting #viewAid .stagewrap{background:radial-gradient(120% 95% at 50% 38%,#1f2e52 0%,#111a31 62%,#080c17 100%);padding:16px 16px 78px}
+body.presenting #viewAid .stage{border-radius:8px;overflow:hidden;box-shadow:0 40px 90px rgb(0 0 0 /.55),0 0 0 1px rgb(255 255 255 /.06);width:min(calc(100vw - 32px),calc((100vh - 96px) * 279.4 / 215.9))!important}
+body.presenting .cv{transform-origin:0 0;transition:transform 1.15s cubic-bezier(.22,.8,.18,1)}
+body.presenting .slot.empty,body.presenting .colhd.pnone,body.presenting .aligned,body.presenting .callout,body.presenting .exthd .dot,body.presenting .colhd .dot{visibility:hidden!important}
+body.presenting .slot .car,body.presenting .slot.over::after,body.presenting .slot.nameover::after,body.presenting .cv.comparing .slot::before{display:none!important}
+body.presenting .slot .desc:placeholder-shown{visibility:hidden}
+body.presenting .slot{transition:opacity .6s ease,transform .5s ease,filter .5s ease}
+body.presenting .slot.ghost,body.presenting .colhd.ghost{opacity:.04!important;pointer-events:none}
+body.presenting .cv.focusing .slot:not(.lit):not(.ghost){opacity:.16}
+body.presenting .slot.sel{transform:scale(1.045);z-index:6;filter:drop-shadow(0 calc(1.2*var(--mm)) calc(2.4*var(--mm)) rgb(20 30 60 /.28))}
+body.presenting .slot,body.presenting .colhd{cursor:pointer}
+body.presenting #links path{stroke-linecap:round;transition:stroke-opacity .5s}
+body.presenting #links path.on{filter:drop-shadow(0 0 .9px currentColor)}
+body.presenting #links path.pnew{stroke-dasharray:1;stroke-dashoffset:1;animation:pdraw 1.1s .45s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes pdraw{to{stroke-dashoffset:0}}
+body.presenting.pidle{cursor:none}
+.presbar{transition:opacity .45s ease,transform .45s ease}
+body.presenting .presbar{flex-wrap:nowrap;gap:4px;padding:5px 6px}body.presenting .pbtxt{max-width:26vw;min-width:120px;font-size:13.5px}body.presenting .pb.wide{padding:0 11px;font-size:13.5px;white-space:nowrap}
+@media (orientation:portrait) and (max-width:700px){body.presenting #viewAid .stagewrap::before{content:"Turn your phone sideways for a larger view";position:absolute;top:22px;left:0;right:0;text-align:center;color:#9aa4bd;font:500 13px var(--font)}}
+@media (max-width:820px){body.presenting #pDeck{display:none}}
+body.presenting.pidle .presbar{opacity:0;transform:translate(-50%,14px)}
+body.presenting.laser,body.presenting.laser *{cursor:none!important}
+.pprog{position:fixed;left:0;right:0;top:0;height:3px;z-index:32;background:rgb(255 255 255 /.08)}
+.pprog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c2416f,#e88aac);transition:width .6s ease}
+.pblank{position:fixed;inset:0;z-index:58;background:#000;cursor:none}
+.laser{position:fixed;left:0;top:0;z-index:59;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#ff2d4b;box-shadow:0 0 0 3px rgb(255 45 75 /.25),0 0 18px 6px rgb(255 45 75 /.55);pointer-events:none}
+.pkeys,.pvhelp{position:fixed;left:50%;bottom:86px;transform:translateX(-50%);z-index:40;width:min(420px,calc(100vw - 32px));background:#1b2338;color:#e9edf7;border-radius:14px;padding:16px 18px;box-shadow:0 20px 50px rgb(0 0 0 /.45);display:grid;gap:10px;font-size:14px}
+.pkeys h4,.pvhelp h4{margin:0;font-size:15px}.pvhelp p{margin:0;line-height:1.5}
+.pkeys dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}.pkeys dt{font-weight:700;color:#fff}.pkeys dd{margin:0;color:#b9c2d8}
+.pkeys .note{color:#9aa4bd}
+@media (max-width:700px){.pwide-only{display:none}}
+/* story slides: drawn over the sheet, same size */
+.pslide{position:absolute;inset:0;z-index:25;opacity:0;transition:opacity .5s ease;container-type:inline-size;cursor:pointer}
+.pslide.in{opacity:1}
+.ps{position:absolute;inset:0;padding:6.2cqw 7cqw 5.5cqw;display:flex;flex-direction:column;font-family:var(--font);overflow:hidden}
+.ps-top{display:flex;justify-content:space-between;align-items:center;gap:2cqw}
+.ps-kick{font-size:1.15cqw;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--plum)}
+.ps-ka{display:flex;align-items:center;gap:.9cqw;font-size:1.15cqw;color:var(--blue)}
+.ps-ka b{display:grid;place-items:center;width:3cqw;height:3.6cqw;border:.14cqw solid currentColor;font-size:1.7cqw;font-weight:600}
+.ps h2{font-size:3.6cqw;font-weight:300;color:var(--title);margin:2.2cqw 0 2.6cqw;line-height:1.12;letter-spacing:-.01em}
+.ps-lab{display:block;font-size:1cqw;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--plum);margin-bottom:.8cqw}
+.ps-muted{color:var(--muted);font-size:1.2cqw;margin:0}
+.pslide.in .ps>*{animation:psrise .8s cubic-bezier(.2,.8,.2,1) both}
+.pslide.in .ps>*:nth-child(2){animation-delay:.08s}.pslide.in .ps>*:nth-child(3){animation-delay:.18s}.pslide.in .ps>*:nth-child(4){animation-delay:.3s}.pslide.in .ps>*:nth-child(5){animation-delay:.42s}
+@keyframes psrise{from{opacity:0;transform:translateY(1.4cqw)}}
+.ps-title{background:radial-gradient(90% 120% at 82% 10%,#24396a 0%,#14203b 58%,#0d1529 100%);color:#fff}
+.ps-title .ps-kick{color:#e3a9c0}.ps-title .ps-ka{color:#fff}
+.ps-diag{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ps-diag line{stroke:#b5386a;stroke-width:.7;stroke-linecap:round;opacity:.85;stroke-dasharray:1;stroke-dashoffset:1;animation:psdiag 1.6s .25s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes psdiag{to{stroke-dashoffset:0}}
+.ps-mid{margin-top:auto;position:relative}
+.ps-title h1{font-size:6.4cqw;font-weight:300;line-height:1.02;margin:0;letter-spacing:-.02em;max-width:80%}
+.ps-who{font-size:2cqw;margin:1.6cqw 0 0;color:#c9d4ee}
+.ps-date{font-size:1.3cqw;margin:.8cqw 0 0;color:#93a1c4;letter-spacing:.06em}
+.ps-q{margin:4cqw 0 0;padding-left:1.6cqw;border-left:.3cqw solid #b5386a;font-size:1.85cqw;font-style:italic;font-weight:300;line-height:1.4;color:#e6eaf4;max-width:72%;position:relative}
+.ps-out,.ps-heard{background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 70%,color-mix(in srgb,var(--paper) 88%,var(--blue)) 100%);color:var(--ink)}
+.ps-out::before,.ps-heard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.55cqw;background:linear-gradient(180deg,var(--org-s),var(--op-s),var(--inf-s))}
+.ps-ext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3cqw}
+.ps-ext p{margin:0;font-size:1.65cqw;line-height:1.45}
+.ps-ratios{margin-top:auto}
+.ps-rgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6cqw}
+.ps-rg{background:color-mix(in srgb,var(--paper) 92%,var(--blue));border-radius:1.1cqw;padding:1.4cqw 1.6cqw}
+.ps-rgh{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:1.55cqw;margin-bottom:.8cqw}
+.ps-rgh .rbadge{font-size:1cqw;font-style:normal;padding:.2cqw .8cqw}
+.ps-rg ul{list-style:none;margin:0;padding:0;display:grid;gap:.55cqw}
+.ps-rg li{display:grid;grid-template-columns:1fr auto auto;gap:.8cqw;align-items:baseline;font-size:1.15cqw;color:var(--muted)}
+.ps-rg li b{color:var(--ink);font-size:1.35cqw}
+.ps-rg li .rtrend{font-style:normal;font-size:.95cqw;padding:.15cqw .6cqw}
+.ps-chains{display:grid;gap:1.8cqw;align-content:start}
+.ps-chain{display:flex;align-items:stretch}
+.ps-node{flex:1 1 0;min-width:0;border-radius:1cqw;padding:1.1cqw 1.2cqw;display:grid;gap:.3cqw;align-content:start;box-shadow:0 .2cqw .8cqw rgb(20 30 60 /.08)}
+.ps-node.c0,.ps-node.c1{background:var(--org-b);border:1px solid var(--org-s)}.ps-node.c2,.ps-node.c3{background:var(--op-b);border:1px solid var(--op-s)}.ps-node.c4{background:var(--inf-b);border:1px solid var(--inf-s)}
+.ps-node small{font-size:.9cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
+.ps-node b{font-size:1.5cqw;line-height:1.2;color:var(--ink)}
+.ps-node em{font-style:normal;font-size:1.05cqw;line-height:1.35;color:var(--muted)}
+.ps-verb{flex:0 0 5.4cqw;display:grid;place-items:center;align-content:center;gap:.1cqw;color:var(--plum)}
+.ps-verb span{font-size:.85cqw;font-weight:800;letter-spacing:.12em}.ps-verb i{font-style:normal;font-size:2cqw;line-height:1}
+.ps-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:3cqw}
+.ps-close{margin:0;font-size:3.2cqw;font-weight:300;color:var(--title)}
+.ps-next{margin:0;font-size:1.35cqw;color:var(--muted);max-width:42%;text-align:right}
+/* the caption: a lower third over the sheet */
+.pcap{position:absolute;left:50%;bottom:2.6%;width:84%;transform:translate(-50%,1.2cqw);opacity:0;z-index:24;container-type:inline-size;background:rgb(14 21 40 /.93);color:#fff;border-radius:1.4cqw;padding:1.6cqw 2.4cqw;display:grid;gap:.5cqw;box-shadow:0 1.6cqw 4cqw rgb(0 0 0 /.3);backdrop-filter:blur(6px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.pcap.in{opacity:1;transform:translate(-50%,0)}
+.pc-kick{font-size:1.25cqw;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#e7a3bd}
+.pc-title{font-size:2.7cqw;font-weight:600;line-height:1.2}
+.pc-sub{font-size:1.8cqw;line-height:1.4;color:#dbe1f0}
+.pc-meta{display:flex;flex-wrap:wrap;gap:.6cqw 2.4cqw;font-size:1.4cqw;color:#b8c2da}
+.pc-meta em{font-style:normal;font-weight:700;letter-spacing:.08em;color:#e7a3bd;margin-right:.4cqw}
+@media (prefers-reduced-motion:reduce){body.presenting .cv,.pslide,.pcap,.pslide.in .ps>*,.ps-diag line,body.presenting #links path.pnew{transition:none!important;animation:none!important;stroke-dashoffset:0!important}}
+/* presenter view */
+body.pvmode{overflow:hidden}
+.presenter{position:fixed;inset:0;z-index:70;background:#0e1424;color:#e8ecf6;font-family:var(--font)}
+.pv{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:14px;padding:16px 20px}
+.pv header{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.pv header>b{font-size:16px;letter-spacing:.04em}
+.pvconn{font-size:13px;color:#f1c27a}.pvconn.ok{color:#86d1a6}
+.pvclock{margin-left:auto;font-size:15px;color:#b9c2d8}.pvtimer{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.pv main{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;min-height:0}
+.pv aside{display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0}
+.pvh{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e7a3bd;margin-bottom:8px}
+.pvnow{display:flex;flex-direction:column;min-height:0}
+.pvcard{flex:1;background:linear-gradient(160deg,#1c2848,#141d36);border:1px solid rgb(255 255 255 /.08);border-radius:16px;padding:28px;display:grid;align-content:center;gap:10px}
+.pvcard small{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#93a1c4}.pvcard b{font-size:30px;font-weight:600;line-height:1.2}.pvcard span{font-size:18px;line-height:1.5;color:#c9d2e6}
+.pvcard.small{padding:16px;flex:none}.pvcard.small b{font-size:18px}.pvcard.small span{font-size:14px}
+.pvprog{height:4px;border-radius:4px;background:rgb(255 255 255 /.08);margin-top:10px;overflow:hidden}.pvprog i{display:block;height:100%;width:0;background:#c2416f;transition:width .4s}
+.pvnotes{background:#151d33;border-radius:14px;padding:16px;overflow:auto;font-size:16px;line-height:1.5;display:grid;gap:8px;align-content:start}
+.pvnotes h4{margin:6px 0 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#93a1c4}.pvnotes ul{margin:0;padding-left:20px}.pvnotes .note{color:#9aa4bd}
+.pv footer{display:flex;gap:12px;justify-content:space-between;align-items:center}
+.pvbtn{border:1px solid rgb(255 255 255 /.18);background:transparent;color:#e8ecf6;border-radius:999px;padding:8px 14px;font:600 14px var(--font);cursor:pointer;min-height:40px}
+.pvbig{border:0;background:#26314f;color:#fff;border-radius:14px;padding:16px 34px;font:700 18px var(--font);cursor:pointer;min-height:58px}.pvbig.primary{background:#b5386a}
+@media (max-width:760px){.pv main{grid-template-columns:minmax(0,1fr)}.pvcard b{font-size:22px}}
+
 body.presenting .shell>*:not(#viewAid){display:none!important}
 body.presenting #viewAid .sheetwrap>*:not(.stagewrap){display:none!important}
 body.presenting .sheetwrap{border:0;padding:0;background:transparent}
@@ -635,7 +750,7 @@ body.presenting .toast{bottom:84px}
         <div class="callout at" style="--x:235;--y:167.4;--w:34;--h:13.4">Open menu for additional options.</div>
         <button class="helpbox at prep-only" id="helpBox" style="--x:40;--y:186;--w:52;--h:24"><span>STILL NEED HELP?<br>Ask the assistant to suggest, draft or challenge.<br><b>ASK</b></span></button>
         <button class="menubtn at" id="menuBtn" style="--x:261.6;--y:202.7;--w:7.4;--h:7.3" aria-label="Menu: more options">≡</button>
-      </div></div></div>
+      </div><div class="pslide" id="pslide" hidden></div><div class="pcap" id="pcap" hidden></div></div></div>
       <div class="walkbar" id="walkbar" hidden>
         <button class="btn small" id="walkPrev" aria-label="Previous">←</button>
         <p id="walkText" aria-live="polite"></p>
@@ -652,12 +767,12 @@ body.presenting .toast{bottom:84px}
             <button class="btn small" id="howBtn" aria-pressed="false">Show me how</button>
             <button class="btn small" id="walkBtn">Show the alignment</button>
             <button class="btn small primary" id="presentBtn">▶ Present</button>
-            <button class="btn small" id="pdfBtn">Download PDF</button>
+            <button class="btn small" id="pdfBtn">Download PDF</button><button class="btn small" id="deckBtn">Leave-behind PDF</button>
             <button class="btn small" id="snapBtn">Snapshots</button>
             <button class="btn small" id="assistBtn">Assistant</button>
             <button class="btn small danger" id="sClearAll">Clear all</button>
           </div>
-          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button></div>
+          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button><button class="btn small" id="deckBtn2">Leave-behind PDF</button></div>
           <div class="lineKey" id="lineKey" aria-label="Connection lines"></div>
           <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves.</p>
         </div>
@@ -697,14 +812,30 @@ body.presenting .toast{bottom:84px}
   <p class="note" id="assistNote">Answers use your own Claude account. The first time, Claude asks you to allow it.</p>
 </aside>
 <div class="toast" id="toast" hidden></div>
+<div class="pprog" id="pprog" hidden><i></i></div>
 <div class="presbar" id="presbar" hidden>
-  <button class="pb" id="pPrev" aria-label="Previous box">◀</button>
-  <span class="pbtxt" id="pText" aria-live="polite">The whole alignment</span>
-  <button class="pb" id="pNext" aria-label="Next box">▶</button>
-  <button class="pb wide" id="pShow">Show the alignment</button>
+  <button class="pb" id="pPrev" aria-label="Previous">◀</button>
+  <span class="pbtxt" id="pText" aria-live="polite"></span>
+  <button class="pb" id="pNext" aria-label="Next">▶</button>
   <button class="pb wide" id="pNotes" aria-pressed="false">Notes</button>
+  <button class="pb wide pwide-only" id="pPresenter">Presenter view</button>
+  <button class="pb wide" id="pDeck">Leave-behind PDF</button>
+  <button class="pb" id="pKeys" aria-label="Keyboard and clicker" aria-pressed="false">?</button>
   <button class="pb wide" id="pExit">Exit</button>
 </div>
+<div class="pblank" id="pblank" hidden></div>
+<div class="laser" id="laser" hidden></div>
+<div class="pkeys" id="pkeysBox" hidden role="dialog" aria-label="Keyboard and clicker">
+  <h4>Keyboard and clicker</h4>
+  <dl><dt>→ · Space · Page Down</dt><dd>Next</dd><dt>← · Page Up</dt><dd>Back</dd><dt>Home · End</dt><dd>First · last</dd><dt>B or .</dt><dd>Blank the screen</dd><dt>L</dt><dd>Laser pointer</dd><dt>N</dt><dd>Notes</dd><dt>P</dt><dd>Presenter view</dd><dt>Esc</dt><dd>Leave</dd></dl>
+  <p class="note" style="margin:0">Most wireless clickers send Page Down and Page Up, so they work as they are. Click a box on the sheet to jump to it.</p>
+</div>
+<div class="pvhelp" id="pvHelp" hidden role="dialog" aria-label="Presenter view">
+  <h4>Presenter view on your laptop</h4>
+  <p>Your browser kept the new window from opening. Open this aid in a second window (the same link), then choose ≡ → <b>Presenter view</b> there. The two windows stay in step.</p>
+  <button class="pb wide" id="pvHelpOk">Got it</button>
+</div>
+<div class="presenter" id="presenterView" hidden></div>
 <aside class="presnotes" id="presNotes" hidden aria-label="Presenter notes"></aside>
 
 <script>
@@ -737,10 +868,28 @@ const RATIO_GROUPS=[
   points:{goals:["Profit"],strategies:["Costs","Price"]}}
 ];
 const READS=[["strong","Strong"],["watch","Watch"],["weak","Weak"]];
+/* which way is better, and how each value is written (Dave, Nov 16: "provide the values and indicate if they have changed positively or negatively over the past 24 months") */
+const RMETA={current:[1,"x"],quick:[1,"x"],debtNw:[-1,"x"],dso:[-1,"d"],invTurn:[1,"t"],assetTurn:[1,"t"],ros:[1,"%"],roa:[1,"%"],roe:[1,"%"]};
+const FIGS=[["revenue","Revenue (sales)"],["netIncome","Net profit"],["totalAssets","Total assets"],["currentAssets","Current assets"],["currentLiabilities","Current liabilities"],["cash","Cash & equivalents"],["receivables","Receivables"],["inventory","Inventory"],["totalLiabilities","Total liabilities"],["netWorth","Net worth (equity)"]];
+const rnum=v=>{ const m=String(v??"").replace(/,/g,"").match(/-?\d+(\.\d+)?/); return m?parseFloat(m[0]):NaN; };
+function rfmt(k,x){ if(!isFinite(x)) return ""; const f=RMETA[k][1]; return f==="d"?`${Math.round(x)} days`:f==="t"?`${x.toFixed(1)}×`:f==="%"?`${x.toFixed(1)}%`:x.toFixed(2); }
+/* the ratios worked out from the statement figures (USD millions) */
+function ratiosFrom(F){ if(!F) return {}; const g=k=>{ const v=F[k]; return typeof v==="number"&&isFinite(v)?v:NaN; }, o={}, put=(k,v)=>{ if(isFinite(v)) o[k]=rfmt(k,v); };
+  const rev=g("revenue"), ni=g("netIncome"), ta=g("totalAssets"), ca=g("currentAssets"), cl=g("currentLiabilities"), cash=g("cash"), rec=g("receivables"), inv=g("inventory"), tl=g("totalLiabilities"), nw=g("netWorth");
+  if(cl>0){ put("current",ca/cl); put("quick",((cash||0)+(rec||0))/cl*(isFinite(cash)||isFinite(rec)?1:NaN)); }
+  if(nw>0){ put("debtNw",tl/nw); put("roe",ni/nw*100); } else if(isFinite(nw)&&nw<=0){ o.debtNw="Neg. equity"; o.roe="n/m"; }
+  if(rev>0){ put("dso",rec/rev*365); put("ros",ni/rev*100); if(inv>0) put("invTurn",rev/inv); else if(inv===0) o.invTurn="None"; }
+  if(ta>0){ put("assetTurn",rev/ta); put("roa",ni/ta*100); }
+  return o; }
+/* 24-month change: improved, worsened or steady, by which way is better for that ratio */
+function trendOf(k){ const o=S.fin?.[k]; if(!o) return null; const a=rnum(o.v), b=rnum(o.v0); if(!isFinite(a)||!isFinite(b)) return null;
+  const big=Math.max(Math.abs(a),Math.abs(b),1e-9); if(Math.abs(a-b)<=.02*big) return {t:"steady",arrow:"→",word:"Steady"};
+  const up=a>b, good=up===(RMETA[k][0]>0); return {t:good?"better":"worse",arrow:up?"▲":"▼",word:good?"Improved":"Worsened"}; }
+function trendChip(k){ const t=trendOf(k), o=S.fin?.[k]||{}; return t?`<span class="rtrend ${t.t}" title="${esc(`${o.v} now vs ${o.v0} ${o.yr0||"24 months earlier"}`)}">${t.arrow} ${t.word}</span>`:""; }
 function groupRead(g){ const rs=g.r.map(([k])=>S.fin?.[k]?.read).filter(Boolean); if(!rs.length) return ""; return rs.includes("weak")?"weak":rs.includes("watch")?"watch":"strong"; }
-function finLine(){ const L=[]; RATIO_GROUPS.forEach(g=>{ const rd=groupRead(g); const vals=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>`${l} ${S.fin[k].v}`); if(!rd&&!vals.length) return;
+function finLine(){ const L=[]; RATIO_GROUPS.forEach(g=>{ const rd=groupRead(g); const vals=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>{ const t=trendOf(k); return `${l} ${S.fin[k].v}${t?(t.t==="steady"?", steady":`, ${t.word.toLowerCase()} from ${S.fin[k].v0}`):""}`; }); if(!rd&&!vals.length) return;
   L.push(`${g.l}${rd?` ${READS.find(x=>x[0]===rd)[1].toLowerCase()}`:""}${vals.length?` (${vals.join(", ")})`:""}`); }); return L.join("; "); }
-function finSnapshot(){ const o={}; RATIO_GROUPS.forEach(g=>{ const rows=g.r.map(([k,l])=>({ratio:l,value:S.fin?.[k]?.v||"",read:S.fin?.[k]?.read||"",note:S.fin?.[k]?.note||""})).filter(x=>x.value||x.read||x.note); if(rows.length) o[g.l]={read:groupRead(g),ratios:rows}; }); return o; }
+function finSnapshot(){ const o={}; RATIO_GROUPS.forEach(g=>{ const rows=g.r.map(([k,l])=>({ratio:l,value:S.fin?.[k]?.v||"",value24MonthsEarlier:S.fin?.[k]?.v0||"",change:trendOf(k)?.word||"",read:S.fin?.[k]?.read||"",note:S.fin?.[k]?.note||""})).filter(x=>x.value||x.read||x.note); if(rows.length) o[g.l]={read:groupRead(g),ratios:rows}; }); return o; }
 const OUTCOMES=["Confirm that organizational alignment is of importance to stakeholders","Initial “draft” of the priorities for stakeholders across the organization","Clarification of business goals and strategies","Executive clarity as to how solutions address top of mind business initiatives"];
 const GAPS=[["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]];
 const PROBLEM=["Review structure and use of colors within visual","Review and refine what is known for each of the columns","Understand the relationships within and across columns","Challenge the relevance of initiatives or solutions under consideration","Document any ambiguity that creates gaps to success"];
@@ -771,7 +920,7 @@ const ci=k=>COLS.findIndex(c=>c.k===k);
 const item=id=>{ const [k,i]=String(id).split("."); return S.items[k]?.[+i]; };
 const filled=id=>!!(item(id)?.t||"").trim();
 const nameOf=id=>{ const it=item(id); return (it&&it.t.trim())||`${COLS[ci(id.split(".")[0])].one} ${+id.split(".")[1]+1}`; };
-function toast(m,undo){ const t=$("toast"); t.textContent=m; if(undo){ const b=document.createElement("button"); b.className="tundo"; b.textContent="Undo"; b.onclick=()=>{ undo(); t.hidden=true; }; t.append(" ",b); }
+function toast(m,undo,force){ if(presenting&&!force) return; const t=$("toast"); t.textContent=m; if(undo){ const b=document.createElement("button"); b.className="tundo"; b.textContent="Undo"; b.onclick=()=>{ undo(); t.hidden=true; }; t.append(" ",b); }
   t.hidden=false; clearTimeout(t._t); t._t=setTimeout(()=>t.hidden=true,undo?6000:2200); }
 /* a second tap confirms; the label says so for 3 seconds */
 function armed(btn,label,fn){ if(btn.dataset.armed){ delete btn.dataset.armed; clearTimeout(btn._a); btn.textContent=btn.dataset.label; fn(); return; }
@@ -879,13 +1028,14 @@ function lineColor(to){ const g=goalsOf(to); return !g.length?"var(--gnone)":g.l
 function showLinks(){ return S.showLinks!==false; }
 function drawLinks(){
   const lit=sel&&filled(sel)?new Set([sel,...up(sel),...down(sel)]):null; let h="";
-  if(showLinks()||lit||walk>=0) COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
+  if(showLinks()||lit||walk>=0||presenting) COLS.forEach((c,ix)=>{ if(!ix) return; if(presenting&&presUpto!=null&&ix>presUpto) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
     (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"), [x2,y2]=linkPt(to,"r"), mx=(x1+x2)/2, on=lit&&lit.has(from)&&lit.has(to), col=lineColor(to), none=col==="var(--gnone)";
-      if(lit&&!on&&!showLinks()) return;
+      if(lit&&!on&&!showLinks()&&!presenting) return;
       let cls=on?"on":"", rd="";
+      if(presenting&&presNewCol===ix&&!lit&&!none) cls="pnew";
       if(walk>=0&&!lit){ const mc=WALK[walk].col; if(ix>mc) return; if(ix===mc&&animOn()) cls="on"; }
       if(on){ const six=ci(sel.split(".")[0]); rd=`--rd:${Math.max(Math.abs(ix-six),Math.abs(ix-1-six))};`; }
-      h+=`<path class="${cls}" d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" style="${rd}stroke:${col}" stroke-width="${on?.9:.55}" stroke-opacity="${lit?(on?1:.08):.85}" ${none?'stroke-dasharray="1.6 1.2"':""}/><circle style="${rd}" cx="${x2}" cy="${y2}" r="${on?1:.7}" fill="${col}" opacity="${lit?(on?1:.08):.85}"/>`; }); }); });
+      h+=`<path class="${cls}" ${cls==="pnew"?'pathLength="1"':""} d="M${x2},${y2} C${mx},${y2} ${mx},${y1} ${x1},${y1}" style="${rd}stroke:${col};color:${col}" stroke-width="${on?.9:.55}" stroke-opacity="${lit?(on?1:.08):.85}" ${none?'stroke-dasharray="1.6 1.2"':""}/><circle style="${rd}" cx="${x2}" cy="${y2}" r="${on?1:.7}" fill="${col}" opacity="${lit?(on?1:.08):.85}"/>`; }); }); });
   $("links").innerHTML=h; renderLineKey();
 }
 function renderLineKey(){ const k=$("lineKey"); if(!k) return; const g=S.items.goals.map((x,i)=>x.t.trim()?[i,x.t]:null).filter(Boolean);
@@ -1005,17 +1155,17 @@ function openNote(key,anchor){
 function openMenu(anchor){
   closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","More options");
   pop.innerHTML=`<h5>More options</h5><div class="menu">
-    <button data-m="company" class="prep-only">Start from a company</button><button data-m="snaps">Snapshots</button><button data-m="present">Present</button><button data-m="pdf">Download PDF</button><button data-m="aids">Saved aids</button><button data-m="anim">Turn animation ${S.animate!==false?"off":"on"}</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
+    <button data-m="company" class="prep-only">Start from a company</button><button data-m="snaps">Snapshots</button><button data-m="present">Present</button><button data-m="pdf">Download PDF</button><button data-m="deck">Leave-behind PDF</button><button data-m="presenter">Presenter view</button><button data-m="aids">Saved aids</button><button data-m="anim">Turn animation ${S.animate!==false?"off":"on"}</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
-    ({snaps:()=>openSnaps($("snapBtn")),present:()=>startPresent(),pdf:()=>downloadPdf(),aids:()=>openAids($("aidBtn")),anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
+    ({snaps:()=>openSnaps($("snapBtn")),present:()=>startPresent(),pdf:()=>downloadPdf(),deck:()=>downloadDeck(),presenter:()=>startPresenterView(),aids:()=>openAids($("aidBtn")),anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
   pop.querySelector("button[data-m]").focus({preventScroll:true});
 }
 $("menuBtn").onclick=e=>{ e.stopPropagation(); openMenu($("menuBtn")); };
 document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-note],[data-pick],#menuBtn,#aidBtn,.lensbar,.scorebar")) closePop(); });
-document.addEventListener("keydown",e=>{ if(presenting){ if(e.key==="ArrowRight"){ e.preventDefault(); presStep(1); return; } if(e.key==="ArrowLeft"){ e.preventDefault(); presStep(-1); return; } if(e.key==="Escape"&&!popEl){ stopPresent(); return; } if(e.key===" "&&!e.target.matches("input,textarea")){ e.preventDefault(); $("pShow").click(); return; } if((e.key==="n"||e.key==="N")&&!e.target.matches("input,textarea")){ $("pNotes").click(); return; } }
+document.addEventListener("keydown",e=>{ if(presenting) return;
   if(e.key==="Escape"){ if(popEl) closePop(); else if($("assist").classList.contains("open")) closeAssist(); else if(howOn) setHow(false); else if(sel) select(null); } });
 addEventListener("scroll",()=>{ if(popEl&&!popEl.classList.contains("sheet")&&Math.abs(scrollY-popAt)>60) closePop(); },{passive:true});
 
@@ -1269,17 +1419,20 @@ $("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) retu
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
 /* ---------- KA's key ratios ---------- */
 function renderRatios(){ const f=S.fin||(S.fin={});
-  let h=`<h3>Financials · KA's key ratios</h3><p class="note" style="margin:0">Read the financials three ways: solvency, asset effectiveness and profitability. Enter what you know, mark each Strong, Watch or Weak, and the aid shows which standard choices it points to.${S.company?.asOf&&Object.values(f).some(x=>x&&x.src)?` Figures from public information ${esc(S.company.asOf)}: approximate, confirm with the client.`:""}</p><div class="rgrid">`;
+  let h=`<h3>Financials · KA's key ratios</h3><p class="note" style="margin:0">Read the financials three ways: solvency, asset effectiveness and profitability. Each ratio shows its value now and 24 months earlier, and whether it improved or worsened. Mark each Strong, Watch or Weak, and the aid shows which standard choices it points to.${Object.values(f).some(x=>x&&x.src)?` Figures from public information${S.company?.asOf?` ${esc(S.company.asOf)}`:""}: approximate, confirm with the client.`:""}</p><div class="rgrid">`;
   RATIO_GROUPS.forEach(g=>{ const rd=groupRead(g);
     h+=`<div class="rgrp" data-rg="${g.k}"><b>${g.l}${rd?`<span class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</span>`:""}</b><small>${g.q}</small>`;
     g.r.forEach(([k,l,fx])=>{ const o=f[k]||{};
-      h+=`<div class="rrow"><label for="rv-${k}">${l}</label><span class="fx">${fx}</span><div class="rin"><input id="rv-${k}" data-rv="${k}" value="${esc(o.v||"")}" placeholder="value" autocomplete="off">${READS.map(([r,rl])=>`<button class="rdpill ${r}" data-rd="${k}|${r}" aria-pressed="${o.read===r}">${rl}</button>`).join("")}</div>${o.note||o.yr?`<span class="note2">${esc([o.yr,o.note].filter(Boolean).join(" · "))}${o.src?` · ${esc(o.src)}`:""}</span>`:""}</div>`; });
+      h+=`<div class="rrow"><label for="rv-${k}">${l}</label><span class="fx">${fx}</span><div class="rvals"><label class="rv"><small>${esc(o.yr||"Now")}</small><input id="rv-${k}" data-rv="${k}" value="${esc(o.v||"")}" placeholder="value" autocomplete="off"></label><label class="rv"><small>${esc(o.yr0||"24 months ago")}</small><input data-rv0="${k}" value="${esc(o.v0||"")}" placeholder="value" autocomplete="off" aria-label="${l}, 24 months earlier"></label>${trendChip(k)}</div><div class="rin">${READS.map(([r,rl])=>`<button class="rdpill ${r}" data-rd="${k}|${r}" aria-pressed="${o.read===r}">${rl}</button>`).join("")}</div>${o.note?`<span class="note2">${esc(o.note)}${o.src?` · ${esc(o.src)}`:""}</span>`:""}</div>`; });
     if(rd&&rd!=="strong"){ const pts=Object.entries(g.points).flatMap(([col,vs])=>vs.map(v=>[col,v]));
       h+=`<div class="rpoints">Points to:<div class="chips">${pts.map(([col,v])=>{ const on=S.items[col].some(x=>x.t===v); return `<button class="chip2 ${on?"on":""}" data-pt="${col}|${esc(v)}" aria-pressed="${on}" title="${on?"Already on the aid":`Add to ${col}`}">${on?"":"+ "}${esc(v)}</button>`; }).join("")}</div></div>`; }
     h+=`</div>`; });
+  const F=f._fig; if(F&&(F.latest||F.earlier)){ const L=F.latest||{}, E=F.earlier||{}, m=v=>typeof v==="number"&&isFinite(v)?`$${Math.round(v).toLocaleString()}M`:"—";
+    h+=`</div><details class="rfigs"><summary>Figures used · USD millions, approximate</summary><table><thead><tr><th></th><th>${esc(L.year||"Latest")}</th><th>${esc(E.year||"24 months earlier")}</th></tr></thead><tbody>${FIGS.map(([k,l])=>`<tr><td>${l}</td><td>${m(L[k])}</td><td>${m(E[k])}</td></tr>`).join("")}</tbody></table><p class="note" style="margin:6px 0 0">The ratios are worked out from these figures. Public information: confirm with the client.</p></details><div>`; }
   h+=`</div><div class="arow" style="flex:0 1 auto;margin-top:10px"><button class="btn small" data-finline ${finLine()?"":"disabled"}>Write the Financials line from the ratios</button></div><p class="draft">Solvency, asset effectiveness and profitability are KA's key ratios.</p>`;
   $("ratios").innerHTML=h; }
-$("ratios").addEventListener("input",e=>{ const k=e.target.dataset.rv; if(!k) return; (S.fin[k]=S.fin[k]||{}).v=e.target.value; save(); const b=$("ratios").querySelector("[data-finline]"); if(b) b.disabled=!finLine(); });
+$("ratios").addEventListener("input",e=>{ const k=e.target.dataset.rv||e.target.dataset.rv0; if(!k) return; (S.fin[k]=S.fin[k]||{})[e.target.dataset.rv?"v":"v0"]=e.target.value; save();
+  const row=e.target.closest(".rrow"), old=row?.querySelector(".rtrend"), nt=trendChip(k); if(old) old.remove(); if(nt) row.querySelector(".rvals").insertAdjacentHTML("beforeend",nt); const b=$("ratios").querySelector("[data-finline]"); if(b) b.disabled=!finLine(); });
 $("ratios").addEventListener("focusout",()=>setTimeout(()=>{ if(!document.activeElement?.closest?.("#ratios")) renderRatios(); },0));
 $("ratios").addEventListener("click",e=>{
   const rd=e.target.closest("[data-rd]"); if(rd){ const [k,r]=rd.dataset.rd.split("|"), o=S.fin[k]=S.fin[k]||{}; o.read=o.read===r?"":r; save(); renderRatios(); renderBuildSteps(); return; }
@@ -1358,18 +1511,21 @@ Initiatives (up to 3): ${JSON.stringify(CHOICES.initiatives)}
 Use each choice once per column, spelled exactly as given, most important first. For each, "supports" says what about this company supports the choice: one specific line that fits the printed box: at most ${BUDGET.goals} characters for goals, ${BUDGET.strategies} for strategies, ${BUDGET.processes} for processes and initiatives. Abbreviate logically where needed (& for and, w/, mgmt, ops, %, $M, yr). "source" is where it came from: "Built-in knowledge" or "Material: <its name>". Do not invent numbers, people or events; if unsure, say what to confirm instead.
 "serves" connects each strategy to goal ids it obtains ("goals.0" or "goals.1"), each process to strategy ids it executes ("strategies.N"), each initiative to process ids it improves ("processes.N"), with N = position in your own list.
 External factors: one or two plain sentences each on what in the economy, the company's industry and its financials matters here. Write the financials sentence in KA's three key-ratio groups: solvency, asset effectiveness, profitability.
-KA'S KEY RATIOS: for each ratio give the most recent value you are reasonably confident of from the company's public filings, its fiscal year, and a read compared with its industry ("strong", "watch" or "weak"), with a few words why. If you don't know a value, leave "value" empty; give a read only if you have grounds for it. Never make up a number. Ratios: ${RATIO_GROUPS.map(g=>`${g.l}: ${g.r.map(([k,l,fx])=>`${k} = ${l} (${fx})`).join("; ")}`).join(" | ")}. Use the ratios to choose goals and strategies (weak solvency → Cash Flow / Cash Management; weak asset effectiveness → Asset Usage; weak profitability → Profit / Costs / Price) where they really apply.
+KA'S KEY RATIOS: give the statement figures, in USD millions, from the company's annual filings for its latest fiscal year you know and for the fiscal year about 24 months before it (two fiscal years earlier), as reported, to the best of your knowledge. They are shown to the user as approximate and confirmed with the client, so give your best figure; use null only for a figure you truly don't know, and never invent one for a company you don't know. The app works out every ratio from these figures. Then, for each ratio, give a read compared with its industry ("strong", "watch" or "weak") and a few words why (what drove the change over the 24 months, if you know). Ratios: ${RATIO_GROUPS.map(g=>`${g.l}: ${g.r.map(([k,l,fx])=>`${k} = ${l} (${fx})`).join("; ")}`).join(" | ")}. Use the ratios to choose goals and strategies (weak solvency → Cash Flow / Cash Management; weak asset effectiveness → Asset Usage; weak profitability → Profit / Costs / Price) where they really apply.
 Leave Solutions out; the user brings those.
 If you don't recognise this company and the material doesn't describe it, set "known" to false and leave every list empty.
 Reply with only JSON:
-{"known":boolean,"summary":string (2 sentences: what the company does, size, markets),"asOf":string (how current your knowledge is, e.g. "as of early 2025"),"external":{"economy":{"text":string,"source":string},"industry":{"text":string,"source":string},"financials":{"text":string,"source":string}},"ratios":{"<ratio key>":{"value":string,"year":string,"read":"strong|watch|weak|","note":string}},"goals":[{"name":string,"supports":string,"source":string}],"strategies":[{"name":string,"supports":string,"source":string,"serves":[string]}],"processes":[...same],"initiatives":[...same],"toConfirm":[string] (up to 4 things to confirm with the client)}
+{"known":boolean,"summary":string (2 sentences: what the company does, size, markets),"asOf":string (how current your knowledge is, e.g. "as of early 2025"),"external":{"economy":{"text":string,"source":string},"industry":{"text":string,"source":string},"financials":{"text":string,"source":string}},"statements":{"latest":{"year":string,"revenue":number|null,"netIncome":number|null,"totalAssets":number|null,"currentAssets":number|null,"currentLiabilities":number|null,"cash":number|null,"receivables":number|null,"inventory":number|null,"totalLiabilities":number|null,"netWorth":number|null},"earlier":{...same}},"ratios":{"<ratio key>":{"read":"strong|watch|weak|","note":string}},"goals":[{"name":string,"supports":string,"source":string}],"strategies":[{"name":string,"supports":string,"source":string,"serves":[string]}],"processes":[...same],"initiatives":[...same],"toConfirm":[string] (up to 4 things to confirm with the client)}
 ${mat?`\nMATERIAL PROVIDED BY THE USER:${mat}`:""}`;
 }
 function cleanDraft(r){
   const d={known:r&&r.known!==false,summary:String(r?.summary||""),asOf:String(r?.asOf||""),external:{},cols:{},toConfirm:Array.isArray(r?.toConfirm)?r.toConfirm.map(String).slice(0,4):[]};
   EXT.forEach(([k])=>{ const e=r?.external?.[k]; d.external[k]=e&&typeof e==="object"?{text:String(e.text||"").trim(),source:String(e.source||"")}:{text:String(e||"").trim(),source:""}; });
-  d.ratios={}; RATIO_GROUPS.forEach(g=>g.r.forEach(([k])=>{ const o=r?.ratios?.[k]; if(!o||typeof o!=="object") return; const rd=["strong","watch","weak"].includes(o.read)?o.read:"", v=String(o.value||"").trim().slice(0,16);
-    if(v||rd) d.ratios[k]={v,read:rd,yr:String(o.year||"").slice(0,12),note:String(o.note||"").slice(0,90),src:"Public info"}; }));
+  const clean=x=>{ if(!x||typeof x!=="object") return null; const o={year:String(x.year||"").slice(0,16)}; FIGS.forEach(([k])=>{ const v=typeof x[k]==="number"?x[k]:rnum(x[k]); o[k]=isFinite(v)?v:null; }); return FIGS.some(([k])=>o[k]!=null)?o:null; };
+  const L=clean(r?.statements?.latest), E=clean(r?.statements?.earlier), now=ratiosFrom(L), then=ratiosFrom(E);
+  d.fig=L||E?{latest:L,earlier:E}:null; d.ratios={};
+  RATIO_GROUPS.forEach(g=>g.r.forEach(([k])=>{ const o=r?.ratios?.[k]||{}, rd=["strong","watch","weak"].includes(o.read)?o.read:"", v=now[k]||String(o.value||"").trim().slice(0,24), v0=then[k]||String(o.earlierValue||"").trim().slice(0,24);
+    if(v||v0||rd) d.ratios[k]={v,v0,read:rd,yr:L?.year||String(o.year||"").slice(0,16),yr0:E?.year||"",note:String(o.note||"").slice(0,110),src:"Public info"}; }));
   ["goals","strategies","processes","initiatives"].forEach((k,ix)=>{ const c=COLS[ix], seen=new Set(), map={};
     d.cols[k]=[]; (Array.isArray(r?.[k])?r[k]:[]).forEach((o,j)=>{ const m=stdMatch(k,o?.name); if(!m||seen.has(m)||d.cols[k].length>=c.n) return; seen.add(m); map[j]=d.cols[k].length;
       d.cols[k].push({t:m,d:fitText(k,String(o.supports||"").trim()),src:String(o.source||"Built-in knowledge"),serves:Array.isArray(o.serves)?o.serves.map(String):[]}); });
@@ -1428,7 +1584,7 @@ function coApply(how){ const d=coDraft;
   S.company.summary=d.summary; S.company.asOf=d.asOf;
   if(!S.situation.trim()) S.situation=`${S.company.name}${S.company.eyes?`, through the eyes of ${S.company.eyes}`:""}. ${d.summary}`;
   EXT.forEach(([k])=>{ const e=d.external[k]; if(e.text&&(all||!S.ext[k].t.trim())) S.ext[k].t=e.text; });
-  S.fin=S.fin||{}; Object.entries(d.ratios||{}).forEach(([k,o])=>{ const cur=S.fin[k]; if(all||!cur||(!cur.v&&!cur.read)) S.fin[k]=o; });
+  S.fin=S.fin||{}; Object.entries(d.ratios||{}).forEach(([k,o])=>{ const cur=S.fin[k]; if(all||!cur||(!cur.v&&!cur.v0&&!cur.read)) S.fin[k]=o; }); if(d.fig&&(all||!S.fin._fig)) S.fin._fig=d.fig;
   const idmap={};
   ["goals","strategies","processes","initiatives"].forEach((k,ix)=>{ const slots=S.items[k];
     if(all){ slots.forEach(it=>Object.assign(it,{t:"",d:"",c:0,serves:[],src:""})); }
@@ -1550,39 +1706,249 @@ function renderScore(){
 }
 document.addEventListener("click",e=>{ if(e.target.closest("[data-nextmove]")) nextMove().go(); });
 
-/* ===================== 3 · Present ===================== */
-let presenting=false, presIx=-1, presOrder=[];
+/* ===================== 3 · Present: theatre, story and pro tools (Dave, Nov 16: "drop-dead gorgeous"; "do 1 thru 3 now") ===================== */
+let presenting=false, presIx=0, slides=[], presT0=0, presUpto=null, presNewCol=null, presCam=null, idleT=0, laserOn=false, blankOn=false;
 /* in Present the bands run under every column, to the sheet's right edge (Dave, Nov 16) */
 function bandsWide(on){ const g=document.getElementById("bandsG"); if(!g) return; g.setAttribute("mask",on?"url(#fadeP)":"url(#fade)"); g.querySelectorAll(".bandr").forEach(r=>r.setAttribute("width",on?"246":"200")); }
-function startPresent(){ if(presenting) return; show("aid"); presenting=true; bandsWide(true); closePop(); closeAssist(); setHow(false); document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false;
-  presOrder=allFilled(); presIx=-1; select(null);
+const KEVIN="My goal is not to be right, but to get it right. Please correct me where I am off track.";
+const VERB_OF=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
+const colFilled=ix=>S.items[COLS[ix].k].map((_,i)=>`${COLS[ix].k}.${i}`).filter(filled);
+function eyesOf(){ const n=Object.keys(S.lenses).length>1?S.lenses[S.lens].name:(S.company?.eyes||""); return n&&n!=="Company"?n:""; }
+function aidTitle(){ return S.company?.name||LIBD.aids[LIBD.cur]?.name||"Alignment of Priorities"; }
+function longDate(){ return new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"}); }
+function hasOutside(){ return EXT.some(([k])=>S.ext[k].t.trim())||RATIO_GROUPS.some(g=>g.r.some(([k])=>S.fin?.[k]?.v||S.fin?.[k]?.read)); }
+function nextStep(){ const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"], at=Q.seq.indexOf("Alignment of Priorities"), n=Q.seq.slice(at+1)[0]; return n?`Agree these priorities together, then build the ${n}.`:"Agree these priorities together."; }
+/* up to three full chains, solution to goal, chosen to cover as much as possible; returned goal first */
+function chainsHeard(){ const paths=[];
+  const climb=(id,p)=>{ if(paths.length>60) return; if(id.startsWith("goals.")){ paths.push([...p,id]); return; } (item(id).serves||[]).filter(filled).forEach(t=>climb(t,[...p,id])); };
+  for(let ix=COLS.length-1; ix>0&&!paths.length; ix--) colFilled(ix).forEach(id=>climb(id,[]));
+  const pick=[], seen=new Set();
+  while(pick.length<3&&paths.length){ let best=null,bs=-1; paths.forEach(p=>{ const sc=p.filter(x=>!seen.has(x)).length+(pick.some(q=>q[q.length-1]===p[p.length-1])?0:.5); if(sc>bs){ bs=sc; best=p; } });
+    if(bs<1) break; pick.push(best); best.forEach(x=>seen.add(x)); paths.splice(paths.indexOf(best),1); }
+  return pick.map(p=>p.slice().reverse()); }
+function buildSlides(){ const sl=[{k:"title"}]; if(hasOutside()) sl.push({k:"outside"});
+  COLS.forEach((c,ix)=>{ const ids=colFilled(ix); if(!ids.length) return; sl.push({k:"col",ix}); ids.forEach(id=>sl.push({k:"box",ix,id})); });
+  sl.push({k:"whole"}); if(allFilled().length) sl.push({k:"heard"}); return sl; }
+function slideLabel(sl){ if(!sl) return ""; return sl.k==="title"?aidTitle():sl.k==="outside"?"Outside in":sl.k==="col"?COLS[sl.ix].label:sl.k==="box"?`${COLS[sl.ix].label}: ${nameOf(sl.id)}`:sl.k==="whole"?"The whole alignment":"What we heard"; }
+
+/* ---- the slides that aren't the sheet ---- */
+const KA_MARK=`<span class="ps-ka"><b>ka</b><span>Knowledge-Advantage, Inc.</span></span>`;
+function ratioStrip(){ return RATIO_GROUPS.map(g=>{ const rd=groupRead(g); const rows=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>{ const t=trendOf(k); return `<li><span>${l}</span><b>${esc(S.fin[k].v)}</b>${t?`<i class="rtrend ${t.t}">${t.arrow} ${t.t==="steady"?"Steady":`from ${esc(S.fin[k].v0)}`}</i>`:""}</li>`; }).join("");
+  return `<div class="ps-rg"><div class="ps-rgh"><span>${g.l}</span>${rd?`<em class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</em>`:""}</div>${rows?`<ul>${rows}</ul>`:`<p class="ps-muted">${esc(g.q)}</p>`}</div>`; }).join(""); }
+function slideHTML(sl){
+  if(sl.k==="title"){ const eyes=eyesOf();
+    return `<div class="ps ps-title"><svg class="ps-diag" viewBox="0 0 129.4 100" preserveAspectRatio="none" aria-hidden="true"><line x1="-5" y1="15" x2="135" y2="76" pathLength="1"/></svg>
+      <div class="ps-top"><span class="ps-kick">Alignment of Priorities · Gain Business Clarity</span>${KA_MARK}</div>
+      <div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div>
+      <blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
+  if(sl.k==="outside") return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">Outside in</span>${KA_MARK}</div><h2>What’s happening around ${esc(S.company?.name||"them")}</h2>
+      <div class="ps-ext">${EXT.map(([k,l])=>`<div><span class="ps-lab">${l}</span><p>${esc(S.ext[k].t.trim()||"—")}</p></div>`).join("")}</div>
+      ${RATIO_GROUPS.some(g=>g.r.some(([k])=>S.fin?.[k]?.v||S.fin?.[k]?.read))?`<div class="ps-ratios"><span class="ps-lab">Key ratios · now, and the change over 24 months</span><div class="ps-rgs">${ratioStrip()}</div></div>`:""}</div>`;
+  if(sl.k==="heard"){ const ch=chainsHeard();
+    const node=id=>{ const ix=ci(id.split(".")[0]), it=item(id); return `<div class="ps-node c${ix}"><small>${COLS[ix].one}</small><b>${esc(nameOf(id))}</b>${it.d.trim()?`<em>${esc(it.d.trim())}</em>`:""}</div>`; };
+    const body=ch.length?ch.map(c=>`<div class="ps-chain">${c.map((id,j)=>`${j?`<div class="ps-verb"><span>${VERB_OF[ci(id.split(".")[0])]}</span><i aria-hidden="true">←</i></div>`:""}${node(id)}`).join("")}</div>`).join("")
+      :`<div class="ps-chain">${colFilled(0).concat(colFilled(1)).slice(0,4).map(node).join("")}</div>`;
+    return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What we heard</span>${KA_MARK}</div><h2>How it comes together</h2><div class="ps-chains">${body}</div>
+      <div class="ps-foot"><p class="ps-close">Where am I off track?</p><p class="ps-next">${esc(nextStep())}</p></div></div>`; }
+  return ""; }
+function capHTML(sl){
+  if(sl.k==="col"){ const c=COLS[sl.ix], n=colFilled(sl.ix).length; return `<span class="pc-kick">${c.label} · ${n} chosen</span><b class="pc-title">${esc(c.walk)}</b>`; }
+  if(sl.k==="box"){ const it=item(sl.id), c=COLS[sl.ix], ids=colFilled(sl.ix), sv=(it.serves||[]).filter(filled).map(nameOf), by=servedBy(sl.id).filter(filled).map(nameOf), g=gainsOf(it);
+    return `<span class="pc-kick">${c.label} · ${ids.indexOf(sl.id)+1} of ${ids.length}</span><b class="pc-title">${esc(it.t)}</b>${it.d.trim()?`<span class="pc-sub">${esc(it.d.trim())}</span>`:""}
+      ${sv.length||by.length||g.length?`<span class="pc-meta">${sv.length?`<span><em>${VERB_OF[sl.ix]}S →</em> ${esc(sv.join(", "))}</span>`:""}${by.length?`<span><em>Served by</em> ${esc(by.join(", "))}</span>`:""}${g.length?`<span><em>Improve for</em> ${esc(g.join(", "))}</span>`:""}</span>`:""}`; }
+  if(sl.k==="whole") return `<span class="pc-kick">The whole alignment</span><b class="pc-title">Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.</b>`;
+  return ""; }
+
+/* ---- the camera: glide to a column (and the one it serves) ---- */
+function camera(ix){ presCam=ix; const cv=$("cv"), st=$("stage"); if(ix==null){ cv.style.transform=""; return; }
+  const W0=st.clientWidth, H0=st.clientHeight, mm=W0/279.4, cols=[Math.max(0,ix-1),ix];
+  let y0=Infinity, y1=-Infinity; cols.forEach(j=>{ const c=COLS[j]; y0=Math.min(y0,c.hd[1]-3); c.ys.forEach((y,i)=>{ if(filled(`${c.k}.${i}`)) y1=Math.max(y1,y+c.dy+c.dh+2); }); });
+  if(!isFinite(y1)) y1=y0+70;
+  const x0=COLS[cols[0]].x-(ix===0?8:5), x1=COLS[ix].x+W+6, avail=H0*.72;
+  const s=Math.max(1,Math.min(W0/((x1-x0)*mm), avail/((y1-y0)*mm), 1.85));
+  let tx=W0/2-s*(x0+x1)/2*mm, ty=avail/2-s*(y0+y1)/2*mm+H0*.02;
+  tx=Math.min(0,Math.max(W0-s*W0,tx)); ty=Math.min(0,Math.max(H0-s*H0,ty));
+  cv.style.transform=`translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${s.toFixed(3)})`; }
+addEventListener("resize",()=>{ if(presenting) camera(presCam); });
+
+/* ---- one step of the story ---- */
+function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) return; const ps=$("pslide"), cap=$("pcap"), cv=$("cv");
+  const onSheet=sl.k==="col"||sl.k==="box"||sl.k==="whole";
+  presUpto=sl.k==="col"||sl.k==="box"?sl.ix:null; presNewCol=sl.k==="col"?sl.ix:null;
+  cv.querySelectorAll(".slot").forEach(x=>x.classList.toggle("ghost",presUpto!=null&&ci(x.dataset.id.split(".")[0])>presUpto));
+  cv.querySelectorAll(".colhd[data-col]").forEach(h=>{ const ix=+h.dataset.col; h.classList.toggle("ghost",presUpto!=null&&ix>presUpto); h.classList.toggle("pnone",!colFilled(ix).length); });
+  select(sl.k==="box"?sl.id:null); drawLinks();
+  if(onSheet){ camera(sl.k==="whole"?null:sl.ix); ps.classList.remove("in"); clearTimeout(ps._t); ps._t=setTimeout(()=>{ if(!ps.classList.contains("in")) ps.hidden=true; },500);
+    cap.innerHTML=capHTML(sl); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
+  else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
+  $("pText").textContent=`${slideLabel(sl)} · ${presIx+1} of ${slides.length}`;
+  $("pPrev").disabled=presIx<=0; $("pNext").disabled=presIx>=slides.length-1;
+  $("pprog").firstElementChild.style.width=`${(presIx+1)/slides.length*100}%`;
+  if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); }
+function go(i){ if(!presenting) return; const n=Math.max(0,Math.min(slides.length-1,i)); if(n===presIx&&slides[n]) return presRender(); presIx=n; presRender(); }
+
+function startPresent(){ if(presenting) return; show("aid"); presenting=true; bandsWide(true); closePop(); closeAssist(); setHow(false); setWalk(-1); setZoom(false);
+  document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false; $("pprog").hidden=false;
+  slides=buildSlides(); presIx=0; presT0=Date.now(); select(null);
   try{ const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){}
-  requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); updPres(); }
-function stopPresent(){ if(!presenting) return; presenting=false; bandsWide(false); document.body.classList.remove("presenting"); $("presbar").hidden=true; $("presNotes").hidden=true; $("pNotes").setAttribute("aria-pressed","false");
-  try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); }
-function presStep(d){ presOrder=allFilled(); if(!presOrder.length) return; presIx=Math.max(-1,Math.min(presOrder.length-1,presIx+d)); setWalk(-1); select(presIx<0?null:presOrder[presIx]); updPres(); }
-function updPres(){ if(!presenting) return; const id=sel; $("pText").textContent=id?`${COLS[ci(id.split(".")[0])].label}: ${nameOf(id)} · ${presOrder.indexOf(id)+1} of ${presOrder.length}`:"The whole alignment";
-  $("pPrev").disabled=presIx<0; $("pNext").disabled=presIx>=presOrder.length-1; if(!$("presNotes").hidden) renderNotes(); }
-function renderNotes(){ const n=$("presNotes"), id=sel;
-  if(!id){ n.innerHTML=`<h4>Presenter notes</h4><p style="margin:0">${esc(S.company?.name||"This aid")}${S.situation?` · ${esc(S.situation)}`:""}</p><p style="margin:0">Open the way Kevin does: “My goal is not to be right, but to get it right. Please correct me where I am off track.”</p>${finLine()?`<h4>Key ratios</h4><p style="margin:0">${esc(finLine())}</p>`:""}<p class="note" style="margin:0">Alignment ${alignScore()}%. Use ▶ to spotlight each box, Space to show the alignment, N to hide these notes.</p>`; return; }
-  const k=id.split(".")[0], it=item(id), ups=[...up(id)].map(nameOf), downs=[...down(id)].map(nameOf), T=(typeof TEACH!=="undefined"&&TEACH[k])||{ask:[]};
-  n.innerHTML=`<h4>${COLS[ci(k)].label}</h4><p style="margin:0"><b>${esc(it.t)}</b>${it.d?`<br>${esc(it.d)}`:""}${gainsOf(it).length?`<br>Improve for: ${esc(gainsOf(it).join(", "))}`:""}</p>${it.src?`<p class="note" style="margin:0">${esc(it.src)} · confirm with the client</p>`:""}
-    ${ups.length?`<h4>Serves</h4><p style="margin:0">${esc(ups.join(", "))}</p>`:""}${downs.length?`<h4>Served by</h4><p style="margin:0">${esc(downs.join(", "))}</p>`:""}
-    <h4>Ask the client</h4><ul>${T.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul><p class="note" style="margin:0">Only you see these notes unless your screen is shared. N hides them.</p>`; }
-$("pPrev").onclick=()=>presStep(-1); $("pNext").onclick=()=>presStep(1); $("pExit").onclick=stopPresent;
-$("pShow").onclick=()=>{ presIx=-1; select(null); updPres(); startWalk(); };
+  requestAnimationFrame(()=>{ fitDescs(); presRender(); }); wake(); bc(stateMsg(true)); }
+function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null; presNewCol=null; bandsWide(false);
+  document.body.classList.remove("presenting","pidle","laser"); ["presbar","pprog","pslide","pcap","presNotes","pblank","laser","pkeysBox","pvHelp"].forEach(id=>$(id).hidden=true);
+  $("pNotes").setAttribute("aria-pressed","false"); $("pKeys").setAttribute("aria-pressed","false"); laserOn=false; blankOn=false;
+  const cv=$("cv"); cv.style.transform=""; cv.querySelectorAll(".ghost,.pnone").forEach(x=>x.classList.remove("ghost","pnone")); select(null);
+  try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); bc({type:"end"}); }
+
+/* ---- notes, shared by the panel and the presenter view ---- */
+function notesHTML(sl){ if(!sl) return "";
+  const ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(sl.k==="title") return `<p style="margin:0">Open the way Kevin does: “${esc(KEVIN)}”</p>${S.situation?`<p class="note" style="margin:0">${esc(S.situation)}</p>`:""}<h4>Ask</h4>${ul(["What has changed for you since we last spoke?","Who else needs to see this?"])}`;
+  if(sl.k==="outside") return `<p style="margin:0">Start outside in, as Kevin does: the economy, the industry, then their financials against competitors.</p>${finLine()?`<h4>Key ratios</h4><p style="margin:0">${esc(finLine())}</p>`:""}<h4>Ask</h4>${ul(["Which of these worries you most?","Is this how you'd describe your financials?"])}`;
+  if(sl.k==="col"){ const T=TEACH[COLS[sl.ix].k]; return `<p style="margin:0"><b>${esc(T.verb)}</b> ${esc(T.lead)}</p>${T.book?`<p class="note" style="margin:0">From the book: “${esc(T.book)}”</p>`:""}<h4>Ask the client</h4>${ul(T.ask)}`; }
+  if(sl.k==="box"){ const id=sl.id, k=id.split(".")[0], it=item(id), ups=[...up(id)].map(nameOf), downs=[...down(id)].map(nameOf), T=TEACH[k]||{ask:[]};
+    return `<p style="margin:0"><b>${esc(it.t)}</b>${it.d?`<br>${esc(it.d)}`:""}${gainsOf(it).length?`<br>Improve for: ${esc(gainsOf(it).join(", "))}`:""}</p>${it.src?`<p class="note" style="margin:0">${esc(it.src)} · confirm with the client</p>`:""}
+      ${ups.length?`<h4>Serves</h4><p style="margin:0">${esc(ups.join(", "))}</p>`:""}${downs.length?`<h4>Served by</h4><p style="margin:0">${esc(downs.join(", "))}</p>`:""}<h4>Ask the client</h4>${ul(T.ask)}`; }
+  if(sl.k==="whole"){ const o=orphans(); return `<p style="margin:0">Walk it left to right, asking for feedback each step of the way. Alignment ${alignScore()}%.</p>${o.length?`<h4>Not tied in yet</h4>${ul(o.map(x=>`${nameOf(x.id)}: ${x.why}`))}`:""}`; }
+  return `<p style="margin:0">Read each chain aloud from the solution to the goal, then ask: “Where am I off track?”</p><h4>Next step</h4><p style="margin:0">${esc(nextStep())}</p>`; }
+function renderNotes(){ $("presNotes").innerHTML=`<h4>Presenter notes · ${esc(slideLabel(slides[presIx]))}</h4>${notesHTML(slides[presIx])}<p class="note" style="margin:0">Only you see these unless your screen is shared. N hides them; P opens the presenter view on a second screen.</p>`; }
+
+/* ---- controls: auto-hiding bar, keys, clicker, blank, laser, swipe ---- */
+function wake(){ document.body.classList.remove("pidle"); clearTimeout(idleT); if(presenting) idleT=setTimeout(()=>{ if(presenting&&!$("presbar").matches(":hover")) document.body.classList.add("pidle"); },2600); }
+["mousemove","pointerdown","touchstart"].forEach(ev=>document.addEventListener(ev,e=>{ if(!presenting) return; wake(); if(laserOn&&e.clientX!=null){ const l=$("laser"); l.style.transform=`translate(${e.clientX}px,${e.clientY}px)`; } },{passive:true}));
+function toggleBlank(){ blankOn=!blankOn; $("pblank").hidden=!blankOn; }
+function toggleLaser(){ laserOn=!laserOn; $("laser").hidden=!laserOn; document.body.classList.toggle("laser",laserOn); }
+function toggleKeys(){ const b=$("pkeysBox"), on=b.hidden; b.hidden=!on; $("pKeys").setAttribute("aria-pressed",String(on)); }
+function presKey(k){
+  if(["ArrowRight","ArrowDown","PageDown"," ","Enter"].includes(k)) go(presIx+1);
+  else if(["ArrowLeft","ArrowUp","PageUp","Backspace"].includes(k)) go(presIx-1);
+  else if(k==="Home") go(0); else if(k==="End") go(slides.length-1);
+  else if(k==="b"||k==="B"||k==="."||k==="F5") toggleBlank();
+  else if(k==="l"||k==="L") toggleLaser();
+  else if(k==="n"||k==="N") $("pNotes").click();
+  else if(k==="p"||k==="P") openPresenter();
+  else if(k==="?") toggleKeys();
+  else if(k==="Escape"){ if(blankOn) toggleBlank(); else if(!$("pkeysBox").hidden) toggleKeys(); else if(!$("pvHelp").hidden) $("pvHelp").hidden=true; else stopPresent(); }
+  else return false; return true; }
+document.addEventListener("keydown",e=>{ if(!presenting||e.target.matches?.("input,textarea,select")) return; if(e.key===" "&&e.target.closest?.("button")) return; if(presKey(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); wake(); } },true);
+$("pPrev").onclick=()=>go(presIx-1); $("pNext").onclick=()=>go(presIx+1); $("pExit").onclick=stopPresent;
 $("pNotes").onclick=()=>{ const n=$("presNotes"), on=n.hidden; n.hidden=!on; $("pNotes").setAttribute("aria-pressed",String(on)); if(on) renderNotes(); };
+$("pKeys").onclick=toggleKeys; $("pDeck").onclick=()=>downloadDeck(); $("pPresenter").onclick=()=>openPresenter(); $("pvHelpOk").onclick=()=>$("pvHelp").hidden=true;
+$("pblank").onclick=toggleBlank;
+$("pslide").addEventListener("click",()=>go(presIx+1));
+$("cv").addEventListener("click",e=>{ if(!presenting) return; e.preventDefault(); e.stopPropagation();
+  const s=e.target.closest(".slot:not(.empty):not(.ghost)"); const i=s?slides.findIndex(x=>x.k==="box"&&x.id===s.dataset.id):-1; go(i>=0?i:presIx+1); },true);
+let tx0=null; document.addEventListener("touchstart",e=>{ if(presenting) tx0=e.touches[0].clientX; },{passive:true});
+document.addEventListener("touchend",e=>{ if(!presenting||tx0==null) return; const dx=e.changedTouches[0].clientX-tx0; tx0=null; if(Math.abs(dx)>60) go(presIx+(dx<0?1:-1)); },{passive:true});
 document.addEventListener("fullscreenchange",()=>{ if(!document.fullscreenElement&&presenting) stopPresent(); });
 $("presentBtn").onclick=startPresent; $("presentBtn2").onclick=startPresent;
-$("cv").addEventListener("click",()=>{ if(presenting){ presOrder=allFilled(); presIx=sel?presOrder.indexOf(sel):-1; setTimeout(updPres,0); } });
+
+/* ---- presenter view: a second window that stays in step ---- */
+const PCH=("BroadcastChannel" in window)?new BroadcastChannel("ka-aop-present"):null;
+function bc(m){ try{ PCH&&PCH.postMessage(m); }catch(e){} }
+function stateMsg(full){ return Object.assign({type:"state",i:presIx,n:slides.length,t0:presT0,aid:LIBD.cur},full?{data:JSON.stringify(S)}:{}); }
+let pvMode=false, pvT0=0, pvTick=0, pvLast=0, pvHello=0;
+PCH&&PCH.addEventListener("message",e=>{ const m=e.data||{};
+  if(!pvMode){ if(!presenting) return; if(m.type==="hello") bc(stateMsg(true)); else if(m.type==="go") go(m.i); else if(m.type==="key"){ presKey(m.key); wake(); } return; }
+  if(m.type==="state"){ if(m.data){ S=norm(JSON.parse(m.data)); slides=buildSlides(); } if(!slides.length) slides=buildSlides(); presIx=m.i; if(!pvT0||m.t0&&m.t0<pvT0) pvT0=m.t0||Date.now(); pvLast=Date.now(); renderPv(); }
+  else if(m.type==="end"){ pvLast=0; renderPv(true); } });
+function openPresenter(){ let w=null; try{ w=window.open(location.href.split("#")[0]+"#presenter","ka-aop-presenter","popup,width=1180,height=780"); }catch(e){ w=null; }
+  if(!w||w.closed) $("pvHelp").hidden=false; else toast("Presenter view opened. Move that window to your laptop screen.",null,true); }
+function cardText(sl){ if(!sl) return "";
+  if(sl.k==="title") return `<small>Title</small><b>${esc(aidTitle())}</b><span>${esc([eyesOf()&&`Through the eyes of ${eyesOf()}`,longDate()].filter(Boolean).join(" · "))}</span>`;
+  if(sl.k==="outside") return `<small>Outside in</small><b>Economy, industry, financials</b><span>${esc(finLine()||EXT.map(([k])=>S.ext[k].t).filter(Boolean).join(" · "))}</span>`;
+  if(sl.k==="col") return `<small>${COLS[sl.ix].label}</small><b>${esc(COLS[sl.ix].walk)}</b>`;
+  if(sl.k==="box"){ const it=item(sl.id); return `<small>${COLS[sl.ix].label}</small><b>${esc(it.t)}</b>${it.d?`<span>${esc(it.d)}</span>`:""}`; }
+  if(sl.k==="whole") return `<small>The whole alignment</small><b>Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.</b>`;
+  return `<small>What we heard</small><b>How it comes together</b><span>${esc(chainsHeard().map(c=>c.map(nameOf).join(" ← ")).join(" · "))}</span>`; }
+function startPresenterView(){ pvMode=true; closePop(); document.body.classList.add("pvmode"); const v=$("presenterView"); v.hidden=false;
+  v.innerHTML=`<div class="pv"><header><b>Presenter view</b><span class="pvconn" id="pvConn">Waiting for the audience window…</span><span class="pvclock" id="pvClock"></span><span class="pvtimer" title="Time presenting"><span id="pvTimer">0:00</span><button class="pvbtn" id="pvReset">Reset</button></span><button class="pvbtn" id="pvClose">Close</button></header>
+    <main><section class="pvnow"><small class="pvh">Now · <span id="pvPos">—</span></small><div class="pvcard" id="pvNow"><b>Start ▶ Present in the other window.</b><span>This window shows your notes, what's next and the time, and moves the presentation when you press ◀ ▶ or use your clicker.</span></div><div class="pvprog"><i id="pvBar"></i></div></section>
+    <aside><section><small class="pvh">Next</small><div class="pvcard small" id="pvNext">—</div></section><section class="pvnotes" id="pvNotes"></section></aside></main>
+    <footer><button class="pvbig" id="pvPrev">◀ Back</button><button class="pvbtn" id="pvBlank">Blank screen (B)</button><button class="pvbig primary" id="pvNextBtn">Next ▶</button></footer></div>`;
+  $("pvPrev").onclick=()=>pvGo(-1); $("pvNextBtn").onclick=()=>pvGo(1); $("pvReset").onclick=()=>{ pvT0=Date.now(); }; $("pvClose").onclick=stopPresenterView;
+  $("pvBlank").onclick=()=>bc({type:"key",key:"b"});
+  clearInterval(pvTick); pvTick=setInterval(()=>{ const t=pvT0?Math.floor((Date.now()-pvT0)/1000):0; $("pvTimer").textContent=`${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}`; $("pvClock").textContent=new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+    if(Date.now()-pvLast>4000){ $("pvConn").textContent="Waiting for the audience window: start ▶ Present there."; $("pvConn").classList.remove("ok"); if(Date.now()-pvHello>2000){ pvHello=Date.now(); bc({type:"hello"}); } } },500);
+  bc({type:"hello"}); pvHello=Date.now(); }
+function stopPresenterView(){ pvMode=false; clearInterval(pvTick); document.body.classList.remove("pvmode"); $("presenterView").hidden=true; try{ history.replaceState(null,"",location.pathname+location.search+"#sheet"); }catch(e){} location.reload(); }
+function pvGo(d){ if(!slides.length) return; bc({type:"go",i:Math.max(0,Math.min(slides.length-1,presIx+d))}); }
+document.addEventListener("keydown",e=>{ if(!pvMode||e.target.matches?.("input,textarea")) return; const k=e.key;
+  if(["ArrowRight","ArrowDown","PageDown"," ","Enter"].includes(k)){ e.preventDefault(); pvGo(1); } else if(["ArrowLeft","ArrowUp","PageUp","Backspace"].includes(k)){ e.preventDefault(); pvGo(-1); }
+  else if(["b","B",".","l","L"].includes(k)) bc({type:"key",key:k}); },true);
+function renderPv(ended){ if(!pvMode) return; const sl=slides[presIx];
+  $("pvConn").textContent=ended?"The audience window left Present.":"Connected · the audience sees the main screen"; $("pvConn").classList.toggle("ok",!ended);
+  if(ended||!sl) return;
+  $("pvPos").textContent=`${presIx+1} of ${slides.length} · ${slideLabel(sl)}`; $("pvNow").innerHTML=cardText(sl); $("pvNext").innerHTML=slides[presIx+1]?cardText(slides[presIx+1]):"<b>The end</b><span>Thank them, and agree the next step.</span>";
+  $("pvNotes").innerHTML=`<small class="pvh">Notes</small>${notesHTML(sl)}`; $("pvBar").style.width=`${(presIx+1)/slides.length*100}%`; }
+if(location.hash==="#presenter") setTimeout(startPresenterView,0);
+
+/* ---- leave-behind PDF: the story as a deck, plus the formal sheet ---- */
+async function buildDeck(){
+  const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, PW=279.4, PH=215.9, M=20;
+  const clean=t=>String(t??"").replace(/[←]/g,"<").replace(/[→]/g,">").replace(/[▲]/g,"up").replace(/[▼]/g,"down").replace(/[✓]/g,"").replace(/×/g,"x");
+  const font=(w,sz,c)=>{ doc.setFont("helvetica",w); doc.setFontSize(sz*PT); doc.setTextColor(c); };
+  let pageNo=1; const who=[eyesOf()&&`Through the eyes of ${eyesOf()}`,longDate()].filter(Boolean).join(" · ");
+  const frame=(kick,title)=>{ doc.addPage("letter","landscape"); pageNo++; doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
+    font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text(clean(kick).toUpperCase(),M,22); doc.setCharSpace(0);
+    font("normal",9.5,PDFC.title); doc.text(clean(title),M,36,{maxWidth:PW-2*M});
+    doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42);
+    font("normal",2.8,PDFC.muted); doc.text(clean(`${aidTitle()} · Alignment of Priorities`),M,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"});
+    doc.setDrawColor(PDFC.ink); doc.setLineWidth(.3); doc.rect(PW-M-30,PH-14.6,4.3,5.5); font("bold",2.4,PDFC.blue); doc.text("ka",PW-M-27.85,PH-10.6,{align:"center"}); };
+  const wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(clean(t),w); };
+  // 1 · title
+  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor("#1d2d52"); doc.circle(PW*.78,PH*.2,120,"F"); doc.setFillColor("#14203b"); doc.rect(0,PH*.86,PW,PH*.14,"F");
+  doc.setDrawColor(PDFC.plum); doc.setLineWidth(1.6); doc.setLineCap("round"); doc.line(-5,40,PW+5,128); doc.setLineCap("butt");
+  font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("ALIGNMENT OF PRIORITIES · GAIN BUSINESS CLARITY",M,28); doc.setCharSpace(0);
+  font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96);
+  if(who){ font("normal",5,"#c8d2ea"); doc.text(clean(who),M,112); }
+  font("italic",4.4,"#e8ecf6"); doc.text(wrap(`“${KEVIN}”`,PW-2*M-30,4.4),M,170);
+  doc.setDrawColor("#ffffff"); doc.setLineWidth(.4); doc.rect(PW-M-14,18,13.4,16.6); font("bold",7,"#ffffff"); doc.text("ka",PW-M-7.3,29.2,{align:"center"});
+  // 2 · outside in
+  if(hasOutside()){ frame("Outside in",`What's happening around ${S.company?.name||"them"}`);
+    const cw=(PW-2*M-16)/3; EXT.forEach(([k,l],i)=>{ const x=M+i*(cw+8); font("bold",3.2,PDFC.plum); doc.text(l.toUpperCase(),x,54); font("normal",3.9,PDFC.ink); doc.text(wrap(S.ext[k].t.trim()||"-",cw,3.9).slice(0,8),x,61,{lineHeightFactor:1.35}); });
+    const any=RATIO_GROUPS.some(g=>g.r.some(([k])=>S.fin?.[k]?.v||S.fin?.[k]?.read));
+    if(any){ let y=112; font("bold",3.2,PDFC.plum); doc.text("KEY RATIOS · NOW, AND THE CHANGE OVER 24 MONTHS",M,y); y+=6;
+      RATIO_GROUPS.forEach((g,i)=>{ const x=M+i*(cw+8); let yy=y; doc.setFillColor("#f5f6f9"); doc.roundedRect(x,yy,cw,62,2,2,"F"); const rd=groupRead(g);
+        font("bold",4.2,PDFC.ink); doc.text(g.l,x+5,yy+9); if(rd){ const c={strong:"#1f7a46",watch:"#8a6a10",weak:"#a32d2d"}[rd]; font("bold",3,c); doc.text(READS.find(r=>r[0]===rd)[1].toUpperCase(),x+cw-5,yy+9,{align:"right"}); }
+        yy+=17; g.r.forEach(([k,l])=>{ const o=S.fin?.[k]||{}; font("normal",3.2,PDFC.muted); doc.text(l,x+5,yy); font("bold",3.8,PDFC.ink); doc.text(clean(o.v||"-"),x+5,yy+5.6);
+          const t=trendOf(k); if(t){ const c=t.t==="better"?"#1f7a46":t.t==="worse"?"#a32d2d":PDFC.muted; font("bold",3,c); doc.text(clean(t.t==="steady"?"Steady":`${t.word} from ${o.v0}`),x+cw-5,yy+5.6,{align:"right"}); }
+          yy+=14; }); });
+      font("normal",2.8,PDFC.muted); doc.text(clean(`Values ${S.fin?.current?.yr||"latest"} vs ${S.fin?.current?.yr0||"24 months earlier"}, from public information: approximate, to be confirmed.`),M,190); } }
+  // 3 · one page per column
+  COLS.forEach((c,ix)=>{ const ids=colFilled(ix); if(!ids.length) return; frame(c.label,c.walk); let y=54;
+    ids.forEach(id=>{ const it=item(id), sv=(it.serves||[]).filter(filled).map(nameOf), by=servedBy(id).filter(filled).map(nameOf), g=gainsOf(it);
+      const sup=it.d.trim()?wrap(it.d.trim(),PW-2*M-70,3.9):[], meta=[sv.length&&`${VERB_OF[ix]}S: ${sv.join(", ")}`,by.length&&`Served by: ${by.join(", ")}`,g.length&&`Improve for: ${g.join(", ")}`].filter(Boolean).join("   ·   ");
+      const h=Math.max(16,8+sup.length*5.4+(meta?6:0)); if(y+h>PH-20) return;
+      doc.setFillColor("#f5f6f9"); doc.roundedRect(M,y,PW-2*M,h,2,2,"F"); doc.setFillColor([PDFC.org[2],PDFC.org[2],PDFC.op[2],PDFC.op[2],PDFC.inf[2]][ix]); doc.rect(M,y,2.2,h,"F");
+      font("bold",4.6,PDFC.ink); doc.text(clean(it.t),M+7,y+8.5); if(sup.length){ font("normal",3.9,PDFC.ink); doc.text(sup,M+66,y+8.5,{lineHeightFactor:1.35}); }
+      if(meta){ font("normal",3,PDFC.muted); doc.text(clean(meta),M+66,y+h-4.5,{maxWidth:PW-2*M-70}); }
+      y+=h+5; }); });
+  // 4 · the formal sheet
+  doc.addPage("letter","landscape"); pageNo++; await buildPdf(doc);
+  // 5 · what we heard
+  const ch=chainsHeard(); frame("What we heard","How it comes together");
+  let y=54; const n=5, gap=11, bw=(PW-2*M-gap*(n-1))/n;
+  (ch.length?ch:[colFilled(0)]).forEach(c=>{ c.forEach((id,j)=>{ const ix=ci(id.split(".")[0]), x=M+j*(bw+gap), it=item(id);
+      doc.setFillColor([PDFC.org[1],PDFC.org[1],PDFC.op[1],PDFC.op[1],PDFC.inf[1]][ix]); doc.setDrawColor(PDFC.rule); doc.roundedRect(x,y,bw,30,2,2,"FD");
+      font("bold",2.6,PDFC.plum); doc.text(COLS[ix].one.toUpperCase(),x+3.5,y+6); font("bold",3.9,PDFC.ink); doc.text(wrap(it.t,bw-7,3.9).slice(0,2),x+3.5,y+12.5,{lineHeightFactor:1.2});
+      if(it.d.trim()){ font("normal",3,PDFC.muted); doc.text(wrap(it.d.trim(),bw-7,3).slice(0,2),x+3.5,y+22,{lineHeightFactor:1.25}); }
+      if(j){ const ax=x-gap+1.2, ay=y+15; font("bold",2.1,PDFC.plum); doc.text(VERB_OF[ix],ax+(gap-1.2)/2,ay-2.2,{align:"center"}); doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.line(ax+1.5,ay,ax+gap-2.4,ay); doc.setFillColor(PDFC.plum); doc.triangle(ax,ay,ax+2,ay-1.2,ax+2,ay+1.2,"F"); } });
+    y+=38; });
+  font("normal",7,PDFC.title); doc.text("Where am I off track?",M,Math.max(y+14,176)); font("normal",4,PDFC.ink); doc.text(clean(nextStep()),M,Math.max(y+23,185));
+  return doc; }
+async function downloadDeck(){ toast("Making the leave-behind PDF…",null,true);
+  let doc; try{ doc=await buildDeck(); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
+  const base=(LIBD.aids[LIBD.cur].name||"Alignment of Priorities").replace(/[\\/:*?"<>|]+/g," ").trim(), filename=`Alignment of Priorities - ${base} - leave-behind.pdf`;
+  if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("Leave-behind PDF saved",null,true); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view",null,true); } }
+  else { try{ doc.save(filename); toast("Leave-behind PDF downloaded",null,true); }catch(e){ toast("Saving isn't available in this view",null,true); } } }
+
 
 /* ===================== 5 · Download PDF: one landscape letter page, drawn from the same coordinates ===================== */
 let jspdfReady=null, downloads=null;
 (async()=>{ try{ downloads=window.claude?await window.claude.use("downloads"):null; }catch(e){ downloads=null; } })();
 function loadJsPdf(){ if(jspdfReady) return jspdfReady; jspdfReady=new Promise((ok,no)=>{ const sc=document.createElement("script"); sc.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"; sc.onload=()=>ok(window.jspdf.jsPDF); sc.onerror=()=>{ jspdfReady=null; no(new Error("load")); }; document.head.appendChild(sc); }); return jspdfReady; }
 const PDFC={plum:"#9e2a55",blue:"#2c4f9b",title:"#3f62ad",ink:"#1f2430",muted:"#5b6476",rule:"#d8dce5",tan:"#a39a83",org:["#f3d4d2","#f9e8e7","#ecc2bf"],op:["#fbefc8","#fdf6e1","#f5e2a6"],inf:["#dcebe0","#edf5ef","#c9e0cf"],g1:"#2f6fd6",g2:"#1f9a62",g12:"#7b4bd1",gnone:"#9aa1ad"};
-async function buildPdf(){
-  const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346;
+async function buildPdf(doc0){
+  const jsPDF=await loadJsPdf(), doc=doc0||new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346;
   const fill=c=>doc.setFillColor(c), draw=c=>doc.setDrawColor(c), color=c=>doc.setTextColor(c);
   // bands, fading to the right
   [["org",52,31,"ORGANIZATIONAL"],["op",83,30,"OPERATIONAL"],["inf",113,35,"INFRASTRUCTURE"]].forEach(([k,y,h,label])=>{
@@ -1634,7 +2000,7 @@ async function downloadPdf(){
   if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view"); } }
   else { try{ doc.save(filename); toast("PDF downloaded"); }catch(e){ toast("Saving isn't available in this view"); } }
 }
-$("pdfBtn").onclick=downloadPdf; $("pdfBtn2").onclick=downloadPdf;
+$("pdfBtn").onclick=downloadPdf; $("pdfBtn2").onclick=downloadPdf; $("deckBtn").onclick=()=>downloadDeck(); $("deckBtn2").onclick=()=>downloadDeck();
 
 /* research a company from the assistant panel */
 $("asCoGo").onclick=()=>{ const v=$("asCo").value.trim(); if(!v){ $("asCoStatus").textContent="Type a company name first."; $("asCo").focus(); return; }
