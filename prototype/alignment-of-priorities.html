@@ -139,7 +139,7 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 @keyframes rise{to{opacity:1;transform:none}}
 #arrowLine{stroke-dasharray:240;stroke-dashoffset:0}
 /* the diagonal in white (Dave, Nov 16: "the pink arrow is jarring. Use white."), with a soft edge so it reads on white paper */
-#arrowLine,#arrowHead,.minisvg .arrw{filter:drop-shadow(0 0 .45px rgb(40 50 80 /.38))}
+
 .intro #arrowLine{animation:draw 1.3s ease-out both}
 .intro #arrowHead{animation:fadein .3s 1.2s both}
 @keyframes draw{from{stroke-dashoffset:240}}
@@ -484,7 +484,7 @@ body.presenting.laser,body.presenting.laser *{cursor:none!important}
 .ps-date{font-size:1.3cqw;margin:.8cqw 0 0;color:#93a1c4;letter-spacing:.06em}
 .ps-q{margin:4cqw 0 0;padding-left:1.6cqw;border-left:.3cqw solid #b5386a;font-size:1.85cqw;font-style:italic;font-weight:300;line-height:1.4;color:#e6eaf4;max-width:72%;position:relative}
 .ps-out,.ps-heard{background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 70%,color-mix(in srgb,var(--paper) 88%,var(--blue)) 100%);color:var(--ink)}
-.ps-out::before,.ps-heard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.55cqw;background:linear-gradient(180deg,var(--org-s),var(--op-s),var(--inf-s))}
+
 .ps-ext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3cqw}
 .ps-ext p{margin:0;font-size:1.65cqw;line-height:1.45}
 .ps-ratios{margin-top:auto}
@@ -635,9 +635,13 @@ body.presenting .pc-sub{font-size:1.3cqw;color:#3b4254}
 body.presenting .pc-meta{font-size:1.02cqw;color:#5b6476;gap:.3cqw 1.6cqw;flex-direction:column}
 body.presenting .pc-meta em{color:var(--plum)}
 .ps-title{background:#fff;color:#1f2430}
-.ps-title::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.55cqw;background:linear-gradient(180deg,var(--org-s),var(--op-s),var(--inf-s))}
+
 .ps-title .ps-kick{color:var(--plum)}.ps-title .ps-ka{color:var(--blue)}
-.ps-title h1{color:var(--title)}.ps-who{color:#1f2430}.ps-date{color:#7a8296}
+.ps-title h1{color:var(--title)}
+/* the three bands as one quiet strip along the foot of every story slide */
+.ps::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1cqw;background:linear-gradient(90deg,var(--org-s) 0 33.34%,var(--op-s) 33.34% 66.67%,var(--inf-s) 66.67% 100%)}
+.ps-title .ps-mid{margin-top:auto;margin-bottom:0}
+.ps-title h1{font-size:7cqw}.ps-who{color:#1f2430}.ps-date{color:#7a8296}
 .ps-q{color:#3b4254;border-left-color:var(--plum)}
 .ps-diag line{stroke:#fff;opacity:1;stroke-width:.55;filter:drop-shadow(0 0 .25px rgb(40 50 80 /.4))}
 .ps-out,.ps-heard{background:#fff}
@@ -749,16 +753,16 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
           <defs>
             <linearGradient id="fadeR" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".72" stop-color="#fff"/><stop offset=".95" stop-color="#fff" stop-opacity="0"/></linearGradient>
             <mask id="fade"><rect x="0" y="0" width="279.4" height="215.9" fill="url(#fadeR)"/></mask>
-            <linearGradient id="fadeRP" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".9" stop-color="#fff"/><stop offset=".965" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <linearGradient id="fadeRP" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".975" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
             <mask id="fadeP"><rect x="0" y="0" width="279.4" height="215.9" fill="url(#fadeRP)"/></mask>
             <linearGradient id="gOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--org-a)"/><stop offset="1" stop-color="var(--org-b)"/></linearGradient>
             <linearGradient id="gOp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--op-b)"/><stop offset=".5" stop-color="var(--op-a)"/><stop offset="1" stop-color="var(--op-b)"/></linearGradient>
             <linearGradient id="gInf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--inf-b)"/><stop offset="1" stop-color="var(--inf-a)"/></linearGradient>
           </defs>
-          <g mask="url(#fade)" id="bandsG">
-            <rect class="bandr" x="23" y="52" width="200" height="31" fill="url(#gOrg)"/>
-            <rect class="bandr" x="23" y="83" width="200" height="30" fill="url(#gOp)"/>
-            <rect class="bandr" x="23" y="113" width="200" height="35" fill="url(#gInf)"/>
+          <g mask="url(#fadeP)" id="bandsG">
+            <rect class="bandr" x="23" y="52" width="256.4" height="31" fill="url(#gOrg)"/>
+            <rect class="bandr" x="23" y="83" width="256.4" height="30" fill="url(#gOp)"/>
+            <rect class="bandr" x="23" y="113" width="256.4" height="35" fill="url(#gInf)"/>
           </g>
           <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
           <g fill="var(--bandtext)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1" letter-spacing=".25" text-anchor="middle">
@@ -1319,7 +1323,7 @@ const OBTAINS=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
 
 /* the sheet in miniature */
 function miniSVG({active=-1,pair=null,labels=true}={}){
-  let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="212" height="31" fill="var(--org-a)"/><rect x="10.4" y="83" width="212" height="30" fill="var(--op-a)"/><rect x="10.4" y="113" width="212" height="35" fill="var(--inf-a)"/>`;
+  let h=`<svg viewBox="8 26 268 172" class="minisvg" role="img" aria-label="The sheet so far"><rect x="10.4" y="52" width="266" height="31" fill="var(--org-a)"/><rect x="10.4" y="83" width="266" height="30" fill="var(--op-a)"/><rect x="10.4" y="113" width="266" height="35" fill="var(--inf-a)"/>`;
   h+=`<line class="arrw" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="#fff" stroke-width="1.7"/><path class="arrw" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="#fff"/>`;
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
     (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"),[x2,y2]=linkPt(to,"r"),mx=(x1+x2)/2, on=pair&&pair.includes(ix)&&pair.includes(ix-1);
@@ -1812,7 +1816,7 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-nextmove]")) n
 /* ===================== 3 · Present: theatre, story and pro tools (Dave, Nov 16: "drop-dead gorgeous"; "do 1 thru 3 now") ===================== */
 let presenting=false, presIx=0, slides=[], presT0=0, presUpto=null, presNewCol=null, presCam=null, idleT=0, laserOn=false, blankOn=false;
 /* in Present the bands run under every column, to the sheet's right edge (Dave, Nov 16) */
-function bandsWide(on){ const g=document.getElementById("bandsG"); if(!g) return; g.setAttribute("mask",on?"url(#fadeP)":"url(#fade)"); g.querySelectorAll(".bandr").forEach(r=>r.setAttribute("width",on?"246":"200")); }
+function bandsWide(){ /* the bands now run to the right edge everywhere, under the white arrow (Nov 16) */ }
 const KEVIN="My goal is not to be right, but to get it right. Please correct me where I am off track.";
 const VERB_OF=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
 const colFilled=ix=>S.items[COLS[ix].k].map((_,i)=>`${COLS[ix].k}.${i}`).filter(filled);
@@ -1840,7 +1844,7 @@ function ratioStrip(){ return RATIO_GROUPS.map(g=>{ const rd=groupRead(g); const
   return `<div class="ps-rg"><div class="ps-rgh"><span>${g.l}</span>${rd?`<em class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</em>`:""}</div>${rows?`<ul>${rows}</ul>`:`<p class="ps-muted">${esc(g.q)}</p>`}</div>`; }).join(""); }
 function slideHTML(sl){
   if(sl.k==="title"){ const eyes=eyesOf();
-    return `<div class="ps ps-title"><svg class="ps-diag" viewBox="0 0 129.4 100" preserveAspectRatio="none" aria-hidden="true"><line x1="-5" y1="15" x2="135" y2="76" pathLength="1"/></svg>
+    return `<div class="ps ps-title">
       <div class="ps-top"><span class="ps-kick">Alignment of Priorities · Gain Business Clarity</span>${KA_MARK}</div>
       <div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div>
       <blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
@@ -2059,8 +2063,8 @@ async function buildPdf(doc0){
   const fill=c=>doc.setFillColor(c), draw=c=>doc.setDrawColor(c), color=c=>doc.setTextColor(c);
   // bands, fading to the right
   [["org",52,31,"ORGANIZATIONAL"],["op",83,30,"OPERATIONAL"],["inf",113,35,"INFRASTRUCTURE"]].forEach(([k,y,h,label])=>{
-    fill(PDFC[k][0]); doc.rect(23,y,150,h,"F");
-    for(let i=0;i<10;i++){ doc.setGState(new doc.GState({opacity:1-(i+1)/10})); doc.rect(173+i*5,y,5.05,h,"F"); }
+    fill(PDFC[k][0]); doc.rect(23,y,239,h,"F");
+    for(let i=0;i<10;i++){ doc.setGState(new doc.GState({opacity:1-(i+1)/10})); doc.rect(262+i*1.74,y,1.79,h,"F"); }
     doc.setGState(new doc.GState({opacity:1})); fill(PDFC[k][2]); doc.rect(10.4,y,12.6,h,"F");
     color("#4d4d52"); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*PT); doc.text(label,18.6,y+h/2+doc.getTextWidth(label)/2,{angle:90}); });
   // masthead
@@ -2074,7 +2078,7 @@ async function buildPdf(doc0){
   EXT.forEach(([k,l,y])=>{ tri(17.4,y+2.9); doc.text(l.toUpperCase(),20.2,y+2.9); });
   COLS.forEach(c=>{ tri(c.hd[0],c.hd[1]+3.2); doc.setFontSize(3.7*PT); doc.text(c.label.toUpperCase(),c.hd[0]+2.8,c.hd[1]+3.2); });
   // the plum diagonal
-  doc.setLineCap("round"); draw("#d3d7e0"); doc.setLineWidth(2.5); doc.line(56.6,41.6,268.6,118); fill("#d3d7e0"); doc.triangle(274.3,120,264,122.4,267.6,112.4,"F"); draw("#ffffff"); doc.setLineWidth(1.9); doc.line(56.6,41.6,268.6,118); fill("#ffffff"); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
+  doc.setLineCap("round"); draw("#ffffff"); doc.setLineWidth(1.9); doc.line(56.6,41.6,268.6,118); fill("#ffffff"); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
   // connections
   doc.setLineCap("butt");
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
