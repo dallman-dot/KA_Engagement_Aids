@@ -188,6 +188,10 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .helpbox b{font-size:calc(3.6*var(--mm));color:var(--plum)}
 .helpbox:hover{border-color:var(--plum)}
 .menubtn{z-index:4;border:0;border-radius:calc(.8*var(--mm));background:var(--callout);color:#fff;font-size:calc(5*var(--mm));line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+/* the subtitle in white on the dark sheet (Dave, Nov 16) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .subt{fill:#fff}}
+:root[data-theme="dark"] .subt{fill:#fff}
+.aligned.gone{opacity:0;transition:opacity .6s}
 .aligned{position:absolute;z-index:8;font:700 calc(2.8*var(--mm)) var(--font);color:#fff;background:var(--plum);border-radius:999px;padding:calc(.7*var(--mm)) calc(2.2*var(--mm));white-space:nowrap;animation:pop .4s ease-out}
 .spark{fill:#fff;stroke:var(--plum);stroke-width:.6}
 .under{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
@@ -776,7 +780,7 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
           <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/>
           <text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
           <text x="225" y="21.2" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="3.6">Knowledge-Advantage, Inc.</text>
-          <text x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Organizational, Operational, and Infrastructure Priorities</text>
+          <text class="subt" x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Organizational, Operational, and Infrastructure Priorities</text>
           <rect x="10.9" y="204" width="4.3" height="5.5" fill="none" stroke="var(--ink)" stroke-width=".3"/>
           <text x="13.05" y="208" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="2.4">ka</text>
           <text x="16.2" y="207.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2015</text>
@@ -1119,11 +1123,14 @@ function applyFocus(){
   } else tr.hidden=true;
   drawLinks(); setFocusLine(); alignedBadge();
 }
-let wasAligned=false;
+let wasAligned=null;
 function alignedBadge(){
   const sols=allFilled().filter(id=>id.startsWith("solutions")), ok=sols.length>0&&sols.every(id=>[...up(id)].some(x=>x.startsWith("goals")));
-  const cv=$("cv"); cv.querySelector(".aligned")?.remove();
-  if(ok){ cv.insertAdjacentHTML("beforeend",`<div class="aligned" style="left:calc(222 * var(--mm));top:calc(124.5 * var(--mm))">✓ Every solution reaches a goal</div>`); if(!wasAligned) spark(COLS.length-1,true); }
+  const cv=$("cv");
+  /* a moment, not a fixture (Dave, Nov 16: "that shouldn't show constantly"): only when the last solution first reaches a goal, then it fades */
+  if(ok&&wasAligned===false){ cv.querySelector(".aligned")?.remove(); cv.insertAdjacentHTML("beforeend",`<div class="aligned" style="left:calc(222 * var(--mm));top:calc(124.5 * var(--mm))">✓ Every solution reaches a goal</div>`); spark(COLS.length-1,true);
+    const b=cv.querySelector(".aligned"); setTimeout(()=>b?.classList.add("gone"),3200); setTimeout(()=>b?.remove(),3900); }
+  else if(!ok) cv.querySelector(".aligned")?.remove();
   wasAligned=ok;
 }
 const RIPPLE_MS=450;   /* one column every 0.45 s */
