@@ -599,6 +599,45 @@ body.presenting .toast{bottom:84px}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.how .y{stroke-dashoffset:0}}
+
+/* Present on white (Dave, Nov 16: "this would better on a white background"): the sheet whole, each box one clean card */
+body.presenting #viewAid .stagewrap{background:#fff!important}
+body.presenting #viewAid .stage{border-radius:0!important;box-shadow:none!important;border:0!important;outline:0!important;background:#fff}
+body.presenting .cv{transform:none!important}
+body.presenting .slot:not(.empty){height:auto!important;background:#fff;border:calc(.22*var(--mm)) solid #e2e6ef;border-radius:calc(1.3*var(--mm));box-shadow:0 calc(.5*var(--mm)) calc(1.6*var(--mm)) rgb(30 45 80 /.07)}
+body.presenting .slot .namebar{position:relative;background:transparent!important;box-shadow:none!important;outline:none!important;transform:none!important;color:#1f2430;padding-top:calc(.3*var(--mm))}
+body.presenting .slot .desc{display:none!important}
+body.presenting .slot input.nameinput{position:relative;display:block;width:100%;height:calc(var(--nh)*var(--mm));background:transparent!important;box-shadow:none!important;outline:none!important;border:0!important;color:#1f2430;font-weight:700;pointer-events:none}
+body.presenting .slot .pdesc{display:block;padding:0 calc(1.4*var(--mm)) calc(1.5*var(--mm));margin-top:calc(-.6*var(--mm));font-size:calc(2.9*var(--mm));line-height:1.32;color:#4b5366}
+body.presenting .slot.sel{transform:translateY(calc(-.6*var(--mm)));filter:none;border-color:var(--plum);box-shadow:0 0 0 calc(.35*var(--mm)) var(--plum),0 calc(2*var(--mm)) calc(5*var(--mm)) rgb(158 42 85 /.18)}
+body.presenting .slot.lit:not(.sel){border-color:color-mix(in srgb,var(--plum) 45%,#e2e6ef)}
+body.presenting .cv.focusing .slot:not(.lit):not(.ghost){opacity:.22}
+body.presenting .slot.ghost,body.presenting .colhd.ghost{opacity:0!important}
+body.presenting .slot.pcur{animation:pcardin .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--pi,0) * .09s + .15s)}
+@keyframes pcardin{from{opacity:0;transform:translateY(calc(1.6*var(--mm)))}}
+body.presenting #arrowLine{stroke-width:1.15;opacity:.85}body.presenting #arrowHead{opacity:.85}
+body.presenting #links path{stroke-width:.5px}
+body.presenting .pcap{container-type:normal;left:calc(10.4 * 100cqw / 279.4);top:calc(151 * 100cqw / 279.4);bottom:auto;width:calc(82 * 100cqw / 279.4);transform:translateY(.8cqw);background:#fff;color:#1f2430;border:0;border-left:.35cqw solid var(--plum);border-radius:0;box-shadow:none;backdrop-filter:none;padding:.4cqw 0 .4cqw 1.6cqw;gap:.45cqw}
+body.presenting .pcap.in{transform:none}
+body.presenting .pc-kick{font-size:.95cqw;color:var(--plum)}
+body.presenting .pc-title{font-size:1.85cqw;font-weight:600;color:var(--title)}
+body.presenting .pc-sub{font-size:1.3cqw;color:#3b4254}
+body.presenting .pc-meta{font-size:1.02cqw;color:#5b6476;gap:.3cqw 1.6cqw;flex-direction:column}
+body.presenting .pc-meta em{color:var(--plum)}
+.ps-title{background:#fff;color:#1f2430}
+.ps-title::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.55cqw;background:linear-gradient(180deg,var(--org-s),var(--op-s),var(--inf-s))}
+.ps-title .ps-kick{color:var(--plum)}.ps-title .ps-ka{color:var(--blue)}
+.ps-title h1{color:var(--title)}.ps-who{color:#1f2430}.ps-date{color:#7a8296}
+.ps-q{color:#3b4254;border-left-color:var(--plum)}
+.ps-diag line{stroke:var(--plum);opacity:.85;stroke-width:.4}
+.ps-out,.ps-heard{background:#fff}
+.ps-rg{background:#f6f7fa}
+body.presenting .presbar{background:#fff;color:#1f2430;border:1px solid #e3e6ee;box-shadow:0 8px 28px rgb(30 45 80 /.14)}
+body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{background:#e6e9f0}body.presenting .pb[aria-pressed="true"]{background:#1f2a48;color:#fff}body.presenting .pb:disabled{opacity:.4}
+.pprog{background:#eef0f5}
+.pkeys,.pvhelp{background:#fff;color:#1f2430;border:1px solid #e3e6ee;box-shadow:0 18px 44px rgb(30 45 80 /.18)}
+.pkeys dt{color:#1f2430}.pkeys dd,.pkeys .note{color:#5b6476}
+@media (orientation:portrait) and (max-width:700px){body.presenting #viewAid .stagewrap::before{color:#7a8296}}
 </style>
 
 <div class="shell">
@@ -1778,7 +1817,9 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
   cv.querySelectorAll(".slot").forEach(x=>x.classList.toggle("ghost",presUpto!=null&&ci(x.dataset.id.split(".")[0])>presUpto));
   cv.querySelectorAll(".colhd[data-col]").forEach(h=>{ const ix=+h.dataset.col; h.classList.toggle("ghost",presUpto!=null&&ix>presUpto); h.classList.toggle("pnone",!colFilled(ix).length); });
   select(sl.k==="box"?sl.id:null); drawLinks();
-  if(onSheet){ camera(sl.k==="whole"?null:sl.ix); ps.classList.remove("in"); clearTimeout(ps._t); ps._t=setTimeout(()=>{ if(!ps.classList.contains("in")) ps.hidden=true; },500);
+  cv.querySelectorAll(".slot").forEach(x=>{ x.classList.remove("pcur"); x.querySelector(".pdesc")?.remove(); const it=item(x.dataset.id); if(it&&it.t.trim()&&it.d.trim()) x.insertAdjacentHTML("beforeend",`<div class="pdesc">${esc(it.d.trim())}</div>`); });
+  if(sl.k==="col"){ colFilled(sl.ix).forEach((id,j)=>{ const x=cv.querySelector(`.slot[data-id="${id}"]`); if(x){ x.style.setProperty("--pi",j); void x.offsetWidth; x.classList.add("pcur"); } }); }
+  if(onSheet){ camera(null); ps.classList.remove("in"); clearTimeout(ps._t); ps._t=setTimeout(()=>{ if(!ps.classList.contains("in")) ps.hidden=true; },500);
     cap.innerHTML=capHTML(sl); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
   else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
   $("pText").textContent=`${slideLabel(sl)} · ${presIx+1} of ${slides.length}`;
@@ -1787,7 +1828,8 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
   if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); }
 function go(i){ if(!presenting) return; const n=Math.max(0,Math.min(slides.length-1,i)); if(n===presIx&&slides[n]) return presRender(); presIx=n; presRender(); }
 
-function startPresent(){ if(presenting) return; show("aid"); presenting=true; bandsWide(true); closePop(); closeAssist(); setHow(false); setWalk(-1); setZoom(false);
+let presTheme=null;
+function startPresent(){ if(presenting) return; show("aid"); presenting=true; presTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; bandsWide(true); closePop(); closeAssist(); setHow(false); setWalk(-1); setZoom(false);
   document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false; $("pprog").hidden=false;
   slides=buildSlides(); presIx=0; presT0=Date.now(); select(null);
   try{ const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){}
@@ -1795,7 +1837,8 @@ function startPresent(){ if(presenting) return; show("aid"); presenting=true; ba
 function stopPresent(){ if(!presenting) return; presenting=false; presUpto=null; presNewCol=null; bandsWide(false);
   document.body.classList.remove("presenting","pidle","laser"); ["presbar","pprog","pslide","pcap","presNotes","pblank","laser","pkeysBox","pvHelp"].forEach(id=>$(id).hidden=true);
   $("pNotes").setAttribute("aria-pressed","false"); $("pKeys").setAttribute("aria-pressed","false"); laserOn=false; blankOn=false;
-  const cv=$("cv"); cv.style.transform=""; cv.querySelectorAll(".ghost,.pnone").forEach(x=>x.classList.remove("ghost","pnone")); select(null);
+  const cv=$("cv"); cv.style.transform=""; cv.querySelectorAll(".ghost,.pnone,.pcur").forEach(x=>x.classList.remove("ghost","pnone","pcur")); cv.querySelectorAll(".pdesc").forEach(x=>x.remove()); select(null);
+  if(presTheme===null) delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme=presTheme;
   try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); bc({type:"end"}); }
 
 /* ---- notes, shared by the panel and the presenter view ---- */
