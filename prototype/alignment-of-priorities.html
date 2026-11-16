@@ -1277,7 +1277,7 @@ function renderRatios(){ const f=S.fin||(S.fin={});
     if(rd&&rd!=="strong"){ const pts=Object.entries(g.points).flatMap(([col,vs])=>vs.map(v=>[col,v]));
       h+=`<div class="rpoints">Points to:<div class="chips">${pts.map(([col,v])=>{ const on=S.items[col].some(x=>x.t===v); return `<button class="chip2 ${on?"on":""}" data-pt="${col}|${esc(v)}" aria-pressed="${on}" title="${on?"Already on the aid":`Add to ${col}`}">${on?"":"+ "}${esc(v)}</button>`; }).join("")}</div></div>`; }
     h+=`</div>`; });
-  h+=`</div><div class="arow" style="flex:0 1 auto;margin-top:10px"><button class="btn small" data-finline ${finLine()?"":"disabled"}>Write the Financials line from the ratios</button></div><p class="draft">Solvency, asset effectiveness and profitability are KA's key ratios; the ratios listed in each are draft for KA to confirm.</p>`;
+  h+=`</div><div class="arow" style="flex:0 1 auto;margin-top:10px"><button class="btn small" data-finline ${finLine()?"":"disabled"}>Write the Financials line from the ratios</button></div><p class="draft">Solvency, asset effectiveness and profitability are KA's key ratios.</p>`;
   $("ratios").innerHTML=h; }
 $("ratios").addEventListener("input",e=>{ const k=e.target.dataset.rv; if(!k) return; (S.fin[k]=S.fin[k]||{}).v=e.target.value; save(); const b=$("ratios").querySelector("[data-finline]"); if(b) b.disabled=!finLine(); });
 $("ratios").addEventListener("focusout",()=>setTimeout(()=>{ if(!document.activeElement?.closest?.("#ratios")) renderRatios(); },0));
