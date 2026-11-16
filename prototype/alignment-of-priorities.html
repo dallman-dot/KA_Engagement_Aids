@@ -8,6 +8,7 @@
   --blue:#2c4f9b; --title:#3f62ad; --cyan:#0fa3c2; --cyan-soft:#e2f5f9; --plum:#9e2a55; --plum-soft:#f7e7ed;
   --tan:#a39a83; --band-dark:#c6c7ca; --band-mid:#e6e7e9; --band-light:#f1f1f2; --strip:#e3e3e5; --bandtext:#4d4d52;
   --hl:#ffe600; --callout:#8a8a8a; --ok:#2d7a52; --warn:#a6501d; --warn-soft:#fbeadf; --on-blue:#fff;
+  --org-ink:#8c2b33; --op-ink:#7a5606; --inf-ink:#2c6142;
   --org-a:#f3d4d2; --org-b:#f9e8e7; --org-s:#ecc2bf; --op-a:#fbefc8; --op-b:#fdf6e1; --op-s:#f5e2a6; --inf-a:#dcebe0; --inf-b:#edf5ef; --inf-s:#c9e0cf;
   --g1:#2f6fd6; --g2:#1f9a62; --g12:#7b4bd1; --gnone:#9aa1ad;
   --font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif; --hand:"Kalam","Comic Sans MS",cursive;
@@ -16,12 +17,12 @@
   --bg:#10141c; --paper:#1a1f2b; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
   --blue:#a9bff0; --title:#b5c6f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#e0789f; --plum-soft:#3a2230;
   --tan:#b8af98; --band-dark:#3a404e; --band-mid:#272c38; --band-light:#20242f; --strip:#2a2f3b; --bandtext:#b9bdc8;
-  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}}
+  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-ink:#f2aeb2; --op-ink:#f0d48a; --inf-ink:#a3d8b5; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#10141c; --paper:#1a1f2b; --ink:#e6e9f0; --muted:#a1aabb; --rule:#323a4d;
   --blue:#a9bff0; --title:#b5c6f2; --cyan:#58d0e8; --cyan-soft:#14313a; --plum:#e0789f; --plum-soft:#3a2230;
   --tan:#b8af98; --band-dark:#3a404e; --band-mid:#272c38; --band-light:#20242f; --strip:#2a2f3b; --bandtext:#b9bdc8;
-  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}
+  --hl:#e6cf00; --callout:#7b8191; --ok:#86d1a6; --warn:#f1a679; --warn-soft:#41291b; --on-blue:#10141c; --org-ink:#f2aeb2; --op-ink:#f0d48a; --inf-ink:#a3d8b5; --org-a:#3e2729; --org-b:#2e2125; --org-s:#4a2d30; --op-a:#3a3424; --op-b:#2c2920; --op-s:#463e27; --inf-a:#253429; --inf-b:#1f2a23; --inf-s:#2c3e31; --g1:#6aa2ff; --g2:#4fd193; --g12:#b18cff; --gnone:#6f7686; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 56px}
@@ -766,10 +767,10 @@ body.presenting .pb{background:#f1f3f7;color:#1f2430}body.presenting .pb:hover{b
             <rect class="bandr" x="23" y="113" width="256.4" height="35" fill="url(#gInf)"/>
           </g>
           <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
-          <g fill="var(--bandtext)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1" letter-spacing=".25" text-anchor="middle">
-            <text transform="translate(18.6 67.5) rotate(-90)">ORGANIZATIONAL</text>
-            <text transform="translate(18.6 98) rotate(-90)">OPERATIONAL</text>
-            <text transform="translate(18.6 130.5) rotate(-90)">INFRASTRUCTURE</text>
+          <g class="bandlab" font-family="Open Sans,sans-serif" font-weight="800" font-size="3.35" letter-spacing=".3" text-anchor="middle">
+            <text fill="var(--org-ink)" transform="translate(17.95 67.5) rotate(-90)" textLength="28.5" lengthAdjust="spacingAndGlyphs">ORGANIZATIONAL</text>
+            <text fill="var(--op-ink)" transform="translate(17.95 98) rotate(-90)">OPERATIONAL</text>
+            <text fill="var(--inf-ink)" transform="translate(17.95 130.5) rotate(-90)">INFRASTRUCTURE</text>
           </g>
           <text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Gain Business Clarity</text>
           <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="125.5" lengthAdjust="spacingAndGlyphs">Alignment of Priorities</text>
@@ -2072,7 +2073,7 @@ async function buildPdf(doc0){
     fill(PDFC[k][0]); doc.rect(23,y,239,h,"F");
     for(let i=0;i<10;i++){ doc.setGState(new doc.GState({opacity:1-(i+1)/10})); doc.rect(262+i*1.74,y,1.79,h,"F"); }
     doc.setGState(new doc.GState({opacity:1})); fill(PDFC[k][2]); doc.rect(10.4,y,12.6,h,"F");
-    color("#4d4d52"); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*PT); doc.text(label,18.6,y+h/2+doc.getTextWidth(label)/2,{angle:90}); });
+    color({org:"#8c2b33",op:"#7a5606",inf:"#2c6142"}[k]); doc.setFont("helvetica","bold"); let lf=3.35; doc.setFontSize(lf*PT); while(doc.getTextWidth(label)>h-3&&lf>2.6){ lf-=.05; doc.setFontSize(lf*PT); } doc.text(label,18.1,y+h/2+doc.getTextWidth(label)/2,{angle:90}); });
   // masthead
   color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Gain Business Clarity",10.4,14.2);
   color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",10.4,28.4);
