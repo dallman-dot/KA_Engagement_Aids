@@ -312,6 +312,23 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .field label{font-weight:600;font-size:13px;color:var(--muted)}
 .field textarea,.pcard textarea,.pcard input{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:15px;color:var(--ink);font-family:var(--font)}
 .ext3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ratios{margin:14px 0 4px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg)}
+.ratios h3{margin:0 0 2px}.ratios .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.rgrp{border-radius:10px;padding:10px;background:var(--paper);border:1px solid var(--line);min-width:0}
+.rgrp>b{display:flex;justify-content:space-between;gap:6px;align-items:center}.rgrp>small{display:block;color:var(--muted);margin-bottom:6px}
+.rrow{border-top:1px dashed var(--line);padding:7px 0 4px}.rrow label{font-weight:600;font-size:13px;display:block}.rrow .fx{font-size:11.5px;color:var(--muted);display:block;margin-bottom:4px}
+.rrow .rin{display:flex;gap:4px;align-items:center;flex-wrap:nowrap}.rrow input{width:4.4em;min-width:0;min-height:34px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;font:inherit;font-size:16px;background:var(--bg);color:var(--ink)}
+.rrow .note2{width:100%;margin-top:4px;font-size:12.5px;color:var(--muted)}
+.rdpill{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 7px;font:inherit;font-size:12px;min-height:32px;cursor:pointer;white-space:nowrap}
+.rdpill[aria-pressed="true"].strong,.rbadge.strong{background:#dfeee3;border-color:#7fae8c;color:#244d30}
+.rdpill[aria-pressed="true"].watch,.rbadge.watch{background:#fbf0cf;border-color:#d4b157;color:#5c4710}
+.rdpill[aria-pressed="true"].weak,.rbadge.weak{background:#f6dcdc;border-color:#c98585;color:#6a2222}
+.rbadge{font-size:11.5px;border:1px solid;border-radius:999px;padding:1px 8px;font-weight:600}
+.rpoints{margin-top:8px;font-size:13px}.rpoints .chips{margin-top:4px}
+@media (max-width:900px){.ratios .rgrid{grid-template-columns:minmax(0,1fr)}}
+.bookq{border-left:3px solid var(--plum);padding:8px 12px;margin:10px 0;background:var(--bg);border-radius:0 10px 10px 0;font-size:14.5px}
+.bookq small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.gains{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:13px}.gains>span{color:var(--muted)}
 @media (max-width:760px){.ext3{grid-template-columns:minmax(0,1fr)}}
 .count{float:right;font-weight:700;color:var(--plum);letter-spacing:0;text-transform:none;font-size:13px}
 .cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
@@ -485,7 +502,7 @@ body.presenting .toast{bottom:84px}
   </div>
 
   <section id="viewLearn" role="tabpanel" aria-labelledby="tabLearn" hidden>
-    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1><p class="gsub">Learn the framework in five short cards. Then build your own.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
+    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1><p class="gsub">Learn the framework in six short cards. Then build your own.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
     <div class="lwrap">
       <ol class="ldots" id="ldots" aria-label="Cards"></ol>
       <article class="lcard" id="lcard" aria-live="polite"></article>
@@ -525,6 +542,7 @@ body.presenting .toast{bottom:84px}
             <div class="field"><label for="ext2-industry">Industry</label><textarea id="ext2-industry" data-ext2="industry" rows="2" placeholder="What's happening in their industry?"></textarea></div>
             <div class="field"><label for="ext2-financials">Financials</label><textarea id="ext2-financials" data-ext2="financials" rows="2" placeholder="What do their financials say?"></textarea></div>
           </div>
+          <div class="ratios" id="ratios"></div>
           <h3>Potential gaps / challenges</h3>
           <p class="note">Tick a gap you see and note what you know. The assistant uses these.</p>
           <div class="gaps" id="gaps"></div>
@@ -566,14 +584,16 @@ body.presenting .toast{bottom:84px}
           <defs>
             <linearGradient id="fadeR" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".72" stop-color="#fff"/><stop offset=".95" stop-color="#fff" stop-opacity="0"/></linearGradient>
             <mask id="fade"><rect x="0" y="0" width="279.4" height="215.9" fill="url(#fadeR)"/></mask>
+            <linearGradient id="fadeRP" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".9" stop-color="#fff"/><stop offset=".965" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <mask id="fadeP"><rect x="0" y="0" width="279.4" height="215.9" fill="url(#fadeRP)"/></mask>
             <linearGradient id="gOrg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--org-a)"/><stop offset="1" stop-color="var(--org-b)"/></linearGradient>
             <linearGradient id="gOp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--op-b)"/><stop offset=".5" stop-color="var(--op-a)"/><stop offset="1" stop-color="var(--op-b)"/></linearGradient>
             <linearGradient id="gInf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--inf-b)"/><stop offset="1" stop-color="var(--inf-a)"/></linearGradient>
           </defs>
-          <g mask="url(#fade)">
-            <rect x="23" y="52" width="200" height="31" fill="url(#gOrg)"/>
-            <rect x="23" y="83" width="200" height="30" fill="url(#gOp)"/>
-            <rect x="23" y="113" width="200" height="35" fill="url(#gInf)"/>
+          <g mask="url(#fade)" id="bandsG">
+            <rect class="bandr" x="23" y="52" width="200" height="31" fill="url(#gOrg)"/>
+            <rect class="bandr" x="23" y="83" width="200" height="30" fill="url(#gOp)"/>
+            <rect class="bandr" x="23" y="113" width="200" height="35" fill="url(#gInf)"/>
           </g>
           <rect x="10.4" y="52" width="12.6" height="31" fill="var(--org-s)"/><rect x="10.4" y="83" width="12.6" height="30" fill="var(--op-s)"/><rect x="10.4" y="113" width="12.6" height="35" fill="var(--inf-s)"/>
           <g fill="var(--bandtext)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1" letter-spacing=".25" text-anchor="middle">
@@ -692,7 +712,8 @@ body.presenting .toast{bottom:84px}
 const CHOICES = {
   goals:["Cash Flow","Profit","Revenue","Market Share"],
   strategies:["Cash Management","Asset Usage","Leverage","Product Development","Customer Support","Restructure","Costs","Skills","Price","Acquisition","Image","Channels","Production","Enabling Infrastructure"],
-  processes:["Business Planning","Perf. & Risk Mgmt.","Compliance & Cert.","Market Development","Revenue Cycle","Innovation & Design","Product Development","Sourcing","Monitoring","Prevention & Intervention","Diagnosis","Prep & Treatment","Recovery & Rehab"],
+  /* the fifteen high-level operational processes, as printed in KA's book Dimensions of Success (p. 48) */
+  processes:["Performance Mgt.","Business Planning","Sourcing","Product Dev.","Production","Collections","Distribution","Marketing","Sales Forecasting","Sales Analysis","Order Fulfillment","Order Processing","Customer Service","Customer Relations","Customer Creation"],
   initiatives:["Sustainable Growth","Engage & Retain","High Performance Cult.","Improve Health & Well-Being","Operational Excellence","Cost Competitiveness"]
 };
 /* ---------- Page-2 geometry in mm, read from the PDF's fields ---------- */
@@ -706,18 +727,34 @@ const COLS = [
 COLS.forEach(c=>c.n=c.ys.length);
 const W=38.1;
 const EXT=[["economy","Economy",31.6],["industry","Industry",37.3],["financials","Financials",42.9]];
+/* KA's key ratios for the Financials (Dave, Nov 16): solvency, asset effectiveness, profitability. Ratios within each are draft for KA to confirm. */
+const RATIO_GROUPS=[
+ {k:"solvency",l:"Solvency",q:"Can it meet what it owes?",r:[["current","Current ratio","Current assets ÷ current liabilities"],["quick","Quick ratio","(Cash + receivables) ÷ current liabilities"],["debtNw","Total liabilities to net worth","Total liabilities ÷ net worth"]],
+  points:{goals:["Cash Flow"],strategies:["Cash Management","Leverage","Restructure"]}},
+ {k:"assets",l:"Asset effectiveness",q:"How hard do its assets work?",r:[["dso","Collection period","Receivables ÷ sales × 365 (days)"],["invTurn","Sales to inventory","Sales ÷ inventory"],["assetTurn","Asset turnover","Sales ÷ total assets"]],
+  points:{strategies:["Asset Usage"],processes:["Collections","Order Fulfillment","Production"]}},
+ {k:"profit",l:"Profitability",q:"How much does it keep?",r:[["ros","Return on sales","Net profit ÷ sales"],["roa","Return on assets","Net profit ÷ total assets"],["roe","Return on net worth","Net profit ÷ net worth"]],
+  points:{goals:["Profit"],strategies:["Costs","Price"]}}
+];
+const READS=[["strong","Strong"],["watch","Watch"],["weak","Weak"]];
+function groupRead(g){ const rs=g.r.map(([k])=>S.fin?.[k]?.read).filter(Boolean); if(!rs.length) return ""; return rs.includes("weak")?"weak":rs.includes("watch")?"watch":"strong"; }
+function finLine(){ const L=[]; RATIO_GROUPS.forEach(g=>{ const rd=groupRead(g); const vals=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>`${l} ${S.fin[k].v}`); if(!rd&&!vals.length) return;
+  L.push(`${g.l}${rd?` ${READS.find(x=>x[0]===rd)[1].toLowerCase()}`:""}${vals.length?` (${vals.join(", ")})`:""}`); }); return L.join("; "); }
+function finSnapshot(){ const o={}; RATIO_GROUPS.forEach(g=>{ const rows=g.r.map(([k,l])=>({ratio:l,value:S.fin?.[k]?.v||"",read:S.fin?.[k]?.read||"",note:S.fin?.[k]?.note||""})).filter(x=>x.value||x.read||x.note); if(rows.length) o[g.l]={read:groupRead(g),ratios:rows}; }); return o; }
 const OUTCOMES=["Confirm that organizational alignment is of importance to stakeholders","Initial “draft” of the priorities for stakeholders across the organization","Clarification of business goals and strategies","Executive clarity as to how solutions address top of mind business initiatives"];
 const GAPS=[["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]];
 const PROBLEM=["Review structure and use of colors within visual","Review and refine what is known for each of the columns","Understand the relationships within and across columns","Challenge the relevance of initiatives or solutions under consideration","Document any ambiguity that creates gaps to success"];
 const SOLUTION=["Confirm how an initiative or solution aligns to the business priorities of key stakeholders","Test the importance of an initiative or solution based on the business priorities","Identify potential “gaps” in business priorities"];
 
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
-  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},items}; }
+  return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},fin:{},items}; }
 const KEY="ka-aop-v3";
+/* process names before the book's list (Nov 16): only the clear equivalents carry over */
+const OLD_PROC={"Perf. & Risk Mgmt.":"Performance Mgt.","Product Development":"Product Dev.","Market Development":"Marketing"};
 /* stakeholder lenses: each aid holds up to 4 views of the same company; S.items is always the active one */
 function norm(o){ o=Object.assign(blank(),o||{});
   if(!o.lenses||!o.lens||!o.lenses[o.lens]){ o.lenses={main:{name:"Company",items:o.items}}; o.lens="main"; }
-  Object.values(o.lenses).forEach(L=>{ L.items=L.items||blank().items; COLS.forEach(c=>{ const a=L.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); L.items[c.k]=a.slice(0,c.n); }); });
+  Object.values(o.lenses).forEach(L=>{ L.items=L.items||blank().items; (L.items.processes||[]).forEach(it=>{ if(OLD_PROC[it.t]) it.t=OLD_PROC[it.t]; }); COLS.forEach(c=>{ const a=L.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); L.items[c.k]=a.slice(0,c.n); }); });
   o.items=o.lenses[o.lens].items; if(o.compare&&(!o.lenses[o.compare]||o.compare===o.lens)) o.compare=null; return o; }
 /* the library: every aid saved in this browser */
 const LIB="ka-aop-lib";
@@ -820,7 +857,7 @@ function abbrOne(x,re,to){ return x.replace(re,m=>(/^[A-Z]/.test(m)&&/^[a-z]/.te
 function abbreviate(t){ return String(t||"").replace(/\s+/g," ").trim(); }
 function fitText(k,t){ let x=abbreviate(t); const max=BUDGET[k]||48; for(const [re,to] of ABBR){ if(x.length<=max) break; x=abbrOne(x,re,to); } return x; }
 /* choice names must fit their bar: smaller type first, then a logical short form (display only; the stored choice stays KA's standard) */
-const SHORT={"Enabling Infrastructure":"Enabling Infra.","Prevention & Intervention":"Prevention & Interv.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Innovation & Design":"Innov. & Design","Product Development":"Product Dev.","Market Development":"Market Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Recovery & Rehab":"Recovery & Rehab","Compliance & Cert.":"Compliance & Cert."};
+const SHORT={"Enabling Infrastructure":"Enabling Infra.","High Performance Cult.":"High Perf. Cult.","Improve Health & Well-Being":"Health & Well-Being","Operational Excellence":"Operational Excel.","Cost Competitiveness":"Cost Competitive.","Product Development":"Product Dev.","Cash Management":"Cash Mgmt.","Business Planning":"Bus. Planning","Customer Support":"Cust. Support","Sustainable Growth":"Sustainable Grwth.","Sales Forecasting":"Sales Forecast.","Order Fulfillment":"Order Fulfill.","Order Processing":"Order Process.","Customer Relations":"Cust. Relations","Customer Creation":"Cust. Creation","Customer Service":"Cust. Service"};
 const NAME_MIN=2.6;
 function overX(el){ return el.scrollWidth>el.clientWidth; }
 function fitNames(){ const cv=$("cv"); if(!cv) return; const mm=cv.clientWidth/279.4; if(!mm) return;
@@ -958,7 +995,7 @@ function openPick(id,anchor){
 function openNote(key,anchor){
   closePop(); const ext=key.startsWith("ext:"), k=ext?key.slice(4):key, l=ext?EXT.find(e=>e[0]===k)[1]:COLS.find(c=>c.k===k).label;
   const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",l);
-  pop.innerHTML=`<h5>${l}: view or add additional details</h5><textarea placeholder="${ext?`What's happening in ${l.toLowerCase()} that matters here?`:"Enter details here"}">${esc(ext?S.ext[k].t:(S.notes[k]||""))}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button>${ext?"":`<button class="btn small danger prep-only" data-clearcol="${k}" ${S.items[k].some(x=>x.t.trim())?"":"disabled"}>Clear ${l.toLowerCase()}</button>`}</div>`;
+  pop.innerHTML=`<h5>${l}: view or add additional details</h5>${key==="ext:financials"&&finLine()?`<p class="note" style="margin:0 0 6px">Key ratios: ${esc(finLine())}</p>`:""}<textarea placeholder="${ext?`What's happening in ${l.toLowerCase()} that matters here?`:"Enter details here"}">${esc(ext?S.ext[k].t:(S.notes[k]||""))}</textarea><div class="arow"><button class="btn small primary" data-done>Done</button>${ext?"":`<button class="btn small danger prep-only" data-clearcol="${k}" ${S.items[k].some(x=>x.t.trim())?"":"disabled"}>Clear ${l.toLowerCase()}</button>`}</div>`;
   place(pop,anchor); popEl=pop;
   pop.querySelector("textarea").addEventListener("input",e=>{ if(ext) S.ext[k].t=e.target.value; else S.notes[k]=e.target.value; save(); });
   pop.querySelector("[data-done]").onclick=()=>{ closePop(); renderPicture(); };
@@ -1014,23 +1051,26 @@ $("walkReplay").onclick=()=>{ walkAuto=true; setWalk(0); };
 function summary(){
   const L=["ALIGNMENT OF PRIORITIES · Gain Business Clarity"]; if(S.company?.name) L.push(`Company: ${S.company.name}${S.company.eyes?` · through the eyes of ${S.company.eyes}`:""}`); if(S.situation) L.push(S.situation); L.push("");
   EXT.forEach(([k,l])=>{ if(S.ext[k].t.trim()) L.push(`${l}: ${S.ext[k].t.trim()}`); });
+  const fl=finLine(); if(fl) L.push(`Key ratios: ${fl}`);
   COLS.forEach(c=>{ const its=S.items[c.k].filter(it=>it.t.trim()); if(!its.length) return;
-    L.push("",c.label.toUpperCase()); its.forEach(it=>{ L.push(`- ${it.t.trim()}${it.d.trim()?`: ${it.d.trim()}`:""}${it.src?` (source: ${it.src})`:""}`); const sv=(it.serves||[]).filter(filled).map(nameOf); if(sv.length) L.push(`    serves: ${sv.join("; ")}`); }); });
+    L.push("",c.label.toUpperCase()); its.forEach(it=>{ L.push(`- ${it.t.trim()}${it.d.trim()?`: ${it.d.trim()}`:""}${gainsOf(it).length?` [improve for: ${gainsOf(it).join(", ")}]`:""}${it.src?` (source: ${it.src})`:""}`); const sv=(it.serves||[]).filter(filled).map(nameOf); if(sv.length) L.push(`    serves: ${sv.join("; ")}`); }); });
   const o=orphans(); if(o.length){ L.push("","NOT TIED IN YET"); o.forEach(x=>L.push(`- ${nameOf(x.id)}: ${x.why}`)); }
   const gs=GAPS.filter(([k])=>S.gaps[k]?.on); if(gs.length){ L.push("","GAPS"); gs.forEach(([k,l])=>L.push(`- ${l}${S.gaps[k].note?`: ${S.gaps[k].note}`:""}`)); }
   return L.join("\n");
 }
 async function copySummary(){ const t=summary(); try{ await navigator.clipboard.writeText(t); toast("Summary copied"); }catch(e){ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast("Summary copied");}catch(_){ toast("Copy didn't work in this view"); } ta.remove(); } }
 const EXAMPLE={
-  situation:"EXAMPLE · A regional insurance broker. Renewals fell 8% last year; the COO and VP of Sales want them back up. (Not a real client.)",
-  ext:{economy:{t:"Premiums rising; clients shop harder at renewal"},industry:{t:"Carriers consolidating; direct digital competitors"},financials:{t:"Commission revenue flat while service costs climb"}},
-  gaps:{people:{on:true,note:"COO and VP of Sales haven't agreed who owns renewals."},policies:{on:true,note:"No budget set aside for new tools this year."}},
+  situation:"EXAMPLE · Morgan Industries (MI), from KA's book Dimensions of Success: Kevin Cooper's Alignment of Priorities for MI's eBusiness initiative, built from public information. (A story, not a real client.)",
+  company:{name:"Morgan Industries (MI)",site:"",eyes:"",summary:"",asOf:""},
+  ext:{economy:{t:"Overall downturn is driving more desperate actions by industry players"},industry:{t:"Industry pressures increasing dramatically"},financials:{t:"Revenue doubled through acquisitions, but revenue and margins are down year to year; assets from acquisitions are under-used"}},
+  fin:{ros:{read:"weak",note:"Profit margins down year to year"},roa:{read:"weak",note:"Under-used assets from acquisitions"},assetTurn:{read:"weak",note:"Acquired assets not yet earning their keep"},debtNw:{read:"watch",note:"Resources don't support more growth through acquisitions"}},
+  gaps:{people:{on:true,note:"Sue Jacobs (VP Sales & Marketing) is the operational owner who sets success criteria."},position:{on:true,note:"Get consensus on the Assessment Questions to stay on the Fast Path."}},
   items:{
-    goals:[{t:"Revenue",d:"Renewals fell 8% last year; they're about 70% of revenue",c:1,serves:[]},{t:"Profit",d:"Margin per account slips as service costs climb",c:0,serves:[]}],
-    strategies:[{t:"Customer Support",d:"Joint account management with carriers, so clients see one team",c:1,serves:["goals.0"]},{t:"Skills",d:"Account teams able to run a renewal review, not just a quote",c:0,serves:["goals.0","goals.1"]},{t:"Costs",d:"Lower cost to serve the smallest accounts",c:2,serves:["goals.1"]},{t:"Image",d:"Service becomes the reason clients stay",c:0,serves:["goals.0"]},{t:"",d:"",c:0,serves:[]}],
-    processes:[{t:"Revenue Cycle",d:"Renewal planning starts 120 days out",c:0,serves:["strategies.0"]},{t:"Perf. & Risk Mgmt.",d:"Tier the book by value and risk",c:0,serves:["strategies.0","strategies.2"]},{t:"Monitoring",d:"Quarterly account reviews",c:0,serves:["strategies.0","strategies.3"]},{t:"Business Planning",d:"A plan for each top-50 account",c:0,serves:["strategies.1"]},{t:"",d:"",c:0,serves:[]}],
-    initiatives:[{t:"Engage & Retain",d:"Renewal early warning and a review rhythm",c:0,serves:["processes.0","processes.2"]},{t:"High Performance Cult.",d:"Account team playbook with coaching",c:0,serves:["processes.3"]},{t:"Cost Competitiveness",d:"Self-service for small accounts",c:2,serves:[]}],
-    solutions:[{t:"CRM renewal dashboard",d:"Flags accounts at risk 120 days out",c:0,serves:["initiatives.0"]},{t:"Templates & coaching",d:"",c:0,serves:["initiatives.1"]},{t:"New client portal",d:"",c:3,serves:["initiatives.2"]}]
+    goals:[{t:"Profit",d:"EPS up year to year",c:0,serves:[]},{t:"Revenue",d:"10% growth year to year",c:0,serves:[]}],
+    strategies:[{t:"Customer Support",d:"Stronger loyalty",c:0,serves:["goals.0","goals.1"]},{t:"Product Development",d:"New & extend",c:0,serves:["goals.1"]},{t:"Image",d:"Build the brand",c:0,serves:["goals.1"]},{t:"Enabling Infrastructure",d:"Drive innovation",c:0,serves:["goals.0"]},{t:"",d:"",c:0,serves:[]}],
+    processes:[{t:"Customer Creation",d:"“Net” new customers",c:0,g:["res","cyc"],serves:["strategies.1","strategies.2"]},{t:"Customer Relations",d:"Broaden coverage",c:0,g:["res","eff"],serves:["strategies.0","strategies.2"]},{t:"Customer Service",d:"Best in class",c:0,g:["cyc"],serves:["strategies.0","strategies.3"]},{t:"",d:"",c:0,serves:[]},{t:"",d:"",c:0,serves:[]}],
+    initiatives:[{t:"Engage & Retain",d:"MI's eBusiness initiative",c:0,serves:["processes.0","processes.1","processes.2"]},{t:"",d:"",c:0,serves:[]},{t:"",d:"",c:0,serves:[]}],
+    solutions:[{t:"Infrastructure Services",d:"ISAP: implementation design & delivery",c:0,serves:["initiatives.0"]},{t:"Infrastructure Products",d:"ISAP: architected “open”, always “on”",c:0,serves:["initiatives.0"]},{t:"",d:"",c:0,serves:[]}]
   }
 };
 function replaceState(n,msg){ const keep=S.bIdx; S=norm(n); S.bIdx=keep; save(); syncTop(); sel=null; wasAligned=true; setWalk(-1); renderAll(true); toast(msg); }
@@ -1063,17 +1103,20 @@ $("helpBox").onclick=openAssist; $("assistBtn").onclick=openAssist; $("assistClo
 const MEANING={
  "Cash Flow":"Having cash on hand to run and invest, when it's needed.","Profit":"Keeping more of each dollar earned.","Revenue":"Growing the money coming in.","Market Share":"Winning a bigger share of the market.",
  "Cash Management":"Managing cash in and out to free up money.","Asset Usage":"Getting more out of what the business already owns.","Leverage":"Using borrowing, partners or scale to do more with less.","Product Development":"Creating new or better products and services.","Customer Support":"Serving customers so they stay and buy more.","Restructure":"Changing how the business is organized.","Costs":"Lowering what it costs to operate.","Skills":"Building what people are able to do.","Price":"Changing what is charged, and how.","Acquisition":"Buying or merging to grow.","Image":"Strengthening reputation and brand.","Channels":"Reaching customers through new or better routes.","Production":"Making or delivering more efficiently.","Enabling Infrastructure":"The systems and technology everything else runs on.",
- "Business Planning":"Setting direction, budgets and plans.","Perf. & Risk Mgmt.":"Measuring results and managing risk.","Compliance & Cert.":"Meeting regulations and certifications.","Market Development":"Finding and growing markets.","Revenue Cycle":"Everything from order to cash collected.","Innovation & Design":"Generating and shaping new ideas.","Sourcing":"Buying what the business needs.","Monitoring":"Watching ongoing performance or condition.","Prevention & Intervention":"Stepping in early to stop problems.","Diagnosis":"Finding what's wrong, and why.","Prep & Treatment":"Preparing for and carrying out the fix or care.","Recovery & Rehab":"Restoring full strength afterward.",
  "Sustainable Growth":"Growth that lasts.","Engage & Retain":"Keeping customers and people committed.","High Performance Cult.":"A culture that consistently delivers.","Improve Health & Well-Being":"Better health for the people served or employed.","Operational Excellence":"Running the business reliably and efficiently.","Cost Competitiveness":"Costs low enough to compete."
 };
-const PROCESS_PD="Taking products from idea to launch.";
-const meaningOf=(k,v)=>k==="processes"&&v==="Product Development"?PROCESS_PD:(MEANING[v]||"");
+/* the processes' meanings; Customer Relations is the book's own definition (p. 84) */
+const PROC_MEANING={"Performance Mgt.":"Measuring results and acting on them.","Business Planning":"Setting direction, budgets and plans.","Sourcing":"Buying what the business needs.","Product Dev.":"Taking products from idea to launch.","Production":"Making the product or delivering the service.","Collections":"Turning invoices into cash.","Distribution":"Moving products to customers and channels.","Marketing":"Creating awareness and demand.","Sales Forecasting":"Predicting what will sell, and when.","Sales Analysis":"Understanding what sells, to whom, and why.","Order Fulfillment":"Delivering what was ordered, complete and on time.","Order Processing":"Taking and entering orders accurately.","Customer Service":"Helping customers when they need it.","Customer Relations":"Processes needed to expand relationships with current customers through existing and new channels.","Customer Creation":"Winning new customers: “net” new."};
+const meaningOf=(k,v)=>k==="processes"?(PROC_MEANING[v]||""):(MEANING[v]||"");
+/* an initiative improves a process in three ways (the book, pp. 49 and 84) */
+const GAINS=[["eff","Efficiency","free up resources"],["cyc","Cycle-time","faster thru-put"],["res","Effectiveness","better results"]];
+const gainsOf=it=>GAINS.filter(([g])=>(it.g||[]).includes(g)).map(([,l])=>l);
 const TEACH={
- goals:{verb:"Goals: what the business must OBTAIN.",lead:"The business outcomes everything else serves. Two at most, so the priorities stay real.",ask:["If this year goes well, which number moves?","Which matters more right now: growth or margin?","Who owns that goal?"]},
- strategies:{verb:"Strategies EXECUTE to obtain the goals.",lead:"How the business intends to reach its goals. Each strategy should obtain at least one goal.",ask:["What are you already doing to get there?","Where are you investing this year?","What would you stop doing?"]},
- processes:{verb:"Processes IMPROVE to execute the strategies.",lead:"The ongoing, day-to-day work that carries out the strategies.",ask:["Which processes make or break that strategy?","Where does work slow down or get redone?","Who runs it today?"]},
- initiatives:{verb:"Initiatives ENHANCE the processes.",lead:"The funded projects meant to improve those processes.",ask:["What projects are already underway?","Which have a sponsor and a budget?","What would you launch if you could?"]},
- solutions:{verb:"Solutions enhance the initiatives.",lead:"The specific capabilities, products or services that make an initiative work. These are in your own words.",ask:["What have you tried before?","What would 'solved' look like?","Who has to approve it?"]}
+ goals:{book:"A company can only have some combination of four organizational goals.",verb:"Goals: what the business must OBTAIN.",lead:"The business outcomes everything else serves. Two at most, so the priorities stay real.",ask:["If this year goes well, which number moves?","Which matters more right now: growth or margin?","Who owns that goal?"]},
+ strategies:{book:"…and some combination of fourteen organizational strategies that must be executed to achieve the goals.",verb:"Strategies EXECUTE to obtain the goals.",lead:"How the business intends to reach its goals. Each strategy should obtain at least one goal.",ask:["What are you already doing to get there?","Where are you investing this year?","What would you stop doing?"]},
+ processes:{book:"There are only fifteen high-level operational processes a company can improve. Kevin picked the three that mattered most to MI.",verb:"Processes IMPROVE to execute the strategies.",lead:"The ongoing, day-to-day work that carries out the strategies.",ask:["Which processes make or break that strategy?","Where does work slow down or get redone?","Who runs it today?"]},
+ initiatives:{book:"An initiative is intended to improve the efficiency, cycle-time and effectiveness of key operational processes.",verb:"Initiatives ENHANCE the processes.",lead:"The funded projects meant to improve those processes.",ask:["What projects are already underway?","Which have a sponsor and a budget?","What would you launch if you could?"]},
+ solutions:{book:"Infrastructure investments are worth what they improve in the operational processes: efficiency, cycle-time and effectiveness gains.",verb:"Solutions enhance the initiatives.",lead:"The specific capabilities, products or services that make an initiative work. These are in your own words.",ask:["What have you tried before?","What would 'solved' look like?","Who has to approve it?"]}
 };
 const GAP_MEANING={position:"Does this matter to them, now?",people:"Who decides, and who influences?",policies:"Is there money for it, and whose?",procedures:"What approvals stand in the way?",politics:"Whose agenda does this help, or threaten?"};
 const OBTAINS=["","OBTAIN","EXECUTE","IMPROVE","ENHANCE"];
@@ -1096,31 +1139,36 @@ function miniSVG({active=-1,pair=null,labels=true}={}){
 /* ---------- Learn ---------- */
 function withItems(items,fn){ const o=S.items; S.items=items; try{ return fn(); } finally{ S.items=o; } }
 let lIdx=0, lSeen=new Set([0]), learnPair=null, quiz=null, streak=0, best=0;
-const QUIZ_POOL=Object.entries(CHOICES).flatMap(([k,vs])=>vs.filter(v=>v!=="Product Development").map(v=>[k,v]));
+const QUIZ_POOL=Object.entries(CHOICES).flatMap(([k,vs])=>vs.filter(v=>Object.values(CHOICES).filter(l=>l.includes(v)).length===1).map(v=>[k,v]));
 function newQuiz(){ let q; do{ q=QUIZ_POOL[Math.floor(Math.random()*QUIZ_POOL.length)]; }while(quiz&&q[1]===quiz.v); quiz={k:q[0],v:q[1],answered:null}; }
 const VERBS=[["ENHANCE",4,3,"Solutions enhance initiatives."],["IMPROVE",3,2,"Initiatives improve processes."],["EXECUTE",2,1,"Processes execute strategies."],["OBTAIN",1,0,"Strategies obtain goals."]];
 const LEARN=[
- {t:"What it's for", r:()=>`<p class="lkick">1 of 5 · What it's for</p><h2>A visual aid to align priorities of key stakeholders.</h2>
+ {t:"What it's for", r:()=>`<p class="lkick">1 of 6 · What it's for</p><h2>A visual aid to align priorities of key stakeholders.</h2>
    <p class="big">We will accelerate agreement by illustrating how initiatives and solutions contribute to the goals of the business and the top of mind priorities for key stakeholders.</p>
    <h3>Expected outcomes</h3><ul class="lbul">${OUTCOMES.map(o=>`<li>${esc(o)}</li>`).join("")}</ul><p class="src">In KA's words, from the guide.</p>`},
- {t:"The alignment", r:()=>`<p class="lkick">2 of 5 · The alignment</p><h2>Five columns, one direction.</h2>
+ {t:"From the book", r:()=>`<p class="lkick">2 of 6 · From the book</p><h2>“My goal is not to be right, but to get it right.”</h2>
+   <p class="big">In KA's book <i>Dimensions of Success</i>, Kevin Cooper meets Morgan Industries (MI) with an Alignment of Priorities he built for their eBusiness initiative from public information alone: the annual report and quarterly filings.</p>
+   <ol class="lbul bookbeats"><li><b>Outside in.</b> He weighed the economy, MI's industry and MI's financials against its competitors.</li><li><b>Two goals, five strategies.</b> From four possible goals and fourteen strategies.</li><li><b>Three processes.</b> Of the only fifteen high-level operational processes a company can improve.</li><li><b>One initiative.</b> Improving those processes' efficiency, cycle-time and effectiveness.</li><li><b>Left to right, asking all the way.</b> “Please correct me where I am off track.”</li></ol>
+   <div class="gapgrid"><div><b style="color:var(--org-ink,#8a3a3a)">Organizational · red</b>Goals and strategies. Judged by ROA.</div><div><b style="color:var(--op-ink,#7a6012)">Operational · yellow</b>Processes. Judged by ROI: efficiency, cycle-time, effectiveness.</div><div><b style="color:var(--inf-ink,#3c6a4c)">Infrastructure · green</b>Solutions. Judged by TCO.</div></div>
+   <div class="arow"><button class="btn" data-go="example">See Kevin's aid for MI</button></div><p class="src">From KA's book, Dimensions of Success (pp. 48–49, 58–60).</p>`},
+ {t:"The alignment", r:()=>`<p class="lkick">3 of 6 · The alignment</p><h2>Five columns, one direction.</h2>
    <div class="lsplit"><div>${withItems(EXAMPLE.items,()=>miniSVG({pair:learnPair}))}<p class="src">A finished example, read right to left.</p></div><div class="verbs">
    <p class="big" style="font-size:16px">Read it right to left. Tap each word to see which two columns it joins.</p>
    ${VERBS.map(([w,a,b,t])=>`<button data-verb="${a}" aria-pressed="${!!(learnPair&&learnPair[0]===a)}"><b>${w}</b><span>${t}</span></button>`).join("")}
    <p class="src">“Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.”</p></div></div>`},
  {t:"Forced choices", r:()=>{ if(!quiz) newQuiz(); const a=quiz.answered, right=a===quiz.k, lab={goals:"Goal",strategies:"Strategy",processes:"Process",initiatives:"Initiative"};
-   return `<p class="lkick">3 of 5 · The standards are the choices</p><h2>Choose the standard, then say what supports it.</h2>
-   <p class="big">Goals, Strategies, Processes and Initiatives come only from KA's standard lists: 4 goals, 14 strategies, 13 processes and 6 initiatives. The standard keeps everyone speaking the same language. Your words go into what supports each choice. Solutions are your own words.</p>
+   return `<p class="lkick">4 of 6 · The standards are the choices</p><h2>Choose the standard, then say what supports it.</h2>
+   <p class="big">Goals, Strategies, Processes and Initiatives come only from KA's standard lists: 4 goals, 14 strategies, 15 processes and 6 initiatives (the fifteen high-level operational processes from KA\'s book). The standard keeps everyone speaking the same language. Your words go into what supports each choice. Solutions are your own words.</p>
    <div class="quiz"><span class="streak">Quick check · Which column is this standard from? ${best?`Best run: <b>${best}</b>`:""}${streak?` · Run: <b>${streak}</b>`:""}</span>
    <div class="qv">${esc(quiz.v)}</div>
    <div class="qopts">${Object.keys(lab).map(k=>`<button data-qa="${k}" class="${a?(k===quiz.k?"right":(k===a?"wrong":"")):""}" ${a?"disabled":""}>${lab[k]}</button>`).join("")}</div>
    ${a?`<p class="qfb">${right?"Right.":"Not quite."} <b>${esc(quiz.v)}</b> is one of KA's standard ${quiz.k}: ${esc(meaningOf(quiz.k,quiz.v))}</p><div><button class="btn small primary" data-qnext>Another one</button></div>`:""}</div>
    <p class="draft">The one-line meanings are draft wording for KA to confirm.</p>`; }},
- {t:"When to use it", r:()=>`<p class="lkick">4 of 5 · When to use it</p><h2>Best early, in the Problem Space.</h2>
+ {t:"When to use it", r:()=>`<p class="lkick">5 of 6 · When to use it</p><h2>Best early, in the Problem Space.</h2>
    <p class="big">The Alignment of Priorities is best used in the Problem Space during the Awareness Phase (1.1) to “Gain Business Clarity”. It’s also useful in the Solution Space to confirm alignment.</p>
    <div class="phases"><div class="astrip" aria-hidden="true"><div class="ph p here"><small>Awareness</small><b>A</b></div><div class="ph p"><small>Analysis</small><b>A</b></div><div class="div"></div><div class="ph"><small>Alternatives</small><b>a</b></div><div class="ph"><small>Answer</small><b>a</b></div><div class="ph"><small>Acceptance</small><b>a</b></div><div class="ph"><small>Actions</small><b>a</b></div></div><div class="spaces2" aria-hidden="true"><span>Problem Space</span><span>Solution Space</span></div></div>
    <div class="lsplit" style="align-items:start"><div><h3>In the Problem Space we need to:</h3><ul class="lbul">${PROBLEM.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>In the Solution Space we need to:</h3><ul class="lbul">${SOLUTION.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
- {t:"Threats first", r:()=>`<p class="lkick">5 of 5 · Threats first</p><h2>A clear sense of threats to scope, time and resources is required before solving any business problem.</h2>
+ {t:"Threats first", r:()=>`<p class="lkick">6 of 6 · Threats first</p><h2>A clear sense of threats to scope, time and resources is required before solving any business problem.</h2>
    <div class="gapgrid">${GAPS.map(([k,l])=>`<div><b>${esc(l)}</b>${esc(GAP_MEANING[k])}</div>`).join("")}</div>
    <p class="draft">The questions under each gap are draft wording for KA to confirm.</p>
    <div class="arow"><button class="btn primary" data-go="build">Start building →</button><button class="btn" data-go="company">Start from a company</button><button class="btn" data-go="example">See a finished example</button></div>`}
@@ -1146,7 +1194,7 @@ $("lcard").addEventListener("click",e=>{
 const BSTEPS=["Situation","Goals","Strategies","Processes","Initiatives","Solutions","Connect","Check"];
 let bIdx=Math.min(7,Math.max(0,+S.bIdx||0));
 function stepDone(i){
-  if(i===0) return !!(S.situation.trim()||EXT.some(([k])=>S.ext[k].t.trim()));
+  if(i===0) return !!(S.situation.trim()||EXT.some(([k])=>S.ext[k].t.trim())||finLine());
   if(i>=1&&i<=5) return S.items[COLS[i-1].k].some(it=>it.t.trim());
   if(i===6) return allFilled().length>1&&!orphans().some(o=>o.why.startsWith("not tied"));
   return false;
@@ -1154,7 +1202,7 @@ function stepDone(i){
 function renderBuild(){
   $("bsteps").innerHTML=BSTEPS.map((n,i)=>`<li><button data-bs="${i}" aria-current="${i===bIdx?"step":"false"}" class="${stepDone(i)?"done":""}"><span>${stepDone(i)&&i!==bIdx?"✓":i+1}</span>${n}</button></li>`).join("");
   document.querySelectorAll(".bstep").forEach(d=>d.hidden=true);
-  if(bIdx===0){ document.querySelector('.bstep[data-s="0"]').hidden=false; renderGuide(); if(document.activeElement?.closest?.("#coCard")==null) coSync(); EXT.forEach(([k])=>{ const t=$("ext2-"+k); if(document.activeElement!==t) t.value=S.ext[k].t; autosize(t); }); }
+  if(bIdx===0){ document.querySelector('.bstep[data-s="0"]').hidden=false; renderGuide(); if(document.activeElement?.closest?.("#coCard")==null) coSync(); EXT.forEach(([k])=>{ const t=$("ext2-"+k); if(document.activeElement!==t) t.value=S.ext[k].t; autosize(t); }); if(!document.activeElement?.closest?.("#ratios")) renderRatios(); }
   else if(bIdx<=5){ $("bcol").hidden=false; renderCol(bIdx-1); }
   else if(bIdx===6){ $("bconnect").hidden=false; renderConnect(); }
   else { document.querySelector('.bstep[data-s="7"]').hidden=false; renderCheck(); renderGuide(); }
@@ -1189,13 +1237,13 @@ async function shorten(id,btn){ const [k]=id.split("."), it=item(id), max=BUDGET
   it.d=x; save(); if(curView==="build") renderCol(bIdx-1); renderPicture(); toast(x.length<=max?"Shortened to fit":"Shortened; still a little long, so the sheet sets it smaller"); }
 function renderCol(ix){
   const c=COLS[ix], k=c.k, std=CHOICES[k], T=TEACH[k], items=S.items[k], used=items.filter(x=>x.t.trim()).length;
-  let h=`<p class="lkick">Step ${ix+2} of 8</p><h2>${c.label}</h2><p class="verbline">${T.verb}</p><p class="teach">${esc(T.lead)}</p>`;
+  let h=`<p class="lkick">Step ${ix+2} of 8</p><h2>${c.label}</h2><p class="verbline">${T.verb}</p><p class="teach">${esc(T.lead)}</p>${T.book?`<p class="bookq">“${esc(T.book)}”<small>From KA's book, Dimensions of Success</small></p>`:""}`;
   if(std) h+=`<h3>Choose up to ${c.n} of KA's ${std.length} standard ${c.label.toLowerCase()} <span class="count">${used} of ${c.n} chosen</span></h3>
     <div class="cgrid">${std.map(v=>{ const on=items.some(x=>x.t===v); return `<button class="ccard ${on?"on":""}" data-choose="${esc(v)}" aria-pressed="${on}" ${!on&&used>=c.n?"disabled":""}><b>${esc(v)}</b><span>${esc(meaningOf(k,v))}</span></button>`; }).join("")}</div>`;
   h+=`<h3>${std?"Then say what supports each choice":`Name up to ${c.n} solutions, in your own words`}</h3><div class="picked">`;
   items.forEach((it,i)=>{ const id=`${k}.${i}`; if(std&&!it.t.trim()) return;
     h+=`<div class="pcard" data-pid="${id}"><div class="ph">${std?`<b>${esc(it.t)}</b><button class="x" data-unchoose="${id}" aria-label="Remove ${esc(it.t)}">✕</button>`:`<input data-f2="${id}.t" value="${esc(it.t)}" placeholder="Solution ${i+1} (short name, about 24 characters)" aria-label="Solution ${i+1}" maxlength="40">`}</div>
-      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
+      <textarea data-f2="${id}.d" rows="2" placeholder="${std?`What supports ${esc(it.t)} for them?`:"What it is and what it does"}" aria-label="What supports ${esc(it.t||"solution "+(i+1))}">${esc(it.d)}</textarea>${fitLineHTML(k,id,it.d)}${k==="processes"?`<div class="gains"><span>Improve it for:</span>${GAINS.map(([g,l,m])=>{ const on=(it.g||[]).includes(g); return `<button class="chip2 ${on?"on":""}" data-gain="${id}|${g}" aria-pressed="${on}" title="${m}">${l}</button>`; }).join("")}</div>`:""}${it.src&&it.t?`<p class="srcline"><b>${/^material/i.test(it.src)?"From your material":"Public info"}</b> · ${esc(it.src)} · confirm with the client</p>`:""}</div>`; });
   if(std&&!used) h+=`<p class="note">Your choices appear here, each with room to say what supports it.</p>`;
   h+=`</div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-suggest="${ix}">Suggest for ${c.label.toLowerCase()}</button><button class="btn small danger" data-clearcol="${k}" ${used?"":"disabled"}>Clear ${c.label.toLowerCase()}</button></div><p class="draft">${std?"The one-line meanings are draft wording for KA to confirm.":""}</p>`;
   $("bcol").innerHTML=h; $("bcol").querySelectorAll("textarea").forEach(autosize);
@@ -1208,8 +1256,9 @@ $("bcol").addEventListener("click",e=>{
     const slot=items.findIndex(x=>!x.t.trim()); if(slot<0) return;
     items[slot].t=v; save(); renderCol(ix); renderMini(); renderBuildSteps();
     const pc=document.querySelector(`.pcard[data-pid="${c.k}.${slot}"]`); pc?.classList.add("pulse"); pc?.querySelector("textarea")?.focus({preventScroll:false}); return; }
-  if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[],src:""}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
+  if(un){ const id=un.dataset.unchoose, it=item(id); Object.assign(it,{t:"",d:"",c:0,serves:[],src:"",g:[]}); COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); save(); renderCol(ix); renderMini(); renderBuildSteps(); return; }
   if(sg){ suggestCol(+sg.dataset.suggest); }
+  const gn=e.target.closest("[data-gain]"); if(gn){ const [id,g]=gn.dataset.gain.split("|"), it=item(id); it.g=it.g||[]; it.g=it.g.includes(g)?it.g.filter(x=>x!==g):[...it.g,g]; save(); gn.classList.toggle("on"); gn.setAttribute("aria-pressed",String(it.g.includes(g))); return; }
   const sh=e.target.closest("[data-shorten]"); if(sh){ shorten(sh.dataset.shorten,sh); return; }
   const cc=e.target.closest("[data-clearcol]"); if(cc) armed(cc,`Tap again to clear ${c.label.toLowerCase()}`,()=>clearColumn(cc.dataset.clearcol));
 });
@@ -1218,6 +1267,26 @@ $("bcol").addEventListener("focusout",e=>{ const f=e.target.dataset.f2; if(!f||!
 $("bcol").addEventListener("input",e=>{ const f=e.target.dataset.f2; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value;
   if(p==="d"){ const fl=document.querySelector(`[data-fit="${k}.${i}"]`); if(fl) fl.outerHTML=fitLineHTML(k,`${k}.${i}`,e.target.value); } if(e.target.tagName==="TEXTAREA") autosize(e.target); save();
   clearTimeout(window._bm); window._bm=setTimeout(()=>{ renderMini(); renderBuildSteps(); },350); });
+/* ---------- KA's key ratios ---------- */
+function renderRatios(){ const f=S.fin||(S.fin={});
+  let h=`<h3>Financials · KA's key ratios</h3><p class="note" style="margin:0">Read the financials three ways: solvency, asset effectiveness and profitability. Enter what you know, mark each Strong, Watch or Weak, and the aid shows which standard choices it points to.${S.company?.asOf&&Object.values(f).some(x=>x&&x.src)?` Figures from public information ${esc(S.company.asOf)}: approximate, confirm with the client.`:""}</p><div class="rgrid">`;
+  RATIO_GROUPS.forEach(g=>{ const rd=groupRead(g);
+    h+=`<div class="rgrp" data-rg="${g.k}"><b>${g.l}${rd?`<span class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</span>`:""}</b><small>${g.q}</small>`;
+    g.r.forEach(([k,l,fx])=>{ const o=f[k]||{};
+      h+=`<div class="rrow"><label for="rv-${k}">${l}</label><span class="fx">${fx}</span><div class="rin"><input id="rv-${k}" data-rv="${k}" value="${esc(o.v||"")}" placeholder="value" autocomplete="off">${READS.map(([r,rl])=>`<button class="rdpill ${r}" data-rd="${k}|${r}" aria-pressed="${o.read===r}">${rl}</button>`).join("")}</div>${o.note||o.yr?`<span class="note2">${esc([o.yr,o.note].filter(Boolean).join(" · "))}${o.src?` · ${esc(o.src)}`:""}</span>`:""}</div>`; });
+    if(rd&&rd!=="strong"){ const pts=Object.entries(g.points).flatMap(([col,vs])=>vs.map(v=>[col,v]));
+      h+=`<div class="rpoints">Points to:<div class="chips">${pts.map(([col,v])=>{ const on=S.items[col].some(x=>x.t===v); return `<button class="chip2 ${on?"on":""}" data-pt="${col}|${esc(v)}" aria-pressed="${on}" title="${on?"Already on the aid":`Add to ${col}`}">${on?"":"+ "}${esc(v)}</button>`; }).join("")}</div></div>`; }
+    h+=`</div>`; });
+  h+=`</div><div class="arow" style="flex:0 1 auto;margin-top:10px"><button class="btn small" data-finline ${finLine()?"":"disabled"}>Write the Financials line from the ratios</button></div><p class="draft">Solvency, asset effectiveness and profitability are KA's key ratios; the ratios listed in each are draft for KA to confirm.</p>`;
+  $("ratios").innerHTML=h; }
+$("ratios").addEventListener("input",e=>{ const k=e.target.dataset.rv; if(!k) return; (S.fin[k]=S.fin[k]||{}).v=e.target.value; save(); const b=$("ratios").querySelector("[data-finline]"); if(b) b.disabled=!finLine(); });
+$("ratios").addEventListener("focusout",()=>setTimeout(()=>{ if(!document.activeElement?.closest?.("#ratios")) renderRatios(); },0));
+$("ratios").addEventListener("click",e=>{
+  const rd=e.target.closest("[data-rd]"); if(rd){ const [k,r]=rd.dataset.rd.split("|"), o=S.fin[k]=S.fin[k]||{}; o.read=o.read===r?"":r; save(); renderRatios(); renderBuildSteps(); return; }
+  const pt=e.target.closest("[data-pt]"); if(pt){ const [col,v]=pt.dataset.pt.split("|"), items=S.items[col]; if(items.some(x=>x.t===v)) return; const slot=items.findIndex(x=>!x.t.trim());
+    if(slot<0){ toast(`${COLS[ci(col)].label} is full. Take one off first.`); return; } items[slot].t=v; items[slot].d=items[slot].d||""; save(); renderRatios(); renderMini(); renderBuildSteps(); toast(`${v} added to ${COLS[ci(col)].label.toLowerCase()}. Say what supports it in that step.`); return; }
+  if(e.target.closest("[data-finline]")){ const t=finLine(); if(!t) return; const old=S.ext.financials.t; S.ext.financials.t=t; save(); const ta=$("ext2-financials"); ta.value=t; autosize(ta); toast("Financials line written",()=>{ S.ext.financials.t=old; ta.value=old; autosize(ta); save(); }); }
+});
 function renderBuildSteps(){ document.querySelectorAll("#bsteps [data-bs]").forEach(b=>{ const i=+b.dataset.bs, d=stepDone(i); b.classList.toggle("done",d); b.querySelector("span").textContent=d&&i!==bIdx?"✓":i+1; }); }
 
 function renderConnect(){
@@ -1288,16 +1357,19 @@ Processes (up to 5): ${JSON.stringify(CHOICES.processes)}
 Initiatives (up to 3): ${JSON.stringify(CHOICES.initiatives)}
 Use each choice once per column, spelled exactly as given, most important first. For each, "supports" says what about this company supports the choice: one specific line that fits the printed box: at most ${BUDGET.goals} characters for goals, ${BUDGET.strategies} for strategies, ${BUDGET.processes} for processes and initiatives. Abbreviate logically where needed (& for and, w/, mgmt, ops, %, $M, yr). "source" is where it came from: "Built-in knowledge" or "Material: <its name>". Do not invent numbers, people or events; if unsure, say what to confirm instead.
 "serves" connects each strategy to goal ids it obtains ("goals.0" or "goals.1"), each process to strategy ids it executes ("strategies.N"), each initiative to process ids it improves ("processes.N"), with N = position in your own list.
-External factors: one or two plain sentences each on what in the economy, the company's industry and its financials matters here.
+External factors: one or two plain sentences each on what in the economy, the company's industry and its financials matters here. Write the financials sentence in KA's three key-ratio groups: solvency, asset effectiveness, profitability.
+KA'S KEY RATIOS: for each ratio give the most recent value you are reasonably confident of from the company's public filings, its fiscal year, and a read compared with its industry ("strong", "watch" or "weak"), with a few words why. If you don't know a value, leave "value" empty; give a read only if you have grounds for it. Never make up a number. Ratios: ${RATIO_GROUPS.map(g=>`${g.l}: ${g.r.map(([k,l,fx])=>`${k} = ${l} (${fx})`).join("; ")}`).join(" | ")}. Use the ratios to choose goals and strategies (weak solvency → Cash Flow / Cash Management; weak asset effectiveness → Asset Usage; weak profitability → Profit / Costs / Price) where they really apply.
 Leave Solutions out; the user brings those.
 If you don't recognise this company and the material doesn't describe it, set "known" to false and leave every list empty.
 Reply with only JSON:
-{"known":boolean,"summary":string (2 sentences: what the company does, size, markets),"asOf":string (how current your knowledge is, e.g. "as of early 2025"),"external":{"economy":{"text":string,"source":string},"industry":{"text":string,"source":string},"financials":{"text":string,"source":string}},"goals":[{"name":string,"supports":string,"source":string}],"strategies":[{"name":string,"supports":string,"source":string,"serves":[string]}],"processes":[...same],"initiatives":[...same],"toConfirm":[string] (up to 4 things to confirm with the client)}
+{"known":boolean,"summary":string (2 sentences: what the company does, size, markets),"asOf":string (how current your knowledge is, e.g. "as of early 2025"),"external":{"economy":{"text":string,"source":string},"industry":{"text":string,"source":string},"financials":{"text":string,"source":string}},"ratios":{"<ratio key>":{"value":string,"year":string,"read":"strong|watch|weak|","note":string}},"goals":[{"name":string,"supports":string,"source":string}],"strategies":[{"name":string,"supports":string,"source":string,"serves":[string]}],"processes":[...same],"initiatives":[...same],"toConfirm":[string] (up to 4 things to confirm with the client)}
 ${mat?`\nMATERIAL PROVIDED BY THE USER:${mat}`:""}`;
 }
 function cleanDraft(r){
   const d={known:r&&r.known!==false,summary:String(r?.summary||""),asOf:String(r?.asOf||""),external:{},cols:{},toConfirm:Array.isArray(r?.toConfirm)?r.toConfirm.map(String).slice(0,4):[]};
   EXT.forEach(([k])=>{ const e=r?.external?.[k]; d.external[k]=e&&typeof e==="object"?{text:String(e.text||"").trim(),source:String(e.source||"")}:{text:String(e||"").trim(),source:""}; });
+  d.ratios={}; RATIO_GROUPS.forEach(g=>g.r.forEach(([k])=>{ const o=r?.ratios?.[k]; if(!o||typeof o!=="object") return; const rd=["strong","watch","weak"].includes(o.read)?o.read:"", v=String(o.value||"").trim().slice(0,16);
+    if(v||rd) d.ratios[k]={v,read:rd,yr:String(o.year||"").slice(0,12),note:String(o.note||"").slice(0,90),src:"Public info"}; }));
   ["goals","strategies","processes","initiatives"].forEach((k,ix)=>{ const c=COLS[ix], seen=new Set(), map={};
     d.cols[k]=[]; (Array.isArray(r?.[k])?r[k]:[]).forEach((o,j)=>{ const m=stdMatch(k,o?.name); if(!m||seen.has(m)||d.cols[k].length>=c.n) return; seen.add(m); map[j]=d.cols[k].length;
       d.cols[k].push({t:m,d:fitText(k,String(o.supports||"").trim()),src:String(o.source||"Built-in knowledge"),serves:Array.isArray(o.serves)?o.serves.map(String):[]}); });
@@ -1356,6 +1428,7 @@ function coApply(how){ const d=coDraft;
   S.company.summary=d.summary; S.company.asOf=d.asOf;
   if(!S.situation.trim()) S.situation=`${S.company.name}${S.company.eyes?`, through the eyes of ${S.company.eyes}`:""}. ${d.summary}`;
   EXT.forEach(([k])=>{ const e=d.external[k]; if(e.text&&(all||!S.ext[k].t.trim())) S.ext[k].t=e.text; });
+  S.fin=S.fin||{}; Object.entries(d.ratios||{}).forEach(([k,o])=>{ const cur=S.fin[k]; if(all||!cur||(!cur.v&&!cur.read)) S.fin[k]=o; });
   const idmap={};
   ["goals","strategies","processes","initiatives"].forEach((k,ix)=>{ const slots=S.items[k];
     if(all){ slots.forEach(it=>Object.assign(it,{t:"",d:"",c:0,serves:[],src:""})); }
@@ -1479,19 +1552,21 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-nextmove]")) n
 
 /* ===================== 3 · Present ===================== */
 let presenting=false, presIx=-1, presOrder=[];
-function startPresent(){ if(presenting) return; show("aid"); presenting=true; closePop(); closeAssist(); setHow(false); document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false;
+/* in Present the bands run under every column, to the sheet's right edge (Dave, Nov 16) */
+function bandsWide(on){ const g=document.getElementById("bandsG"); if(!g) return; g.setAttribute("mask",on?"url(#fadeP)":"url(#fade)"); g.querySelectorAll(".bandr").forEach(r=>r.setAttribute("width",on?"246":"200")); }
+function startPresent(){ if(presenting) return; show("aid"); presenting=true; bandsWide(true); closePop(); closeAssist(); setHow(false); document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false;
   presOrder=allFilled(); presIx=-1; select(null);
   try{ const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){}
   requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); updPres(); }
-function stopPresent(){ if(!presenting) return; presenting=false; document.body.classList.remove("presenting"); $("presbar").hidden=true; $("presNotes").hidden=true; $("pNotes").setAttribute("aria-pressed","false");
+function stopPresent(){ if(!presenting) return; presenting=false; bandsWide(false); document.body.classList.remove("presenting"); $("presbar").hidden=true; $("presNotes").hidden=true; $("pNotes").setAttribute("aria-pressed","false");
   try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); }
 function presStep(d){ presOrder=allFilled(); if(!presOrder.length) return; presIx=Math.max(-1,Math.min(presOrder.length-1,presIx+d)); setWalk(-1); select(presIx<0?null:presOrder[presIx]); updPres(); }
 function updPres(){ if(!presenting) return; const id=sel; $("pText").textContent=id?`${COLS[ci(id.split(".")[0])].label}: ${nameOf(id)} · ${presOrder.indexOf(id)+1} of ${presOrder.length}`:"The whole alignment";
   $("pPrev").disabled=presIx<0; $("pNext").disabled=presIx>=presOrder.length-1; if(!$("presNotes").hidden) renderNotes(); }
 function renderNotes(){ const n=$("presNotes"), id=sel;
-  if(!id){ n.innerHTML=`<h4>Presenter notes</h4><p style="margin:0">${esc(S.company?.name||"This aid")}${S.situation?` · ${esc(S.situation)}`:""}</p><p class="note" style="margin:0">Alignment ${alignScore()}%. Use ▶ to spotlight each box, Space to show the alignment, N to hide these notes.</p>`; return; }
+  if(!id){ n.innerHTML=`<h4>Presenter notes</h4><p style="margin:0">${esc(S.company?.name||"This aid")}${S.situation?` · ${esc(S.situation)}`:""}</p><p style="margin:0">Open the way Kevin does: “My goal is not to be right, but to get it right. Please correct me where I am off track.”</p>${finLine()?`<h4>Key ratios</h4><p style="margin:0">${esc(finLine())}</p>`:""}<p class="note" style="margin:0">Alignment ${alignScore()}%. Use ▶ to spotlight each box, Space to show the alignment, N to hide these notes.</p>`; return; }
   const k=id.split(".")[0], it=item(id), ups=[...up(id)].map(nameOf), downs=[...down(id)].map(nameOf), T=(typeof TEACH!=="undefined"&&TEACH[k])||{ask:[]};
-  n.innerHTML=`<h4>${COLS[ci(k)].label}</h4><p style="margin:0"><b>${esc(it.t)}</b>${it.d?`<br>${esc(it.d)}`:""}</p>${it.src?`<p class="note" style="margin:0">${esc(it.src)} · confirm with the client</p>`:""}
+  n.innerHTML=`<h4>${COLS[ci(k)].label}</h4><p style="margin:0"><b>${esc(it.t)}</b>${it.d?`<br>${esc(it.d)}`:""}${gainsOf(it).length?`<br>Improve for: ${esc(gainsOf(it).join(", "))}`:""}</p>${it.src?`<p class="note" style="margin:0">${esc(it.src)} · confirm with the client</p>`:""}
     ${ups.length?`<h4>Serves</h4><p style="margin:0">${esc(ups.join(", "))}</p>`:""}${downs.length?`<h4>Served by</h4><p style="margin:0">${esc(downs.join(", "))}</p>`:""}
     <h4>Ask the client</h4><ul>${T.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul><p class="note" style="margin:0">Only you see these notes unless your screen is shared. N hides them.</p>`; }
 $("pPrev").onclick=()=>presStep(-1); $("pNext").onclick=()=>presStep(1); $("pExit").onclick=stopPresent;
@@ -1661,9 +1736,9 @@ $("ivEnd").onclick=()=>{ ivCtl?.abort(); if(dict&&dict.active()) dict.stop().cat
 let sample=null, ctl=null, assistOff=false, pending=null;
 const btns=["aBox","aFill","aLinks","aChallenge","aQuestions","askBtn"].map($);
 function setFocusLine(){ $("focusline").innerHTML=sel?`Working on <b>${esc(COLS[ci(sel.split(".")[0])].label)}: ${esc(nameOf(sel))}</b>`:"Tap any box in the picture to work on it. The assistant sees the situation, the gaps you ticked and everything on the aid."; $("aBox").disabled=assistOff||!sel; }
-function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled)})));
-  return {external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),columnNotes:S.notes,items,gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)}; }
-const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
+function snapshot(){ const items={}; COLS.forEach(c=>items[c.k]=S.items[c.k].map((it,i)=>({id:`${c.k}.${i}`,choice:it.t,supports:it.d,serves:(it.serves||[]).filter(filled),...(c.k==="processes"&&gainsOf(it).length?{improveFor:gainsOf(it)}:{})})));
+  return {external:Object.fromEntries(EXT.map(([k])=>[k,S.ext[k].t])),keyRatios:finSnapshot(),columnNotes:S.notes,items,gaps:Object.fromEntries(GAPS.filter(([k])=>S.gaps[k]?.on).map(([k,l])=>[l,S.gaps[k].note||""])),notTiedIn:orphans().map(o=>`${nameOf(o.id)}: ${o.why}`)}; }
+const BASE=`You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Alignment of Priorities" aid to use with a prospect or client. External factors (Economy, Industry, Financials), then Goals (2), Strategies (5), Processes (5), Initiatives (3), Solutions (3) stepping down a diagonal across Organizational, Operational and Infrastructure bands. "Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals." Each item serves items in the column to its left. THE STANDARDS ARE FORCED CHOICES: every Goal, Strategy, Process and Initiative is exactly one of KA's standard choices (spelled exactly as given), and its "supports" text says what supports that choice for this client. Solutions are free text. Standard choices: ${JSON.stringify(CHOICES)}. The Processes are the fifteen high-level operational processes from KA's book Dimensions of Success; an initiative improves a process's efficiency (free up resources), cycle-time (faster thru-put) or effectiveness (better results). KA reads Financials with its key ratios in three groups: solvency (can it meet what it owes), asset effectiveness (how hard its assets work), profitability (how much it keeps); weak solvency points to Cash Flow and Cash Management, weak asset effectiveness to Asset Usage, weak profitability to Profit, Costs and Price. Coach the way Kevin Cooper does in the book: "My goal is not to be right, but to get it right, please correct me where I am off track." KA's gaps: Position (Relevance), People (Decision Makers), Policies (Budget), Procedures (Sign-offs), Politics (Agendas). Be specific, plain-spoken and brief. Never invent facts about the client: where the situation doesn't say, write it as a question to confirm or a clearly marked assumption.`;
 const ctx=()=>`${BASE}\n\n${S.company?.name?`Company: ${S.company.name}${S.company.eyes?` (through the eyes of ${S.company.eyes})`:""}. ${S.company.summary||""} Public information only; anything from it is to be confirmed with the client.\n\n`:""}Situation: ${S.situation||"(not given)"}\n\nThe aid now: ${JSON.stringify(snapshot())}`;
 function busy(on){ btns.forEach(b=>b.disabled=assistOff||on||(b.id==="aBox"&&!sel)); $("stopBtn").hidden=!on; }
 function off(msg){ assistOff=true; btns.forEach(b=>b.disabled=true); if($("ivStart")) $("ivStart").disabled=true; if($("asCoGo")) $("asCoGo").disabled=true; $("assistNote").textContent=msg; }
