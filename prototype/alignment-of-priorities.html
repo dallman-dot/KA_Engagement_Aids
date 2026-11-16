@@ -188,9 +188,6 @@ input.nameinput:focus{outline:none;box-shadow:0 0 0 calc(.5*var(--mm)) var(--cya
 .helpbox b{font-size:calc(3.6*var(--mm));color:var(--plum)}
 .helpbox:hover{border-color:var(--plum)}
 .menubtn{z-index:4;border:0;border-radius:calc(.8*var(--mm));background:var(--callout);color:#fff;font-size:calc(5*var(--mm));line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
-/* the subtitle in white on the dark sheet (Dave, Nov 16) */
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .subt{fill:#fff}}
-:root[data-theme="dark"] .subt{fill:#fff}
 .aligned.gone{opacity:0;transition:opacity .6s}
 .aligned{position:absolute;z-index:8;font:700 calc(2.8*var(--mm)) var(--font);color:#fff;background:var(--plum);border-radius:999px;padding:calc(.7*var(--mm)) calc(2.2*var(--mm));white-space:nowrap;animation:pop .4s ease-out}
 .spark{fill:#fff;stroke:var(--plum);stroke-width:.6}
@@ -1841,8 +1838,10 @@ function chainsHeard(){ const paths=[];
     if(bs<1) break; pick.push(best); best.forEach(x=>seen.add(x)); paths.splice(paths.indexOf(best),1); }
   return pick.map(p=>p.slice().reverse()); }
 function buildSlides(){ const sl=[{k:"title"}]; if(hasOutside()) sl.push({k:"outside"});
+  /* the whole alignment first, then each column and box in sequence (Dave, Nov 16) */
+  sl.push({k:"whole"});
   COLS.forEach((c,ix)=>{ const ids=colFilled(ix); if(!ids.length) return; sl.push({k:"col",ix}); ids.forEach(id=>sl.push({k:"box",ix,id})); });
-  sl.push({k:"whole"}); if(allFilled().length) sl.push({k:"heard"}); return sl; }
+  if(allFilled().length) sl.push({k:"heard"}); return sl; }
 function slideLabel(sl){ if(!sl) return ""; return sl.k==="title"?aidTitle():sl.k==="outside"?"Outside in":sl.k==="col"?COLS[sl.ix].label:sl.k==="box"?`${COLS[sl.ix].label}: ${nameOf(sl.id)}`:sl.k==="whole"?"The whole alignment":"What we heard"; }
 
 /* ---- the slides that aren't the sheet ---- */
