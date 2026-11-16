@@ -359,6 +359,60 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 .coFiles{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .fileList{list-style:none;margin:0;padding:0;display:grid;gap:4px}
 .fileList li{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13.5px;border:1px solid var(--rule);border-radius:8px;padding:4px 4px 4px 10px;background:var(--paper)}
+.aidrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.aidbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:6px 12px;cursor:pointer;min-height:36px;max-width:100%;color:var(--ink)}
+.aidbtn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:46vw}
+.aidlbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.aidlist{display:grid;gap:4px}
+.aidlist button{display:flex;justify-content:space-between;gap:8px;text-align:left;border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:8px 10px;cursor:pointer;color:var(--ink)}
+.aidlist button[aria-current="true"]{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 10%,var(--paper))}
+.aidlist small{color:var(--muted)}
+.scorebar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:8px 12px}
+.scorebar:empty{display:none}
+.ring{width:46px;height:46px;flex:0 0 auto}
+.scoretxt{display:grid;gap:0;flex:1 1 220px;min-width:0}
+.scoretxt b{font-size:15px;color:var(--ink)}
+.scoretxt span{font-size:14px;color:var(--muted)}
+.scoretxt span em{font-style:normal;color:var(--plum);font-weight:600}
+.lensbar{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lensbar:empty{display:none}
+.lensbar .note{margin-right:2px}
+.lchip{border:1.5px solid var(--blue);background:var(--paper);color:var(--blue);border-radius:999px;padding:5px 12px;font:600 13px var(--font);cursor:pointer;min-height:34px}
+.lchip[aria-pressed="true"]{background:var(--blue);color:var(--on-blue)}
+.lchip.ghost{border-style:dashed}
+.lchip.cmp{border-color:var(--plum);color:var(--plum)}
+.lchip.cmp[aria-pressed="true"]{background:var(--plum);color:#fff}
+.cv.comparing .slot.agree::before,.cv.comparing .slot.differ::before{position:absolute;right:calc(-1.6*var(--mm));top:calc(-1.6*var(--mm));width:calc(3.6*var(--mm));height:calc(3.6*var(--mm));border-radius:50%;color:#fff;font:700 calc(2.4*var(--mm))/calc(3.6*var(--mm)) var(--font);text-align:center;z-index:7}
+.cv.comparing .slot.agree::before{content:"✓";background:var(--ok)}
+.cv.comparing .slot.differ::before{content:"≠";background:var(--warn)}
+@media print{.cv.comparing .slot::before{display:none}}
+.cmpbox{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px;display:grid;gap:8px}
+.cmpbox h3{margin:0}
+.cmprow{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px;font-size:14px;border-top:1px solid var(--rule);padding-top:6px}
+.cmprow b{color:var(--blue)}
+.cmprow .ag{color:var(--ok);font-weight:600}
+.cmprow .df{color:var(--warn);font-weight:600}
+@media (max-width:600px){.cmprow{grid-template-columns:minmax(0,1fr)}}
+.asco{display:grid;gap:6px;border:1px solid var(--rule);border-radius:10px;padding:10px;background:var(--bg)}
+.ascorow{display:flex;gap:6px}
+.ascorow .tin{flex:1;min-width:0}
+/* present */
+body.presenting .shell>*:not(#viewAid){display:none!important}
+body.presenting #viewAid .sheetwrap>*:not(.stagewrap){display:none!important}
+body.presenting .sheetwrap{border:0;padding:0;background:transparent}
+body.presenting .stagewrap{position:fixed;inset:0;z-index:20;background:var(--bg);display:grid;place-items:center;overflow:hidden;padding:12px 12px 76px}
+body.presenting .stage{width:min(calc(100vw - 24px),calc((100vh - 96px) * 279.4 / 215.9))!important;min-width:0!important;box-shadow:0 10px 40px rgb(0 0 0 /.2)}
+body.presenting .helpbox,body.presenting .menubtn,body.presenting .link{display:none!important}
+body.presenting .stage .desc,body.presenting .stage input.nameinput{pointer-events:none}
+body.presenting .toast{bottom:84px}
+.presbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:31;display:flex;align-items:center;gap:6px;background:#1d2233;color:#fff;border-radius:999px;padding:6px 8px;box-shadow:0 8px 30px rgb(0 0 0 /.3);max-width:calc(100vw - 24px);flex-wrap:wrap;justify-content:center}
+.pb{border:0;background:rgb(255 255 255 /.12);color:#fff;border-radius:999px;min-width:40px;min-height:40px;padding:0 12px;font:600 14px var(--font);cursor:pointer}
+.pb:hover{background:rgb(255 255 255 /.22)}
+.pb[aria-pressed="true"]{background:#fff;color:#1d2233}
+.pbtxt{font-size:14px;min-width:160px;text-align:center;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
+.presnotes{position:fixed;right:16px;top:16px;z-index:31;width:min(340px,calc(100vw - 32px));max-height:calc(100vh - 110px);overflow:auto;background:var(--paper);border:1px solid var(--rule);border-radius:12px;box-shadow:0 10px 30px rgb(0 0 0 /.25);padding:14px;display:grid;gap:8px;font-size:14.5px}
+.presnotes h4{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.presnotes ul{margin:0;padding-left:18px;display:grid;gap:4px}
 .coDone{margin:0;font-weight:700;color:var(--ok);font-size:16px}
 .coCounts{display:flex;flex-wrap:wrap;gap:8px}
 .coCount{display:grid;justify-items:center;min-width:92px;border:1px solid var(--rule);border-radius:10px;padding:6px 10px;background:var(--paper);font-size:12.5px;color:var(--muted);cursor:pointer}
@@ -386,6 +440,7 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 </style>
 
 <div class="shell">
+  <div class="aidrow"><button class="aidbtn" id="aidBtn" aria-haspopup="dialog"><span class="aidlbl">Aid</span><b id="aidName">Untitled aid</b><span aria-hidden="true">▾</span></button><span class="note" id="aidMeta"></span></div>
   <div class="bar">
     <div class="tabs" role="tablist" aria-label="Pages">
       <button role="tab" id="tabLearn" aria-selected="false" aria-controls="viewLearn"><span class="n">1</span>Learn</button>
@@ -409,6 +464,8 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
   </section>
 
   <section id="viewBuild" role="tabpanel" aria-labelledby="tabBuild" hidden>
+    <div class="scorebar" id="scorebar2"></div>
+    <div class="lensbar" id="lensbar2"></div>
     <ol class="bsteps" id="bsteps" aria-label="Steps"></ol>
     <div class="bwrap">
       <div class="bmain">
@@ -470,6 +527,8 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 
   <section id="viewAid" role="tabpanel" aria-labelledby="tabAid">
     <div class="sheetwrap">
+      <div class="scorebar" id="scorebar"></div>
+      <div class="lensbar" id="lensbar"></div>
       <div class="zoombar" id="zoombar"><span class="note" id="zoomHint"></span><button class="btn small" id="zoomBtn"></button></div>
       <div class="stagewrap"><div class="stage" id="stage"><div class="cv" id="cv">
         <svg class="base" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true">
@@ -533,15 +592,18 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
         <button class="btn small" id="walkReplay" hidden>▶ Replay</button><button class="btn small ghost" id="walkEnd">End</button>
       </div>
       <p class="trace" id="trace" hidden></p>
+      <div class="cmpbox" id="cmpbox" hidden></div>
       <div class="under">
         <div style="display:grid;gap:8px;align-content:start">
           <div class="arow prep-only" style="flex:0 1 auto">
             <button class="btn small" id="howBtn" aria-pressed="false">Show me how</button>
             <button class="btn small" id="walkBtn">Show the alignment</button>
+            <button class="btn small primary" id="presentBtn">▶ Present</button>
+            <button class="btn small" id="pdfBtn">Download PDF</button>
             <button class="btn small" id="assistBtn">Assistant</button>
             <button class="btn small danger" id="sClearAll">Clear all</button>
           </div>
-          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small" id="walkBtn2">Show the alignment</button></div>
+          <div class="arow" id="clientBar" style="flex:0 1 auto"><button class="btn small primary" id="presentBtn2">▶ Present</button><button class="btn small" id="walkBtn2">Show the alignment</button><button class="btn small" id="pdfBtn2">Download PDF</button></div>
           <div class="lineKey" id="lineKey" aria-label="Connection lines"></div>
           <p class="note prep-only">Choose from KA's standard list in each box, then write what supports that choice. Tap any box to see what it serves (upstream) and what serves it (downstream); tap it again, or ▾, to change the choice. The + circles on the column to its left set what it serves.</p>
         </div>
@@ -554,6 +616,9 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
 
 <aside class="assist" id="assist" aria-label="Assistant">
   <header><h2>Assistant</h2><button class="btn small ghost" id="assistClose" aria-label="Close the assistant">✕</button></header>
+  <div class="asco"><label for="asCo" class="note">Research a company</label>
+    <div class="ascorow"><input id="asCo" class="tin" placeholder="Company name" autocomplete="off"><button class="btn small primary" id="asCoGo">Research and fill in</button></div>
+    <p class="note" id="asCoStatus">Fills the aid from Claude's built-in knowledge, forced into KA's choices. Solutions are left for you.</p></div>
   <div class="focusline" id="focusline"></div>
   <div class="arow"><button class="btn small" id="aBox">Suggest for this box</button><button class="btn small" id="aFill">Draft the whole aid</button></div>
   <div class="arow"><button class="btn small" id="aLinks">Suggest the connections</button><button class="btn small plum" id="aChallenge">Challenge the alignment</button></div>
@@ -569,6 +634,15 @@ footer{font-size:12.5px;color:var(--muted);display:flex;justify-content:space-be
   <p class="note" id="assistNote">Answers use your own Claude account. The first time, Claude asks you to allow it.</p>
 </aside>
 <div class="toast" id="toast" hidden></div>
+<div class="presbar" id="presbar" hidden>
+  <button class="pb" id="pPrev" aria-label="Previous box">◀</button>
+  <span class="pbtxt" id="pText" aria-live="polite">The whole alignment</span>
+  <button class="pb" id="pNext" aria-label="Next box">▶</button>
+  <button class="pb wide" id="pShow">Show the alignment</button>
+  <button class="pb wide" id="pNotes" aria-pressed="false">Notes</button>
+  <button class="pb wide" id="pExit">Exit</button>
+</div>
+<aside class="presnotes" id="presNotes" hidden aria-label="Presenter notes"></aside>
 
 <script>
 /* ---------- KA's standards: the PDF's drop-down lists, exactly as printed ---------- */
@@ -597,9 +671,20 @@ const SOLUTION=["Confirm how an initiative or solution aligns to the business pr
 function blank(){ const items={}; COLS.forEach(c=>items[c.k]=Array.from({length:c.n},()=>({t:"",d:"",c:0,serves:[]})));
   return {situation:"",space:"problem",outcomes:[],stepsP:[],stepsS:[],gaps:{},ext:Object.fromEntries(EXT.map(([k])=>[k,{t:""}])),notes:{},company:{name:"",site:"",eyes:"",summary:"",asOf:""},items}; }
 const KEY="ka-aop-v3";
-let S; try{ S=Object.assign(blank(),JSON.parse(localStorage.getItem(KEY)||"null")||{}); }catch(e){ S=blank(); }
-COLS.forEach(c=>{ const a=S.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); S.items[c.k]=a.slice(0,c.n); });
-let saveT; function save(){ clearTimeout(saveT); saveT=setTimeout(()=>{ try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} },250); }
+/* stakeholder lenses: each aid holds up to 4 views of the same company; S.items is always the active one */
+function norm(o){ o=Object.assign(blank(),o||{});
+  if(!o.lenses||!o.lens||!o.lenses[o.lens]){ o.lenses={main:{name:"Company",items:o.items}}; o.lens="main"; }
+  Object.values(o.lenses).forEach(L=>{ L.items=L.items||blank().items; COLS.forEach(c=>{ const a=L.items[c.k]||[]; while(a.length<c.n) a.push({t:"",d:"",c:0,serves:[]}); L.items[c.k]=a.slice(0,c.n); }); });
+  o.items=o.lenses[o.lens].items; if(o.compare&&(!o.lenses[o.compare]||o.compare===o.lens)) o.compare=null; return o; }
+/* the library: every aid saved in this browser */
+const LIB="ka-aop-lib";
+let LIBD=null; try{ LIBD=JSON.parse(localStorage.getItem(LIB)||"null"); }catch(e){}
+if(!LIBD||!LIBD.aids||!LIBD.aids[LIBD.cur]){ let old=null; try{ old=JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){}
+  const id="a"+Date.now().toString(36); LIBD={cur:id,aids:{[id]:{name:(old&&old.company&&old.company.name)||"Untitled aid",updated:Date.now(),data:old||blank()}}}; }
+let S=norm(JSON.parse(JSON.stringify(LIBD.aids[LIBD.cur].data)));
+function persist(){ const a=LIBD.aids[LIBD.cur]; a.data=S; a.updated=Date.now(); if((!a.name||a.name==="Untitled aid")&&S.company&&S.company.name&&S.company.name.trim()) a.name=S.company.name.trim();
+  try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} if(typeof renderAidRow==="function") renderAidRow(); }
+let saveT; function save(){ clearTimeout(saveT); saveT=setTimeout(persist,250); }
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ci=k=>COLS.findIndex(c=>c.k===k);
@@ -796,7 +881,7 @@ function forceSolution(inp){ const [k,i]=inp.dataset.f.split("."), it=S.items[k]
 $("cv").addEventListener("input",e=>{ const f=e.target.dataset.f; if(!f) return; const [k,i,p]=f.split("."); S.items[k][+i][p]=e.target.value; save();
   if(p==="t"){ e.target.closest(".slot").classList.toggle("empty",!e.target.value.trim()); }
   clearTimeout(window._rc); window._rc=setTimeout(()=>{ renderCheck(); renderGuide(); applyFocus(); },500); });
-function renderCheck(){ renderCheck0(); const c2=$("check2"); if(c2) c2.innerHTML=$("check").innerHTML; }
+function renderCheck(){ renderCheck0(); const c2=$("check2"); if(c2) c2.innerHTML=$("check").innerHTML; renderScore(); renderCompare(); }
 function renderCheck0(){
   const all=allFilled();
   if(!all.length){ $("check").innerHTML=`<h3>Alignment check</h3><p class="note">Choose a goal to begin. This shows what isn't tied in yet.</p>`; return; }
@@ -806,7 +891,7 @@ function renderCheck0(){
   $("check").innerHTML=`<h3>Alignment check</h3><div class="meter"><span><b>${sOK}/${sols.length}</b> solutions trace to a goal</span><span><b>${gOK}/${goals.length}</b> goals reached by a solution</span></div><ul>${rows||`<li class="ok">Everything chosen is tied to the column before it.</li>`}</ul>`;
 }
 $("check").addEventListener("click",e=>{ const b=e.target.closest("[data-show]"); if(b){ select(b.dataset.show); document.querySelector(`.slot[data-id="${b.dataset.show}"]`)?.scrollIntoView({block:"center",inline:"center",behavior:"smooth"}); } });
-function renderAll(intro){ renderPicture(intro); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
+function renderAll(intro){ renderLenses(); renderPicture(intro); renderCheck(); renderGuide(); if(curView==="build") renderBuild(); }
 
 /* popovers */
 let popEl=null, popAt=0;
@@ -839,17 +924,18 @@ function openNote(key,anchor){
 function openMenu(anchor){
   closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","More options");
   pop.innerHTML=`<h5>More options</h5><div class="menu">
-    <button data-m="company" class="prep-only">Start from a company</button><button data-m="anim">Turn animation ${S.animate!==false?"off":"on"}</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
+    <button data-m="company" class="prep-only">Start from a company</button><button data-m="present">Present</button><button data-m="pdf">Download PDF</button><button data-m="aids">Saved aids</button><button data-m="anim">Turn animation ${S.animate!==false?"off":"on"}</button><button data-m="links">Turn connections ${showLinks()?"off":"on"}</button><button data-m="how">Show me how</button><button data-m="walk">Show the alignment</button>
     <button data-m="assist" class="prep-only">Ask the assistant</button><button data-m="copy">Copy summary</button>
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
-    ({anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
+    ({present:()=>startPresent(),pdf:()=>downloadPdf(),aids:()=>openAids($("aidBtn")),anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
   pop.querySelector("button[data-m]").focus({preventScroll:true});
 }
 $("menuBtn").onclick=e=>{ e.stopPropagation(); openMenu($("menuBtn")); };
-document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-note],[data-pick],#menuBtn")) closePop(); });
-document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ if(popEl) closePop(); else if($("assist").classList.contains("open")) closeAssist(); else if(howOn) setHow(false); else if(sel) select(null); } });
+document.addEventListener("mousedown",e=>{ if(popEl&&!popEl.contains(e.target)&&!e.target.closest("[data-note],[data-pick],#menuBtn,#aidBtn,.lensbar,.scorebar")) closePop(); });
+document.addEventListener("keydown",e=>{ if(presenting){ if(e.key==="ArrowRight"){ e.preventDefault(); presStep(1); return; } if(e.key==="ArrowLeft"){ e.preventDefault(); presStep(-1); return; } if(e.key==="Escape"&&!popEl){ stopPresent(); return; } if(e.key===" "&&!e.target.matches("input,textarea")){ e.preventDefault(); $("pShow").click(); return; } if((e.key==="n"||e.key==="N")&&!e.target.matches("input,textarea")){ $("pNotes").click(); return; } }
+  if(e.key==="Escape"){ if(popEl) closePop(); else if($("assist").classList.contains("open")) closeAssist(); else if(howOn) setHow(false); else if(sel) select(null); } });
 addEventListener("scroll",()=>{ if(popEl&&!popEl.classList.contains("sheet")&&Math.abs(scrollY-popAt)>60) closePop(); },{passive:true});
 
 /* Show me how: the PDF's own yellow callouts */
@@ -903,10 +989,10 @@ const EXAMPLE={
     solutions:[{t:"CRM renewal dashboard",d:"Flags accounts at risk 120 days out",c:0,serves:["initiatives.0"]},{t:"Templates & coaching",d:"",c:0,serves:["initiatives.1"]},{t:"New client portal",d:"",c:3,serves:["initiatives.2"]}]
   }
 };
-function replaceState(n,msg){ S=n; save(); syncTop(); sel=null; wasAligned=true; setWalk(-1); renderAll(true); toast(msg); }
+function replaceState(n,msg){ const keep=S.bIdx; S=norm(n); S.bIdx=keep; save(); syncTop(); sel=null; wasAligned=true; setWalk(-1); renderAll(true); toast(msg); }
 function loadExample(){ replaceState(Object.assign(blank(),JSON.parse(JSON.stringify(EXAMPLE))),"Example loaded. Clear the aid from the ≡ menu."); }
-function restore(snap){ const keep=S.bIdx; S=JSON.parse(snap); S.bIdx=keep; save(); syncTop(); sel=null; renderAll(); toast("Brought back"); }
-function clearAll(){ const snap=JSON.stringify(S), keep=S.bIdx; S=blank(); S.bIdx=keep; save(); syncTop(); sel=null; wasAligned=false; setWalk(-1); renderAll(); toast("Everything cleared",()=>restore(snap)); }
+function restore(snap){ const keep=S.bIdx; S=norm(JSON.parse(snap)); S.bIdx=keep; save(); syncTop(); sel=null; renderAll(); toast("Brought back"); }
+function clearAll(){ const snap=JSON.stringify(S), keep=S.bIdx; S=norm(blank()); S.bIdx=keep; save(); syncTop(); sel=null; wasAligned=false; setWalk(-1); renderAll(); toast("Everything cleared",()=>restore(snap)); }
 function clearColumn(k){ const snap=JSON.stringify(S), c=COLS[ci(k)];
   S.items[k].forEach((it,i)=>{ const id=`${k}.${i}`; COLS.forEach(cc=>S.items[cc.k].forEach(x=>x.serves=(x.serves||[]).filter(t=>t!==id))); Object.assign(it,{t:"",d:"",c:0,serves:[],src:""}); });
   save(); if(sel&&sel.startsWith(k+".")) sel=null; renderAll(); toast(`${c.label} cleared`,()=>restore(snap)); }
@@ -923,7 +1009,7 @@ function setMode(client){ document.body.classList.toggle("client",client); $("mo
   $("modePrep").setAttribute("aria-pressed",!client); $("modeClient").setAttribute("aria-pressed",client); $("clientBar").hidden=!client; if(client){ closeAssist(); setHow(false); } applyFocus(); }
 $("modePrep").onclick=()=>setMode(false); $("modeClient").onclick=()=>setMode(true);
 addEventListener("hashchange",()=>{ const v=viewFromHash(); if(v&&v!==curView) show(v); });
-function openAssist(){ $("assist").classList.add("open"); setFocusLine(); }
+function openAssist(){ $("assist").classList.add("open"); setFocusLine(); if(!$("asCo").value&&S.company?.name) $("asCo").value=S.company.name; }
 function closeAssist(){ $("assist").classList.remove("open"); }
 $("sClearAll").onclick=e=>armed(e.currentTarget,"Tap again to clear everything",clearAll);
 $("helpBox").onclick=openAssist; $("assistBtn").onclick=openAssist; $("assistClose").onclick=closeAssist;
@@ -1188,7 +1274,7 @@ function renderCoResult(d,all){ const box=$("coReview"); box.hidden=false;
     <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-cogo="sheet">See it on the sheet</button><button class="btn" data-cogo="1">Review it step by step</button><button class="btn ghost" data-coundo>Undo</button></div></div>`; }
 $("coReview").addEventListener("click",e=>{ const g=e.target.closest("[data-cogo]"), u=e.target.closest("[data-coundo]");
   if(g){ if(g.dataset.cogo==="sheet") show("aid"); else goBuild(+g.dataset.cogo); }
-  if(u&&coUndo){ S=JSON.parse(coUndo); coUndo=null; save(); syncTop(); renderAll(); renderBuild(); $("coReview").hidden=true; $("coStatus").textContent="Undone. The aid is back as it was."; } });
+  if(u&&coUndo){ S=norm(JSON.parse(coUndo)); coUndo=null; save(); syncTop(); renderAll(); renderBuild(); $("coReview").hidden=true; $("coStatus").textContent="Undone. The aid is back as it was."; } });
 function renderCoReview(){
   const d=coDraft, box=$("coReview"); if(!d){ box.hidden=true; return; } box.hidden=false;
   if(!d.known){ box.innerHTML=`<div class="coRev"><p class="coWarn">Claude doesn't know enough about this company to draft it honestly. Add material (an annual report, the company's website text, your notes) and try again.</p></div>`; return; }
@@ -1240,6 +1326,202 @@ function coApply(how){ const d=coDraft;
   coUndo=snap; renderCoResult(d,all);
   }
 
+
+
+/* ===================== 4 · Saved aids (library) ===================== */
+function renderAidRow(){ const a=LIBD.aids[LIBD.cur]; if(!$("aidName")) return; $("aidName").textContent=a.name||"Untitled aid"; const n=Object.keys(LIBD.aids).length; $("aidMeta").textContent=n>1?`${n} saved in this browser`:"Saved in this browser"; }
+function flushSave(){ clearTimeout(saveT); persist(); }
+function switchAid(id,msg){ if(!LIBD.aids[id]) return; flushSave(); LIBD.cur=id; S=norm(JSON.parse(JSON.stringify(LIBD.aids[id].data))); sel=null; coDraft=null; coUndo=null;
+  try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} setWalk(-1); syncTop(); bIdx=Math.min(7,Math.max(0,+S.bIdx||0)); renderAll(true); if(curView==="build") renderBuild(); renderAidRow(); toast(msg||`Opened ${LIBD.aids[id].name}`); }
+function newAid(name,data){ flushSave(); const id="a"+Date.now().toString(36)+Math.random().toString(36).slice(2,5); LIBD.aids[id]={name:name||"Untitled aid",updated:Date.now(),data:data||blank()}; switchAid(id,`New aid: ${LIBD.aids[id].name}`); return id; }
+function openAids(anchor){
+  closePop(); flushSave(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Saved aids");
+  const list=Object.entries(LIBD.aids).sort((a,b)=>b[1].updated-a[1].updated);
+  pop.innerHTML=`<h5>Saved aids · in this browser</h5><div class="aidlist">${list.map(([id,a])=>`<button data-openaid="${id}" aria-current="${id===LIBD.cur}"><span><b>${esc(a.name||"Untitled aid")}</b><br><small>${(()=>{ const d=norm(a.data); const n=Object.values(d.lenses).length; return `${allCount(d)} boxes chosen${n>1?` · ${n} stakeholders`:""}`; })()}</small></span><small>${new Date(a.updated).toLocaleDateString()}</small></button>`).join("")}</div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn small primary" data-aidact="new">＋ New aid</button><button class="btn small" data-aidact="company">＋ From a company</button></div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn small" data-aidact="rename">Rename this aid</button><button class="btn small" data-aidact="dup">Duplicate</button><button class="btn small danger" data-aidact="del" ${list.length<2?"disabled":""}>Delete this aid</button></div>`;
+  place(pop,anchor); popEl=pop;
+  pop.addEventListener("click",e=>{ const o=e.target.closest("[data-openaid]"), a=e.target.closest("[data-aidact]");
+    if(o){ closePop(); if(o.dataset.openaid!==LIBD.cur) switchAid(o.dataset.openaid); return; }
+    if(!a) return; const act=a.dataset.aidact;
+    if(act==="new"){ closePop(); newAid(); show("build"); goBuild(0); }
+    if(act==="company"){ closePop(); newAid(); goCompany(); }
+    if(act==="dup"){ closePop(); newAid(`${LIBD.aids[LIBD.cur].name} (copy)`,JSON.parse(JSON.stringify(S))); }
+    if(act==="rename"){ pop.innerHTML=`<h5>Rename this aid</h5><input class="tin" id="aidRen" value="${esc(LIBD.aids[LIBD.cur].name)}"><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="aidRenOk">Save</button></div>`;
+      const inp=pop.querySelector("#aidRen"); inp.focus(); inp.select(); const ok=()=>{ LIBD.aids[LIBD.cur].name=inp.value.trim()||"Untitled aid"; persist(); closePop(); toast("Renamed"); };
+      pop.querySelector("#aidRenOk").onclick=ok; inp.onkeydown=ev=>{ if(ev.key==="Enter") ok(); }; }
+    if(act==="del") armed(a,"Tap again to delete this aid",()=>{ const gone=LIBD.cur, name=LIBD.aids[gone].name, snap=JSON.stringify(LIBD.aids[gone]); delete LIBD.aids[gone];
+      const next=Object.entries(LIBD.aids).sort((x,y)=>y[1].updated-x[1].updated)[0][0]; LIBD.cur=next; S=norm(JSON.parse(JSON.stringify(LIBD.aids[next].data)));
+      try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} closePop(); sel=null; syncTop(); renderAll(true); if(curView==="build") renderBuild(); renderAidRow();
+      toast(`Deleted ${name}`,()=>{ const r=JSON.parse(snap); LIBD.aids[gone]=r; switchAid(gone,"Brought back"); }); });
+  });
+  pop.querySelector("button")?.focus({preventScroll:true});
+}
+function allCount(d){ return COLS.reduce((n,c)=>n+d.items[c.k].filter(x=>x.t&&x.t.trim()).length,0); }
+$("aidBtn").onclick=e=>{ e.stopPropagation(); openAids($("aidBtn")); };
+
+/* ===================== 1 · Stakeholder lenses and compare ===================== */
+const MAX_LENSES=4;
+function switchLens(id){ if(!S.lenses[id]||id===S.lens) return; S.lens=id; S.items=S.lenses[id].items; if(S.compare===id) S.compare=null; sel=null; save(); setWalk(-1); renderAll(true); if(curView==="build") renderBuild(); toast(`Through the eyes of ${S.lenses[id].name}`); }
+function renderLenses(){
+  const ids=Object.keys(S.lenses), one=ids.length<2, client=document.body.classList.contains("client");
+  const h=`<span class="note">Through the eyes of</span>${ids.map(id=>`<button class="lchip" data-lens="${id}" aria-pressed="${id===S.lens}">${esc(S.lenses[id].name)}</button>`).join("")}
+    ${client?"":`<button class="lchip ghost" data-lensedit title="Rename or remove ${esc(S.lenses[S.lens].name)}">✎</button>`}
+    ${!client&&ids.length<MAX_LENSES?`<button class="lchip ghost" data-addlens>＋ Stakeholder</button>`:""}
+    ${one?"":`<button class="lchip cmp" data-compare aria-pressed="${!!S.compare}">${S.compare?`Comparing with ${esc(S.lenses[S.compare].name)} ✕`:"Compare"}</button>`}`;
+  ["lensbar","lensbar2"].forEach(k=>{ const el=$(k); if(el) el.innerHTML=h; });
+}
+document.addEventListener("click",e=>{
+  const ln=e.target.closest("[data-lens]"), add=e.target.closest("[data-addlens]"), ed=e.target.closest("[data-lensedit]"), cm=e.target.closest("[data-compare]");
+  if(ln){ switchLens(ln.dataset.lens); return; }
+  if(add){ closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Add a stakeholder");
+    pop.innerHTML=`<h5>Add a stakeholder · up to ${MAX_LENSES}</h5><input class="tin" id="lnName" placeholder="e.g. CFO, VP of Sales"><label class="note"><input type="radio" name="lnStart" value="copy" checked> Start from a copy of ${esc(S.lenses[S.lens].name)}</label><label class="note"><input type="radio" name="lnStart" value="blank"> Start blank</label><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="lnOk">Add</button></div>`;
+    place(pop,add); popEl=pop; const inp=pop.querySelector("#lnName"); inp.focus();
+    const ok=()=>{ const name=inp.value.trim(); if(!name){ inp.focus(); return; } const copy=pop.querySelector('input[name="lnStart"]:checked').value==="copy"; const id="l"+Date.now().toString(36);
+      S.lenses[id]={name,items:copy?JSON.parse(JSON.stringify(S.items)):blank().items}; closePop(); const prev=S.lens; switchLens(id); S.compare=prev; save(); renderAll(); toast(`${name} added. Change their choices; ≠ marks where they differ from ${S.lenses[prev].name}.`); };
+    pop.querySelector("#lnOk").onclick=ok; inp.onkeydown=ev=>{ if(ev.key==="Enter") ok(); }; return; }
+  if(ed){ closePop(); const L=S.lenses[S.lens], many=Object.keys(S.lenses).length>1; const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Rename stakeholder");
+    pop.innerHTML=`<h5>This view</h5><input class="tin" id="lnRen" value="${esc(L.name)}"><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="lnRenOk">Save</button>${many?`<button class="btn small danger" id="lnDel">Remove ${esc(L.name)}</button>`:""}</div>`;
+    place(pop,ed); popEl=pop; const inp=pop.querySelector("#lnRen"); inp.focus(); inp.select();
+    const ok=()=>{ L.name=inp.value.trim()||L.name; save(); closePop(); renderLenses(); renderCompare(); };
+    pop.querySelector("#lnRenOk").onclick=ok; inp.onkeydown=ev=>{ if(ev.key==="Enter") ok(); };
+    const del=pop.querySelector("#lnDel"); if(del) del.onclick=()=>armed(del,"Tap again to remove",()=>{ const gone=S.lens, snap=JSON.stringify(S); delete S.lenses[gone]; S.lens=Object.keys(S.lenses)[0]; S.items=S.lenses[S.lens].items; if(S.compare===gone||S.compare===S.lens) S.compare=null; closePop(); save(); sel=null; renderAll(true); if(curView==="build") renderBuild(); toast("Stakeholder removed",()=>restore(snap)); });
+    return; }
+  if(cm){ if(S.compare){ S.compare=null; save(); renderLenses(); renderCompare(); return; }
+    const others=Object.keys(S.lenses).filter(x=>x!==S.lens); if(others.length===1){ S.compare=others[0]; save(); renderLenses(); renderCompare(); return; }
+    closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Compare with");
+    pop.innerHTML=`<h5>Compare ${esc(S.lenses[S.lens].name)} with</h5><div class="menu">${others.map(o=>`<button data-cmpwith="${o}">${esc(S.lenses[o].name)}</button>`).join("")}</div>`;
+    place(pop,cm); popEl=pop; pop.addEventListener("click",ev=>{ const b=ev.target.closest("[data-cmpwith]"); if(b){ S.compare=b.dataset.cmpwith; save(); closePop(); renderLenses(); renderCompare(); } }); }
+});
+function renderCompare(){
+  const cv=$("cv"), box=$("cmpbox"); if(!cv) return; const O=S.compare&&S.lenses[S.compare];
+  cv.classList.toggle("comparing",!!O); cv.querySelectorAll(".slot").forEach(s=>s.classList.remove("agree","differ"));
+  if(!O){ if(box) box.hidden=true; return; }
+  const A=S.lenses[S.lens], norm1=t=>String(t||"").trim().toLowerCase(); let agree=0,total=0;
+  cv.querySelectorAll(".slot:not(.empty)").forEach(s=>{ const [k,i]=s.dataset.id.split("."), t=norm1(S.items[k][+i].t); if(!t) return; total++; const same=O.items[k].some(x=>norm1(x.t)===t); if(same) agree++; s.classList.add(same?"agree":"differ"); });
+  if(!box) return; box.hidden=false;
+  const rows=COLS.map(c=>{ const a=S.items[c.k].map(x=>x.t.trim()).filter(Boolean), b=O.items[c.k].map(x=>x.t.trim()).filter(Boolean), bl=b.map(norm1), al=a.map(norm1);
+    const both=a.filter(x=>bl.includes(norm1(x))), onlyA=a.filter(x=>!bl.includes(norm1(x))), onlyB=b.filter(x=>!al.includes(norm1(x)));
+    if(!a.length&&!b.length) return "";
+    return `<div class="cmprow"><b>${c.label}</b><span>${both.length?`<span class="ag">✓ Both:</span> ${esc(both.join(", "))}<br>`:""}${onlyA.length?`<span class="df">≠ Only ${esc(A.name)}:</span> ${esc(onlyA.join(", "))}<br>`:""}${onlyB.length?`<span class="df">≠ Only ${esc(O.name)}:</span> ${esc(onlyB.join(", "))}`:""}</span></div>`; }).join("");
+  box.innerHTML=`<h3>${esc(A.name)} and ${esc(O.name)} agree on ${agree} of ${total} choices</h3><p class="note" style="margin:0">✓ on a box: ${esc(O.name)} chose it too. ≠: only ${esc(A.name)} chose it. The differences are the conversation.</p>${rows}`;
+}
+
+/* ===================== 2 · Alignment score and the next move ===================== */
+function alignScore(){
+  const all=allFilled(), cnt=k=>S.items[k].filter(x=>x.t.trim()).length, target={goals:2,strategies:3,processes:3,initiatives:2,solutions:1}, wt={goals:12,strategies:12,processes:12,initiatives:8,solutions:6};
+  let sc=0; COLS.forEach(c=>sc+=wt[c.k]*Math.min(1,cnt(c.k)/target[c.k]));
+  sc+=20*(all.length?all.filter(id=>item(id).d.trim()).length/all.length:0);
+  const non=all.filter(id=>!id.startsWith("goals")); sc+=15*(non.length?non.filter(id=>(item(id).serves||[]).some(filled)).length/non.length:0);
+  const sols=all.filter(id=>id.startsWith("solutions")); sc+=15*(sols.length?sols.filter(id=>[...up(id)].some(x=>x.startsWith("goals"))).length/sols.length:0);
+  return Math.round(sc);
+}
+function nextMove(){
+  const cnt=k=>S.items[k].filter(x=>x.t.trim()).length;
+  if(!cnt("goals")) return {t:"Choose your first goal",go:()=>{ show("build"); goBuild(1); }};
+  for(let ix=1;ix<COLS.length;ix++) if(!cnt(COLS[ix].k)) return {t:`Choose ${COLS[ix].an||"a "+COLS[ix].one}`,go:()=>{ show("build"); goBuild(ix+1); }};
+  const o=orphans(), tie=o.find(x=>x.why.startsWith("not tied")); if(tie){ const ix=ci(tie.k); return {t:`Connect ${nameOf(tie.id)} to ${COLS[ix-1].an||"a "+COLS[ix-1].one}`,go:()=>{ show("build"); goBuild(6); }}; }
+  const uns=allFilled().find(id=>!item(id).d.trim()); if(uns){ const ix=ci(uns.split(".")[0]); return {t:`Say what supports ${nameOf(uns)}`,go:()=>{ show("build"); goBuild(ix+1); setTimeout(()=>document.querySelector(`.pcard[data-pid="${uns}"] textarea`)?.focus(),350); }}; }
+  const lone=o.find(x=>!x.why.startsWith("not tied")); if(lone){ const ix=ci(lone.k)+1; return {t:`Add ${COLS[ix].an||"a "+COLS[ix].one} that supports ${nameOf(lone.id)}`,go:()=>{ show("build"); goBuild(ix+1); }}; }
+  return {t:"Every box is chosen, supported and connected. Present it.",go:()=>startPresent(),done:true};
+}
+function renderScore(){
+  const sc=alignScore(), nm=nextMove(), r=19, C=2*Math.PI*r, col=sc>=80?"var(--ok)":sc>=50?"var(--blue)":"var(--plum)";
+  const h=`<svg class="ring" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="${r}" fill="none" stroke="var(--rule)" stroke-width="5"/><circle cx="23" cy="23" r="${r}" fill="none" stroke="${col}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C*sc/100} ${C}" transform="rotate(-90 23 23)"/><text x="23" y="27.5" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)" font-family="Open Sans,sans-serif">${sc}</text></svg>
+    <div class="scoretxt"><b>Alignment ${sc}%</b><span>${nm.done?"":"Next: "}<em>${esc(nm.t)}</em></span></div>${document.body.classList.contains("client")&&!nm.done?"":`<button class="btn small ${nm.done?"primary":""}" data-nextmove>${nm.done?"▶ Present":"Do it"}</button>`}`;
+  ["scorebar","scorebar2"].forEach(k=>{ const el=$(k); if(el) el.innerHTML=h; });
+}
+document.addEventListener("click",e=>{ if(e.target.closest("[data-nextmove]")) nextMove().go(); });
+
+/* ===================== 3 · Present ===================== */
+let presenting=false, presIx=-1, presOrder=[];
+function startPresent(){ if(presenting) return; show("aid"); presenting=true; closePop(); closeAssist(); setHow(false); document.body.classList.add("presenting"); $("stage").classList.remove("fit"); $("presbar").hidden=false;
+  presOrder=allFilled(); presIx=-1; select(null);
+  try{ const r=document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){}
+  requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); updPres(); }
+function stopPresent(){ if(!presenting) return; presenting=false; document.body.classList.remove("presenting"); $("presbar").hidden=true; $("presNotes").hidden=true; $("pNotes").setAttribute("aria-pressed","false");
+  try{ if(document.fullscreenElement) document.exitFullscreen(); }catch(e){} setWalk(-1); setZoom(false); requestAnimationFrame(()=>{ fitDescs(); drawLinks(); }); }
+function presStep(d){ presOrder=allFilled(); if(!presOrder.length) return; presIx=Math.max(-1,Math.min(presOrder.length-1,presIx+d)); setWalk(-1); select(presIx<0?null:presOrder[presIx]); updPres(); }
+function updPres(){ if(!presenting) return; const id=sel; $("pText").textContent=id?`${COLS[ci(id.split(".")[0])].label}: ${nameOf(id)} · ${presOrder.indexOf(id)+1} of ${presOrder.length}`:"The whole alignment";
+  $("pPrev").disabled=presIx<0; $("pNext").disabled=presIx>=presOrder.length-1; if(!$("presNotes").hidden) renderNotes(); }
+function renderNotes(){ const n=$("presNotes"), id=sel;
+  if(!id){ n.innerHTML=`<h4>Presenter notes</h4><p style="margin:0">${esc(S.company?.name||"This aid")}${S.situation?` · ${esc(S.situation)}`:""}</p><p class="note" style="margin:0">Alignment ${alignScore()}%. Use ▶ to spotlight each box, Space to show the alignment, N to hide these notes.</p>`; return; }
+  const k=id.split(".")[0], it=item(id), ups=[...up(id)].map(nameOf), downs=[...down(id)].map(nameOf), T=(typeof TEACH!=="undefined"&&TEACH[k])||{ask:[]};
+  n.innerHTML=`<h4>${COLS[ci(k)].label}</h4><p style="margin:0"><b>${esc(it.t)}</b>${it.d?`<br>${esc(it.d)}`:""}</p>${it.src?`<p class="note" style="margin:0">${esc(it.src)} · confirm with the client</p>`:""}
+    ${ups.length?`<h4>Serves</h4><p style="margin:0">${esc(ups.join(", "))}</p>`:""}${downs.length?`<h4>Served by</h4><p style="margin:0">${esc(downs.join(", "))}</p>`:""}
+    <h4>Ask the client</h4><ul>${T.ask.map(a=>`<li>${esc(a)}</li>`).join("")}</ul><p class="note" style="margin:0">Only you see these notes unless your screen is shared. N hides them.</p>`; }
+$("pPrev").onclick=()=>presStep(-1); $("pNext").onclick=()=>presStep(1); $("pExit").onclick=stopPresent;
+$("pShow").onclick=()=>{ presIx=-1; select(null); updPres(); startWalk(); };
+$("pNotes").onclick=()=>{ const n=$("presNotes"), on=n.hidden; n.hidden=!on; $("pNotes").setAttribute("aria-pressed",String(on)); if(on) renderNotes(); };
+document.addEventListener("fullscreenchange",()=>{ if(!document.fullscreenElement&&presenting) stopPresent(); });
+$("presentBtn").onclick=startPresent; $("presentBtn2").onclick=startPresent;
+$("cv").addEventListener("click",()=>{ if(presenting){ presOrder=allFilled(); presIx=sel?presOrder.indexOf(sel):-1; setTimeout(updPres,0); } });
+
+/* ===================== 5 · Download PDF: one landscape letter page, drawn from the same coordinates ===================== */
+let jspdfReady=null, downloads=null;
+(async()=>{ try{ downloads=window.claude?await window.claude.use("downloads"):null; }catch(e){ downloads=null; } })();
+function loadJsPdf(){ if(jspdfReady) return jspdfReady; jspdfReady=new Promise((ok,no)=>{ const sc=document.createElement("script"); sc.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"; sc.onload=()=>ok(window.jspdf.jsPDF); sc.onerror=()=>{ jspdfReady=null; no(new Error("load")); }; document.head.appendChild(sc); }); return jspdfReady; }
+const PDFC={plum:"#9e2a55",blue:"#2c4f9b",title:"#3f62ad",ink:"#1f2430",muted:"#5b6476",rule:"#d8dce5",tan:"#a39a83",org:["#f3d4d2","#f9e8e7","#ecc2bf"],op:["#fbefc8","#fdf6e1","#f5e2a6"],inf:["#dcebe0","#edf5ef","#c9e0cf"],g1:"#2f6fd6",g2:"#1f9a62",g12:"#7b4bd1",gnone:"#9aa1ad"};
+async function buildPdf(){
+  const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346;
+  const fill=c=>doc.setFillColor(c), draw=c=>doc.setDrawColor(c), color=c=>doc.setTextColor(c);
+  // bands, fading to the right
+  [["org",52,31,"ORGANIZATIONAL"],["op",83,30,"OPERATIONAL"],["inf",113,35,"INFRASTRUCTURE"]].forEach(([k,y,h,label])=>{
+    fill(PDFC[k][0]); doc.rect(23,y,150,h,"F");
+    for(let i=0;i<10;i++){ doc.setGState(new doc.GState({opacity:1-(i+1)/10})); doc.rect(173+i*5,y,5.05,h,"F"); }
+    doc.setGState(new doc.GState({opacity:1})); fill(PDFC[k][2]); doc.rect(10.4,y,12.6,h,"F");
+    color("#4d4d52"); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*PT); doc.text(label,18.6,y+h/2+doc.getTextWidth(label)/2,{angle:90}); });
+  // masthead
+  color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Gain Business Clarity",10.4,14.2);
+  color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",21.8,28.4);
+  draw(PDFC.ink); doc.setLineWidth(.4); doc.rect(10.4,18.3,9.6,9.6); fill(PDFC.ink); [[11.7,19.6],[16.1,19.6],[11.7,24]].forEach(([x,y])=>doc.rect(x,y,2.6,2.6,"F")); fill(PDFC.blue); doc.circle(17.3,25.2,1.6,"F");
+  doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
+  color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Priorities from Organization to Operational to Infrastructure"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
+  // external factors and column headers
+  const tri=(x,y)=>{ draw(PDFC.muted); doc.setLineWidth(.25); doc.triangle(x,y-2,x,y,x+1.7,y-1,"S"); };
+  doc.setFont("helvetica","bold"); doc.setFontSize(3.4*PT); color(PDFC.blue);
+  EXT.forEach(([k,l,y])=>{ tri(17.4,y+2.9); doc.text(l.toUpperCase(),20.2,y+2.9); });
+  COLS.forEach(c=>{ tri(c.hd[0],c.hd[1]+3.2); doc.setFontSize(3.7*PT); doc.text(c.label.toUpperCase(),c.hd[0]+2.8,c.hd[1]+3.2); });
+  // the plum diagonal
+  draw(PDFC.plum); doc.setLineWidth(1.9); doc.setLineCap("round"); doc.line(56.6,41.6,268.6,118); fill(PDFC.plum); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
+  // connections
+  doc.setLineCap("butt");
+  COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
+    (it.serves||[]).filter(filled).forEach(to=>{ const [x1,y1]=linkPt(from,"l"),[x2,y2]=linkPt(to,"r"),mx=(x1+x2)/2, lc=lineColor(to), hex=PDFC[lc.replace(/var\(--|\)/g,"")]||PDFC.gnone;
+      draw(hex); doc.setLineWidth(.5); if(lc.includes("gnone")) doc.setLineDashPattern([1.6,1.2],0); else doc.setLineDashPattern([],0);
+      doc.lines([[mx-x2,0,mx-x2,y1-y2,x1-x2,y1-y2]],x2,y2,[1,1],"S"); doc.setLineDashPattern([],0); fill(hex); doc.circle(x2,y2,.6,"F"); }); }); });
+  // boxes, chosen only, text fitted
+  COLS.forEach(c=>c.ys.forEach((y,i)=>{ const it=S.items[c.k][i]; if(!it.t.trim()) return;
+    fill("#ffffff"); draw(PDFC.rule); doc.setLineWidth(.25); doc.roundedRect(c.x,y,W,c.nh,.9,.9,"FD");
+    color(PDFC.ink); doc.setFont("helvetica","bold"); let f=3.15, name=it.t; doc.setFontSize(f*PT);
+    while(doc.getTextWidth(name)>W-2.8&&f>2.5){ f-=.05; doc.setFontSize(f*PT); } if(doc.getTextWidth(name)>W-2.8&&SHORT[name]){ name=SHORT[name]; f=3.15; doc.setFontSize(f*PT); while(doc.getTextWidth(name)>W-2.8&&f>2.4){ f-=.05; doc.setFontSize(f*PT); } }
+    doc.text(name,c.x+1.4,y+c.nh/2+f*.35);
+    if(it.d.trim()){ const dy=y+c.dy; fill("#ffffff"); doc.roundedRect(c.x,dy,W,c.dh,.9,.9,"FD"); doc.setFont("helvetica","normal"); let g=2.75, lines;
+      for(;;){ doc.setFontSize(g*PT); lines=doc.splitTextToSize(it.d.trim(),W-2.8); if(lines.length*g*1.2<=c.dh-1.4||g<=2.1) break; g-=.05; }
+      const maxL=Math.floor((c.dh-1.4)/(g*1.2)); if(lines.length>maxL){ lines=lines.slice(0,maxL); lines[maxL-1]=lines[maxL-1].replace(/\s*\S*$/,"")+"…"; }
+      color(PDFC.ink); doc.text(lines,c.x+1.4,dy+.7+g*.95,{lineHeightFactor:1.2}); } }));
+  // footer
+  draw(PDFC.ink); doc.setLineWidth(.3); doc.rect(10.9,204,4.3,5.5); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(2.4*PT); doc.text("ka",13.05,208,{align:"center"});
+  color(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2*PT); doc.text("© Copyright 2015",16.2,207.6);
+  const who=[S.company?.name,Object.keys(S.lenses).length>1?`through the eyes of ${S.lenses[S.lens].name}`:"",new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"})].filter(Boolean).join(" · ").replace(/^./,m=>m.toUpperCase());
+  doc.setFontSize(2.6*PT); doc.text(who,139.7,207.6,{align:"center"});
+  return doc;
+}
+async function downloadPdf(){
+  toast("Making the PDF…");
+  let doc; try{ doc=await buildPdf(); }catch(e){ toast("Couldn't make the PDF here. Check the connection and try again."); return; }
+  const base=(LIBD.aids[LIBD.cur].name||"Alignment of Priorities").replace(/[\\/:*?"<>|]+/g," ").trim(), lens=Object.keys(S.lenses).length>1?` - ${S.lenses[S.lens].name}`:"";
+  const filename=`Alignment of Priorities - ${base}${lens}.pdf`;
+  if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view"); } }
+  else { try{ doc.save(filename); toast("PDF downloaded"); }catch(e){ toast("Saving isn't available in this view"); } }
+}
+$("pdfBtn").onclick=downloadPdf; $("pdfBtn2").onclick=downloadPdf;
+
+/* research a company from the assistant panel */
+$("asCoGo").onclick=()=>{ const v=$("asCo").value.trim(); if(!v){ $("asCoStatus").textContent="Type a company name first."; $("asCo").focus(); return; }
+  $("coName").value=v; $("coSite").value=""; S.company=Object.assign(S.company||{},{name:v,site:""}); save(); $("coGo").click(); };
+$("asCo").addEventListener("keydown",e=>{ if(e.key==="Enter"){ e.preventDefault(); $("asCoGo").click(); } });
+new MutationObserver(()=>{ $("asCoStatus").textContent=$("coStatus").textContent; $("asCoGo").disabled=$("coGo").disabled; }).observe($("coStatus"),{childList:true,characterData:true,subtree:true});
 
 /* ---------- Assistant ---------- */
 let sample=null, ctl=null, assistOff=false, pending=null;
@@ -1310,7 +1592,7 @@ $("trace").addEventListener("click",e=>{ if(e.target.closest("[data-replay]")){ 
   if(ed){ const id=ed.dataset.editbox, ix=ci(id.split(".")[0]); show("build"); goBuild(ix+1); setTimeout(()=>document.querySelector(`.pcard[data-pid="${id}"] textarea`)?.focus(),350); }
   if(zt){ $("stage")._userZoom=true; setZoom(true,zt.dataset.zoomto); } });
 function sheetInView(){ if(innerWidth>=980&&curView==="aid") $("stage").scrollIntoView({block:"start"}); }
-syncTop(); $("clientBar").hidden=true; setZoom(false); renderAll(true);
+syncTop(); $("clientBar").hidden=true; setZoom(false); renderAidRow(); renderAll(true);
 show(viewFromHash()||(allFilled().length||S.situation?"build":"learn"));
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
 if(firstHow&&!allFilled().length&&curView==="aid") setTimeout(()=>setHow(true),1700);
