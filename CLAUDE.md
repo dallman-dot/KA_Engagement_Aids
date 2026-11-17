@@ -32,6 +32,7 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **A named, empty engagement's next step is to research it** (Research Acme / Build by hand), and the Overview's one next step sits right under the stakeholders, above the path.
   - **Each aid's guide opens the first time** from any door, the Overview's Build and Sheet buttons included.
   - **Fixes**: the Criteria Build no longer shows the stakeholder bar twice; "Example loaded." no longer points to the ≡ menu.
+  - **The KA logo in the upper left** (Dave, November 17: "need KA logo in the upper left"): the app bar opens with KA's own lockup as printed on the PDFs, the boxed "ka" and Knowledge-Advantage, Inc. in KA blue on a white plate, then Engagement Aids; on a phone just the boxed "ka". **Home's three-part path band is gone** (Dave, November 17: "delete!"); Home's kicker reads Engagement Aids.
 - **Next: the Priorities Map**, the next aid to build (Dave, November 17).
 
 ## Open for Dave
