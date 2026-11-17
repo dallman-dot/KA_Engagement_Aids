@@ -52,6 +52,7 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **Who's here.** The app bar shows Shared, everyone's faces, the host marked, and "Dave is here / away". The box each person has open is outlined with their initials on everyone's sheet.
   - **Follow the presenter.** When Dave presents, others get Follow along and stay on his slide; when he exits, theirs closes.
   - **Contributors only.** Dave stays the sole owner; Home, New engagement and the example are hidden in a room.
+  - **Trial room**: Kevin's example, published November 17 at https://claude.ai/artifact/4jzfxQwBVHNy6G2s8L2zrB (`prototype/rooms/example-trial.html`); its store starts empty, and the owner loads the example with Use Kevin's example to try it.
   - **Tested** in a two-browser simulation of the store and room (`scratchpad/roomtest.cjs`): loading, edits both ways, a guest's Claude request answered by Dave's session, waiting while he's away, the outline, and following the presentation. **Not yet proven on the real platform**: whether clients invited as outside guests are admitted to the live room.
 
 ## Open for Dave
