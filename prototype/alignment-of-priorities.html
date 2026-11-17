@@ -1183,6 +1183,28 @@ body.pmpresenting.laser,body.pmpresenting.laser *{cursor:none!important}
 .rmload{border:2px dashed var(--glow)}
 body.roommode #egrid .ecard.new,body.roommode #homeEx{display:none}
 @media (max-width:640px){.rmbar .rmhost,.rmbar .rmwait,.rmbar .rmface:nth-of-type(n+4){display:none}}
+
+/* the pipeline on the six A's */
+.pipespace{display:grid;grid-template-columns:2fr 4fr;gap:10px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.pipespace span,.arrow2 span{padding:4px 10px;border-radius:8px}.ps1{background:color-mix(in srgb,var(--why) 12%,transparent);color:var(--why)}.ps2{background:color-mix(in srgb,var(--how) 10%,transparent);color:var(--how)}
+.pipecols{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+.pcol.prob{border-top-color:var(--why)!important}.pcol.sol{border-top-color:var(--how)!important}
+.pchip small{grid-column:1/-1;font-size:12px;color:var(--muted)}
+.stg.awareness,.stg.analysis{background:color-mix(in srgb,var(--why) 14%,transparent);color:var(--why)}
+.stg.alternatives,.stg.answer,.stg.acceptance,.stg.actions{background:color-mix(in srgb,var(--how) 12%,transparent);color:var(--how)}
+.arloc{font-size:13px;color:var(--ink)}
+.armini{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}.armini i{height:6px;border-radius:9px;background:var(--rule);overflow:hidden;position:relative}.armini i s{position:absolute;inset:0 auto 0 0;background:var(--why);border-radius:9px}.armini i.sol s{background:var(--how)}.armini i.cur{outline:2px solid var(--glow);outline-offset:1px}
+.ovar .arrow2{display:grid;grid-template-columns:2fr 4fr;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.arphases{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.arph{display:grid;gap:2px;text-align:left;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:10px;padding:8px;cursor:pointer;font:inherit;min-height:44px;border-top:3px solid var(--why)}.arph.sol{border-top-color:var(--how)}
+.arph b{font-size:13px}.arph span{font-size:12px;color:var(--muted)}.arph.on{background:color-mix(in srgb,var(--glow) 16%,var(--paper));border-color:var(--glow)}.arph.cur b::after{content:" ●";color:var(--glow)}
+.arph em{font-style:normal;font-size:11px;font-weight:800}.arph em.go{color:var(--ok)}.arph em.nogo{color:var(--warn)}
+.aracts{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px}.aracts li{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 8px;border-radius:8px}.aracts li.here{background:color-mix(in srgb,var(--glow) 14%,transparent)}
+.aracts label{display:flex;align-items:center;gap:8px;flex:1 1 240px;cursor:pointer}.aracts input{width:18px;height:18px}.aracts .arid{font-weight:700;color:var(--muted);min-width:26px}.aracts li.done .arnm{color:var(--muted)}
+.aracts small{flex-basis:100%;padding-left:52px;color:var(--ok);font-size:12px}.argobtns{display:flex;gap:6px;margin-left:auto}.btn.warnb{border-color:var(--warn);color:var(--warn)}
+.linkbtn{border:0;background:none;color:var(--blue);font:inherit;font-size:13px;cursor:pointer;padding:4px;text-decoration:underline}
+@media (max-width:900px){.pipecols{grid-template-columns:repeat(3,minmax(0,1fr))!important}.pipespace{display:none}.arphases{grid-template-columns:repeat(3,minmax(0,1fr))}.ovar .arrow2{display:none}}
+@media (max-width:480px){.pipecols{grid-template-columns:1fr!important}}
 </style>
 
 <div class="shell">
@@ -3445,7 +3467,7 @@ function renderHome(){ const list=Object.entries(LIBD.aids).sort((a,b)=>b[1].upd
       <button class="more" data-engmore="${id}" aria-label="More for ${esc(a.name)}">⋯</button>
       <h3>${esc(a.name||"Untitled engagement")}</h3>
       <div class="meta">${s.eyes?`Through the eyes of ${esc(s.eyes)} · `:""}${s.lenses>1?`${s.lenses} stakeholders · `:""}Updated ${ago(a.updated)}</div>
-      ${s.empty?"":`<div class="pipe-row"><span class="stg ${s.stage}">${PIPE_L[s.stage]}</span><span class="rdy" title="How ready this engagement is for the next meeting"><i style="--v:${s.ready}"></i>Ready for the meeting <b>${s.ready}%</b></span></div>${s.nudges.length?`<ul class="ndg">${s.nudges.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}`}
+      ${s.empty?"":`<div class="pipe-row"><span class="stg ${s.stage}">${PIPE_L[s.stage]}</span><span class="arloc">${esc(s.loc)} ${esc(s.locName)}</span></div><div class="armini" title="The six A's: how far each phase has come">${AR.map((p,i)=>`<i class="${i<2?"prob":"sol"}${i+1===s.phase?" cur":""}" title="${p.l} ${s.pcts[i]}%"><s style="width:${s.pcts[i]}%"></s></i>`).join("")}</div><div class="pipe-row"><span class="rdy" title="How ready this engagement is for the next meeting"><i style="--v:${s.ready}"></i>Ready for the meeting <b>${s.ready}%</b></span></div>${s.nudges.length?`<ul class="ndg">${s.nudges.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}`}
       <div class="jbar"><div class="d-why"><i><s style="width:${s.aop}%"></s></i><span>Priorities <b>${s.aop}%</b></span></div><div class="d-what"><i><s style="width:0"></s></i><span>Requirements · soon</span></div><div class="d-how"><i><s style="width:${s.cp}%"></s></i><span>Criteria <b>${s.cp}%</b></span></div></div>
       <div class="nx"><b>Next</b>${esc(s.empty?"Research the company, or build by hand":s.next)}</div></div>`; }).join("");
   $("egrid").innerHTML=`<button class="ecard new" data-nav="new"><span class="plus">＋</span><h3>New engagement</h3><span class="meta">Name the client; Claude fills every aid for you to review.</span></button>${cards}
@@ -4412,26 +4434,45 @@ function plJump(j,atEnd){ plSwitching=true; plCover(true); const cur=PL.segs[PL.
 const _pkHome=presKey; presKey=function(k){ if(PL&&PL.segs.length>1&&((k==="Home"&&PL.i>0)||(k==="End"&&PL.i<PL.segs.length-1))){ plJump(k==="Home"?0:PL.segs.length-1,k==="End"); return true; } return _pkHome(k); };
 
 /* ===================== Home as a pipeline (Dave, Nov 17: "do 6 thru 10 now"; idea 6: each engagement's stage, how ready it is for the next meeting, and gentle nudges) ===================== */
-const PIPE=[["build","Building","The aids are taking shape"],["ready","Ready to meet","Enough to put in front of the client"],["follow","Follow up","Met: corrections, debrief, the email"],["agreed","Agreed","Every criterion agreed"]];
+/* the pipeline follows KA's Assessment Roadmap, the six A's (Dave, Nov 17: "The 'Pipeline' will be based on the Assessment Roadmap (6As) attached."); the activities exactly as printed */
+const AR=[{k:"awareness",l:"Awareness",sp:"Problem Space",a:["Gain Business Clarity","Identify Key Stakeholders","Frame Points of View","Verify Success Criteria","Establish Timeline with Milestones","Determine Go/No Go"]},
+  {k:"analysis",l:"Analysis",sp:"Problem Space",a:["Pinpoint Core Business Problems","Design a Blueprint to Solve Business Problems","Illustrate Innovative Solutions","Highlight Value of Solving Business Problems","Assess Readiness","Determine Go/No Go"]},
+  {k:"alternatives",l:"Alternatives",sp:"Solution Space",a:["Validate Technical Priorities, Requirements and Criteria of Stakeholders","Identify Viable Options","Determine Value, Costs & Risks of Options","Prioritize Options","Architect & Illustrate Options","Determine Go/No Go"]},
+  {k:"answer",l:"Answer",sp:"Solution Space",a:["Select Solution with Stakeholders","Confirm Roles (Pricing, Responsibilities, Deliverables, etc.)","Build Business Case","Present Business Case","Gain Commitment to Proceed From Stakeholders","Determine Go/No Go"]},
+  {k:"acceptance",l:"Acceptance",sp:"Solution Space",a:["Negotiate Agreements with Vendor(s)","Identify & Confirm Implementation Team","Establish Contingency & Risk Mitigation Plans","Communicate Commitments to Stakeholders","Validate Implementation Expectations (Scope, Timeline, Resources)","Determine Go/No Go"]},
+  {k:"actions",l:"Actions",sp:"Solution Space",a:["Prepare for Implementation Kick-Off","Conduct Implementation Kick-Off","Begin Implementation","Monitor Implementation","Conduct Milestone Checkpoint Sessions","Review Quarterly with Sponsoring Executives"]}];
+const PIPE=AR.map(p=>[p.k,p.l,p.sp]);
 const PIPE_L=Object.fromEntries(PIPE.map(([k,l])=>[k,l]));
+const arName=id=>{ const [p,i]=id.split(".").map(Number); return AR[p-1]?.a[i-1]||""; };
+function arData(){ const R=S.roadmap=S.roadmap&&typeof S.roadmap==="object"?S.roadmap:{}; R.done=R.done||{}; R.go=R.go||{}; return R; }
+/* Awareness fills in from the aids: 1.1 is the Alignment, 1.2 and 1.3 the Priorities Map, 1.4 the Criteria Proposition */
+function arAuto(){ const o={}; try{ const a=alignScore(); if(a>=70) o["1.1"]=`the Alignment of Priorities is ${a}%`;
+  if(S.pm){ const named=(S.pm.stake||[]).filter(s=>s&&s.n&&s.n.trim()&&s.src!=="default").length; if(named>=3) o["1.2"]=`${named} key stakeholders named on the Priorities Map`; const ps=pmScore(); if(ps>=60) o["1.3"]=`the Priorities Map is ${ps}%`; }
+  const rows=cpAll(); if(rows.length&&rows.every(([,,r])=>r.ok)) o["1.4"]=`all ${rows.length} criteria agreed`; }catch(e){} return o; }
+function arDone(id,auto){ const R=arData(), [p,i]=id.split(".").map(Number); if(i===6&&p<6) return R.go[p]==="go"; return !!R.done[id]||!!(auto||arAuto())[id]; }
+function arPct(p,auto){ let n=0; for(let i=1;i<=6;i++) if(arDone(`${p}.${i}`,auto)) n++; return Math.round(n/6*100); }
+function arLoc(auto){ const R=arData(); if(R.loc&&arName(R.loc)) return R.loc; let p=1; while(p<6&&R.go[p]==="go") p++; for(let i=1;i<=6;i++) if(!arDone(`${p}.${i}`,auto)) return `${p}.${i}`; return `${p}.6`; }
 function pipeOf(updated){ const a=alignScore(), c=cpScore(), pm=S.pm?pmScore():0, rows=cpAll(), agreed=rows.filter(([,,r])=>r.ok).length, flags=(S.flags||[]).filter(f=>f.st==="open").length,
     claude=S.pm?pmRated().filter(([,,x])=>x.src==="claude").length:0, ms=S.meetSnap, eyes=S.company?.eyes||"the client", ready=Math.round(a*.35+pm*.25+c*.4), N=[];
-  const stage=rows.length&&agreed===rows.length?"agreed":ms?"follow":a>=70&&c>=60?"ready":"build";
+  const auto=arAuto(), loc=arLoc(auto), phase=+loc.split(".")[0], R=arData(), stage=AR[phase-1].k, pcts=AR.map((_,i)=>arPct(i+1,auto));
+  if(R.go[phase]==="nogo") N.push(`${AR[phase-1].l}: decided No go`);
   if(flags) N.push(`${flags} client correction${flags>1?"s":""} waiting`);
+  for(let p=1;p<=5;p++){ let ready5=true; for(let i=1;i<=5;i++) if(!arDone(`${p}.${i}`,auto)) ready5=false; if(ready5&&!R.go[p]){ N.push(`${AR[p-1].l}: Go/No Go not decided yet`); break; } }
   if(ms&&!S.follow) N.push("Follow-up email not written yet");
-  if(ms&&!(S.snaps||[]).some(x=>(x.at||0)>=ms.t)) N.push("No snapshot since the last meeting");
   if(rows.length&&agreed<rows.length) N.push(`Criteria not agreed with ${eyes} yet · ${agreed} of ${rows.length}`);
   if(claude) N.push(`${claude} of the map's ratings are Claude's view, not confirmed`);
   if(!rows.length&&a>=60) N.push("No criteria yet: draft them from the alignment");
-  if(stage==="ready"&&!S.brief) N.push("No 60-second brief yet");
+  if(ms&&!(S.snaps||[]).some(x=>(x.at||0)>=ms.t)) N.push("No snapshot since the last meeting");
   const days=Math.floor((Date.now()-(updated||Date.now()))/864e5); if(days>=14) N.push(`Quiet for ${days} days`);
-  return {stage,ready,pm,nudges:N.slice(0,3)}; }
+  return {stage,phase,loc,locName:arName(loc),pcts,ready,pm,nudges:N.slice(0,3)}; }
 let pipeMemo=null; const _statsPipe=statsOf; statsOf=function(id){ if(pipeMemo&&pipeMemo[id]) return pipeMemo[id]; const o=_statsPipe(id); if(pipeMemo) pipeMemo[id]=o; return o; };
 const _rhPipe=renderHome; renderHome=function(){ pipeMemo={}; try{ _rhPipe(); pipePaint(); } finally{ pipeMemo=null; } };
 function pipePaint(){ const box=$("pipe"); if(!box) return; const list=Object.entries(LIBD.aids).map(([id,a])=>[id,a,statsOf(id)]).filter(([,a,s])=>!s.empty);
   box.hidden=!list.length; if(!list.length){ box.innerHTML=""; return; }
-  box.innerHTML=`<div class="pipehd"><h2>Pipeline</h2><span class="note">${list.length} engagement${list.length>1?"s":""} on KA's path · tap one to open it</span></div><div class="pipecols">${PIPE.map(([k,l,d])=>{ const L=list.filter(([,,s])=>s.stage===k).sort((x,y)=>y[2].ready-x[2].ready);
-    return `<div class="pcol ${k}"><div class="pch"><b>${l}</b><span>${L.length}</span></div><p class="note">${d}</p>${L.map(([id,a,s])=>`<button class="pchip" data-eng="${id}"><span>${esc(a.name||"Untitled engagement")}</span><i>${s.ready}%</i>${s.nudges[0]?`<em>${esc(s.nudges[0])}</em>`:""}</button>`).join("")||`<p class="pempty">None</p>`}</div>`; }).join("")}</div>`; }
+  box.innerHTML=`<div class="pipehd"><h2>Pipeline</h2><span class="note">${list.length} engagement${list.length>1?"s":""} on KA's Assessment Roadmap · tap one to open it</span></div>
+    <div class="pipespace"><span class="ps1">Problem Space</span><span class="ps2">Solution Space</span></div>
+    <div class="pipecols">${AR.map((p,i)=>{ const L=list.filter(([,,s])=>s.phase===i+1).sort((x,y)=>(y[2].pcts[i]-x[2].pcts[i])||(y[2].ready-x[2].ready));
+    return `<div class="pcol ${p.k} ${i<2?"prob":"sol"}"><div class="pch"><b>${p.l}</b><span>${L.length}</span></div>${L.map(([id,a,s])=>`<button class="pchip" data-eng="${id}"><span>${esc(a.name||"Untitled engagement")}</span><i>${s.pcts[i]}%</i><small>${esc(s.loc)} ${esc(s.locName)}</small>${s.nudges[0]?`<em>${esc(s.nudges[0])}</em>`:""}</button>`).join("")||`<p class="pempty">None</p>`}</div>`; }).join("")}</div>`; }
 $("pipe")?.addEventListener("click",e=>{ const c=e.target.closest("[data-eng]"); if(c) openEng(c.dataset.eng); });
 
 /* ===================== story slides fit their page (Dave, Nov 17: "need to quality control and improve the visual layout. Have content outside of boundaries.")
@@ -4584,13 +4625,14 @@ const _stopRm=stopPresent; stopPresent=function(){ _stopRm(); if(!plSwitching&&R
 
 /* ---------- the owner brings the engagement in, once ---------- */
 function rmLoadCardHTML(){ return `<div class="scard rmload"><h3>Bring the engagement in</h3><p>This shared copy is empty. Choose the file you saved with <b>Share this engagement</b> in your own KA Engagement Aids.</p>
-  <label class="btn primary">Choose the engagement file<input type="file" id="rmFile" accept=".json,application/json" hidden></label><p class="note">After it loads, open the Share menu and invite up to five people as Contributors.</p></div>`; }
+  <label class="btn primary">Choose the engagement file<input type="file" id="rmFile" accept=".json,application/json" hidden></label><button class="btn" id="rmTryEx">Use Kevin's example to try it</button><p class="note">After it loads, open the Share menu and invite up to five people as Contributors.</p></div>`; }
 async function rmLoadFile(f){ try{ const j=JSON.parse(await f.text()); const data=j&&j.format==="ka-engagement"?j.data:j; if(!data||typeof data!=="object"||!data.lenses&&!data.items) throw new Error("not an engagement");
     S=norm(data); RM.loaded=true; RM.empty=false; RM.last={}; _saveRoom(); const ch=rmDiff(); toast(`Loading ${ch.length} parts of the engagement…`,null,true);
     for(const [id,doc] of ch) await rmWrite(id,doc); if(j.name){ LIBD.aids[LIBD.cur].name=j.name; try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} }
     toast("The engagement is in. Now share this page with your people as Contributors.",null,true); renderCrumbs(); renderOverview(); }
   catch(e){ toast("That file isn't an engagement saved by Share this engagement.",null,true); } }
 document.addEventListener("change",e=>{ if(e.target&&e.target.id==="rmFile"&&e.target.files[0]) rmLoadFile(e.target.files[0]); });
+document.addEventListener("click",e=>{ if(e.target&&e.target.id==="rmTryEx"){ const data=JSON.parse(JSON.stringify(EXAMPLE)); data.pm=JSON.parse(JSON.stringify(PM_EXAMPLE)); rmLoadFile(new File([JSON.stringify({format:"ka-engagement",v:1,name:"Morgan Industries · example",data})],"example.json")); } });
 
 /* ---------- the personal app: Share this engagement ---------- */
 function shareEngagement(){ flushSave(); const name=aidName(), data=JSON.parse(JSON.stringify(S)); delete data.snaps; RM_LOCAL.forEach(k=>{ if(k!=="items"&&k!=="lens") delete data[k]; });
@@ -4623,6 +4665,22 @@ if(KA_ROOM){ RM.on=true; document.body.classList.add("roommode");
 const _mstRm=meetSnapTake; meetSnapTake=function(){ if(RM.on&&!RM.owner&&RM.follow) return; _mstRm(); };
 /* tokens: on the host, a guest's request is counted with who asked */
 const _tokRm=tokRecord; tokRecord=function(p,r,t){ _tokRm(p,r,t); if(RM.on&&RM.owner&&RM.asker){ const T=S.tokens; T.who=T.who||{}; const w=T.who[RM.asker]=T.who[RM.asker]||{n:0}; w.n++; save(); } };
+
+/* ===================== the Assessment Roadmap on the Overview: where the decision is, each phase's activities, Go/No Go (Dave, Nov 17: "The 'Pipeline' will be based on the Assessment Roadmap (6As)") ===================== */
+function arCardHTML(){ const R=arData(), auto=arAuto(), loc=arLoc(auto), open=R.open??(+loc.split(".")[0]);
+  return `<h3>Assessment Roadmap</h3><p class="note" style="margin:0 0 8px">Where ${esc(S.company?.name||"the client")} is in their decision. Awareness fills in from the aids; tick the rest as they happen. <b>${esc(loc)} ${esc(arName(loc))}</b>${R.loc?` · <button class="linkbtn" data-arloc="">use the next open activity</button>`:""}</p>
+    <div class="arrow2"><span class="ps1">Problem Space</span><span class="ps2">Solution Space</span></div>
+    <div class="arphases">${AR.map((p,i)=>{ const n=i+1, pct=arPct(n,auto), go=R.go[n]; return `<button class="arph ${i<2?"prob":"sol"} ${n===open?"on":""} ${n===+loc.split(".")[0]?"cur":""}" data-arph="${n}" aria-expanded="${n===open}"><b>${p.l}</b><span>${pct}%</span>${go?`<em class="${go}">${go==="go"?"Go":"No go"}</em>`:""}</button>`; }).join("")}</div>
+    <ol class="aracts" start="1">${AR[open-1].a.map((nm,j)=>{ const id=`${open}.${j+1}`, isGo=j===5&&open<6, a=auto[id], d=arDone(id,auto);
+      if(isGo) return `<li class="argo"><span class="arid">${id}</span><span class="arnm">${esc(nm)}</span><span class="argobtns"><button class="btn small ${R.go[open]==="go"?"primary":""}" data-argo="${open}|go">Go</button><button class="btn small ${R.go[open]==="nogo"?"warnb":""}" data-argo="${open}|nogo">No go</button></span></li>`;
+      return `<li class="${d?"done":""} ${id===loc?"here":""}"><label><input type="checkbox" data-ardone="${id}" ${d?"checked":""} ${a?"disabled":""}><span class="arid">${id}</span><span class="arnm">${esc(nm)}</span></label>${a?`<small>✓ ${esc(a)}</small>`:""}${id!==loc&&!d?`<button class="linkbtn" data-arloc="${id}">We're here</button>`:""}</li>`; }).join("")}</ol>`; }
+function arPaint(){ const c=$("ovAR"); if(c) c.innerHTML=arCardHTML(); }
+const _roAR=renderOverview; renderOverview=function(){ _roAR(); const nx=$("ovNext"); if(nx&&!$("ovAR")){ const d=document.createElement("div"); d.className="scard ovar"; d.id="ovAR"; (document.getElementById("ovKit")||nx).after(d); } arPaint(); };
+document.addEventListener("click",e=>{ const ph=e.target.closest("[data-arph]"); if(ph){ arData().open=+ph.dataset.arph; save(); arPaint(); return; }
+  const g=e.target.closest("[data-argo]"); if(g){ const [n,v]=g.dataset.argo.split("|"), R=arData(); R.go[n]=R.go[n]===v?undefined:v; if(!R.go[n]) delete R.go[n]; if(v==="go"&&R.go[n]==="go"&&+n<6) R.open=+n+1; save(); arPaint(); toast(R.go[n]?`${AR[n-1].l}: ${v==="go"?"Go":"No go"}`:"Decision cleared"); return; }
+  const l=e.target.closest("[data-arloc]"); if(l){ const R=arData(); if(l.dataset.arloc) R.loc=l.dataset.arloc; else delete R.loc; save(); arPaint(); } });
+document.addEventListener("change",e=>{ const c=e.target.closest("[data-ardone]"); if(!c) return; const R=arData(); if(c.checked) R.done[c.dataset.ardone]=true; else delete R.done[c.dataset.ardone]; save(); arPaint(); });
+const _cmdAR=cmdActions; cmdActions=function(){ const A=_cmdAR(); A.push({g:"Work",t:"Assessment Roadmap: where the decision is",run:()=>{ if(route!=="overview") nav("overview"); setTimeout(()=>$("ovAR")?.scrollIntoView({block:"center",behavior:"smooth"}),80); },hint:""}); return A; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
