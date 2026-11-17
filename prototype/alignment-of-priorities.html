@@ -513,10 +513,10 @@ body.client .logoslot,body.presenting .logoslot{display:none!important}
 .ps-rg li .rtrend{font-style:normal;font-size:.95cqw;padding:.15cqw .6cqw}
 .ps-chains{display:grid;gap:1.8cqw;align-content:start}
 .ps-chain{display:flex;align-items:stretch}
-.ps-node{flex:1 1 0;min-width:0;border-radius:1cqw;padding:1.1cqw 1.2cqw;display:grid;gap:.3cqw;align-content:start;box-shadow:0 .2cqw .8cqw rgb(20 30 60 /.08)}
+.ps-node{flex:1 1 0;min-width:0;grid-template-columns:minmax(0,1fr);border-radius:1cqw;padding:1.1cqw 1.2cqw;display:grid;gap:.3cqw;align-content:start;box-shadow:0 .2cqw .8cqw rgb(20 30 60 /.08)}
 .ps-node.c0,.ps-node.c1{background:var(--org-b);border:1px solid var(--org-s)}.ps-node.c2{background:var(--op-b);border:1px solid var(--op-s)}.ps-node.c3,.ps-node.c4{background:var(--inf-b);border:1px solid var(--inf-s)}
 .ps-node small{font-size:.9cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)}
-.ps-node b{font-size:1.5cqw;line-height:1.2;color:var(--ink)}
+.ps-node b{font-size:1.5cqw;line-height:1.2;color:var(--ink);overflow-wrap:normal;word-break:normal}
 .ps-node em{font-style:normal;font-size:1.05cqw;line-height:1.35;color:var(--muted)}
 .ps-verb{flex:0 0 5.4cqw;display:grid;place-items:center;align-content:center;gap:.1cqw;color:var(--plum)}
 .ps-verb span{font-size:.85cqw;font-weight:800;letter-spacing:.12em}.ps-verb i{font-style:normal;font-size:2cqw;line-height:1}
@@ -1125,9 +1125,10 @@ body.client .pmbanner{display:none!important}
 @media (max-width:600px){.kit{padding:0;place-items:end stretch}.kitbox,.kit.wide .kitbox{width:100%;max-height:92dvh;border-radius:16px 16px 0 0}.kitstrip .kk{width:100%}}
 
 /* one presentation experience: the map behind the shared bar */
-.pmpres{grid-template-rows:1fr}
-.pmpres .stage{padding:1.5vh 2vw}
-.pmpres .frame{width:min(96vw,calc((100dvh - 96px)*279.4/215.9))}
+.pmpres{grid-template-rows:minmax(0,1fr);grid-template-columns:minmax(0,1fr)}
+.pmpres .stage{padding:1.5vh 2vw;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-width:0;min-height:0;justify-items:center}
+.pmpres .frame{width:min(96vw,calc((100dvh - 96px)*279.4/215.9));max-width:100%;max-height:calc(100dvh - 3vh)}
+@media (max-height:500px){.pmpres .frame{width:min(96vw,calc((100dvh - 64px)*279.4/215.9))}}
 body.pmpresenting .presbar,body.pmpresenting .pprog{z-index:75}
 body.pmpresenting .presnotes{z-index:76}
 body.pmpresenting .pblank{z-index:78}
@@ -1165,6 +1166,7 @@ body.pmpresenting.laser,body.pmpresenting.laser *{cursor:none!important}
 .ndg{margin:0;padding:0;list-style:none;display:grid;gap:3px}.ndg li{font-size:13px;color:var(--plum);padding-left:14px;position:relative}.ndg li::before{content:"•";position:absolute;left:3px}
 @media (max-width:900px){.pipecols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.pipecols{grid-template-columns:1fr}.pcol:has(.pempty){display:none}}
+.pbtxt{display:inline-flex;align-items:baseline;justify-content:center}.pbtxt .pbl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pbtxt .pbn{flex:none;white-space:nowrap}
 </style>
 
 <div class="shell">
@@ -2612,7 +2614,7 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
   drawLinks();
   if(onSheet){ camera(null); ps.classList.remove("in"); clearTimeout(ps._t); ps._t=setTimeout(()=>{ if(!ps.classList.contains("in")) ps.hidden=true; },500);
     cap.innerHTML=capHTML(sl); cap.classList.toggle("quiet",sl.k==="whole"||sl.k==="col"); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
-  else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
+  else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; fitSlide(ps.querySelector(".ps")); void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
   presChrome(presIx,slides.length,slideLabel(sl));
   if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); }
 function go(i){ if(!presenting) return; const n=Math.max(0,Math.min(slides.length-1,i)); if(n===presIx&&slides[n]) return presRender(); presIx=n; presRender(); }
@@ -2759,13 +2761,16 @@ async function buildDeck(){
   doc.addPage("letter","landscape"); pageNo++; await buildPdf(doc);
   // 5 · what we heard
   const ch=chainsHeard(); frame("What we heard","How it comes together");
-  let y=54; const n=5, gap=11, bw=(PW-2*M-gap*(n-1))/n;
-  (ch.length?ch:[colFilled(0)]).forEach(c=>{ c.forEach((id,j)=>{ const ix=ci(id.split(".")[0]), x=M+j*(bw+gap), it=item(id);
-      doc.setFillColor([PDFC.org[1],PDFC.org[1],PDFC.op[1],PDFC.inf[1],PDFC.inf[1]][ix]); doc.setDrawColor(PDFC.rule); doc.roundedRect(x,y,bw,30,2,2,"FD");
-      font("bold",2.6,PDFC.plum); doc.text(COLS[ix].one.toUpperCase(),x+3.5,y+6); font("bold",3.9,PDFC.ink); doc.text(wrap(it.t,bw-7,3.9).slice(0,2),x+3.5,y+12.5,{lineHeightFactor:1.2});
-      if(it.d.trim()){ font("normal",3,PDFC.muted); doc.text(wrap(it.d.trim(),bw-7,3).slice(0,2),x+3.5,y+22,{lineHeightFactor:1.25}); }
-      if(j){ const ax=x-gap+1.2, ay=y+15; font("bold",2.1,PDFC.plum); doc.text(VERB_OF[ix],ax+(gap-1.2)/2,ay-2.2,{align:"center"}); doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.line(ax+1.5,ay,ax+gap-2.4,ay); doc.setFillColor(PDFC.plum); doc.triangle(ax,ay,ax+2,ay-1.2,ax+2,ay+1.2,"F"); } });
-    y+=38; });
+  let y=54; const n=5, gap=11, bw=(PW-2*M-gap*(n-1))/n, chs=ch.length?ch:[colFilled(0)];
+  const fitName=s=>{ let f=3.9; font("bold",f,PDFC.ink); while(f>2.8&&Math.max(...s.split(/\s+/).map(w=>doc.getTextWidth(w)))>bw-7){ f-=.1; font("bold",f,PDFC.ink); } return f; };
+  const lay=chs.map(c=>c.map(id=>{ const it=item(id), f=fitName(it.t); font("bold",f,PDFC.ink); const nl=wrap(it.t,bw-7,f); font("normal",3,PDFC.muted); const dl=it.d.trim()?wrap(it.d.trim(),bw-7,3):[]; return {f,nl,dl,h:9.5+nl.length*f*1.2+(dl.length?1.2+dl.length*3*1.25:0)+2.5}; }));
+  const rowH=lay.map(r=>Math.max(30,...r.map(x=>x.h))), total=rowH.reduce((a,b)=>a+b,0)+8*(rowH.length-1), sc=Math.min(1,(168-54)/total);
+  chs.forEach((c,ri)=>{ const H=rowH[ri]; c.forEach((id,j)=>{ const ix=ci(id.split(".")[0]), x=M+j*(bw+gap), L=lay[ri][j];
+      doc.setFillColor([PDFC.org[1],PDFC.org[1],PDFC.op[1],PDFC.inf[1],PDFC.inf[1]][ix]); doc.setDrawColor(PDFC.rule); doc.roundedRect(x,y,bw,H*sc,2,2,"FD");
+      font("bold",2.6*Math.max(sc,.85),PDFC.plum); doc.text(COLS[ix].one.toUpperCase(),x+3.5,y+6*sc); font("bold",L.f*sc,PDFC.ink); doc.text(L.nl,x+3.5,y+11.5*sc,{lineHeightFactor:1.2});
+      if(L.dl.length){ font("normal",3*sc,PDFC.muted); doc.text(L.dl,x+3.5,y+(11.5+(L.nl.length-1)*L.f*1.2+1.4+3*1.1)*sc,{lineHeightFactor:1.25}); }
+      if(j){ const ax=x-gap+1.2, ay=y+H*sc/2; font("bold",2.1,PDFC.plum); doc.text(VERB_OF[ix],ax+(gap-1.2)/2,ay-2.2,{align:"center"}); doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.line(ax+1.5,ay,ax+gap-2.4,ay); doc.setFillColor(PDFC.plum); doc.triangle(ax,ay,ax+2,ay-1.2,ax+2,ay+1.2,"F"); } });
+    y+=(rowH[ri]+8)*sc; });
   font("normal",7,PDFC.title); doc.text("Where am I off track?",M,Math.max(y+14,176)); font("normal",4,PDFC.ink); doc.text(clean(nextStep()),M,Math.max(y+23,185));
   return doc; }
 async function downloadDeck(){ toast("Making the leave-behind PDF…",null,true);
@@ -3323,10 +3328,10 @@ async function cpBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({o
   doc.addPage("letter","landscape"); pageNo++; cpDrawSheet(doc);
   if(allFilled().length){ doc.addPage("letter","landscape"); pageNo++; await buildPdf(doc); }
   frame("What success looks like","How we'll know it was worth it");
-  ["inf","op","org"].forEach((k,i)=>{ const b=cpB(k), x=M+i*(cw+8); let y=54; doc.setFillColor([PDFC.inf,PDFC.op,PDFC.org][i][1]); doc.roundedRect(x,y-6,cw,130,2,2,"F");
+  ["inf","op","org"].forEach((k,i)=>{ const b=cpB(k), x=M+i*(cw+8); let y=54; doc.setFillColor([PDFC.inf,PDFC.op,PDFC.org][i][1]); doc.roundedRect(x,y-6,cw,114,2,2,"F");
     font("bold",3.4,["#2c6142","#7a5606","#8c2b33"][i]); doc.text(`${b.lens} · ${b.full}`,x+4,y+1); y+=9;
     cpData()[k].filter(cpFilled).forEach(r=>{ font("normal",3.5,PDFC.ink); const ls=wrap(`${r.dir==="up"?"Up:":r.dir==="down"?"Down:":"Hold:"} ${r.t}${r.ok?" (agreed)":""}`,cw-8,3.5).slice(0,3); doc.text(ls,x+4,y); y+=ls.length*4.6+3; }); });
-  font("normal",7,PDFC.title); doc.text("Where am I off track?",M,192); font("normal",4,PDFC.ink); doc.text(cpNextStep(),M,200);
+  font("normal",7,PDFC.title); doc.text("Where am I off track?",M,176); font("normal",4,PDFC.ink); doc.text(cpNextStep(),M,184,{maxWidth:PW-2*M});
   return doc; }
 async function cpDownload(deck){ toast(deck?"Making the leave-behind PDF…":"Making the PDF…",null,true); let doc; try{ doc=await cpBuildPdf(deck); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
   const base=(LIBD.aids[LIBD.cur].name||"Criteria Proposition").replace(/[\\/:*?"<>|]+/g," ").trim(), filename=`Criteria Proposition - ${base}${deck?" - leave-behind":""}.pdf`;
@@ -3948,7 +3953,7 @@ function pmPresRender(){ const o=$("pmPres"), sl=pmSl[pmSi], P=pmData(); if(!o||
   if(sl.k==="row"){ const x=pmRowRead(sl.r); inner=pmSheetHTML({mode:"present",spot:{r:sl.r}}); cap=`<span class="pc-kick">Initiative · ${rows.indexOf(sl)+1} of ${rows.length}</span><b class="pc-title">${esc(iName(sl.r))}</b><span class="pc-meta"><span><em>High</em> ${who(x.hi)}</span><span><em>Medium</em> ${who(x.md)}</span><span><em>Low</em> ${who(x.lo)}</span></span>`; }
   if(sl.k==="compare"){ const cf=pmConflicts(), cm=pmCommon(); inner=pmSheetHTML({mode:"present",spot:{rows:[...cf,...cm],mark:"conflict"}}); cap=`<span class="pc-kick">Similarities and differences</span><b class="pc-title">${cf.length?`${cf.length} potential conflict${cf.length>1?"s":""}`:"No conflicts"}${cm.length?` · ${cm.length} common ground`:""}</b><span class="pc-meta">${cf.length?`<span><em>Conflicts</em> ${cf.map(r=>esc(iName(r))).join(", ")}</span>`:""}${cm.length?`<span><em>Common ground</em> ${cm.map(r=>esc(iName(r))).join(", ")}</span>`:""}</span>`; }
   if(sl.k==="take"){ inner=`<div class="slide"><div class="pmtop"><span class="k">Key takeaways</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2>${P.take.trim()?`<ul>${P.take.trim().split(/\n+/).map(l=>`<li>${esc(l.replace(/^[-•]\s*/,""))}</li>`).join("")}</ul>`:`<div class="two"><div class="w"><h3>Potential conflicts</h3><ul>${pmConflicts().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None</li>"}</ul></div><div class="o"><h3>Common ground</h3><ul>${pmCommon().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None yet</li>"}</ul></div></div>`}<p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
-  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap pmcap${quiet?" quiet":""}">${cap}</div>`:""}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k));
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap pmcap${quiet?" quiet":""}">${cap}</div>`:""}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); fitSlide(o.querySelector(".slide"));
   presChrome(pmSi,pmSl.length,pmSlideLabel(sl)); if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); }
 function pmPresEnd(){ const o=$("pmPres"); if(!o||o.hidden) return; o.hidden=true; document.body.classList.remove("pmpresenting","pidle","laser"); ["presbar","pprog","presNotes","pblank","laser","pkeysBox","pvHelp"].forEach(id=>$(id).hidden=true);
   $("pNotes").setAttribute("aria-pressed","false"); $("pKeys").setAttribute("aria-pressed","false"); laserOn=false; blankOn=false;
@@ -4344,7 +4349,7 @@ let presG=null, pvG=null;
 function plOffset(){ if(typeof PL==="undefined"||!PL) return null; const c=Object.fromEntries(plCounts()); let off=0; for(let j=0;j<PL.i;j++) off+=c[PL.segs[j].a]||0; return {off,tot:PL.segs.reduce((s,g)=>s+(c[g.a]||0),0)}; }
 function presChrome(i,n,label){ const g=plOffset(), gi=g?g.off+i+1:i+1, gn=g?Math.max(g.tot,gi):n, plN=!!(PL&&PL.i<PL.segs.length-1), plP=!!(PL&&PL.i>0);
   presG={i:gi,n:gn,next:plN&&i>=n-1?TOK_AID[PL.segs[PL.i+1].a]:""};
-  $("pText").textContent=`${label} · ${gi} of ${gn}`; $("pPrev").disabled=i<=0&&!plP; $("pNext").disabled=i>=n-1&&!plN;
+  $("pText").innerHTML=`<span class="pbl">${esc(label)}</span><span class="pbn">&nbsp;· ${gi} of ${gn}</span>`; $("pText").title=`${label} · ${gi} of ${gn}`; $("pPrev").disabled=i<=0&&!plP; $("pNext").disabled=i>=n-1&&!plN;
   $("pNext").title=i>=n-1&&plN?`Next: ${TOK_AID[PL.segs[PL.i+1].a]}`:"Next"; $("pPrev").title=i<=0&&plP?`Back: ${TOK_AID[PL.segs[PL.i-1].a]}`:"Back";
   $("pprog").firstElementChild.style.width=`${gi/gn*100}%`; }
 $("pPrev").onclick=()=>presStep(-1); $("pNext").onclick=()=>presStep(1); $("pExit").onclick=()=>pmOn()?pmPresEnd():stopPresent();
@@ -4410,6 +4415,16 @@ function pipePaint(){ const box=$("pipe"); if(!box) return; const list=Object.en
   box.innerHTML=`<div class="pipehd"><h2>Pipeline</h2><span class="note">${list.length} engagement${list.length>1?"s":""} on KA's path · tap one to open it</span></div><div class="pipecols">${PIPE.map(([k,l,d])=>{ const L=list.filter(([,,s])=>s.stage===k).sort((x,y)=>y[2].ready-x[2].ready);
     return `<div class="pcol ${k}"><div class="pch"><b>${l}</b><span>${L.length}</span></div><p class="note">${d}</p>${L.map(([id,a,s])=>`<button class="pchip" data-eng="${id}"><span>${esc(a.name||"Untitled engagement")}</span><i>${s.ready}%</i>${s.nudges[0]?`<em>${esc(s.nudges[0])}</em>`:""}</button>`).join("")||`<p class="pempty">None</p>`}</div>`; }).join("")}</div>`; }
 $("pipe")?.addEventListener("click",e=>{ const c=e.target.closest("[data-eng]"); if(c) openEng(c.dataset.eng); });
+
+/* ===================== story slides fit their page (Dave, Nov 17: "need to quality control and improve the visual layout. Have content outside of boundaries.")
+   1 a name or heading wider than its card is set smaller, down to a floor, then may break; 2 if the slide's body is taller than the page, it's scaled down to fit. ===================== */
+function fitSlide(ps){ if(!ps) return; requestAnimationFrame(()=>{ const cw=(ps.closest(".frame,.pslide")||ps).clientWidth/100; if(!cw) return;
+  ps.querySelectorAll(".ps-node b,.ps-node em,.ps h2,.ps-title h1,.ps-client,.ps-rgh,.ps-ext p,.ps-close,.slide h2,.slide li,.slide h3").forEach(el=>{ el.style.fontSize=""; let fs=parseFloat(getComputedStyle(el).fontSize)/cw, floor=fs*.6;
+    for(let n=0;n<24&&el.scrollWidth>el.clientWidth+1&&fs>floor;n++){ fs*=.95; el.style.fontSize=fs+"cqw"; } if(el.scrollWidth>el.clientWidth+1) el.style.overflowWrap="anywhere"; });
+  [".ps-node b",".ps-node em",".slide li",".ps-ext p"].forEach(sel=>{ const els=[...ps.querySelectorAll(sel)], set=els.filter(e=>e.style.fontSize); if(!set.length) return; const m=Math.min(...set.map(e=>parseFloat(e.style.fontSize))); els.forEach(e=>e.style.fontSize=m+"cqw"); });
+  const body=[...ps.children].filter(c=>!c.matches(".ps-top,.pmtop,.ps-kafoot,h2,.ps-foot,.k")); body.forEach(c=>c.style.zoom="");
+  for(let z=1,n=0;n<8&&ps.scrollHeight>ps.clientHeight+1;n++){ z-=.05; body.forEach(c=>c.style.zoom=z); } }); }
+addEventListener("resize",()=>{ if(presenting&&!$("pslide").hidden) fitSlide($("pslide").querySelector(".ps")); if(typeof pmOn==="function"&&pmOn()) fitSlide(document.querySelector("#pmPres .slide")); });
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
