@@ -472,6 +472,7 @@ body.presenting.laser,body.presenting.laser *{cursor:none!important}
 .ps-kick{font-size:1.15cqw;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--plum)}
 .ps-client{display:flex;align-items:center;gap:1.2cqw;font-size:1.6cqw;color:var(--title);font-weight:600;max-width:42%;text-align:right}.ps-client img{max-height:3.8cqw;max-width:12cqw;object-fit:contain}
 .ps-kafoot{position:absolute;left:7cqw;bottom:2.2cqw;z-index:3;display:flex;align-items:center;gap:.7cqw;font-size:.85cqw;color:var(--blue);line-height:1.25}.ps-kafoot b{display:grid;place-items:center;width:2cqw;height:2.4cqw;border:.12cqw solid #1f2430;font-size:1.1cqw;font-weight:600}.ps-kafoot i{display:block;font-style:normal;color:#5b6476}
+.logoslot[data-logoslot]{position:absolute}
 .logoslot{border:0;background:transparent;cursor:pointer;border-radius:calc(1*var(--mm));padding:0;display:flex;align-items:center;justify-content:flex-start;z-index:7}
 .logoslot:hover,.logoslot:focus-visible{outline:calc(.3*var(--mm)) dashed color-mix(in srgb,var(--blue) 45%,transparent)}
 .logoslot.empty span{font:600 calc(2.6*var(--mm)) var(--font);color:var(--blue);opacity:.55;border:calc(.25*var(--mm)) dashed currentColor;border-radius:calc(1*var(--mm));padding:calc(1.2*var(--mm)) calc(2*var(--mm));margin-left:calc(2*var(--mm))}
@@ -964,6 +965,103 @@ body.meeting .toast{bottom:76px}
 .cmdfoot{border-top:1px solid var(--rule);padding:8px 14px;font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
 @media print{.appbar,.aidhead,.meetbar,.cmdk,.rview{display:none!important}}
 body.presenting .appbar,body.presenting .aidhead,body.presenting .meetbar{display:none!important}
+
+/* ===== the Priorities Map (Dave, Nov 17) ===== */
+.pmcv{position:relative;width:100%;aspect-ratio:279.4/215.9;--mm:calc(100cqw / 279.4);container-type:inline-size}
+.pmcv>svg.pmbase{position:absolute;inset:0;width:100%;height:100%}
+.pmcv .px{position:absolute}
+.pmname,.pminit{border:0;background:transparent;font:600 calc(3*var(--mm))/1.15 var(--font);color:var(--ink);resize:none;overflow:hidden;padding:0;display:block;width:100%;height:100%}
+.pmname{text-align:center;display:grid;place-items:center}
+textarea.pmname{padding-top:calc(.6*var(--mm))}
+.pminit{text-align:right;font-weight:400;font-size:calc(3.3*var(--mm));height:auto;max-height:100%}
+.pmname:focus,.pminit:focus{outline:calc(.3*var(--mm)) solid var(--cyan);border-radius:calc(.6*var(--mm))}
+.pmname::placeholder,.pminit::placeholder{color:var(--blue);opacity:.45;font-weight:400}
+.pmcell{border:0;background:transparent;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:50%}
+.pmcell svg{width:100%;height:100%;overflow:visible}
+.pmcell .ring{fill:none;stroke:var(--plum);stroke-width:.85}
+.pmcell .fill{fill:var(--plum)}
+.pmcell.empty .ring{stroke:color-mix(in srgb,var(--blue) 28%,transparent);stroke-dasharray:1.2 1.4;stroke-width:.5}
+.pmcell.empty:hover .ring{stroke:var(--plum);stroke-dasharray:none}
+.pmcell.claude .ring{stroke-dasharray:1.6 1;opacity:.75}.pmcell.claude .fill{opacity:.55}
+.pmcell:focus-visible{outline:calc(.4*var(--mm)) solid var(--cyan)}
+.pmmore{border:0;background:transparent;color:var(--muted);font:600 calc(2.8*var(--mm)) var(--font);cursor:pointer;padding:0;display:grid;place-items:center;opacity:.7}
+.pmmore.has{color:var(--blue);opacity:1}.pmmore.has::after{content:"";width:calc(1.2*var(--mm));height:calc(1.2*var(--mm));border-radius:50%;background:var(--cyan);margin-left:calc(.4*var(--mm))}
+.pmmore{display:flex;align-items:center;justify-content:center}
+.pmhdbtn{border:0;background:transparent;color:#fff;font:600 calc(3.4*var(--mm)) var(--font);cursor:pointer;padding:0}
+.pmhdbtn.dark{color:var(--inf-ink)}
+.pmrowhit{border:0;background:transparent;cursor:pointer;padding:0}
+.pmrowhit:hover{background:color-mix(in srgb,var(--blue) 4%,transparent)}
+.pmnotes{border:0;background:transparent;font:400 calc(2.9*var(--mm))/1.35 var(--font);color:var(--ink);resize:none;width:100%;height:100%;padding:calc(.8*var(--mm))}
+.pmnotes::placeholder{color:var(--muted)}
+.pmcv.dimrows .pmrow:not(.lit),.pmcv.dimcols .pmcol:not(.lit){opacity:.22;transition:opacity .35s}
+.pmcv .pmrow,.pmcv .pmcol{transition:opacity .35s}
+.pmcv .lit .pmcell:not(.empty){animation:pmpop .5s cubic-bezier(.2,.9,.3,1.3) both;animation-delay:calc(var(--i,0)*90ms)}
+@keyframes pmpop{0%{transform:scale(.6)}100%{transform:scale(1)}}
+.pmcv .conflict-mark{fill:none;stroke:var(--warn);stroke-width:.5;stroke-dasharray:1.6 1.2}
+.pmbanner{margin:0;background:color-mix(in srgb,var(--plum) 7%,var(--paper));border:1px solid color-mix(in srgb,var(--plum) 35%,var(--rule));border-radius:10px;padding:8px 12px;font-size:13.5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pmbanner .btn{min-height:30px}
+.pmread{display:grid;gap:12px;margin-top:10px}
+.pmread .rd2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pmread .rcard{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 14px;display:grid;gap:6px;align-content:start}
+.pmread h3{margin:0;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pmread .rcard.warn{border-color:color-mix(in srgb,var(--warn) 45%,var(--rule))}.pmread .rcard.warn h3{color:var(--warn)}
+.pmread .rcard.ok h3{color:var(--ok)}
+.pmread ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:4px}
+.pmchips{display:flex;flex-wrap:wrap;gap:6px}
+.pmchips button{border:1px solid var(--rule);background:var(--paper);border-radius:999px;padding:5px 11px;font:600 13px var(--font);color:var(--ink);cursor:pointer;min-height:34px}
+.pmchips button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.pmchips button.org{border-left:4px solid var(--org-s)}.pmchips button.op{border-left:4px solid var(--op-s)}.pmchips button.ini{border-left:4px solid var(--inf-s)}
+.pmsum{font-size:14.5px;margin:0}.pmsum b{color:var(--plum)}
+.ball{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:4px}
+/* Build */
+.pmgrid{display:grid;gap:8px}
+.pmrowed{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:8px 10px}
+.pmrowed .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--bg);font-weight:700;font-size:12.5px}
+.pmrowed.org{border-left:5px solid var(--org-s)}.pmrowed.op{border-left:5px solid var(--op-s)}.pmrowed.ini{border-left:5px solid var(--inf-s)}
+.pmrowed .why{grid-column:2/-1;font-size:12.5px;color:var(--muted);margin:0}
+.pmrowed .why b{color:var(--plum);font-weight:600}
+.pmkind{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:2px;gap:2px}
+.pmkind button{border:0;background:transparent;border-radius:999px;padding:5px 10px;font:600 12.5px var(--font);cursor:pointer;color:var(--muted);min-height:30px}
+.pmkind button[aria-pressed="true"].org{background:var(--org-s);color:var(--org-ink)}.pmkind button[aria-pressed="true"].op{background:var(--op-s);color:var(--op-ink)}
+.pmtable{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.pmtable th,.pmtable td{padding:6px;text-align:center;border-bottom:1px solid var(--rule)}
+.pmtable th{font-size:12px;font-weight:700;color:var(--ink);vertical-align:bottom}
+.pmtable th.org{background:var(--org-b)}.pmtable th.op{background:var(--op-b)}
+.pmtable td.ini{text-align:right;font-weight:600;background:var(--inf-b);max-width:150px}
+.pmtable .tcell{border:0;background:transparent;width:40px;height:40px;cursor:pointer;padding:4px;border-radius:50%}
+.pmtable .tcell svg{width:100%;height:100%}
+.pmtablewrap{overflow-x:auto}
+.pmcrit{display:grid;gap:10px}
+.pmcrit .ci{background:var(--paper);border:1px solid var(--rule);border-left:5px solid var(--inf-s);border-radius:12px;padding:10px 12px;display:grid;gap:8px}
+.pmcrit .ci h4{margin:0;font-size:15px}
+.pmcrit .cs{display:grid;grid-template-columns:160px minmax(0,1fr);gap:8px;align-items:start}
+.pmcrit .cs label{font-size:13px;font-weight:600;padding-top:8px}
+.pmcrit .cs textarea{border:1px solid var(--rule);background:var(--bg);border-radius:8px;padding:7px 9px;font-size:14px;min-height:40px}
+@media (max-width:640px){.pmcrit .cs{grid-template-columns:minmax(0,1fr)}.pmcrit .cs label{padding-top:0}}
+.pmmini{container-type:inline-size;padding:0;overflow:hidden}
+.pmmini .pmcv{pointer-events:none}
+/* Present */
+.pmpres{position:fixed;inset:0;z-index:70;background:#fff;display:grid;grid-template-rows:1fr auto;color:#1f2430}
+.pmpres .stage{display:grid;place-items:center;padding:2vh 3vw 0;min-height:0}
+.pmpres .frame{width:min(94vw,calc((100vh - 140px)*279.4/215.9));container-type:inline-size;position:relative}
+.pmpres .cap{position:absolute;left:calc(26*var(--mmp));top:calc(178*var(--mmp));width:calc(150*var(--mmp));--mmp:calc(100cqw/279.4);background:#fff;border-left:calc(.7*var(--mmp)) solid var(--plum);border-radius:calc(1.2*var(--mmp));padding:calc(1.6*var(--mmp)) calc(2.4*var(--mmp));box-shadow:0 calc(.8*var(--mmp)) calc(3*var(--mmp)) rgb(30 45 80 /.10);font-size:calc(2.6*var(--mmp));line-height:1.35;animation:psrise .6s both}
+.pmpres .cap b{display:block;color:var(--plum);font-size:calc(2.1*var(--mmp));letter-spacing:.14em;text-transform:uppercase;margin-bottom:calc(.6*var(--mmp))}
+.pmpres .cap h4{margin:0 0 calc(.6*var(--mmp));font-size:calc(3.6*var(--mmp));font-weight:600;color:#3f62ad}
+.pmpres .bar{display:flex;gap:8px;justify-content:center;align-items:center;padding:10px;flex-wrap:wrap}
+.pmpres .bar .pb{min-height:40px}
+.pmpres .slide{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:6cqw 7cqw;gap:2cqw}
+.pmpres .slide h2{margin:0;font-weight:300;font-size:4.4cqw;color:#3f62ad}
+.pmpres .slide .k{color:var(--plum);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:1.3cqw}
+.pmpres .slide ul{margin:0;padding-left:2cqw;font-size:1.8cqw;display:grid;gap:1cqw}
+.pmpres .slide .two{display:grid;grid-template-columns:1fr 1fr;gap:3cqw}
+.pmpres .slide .two h3{margin:0 0 .8cqw;font-size:1.3cqw;letter-spacing:.14em;text-transform:uppercase}
+.pmpres .slide .two .w h3{color:#a6501d}.pmpres .slide .two .o h3{color:#2d7a52}
+body.pmpresenting{overflow:hidden}
+.ahgroup{display:inline-flex;gap:4px;flex-wrap:nowrap}
+@media (max-width:640px){.ahpath .d-what{display:none}.ahpath{min-width:0;flex:1 1 auto}.aidhead .ahtop .seg button{padding:6px 7px}}
+.pmname[data-ph]:empty::before,.pminit[data-ph]:empty::before{content:attr(data-ph);color:var(--blue);opacity:.4;font-weight:400}
+@media (max-width:640px){#viewAidPM .ctlcard{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}}
+body.client .pmbanner{display:none!important}
 </style>
 
 <div class="shell">
@@ -1257,7 +1355,38 @@ body.presenting .appbar,body.presenting .aidhead,body.presenting .meetbar{displa
       <div class="check" id="cpCheck"></div>
     </div>
   </section>
-  <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2015). A prototype.</span><span>Your work stays in this browser.</span></footer>
+
+  <section id="viewLearnPM" class="pmview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Frame Points of View</small><h1>Priorities Map</h1><p class="gsub">Learn the framework in four short cards. Then map your stakeholders.</p></div></div>
+    <div class="lwrap">
+      <ol class="ldots" id="pmLdots" aria-label="Cards"></ol>
+      <article class="lcard" id="pmLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="pmLPrev">← Back</button><button class="btn primary" id="pmLNext">Next →</button></div>
+    </div>
+  </section>
+  <section id="viewBuildPM" class="pmview" role="tabpanel" hidden>
+    <ol class="bsteps" id="pmBsteps" aria-label="Steps"></ol>
+    <div class="bwrap">
+      <div class="bmain" id="pmBmain"></div>
+      <aside class="bside" id="pmBside">
+        <p class="minicap">The map, as you build it</p>
+        <button class="minibtn pmmini" id="pmMini" aria-label="Open the full map"></button>
+        <div id="pmAsk" class="askclient"></div>
+      </aside>
+    </div>
+    <div class="bnav"><button class="btn" id="pmBBack">← Back</button><span id="pmBpos" class="note"></span><button class="btn primary" id="pmBNext">Next →</button></div>
+  </section>
+  <section id="viewAidPM" class="pmview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <section class="ctlcard" aria-label="Controls">
+        <button class="btn small" id="pmReadBtn">Read the map</button><button class="btn small" id="pmPdf">Download PDF</button><button class="btn small" id="pmDeck">Leave-behind PDF</button><button class="btn small" id="pmCopy">Copy summary</button><button class="btn small prep-only" id="pmConfirm">Confirm Claude's view</button><button class="btn small prep-only" id="pmHow" aria-pressed="false">Show me how</button><button class="btn small danger prep-only" id="pmClear">Clear the map</button>
+      </section>
+      <p class="pmbanner prep-only" id="pmBanner" hidden></p>
+      <div class="cpscroll"><div class="cpstage pmstage" id="pmSheet"></div></div>
+      <div class="pmread" id="pmRead"></div>
+    </div>
+  </section>
+  <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2010). A prototype.</span><span>Your work stays in this browser.</span></footer>
 </div>
 
 <aside class="assist" id="assist" aria-label="Assistant">
@@ -3442,6 +3571,338 @@ const _ro3=renderOverview; renderOverview=function(){ _ro3(); const h=document.q
     inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ const k=Math.min(1,600/img.width,240/img.height), w=Math.round(img.width*k)||1, h=Math.round(img.height*k)||1; const c=document.createElement("canvas"); c.width=w; c.height=h; c.getContext("2d").drawImage(img,0,0,w,h); let url=c.toDataURL("image/png"); if(url.length>220000) url=c.toDataURL("image/jpeg",.88);
       pending={logo:url,logoW:w,logoH:h}; $("suLogoImg").src=url; $("suLogoImg").hidden=false; $("suLogo").textContent="Change the logo"; $("suLogoNote").textContent=f.name; }; img.src=r.result; }; r.readAsDataURL(f); }; inp.click(); };
   const _sf=setupFill; setupFill=function(b){ const r=_sf(b); if(r&&pending){ Object.assign(S.company,pending); save(); refreshBrand(); } if(r){ pending=null; $("suLogoImg").hidden=true; $("suLogo").textContent="Add a logo"; $("suLogoNote").textContent="PNG, JPG or SVG. Kept in this browser."; } return r; }; })();
+
+
+/* ===================== the Priorities Map (Dave, Nov 17: "The next aid to be built will be the Priorities Map"; "The initiatives should be the default five from the alignment of priorities. I want you to default the key stakeholders based on the client. Should be key organizational and operational stakeholders. I want you to default your point of view on the low/medium/high at the intersections. I want the colors of the Priorities Map to fit into the Engagement Aids Portfolio!") =====================
+   The picture is the PDF's page 2 on its own coordinates (mm, letter landscape): Stakeholder1..6 at x 66.586 + 33.853·i (w 32.268, y 47.49, h 9.261); Initiative1..6 at y 57.529 + 19.356·r (x 28.587, w 34.859); RrCcDot 12.7 mm centred in each cell; MoreText ▷ at the cell's top right; Notes1 under the grid; the legend bottom right. */
+let pmMode=false, pmIdx=0, pmL=0, pmSpot=null, pmBusy=false, pmMsg="", pmHowOn=false, pmCtl=null;
+const PMG={cx0:66.586,cw:33.853,cwi:32.268,ry0:57.529,rh:19.356,right:270.17,left:19.468};
+const PM_FULL={"High Performance Cult.":"High Performance Culture"};
+const PM_STEPS=["Stakeholders","Initiatives","Priorities","Success measures","Compare"];
+const PM_PROBLEM=["Review and refine top of mind initiatives","Confirm key stakeholders directly/indirectly impacted","Determine priority of each initiative for each stakeholder","By initiative, establish success criteria for each stakeholder"];
+const PM_SOLUTION=["Confirm priorities of different stakeholders have been taken into consideration for the initiative or solution","Compare and contrast importance of priorities to the different stakeholders","Identify potential conflicts among stakeholders","List key takeaways (Gaps, Risks, Actions, etc.)"];
+const PM_OUTCOMES=["Clear view of the relative importance of multiple stakeholder priorities","Understanding of similarities and differences among stakeholders","Definition of criteria by which stakeholders measure success"];
+const PM_FALLBACK=[["CEO","org"],["CFO","org"],["COO","org"],["VP Sales","op"],["VP Marketing","op"],["VP Operations","op"]];
+const PRI=["","Low","Medium","High"];
+/* the PDF's own finished example (page 1's thumbnail) */
+const PM_EXAMPLE={stake:[["Executive Leader(s)","org"],["Sales Leader","op"],["Marketing Leader","op"],["Customer","op"],["Customer's Customer","op"],["Competition","op"]].map(([n,k])=>({n,k,src:"example"})),
+  init:["Sustainable Growth","Strategic Agility","Engage & Retain","High Performance Culture","Operational Excellence","Cost Competitiveness"].map(n=>({n,src:"example"})),
+  cells:Object.fromEntries([[0,0,3],[0,1,2],[0,2,3],[0,5,3],[1,3,1],[1,4,3],[2,0,2],[2,2,2],[2,3,3],[3,4,1],[4,0,1],[4,1,3],[4,2,1],[4,3,2],[4,4,2],[4,5,2],[5,1,1],[5,5,1]].map(([r,c,p])=>[`${r}.${c}`,{p,src:"example"}])),notes:"",hd:{},take:"",checks:{}};
+function pmDefaultInits(){ const chosen=S.items.initiatives.map(x=>x.t).filter(Boolean), rest=CHOICES.initiatives.filter(x=>!chosen.includes(x)); return [...chosen,...rest].slice(0,6).map(n=>({n:PM_FULL[n]||n,src:"alignment"})); }
+function pmData(){ if(!S.pm||!Array.isArray(S.pm.stake)){ S.pm={stake:PM_FALLBACK.map(([n,k])=>({n,k,src:"default"})),init:pmDefaultInits(),cells:{},notes:"",hd:{init:"",stake:""},take:"",checks:{},drafted:false}; }
+  const P=S.pm; while(P.stake.length<6) P.stake.push({n:"",k:"op",src:""}); while(P.init.length<6) P.init.push({n:"",src:""}); P.cells=P.cells||{}; P.hd=P.hd||{}; P.checks=P.checks||{}; return P; }
+const pmCell=(r,c,P=pmData())=>P.cells[`${r}.${c}`]||{p:0};
+const pmNamedS=(P=pmData())=>P.stake.map((s,i)=>s.n.trim()?i:-1).filter(i=>i>=0), pmNamedI=(P=pmData())=>P.init.map((s,i)=>s.n.trim()?i:-1).filter(i=>i>=0);
+function pmRated(P=pmData()){ const o=[]; pmNamedI(P).forEach(r=>pmNamedS(P).forEach(c=>{ const x=pmCell(r,c,P); if(x.p) o.push([r,c,x]); })); return o; }
+/* the reads the guide asks for: conflicts and common ground */
+function pmRowRead(r,P=pmData()){ const v=pmNamedS(P).map(c=>[c,pmCell(r,c,P).p]).filter(([,p])=>p); const ps=v.map(x=>x[1]); return {v,hi:v.filter(x=>x[1]===3).map(x=>x[0]),md:v.filter(x=>x[1]===2).map(x=>x[0]),lo:v.filter(x=>x[1]===1).map(x=>x[0]),spread:ps.length?Math.max(...ps)-Math.min(...ps):0}; }
+const pmConflicts=(P=pmData())=>pmNamedI(P).filter(r=>{ const x=pmRowRead(r,P); return x.v.length>=2&&x.spread>=2; });
+const pmCommon=(P=pmData())=>pmNamedI(P).filter(r=>{ const x=pmRowRead(r,P); return x.v.length>=3&&x.spread===0; });
+const sName=(c,P=pmData())=>P.stake[c].n.trim()||`Stakeholder ${c+1}`, iName=(r,P=pmData())=>P.init[r].n.trim()||`Initiative ${r+1}`;
+const listJoin=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1];
+function pmScore(){ const P=pmData(), s=pmNamedS().filter(c=>P.stake[c].src!=="default").length, i=pmNamedI().length, rated=pmRated(), cells=s*i||1, mine=rated.filter(([,,x])=>x.src!=="claude").length;
+  return Math.round(18*s/6+12*i/6+35*Math.min(1,rated.length/Math.max(1,cells*.5))+15*(rated.length?mine/rated.length:0)+(P.take.trim()?12:0)+8*Math.min(1,Object.values(P.cells).filter(x=>x.d&&x.d.trim()).length/3)); }
+function pmNextMove(){ const P=pmData(), rated=pmRated();
+  if(pmNamedS().length<2) return {t:"Name the key stakeholders",go:()=>{ show("build"); pmGo(0); }};
+  if(pmNamedI().length<2) return {t:"Name the initiatives",go:()=>{ show("build"); pmGo(1); }};
+  if(rated.length<pmNamedS().length*pmNamedI().length*.4) return {t:sample&&!P.drafted?"Draft Claude's point of view on the priorities":"Rate each initiative for each stakeholder",go:()=>{ show("build"); pmGo(2); }};
+  if(rated.some(([,,x])=>x.src==="claude")) return {t:"Confirm Claude's point of view with the client",go:()=>show("aid")};
+  if(!Object.values(P.cells).some(x=>x.d&&x.d.trim())) return {t:"Add how stakeholders measure success",go:()=>{ show("build"); pmGo(3); }};
+  if(!P.take.trim()) return {t:"Write the key takeaways",go:()=>{ show("build"); pmGo(4); }};
+  return {t:"Every stakeholder's priorities are mapped and confirmed. Meet the client.",done:true,go:()=>{ meetAid="pm"; nav("meet"); }}; }
+
+/* ---------- the picture ---------- */
+const PX=(x,y,w,h)=>`left:calc(${x}*var(--mm));top:calc(${y}*var(--mm));width:calc(${w}*var(--mm));height:calc(${h}*var(--mm))`;
+function ballSVG(p,cls=""){ return `<svg viewBox="0 0 10 10" aria-hidden="true"><circle class="ring" cx="5" cy="5" r="4.4"/>${p===2?`<path class="fill" d="M5 .6 A4.4 4.4 0 0 1 5 9.4 Z"/>`:p===3?`<circle class="fill" cx="5" cy="5" r="4.4"/>`:""}</svg>`; }
+function pmSheetHTML({mode="edit",spot=null,how=false}={},P=pmData()){ const ed=mode==="edit", pres=mode==="present"||mode==="view";
+  const dim=spot?(spot.r!=null?"dim dimrows":spot.c!=null?"dim dimcols":spot.rows?"dim dimrows":""):"";
+  const litR=r=>spot&&(spot.r===r||(spot.rows&&spot.rows.includes(r))), litC=c=>spot&&spot.c===c;
+  const kinds=P.stake.map(s=>s.k==="org"?"org":"op");
+  let s=`<svg class="pmbase" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true">
+    <text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Frame Points of View</text>
+    <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="84" lengthAdjust="spacingAndGlyphs">Priorities Map</text>
+    <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
+    ${clientMarkSVG()}
+    <rect x="65.9" y="34.6" width="${PMG.right-65.9}" height="8.2" fill="#2c4f9b"/>
+    <text x="${(65.9+PMG.right)/2}" y="40.4" text-anchor="middle" fill="#fff" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.4" letter-spacing="1.6">STAKEHOLDERS</text>`;
+  /* the stakeholders' header cells take their band's colour: Organizational red, Operational yellow (the portfolio's bands) */
+  kinds.forEach((k,i)=>{ const x=65.9+i*PMG.cw; s+=`<rect class="pmcol ${litC(i)?"lit":""}" x="${x}" y="42.8" width="${PMG.cw}" height="14.7" fill="var(--${k}-b)"/><rect x="${x}" y="42.8" width="${PMG.cw}" height="1.3" fill="var(--${k}-s)"/>`; });
+  /* group labels above the names */
+  let i0=0; while(i0<6){ let i1=i0; while(i1+1<6&&kinds[i1+1]===kinds[i0]) i1++; const x0=65.9+i0*PMG.cw, x1=65.9+(i1+1)*PMG.cw;
+    s+=`<text x="${(x0+x1)/2}" y="46.6" text-anchor="middle" fill="var(--${kinds[i0]}-ink)" font-family="Open Sans,sans-serif" font-weight="800" font-size="1.9" letter-spacing=".5">${kinds[i0]==="org"?"ORGANIZATIONAL":"OPERATIONAL"}</text>`; i0=i1+1; }
+  /* the initiatives' bar takes Infrastructure green, as initiatives do across the portfolio */
+  s+=`<rect x="12.8" y="${PMG.ry0}" width="6.6" height="${PMG.rh*6}" fill="var(--inf-s)"/>`;
+  "INITIATIVES".split("").forEach((ch,j)=>{ s+=`<text x="16.1" y="${PMG.ry0+11+j*9.9}" text-anchor="middle" fill="var(--inf-ink)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.6">${ch}</text>`; });
+  for(let r=0;r<6;r++){ const y=PMG.ry0+r*PMG.rh; s+=`<rect class="pmrow ${litR(r)?"lit":""}" x="19.4" y="${y}" width="${PMG.right-19.4}" height="${PMG.rh}" fill="${r%2?"var(--inf-b)":"transparent"}" opacity=".55"/>`;
+    s+=`<line x1="19.4" y1="${y+PMG.rh}" x2="${PMG.right}" y2="${y+PMG.rh}" stroke="var(--rule)" stroke-width=".35"/>`; }
+  s+=`<line x1="19.4" y1="${PMG.ry0}" x2="${PMG.right}" y2="${PMG.ry0}" stroke="var(--rule)" stroke-width=".35"/>`;
+  /* conflicts: a dashed outline round the row */
+  if(spot&&spot.mark==="conflict") pmConflicts(P).forEach(r=>{ s+=`<rect class="conflict-mark" x="20" y="${PMG.ry0+r*PMG.rh+.8}" width="${PMG.right-20.6}" height="${PMG.rh-1.6}" rx="1.5"/>`; });
+  /* legend, notes icon, footer */
+  [1,2,3].forEach((p,j)=>{ const y=181.5+j*8.5; s+=`<g transform="translate(231.2 ${y-3.3}) scale(.66)"><circle cx="5" cy="5" r="4.4" fill="none" stroke="var(--plum)" stroke-width="1"/>${p===2?`<path d="M5 .6 A4.4 4.4 0 0 1 5 9.4 Z" fill="var(--plum)"/>`:p===3?`<circle cx="5" cy="5" r="4.4" fill="var(--plum)"/>`:""}</g><text x="239.6" y="${y+1}" fill="var(--ink)" font-family="Open Sans,sans-serif" font-size="2.9">${PRI[p]} Priority</text>`; });
+  s+=`<path d="M14 180.2 h7.6 a2 2 0 0 1 2 2 v4.2 a2 2 0 0 1 -2 2 h-3.6 l-2.6 2.4 v-2.4 h-1.4 a2 2 0 0 1 -2 -2 v-4.2 a2 2 0 0 1 2 -2z" fill="none" stroke="var(--plum)" stroke-width=".7"/>`;
+  s+=kaFootSVG()+`</svg>`;
+  let h=s;
+  /* the names: editable, as in the PDF */
+  P.stake.forEach((st,c)=>{ h+=ed?`<div class="px pmcol ${litC(c)?"lit":""}" style="${PX(66.586+c*PMG.cw,47.5,PMG.cwi,9.6)}"><div class="pmname" contenteditable="true" spellcheck="false" data-pmname="${c}" role="textbox" aria-label="Stakeholder ${c+1}" data-ph="Stakeholder">${esc(st.n)}</div></div>`
+    :`<div class="px pmcol ${litC(c)?"lit":""}" style="${PX(66.586+c*PMG.cw,47.5,PMG.cwi,9.6)}"><div class="pmname">${esc(st.n)}</div></div>`; });
+  P.init.forEach((it,r)=>{ const y=PMG.ry0+.2+r*PMG.rh; h+=`<div class="px pmrow ${litR(r)?"lit":""}" style="${PX(25.4,y,38,18.96)};display:flex;align-items:center;justify-content:flex-end">${ed?`<div class="pminit" contenteditable="true" spellcheck="false" data-pminit="${r}" role="textbox" aria-label="Initiative ${r+1}" data-ph="Initiative">${esc(it.n)}</div>`:`<div class="pminit">${esc(it.n)}</div>`}</div>`; });
+  /* the balls and the ▷ for details */
+  for(let r=0;r<6;r++) for(let c=0;c<6;c++){ const x=pmCell(r,c,P), cx=PMG.cx0+16.134+c*PMG.cw, cy=PMG.ry0+9.6+r*PMG.rh, named=P.init[r].n.trim()&&P.stake[c].n.trim(); if(!named&&!ed) continue; if(!x.p&&pres) continue;
+    const lit=(spot&&spot.r!=null&&litR(r))||(spot&&spot.c!=null&&litC(c))||(spot&&spot.rows&&litR(r));
+    const cls=`${x.p?"":"empty"} ${x.src==="claude"&&ed?"claude":""}`, title=`${iName(r,P)} for ${sName(c,P)}: ${x.p?PRI[x.p]+" priority":"not rated"}${x.src==="claude"?" · Claude's point of view":""}`;
+    h+=ed?`<button class="px pmcell pmrow pmcol ${cls} ${lit?"lit":""}" style="${PX(cx-5.2,cy-5.2,10.4,10.4)};--i:${c}" data-pmcell="${r}.${c}" title="${esc(title)}" aria-label="${esc(title)}" ${named?"":"disabled"}>${ballSVG(x.p)}</button>`
+      :`<div class="px pmcell pmrow pmcol ${cls} ${lit?"lit":""}" style="${PX(cx-5.2,cy-5.2,10.4,10.4)};--i:${c}" title="${esc(title)}">${ballSVG(x.p)}</div>`;
+    if(ed&&named) h+=`<button class="px pmmore ${(x.d||"").trim()?"has":""}" style="${PX(93.2+c*PMG.cw,PMG.ry0+.85+r*PMG.rh,6.35,6.35)}" data-pmmore="${r}.${c}" aria-label="Success measures: ${esc(iName(r,P))} for ${esc(sName(c,P))}">▷</button>`; }
+  if(ed){ h+=`<button class="px pmhdbtn dark" style="${PX(11.2,PMG.ry0-6.8,7.2,6.4)}" data-pmhd="init" aria-label="About the initiatives">▷</button><button class="px pmhdbtn" style="${PX(67,35,6,7)}" data-pmhd="stake" aria-label="About the stakeholders">▷</button>`;
+    h+=`<div class="px" style="${PX(26.4,179.7,185,21.4)}"><textarea class="pmnotes" data-pmnotes placeholder="Notes: participants, the date, what you heard…" aria-label="Notes">${esc(P.notes||"")}</textarea></div>`;
+    h+=`<button class="px menubtn" style="${PX(261.6,202.7,7.4,7.3)}" data-pmmenu aria-label="Menu: more options">≡</button>`;
+    h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${PX(166,8.6,104,20.2)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`; }
+  else if(P.notes&&P.notes.trim()) h+=`<div class="px pmnotes" style="${PX(26.4,179.7,185,21.4)};overflow:hidden">${esc(P.notes)}</div>`;
+  /* Show me how: the PDF's own callouts */
+  if(how) [[76,27,37,13,"Identifies the key stakeholders."],[5.6,46.5,32.4,13.5,"Identifies the major initiatives."],[103,85,38.5,24,"Identifies the priority (importance) of the initiative (row) for the stakeholder (column)."],[226.6,100,33.4,12.5,"View or add additional details."],[175,160.5,38,16.5,"Highlights the scale to be used to determine priority."],[235,157,34,14,"Open menu for additional options."]]
+    .forEach(([x,y,w,hh,t])=>{ h+=`<div class="callout at" style="--x:${x};--y:${y};--w:${w};--h:${hh};opacity:1;transform:none;z-index:9">${t}</div>`; });
+  return `<div class="pmcv ${dim}">${h}</div>`; }
+function pmPaint(target,opts,P){ const el=typeof target==="string"?$(target):target; if(el) el.innerHTML=pmSheetHTML(opts,P); }
+
+/* ---------- editing on the sheet ---------- */
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-pmcell]"); if(!b||b.disabled) return; const [r,c]=b.dataset.pmcell.split(".").map(Number), P=pmData(), k=`${r}.${c}`, x=P.cells[k]||{p:0};
+  const p=(x.p+1)%4; P.cells[k]=Object.assign({},x,{p,src:"you"}); if(!p&&!(x.d||"").trim()) delete P.cells[k]; save(); pmRefresh(); });
+document.addEventListener("input",e=>{ const n=e.target.dataset?.pmname, i=e.target.dataset?.pminit; if(n==null&&i==null&&e.target.dataset?.pmnotes==null) return; const P=pmData();
+  if(n!=null){ P.stake[+n].n=e.target.innerText.replace(/\s+/g," ").trim().slice(0,40); P.stake[+n].src="you"; }
+  if(i!=null){ P.init[+i].n=e.target.innerText.replace(/\s+/g," ").trim().slice(0,40); P.init[+i].src="you"; }
+  if(e.target.dataset?.pmnotes!=null) P.notes=e.target.value; save(); clearTimeout(pmRefresh._t); pmRefresh._t=setTimeout(()=>pmRefreshSide(),300); });
+document.addEventListener("keydown",e=>{ if((e.target.dataset?.pmname!=null||e.target.dataset?.pminit!=null)&&e.key==="Enter"){ e.preventDefault(); e.target.blur(); } });
+document.addEventListener("focusout",e=>{ if(e.target.dataset?.pmname!=null||e.target.dataset?.pminit!=null) setTimeout(()=>{ if(!document.activeElement?.dataset?.pmname&&!document.activeElement?.dataset?.pminit) pmRefresh(); },50); });
+function pmDetails(r,c,anchor){ closePop(); const P=pmData(), k=`${r}.${c}`, x=P.cells[k]||{p:0}, pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Success measures");
+  pop.innerHTML=`<h5>${esc(iName(r))} · ${esc(sName(c))}</h5>${x.p?`<p class="note">${PRI[x.p]} priority${x.src==="claude"?" · Claude's point of view":""}</p>`:""}${x.why?`<p class="note" style="margin:0"><b>Why:</b> ${esc(x.why)}</p>`:""}
+    <label class="note" for="pmD">How will ${esc(sName(c))} measure success on ${esc(iName(r))}?</label><textarea id="pmD" class="tin" rows="3" placeholder="e.g. Renewals back above 92% within 12 months">${esc(x.d||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="pmDOk">Save</button></div>`;
+  place(pop,anchor); popEl=pop; const t=pop.querySelector("#pmD"); t.focus();
+  pop.querySelector("#pmDOk").onclick=()=>{ const v=t.value.trim(); if(v||x.p){ P.cells[k]=Object.assign({},x,{d:v}); } else delete P.cells[k]; save(); closePop(); pmRefresh(); toast(v?"Saved: it feeds the Criteria Proposition":"Cleared"); }; }
+function pmHeaderNote(which,anchor){ closePop(); const P=pmData(), pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog");
+  pop.innerHTML=`<h5>${which==="init"?"Understanding the Initiatives that have been listed.":"Understanding the Stakeholders that have been listed."}</h5><textarea id="pmHd" class="tin" rows="4">${esc(P.hd[which]||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="pmHdOk">Save</button></div>`;
+  place(pop,anchor); popEl=pop; pop.querySelector("#pmHd").focus(); pop.querySelector("#pmHdOk").onclick=()=>{ P.hd[which]=pop.querySelector("#pmHd").value; save(); closePop(); toast("Saved"); }; }
+document.addEventListener("click",e=>{ const m=e.target.closest("[data-pmmore]"); if(m){ e.stopPropagation(); const [r,c]=m.dataset.pmmore.split(".").map(Number); pmDetails(r,c,m); return; }
+  const hd=e.target.closest("[data-pmhd]"); if(hd){ e.stopPropagation(); pmHeaderNote(hd.dataset.pmhd,hd); return; }
+  if(e.target.closest("[data-pmmenu]")){ e.stopPropagation(); openCmd(); } });
+
+/* ---------- Claude's defaults: the client's key organizational and operational stakeholders, and its point of view on each priority ---------- */
+function pmDraftPrompt(){ const P=pmData(), keep=P.stake.map((s,i)=>s.src==="you"&&s.n.trim()?{column:i+1,name:s.n,kind:s.k}:null).filter(Boolean), aop={};
+  COLS.forEach(c=>{ const v=S.items[c.k].filter(x=>x.t.trim()).map(x=>x.t+(x.d?` (${x.d})`:"")); if(v.length) aop[c.label]=v; });
+  return `You are a Knowledge-Advantage (KA) engagement coach. The user is preparing KA's "Priorities Map" for a client: "a visual aid to map and compare top of mind priorities for individual and organizational stakeholders". Stakeholders are columns, initiatives are rows, and each intersection is the priority (importance) of that initiative for that stakeholder: Low, Medium or High.
+
+Client: ${S.company?.name||aidName()}${S.company?.site?` (${S.company.site})`:""}${S.company?.eyes?`. Seen through the eyes of ${S.company.eyes}`:""}.
+${S.company?.summary?`What we know: ${S.company.summary}\n`:""}${S.situation?`Situation: ${S.situation}\n`:""}${EXT.map(([k,l])=>S.ext?.[k]?.t?`${l}: ${S.ext[k].t}`:"").filter(Boolean).join("\n")}
+The engagement's Alignment of Priorities: ${JSON.stringify(aop)}
+The initiatives (rows, in order): ${JSON.stringify(P.init.map(x=>x.n||""))}
+${keep.length?`Keep these stakeholders the user named, in their columns: ${JSON.stringify(keep)}\n`:""}
+1. Name 6 key stakeholders at this client, as role titles (not personal names unless the user's material names them), each at most 22 characters: 3 ORGANIZATIONAL (accountable for the business's goals and strategies: e.g. CEO, CFO, President, Board) then 3 OPERATIONAL (accountable for operational processes: e.g. heads of sales, marketing, operations, customer service). Use the titles this kind of organization actually uses. Give each a reason of at most 80 characters.
+2. For every initiative (row) and stakeholder (column), give your point of view on how high a priority that initiative is for that stakeholder: 0 = not a priority (leave empty), 1 = Low, 2 = Medium, 3 = High, with a reason of at most 90 characters grounded in that role's responsibilities and what is known about this client. Spread the ratings honestly: not everything is High, and some intersections should be empty. Rate an empty row as all 0.
+This is a point of view for the user to confirm with the client, never a statement of fact. If you know little about this client, base it on what such roles typically own and say so in "summary".
+Reply with JSON only: {"known":true,"summary":"one sentence on what the view is based on","stakeholders":[{"name":"","kind":"org"|"op","why":""}],"ratings":[[{"p":0,"why":""}, …6 per row], …6 rows]}`; }
+async function pmDraft(opts={}){ if(!sample){ pmMsg="Claude's defaults need the page opened in Claude. The map works by hand."; pmRefresh(); return false; } if(pmBusy) return false;
+  const P=pmData(); pmBusy=true; pmCtl=new AbortController(); pmMsg=`Claude is naming ${S.company?.name||"the client"}'s key stakeholders and forming a point of view on each priority…`; pmRefresh();
+  try{ const r=await sample.json(pmDraftPrompt(),{signal:pmCtl.signal,cache:false,modelTier:"complex"}); const snap=JSON.stringify(P); let ns=0,nc=0;
+    (Array.isArray(r?.stakeholders)?r.stakeholders:[]).slice(0,6).forEach((s,i)=>{ const cur=P.stake[i]; if(cur.src==="you"&&cur.n.trim()) return; const n=String(s?.name||"").trim().slice(0,30); if(!n) return; P.stake[i]={n,k:s.kind==="org"?"org":"op",src:"claude",why:String(s.why||"").slice(0,120)}; ns++; });
+    /* organizational stakeholders first, as the portfolio's bands run */
+    (Array.isArray(r?.ratings)?r.ratings:[]).slice(0,6).forEach((row,ri)=>{ if(!P.init[ri].n.trim()||!Array.isArray(row)) return; row.slice(0,6).forEach((v,ci)=>{ const k=`${ri}.${ci}`, cur=P.cells[k]; if(cur&&cur.src!=="claude"&&cur.p) return; const p=Math.max(0,Math.min(3,Math.round(+v?.p||0)));
+      if(p){ P.cells[k]=Object.assign({},cur||{},{p,src:"claude",why:String(v.why||"").slice(0,140)}); nc++; } else if(cur&&cur.src==="claude") delete P.cells[k]; }); });
+    P.drafted=true; P.basis=String(r?.summary||"").replace(/[.\s]+$/,"").slice(0,240); save(); pmUndo=snap;
+    pmMsg=ns||nc?`✓ ${ns} stakeholders and ${nc} priorities from Claude's point of view${P.basis?`: ${P.basis}`:""}. Confirm them with the client; tap any ball to change it.`:"Claude had nothing to add."; return true; }
+  catch(e){ const m=failMsg(e); pmMsg=m===null?"Stopped.":(m||"The assistant is off for this view."); return false; }
+  finally{ pmBusy=false; pmRefresh(); } }
+let pmUndo=null;
+function pmConfirmAll(){ const P=pmData(); let n=0; Object.values(P.cells).forEach(x=>{ if(x.src==="claude"){ x.src="client"; n++; } }); P.stake.forEach(s=>{ if(s.src==="claude") s.src="client"; }); save(); pmRefresh(); toast(n?`${n} priorities confirmed`:"Nothing left to confirm"); }
+
+/* ---------- views ---------- */
+const PM_LEARN=[
+  {t:"What it's for",h:()=>`<p class="lkick">1 · The purpose</p><h2>Map and compare top of mind priorities</h2><p class="teach">A visual aid to map and compare top of mind priorities for individual and organizational stakeholders.</p><h3>Why is it important for us?</h3><p>We will quickly gain an understanding of how different stakeholders prioritize the same initiatives, their relative importance, their measures for success and the trade-offs they’re willing to make.</p><h3>Expected outcomes</h3><ul class="lbul">${PM_OUTCOMES.map(x=>`<li>${x}</li>`).join("")}</ul>`},
+  {t:"Read the map",h:()=>`<p class="lkick">2 · The picture</p><h2>Stakeholders across, initiatives down</h2><p>Each ball is the priority (importance) of the initiative (row) for the stakeholder (column). Read a row to see who cares; read a column to see what one person cares about. This is the PDF's own example:</p><div class="pmlearnmap cpstage" style="min-width:0;width:100%">${pmSheetHTML({mode:"view"},PM_EXAMPLE)}</div>`},
+  {t:"When to use it",h:()=>`<p class="lkick">3 · Where it fits</p><h2>Frame points of view</h2><p class="teach">The Priorities Map is best used in the Problem Space during the Awareness Phase (1.2 &amp; 1.3) to “Identify Key Stakeholders” and “Frame Points of View.” It’s also useful in the Solution Space to confirm the priorities of various stakeholders.</p><div class="cplens" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="op"><span>If we are in the “Problem Space” we need to:</span><ul class="lbul">${PM_PROBLEM.map(x=>`<li>${x}</li>`).join("")}</ul></div><div class="inf"><span>If we are in the “Solution Space” we need to:</span><ul class="lbul">${PM_SOLUTION.map(x=>`<li>${x}</li>`).join("")}</ul></div></div>`},
+  {t:"Potential gaps",h:()=>`<p class="lkick">4 · Before you start</p><h2>A clear sense of threats</h2><p class="teach">A clear sense of threats to scope, time and resources is required before solving any business problem.</p><h3>Potential gaps / challenges</h3><ul class="lbul">${GAPS.map(([k,l])=>`<li>${esc(l)}${S.gaps[k]?.on?` · <b>noted</b>${S.gaps[k].note?`: ${esc(S.gaps[k].note)}`:""}`:""}</li>`).join("")}</ul><p class="kevin">“<b>My goal is not to be right, but to get it right.</b> Please correct me where I am off track.” · Kevin Cooper, <i>Dimensions of Success</i></p><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-pmstart>Start mapping</button></div>`}];
+function pmLearn(){ $("pmLdots").innerHTML=PM_LEARN.map((c,i)=>`<li><button data-pml="${i}" aria-current="${i===pmL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join(""); $("pmLcard").innerHTML=PM_LEARN[pmL].h(); $("pmLPrev").disabled=pmL===0; $("pmLNext").textContent=pmL===PM_LEARN.length-1?"Start mapping →":"Next →"; }
+$("pmLPrev").onclick=()=>{ if(pmL>0){ pmL--; pmLearn(); } }; $("pmLNext").onclick=()=>{ if(pmL<PM_LEARN.length-1){ pmL++; pmLearn(); } else show("build"); };
+document.addEventListener("click",e=>{ const l=e.target.closest("[data-pml]"); if(l){ pmL=+l.dataset.pml; pmLearn(); } if(e.target.closest("[data-pmstart]")) show("build"); });
+const pmStepDone=i=>{ const P=pmData(); return i===0?pmNamedS().length>=2:i===1?pmNamedI().length>=2:i===2?pmRated().length>0:i===3?Object.values(P.cells).some(x=>x.d&&x.d.trim()):!!P.take.trim(); };
+const PM_ASK=[["Who has to say yes for this to move forward?","Who feels the impact day to day?","Who else should be on this list?"],["Which of these is top of mind right now?","What's missing from this list?","Which of these matters least this year?"],["How important is this to you: low, medium or high?","Where would you and your colleagues disagree?","What would you trade off to get it?"],["How will you know this worked?","What number would you watch?","By when?"],["Where do we see this differently?","What risks do the differences create?","What should happen next?"]];
+function pmGo(i){ pmIdx=Math.max(0,Math.min(4,i)); pmBuild(); $("viewBuildPM").scrollIntoView({block:"start",behavior:"smooth"}); }
+function ballInline(p){ return `<span class="ball"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="none" stroke="var(--plum)" stroke-width="1"/>${p===2?`<path d="M5 .8 A4.2 4.2 0 0 1 5 9.2 Z" fill="var(--plum)"/>`:p===3?`<circle cx="5" cy="5" r="4.2" fill="var(--plum)"/>`:""}</svg></span>`; }
+function pmBuild(){ const P=pmData(); $("pmBsteps").innerHTML=PM_STEPS.map((n,i)=>`<li><button data-pmbs="${i}" aria-current="${i===pmIdx?"step":"false"}" class="${pmStepDone(i)?"done":""}"><span>${pmStepDone(i)&&i!==pmIdx?"✓":i+1}</span>${n}</button></li>`).join("");
+  const cname=esc(S.company?.name||"the client"), msg=pmMsg?`<p class="note" aria-live="polite" style="margin:0">${esc(pmMsg)}${pmBusy?` <button class="btn small" data-pmstop>Stop</button>`:""}</p>`:"";
+  let h="";
+  if(pmIdx===0){ h=`<p class="lkick">Step 1 of 5</p><h2>The key stakeholders</h2><p class="teach">Confirm key stakeholders directly/indirectly impacted. Organizational stakeholders own the goals and strategies; operational stakeholders own the processes.</p>
+    <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">Key stakeholders at ${cname}</h3><p class="note" style="margin:2px 0 0">Claude names three organizational and three operational roles for this client, and gives its point of view on each priority. You confirm with the client.</p></div></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-pmdraft ${pmBusy?"disabled":""}>${P.drafted?"Suggest again for "+cname:"Suggest for "+cname}</button>${pmUndo?`<button class="btn" data-pmundo>Undo</button>`:""}</div>${msg}</div>
+    <div class="pmgrid">${P.stake.map((s,i)=>`<div class="pmrowed ${s.k==="org"?"org":"op"}"><span class="n">${i+1}</span><input class="tin" data-pmsn="${i}" value="${esc(s.n)}" placeholder="Stakeholder ${i+1}" maxlength="40"><div class="pmkind" role="group" aria-label="Kind"><button class="org" data-pmk="${i}|org" aria-pressed="${s.k==="org"}">Organizational</button><button class="op" data-pmk="${i}|op" aria-pressed="${s.k!=="org"}">Operational</button></div>${s.why||s.src==="claude"||s.src==="default"?`<p class="why">${s.src==="claude"?"<b>Claude's suggestion</b> · ":s.src==="default"?"<b>A starting default</b> · ":""}${esc(s.why||"Replace with this client's own title.")}</p>`:""}</div>`).join("")}</div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn small" data-pmsort>Put organizational first</button></div>`; }
+  if(pmIdx===1){ const chosen=S.items.initiatives.map(x=>x.t).filter(Boolean); h=`<p class="lkick">Step 2 of 5</p><h2>The initiatives</h2><p class="teach">Review and refine top of mind initiatives. They start as the Alignment of Priorities' initiatives${chosen.length?`, the ones you chose first`:""}; type over any of them.</p>
+    <div class="pmgrid">${P.init.map((s,i)=>`<div class="pmrowed ini"><span class="n">${i+1}</span><input class="tin" data-pmin="${i}" value="${esc(s.n)}" placeholder="Initiative ${i+1}" maxlength="40"><span class="note">${chosen.map(x=>PM_FULL[x]||x).includes(s.n)?"✓ In your alignment":s.src==="alignment"?"From the alignment's list":""}</span></div>`).join("")}</div>
+    <p class="note">From the Alignment of Priorities' standard list:</p><div class="pmchips">${CHOICES.initiatives.map(x=>PM_FULL[x]||x).map(n=>`<button class="ini" data-pmaddi="${esc(n)}" ${P.init.some(i=>i.n===n)?"disabled":""}>${esc(n)}</button>`).join("")}</div>`; }
+  if(pmIdx===2){ const S_=pmNamedS(), I_=pmNamedI(), cl=pmRated().filter(([,,x])=>x.src==="claude").length;
+    h=`<p class="lkick">Step 3 of 5</p><h2>The priorities</h2><p class="teach">Determine priority of each initiative for each stakeholder. Tap a ball: empty → Low → Medium → High.</p>
+      <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">${P.drafted?"Claude's point of view is in":"Start from Claude's point of view"}</h3><p class="note" style="margin:2px 0 0">${cl?`${cl} priorities are Claude's view (dashed). Confirm them with the client, or tap to change.`:"Claude rates each intersection from each role's responsibilities and what it knows of the client."}</p></div></div><div class="arow" style="flex:0 1 auto"><button class="btn ${P.drafted?"":"primary"}" data-pmdraft ${pmBusy?"disabled":""}>${P.drafted?"Ask Claude again":"Draft Claude's point of view"}</button>${cl?`<button class="btn primary" data-pmconfirm>Confirm all with the client</button>`:""}</div>${msg}</div>
+      <div class="pmtablewrap"><table class="pmtable"><thead><tr><th></th>${S_.map(c=>`<th class="${P.stake[c].k==="org"?"org":"op"}">${esc(sName(c))}</th>`).join("")}</tr></thead><tbody>${I_.map(r=>`<tr><td class="ini">${esc(iName(r))}</td>${S_.map(c=>{ const x=pmCell(r,c); return `<td><button class="tcell pmcell ${x.p?"":"empty"} ${x.src==="claude"?"claude":""}" data-pmcell="${r}.${c}" title="${esc((x.p?PRI[x.p]:"Not rated")+(x.why?": "+x.why:""))}" aria-label="${esc(iName(r))} for ${esc(sName(c))}: ${x.p?PRI[x.p]:"not rated"}">${ballSVG(x.p)}</button></td>`; }).join("")}</tr>`).join("")}</tbody></table></div>
+      <p class="note">${[1,2,3].map(p=>`${ballInline(p)}${PRI[p]}`).join(" &nbsp; ")} &nbsp; · dashed = Claude's view, to confirm</p>`; }
+  if(pmIdx===3){ const I_=pmNamedI(); h=`<p class="lkick">Step 4 of 5</p><h2>How each stakeholder measures success</h2><p class="teach">By initiative, establish success criteria for each stakeholder. These flow into the Criteria Proposition's draft.</p>
+    <div class="pmcrit">${I_.map(r=>{ const who=pmNamedS().filter(c=>pmCell(r,c).p>=2||(pmCell(r,c).d||"").trim()); return who.length?`<div class="ci"><h4>${esc(iName(r))}</h4>${who.map(c=>{ const x=pmCell(r,c); return `<div class="cs"><label for="pmcs${r}${c}">${ballInline(x.p)}${esc(sName(c))}</label><textarea id="pmcs${r}${c}" data-pmcs="${r}.${c}" rows="2" placeholder="How will ${esc(sName(c))} know it worked?">${esc(x.d||"")}</textarea></div>`; }).join("")}</div>`:""; }).join("")||`<p class="note">Rate the priorities first: stakeholders who rate an initiative Medium or High appear here.</p>`}</div>`; }
+  if(pmIdx===4){ const cf=pmConflicts(), cm=pmCommon(); h=`<p class="lkick">Step 5 of 5</p><h2>Compare and take away</h2><p class="teach">Compare and contrast importance of priorities to the different stakeholders. Identify potential conflicts among stakeholders.</p>${pmReadCards()}
+    <h3>Key takeaways (Gaps, Risks, Actions, etc.)</h3><textarea class="tin" data-pmtake rows="4" placeholder="${cf.length?`e.g. ${esc(iName(cf[0]))}: align ${esc(listJoin(pmRowRead(cf[0]).hi.map(c=>sName(c))))} with ${esc(listJoin(pmRowRead(cf[0]).lo.map(c=>sName(c))))} before the next meeting.`:"Gaps, risks and actions you see."}">${esc(P.take||"")}</textarea>
+    ${cf.length||cm.length?`<button class="btn small" data-pmtakedraft>Start the takeaways from the conflicts and common ground</button>`:""}
+    <div class="spacelist"><h3>If we are in the “Problem Space” we need to:</h3><ul class="checks">${PM_PROBLEM.map((t,i)=>`<li><label><input type="checkbox" data-pmchk="p${i}" ${P.checks["p"+i]||[pmStepDone(1),pmStepDone(0),pmStepDone(2),pmStepDone(3)][i]?"checked":""}> ${t}</label></li>`).join("")}</ul></div>
+    <div class="spacelist"><h3>If we are in the “Solution Space” we need to:</h3><ul class="checks">${PM_SOLUTION.map((t,i)=>`<li><label><input type="checkbox" data-pmchk="s${i}" ${P.checks["s"+i]?"checked":""}> ${t}</label></li>`).join("")}</ul></div>
+    <h3>Expected outcomes</h3><ul class="lbul">${PM_OUTCOMES.map(x=>`<li>${x}</li>`).join("")}</ul>
+    <div class="arow"><button class="btn primary" data-pmtosheet>See the map →</button><button class="btn" data-nav="meet">Meet the client</button></div>`; }
+  $("pmBmain").innerHTML=h; $("pmBpos").textContent=`Step ${pmIdx+1} of 5`; $("pmBBack").disabled=pmIdx===0; $("pmBNext").textContent=pmIdx===4?"See the map →":`Next: ${PM_STEPS[pmIdx+1]} →`;
+  $("pmAsk").innerHTML=`<h4>Ask the client</h4><ul>${PM_ASK[pmIdx].map(q=>`<li>${esc(q)}</li>`).join("")}</ul>`; pmPaint("pmMini",{mode:"view"}); pmCoach(); }
+$("pmBBack").onclick=()=>pmGo(pmIdx-1); $("pmBNext").onclick=()=>{ if(pmIdx===4) show("aid"); else pmGo(pmIdx+1); }; $("pmMini").onclick=()=>show("aid");
+document.addEventListener("click",e=>{ const t=e.target;
+  const bs=t.closest("[data-pmbs]"); if(bs){ pmGo(+bs.dataset.pmbs); return; }
+  if(t.closest("[data-pmdraft]")){ pmDraft(); return; } if(t.closest("[data-pmstop]")){ pmCtl?.abort(); return; }
+  if(t.closest("[data-pmundo]")&&pmUndo){ S.pm=JSON.parse(pmUndo); pmUndo=null; save(); pmMsg="Undone."; pmRefresh(); return; }
+  if(t.closest("[data-pmconfirm]")){ pmConfirmAll(); return; } if(t.closest("[data-pmtosheet]")){ show("aid"); return; }
+  const k=t.closest("[data-pmk]"); if(k){ const [i,v]=k.dataset.pmk.split("|"); pmData().stake[+i].k=v; save(); pmRefresh(); return; }
+  if(t.closest("[data-pmsort]")){ pmSortOrg(); return; }
+  const ai=t.closest("[data-pmaddi]"); if(ai){ const P=pmData(), at=P.init.findIndex(x=>!x.n.trim()); if(at<0){ toast("All six rows are named. Clear one first."); return; } P.init[at]={n:ai.dataset.pmaddi,src:"you"}; save(); pmRefresh(); return; }
+  if(t.closest("[data-pmtakedraft]")){ const P=pmData(), L=[]; pmConflicts().forEach(r=>{ const x=pmRowRead(r); L.push(`Risk · ${iName(r)}: High for ${listJoin(x.hi.map(c=>sName(c)))}, Low for ${listJoin(x.lo.map(c=>sName(c)))}. Align them before it moves.`); });
+    pmCommon().forEach(r=>{ L.push(`Common ground · ${iName(r)}: ${PRI[pmRowRead(r).v[0][1]]} for everyone who rated it.`); }); P.take=(P.take?P.take.trim()+"\n":"")+L.join("\n"); save(); pmBuild(); return; }
+  const ck=t.closest("[data-pmchk]"); if(ck){ pmData().checks[ck.dataset.pmchk]=ck.checked; save(); } });
+document.addEventListener("input",e=>{ const d=e.target.dataset||{}, P=S.pm; if(!P) return;
+  if(d.pmsn!=null){ P.stake[+d.pmsn].n=e.target.value; P.stake[+d.pmsn].src="you"; save(); pmRefreshSide(); }
+  if(d.pmin!=null){ P.init[+d.pmin].n=e.target.value; P.init[+d.pmin].src="you"; save(); pmRefreshSide(); }
+  if(d.pmcs!=null){ const k=d.pmcs; P.cells[k]=Object.assign({p:0},P.cells[k]||{},{d:e.target.value}); save(); }
+  if(d.pmtake!=null){ P.take=e.target.value; save(); } });
+function pmSortOrg(){ const P=pmData(), order=[...P.stake.keys()].sort((a,b)=>(P.stake[a].k==="org"?0:1)-(P.stake[b].k==="org"?0:1)||a-b), cells={};
+  Object.entries(P.cells).forEach(([k,v])=>{ const [r,c]=k.split(".").map(Number); cells[`${r}.${order.indexOf(c)}`]=v; }); P.stake=order.map(i=>P.stake[i]); P.cells=cells; save(); pmRefresh(); toast("Organizational stakeholders first"); }
+/* reading the map: conflicts, common ground, by stakeholder */
+function pmReadCards(){ const cf=pmConflicts(), cm=pmCommon(), S_=pmNamedS();
+  return `<div class="rd2"><div class="rcard warn"><h3>Potential conflicts</h3>${cf.length?`<ul>${cf.map(r=>{ const x=pmRowRead(r); return `<li><b>${esc(iName(r))}</b>: High for ${esc(listJoin(x.hi.map(c=>sName(c))))||"no one"}; Low for ${esc(listJoin(x.lo.map(c=>sName(c))))||"no one"}</li>`; }).join("")}</ul>`:`<p class="note">None yet: no initiative is High for one stakeholder and Low for another.</p>`}</div>
+    <div class="rcard ok"><h3>Common ground</h3>${cm.length?`<ul>${cm.map(r=>`<li><b>${esc(iName(r))}</b>: ${PRI[pmRowRead(r).v[0][1]]} for all ${pmRowRead(r).v.length} who rated it</li>`).join("")}</ul>`:`<p class="note">None yet: common ground is an initiative three or more stakeholders rate alike.</p>`}</div>
+    <div class="rcard"><h3>Top priority by stakeholder</h3><ul>${S_.map(c=>{ const hi=pmNamedI().filter(r=>pmCell(r,c).p===3); return `<li><b>${esc(sName(c))}</b>: ${hi.length?esc(listJoin(hi.map(r=>iName(r)))):'<span class="note">nothing High</span>'}</li>`; }).join("")}</ul></div></div>`; }
+function pmReadPanel(){ const P=pmData(); let sum="";
+  if(pmSpot&&pmSpot.r!=null){ const x=pmRowRead(pmSpot.r); sum=`<p class="pmsum"><b>${esc(iName(pmSpot.r))}</b> · High for ${esc(listJoin(x.hi.map(c=>sName(c))))||"no one"}; Medium for ${esc(listJoin(x.md.map(c=>sName(c))))||"no one"}; Low for ${esc(listJoin(x.lo.map(c=>sName(c))))||"no one"}.${x.spread>=2?" <b>A potential conflict.</b>":""}</p>`; }
+  if(pmSpot&&pmSpot.c!=null){ const by=p=>pmNamedI().filter(r=>pmCell(r,pmSpot.c).p===p).map(r=>iName(r)); sum=`<p class="pmsum"><b>${esc(sName(pmSpot.c))}</b> (${P.stake[pmSpot.c].k==="org"?"organizational":"operational"}) · High: ${esc(listJoin(by(3)))||"none"}; Medium: ${esc(listJoin(by(2)))||"none"}; Low: ${esc(listJoin(by(1)))||"none"}.</p>`; }
+  $("pmRead").innerHTML=`<div class="rcard" style="background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 14px;display:grid;gap:8px"><h3 style="margin:0;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Read the map</h3>
+    <div class="pmchips">${pmNamedI().map(r=>`<button class="ini" data-pmspotr="${r}" aria-pressed="${pmSpot?.r===r}">${esc(iName(r))}</button>`).join("")}</div>
+    <div class="pmchips">${pmNamedS().map(c=>`<button class="${P.stake[c].k==="org"?"org":"op"}" data-pmspotc="${c}" aria-pressed="${pmSpot?.c===c}">${esc(sName(c))}</button>`).join("")}${pmSpot?`<button data-pmspotx>✕ Clear</button>`:""}</div>${sum}</div>${pmReadCards()}`; }
+document.addEventListener("click",e=>{ const r=e.target.closest("[data-pmspotr]"), c=e.target.closest("[data-pmspotc]");
+  if(r){ const v=+r.dataset.pmspotr; pmSpot=pmSpot?.r===v?null:{r:v}; pmSheet(); return; } if(c){ const v=+c.dataset.pmspotc; pmSpot=pmSpot?.c===v?null:{c:v}; pmSheet(); return; } if(e.target.closest("[data-pmspotx]")){ pmSpot=null; pmSheet(); } });
+function pmSheet(){ const P=pmData(); pmPaint("pmSheet",{mode:"edit",spot:pmSpot,how:pmHowOn}); pmReadPanel(); const cl=pmRated().filter(([,,x])=>x.src==="claude").length;
+  $("pmBanner").hidden=!(cl||pmBusy||pmMsg&&pmBusy); $("pmBanner").innerHTML=pmBusy?esc(pmMsg):`<span><b>${cl} priorities are Claude's point of view</b> (dashed)${P.basis?`: ${esc(P.basis)}`:""}. Tap to change any; confirm the rest with the client.</span><button class="btn small primary" data-pmconfirm>Confirm all</button>`;
+  $("pmConfirm").hidden=!cl; $("pmHow").setAttribute("aria-pressed",pmHowOn); $("pmHow").textContent=pmHowOn?"Hide the help":"Show me how"; }
+$("pmReadBtn").onclick=()=>$("pmRead").scrollIntoView({block:"start",behavior:"smooth"}); $("pmConfirm").onclick=pmConfirmAll; $("pmHow").onclick=()=>{ pmHowOn=!pmHowOn; pmSheet(); };
+$("pmClear").onclick=e=>armed(e.currentTarget,"Tap again to clear the map",()=>{ const snap=JSON.stringify(S.pm||null); S.pm=null; pmData(); S.pm.stake.forEach(s=>{ s.n=""; s.src=""; }); save(); pmRefresh(); toast("Map cleared",()=>{ S.pm=JSON.parse(snap); save(); pmRefresh(); }); });
+$("pmCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(pmSummary()); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+$("pmPdf").onclick=()=>pmDownload(false); $("pmDeck").onclick=()=>pmDownload(true);
+function pmSummary(){ const P=pmData(), L=[`PRIORITIES MAP · ${aidTitle()}`,longDate(),""]; L.push("STAKEHOLDERS",...pmNamedS().map(c=>`- ${sName(c)} (${P.stake[c].k==="org"?"organizational":"operational"})`),"");
+  pmNamedI().forEach(r=>{ L.push(iName(r).toUpperCase()); pmNamedS().forEach(c=>{ const x=pmCell(r,c); if(x.p) L.push(`- ${sName(c)}: ${PRI[x.p]}${x.src==="claude"?" (Claude's view, to confirm)":""}${x.d?` · success: ${x.d}`:""}`); }); L.push(""); });
+  const cf=pmConflicts(); if(cf.length) L.push("POTENTIAL CONFLICTS",...cf.map(r=>`- ${iName(r)}`),""); if(P.take.trim()) L.push("KEY TAKEAWAYS",P.take.trim(),""); if(P.notes?.trim()) L.push("NOTES",P.notes.trim()); return L.join("\n"); }
+function pmRefreshSide(){ if(!pmMode) return; renderNextPill(); if(curView==="build"){ pmPaint("pmMini",{mode:"view"}); } }
+function pmRefresh(){ if(!pmMode){ if(route==="overview") renderOverview(); return; } if(curView==="aid") pmSheet(); else if(curView==="build") pmBuild(); else pmLearn(); renderNextPill(); }
+/* the Coach for the map */
+function pmCoach(){ const side=$("pmBside"); if(!side.querySelector(".coach")){ const w=document.createElement("div"); w.innerHTML=coachHTML(false); const c=w.firstElementChild; c.dataset.coach="pm"; side.insertBefore(c,$("pmAsk")); c.querySelector('[data-cbody="ask"]').appendChild($("pmAsk")); }
+  paintCoach(); }
+const _pc=paintCoach; paintCoach=function(){ _pc(); document.querySelectorAll('.coach[data-coach="pm"]').forEach(c=>{ c.querySelector('[data-cbody="draft"]').innerHTML=`<button class="btn small primary" data-pmdraft>${pmData().drafted?"Ask Claude again":"Suggest stakeholders and priorities"}</button><button class="btn small" data-pmconfirm>Confirm Claude's view</button><button class="btn small" data-cact="questions">Questions to ask the client</button><p class="note">Claude's ratings are a point of view, dashed until you or the client confirm them.</p>`;
+  c.querySelector('[data-cbody="book"]').innerHTML=`<blockquote>“${esc(KEVIN)}”<cite>Kevin Cooper, Dimensions of Success</cite></blockquote>`; }); };
+
+/* ---------- Present: the whole map, each initiative, conflicts, common ground, takeaways ---------- */
+let pmSl=[], pmSi=0;
+function pmSlides(){ const s=[{k:"whole"}]; pmNamedI().forEach(r=>{ if(pmRowRead(r).v.length) s.push({k:"row",r}); }); if(pmConflicts().length||pmCommon().length) s.push({k:"compare"}); s.push({k:"take"}); return s; }
+function pmPresent(){ pmSl=pmSlides(); pmSi=0; let o=$("pmPres"); if(!o){ o=document.createElement("div"); o.id="pmPres"; o.className="pmpres"; o.setAttribute("role","dialog"); o.setAttribute("aria-label","Present the Priorities Map"); document.body.appendChild(o); }
+  o.hidden=false; document.body.classList.add("pmpresenting"); try{ o.requestFullscreen?.().catch(()=>{}); }catch(e){} pmPresRender(); }
+function pmPresRender(){ const o=$("pmPres"), sl=pmSl[pmSi], P=pmData(); let inner="", cap="";
+  if(sl.k==="whole"){ inner=pmSheetHTML({mode:"present"}); cap=`<b>The whole map · our point of view</b><h4>How ${esc(aidTitle())}'s stakeholders prioritize the same initiatives</h4>${esc(KEVIN)}`; }
+  if(sl.k==="row"){ const x=pmRowRead(sl.r); inner=pmSheetHTML({mode:"present",spot:{r:sl.r}}); cap=`<b>Initiative · ${pmSi} of ${pmSl.filter(s=>s.k==="row").length}</b><h4>${esc(iName(sl.r))}</h4>High for ${esc(listJoin(x.hi.map(c=>sName(c))))||"no one"} · Medium for ${esc(listJoin(x.md.map(c=>sName(c))))||"no one"} · Low for ${esc(listJoin(x.lo.map(c=>sName(c))))||"no one"}.${x.spread>=2?" Where do you see this differently?":""}`; }
+  if(sl.k==="compare"){ const cf=pmConflicts(), cm=pmCommon(); inner=pmSheetHTML({mode:"present",spot:{rows:[...cf,...cm],mark:"conflict"}}); cap=`<b>Similarities and differences</b><h4>${cf.length?`${cf.length} potential conflict${cf.length>1?"s":""}`:"No conflicts"}${cm.length?` · ${cm.length} common ground`:""}</h4>${cf.map(r=>esc(iName(r))).join(" · ")}${cf.length&&cm.length?" | ":""}${cm.map(r=>esc(iName(r))).join(" · ")}`; }
+  if(sl.k==="take"){ inner=`<div class="slide"><span class="k">Key takeaways</span><h2>Where am I off track?</h2>${P.take.trim()?`<ul>${P.take.trim().split(/\n+/).map(l=>`<li>${esc(l.replace(/^[-•]\s*/,""))}</li>`).join("")}</ul>`:`<div class="two"><div class="w"><h3>Potential conflicts</h3><ul>${pmConflicts().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None</li>"}</ul></div><div class="o"><h3>Common ground</h3><ul>${pmCommon().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None yet</li>"}</ul></div></div>`}<p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap">${cap}</div>`:""}</div></div><div class="bar"><button class="pb" data-pmp="-1" aria-label="Previous">◀</button><span class="pbtxt">${pmSi+1} of ${pmSl.length}</span><button class="pb" data-pmp="1" aria-label="Next">▶</button><button class="pb wide" data-pmpdeck>Leave-behind PDF</button><button class="pb wide" data-pmpx>Exit</button></div>`; }
+function pmPresEnd(){ const o=$("pmPres"); if(o) o.hidden=true; document.body.classList.remove("pmpresenting"); try{ document.fullscreenElement&&document.exitFullscreen(); }catch(e){} }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-pmp]"); if(b){ pmSi=Math.max(0,Math.min(pmSl.length-1,pmSi+ +b.dataset.pmp)); pmPresRender(); } if(e.target.closest("[data-pmpx]")) pmPresEnd(); if(e.target.closest("[data-pmpdeck]")) pmDownload(true); });
+addEventListener("keydown",e=>{ const o=$("pmPres"); if(!o||o.hidden) return; if(["ArrowRight","PageDown"," "].includes(e.key)){ e.preventDefault(); pmSi=Math.min(pmSl.length-1,pmSi+1); pmPresRender(); } if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); pmSi=Math.max(0,pmSi-1); pmPresRender(); } if(e.key==="Escape") pmPresEnd(); });
+
+/* ---------- PDFs: the map on one letter landscape page, and a leave-behind ---------- */
+function pmBall(doc,cx,cy,r,p){ doc.setDrawColor(PDFC.plum); doc.setLineWidth(.6); doc.circle(cx,cy,r,"S"); doc.setFillColor(PDFC.plum);
+  if(p===3) doc.circle(cx,cy,r,"F"); if(p===2){ const pts=[]; for(let a=-90;a<=90;a+=10){ const t=a*Math.PI/180; pts.push([cx+r*Math.cos(t),cy+r*Math.sin(t)]); } const d=pts.slice(1).map((q,i)=>[q[0]-pts[i][0],q[1]-pts[i][1]]); doc.lines(d,pts[0][0],pts[0][1],[1,1],"F",true); } }
+function pmDrawSheet(doc){ const PT=2.8346, P=pmData(), tc=c=>doc.setTextColor(c), fill=c=>doc.setFillColor(c);
+  tc(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Frame Points of View",10.4,14.2);
+  tc(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Priorities Map",10.4,28.4); pdfClientMark(doc);
+  fill(PDFC.blue); doc.rect(65.9,34.6,PMG.right-65.9,8.2,"F"); tc("#ffffff"); doc.setFont("helvetica","bold"); doc.setFontSize(4.4*PT); doc.setCharSpace(1.2); doc.text("STAKEHOLDERS",(65.9+PMG.right)/2,40.4,{align:"center"}); doc.setCharSpace(0);
+  P.stake.forEach((s,c)=>{ const k=s.k==="org"?"org":"op", x=65.9+c*PMG.cw; fill(PDFC[k][1]); doc.rect(x,42.8,PMG.cw,14.7,"F"); fill(PDFC[k][2]); doc.rect(x,42.8,PMG.cw,1.3,"F");
+    tc(PDFC.ink); doc.setFont("helvetica","bold"); doc.setFontSize(3*PT); const ls=doc.splitTextToSize(s.n||"",PMG.cwi-2).slice(0,2); doc.text(ls,x+PMG.cw/2,52.3-(ls.length-1)*1.6,{align:"center"}); });
+  { let i0=0; while(i0<6){ let i1=i0; const k0=P.stake[i0].k==="org"?"org":"op"; while(i1+1<6&&(P.stake[i1+1].k==="org"?"org":"op")===k0) i1++; tc(k0==="org"?"#8c2b33":"#7a5606"); doc.setFont("helvetica","bold"); doc.setFontSize(1.9*PT); doc.setCharSpace(.4); doc.text(k0==="org"?"ORGANIZATIONAL":"OPERATIONAL",65.9+(i0+i1+1)/2*PMG.cw,46.6,{align:"center"}); doc.setCharSpace(0); i0=i1+1; } }
+  fill(PDFC.inf[2]); doc.rect(12.8,PMG.ry0,6.6,PMG.rh*6,"F"); tc("#2c6142"); doc.setFont("helvetica","bold"); doc.setFontSize(4.6*PT); "INITIATIVES".split("").forEach((ch,j)=>doc.text(ch,16.1,PMG.ry0+11+j*9.9,{align:"center"}));
+  doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(19.4,PMG.ry0,PMG.right,PMG.ry0);
+  for(let r=0;r<6;r++){ const y=PMG.ry0+r*PMG.rh; if(r%2){ fill(PDFC.inf[1]); doc.rect(19.4,y,PMG.right-19.4,PMG.rh,"F"); } doc.setDrawColor(PDFC.rule); doc.line(19.4,y+PMG.rh,PMG.right,y+PMG.rh);
+    tc(PDFC.ink); doc.setFont("helvetica","normal"); doc.setFontSize(3.3*PT); const ls=doc.splitTextToSize(P.init[r].n||"",36).slice(0,2); doc.text(ls,63.4,y+PMG.rh/2+1.2-(ls.length-1)*1.7,{align:"right"});
+    for(let c=0;c<6;c++){ const x=pmCell(r,c); if(x.p) pmBall(doc,PMG.cx0+16.134+c*PMG.cw,y+9.6,4.4,x.p); } }
+  [1,2,3].forEach((p,j)=>{ const y=181.5+j*8.5; pmBall(doc,234.5,y-.1,2.9,p); tc(PDFC.ink); doc.setFont("helvetica","normal"); doc.setFontSize(2.9*PT); doc.text(`${PRI[p]} Priority`,239.6,y+1); });
+  if(P.notes?.trim()){ tc(PDFC.ink); doc.setFontSize(2.8*PT); doc.text(doc.splitTextToSize(P.notes.trim(),183).slice(0,5),27,183.5); }
+  pdfKaFoot(doc); }
+async function pmBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, PW=279.4, PH=215.9, M=20; pmDrawSheet(doc); if(!deck) return doc;
+  const font=(w,sz,c)=>{ doc.setFont("helvetica",w); doc.setFontSize(sz*PT); doc.setTextColor(c); }; doc.addPage("letter","landscape"); doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
+  font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text("WHAT WE HEARD",M,22); doc.setCharSpace(0); font("normal",9.5,PDFC.title); doc.text("Similarities, differences and takeaways",M,36); pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2});
+  doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42); const cw=(PW-2*M-16)/3; let col=0;
+  const block=(title,lines,ink)=>{ const x=M+col*(cw+8); let y=54; font("bold",3.3,ink); doc.text(title.toUpperCase(),x,y); y+=7; lines.forEach(l=>{ font("normal",3.4,PDFC.ink); const w=doc.splitTextToSize(l,cw); if(y+w.length*4.6>186) return; doc.text(w,x,y); y+=w.length*4.6+2.5; }); col++; };
+  block("Potential conflicts",pmConflicts().map(r=>{ const x=pmRowRead(r); return `${iName(r)}: High for ${listJoin(x.hi.map(c=>sName(c)))}; Low for ${listJoin(x.lo.map(c=>sName(c)))}`; }).concat(pmConflicts().length?[]:["None."]),"#a6501d");
+  block("Common ground",pmCommon().map(r=>`${iName(r)}: ${PRI[pmRowRead(r).v[0][1]]} for all who rated it`).concat(pmCommon().length?[]:["None yet."]),"#2d7a52");
+  block("Key takeaways",(pmData().take.trim()?pmData().take.trim().split(/\n+/):["To be agreed with the client."]),PDFC.plum);
+  pdfKaFoot(doc,M,PH-16.4); font("normal",2.8,PDFC.muted); doc.text(`${aidTitle()} · Priorities Map`,M+44,PH-10); doc.text("2",PW-M,PH-10,{align:"right"}); return doc; }
+async function pmDownload(deck){ toast(deck?"Making the leave-behind PDF…":"Making the PDF…",null,true); let doc; try{ doc=await pmBuildPdf(deck); }catch(e){ toast("Couldn't make the PDF here. Check the connection and try again."); return; }
+  const filename=`Priorities Map - ${(aidTitle()).replace(/[\\/:*?"<>|]+/g," ").trim()}${deck?" - leave-behind":""}.pdf`;
+  if(downloads){ try{ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view"); } } else { try{ doc.save(filename); toast("PDF downloaded"); }catch(e){ toast("Saving isn't available in this view"); } } }
+
+/* ---------- into the app: routes, the path, the header, Overview, Meet, ⌘K, the guided setup, the Criteria ---------- */
+AID_VIEWS.push("viewLearnPM","viewBuildPM","viewAidPM");
+const PM_VIEWS={learn:"viewLearnPM",build:"viewBuildPM",aid:"viewAidPM"};
+const _showPrev=show; show=function(view){ if(!pmMode){ Object.values(PM_VIEWS).forEach(v=>$(v).hidden=true); document.body.classList.remove("pm"); return _showPrev(view); }
+  route="aid"; curView=view; ROUTES.forEach(r=>$(RVIEW[r]).hidden=true); AID_VIEWS.forEach(v=>{ const el=$(v); if(el) el.hidden=true; }); $(PM_VIEWS[view]).hidden=false; closePop();
+  document.body.classList.add("pm"); document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); document.body.dataset.route="aid"; $("aidHead").hidden=false;
+  try{ history.replaceState(null,"","#pm-"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") pmLearn(); if(view==="build") pmBuild(); if(view==="aid") pmSheet(); renderAidHead(); renderCrumbs();
+  /* Claude's defaults the first time the map is opened for a named client */
+  const P=pmData(); if(!P.drafted&&!P.autoTried&&sample&&S.company?.name&&!pmRated().length){ P.autoTried=true; save(); pmDraft(); } };
+const _setAid=setAidMode; setAidMode=function(cp){ pmMode=false; document.body.classList.remove("pm"); _setAid(cp); };
+function openPM(view){ let seen=true; try{ seen=!!localStorage.getItem("ka-seen-pm"); localStorage.setItem("ka-seen-pm","1"); }catch(e){} const v=!seen?"learn":(view||(pmRated().length?"aid":"build"));
+  closeCmd(); closePop(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } pmMode=true; route="aid"; show(v); pushHash(); scrollTo({top:0}); }
+const _routeHash=routeHash; routeHash=function(){ return route==="aid"&&pmMode?"#pm-"+(curView==="aid"?"sheet":curView):_routeHash(); };
+const _parse=parseRoute; parseRoute=function(){ const h=location.hash.slice(1); if(h.startsWith("pm-")){ const v=h.slice(3); return {r:"aid",pm:true,view:v==="sheet"?"aid":["learn","build"].includes(v)?v:"aid"}; } return _parse(); };
+const _nav=nav; nav=function(r,opt={}){ if(r==="aid"&&opt.pm){ if(opt.push===false){ if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } pmMode=true; show(opt.view||"aid"); return; } openPM(opt.view); return; }
+  if(r==="aid"&&pmMode&&opt.cp!==undefined){ pmMode=false; document.body.classList.remove("pm"); if(!!opt.cp===cpMode){ setAidMode(!!opt.cp); } }
+  return _nav(r,opt); };
+addEventListener("popstate",e=>{ const p=parseRoute(); if(p&&p.pm){ e.stopImmediatePropagation(); nav("aid",{pm:true,view:p.view,push:false}); } },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="pm"]'); if(!n) return; e.preventDefault(); e.stopImmediatePropagation(); openPM(n.dataset.view); },true);
+/* opening the Alignment or the Criteria from the Map leaves the Map */
+const _openAid2=openAid; openAid=function(cp,view){ if(pmMode){ pmMode=false; document.body.classList.remove("pm"); if(!!cp===cpMode) setAidMode(!!cp); } return _openAid2(cp,view); };
+const _aidHead=renderAidHead; renderAidHead=function(){ _aidHead(); if(route!=="aid") return; const pm=pmMode, cp=cpMode&&!pm, aop=!cp&&!pm;
+  $("ahPath").innerHTML=`<span class="ahgroup"><button class="d-why" data-nav="aop" ${aop?'aria-current="page"':""}><i>1</i><span>Alignment</span><small>WHY</small></button><button class="d-why" data-nav="pm" ${pm?'aria-current="page"':""}><i>1b</i><span>Priorities Map</span><small>WHY</small></button></span><span class="sep" aria-hidden="true">→</span>
+    <button class="d-what" disabled title="Requirements: the next aids being rebuilt"><i>2</i><span>Requirements</span><small>COMING</small></button><span class="sep" aria-hidden="true">→</span>
+    <button class="d-how" data-nav="cp" ${cp?'aria-current="page"':""}><i>3</i><span>Criteria</span><small>HOW</small></button>`;
+  if(pm) $("ahTitle").textContent="Priorities Map"; renderNextPill(); };
+const _pill=renderNextPill; renderNextPill=function(){ if(route!=="aid") return; if(!pmMode) return _pill(); const sc=pmScore(), nm=pmNextMove();
+  $("ahNext").innerHTML=`${ringSVG(sc,34)}<b>${nm.done?"Ready":"Next"}</b><span title="${esc(nm.t)}">${esc(nm.t)}</span>${nm.done?"":`<button class="btn small" data-pmnext>Do it</button>`}`; };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-pmnext]")) pmNextMove().go(); });
+const _crumbs2=renderCrumbs; renderCrumbs=function(){ _crumbs2(); if(route==="aid"&&pmMode){ const b=$("crumbs").querySelectorAll("b"); if(b.length&&!document.body.classList.contains("client")) b[b.length-1].textContent="Priorities Map"; } };
+/* Overview: the map beside the alignment in Priorities */
+const _ro4=renderOverview; renderOverview=function(){ _ro4(); const card=document.querySelector("#ovPath .dimc.d-why"); if(!card) return; const sc=pmScore(), cf=pmConflicts().length, d=document.createElement("div"); d.className="pmov";
+  d.innerHTML=`<hr style="border:0;border-top:1px dashed var(--rule);margin:4px 0"><h3 style="margin:0;font-size:17px">Priorities Map</h3><div class="drow">${ringSVG(sc)}<div class="scoretxt"><b>Map ${sc}%</b><span>${pmNamedS().length} stakeholders · ${pmRated().length} priorities${cf?` · ${cf} potential conflict${cf>1?"s":""}`:""}</span></div></div><button class="thumb" data-nav="pm" data-view="aid" aria-label="Open the Priorities Map">${pmSheetHTML({mode:"view"})}</button><div class="arow" style="flex:0 1 auto"><button class="btn small primary" data-nav="pm" data-view="build">Build</button><button class="btn small" data-nav="pm" data-view="aid">Sheet</button></div>`;
+  card.appendChild(d); const cr=$("ovCarry"); if(cr&&!cr.querySelector(".pmchip")) cr.querySelector(".chip.inf")?.insertAdjacentHTML("afterend",`<span class="chip pmchip" style="background:var(--plum-soft);color:var(--plum)">Map's success measures → Criteria</span>`); };
+/* Meet: the map is the third choice */
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="pm"]')) g.insertAdjacentHTML("beforeend",`<button role="radio" data-meet-aid="pm" aria-checked="false">Priorities Map</button>`); })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="pm") return; e.stopImmediatePropagation(); const way=w.dataset.way;
+  if(way==="present"){ openPM("aid"); setTimeout(pmPresent,60); }
+  if(way==="together"){ openPM("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; pmSheet(); }
+  if(way==="interview"){ openPM("build"); pmGo(2); openAssist(); toast("Ask the client to rate each initiative; tap the balls as they answer."); } },true);
+const _rm=renderMeet; renderMeet=function(){ _rm(); };
+/* ⌘K */
+const _cmdA=cmdActions; cmdActions=function(){ const A=_cmdA(); const add=(g,t,run,hint="")=>A.splice(A.findIndex(a=>a.g==="Meet"),0,{g,t,run,hint});
+  add("Go","Priorities Map · Build",()=>openPM("build"),"Priorities"); add("Go","Priorities Map · Sheet",()=>openPM("aid"),"Priorities");
+  A.push({g:"Meet",t:"Present the Priorities Map",run:()=>{ openPM("aid"); setTimeout(pmPresent,60); },hint:""},{g:"Share",t:"Download PDF · Priorities Map",run:()=>pmDownload(false),hint:""},{g:"Work",t:"Suggest stakeholders and priorities (Claude)",run:()=>{ openPM("build"); pmGo(0); pmDraft(); },hint:"Priorities Map"});
+  return A; };
+/* the guided New engagement maps the stakeholders too, before the criteria */
+(function(){ const cp=document.querySelector('#suFills [data-f="cp"]'); if(cp&&!document.querySelector('#suFills [data-f="pm"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-why" data-f="pm"><div><b>Priorities Map · stakeholders and priorities</b><span>Key organizational and operational stakeholders, and Claude's point of view on each priority, to confirm with the client.</span></div></li>`); })();
+const _cpDraft=cpDraft; cpDraft=async function(b){ if(suBusy){ const li=document.querySelector('#suFills [data-f="pm"]'); li?.classList.add("run"); $("suStatus").textContent="Mapping the stakeholders' priorities…"; pmData(); const ok=await pmDraft(); li?.classList.remove("run"); li?.classList.add(ok?"done":"skip"); }
+  return _cpDraft(b); };
+/* the map's success measures feed the Criteria Proposition's draft */
+const _cpPrompt=cpDraftPrompt; cpDraftPrompt=function(b){ const base=_cpPrompt(b); if(!S.pm) return base; const L=[]; pmNamedI().forEach(r=>pmNamedS().forEach(c=>{ const x=pmCell(r,c); if(x.p>=2||(x.d||"").trim()) L.push(`${iName(r)} · ${sName(c)} (${PRI[x.p]||"unrated"})${x.d?`: success = ${x.d}`:""}`); }));
+  return L.length?base+`\n\nFrom the Priorities Map (stakeholders' priorities and how they measure success; use them to word the criteria, never invent numbers): ${JSON.stringify(L.slice(0,40))}`:base; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
