@@ -1,6 +1,6 @@
 <title>KA Engagement Aids</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Open+Sans:wght@300;400;600;700;800&family=Kalam:wght@400;700&display=swap">
 <style>
 /* Layout: KA's two-page aid. Page 1 the guide. Page 2 the PDF's own picture, drawn on its exact coordinates (millimetres of a 279.4 x 215.9 letter page): bands, the plum diagonal, five columns stepping down it. Boxes sit exactly where the PDF's fields sit. */
 :root{
@@ -1205,6 +1205,37 @@ body.roommode #egrid .ecard.new,body.roommode #homeEx{display:none}
 .linkbtn{border:0;background:none;color:var(--blue);font:inherit;font-size:13px;cursor:pointer;padding:4px;text-decoration:underline}
 @media (max-width:900px){.pipecols{grid-template-columns:repeat(3,minmax(0,1fr))!important}.pipespace{display:none}.arphases{grid-template-columns:repeat(3,minmax(0,1fr))}.ovar .arrow2{display:none}}
 @media (max-width:480px){.pipecols{grid-template-columns:1fr!important}}
+
+/* Assessment Roadmap */
+.arcv .ardb{border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center;border-radius:50%}
+.arcv .ardb svg,.ardb2 svg,.ardemo svg{width:82%;height:82%}
+.arcv .ardb.auto{opacity:.75}.arcv .ardb.claude{outline:.25cqw dashed var(--plum);outline-offset:-.1cqw}
+.arcv .aract{border:0;background:none;padding:0 calc(.6*var(--mm));text-align:left;display:flex;align-items:flex-start;gap:calc(1.6*var(--mm));font-family:var(--font);font-size:calc(2.75*var(--mm));line-height:1.35;color:var(--ink);cursor:pointer;border-radius:calc(.8*var(--mm))}
+div.aract{cursor:default}.arcv .aract .arn{color:#2c4f9b;font-weight:700;min-width:calc(5*var(--mm))}.arcv .aract .art{flex:1;min-width:0}
+.arcv .aract.done .art{color:var(--muted)}.arcv .aract .arok{font-style:normal;color:var(--ok);font-weight:800}
+.arcv .aract.here{background:color-mix(in srgb,var(--glow) 28%,transparent)}.arcv .aract.isgo .art{font-weight:700}.arcv .aract.isgo.go .art{color:#2d7a52}.arcv .aract.isgo.nogo .art{color:#a6501d}
+.arcv button.aract:hover{background:color-mix(in srgb,var(--why) 8%,transparent)}
+.arcv .dimmed,.arcv g.dimmed{opacity:.22;transition:opacity .35s}
+.d-when{--c:#b7861a}.d-when[aria-current="page"]{background:#b7861a;color:#fff}
+.arrows{display:grid;gap:6px;margin:10px 0}.arrowb{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+.arrowb.here{border-color:var(--glow);background:color-mix(in srgb,var(--glow) 10%,var(--paper))}.arrowb.done .arnm{color:var(--muted)}
+.arrowb .ardone{display:flex;align-items:center;gap:8px;flex:1 1 260px;cursor:pointer}.arrowb input{width:18px;height:18px}.arrowb .arid{font-weight:700;color:var(--muted);min-width:26px}
+.ardots{display:flex;gap:6px}.ardb2{display:grid;justify-items:center;gap:1px;border:1px solid var(--rule);background:var(--bg);border-radius:10px;width:46px;min-height:44px;padding:4px;cursor:pointer;color:var(--ink)}
+.ardb2 svg{width:20px;height:20px}.ardb2 small{font-size:10.5px;color:var(--muted)}.ardb2.claude{border-style:dashed;border-color:var(--plum)}.ardb2.auto{opacity:.8}
+.arwhy{flex-basis:100%;padding-left:52px;font-size:12.5px;color:var(--muted)}.arwhy.ok{color:var(--ok)}
+.arwhere{margin:10px 0 6px}.artime{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}.artime>div{display:grid;gap:4px;border:1px solid var(--rule);border-top:3px solid var(--why);border-radius:10px;padding:8px;background:var(--paper)}.artime>div.sol{border-top-color:var(--how)}.artime small{color:var(--muted)}
+.arlearn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.arlearn>div{border:1px solid var(--rule);border-top:3px solid var(--why);border-radius:10px;padding:8px 10px;background:var(--paper)}.arlearn>div.sol{border-top-color:var(--how)}.arlearn small{display:block;color:var(--muted);font-size:11px}.arlearn ol{margin:4px 0 0;padding-left:18px;font-size:13px}
+.ardemo{display:flex;align-items:center;gap:6px}.ardemo svg{width:22px;height:22px}.callist li{margin:2px 0}
+.artl{display:grid;grid-template-columns:repeat(6,1fr);gap:1.2cqw}.artl>div{display:grid;gap:.4cqw;border-top:.5cqw solid #2c4f9b;padding-top:.8cqw;font-size:1.5cqw}.artl>div.sol{border-top-color:var(--plum)}.artl>div.cur{background:color-mix(in srgb,var(--glow) 18%,transparent)}.artl b{font-size:1.7cqw}.artl small{color:#5b6476}
+@media (max-width:900px){.arlearn,.artime{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.arlearn,.artime{grid-template-columns:1fr}}
+/* share, click easy */
+.shstep{display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}.shstep p{margin:4px 0 8px}
+.shn{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--why);color:#fff;font-weight:800}
+@media (max-width:640px){.aidhead .ahtop{min-width:0;max-width:100%}.aidhead .ahtop .ahpath{flex:1 1 0;min-width:0;overflow-x:auto;scrollbar-width:none}.aidhead .ahtop .ahpath::-webkit-scrollbar{display:none}.aidhead .ahrow{flex-wrap:wrap;min-width:0;max-width:100%}.aidhead .nextpill{min-width:0;max-width:100%}}
+.arcv .ardb.claude{outline:none}.arcv .ardb.claude svg{filter:drop-shadow(0 0 .12cqw var(--plum))}.arcv .ardb.claude::after{content:"";position:absolute;inset:6%;border-radius:50%;border:.1cqw dotted var(--plum)}
+.arrowb{padding:6px 10px;gap:4px 10px}.arwhy{padding-left:40px;margin-top:-2px}.arrowb .linkbtn{margin-left:auto}
+.rmshare{display:grid;gap:8px}.rmshare .btn{justify-self:start}
 </style>
 
 <div class="shell">
@@ -1528,6 +1559,25 @@ body.roommode #egrid .ecard.new,body.roommode #homeEx{display:none}
       <p class="pmbanner prep-only" id="pmBanner" hidden></p>
       <div class="cpscroll"><div class="cpstage pmstage" id="pmSheet"></div></div>
       <div class="pmread" id="pmRead"></div>
+    </div>
+  </section>
+  <section id="viewLearnAR" class="pmview arview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Establish Timeline with Milestones</small><h1>Assessment Roadmap</h1><p class="gsub">Learn the six A's in five short cards. Then place the decision.</p></div></div>
+    <div class="lwrap"><ol class="ldots" id="arLdots" aria-label="Cards"></ol><article class="lcard" id="arLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="arLPrev">← Back</button><button class="btn primary" id="arLNext">Next →</button></div></div>
+  </section>
+  <section id="viewBuildAR" class="pmview arview" role="tabpanel" hidden>
+    <ol class="bsteps" id="arBsteps" aria-label="Steps"></ol>
+    <div class="bwrap"><div class="bmain" id="arBmain"></div>
+      <aside class="bside"><p class="minicap">The roadmap, as you build it</p><button class="minibtn pmmini" id="arMini" aria-label="Open the full roadmap"></button><div id="arAsk" class="askclient"></div></aside></div>
+    <div class="bnav"><button class="btn" id="arBBack">← Back</button><span id="arBpos" class="note"></span><button class="btn primary" id="arBNext">Next →</button></div>
+  </section>
+  <section id="viewAidAR" class="pmview arview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <section class="ctlcard" aria-label="Controls"><button class="btn small prep-only" id="arClaude">Get Claude's read</button><button class="btn small prep-only" id="arTime">Propose the timeline</button><button class="btn small" id="arPdf">Download PDF</button><button class="btn small" id="arCopy">Copy summary</button><button class="btn small danger prep-only" id="arClear">Clear the roadmap</button></section>
+      <p class="pmbanner prep-only" id="arBanner" hidden></p>
+      <div class="cpscroll"><div class="cpstage pmstage" id="arSheet"></div></div>
+      <div class="pmread" id="arRead"></div>
     </div>
   </section>
   <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2010). A prototype.</span><span>Your work stays in this browser.</span></footer>
@@ -4649,7 +4699,7 @@ function shareEngagement(){ flushSave(); const name=aidName(), data=JSON.parse(J
 /* ---------- wiring ---------- */
 const _roRm=renderOverview; renderOverview=function(){ _roRm(); const side=$("ovNext")||$("ovSide");
   if(RM.on){ if(RM.owner&&RM.loaded&&RM.empty&&side&&!$("rmLoad")){ const d=document.createElement("div"); d.id="rmLoad"; d.innerHTML=rmLoadCardHTML(); side.before(d); } }
-  else if(side&&!$("rmShare")&&!/^Untitled/.test(aidName())){ const d=document.createElement("div"); d.id="rmShare"; d.className="scard rmshare"; d.innerHTML=`<h3>Work on it together</h3><p class="note" style="margin:0">Give this engagement its own private page and invite up to five people, team members or clients, as Contributors.</p><button class="btn small" id="rmShareBtn">Share this engagement</button>`; side.after(d); $("rmShareBtn").onclick=shareEngagement; } };
+  else if(side&&!$("rmShare")&&!/^Untitled/.test(aidName())){ const d=document.createElement("div"); d.id="rmShare"; d.className="scard rmshare"; d.innerHTML=`<h3>Work on it together</h3><p class="note" style="margin:0">Give this engagement its own private page and invite up to five people, team members or clients, as Contributors.</p><button class="btn small primary" id="rmShareBtn">Share this engagement</button>`; side.after(d); $("rmShareBtn").onclick=shareEngagement; } };
 const _cmdRm=cmdActions; cmdActions=function(){ const A=_cmdRm(); if(!RM.on) A.push({g:"Work",t:"Share this engagement (its own private page)",run:shareEngagement,hint:""}); return A; };
 if(KA_ROOM){ RM.on=true; document.body.classList.add("roommode");
   const _navRm=nav; nav=function(r,opt){ if(r==="home"||r==="new") r="overview"; return _navRm(r,opt); };
@@ -4681,6 +4731,313 @@ document.addEventListener("click",e=>{ const ph=e.target.closest("[data-arph]");
   const l=e.target.closest("[data-arloc]"); if(l){ const R=arData(); if(l.dataset.arloc) R.loc=l.dataset.arloc; else delete R.loc; save(); arPaint(); } });
 document.addEventListener("change",e=>{ const c=e.target.closest("[data-ardone]"); if(!c) return; const R=arData(); if(c.checked) R.done[c.dataset.ardone]=true; else delete R.done[c.dataset.ardone]; save(); arPaint(); });
 const _cmdAR=cmdActions; cmdActions=function(){ const A=_cmdAR(); A.push({g:"Work",t:"Assessment Roadmap: where the decision is",run:()=>{ if(route!=="overview") nav("overview"); setTimeout(()=>$("ovAR")?.scrollIntoView({block:"center",behavior:"smooth"}),80); },hint:""}); return A; };
+
+
+/* ===================== Share this engagement, click easy (Dave, Nov 17, with a screenshot of the old four steps: "You need to automate this so it is 'click' easy.")
+   One click: the engagement goes into this app's own store (outbox, readable only by the owner), and the request goes straight to Dave's Claude, which publishes
+   the engagement's private page and puts the engagement in it. The new page loads it by itself. No file. ===================== */
+const APP_URL="https://claude.ai/artifact/1K8gASRTunm2UJxM6Nqbyr", OUT_CHUNK=180000;
+const SH={db:null,room:null,can:null};
+(async()=>{ if(KA_ROOM||!window.claude) return; try{ [SH.db,SH.room]=await Promise.all([window.claude.use("db"),window.claude.use("room")]); }catch(e){} try{ SH.can=SH.room?await SH.room.canSendToClaudeSession():null; }catch(e){ SH.can=null; } })();
+function shareData(){ flushSave(); const data=JSON.parse(JSON.stringify(S)); delete data.snaps; delete data.tokens; RM_LOCAL.forEach(k=>{ if(k!=="items"&&k!=="lens") delete data[k]; }); return data; }
+async function shareToOutbox(id,name){ const s=JSON.stringify({format:"ka-engagement",v:1,name,saved:Date.now(),data:shareData()}), n=Math.max(1,Math.ceil(s.length/OUT_CHUNK));
+  for(let i=0;i<n;i++) await SH.db.collection("outbox").doc(`${id}~${i}`).set({name,i,n,d:s.slice(i*OUT_CHUNK,(i+1)*OUT_CHUNK),at:Date.now()}); return n; }
+shareEngagement=function(){ const name=aidName(), id="o"+Date.now().toString(36)+Math.random().toString(36).slice(2,5), ask=`Set up a shared KA Engagement Room for "${name}" (outbox ${id} in KA Engagement Aids).`;
+  const direct=SH.room&&SH.db&&["available","available_if_summoned","available_if_opened"].includes(SH.can);
+  kitOpen("Share this engagement",`<p class="kitlead">${esc(name)} gets its own private page. Only the people you invite can open it; your other engagements stay in your browser.</p>
+    <div class="shstep"><span class="shn">1</span><div><b>${direct?"Create the shared page":"Ask Claude for the shared page"}</b><p>${direct?"One click: Claude publishes the page and puts the engagement in it. The link appears in your chat.":"Copy this into your chat with Claude. Claude publishes the page and puts the engagement in it."}</p>
+      ${direct?`<button class="btn primary" id="shGo">Create the shared page</button>`:SH.db?`<div class="rmask"><code>${esc(ask)}</code><button class="btn small primary" id="shCopy">Copy</button></div>`:`<p class="note">This needs the page opened in Claude. <button class="linkbtn" id="shFile">Save a file instead</button></p>`}<p class="note" id="shStatus" aria-live="polite"></p></div></div>
+    <div class="shstep"><span class="shn">2</span><div><b>Open the link and invite your people</b><p>The engagement loads by itself. Then use the page's <b>Share</b> menu to invite up to five people as <b>Contributors</b>: team members and clients.</p></div></div>
+    <p class="note">They work in it live while you have it open; Claude runs on your account, from your open page.</p>`,true);
+  const status=t=>{ const s=$("shStatus"); if(s) s.textContent=t; };
+  if($("shGo")) $("shGo").onclick=()=>{ const data={request:"Set up a shared KA Engagement Room",engagement:name,outbox:id,app:APP_URL,how:"Read the outbox documents from the app's store, publish the engagement's own room page, and seed it (CLAUDE.md: Shared engagements)."};
+    let p; try{ p=SH.room.sendToClaudeSession(data,{deliver:"send",attachPresence:false}); }catch(e){ p=Promise.reject(e); }
+    $("shGo").disabled=true; status("Saving the engagement for Claude…");
+    shareToOutbox(id,name).then(()=>p).then(()=>status("Sent to Claude. The link to the new page will appear in your chat in a minute or two."))
+      .catch(e=>{ if(e&&e.code==="claude_unavailable"){ try{ SH.room.sendToClaudeSession(data).then(()=>status("It's waiting in your chat with Claude: press send there."),()=>status("Couldn't reach Claude from here. Copy the request instead.")); }catch(e2){} }
+        else status(`Couldn't send it: ${e&&e.message||"try again"}`); $("shGo").disabled=false; }); };
+  if($("shCopy")) $("shCopy").onclick=async()=>{ status("Saving the engagement for Claude…"); try{ await shareToOutbox(id,name); await navigator.clipboard.writeText(ask); status("Copied. Paste it into your chat with Claude."); }catch(e){ status("Copy didn't work in this view: select the text above and copy it."); } };
+  if($("shFile")) $("shFile").onclick=async()=>{ const blob=new Blob([JSON.stringify({format:"ka-engagement",v:1,name,saved:Date.now(),data:shareData()})],{type:"application/json"}), filename=`${name.replace(/[\\/:*?"<>|]+/g," ").trim()||"Engagement"}.ka-engagement.json`;
+    try{ if(downloads) await downloads.save({filename,data:blob}); else { const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=filename; document.body.appendChild(a); a.click(); a.remove(); } status("Saved. Open the shared page and choose this file."); }catch(e){ status("Not saved"); } }; };
+const _rmShareBtn=()=>{ const b=$("rmShareBtn"); if(b) b.onclick=shareEngagement; };
+const _roShare2=renderOverview; renderOverview=function(){ _roShare2(); _rmShareBtn(); };
+
+/* ---------- the room: the owner's page loads the engagement Claude put there, once ---------- */
+async function rmSeedLoad(){ if(!RM.owner||!RM.db||RM.seedTried) return; RM.seedTried=true;
+  try{ const snap=await RM.db.collection("seed").get(); if(!snap||!snap.docs||!snap.docs.length) return; const parts=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>p.d!=null).sort((a,b)=>a.i-b.i);
+    if(!parts.length||parts.length!==parts[0].n) return; const j=JSON.parse(parts.map(p=>p.d).join(""));
+    await rmLoadFile(new File([JSON.stringify(j)],"seed.json")); for(const d of snap.docs){ try{ await RM.db.collection("seed").doc(d.id).delete(); }catch(e){} }
+    rmInviteCard(j.name); }
+  catch(e){ console.warn("seed",e); } }
+function rmInviteCard(name){ kitOpen(`${name||"The engagement"} is in`,`<p class="kitlead">Everything is here. Now invite your people.</p>
+  <div class="shstep"><span class="shn">1</span><div><b>Open this page's Share menu</b><p>At the top of the page, beside its title.</p></div></div>
+  <div class="shstep"><span class="shn">2</span><div><b>Invite up to five people as Contributors</b><p>Team members and clients. They'll see who's here and can work in it live while you have this page open.</p></div></div>
+  <button class="btn primary" id="rmInvOk">Got it</button>`,false); $("rmInvOk").onclick=kitClose; }
+const _rmIncomingSeed=rmIncoming; rmIncoming=function(snap){ const fresh=!RM.loaded; _rmIncomingSeed(snap); if(fresh&&RM.empty&&RM.owner) rmSeedLoad(); };
+
+
+/* ===================== Assessment Roadmap, its own aid (Dave, Nov 17: "Build the Assessment Roadmap as its own aid! You need to automate this so it is 'click' easy.")
+   The PDF's page 2 on its own coordinates: the six A's, each activity with Confidence (will to do) and Competence (skill to do) as ○ ◑ ●, each phase's %
+   (from the dots, as the PDF's own totals do) and its Go / No go. Click easy: Awareness, the dots where the aids already show the work, and the timeline
+   fill in by themselves; one click asks Claude for its read on every activity; one click proposes the timeline. ===================== */
+const ARG=[ // per phase: will dot x, skill dot x, number x, text x, text width, header y, dot ys, text ys (h: 1 = one line, 2 = two), x.6 y, % x/y
+  {wx:11.15,sx:15.71,nx:21,tx:26.2,tw:54.4,hy:119.8,ys:[124.6,129.4,134.15,138.95,143.7],ty:[124.9,129.8,134.4,139.2,143.85],th:[1,1,1,1,2],y6:152.5,px:11.16,py:151.98},
+  {wx:11.15,sx:15.71,nx:21,tx:26.2,tw:54.4,hy:159.55,ys:[164.83,169.62,177.72,182.14,190.62],ty:[164.8,169.6,177.9,182.7,191.1],th:[1,2,1,2,1],y6:195.92,px:11.16,py:195.92},
+  {wx:89.11,sx:93.67,nx:99,tx:104.8,tw:69.6,hy:119.8,ys:[124.64,133.11,137.9,142.69,147.47],ty:[124.7,133.1,137.9,142.7,147.5],th:[2,1,1,1,1],y6:152.34,px:89.13,py:151.98},
+  {wx:89.11,sx:93.67,nx:99,tx:104.8,tw:69.6,hy:159.55,ys:[164.89,169.68,177.78,182.2,186.99],ty:[164.7,169.5,177.9,182.7,187.55],th:[1,2,1,1,2],y6:195.94,px:89.13,py:195.92},
+  {wx:180.63,sx:185.19,nx:190.6,tx:195.7,tw:73.6,hy:119.8,ys:[124.63,129.41,134.2,138.98,143.77],ty:[124.9,129.7,134.55,139.35,144.2],th:[1,1,1,1,2],y6:152.55,px:180.65,py:151.98},
+  {wx:180.63,sx:185.19,nx:190.6,tx:195.7,tw:73.6,hy:159.55,ys:[164.88,169.57,174.27,178.96,183.66],ty:[165,169.8,174.5,179.25,184],th:[1,1,1,1,1],y6:188.74,px:180.65,py:187.94}];
+const AR_LEARN_TXT={purpose:"A visual aid to assist stakeholders through their assessment (decision making) process.",why:"We will eliminate ambiguity and accelerate productivity by providing a process for decision making that is applicable, both internally and externally.",
+  outcomes:["Agreement to use a defined decision-making process","Confirmation as to where stakeholders are in their decision making","Consent to review prior phases before proceeding"],
+  when:"The Assessment Roadmap is best used in the Problem Space during the Awareness Phase (1.5) to “Establish Timeline with Milestones”. It’s also useful in the Solution Space to review and verify status of decisions.",
+  threat:"A clear sense of threats to scope, time and resources is required before solving any business problem.",
+  gaps:[["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]],
+  problem:["Review and agree to the major phases and activities","Identify the location of the current decision","Confirm the importance of the “problem space”","Establish timeline to complete decision-making process","Document any gaps in understanding about decision making"],
+  solution:["Establish location of current decision","Confirm what “due-diligence” has been done","Identify potential “gaps” in decision-making process","Assign owners and timeline to review and close “gaps”"],
+  callouts:["Using a defined decision-making process eliminates waste to produce better results.","Spending more time upfront in the “Problem Space” means spending less time overall.","A complete solution will address ALL of the activities within Alternatives, Answer, Acceptance, and Actions.","Each phase ends with a deliberate “Go/No Go” decision."]};
+const AR_WEEKS=[2,3,4,3,3,12];
+let arMode=false, arIdx=0, arL=0, arSpot=null, arBusy=false, arMsg="", arCtl=null, presAR=false;
+const arDateFmt=d=>{ try{ return new Date(d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}); }catch(e){ return d; } };
+/* 1.5 Establish Timeline with Milestones is done once phases 1 to 5 have dates */
+const _arAutoBase=arAuto; arAuto=function(){ const o=_arAutoBase(); const R=S.roadmap||{}; if(R.dates&&[1,2,3,4,5].every(p=>R.dates[p])) o["1.5"]="the timeline has a milestone for every phase"; return o; };
+/* the dots: what you or Claude set, else what the aids already show (done ● ●, where they are ◑ ◑) */
+function arDot(kind,id,auto,loc){ const R=arData(), st=(R[kind]||{})[id]; if(st!=null) return {v:st,src:(R[kind+"src"]||{})[id]||"you"};
+  if(arDone(id,auto)) return {v:2,src:"auto"}; if(id===loc) return {v:1,src:"auto"}; return {v:0,src:"auto"}; }
+/* the phase %: the dots of its five activities, as the PDF's own totals */
+arPct=function(p,auto){ auto=auto||arAuto(); const loc=arLoc(auto); let t=0; for(let i=1;i<=5;i++){ const id=`${p}.${i}`; t+=arDot("w",id,auto,loc).v+arDot("s",id,auto,loc).v; } return Math.round(t/20*100); };
+function arSetDot(kind,id,v,src){ const R=arData(); R[kind]=R[kind]||{}; R[kind+"src"]=R[kind+"src"]||{}; R[kind][id]=v; R[kind+"src"][id]=src||"you"; }
+function arDotSVG(kind,v,cls=""){ const c=kind==="w"?"#1f2430":"#8a8f99"; return `<svg viewBox="0 0 10 10" class="ardot ${cls}" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="none" stroke="${c}" stroke-width="1"/>${v===1?`<path d="M5 1 A4 4 0 0 0 5 9 Z" fill="${c}"/>`:v===2?`<circle cx="5" cy="5" r="4" fill="${c}"/>`:""}</svg>`; }
+const AR_DOTL=["○ not yet","◑ partly","● fully"];
+
+/* ---------- the picture ---------- */
+function arSheetHTML({mode="edit",spot=null}={}){ const ed=mode==="edit", R=arData(), auto=arAuto(), loc=arLoc(auto), curP=+loc.split(".")[0], dimP=spot&&spot.p;
+  const F="Open Sans,sans-serif", H="Caveat,'Segoe Print','Bradley Hand',cursive";
+  const lab=[["Awareness",56,41,70,66],["Analysis",95,51,94,68],["Alternatives",136,36,135,66],["Answer",159,51,155,68],["Acceptance",190,36,174,66],["Actions",210,54,198,68]];
+  const let_=[[70,"A"],[94,"A"],[135,"a"],[155,"a"],[174,"a"],[198,"a"]];
+  let s=`<svg class="pmbase" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true">
+    <text x="10.4" y="14.2" fill="var(--tan)" font-family="${F}" font-weight="700" font-size="3.9">Establish Timeline with Milestones</text>
+    <text x="10.4" y="28.4" fill="var(--title)" font-family="${F}" font-weight="300" font-size="13.4" textLength="101" lengthAdjust="spacingAndGlyphs">Assessment Roadmap</text>
+    <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>${clientMarkSVG()}
+    <path d="M119 31 q3 6 0 12 t0 12 t0 12 t0 12 t0 12 t0 12 t0 10" fill="none" stroke="#2c4f9b" stroke-width="1.6"/>
+    <line x1="62" y1="85" x2="219" y2="85" stroke="#1f2430" stroke-width=".9"/><path d="M219 81.8 L224 85 L219 88.2" fill="none" stroke="#1f2430" stroke-width=".9"/>
+    <text x="86" y="97" text-anchor="middle" fill="#2c4f9b" font-family="${H}" font-size="7.4">Problem Space</text><text x="150" y="96" text-anchor="middle" fill="#2c4f9b" font-family="${H}" font-size="7.4">Solution Space</text>`;
+  lab.forEach(([t,x,y,lx,ly],i)=>{ const cur=i+1===curP, lit=!dimP||dimP===i+1; s+=`<g opacity="${lit?1:.25}"><text x="${x}" y="${y}" text-anchor="middle" fill="${cur?"var(--plum)":"#2c4f9b"}" font-family="${H}" font-size="${cur?7.6:6.8}" font-weight="${cur?700:400}">${t}</text><line x1="${x}" y1="${y+1.6}" x2="${lx}" y2="${ly}" stroke="#1f2430" stroke-width=".5"/>
+      <text x="${let_[i][0]}" y="78" text-anchor="middle" fill="${cur?"var(--plum)":"#2c4f9b"}" font-family="${H}" font-size="${i<2?13:12}">${let_[i][1]}</text>${cur?`<circle cx="${let_[i][0]}" cy="81.3" r="1.1" fill="var(--glow)"/>`:""}${R.go[i+1]?`<text x="${let_[i][0]}" y="62" text-anchor="middle" font-family="${F}" font-size="2.6" font-weight="800" fill="${R.go[i+1]==="go"?"#2d7a52":"#a6501d"}">${R.go[i+1]==="go"?"GO":"NO GO"}</text>`:""}</g>`; });
+  s+=`<g transform="translate(11.4 106.6)">${arDotSVGg("w",2)}</g><text x="17.6" y="110" font-family="${F}" font-size="2.6" fill="var(--ink)">= CONFIDENCE (WILL TO DO)</text>
+    <g transform="translate(11.4 112.2)">${arDotSVGg("s",2)}</g><text x="17.6" y="115.6" font-family="${F}" font-size="2.6" fill="var(--ink)">= COMPETENCE (SKILL TO DO)</text>`;
+  AR.forEach((ph,pi)=>{ const g=ARG[pi], n=pi+1, lit=!dimP||dimP===n, pct=arPct(n,auto), date=R.dates&&R.dates[n];
+    s+=`<g class="arph ${lit?"":"dimmed"}"><text x="${g.tx-5.6}" y="${g.hy+4}" font-family="${F}" font-size="2.9" fill="#2c4f9b">▷</text><text x="${g.tx}" y="${g.hy+4.1}" font-family="${F}" font-weight="700" font-size="4.3" fill="${n===curP?"var(--plum)":"#2c4f9b"}">${ph.l}</text>${date?`<text x="${g.tx+g.tw}" y="${g.hy+4}" text-anchor="end" font-family="${F}" font-size="2.6" fill="var(--muted)">by ${esc(arDateFmt(date))}</text>`:""}
+      <rect x="${g.px}" y="${g.py+.2}" width="9" height="4.6" rx=".8" fill="${pct?"color-mix(in srgb,var(--glow) 30%,#fff)":"#f1f3f7"}"/><text x="${g.px+4.5}" y="${g.py+3.6}" text-anchor="middle" font-family="${F}" font-weight="700" font-size="2.7" fill="#1f2430">${pct}%</text></g>`; });
+  s+=kaFootSVG()+`</svg>`;
+  let h=s;
+  AR.forEach((ph,pi)=>{ const g=ARG[pi], n=pi+1, lit=!dimP||dimP===n;
+    for(let i=1;i<=6;i++){ const id=`${n}.${i}`, k=i-1, y=i<6?g.ty[k]:g.y6, hgt=i<6?(g.th[k]===2?7.6:4.1):4.1, d=arDone(id,auto), isGo=i===6&&n<6, here=id===loc;
+      if(i<6){ ["w","s"].forEach(kind=>{ const x=kind==="w"?g.wx:g.sx, dv=arDot(kind,id,auto,loc); h+=ed?`<button class="px ardb ${dv.src} ${lit?"":"dimmed"}" style="${PX(x,g.ys[k],5.08,5.08)}" data-ardot="${kind}|${id}" title="${kind==="w"?"Confidence (will to do)":"Competence (skill to do)"}: ${AR_DOTL[dv.v]}${dv.src==="claude"?" · Claude's read":dv.src==="auto"?" · from the aids":""}" aria-label="${id} ${kind==="w"?"confidence":"competence"}">${arDotSVG(kind,dv.v)}</button>`:`<div class="px ardb ${dv.src} ${lit?"":"dimmed"}" style="${PX(x,g.ys[k],5.08,5.08)}">${arDotSVG(kind,dv.v)}</div>`; }); }
+      const goTxt=isGo&&R.go[n]?` · ${R.go[n]==="go"?"Go":"No go"}`:"";
+      const inner=`<span class="arn">${id}</span><span class="art">${esc(ph.a[k])}${goTxt}</span>${d&&!isGo?`<i class="arok">✓</i>`:""}`;
+      h+=ed?`<button class="px aract ${d?"done":""} ${here?"here":""} ${isGo?"isgo "+(R.go[n]||""):""} ${lit?"":"dimmed"}" style="${PX(g.nx,y-.3,g.tx+g.tw-g.nx,hgt+.6)}" data-${isGo?"argo2":"aract"}="${id}" title="${isGo?"Tap: Go → No go → undecided":auto[id]?"Done: "+auto[id]:d?"Done · tap to undo":"Tap when it's done"}">${inner}</button>`
+        :`<div class="px aract ${d?"done":""} ${here?"here":""} ${isGo?"isgo "+(R.go[n]||""):""} ${lit?"":"dimmed"}" style="${PX(g.nx,y-.3,g.tx+g.tw-g.nx,hgt+.6)}">${inner}</div>`; } });
+  if(ed){ AR.forEach((ph,pi)=>{ const g=ARG[pi]; h+=`<button class="px pmhdbtn" style="${PX(g.tx-6.4,g.hy-.4,6,5.6)}" data-arhd="${pi+1}" aria-label="${ph.l}: date and notes">▷</button>`; });
+    h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${PX(166,8.6,104,20.2)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`; }
+  return `<div class="pmcv arcv ${dimP?"ardim":""}">${h}</div>`; }
+function arDotSVGg(kind,v){ const c=kind==="w"?"#1f2430":"#8a8f99"; return `<circle cx="2.2" cy="2.2" r="1.9" fill="${v?c:"none"}" stroke="${c}" stroke-width=".4"/>`; }
+
+/* ---------- editing on the sheet and in Build ---------- */
+document.addEventListener("click",e=>{ if(!arMode&&!e.target.closest("#ovAR")) return;
+  const d=e.target.closest("[data-ardot]"); if(d){ const [kind,id]=d.dataset.ardot.split("|"), auto=arAuto(), cur=arDot(kind,id,auto,arLoc(auto)).v; arSetDot(kind,id,(cur+1)%3,"you"); save(); arRefresh(); return; }
+  const a=e.target.closest("[data-aract]"); if(a){ const id=a.dataset.aract, auto=arAuto(); if(auto[id]){ toast(`Done from the aids: ${auto[id]}`); return; } const R=arData(); if(R.done[id]) delete R.done[id]; else R.done[id]=true; save(); arRefresh(); return; }
+  const g=e.target.closest("[data-argo2]"); if(g){ const n=+g.dataset.argo2.split(".")[0], R=arData(); R.go[n]=!R.go[n]?"go":R.go[n]==="go"?"nogo":undefined; if(!R.go[n]) delete R.go[n]; save(); arRefresh(); toast(R.go[n]?`${AR[n-1].l}: ${R.go[n]==="go"?"Go":"No go"}`:"Decision cleared"); return; }
+  const hd=e.target.closest("[data-arhd]"); if(hd){ arPhasePop(+hd.dataset.arhd,hd); return; }
+  if(e.target.closest("[data-arclaude]")){ arDraft(); return; } if(e.target.closest("[data-arstop]")){ arCtl?.abort(); return; }
+  if(e.target.closest("[data-artime]")){ arProposeTimeline(); return; }
+  if(e.target.closest("[data-arconfirm]")){ const R=arData(); ["w","s"].forEach(k=>Object.keys(R[k+"src"]||{}).forEach(id=>{ if(R[k+"src"][id]==="claude") R[k+"src"][id]="client"; })); save(); arRefresh(); toast("Claude's read confirmed with the client"); return; }
+  const bs=e.target.closest("[data-arbs]"); if(bs){ arIdx=+bs.dataset.arbs; arBuild(); return; }
+  const lc=e.target.closest("[data-arl]"); if(lc){ arL=+lc.dataset.arl; arLearn(); return; }
+  if(e.target.closest("[data-arstart]")) show("build");
+  const sp=e.target.closest("[data-arspot]"); if(sp){ const n=+sp.dataset.arspot; arSpot=arSpot&&arSpot.p===n?null:{p:n}; arSheet(); return; } });
+function arPhasePop(n,anchor){ closePop(); const R=arData(), pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",AR[n-1].l);
+  pop.innerHTML=`<h5>${AR[n-1].l} · ${arPct(n)}%</h5><label class="note" for="arDate">Milestone · decision by</label><input type="date" class="tin" id="arDate" value="${esc((R.dates||{})[n]||"")}"><label class="note" for="arNote">Notes</label><textarea class="tin" id="arNote" rows="3" placeholder="Owners, dates, what's open">${esc((R.notes||{})[n]||"")}</textarea>
+    <div class="arow" style="flex:0 1 auto"><button class="btn small ${R.go[n]==="go"?"primary":""}" data-argo="${n}|go">Go</button><button class="btn small ${R.go[n]==="nogo"?"warnb":""}" data-argo="${n}|nogo">No go</button><button class="btn small" data-arloc="${n}.1">We're here</button></div>`;
+  place(pop,anchor); popEl=pop; pop.querySelector("#arDate").onchange=ev=>{ R.dates=R.dates||{}; if(ev.target.value) R.dates[n]=ev.target.value; else delete R.dates[n]; save(); arRefresh(); };
+  pop.querySelector("#arNote").oninput=ev=>{ R.notes=R.notes||{}; R.notes[n]=ev.target.value; save(); }; }
+/* one click: a timeline from today, by KA's phases (typical weeks; every date stays editable) */
+function arProposeTimeline(){ const R=arData(), snap=JSON.stringify(R.dates||{}); R.dates=R.dates||{}; let t=new Date(); const auto=arAuto(), cur=+arLoc(auto).split(".")[0];
+  AR.forEach((_,i)=>{ const n=i+1; if(n<cur&&R.go[n]==="go"){ return; } t=new Date(t.getTime()+AR_WEEKS[i]*7*864e5); if(!R.dates[n]) R.dates[n]=t.toISOString().slice(0,10); });
+  save(); arRefresh(); toast("Timeline proposed from today. Change any date to fit the client.",()=>{ R.dates=JSON.parse(snap); save(); arRefresh(); }); }
+document.addEventListener("change",e=>{ const t=e.target.closest("[data-ardate]"); if(t){ const R=arData(); R.dates=R.dates||{}; if(t.value) R.dates[t.dataset.ardate]=t.value; else delete R.dates[t.dataset.ardate]; save(); arRefresh(); }
+  const c=e.target.closest("[data-archk]"); if(c){ const [k,i]=c.dataset.archk.split("|"), R=arData(); R[k]=R[k]||[]; R[k][+i]=c.checked; save(); arRefresh(); } });
+document.addEventListener("input",e=>{ const t=e.target.closest("[data-argap],[data-arnote],[data-artake]"); if(!t) return; const R=arData();
+  if(t.dataset.argap){ R.gaps=R.gaps||{}; R.gaps[t.dataset.argap]=t.value; } if(t.dataset.arnote){ R.notes=R.notes||{}; R.notes[t.dataset.arnote]=t.value; } if(t.dataset.artake!=null) R.take=t.value; save(); });
+
+/* ---------- Claude's read: confidence and competence for every activity, from the engagement (never over your own) ---------- */
+function arDraftPrompt(){ const auto=arAuto(), loc=arLoc(auto), R=arData();
+  return `You are a KA (Knowledge-Advantage) principal reading where a client is in their decision, on KA's Assessment Roadmap (the six A's).
+For each activity below, rate the client's stakeholders: CONFIDENCE (will to do: 0 not yet, 1 partly, 2 fully) and COMPETENCE (skill to do: 0, 1, 2), from the engagement only. Where the engagement says nothing, say 0 and give the question that would find out. Never invent facts.
+The current decision is at ${loc} ${arName(loc)}. Activities marked DONE already have evidence.
+ACTIVITIES: ${AR.map((p,i)=>p.a.slice(0,5).map((a,j)=>`${i+1}.${j+1} ${a}${arDone(`${i+1}.${j+1}`,auto)?" (DONE)":""}`).join("; ")).join(" | ")}
+${R.dates?`MILESTONES: ${JSON.stringify(R.dates)}`:""}
+THE ENGAGEMENT:
+${engagementText().slice(0,16000)}
+Reply with JSON only: {"summary":"one sentence on where they are","ratings":[{"id":"1.1","will":0,"skill":0,"why":"under 14 words"}],"gaps":{"position":"","people":"","policies":"","procedures":"","politics":""}}. Rate every activity from 1.1 to 6.5 (not x.6). Gaps: one short line each where the engagement shows a threat to scope, time or resources, else "".`; }
+async function arDraft(){ if(!sample){ toast("Claude's read needs the page opened in Claude"); return; } if(arBusy) return; arBusy=true; arMsg="Claude is reading where they are…"; arRefresh(); arCtl=new AbortController();
+  try{ const r=await sample.json(arDraftPrompt(),{signal:arCtl.signal,modelTier:"complex"}); const R=arData(), snap=JSON.stringify(R); let n=0;
+    (Array.isArray(r&&r.ratings)?r.ratings:[]).forEach(x=>{ const id=String(x.id||""); if(!/^[1-6]\.[1-5]$/.test(id)) return; ["w","s"].forEach(k=>{ const v=Math.max(0,Math.min(2,Math.round(+(k==="w"?x.will:x.skill)||0))); const src=(R[k+"src"]||{})[id]; if(src==="you"||src==="client") return; arSetDot(k,id,v,"claude"); n++; }); R.why=R.why||{}; R.why[id]=String(x.why||"").slice(0,120); });
+    if(r&&r.gaps&&typeof r.gaps==="object"){ R.gaps=R.gaps||{}; Object.entries(r.gaps).forEach(([k,v])=>{ if(AR_LEARN_TXT.gaps.some(([g])=>g===k)&&v&&!(R.gaps[k]||"").trim()) R.gaps[k]=String(v).slice(0,200); }); }
+    R.basis=String(r&&r.summary||"").slice(0,240); R.drafted=true; save(); arMsg=""; toast(`Claude's read is in: ${Math.round(n/2)} activities, dashed until you confirm them.`,()=>{ S.roadmap=JSON.parse(snap); save(); arRefresh(); },true); }
+  catch(e){ const m=failMsg(e); arMsg=m===null?"":(m||"Claude couldn't read the roadmap this time."); }
+  finally{ arBusy=false; arRefresh(); } }
+
+/* ---------- Learn ---------- */
+const AR_LEARN=[{t:"What it's for",h:()=>`<p class="lkick">Establish Timeline with Milestones</p><h2>Assessment Roadmap</h2><p class="lead">${esc(AR_LEARN_TXT.purpose)}</p><h3>Why is it important for us?</h3><p>${esc(AR_LEARN_TXT.why)}</p><h3>Expected outcomes</h3><ul>${AR_LEARN_TXT.outcomes.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`},
+  {t:"The six A's",h:()=>`<h2>Six phases, each ending in a decision</h2><div class="arlearn">${AR.map((p,i)=>`<div class="${i<2?"prob":"sol"}"><b>${p.l}</b><small>${p.sp}</small><ol>${p.a.map(a=>`<li>${esc(a)}</li>`).join("")}</ol></div>`).join("")}</div><ul class="callist">${AR_LEARN_TXT.callouts.map(c=>`<li>${esc(c)}</li>`).join("")}</ul>`},
+  {t:"Will and skill",h:()=>`<h2>Confidence and competence</h2><p class="lead">Each activity carries two marks: <b>Confidence</b>, the stakeholders' will to do it, and <b>Competence</b>, their skill to do it. Tap to move between ○, ◑ and ●.</p><p class="ardemo">${arDotSVG("w",0)} ${arDotSVG("w",1)} ${arDotSVG("w",2)} <span>Confidence (will to do)</span></p><p class="ardemo">${arDotSVG("s",0)} ${arDotSVG("s",1)} ${arDotSVG("s",2)} <span>Competence (skill to do)</span></p><p>Each phase's % comes from its marks. Awareness fills in from your other aids: the Alignment of Priorities is 1.1, the Priorities Map 1.2 and 1.3, the Criteria Proposition 1.4, and this roadmap's timeline 1.5.</p>`},
+  {t:"When to use it",h:()=>`<h2>When to use it</h2><p class="lead">${esc(AR_LEARN_TXT.when)}</p><div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3><ul>${AR_LEARN_TXT.problem.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>If we are in the “Solution Space” we need to:</h3><ul>${AR_LEARN_TXT.solution.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
+  {t:"The gaps",h:()=>`<h2>Potential gaps and challenges</h2><p class="lead">${esc(AR_LEARN_TXT.threat)}</p><ul>${AR_LEARN_TXT.gaps.map(([,g])=>`<li>${esc(g)}</li>`).join("")}</ul><blockquote>“${esc(KEVIN)}”<cite>Kevin Cooper, Dimensions of Success</cite></blockquote><button class="btn primary" data-arstart>Start the roadmap →</button>`}];
+function arLearn(){ $("arLdots").innerHTML=AR_LEARN.map((c,i)=>`<li><button data-arl="${i}" aria-current="${i===arL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join(""); $("arLcard").innerHTML=AR_LEARN[arL].h(); $("arLPrev").disabled=arL===0; $("arLNext").textContent=arL===AR_LEARN.length-1?"Start the roadmap →":"Next →"; }
+$("arLPrev").onclick=()=>{ if(arL>0){ arL--; arLearn(); } }; $("arLNext").onclick=()=>{ if(arL<AR_LEARN.length-1){ arL++; arLearn(); } else show("build"); };
+
+/* ---------- Build ---------- */
+const AR_STEPS=["Where they are",...AR.map(p=>p.l),"Timeline","Check"];
+const AR_ASK=[["Where would you say this decision is today?","Who else has to agree before it moves?","What would stop it?"],["Who has to say yes for this to move forward?","What does success look like to you?","By when?"],["What's the core problem underneath this?","Who has tried to solve it before?","What would make it worth solving now?"],["Which options are on the table?","How will you compare their value, costs and risks?","Who validates the requirements?"],["What would make you confident to choose?","Who signs off on the business case?","What could change the answer?"],["Who negotiates the agreements?","Who's on the implementation team?","What are the risks, and the plan for them?"],["When do we kick off?","How will we know it's on track?","Who reviews it quarterly?"],["When does this decision need to be made?","What dates are fixed for you?","What could move them?"],["Where could budget, sign-offs or agendas slow this down?","Who else needs to see this?","What should happen next?"]];
+const arStepDone=i=>{ const R=arData(), auto=arAuto(); if(i===0) return !!R.drafted||Object.keys(R.w||{}).length>0; if(i>=1&&i<=6){ let n=0; for(let j=1;j<=5;j++) if(arDone(`${i}.${j}`,auto)) n++; return n===5&&(i===6||!!R.go[i]); } if(i===7) return !!(R.dates&&[1,2,3,4,5].every(p=>R.dates[p])); return Object.values(R.gaps||{}).some(v=>(v||"").trim()); };
+function arPhaseHTML(n){ const R=arData(), auto=arAuto(), loc=arLoc(auto), ph=AR[n-1];
+  return `<div class="arrows">${ph.a.map((nm,j)=>{ const id=`${n}.${j+1}`, isGo=j===5&&n<6;
+    if(isGo) return `<div class="arrowb isgo"><span class="arid">${id}</span><span class="arnm">${esc(nm)}</span><span class="argobtns"><button class="btn small ${R.go[n]==="go"?"primary":""}" data-argo="${n}|go">Go</button><button class="btn small ${R.go[n]==="nogo"?"warnb":""}" data-argo="${n}|nogo">No go</button></span></div>`;
+    const a=auto[id], d=arDone(id,auto), w=j<5?arDot("w",id,auto,loc):null, s=j<5?arDot("s",id,auto,loc):null, why=(R.why||{})[id];
+    return `<div class="arrowb ${d?"done":""} ${id===loc?"here":""}"><label class="ardone"><input type="checkbox" data-ardone="${id}" ${d?"checked":""} ${a?"disabled":""}><span class="arid">${id}</span><span class="arnm">${esc(nm)}</span></label>
+      ${w?`<span class="ardots"><button class="ardb2 ${w.src}" data-ardot="w|${id}" title="Confidence (will to do): ${AR_DOTL[w.v]}">${arDotSVG("w",w.v)}<small>Will</small></button><button class="ardb2 ${s.src}" data-ardot="s|${id}" title="Competence (skill to do): ${AR_DOTL[s.v]}">${arDotSVG("s",s.v)}<small>Skill</small></button></span>`:""}
+      ${a?`<small class="arwhy ok">✓ ${esc(a)}</small>`:""}${why&&(w&&w.src==="claude"||s&&s.src==="claude")?`<small class="arwhy">Claude: ${esc(why)}</small>`:""}${id!==loc&&!d?`<button class="linkbtn" data-arloc="${id}">We're here</button>`:""}</div>`; }).join("")}</div>
+    <div class="field"><label for="arn${n}">Notes · owners, dates, what's open</label><textarea class="tin" id="arn${n}" rows="2" data-arnote="${n}">${esc((R.notes||{})[n]||"")}</textarea></div>`; }
+function arBuild(){ const R=arData(), auto=arAuto(), loc=arLoc(auto), cname=esc(S.company?.name||"the client");
+  $("arBsteps").innerHTML=AR_STEPS.map((n,i)=>`<li><button data-arbs="${i}" aria-current="${i===arIdx?"step":"false"}" class="${arStepDone(i)?"done":""}"><span>${arStepDone(i)&&i!==arIdx?"✓":i===0?"·":i<=6?i:i===7?"⏱":"✓"}</span>${n}</button></li>`).join("");
+  const msg=arMsg?`<p class="note" aria-live="polite">${esc(arMsg)}${arBusy?` <button class="btn small" data-arstop>Stop</button>`:""}</p>`:""; let h="";
+  if(arIdx===0){ const cl=["w","s"].some(k=>Object.values(R[k+"src"]||{}).includes("claude"));
+    h=`<p class="lkick">Step 1 of ${AR_STEPS.length}</p><h2>Where ${cname} is in their decision</h2><p class="teach">${esc(AR_LEARN_TXT.purpose)} Awareness fills in from your other aids; the dots start where the aids already show the work.</p>
+      <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">Claude's read on every activity</h3><p class="note" style="margin:2px 0 0">One click: Claude rates the stakeholders' confidence and competence for all 30 activities from this engagement, and names the gaps. Dashed until you confirm with the client; it never changes your own marks.</p></div></div>
+      <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-arclaude ${arBusy?"disabled":""}>${R.drafted?"Ask Claude again":"Get Claude's read"}</button>${cl?`<button class="btn" data-arconfirm>Confirm Claude's read</button>`:""}<button class="btn" data-artime>${R.dates&&Object.keys(R.dates).length?"Fill the missing milestones":"Propose the timeline"}</button></div>${msg}${R.basis?`<p class="note">${esc(R.basis)}</p>`:""}</div>
+      <p class="arwhere">The decision is at <b>${esc(loc)} ${esc(arName(loc))}</b>${R.loc?` · <button class="linkbtn" data-arloc="">use the next open activity</button>`:""}</p>
+      <div class="arphases">${AR.map((p,i)=>`<button class="arph ${i<2?"prob":"sol"} ${i+1===+loc.split(".")[0]?"cur on":""}" data-arbs="${i+1}"><b>${p.l}</b><span>${arPct(i+1,auto)}%${R.dates&&R.dates[i+1]?` · by ${esc(arDateFmt(R.dates[i+1]))}`:""}</span>${R.go[i+1]?`<em class="${R.go[i+1]}">${R.go[i+1]==="go"?"Go":"No go"}</em>`:""}</button>`).join("")}</div>`; }
+  else if(arIdx<=6){ const n=arIdx, p=AR[n-1]; h=`<p class="lkick">Step ${arIdx+1} of ${AR_STEPS.length} · ${p.sp}</p><h2>${p.l} · ${arPct(n,auto)}%</h2><p class="teach">Tick each activity when it's done; tap Will and Skill to set the stakeholders' confidence and competence. ${n<6?"The phase ends with a deliberate Go/No Go decision.":"Actions carry the decision into implementation."}${R.dates&&R.dates[n]?` Milestone: by ${esc(arDateFmt(R.dates[n]))}.`:""}</p>${arPhaseHTML(n)}`; }
+  else if(arIdx===7){ h=`<p class="lkick">Step 8 of ${AR_STEPS.length} · 1.5 Establish Timeline with Milestones</p><h2>The timeline</h2><p class="teach">${esc(AR_LEARN_TXT.problem[3])}. One click proposes dates from today by KA's phases; change any to fit the client.</p>
+      <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-artime>${R.dates&&Object.keys(R.dates).length?"Fill the missing milestones":"Propose the timeline"}</button></div>
+      <div class="artime">${AR.map((p,i)=>`<div class="${i<2?"prob":"sol"}"><b>${p.l}</b><input type="date" class="tin" data-ardate="${i+1}" value="${esc((R.dates||{})[i+1]||"")}" aria-label="${p.l} milestone"><small>${R.go[i+1]?(R.go[i+1]==="go"?"Go decided":"No go"):`${arPct(i+1,auto)}%`}</small></div>`).join("")}</div>`; }
+  else { h=`<p class="lkick">Step 9 of ${AR_STEPS.length}</p><h2>Check the roadmap</h2><p class="teach">${esc(AR_LEARN_TXT.threat)}</p>
+      <h3>Potential gaps and challenges</h3>${AR_LEARN_TXT.gaps.map(([k,l])=>`<div class="field"><label for="arg${k}">${esc(l)}</label><input class="tin" id="arg${k}" data-argap="${k}" value="${esc((R.gaps||{})[k]||"")}" placeholder="Any threat to scope, time or resources?"></div>`).join("")}
+      <div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3>${AR_LEARN_TXT.problem.map((x,i)=>`<label class="chk"><input type="checkbox" data-archk="checksP|${i}" ${(R.checksP||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div><div><h3>If we are in the “Solution Space” we need to:</h3>${AR_LEARN_TXT.solution.map((x,i)=>`<label class="chk"><input type="checkbox" data-archk="checksS|${i}" ${(R.checksS||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div></div>
+      <h3>Expected outcomes</h3>${AR_LEARN_TXT.outcomes.map((x,i)=>`<label class="chk"><input type="checkbox" data-archk="outcomes|${i}" ${(R.outcomes||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}
+      <div class="field"><label for="arTake">Key takeaways</label><textarea class="tin" id="arTake" rows="3" data-artake>${esc(R.take||"")}</textarea></div>`; }
+  $("arBmain").innerHTML=h; $("arBpos").textContent=`${arIdx+1} of ${AR_STEPS.length}`; $("arBBack").disabled=arIdx===0; $("arBNext").textContent=arIdx===AR_STEPS.length-1?"See the roadmap →":"Next →";
+  $("arMini").innerHTML=arSheetHTML({mode:"view",spot:arIdx>=1&&arIdx<=6?{p:arIdx}:null}); $("arAsk").innerHTML=`<p class="minicap">Ask the client</p><ul>${AR_ASK[arIdx].map(q=>`<li>${esc(q)}</li>`).join("")}</ul><p class="note">Draft wording for KA to confirm.</p>`; renderNextPill(); }
+$("arBBack").onclick=()=>{ if(arIdx>0){ arIdx--; arBuild(); } }; $("arBNext").onclick=()=>{ if(arIdx<AR_STEPS.length-1){ arIdx++; arBuild(); } else show("aid"); }; $("arMini").onclick=()=>show("aid");
+
+/* ---------- the sheet ---------- */
+function arSheet(){ const R=arData(), cl=["w","s"].some(k=>Object.values(R[k+"src"]||{}).includes("claude"));
+  $("arSheet").innerHTML=arSheetHTML({mode:"edit",spot:arSpot}); $("arBanner").hidden=!(cl||arBusy); $("arBanner").innerHTML=arBusy?esc(arMsg):`<span><b>Dashed marks are Claude's read</b>${R.basis?`: ${esc(R.basis)}`:""}. Tap any to change it; confirm the rest with the client.</span><button class="btn small primary" data-arconfirm>Confirm all</button>`;
+  const auto=arAuto(), loc=arLoc(auto); $("arRead").innerHTML=`<div class="rcard"><h3>Where they are</h3><p style="margin:0"><b>${esc(loc)} ${esc(arName(loc))}</b></p><div class="pmchips">${AR.map((p,i)=>`<button data-arspot="${i+1}" class="${arSpot&&arSpot.p===i+1?"on":""}">${p.l} ${arPct(i+1,auto)}%</button>`).join("")}</div></div>
+    <div class="rcard"><h3>Decisions</h3><ul>${AR.slice(0,5).map((p,i)=>`<li>${p.l}: ${R.go[i+1]?(R.go[i+1]==="go"?"<b>Go</b>":"<b>No go</b>"):"undecided"}${R.dates&&R.dates[i+1]?` · by ${esc(arDateFmt(R.dates[i+1]))}`:""}</li>`).join("")}</ul></div>
+    <div class="rcard warn"><h3>Gaps</h3><ul>${AR_LEARN_TXT.gaps.filter(([k])=>((R.gaps||{})[k]||"").trim()).map(([k,l])=>`<li><b>${esc(l)}</b>: ${esc(R.gaps[k])}</li>`).join("")||"<li>None noted yet</li>"}</ul></div>`; }
+function arRefresh(){ if(route==="overview"){ arPaint(); } if(!arMode){ return; } if(curView==="aid") arSheet(); else if(curView==="build") arBuild(); else arLearn(); renderNextPill(); }
+$("arTime").onclick=arProposeTimeline; $("arClaude").onclick=arDraft; $("arPdf").onclick=()=>arDownload();
+$("arCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(arSummary()); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+$("arClear").onclick=e=>armed(e.currentTarget,"Tap again to clear the roadmap",()=>{ const snap=JSON.stringify(S.roadmap||{}); S.roadmap={}; save(); arRefresh(); toast("Roadmap cleared",()=>{ S.roadmap=JSON.parse(snap); save(); arRefresh(); }); });
+function arSummary(){ const R=arData(), auto=arAuto(), loc=arLoc(auto), L=[`ASSESSMENT ROADMAP · ${aidTitle()}`,longDate(),`Where the decision is: ${loc} ${arName(loc)}`,""];
+  AR.forEach((p,i)=>{ const n=i+1; L.push(`${p.l.toUpperCase()} · ${arPct(n,auto)}%${R.dates&&R.dates[n]?` · by ${arDateFmt(R.dates[n])}`:""}${R.go[n]?` · ${R.go[n]==="go"?"Go":"No go"}`:""}`);
+    p.a.forEach((a,j)=>{ const id=`${n}.${j+1}`; if(j===5&&n<6) return; const w=arDot("w",id,auto,loc).v, s=arDot("s",id,auto,loc).v; L.push(`- ${id} ${a}${arDone(id,auto)?" ✓":""} · will ${"○◑●"[w]} skill ${"○◑●"[s]}`); }); L.push(""); });
+  const g=AR_LEARN_TXT.gaps.filter(([k])=>((R.gaps||{})[k]||"").trim()); if(g.length) L.push("GAPS",...g.map(([k,l])=>`- ${l}: ${R.gaps[k]}`)); return L.join("\n"); }
+
+/* ---------- into the app: routes, the path, the header, Overview, Meet, ⌘K ---------- */
+AID_VIEWS.push("viewLearnAR","viewBuildAR","viewAidAR");
+const AR_VIEWS={learn:"viewLearnAR",build:"viewBuildAR",aid:"viewAidAR"};
+const _showAR=show; show=function(view){ if(!arMode){ Object.values(AR_VIEWS).forEach(v=>$(v).hidden=true); document.body.classList.remove("ar"); return _showAR(view); }
+  route="aid"; curView=view; ROUTES.forEach(r=>$(RVIEW[r]).hidden=true); AID_VIEWS.forEach(v=>{ const el=$(v); if(el) el.hidden=true; }); $(AR_VIEWS[view]).hidden=false; closePop();
+  document.body.classList.remove("pm","cp"); document.body.classList.add("ar"); document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); document.body.dataset.route="aid"; $("aidHead").hidden=false;
+  try{ history.replaceState(null,"","#ar-"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") arLearn(); if(view==="build") arBuild(); if(view==="aid") arSheet(); renderAidHead(); renderCrumbs(); };
+function arLeave(){ if(arMode){ arMode=false; document.body.classList.remove("ar"); Object.values(AR_VIEWS).forEach(v=>$(v).hidden=true); } }
+function openAR(view){ let seen=true; try{ seen=!!localStorage.getItem("ka-seen-ar"); localStorage.setItem("ka-seen-ar","1"); }catch(e){} const v=!seen?"learn":(view||"aid");
+  closeCmd(); closePop(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } arMode=true; route="aid"; show(v); pushHash(); scrollTo({top:0}); }
+const _setAidAR=setAidMode; setAidMode=function(cp){ arLeave(); _setAidAR(cp); };
+const _openPMAR=openPM; openPM=function(v){ arLeave(); _openPMAR(v); };
+const _openAidAR=openAid; openAid=function(cp,view){ if(arMode){ arLeave(); if(!!cp===cpMode&&!pmMode) setAidMode(!!cp); } return _openAidAR(cp,view); };
+const _rhAR=routeHash; routeHash=function(){ return route==="aid"&&arMode?"#ar-"+(curView==="aid"?"sheet":curView):_rhAR(); };
+const _parseAR=parseRoute; parseRoute=function(){ const h=location.hash.slice(1); if(h.startsWith("ar-")){ const v=h.slice(3); return {r:"aid",ar:true,view:v==="sheet"?"aid":["learn","build"].includes(v)?v:"aid"}; } return _parseAR(); };
+const _navAR=nav; nav=function(r,opt={}){ if(r==="aid"&&opt.ar){ if(opt.push===false){ if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } arMode=true; show(opt.view||"aid"); return; } openAR(opt.view); return; }
+  if(r==="aid"&&arMode) arLeave(); if(r!=="aid") arLeave(); return _navAR(r,opt); };
+addEventListener("popstate",e=>{ const p=parseRoute(); if(p&&p.ar){ e.stopImmediatePropagation(); nav("aid",{ar:true,view:p.view,push:false}); } },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="ar"]'); if(!n) return; e.preventDefault(); e.stopImmediatePropagation(); openAR(n.dataset.view); },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="pm"],[data-nav="aop"],[data-nav="cp"]'); if(n&&arMode) arLeave(); },true);
+const _aidHeadAR=renderAidHead; renderAidHead=function(){ _aidHeadAR(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return;
+  if(arMode) p.querySelectorAll('[aria-current="page"]').forEach(b=>b.removeAttribute("aria-current"));
+  if(!p.querySelector('[data-nav="ar"]')) p.insertAdjacentHTML("beforeend",`<span class="sep" aria-hidden="true">→</span><button class="d-when" data-nav="ar" ${arMode?'aria-current="page"':""}><i>4</i><span>Roadmap</span><small>WHEN</small></button>`);
+  if(arMode) $("ahTitle").textContent="Assessment Roadmap"; renderNextPill(); };
+function arNextMove(){ const R=arData(), auto=arAuto(), loc=arLoc(auto), n=+loc.split(".")[0];
+  if(!R.drafted&&!Object.keys(R.w||{}).length) return {t:"Get Claude's read on every activity",go:()=>{ if(curView!=="build"){ arIdx=0; show("build"); } arDraft(); }};
+  if(!(R.dates&&[1,2,3,4,5].every(p=>R.dates[p]))) return {t:"Propose the timeline (1.5)",go:()=>arProposeTimeline()};
+  if(["w","s"].some(k=>Object.values(R[k+"src"]||{}).includes("claude"))) return {t:"Confirm Claude's read with the client",go:()=>{ arIdx=0; show("build"); }};
+  let ready=true; for(let j=1;j<=5;j++) if(!arDone(`${n}.${j}`,auto)) ready=false; if(n<6&&ready&&!R.go[n]) return {t:`Decide Go / No go for ${AR[n-1].l}`,go:()=>{ arIdx=n; show("build"); }};
+  return {t:"Meet the client: present the roadmap",done:true,go:()=>nav("meet")}; }
+function arScore(){ const auto=arAuto(), R=arData(); let s=0; s+=Math.min(30,Object.keys(auto).length*6); if(R.dates&&[1,2,3,4,5].every(p=>R.dates[p])) s+=20; if(R.drafted||Object.keys(R.w||{}).length) s+=20; if(!["w","s"].some(k=>Object.values(R[k+"src"]||{}).includes("claude"))&&(R.drafted||Object.keys(R.w||{}).length)) s+=15; if(Object.keys(R.go||{}).length) s+=15; return Math.min(100,s); }
+const _pillAR=renderNextPill; renderNextPill=function(){ if(route!=="aid") return; if(!arMode) return _pillAR(); const nm=arNextMove();
+  $("ahNext").innerHTML=`${ringSVG(arScore(),34)}<b>${nm.done?"Ready":"Next"}</b><span title="${esc(nm.t)}">${esc(nm.t)}</span>${nm.done?`<button class="btn small" data-arnext>Meet the client</button>`:`<button class="btn small" data-arnext>Do it</button>`}`; };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-arnext]")) arNextMove().go(); });
+const _crumbsAR=renderCrumbs; renderCrumbs=function(){ _crumbsAR(); if(route==="aid"&&arMode){ const b=$("crumbs").querySelectorAll("b"); if(b.length&&!document.body.classList.contains("client")) b[b.length-1].textContent="Assessment Roadmap"; } };
+/* the Overview's roadmap card opens the aid */
+const _arPaintBase=arPaint; arPaint=function(){ _arPaintBase(); if(arMode&&route==="aid"){ if(curView==="aid") arSheet(); else if(curView==="build") arBuild(); renderNextPill(); } const c=$("ovAR"); if(c&&!c.querySelector("[data-nav='ar']")) c.insertAdjacentHTML("beforeend",`<div class="arow" style="flex:0 1 auto;margin-top:8px"><button class="btn small primary" data-nav="ar" data-view="aid">Open the Assessment Roadmap</button><button class="btn small" data-nav="ar" data-view="build">Build it step by step</button></div>`); };
+const _cmdAR2=cmdActions; cmdActions=function(){ const A=_cmdAR2(); A.push({g:"Aids",t:"Assessment Roadmap · the sheet",run:()=>openAR("aid"),hint:""},{g:"Aids",t:"Assessment Roadmap · get Claude's read",run:()=>{ openAR("build"); arIdx=0; arBuild(); arDraft(); },hint:""},{g:"Aids",t:"Assessment Roadmap · propose the timeline",run:()=>{ openAR("build"); arIdx=7; arBuild(); arProposeTimeline(); },hint:""}); return A; };
+const _rbAR=refreshBrand; refreshBrand=function(){ _rbAR(); if(arMode&&curView==="aid") arSheet(); };
+
+/* ---------- Present: the map's presentation engine, with the roadmap's slides ---------- */
+function arSlidesRaw(){ const s=[{k:"arWhole"}], auto=arAuto(), R=arData(); AR.forEach((_,i)=>{ const n=i+1; if(arPct(n,auto)>0||R.go[n]||(R.dates||{})[n]) s.push({k:"arPhase",p:n}); }); if(R.dates&&Object.keys(R.dates).length) s.push({k:"arTime"}); s.push({k:"arNext"}); return s; }
+function arPresent(){ presAR=true; const segOn=typeof PL!=="undefined"&&PL&&PL.segs[PL.i]?.a==="ar"; pmSl=segOn?plSlidesFor("ar",PL.i===0):arSlidesRaw(); pmSi=0;
+  let o=$("pmPres"); if(!o){ o=document.createElement("div"); o.id="pmPres"; o.className="pmpres"; o.setAttribute("role","dialog"); document.body.appendChild(o); } o.setAttribute("aria-label","Present the Assessment Roadmap");
+  o.hidden=false; document.body.classList.add("pmpresenting"); pmTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; closePop();
+  $("presbar").hidden=false; $("pprog").hidden=false; if(!(PL&&PL.i>0&&presT0)) presT0=Date.now();
+  try{ const r=!document.fullscreenElement&&document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} pmPresRender(); wake(); bc(stateMsg(true)); }
+const _pmPRar=pmPresRender; pmPresRender=function(){ const sl=pmSl[pmSi]; if(!presAR||!sl||!String(sl.k).startsWith("ar")) return _pmPRar();
+  const o=$("pmPres"), R=arData(), auto=arAuto(), loc=arLoc(auto); let inner="", cap="", quiet=false;
+  if(sl.k==="arWhole"){ inner=arSheetHTML({mode:"present"}); quiet=true; cap=`<span class="pc-kick">The Assessment Roadmap</span><b class="pc-title">Where ${esc(aidTitle())} is in their decision: ${esc(loc)} ${esc(arName(loc))}.</b>`; }
+  if(sl.k==="arPhase"){ const n=sl.p, p=AR[n-1]; let done=0; for(let j=1;j<=5;j++) if(arDone(`${n}.${j}`,auto)) done++; const low=p.a.slice(0,5).map((a,j)=>[a,arDot("w",`${n}.${j+1}`,auto,loc).v+arDot("s",`${n}.${j+1}`,auto,loc).v]).sort((x,y)=>x[1]-y[1])[0];
+    inner=arSheetHTML({mode:"present",spot:{p:n}}); cap=`<span class="pc-kick">${esc(p.sp)} · ${n} of 6</span><b class="pc-title">${esc(p.l)} · ${arPct(n,auto)}%</b><span class="pc-meta"><span><em>Done</em> ${done} of 5</span>${n<6?`<span><em>Go / No go</em> ${R.go[n]?(R.go[n]==="go"?"Go":"No go"):"to decide"}</span>`:""}${R.dates&&R.dates[n]?`<span><em>Milestone</em> by ${esc(arDateFmt(R.dates[n]))}</span>`:""}${low&&low[1]<4?`<span><em>Least ready</em> ${esc(low[0])}</span>`:""}</span>`; }
+  if(sl.k==="arTime"){ inner=`<div class="slide"><div class="pmtop"><span class="k">Establish Timeline with Milestones</span>${CLIENT_MARK()}</div><h2>The timeline</h2><div class="artl">${AR.map((p,i)=>`<div class="${i<2?"prob":"sol"} ${i+1===+loc.split(".")[0]?"cur":""}"><b>${p.l}</b><span>${R.dates&&R.dates[i+1]?esc(arDateFmt(R.dates[i+1])):"—"}</span><small>${R.go[i+1]?(R.go[i+1]==="go"?"Go":"No go"):arPct(i+1,auto)+"%"}</small></div>`).join("")}</div><p style="font-size:1.6cqw;color:#5b6476;margin:0">${esc(AR_LEARN_TXT.callouts[1])}</p></div>`; }
+  if(sl.k==="arNext"){ const gaps=AR_LEARN_TXT.gaps.filter(([k])=>((R.gaps||{})[k]||"").trim()); inner=`<div class="slide"><div class="pmtop"><span class="k">Where we are</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2><ul><li>The decision is at <b>${esc(loc)} ${esc(arName(loc))}</b>.</li>${gaps.map(([k,l])=>`<li><b>${esc(l)}</b>: ${esc(R.gaps[k])}</li>`).join("")}${(R.take||"").trim()?R.take.trim().split(/\n+/).map(t=>`<li>${esc(t.replace(/^[-•]\s*/,""))}</li>`).join(""):""}</ul><p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap pmcap${quiet?" quiet":""}">${cap}</div>`:""}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); fitSlide(o.querySelector(".slide"));
+  presChrome(pmSi,pmSl.length,pmSlideLabel(sl)); if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); };
+const _pmEndAR=pmPresEnd; pmPresEnd=function(){ _pmEndAR(); if(!plSwitching) presAR=false; };
+const _pmSLar=pmSlideLabel; pmSlideLabel=function(sl){ if(sl&&String(sl.k).startsWith("ar")) return sl.k==="arWhole"?"The Assessment Roadmap":sl.k==="arPhase"?AR[sl.p-1].l:sl.k==="arTime"?"The timeline":"Where we are"; return _pmSLar(sl); };
+const _pmNHar=pmNotesHTML; pmNotesHTML=function(sl){ if(!sl||!String(sl.k).startsWith("ar")) return _pmNHar(sl); const R=arData(), auto=arAuto(), loc=arLoc(auto), ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(sl.k==="arPhase"){ const n=sl.p; return `<p style="margin:0"><b>${AR[n-1].l}</b> · ${arPct(n,auto)}%</p>${ul(AR[n-1].a.slice(0,5).map((a,j)=>{ const id=`${n}.${j+1}`; return `${id} ${a}${arDone(id,auto)?" ✓":""} · will ${"○◑●"[arDot("w",id,auto,loc).v]} skill ${"○◑●"[arDot("s",id,auto,loc).v]}`; }))}<h4>Ask the client</h4>${ul(AR_ASK[n])}`; }
+  if(sl.k==="arWhole") return `<p style="margin:0">${esc(AR_LEARN_TXT.callouts[0])}</p><h4>Ask</h4>${ul(AR_ASK[0])}`;
+  if(sl.k==="arTime") return `<p style="margin:0">${esc(AR_LEARN_TXT.problem[3])}.</p><h4>Ask</h4>${ul(AR_ASK[7])}`;
+  return `<p style="margin:0">Read where the decision is, the gaps and the takeaways, then ask: “Where am I off track?”</p>${ul(AR_ASK[8])}`; };
+const _pmCTar=pmCardText; pmCardText=function(sl){ if(!sl||!String(sl.k).startsWith("ar")) return _pmCTar(sl); return `<small>Assessment Roadmap</small><b>${esc(pmSlideLabel(sl))}</b>`; };
+$("pDeck").onclick=()=>presAR&&pmOn()?arDownload():pmOn()?pmDownload(true):presCP?cpDownload(true):downloadDeck();
+/* the combined presentation: the roadmap last, after the criteria */
+PL_ORDER.push("ar"); PL_PARTS.ar={sum:["arWhole","arTime","arNext"],det:["arPhase"],sumL:"Where they are, the timeline, the gaps",detL:"Each phase with its activities"}; TOK_AID.ar="Assessment Roadmap";
+const _plHasAR=plHas; plHas=function(a){ if(a==="ar"){ const R=S.roadmap||{}; return Object.keys(arAuto()).length>0||Object.keys(R.w||{}).length>0||!!(R.dates&&Object.keys(R.dates).length); } return _plHasAR(a); };
+const _plSFar=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="ar") return _plSFar(a,first); const p=plPick()[a]||{}, P=PL_PARTS.ar; return arSlidesRaw().filter(s=>(p.sum&&P.sum.includes(s.k))||(p.det&&P.det.includes(s.k))); };
+const _plStartAR=plStart; plStart=function(seg,atEnd){ if(seg.a!=="ar"){ presAR=false; return _plStartAR(seg,atEnd); } openAR("aid"); arPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } };
+const _plStepAR=plStep; plStep=function(d){ if(PL&&PL.segs[PL.i]?.a==="ar"){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; } plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plStepAR(d); };
+const _plJumpAR=plJump; plJump=function(j,atEnd){ if(PL&&PL.segs[PL.i]?.a==="ar"){ plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],atEnd); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plJumpAR(j,atEnd); };
+/* the shared room's "follow the presenter" knows the roadmap too */
+const _rmGoAR=rmGoTo; rmGoTo=function(st){ if(st&&st.a==="ar"&&!st.pick&&!(presenting||pmOn())){ openAR("aid"); arPresent(); setTimeout(()=>rmGoTo(Object.assign({},st,{a:"arx"})),500); return; } return _rmGoAR(st); };
+
+/* ---------- PDF: the roadmap on one letter landscape page ---------- */
+async function arDownload(){ toast("Making the PDF…",null,true); try{ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, R=arData(), auto=arAuto(), loc=arLoc(auto), curP=+loc.split(".")[0];
+    const font=(st,sz,c)=>{ doc.setFont("helvetica",st); doc.setFontSize(sz*PT); doc.setTextColor(c); };
+    font("bold",3.9,PDFC.tan||"#9a8a6a"); doc.text("Establish Timeline with Milestones",10.4,14.2); font("normal",13.4,PDFC.title); doc.text("Assessment Roadmap",10.4,28.4); pdfClientMark(doc,{right:269,top:9,h:14,maxW:90,fs:5});
+    const lab=[["Awareness",56,41,70],["Analysis",95,51,94],["Alternatives",136,36,135],["Answer",159,51,155],["Acceptance",190,36,174],["Actions",210,54,198]];
+    lab.forEach(([t,x,y,lx],i)=>{ font(i+1===curP?"bold":"normal",5.2,i+1===curP?PDFC.plum:"#2c4f9b"); doc.text(t,x,y,{align:"center"}); doc.setDrawColor("#1f2430"); doc.setLineWidth(.3); doc.line(x,y+1.6,lx,66); font("normal",11,i+1===curP?PDFC.plum:"#2c4f9b"); doc.text(i<2?"A":"a",lx,78,{align:"center"}); if(R.go[i+1]){ font("bold",2.6,R.go[i+1]==="go"?"#2d7a52":"#a6501d"); doc.text(R.go[i+1]==="go"?"GO":"NO GO",lx,62,{align:"center"}); } });
+    doc.setDrawColor("#2c4f9b"); doc.setLineWidth(.9); doc.line(119,31,119,113); doc.setDrawColor("#1f2430"); doc.setLineWidth(.5); doc.line(62,85,222,85); doc.line(219,82.5,224,85); doc.line(219,87.5,224,85);
+    font("normal",6,"#2c4f9b"); doc.text("Problem Space",86,97,{align:"center"}); doc.text("Solution Space",150,96,{align:"center"});
+    const dot=(kind,v,x,y)=>{ const c=kind==="w"?"#1f2430":"#8a8f99"; doc.setDrawColor(c); doc.setLineWidth(.3); doc.circle(x,y,1.7,"S"); doc.setFillColor(c); if(v===2) doc.circle(x,y,1.7,"F"); if(v===1){ doc.lines([[0,0]],x,y); doc.triangle(x,y-1.7,x,y+1.7,x-1.7,y,"F"); doc.circle(x-.6,y,1.1,"F"); } };
+    dot("w",2,13.6,108.8); font("normal",2.6,PDFC.ink); doc.text("= CONFIDENCE (WILL TO DO)",17.6,110); dot("s",2,13.6,114.4); doc.text("= COMPETENCE (SKILL TO DO)",17.6,115.6);
+    AR.forEach((ph,pi)=>{ const g=ARG[pi], n=pi+1; font("bold",4.3,n===curP?PDFC.plum:"#2c4f9b"); doc.text(ph.l,g.tx,g.hy+4.1); if(R.dates&&R.dates[n]){ font("normal",2.6,PDFC.muted); doc.text(`by ${arDateFmt(R.dates[n])}`,g.tx+g.tw,g.hy+4,{align:"right"}); }
+      for(let i=1;i<=6;i++){ const id=`${n}.${i}`, k=i-1, y=i<6?g.ty[k]:g.y6; if(i<6){ dot("w",arDot("w",id,auto,loc).v,g.wx+2.54,g.ys[k]+2.54); dot("s",arDot("s",id,auto,loc).v,g.sx+2.54,g.ys[k]+2.54); }
+        font(id===loc?"bold":"normal",2.8,arDone(id,auto)?PDFC.muted:PDFC.ink); doc.text(`${id}`,g.nx,y+2.9); const goTxt=i===6&&n<6&&R.go[n]?` · ${R.go[n]==="go"?"Go":"No go"}`:""; doc.text(doc.splitTextToSize(ph.a[k]+goTxt+(i<6&&arDone(id,auto)?" ✓":""),g.tw),g.tx,y+2.9,{lineHeightFactor:1.2}); }
+      const pct=arPct(n,auto); doc.setFillColor(pct?"#fbe6b4":"#f1f3f7"); doc.roundedRect(g.px,g.py+.2,9,4.6,.8,.8,"F"); font("bold",2.7,"#1f2430"); doc.text(`${pct}%`,g.px+4.5,g.py+3.6,{align:"center"}); });
+    pdfKaFoot(doc,8.5,202.5); const filename=`Assessment Roadmap - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
+    if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
+  catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
