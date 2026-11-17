@@ -1081,6 +1081,48 @@ body.client .pmbanner{display:none!important}
 .ghclient{display:flex;align-items:center;gap:10px;flex:none;max-width:45%}.ghclient img{max-height:44px;max-width:150px;object-fit:contain}.ghclient b{color:var(--title);font-size:17px;font-weight:600;text-align:right}
 @media (max-width:600px){.ghclient b{display:none}}
 .pmpres .slide .pmtop{display:flex;justify-content:space-between;align-items:center;gap:2cqw;position:absolute;top:4.5cqw;left:7cqw;right:7cqw}
+
+/* the meeting kit */
+.kit{position:fixed;inset:0;z-index:2147483000;background:rgba(10,16,32,.45);display:grid;place-items:center;padding:16px}
+.kit[hidden]{display:none}
+.kitbox{background:var(--bg);color:var(--ink);border:1px solid var(--rule);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);width:min(560px,100%);max-height:calc(100dvh - 32px);display:flex;flex-direction:column;overflow:hidden}
+.kit.wide .kitbox{width:min(780px,100%)}
+.kitbox header{display:flex;align-items:center;gap:10px;padding:12px 14px 10px 18px;border-bottom:1px solid var(--rule)}
+.kitbox header h2{margin:0;font-size:17px;flex:1;min-width:0}
+.kitbody{padding:14px 18px 18px;overflow:auto;display:grid;gap:10px;align-content:start}
+.kitbody .tin{width:100%;box-sizing:border-box;font:inherit;font-size:16px}
+.kitlead{margin:0;color:var(--muted)}
+.flagkinds{display:flex;gap:8px;flex-wrap:wrap}
+.tray{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.tray li{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--rule);border-radius:12px;padding:8px 10px;background:var(--paper)}
+.tray li>div:first-child{display:grid;gap:2px;min-width:0;flex:1 1 220px}
+.tray .tk{justify-self:start;font-size:12px;font-weight:700;padding:1px 8px;border-radius:99px;background:var(--plum-soft);color:var(--plum)}
+.tray .tk.w{background:var(--warn-soft);color:var(--warn)}
+.rhlog{display:grid;gap:8px;max-height:46dvh;overflow:auto;padding-right:4px}
+.rhmsg{border-radius:12px;padding:8px 12px;max-width:88%}
+.rhmsg p{margin:2px 0 0;white-space:pre-wrap}
+.rhmsg.them{background:var(--paper);border:1px solid var(--rule);justify-self:start}
+.rhmsg.you{background:color-mix(in srgb,var(--why) 12%,var(--bg));justify-self:end}
+.score{display:flex;gap:14px;align-items:center}
+.score .big{font-size:44px;font-weight:800;color:var(--plum);line-height:1}
+.score p{margin:2px 0 0}
+.kitbody .rd2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.kitbody .rcard ul{margin:0;padding-left:18px}
+.brief{display:grid;gap:12px}
+.brief section h3{margin:0 0 4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--plum)}
+.brief ul,.brief ol{margin:0;padding-left:20px}
+.brief .opener{margin:0;font-style:italic;color:var(--muted)}
+.brief .bq{margin:4px 0}
+.dbrow{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+.dbrow input{margin-top:4px;width:18px;height:18px;flex:none}
+.dbrow s{color:var(--muted)}
+.dbrow i{display:block;font-size:13px;color:var(--muted)}
+.kitbody h3{margin:6px 0 0;font-size:14px}
+.kitstrip{display:grid;gap:8px}
+.kitstrip>div{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.kitstrip .kk{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:52px}
+.ovkit h3{margin:0 0 8px}
+@media (max-width:600px){.kit{padding:0;place-items:end stretch}.kitbox,.kit.wide .kitbox{width:100%;max-height:92dvh;border-radius:16px 16px 0 0}.kitstrip .kk{width:100%}}
 </style>
 
 <div class="shell">
@@ -2813,7 +2855,7 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-nextcopy]")) c
 /* ===================== 7 · Interview the client ===================== */
 let iv={on:false,log:[],busy:false,undo:null,q:""}, dict=null, ivCtl=null;
 (async()=>{ try{ dict=window.claude?await window.claude.use("dictation"):null; }catch(e){ dict=null; } if(dict){ $("ivMic").hidden=false;
-  dict.onFinal(({text})=>{ const t=$("ivAns"); t.value=(t.value?t.value.trimEnd()+" ":"")+text; });
+  dict.onFinal(({text})=>{ const t=window.__dictTarget||$("ivAns"); t.value=(t.value?t.value.trimEnd()+" ":"")+text; });
   dict.onState(({state})=>{ $("ivMic").textContent=state==="listening"?"■ Stop":"🎤 Dictate"; $("ivMic").setAttribute("aria-pressed",String(state==="listening")); }); } })();
 $("ivMic").onclick=()=>{ if(!dict) return; if(dict.active()) dict.stop().catch(()=>{}); else dict.start().catch(e=>{ if(e&&e.code==="not_granted") $("ivMic").hidden=true; }); };
 function ivRender(){ $("ivLog").innerHTML=iv.log.map(m=>m.k==="q"?`<div class="ivq">${esc(m.t)}</div>`:m.k==="a"?`<div class="iva">${esc(m.t)}</div>`:`<div class="ivc">${m.t}</div>`).join("")+(iv.busy?`<div class="ivc">Thinking…</div>`:"");
@@ -4036,6 +4078,213 @@ function gheadMarks(){ const m=clientMark(); document.querySelectorAll(".ghead")
     k.innerHTML=`${m.logo?`<img src="${m.logo}" alt="">`:""}${m.name?`<b>${esc(m.name)}</b>`:""}`; }); }
 const _showGh=show; show=function(v){ const r=_showGh(v); gheadMarks(); return r; };
 const _rbGh=refreshBrand; refreshBrand=function(){ _rbGh(); gheadMarks(); if(pmMode&&curView==="aid") pmSheet(); };
+
+
+/* ===================== the meeting kit (Dave, Nov 17: "take another pass at optimizing the end-user experience… Think outside the box!!!"; "do 1 thru 5 now") =====================
+   1 Where am I off track? (the client flags; a corrections tray)  2 Rehearse with a stakeholder  3 The 60-second brief  4 Debrief once, update everything  5 The follow-up email */
+const KIT_AIDS={aop:"Alignment of Priorities",pm:"Priorities Map",cp:"Criteria Proposition"};
+function kitOpen(title,html,wide){ let k=$("kit"); if(!k){ k=document.createElement("div"); k.id="kit"; k.className="kit"; k.setAttribute("role","dialog"); k.setAttribute("aria-modal","true");
+    k.innerHTML=`<div class="kitbox"><header><h2 id="kitTitle"></h2><button class="btn small ghost" id="kitClose" aria-label="Close">✕</button></header><div class="kitbody" id="kitBody"></div></div>`;
+    k.addEventListener("mousedown",e=>{ if(e.target===k) kitClose(); }); }
+  const host=document.fullscreenElement&&document.fullscreenElement!==document.documentElement?document.fullscreenElement:document.body; if(k.parentNode!==host) host.appendChild(k);
+  k.classList.toggle("wide",!!wide); $("kitTitle").textContent=title; $("kitBody").innerHTML=html; k.hidden=false; $("kitClose").onclick=kitClose; window.__dictTarget=null; return $("kitBody"); }
+function kitClose(){ const k=$("kit"); if(k) k.hidden=true; window.__dictTarget=null; try{ if(dict&&dict.active()) dict.stop().catch(()=>{}); }catch(e){} kitCtl?.abort(); }
+addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("kit")&&!$("kit").hidden){ e.stopImmediatePropagation(); kitClose(); } },true);
+let kitCtl=null;
+const kitMic=id=>dict?`<button class="btn small" data-kitmic="${id}">🎤 Dictate</button>`:"";
+document.addEventListener("click",e=>{ const m=e.target.closest("[data-kitmic]"); if(!m||!dict) return; window.__dictTarget=$(m.dataset.kitmic); if(dict.active()){ dict.stop().catch(()=>{}); m.textContent="🎤 Dictate"; } else dict.start().then(()=>{ m.textContent="■ Stop"; }).catch(()=>{}); });
+/* everything the engagement holds, as text for Claude */
+function engagementText(){ const L=[`CLIENT: ${aidTitle()}${S.company?.eyes?` (through the eyes of ${S.company.eyes})`:""}`]; try{ L.push(summary()); }catch(e){} try{ if(cpAll().length) L.push(cpSummary()); }catch(e){} try{ if(S.pm&&pmNamedS().length) L.push(pmSummary()); }catch(e){}
+  const fl=(S.flags||[]).filter(f=>f.st==="open"); if(fl.length) L.push("CLIENT CORRECTIONS STILL OPEN",...fl.map(f=>`- ${KIT_AIDS[f.aid]} · ${f.label}: ${f.kind}${f.note?` (${f.note})`:""}`)); return L.join("\n\n").slice(0,24000); }
+
+/* ---------- 1 · Where am I off track? ---------- */
+const FLAG_KINDS=[["Not quite","not quite"],["Wrong","wrong"],["Something's missing","missing"]];
+function flagTargets(aid){ if(aid==="aop") return allFilled().map(id=>({ref:id,label:`${COLS[ci(id.split(".")[0])].one[0].toUpperCase()+COLS[ci(id.split(".")[0])].one.slice(1)}: ${nameOf(id)}`}));
+  if(aid==="cp") return cpAll().map(([b,i,r])=>({ref:`${b}.${i}`,label:`${cpB(b).lens}: ${r.t}`}));
+  return [{ref:"map",label:"The map as a whole"},...pmNamedI().map(r=>({ref:"r"+r,label:`Initiative: ${iName(r)}`})),...pmNamedS().map(c=>({ref:"c"+c,label:`Stakeholder: ${sName(c)}`}))]; }
+function flagContext(){ const po=$("pmPres"); if(po&&!po.hidden){ const s=pmSl[pmSi]; return {aid:"pm",ref:s&&s.k==="row"?"r"+s.r:"map"}; }
+  if(presenting){ const s=slides[presIx]; if(presCP) return {aid:"cp",ref:s&&s.k==="cpRow"?s.id:null}; return {aid:"aop",ref:s&&s.k==="box"?s.id:null}; }
+  if(pmMode) return {aid:"pm",ref:pmSpot&&pmSpot.r!=null?"r"+pmSpot.r:pmSpot&&pmSpot.c!=null?"c"+pmSpot.c:"map"}; if(cpMode) return {aid:"cp",ref:null}; return {aid:"aop",ref:sel||null}; }
+function flagOpen(){ const cx=flagContext(); let aid=cx.aid, kind=null;
+  const draw=()=>{ const T=flagTargets(aid); const b=kitOpen("Where am I off track?",`<p class="kitlead">“${esc(KEVIN)}”</p>
+    <div class="seg" role="radiogroup" aria-label="Which aid">${Object.entries(KIT_AIDS).map(([k,l])=>`<button role="radio" data-flagaid="${k}" aria-checked="${k===aid}">${l}</button>`).join("")}</div>
+    <label class="note" for="flagRef">What's off track?</label><select id="flagRef" class="tin">${T.length?T.map(t=>`<option value="${esc(t.ref)}" ${t.ref===cx.ref&&aid===cx.aid?"selected":""}>${esc(t.label)}</option>`).join(""):`<option value="">The aid as a whole</option>`}</select>
+    <div class="flagkinds">${FLAG_KINDS.map(([l,k])=>`<button class="btn ${kind===k?"primary":""}" data-flagkind="${k}">${l}</button>`).join("")}</div>
+    <label class="note" for="flagNote">In the client's words <span class="opt">optional</span></label><textarea id="flagNote" class="tin" rows="2" placeholder="e.g. Growth matters less this year than cash"></textarea>${kitMic("flagNote")}
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="flagAdd" ${kind?"":"disabled"}>Add to the corrections</button><span class="note">${(S.flags||[]).filter(f=>f.st==="open").length} in the tray</span></div>`);
+    b.querySelectorAll("[data-flagaid]").forEach(x=>x.onclick=()=>{ aid=x.dataset.flagaid; draw(); });
+    b.querySelectorAll("[data-flagkind]").forEach(x=>x.onclick=()=>{ kind=x.dataset.flagkind; b.querySelectorAll("[data-flagkind]").forEach(y=>y.classList.toggle("primary",y===x)); $("flagAdd").disabled=false; });
+    $("flagAdd").onclick=()=>{ const sel_=$("flagRef"), ref=sel_.value, label=sel_.selectedOptions[0]?.textContent||"The aid as a whole";
+      S.flags=S.flags||[]; S.flags.push({id:"f"+Date.now().toString(36),aid,ref,label,kind:FLAG_KINDS.find(f=>f[1]===kind)[0],note:$("flagNote").value.trim(),t:Date.now(),st:"open"}); save(); kitClose(); toast("Noted. It's in the corrections tray.",null,true); kitPaint(); }; };
+  draw(); }
+function flagDone(id,undo){ const f=(S.flags||[]).find(x=>x.id===id); if(!f) return; f.st="done";
+  if(f.aid==="aop"&&filled(f.ref)) item(f.ref).src="Client correction"; if(f.aid==="cp"&&/^(org|op|inf)\.\d$/.test(f.ref)) cpRow(f.ref).src="Client correction";
+  if(f.aid==="pm"&&/^r\d$/.test(f.ref)) pmData().init[+f.ref.slice(1)].src="client"; save(); kitPaint(); }
+function flagFix(id){ const f=(S.flags||[]).find(x=>x.id===id); if(!f) return; kitClose();
+  if(f.aid==="pm"){ openPM("build"); pmGo(/^c/.test(f.ref)?0:/^r/.test(f.ref)?2:2); return; }
+  if(f.aid==="cp"){ openAid(true,"build"); const b=(f.ref||"").split(".")[0]; const i=CPB.findIndex(x=>x.k===b); setTimeout(()=>cpGo(i>=0?i+1:0),60); return; }
+  openAid(false,"build"); if(filled(f.ref)){ const ix=ci(f.ref.split(".")[0]); setTimeout(()=>goBuild(ix+1),60); } }
+function trayHTML(){ const F=(S.flags||[]).filter(f=>f.st==="open"); if(!F.length) return `<p class="note" style="margin:0">Nothing flagged. During Present or Work together, ⚑ Off track? lets the client mark anything that isn't right.</p>`;
+  return `<ul class="tray">${F.map(f=>`<li><div><b>${esc(f.label)}</b><span class="tk ${f.kind==="Wrong"?"w":""}">${esc(f.kind)}</span><span class="note">${KIT_AIDS[f.aid]}${f.note?` · “${esc(f.note)}”`:""}</span></div><div class="arow" style="flex:0 1 auto"><button class="btn small" data-flagfix="${f.id}">Open to fix</button><button class="btn small primary" data-flagdone="${f.id}">Done</button><button class="btn small ghost" data-flagdrop="${f.id}">Dismiss</button></div></li>`).join("")}</ul>`; }
+document.addEventListener("click",e=>{ const a=e.target.closest("[data-flagfix]"), d=e.target.closest("[data-flagdone]"), x=e.target.closest("[data-flagdrop]"); if(a) flagFix(a.dataset.flagfix); if(d){ flagDone(d.dataset.flagdone); toast("Marked done: “Client correction”"); }
+  if(x){ const f=(S.flags||[]).find(y=>y.id===x.dataset.flagdrop); if(f){ f.st="dismissed"; save(); kitPaint(); toast("Dismissed",()=>{ f.st="open"; save(); kitPaint(); }); } }
+  if(e.target.closest("[data-flagopen]")) flagOpen(); });
+/* ⚑ in both presentation bars and the meeting bar */
+(function(){ const pb=$("presbar"); if(pb&&!$("pFlag")){ const b=document.createElement("button"); b.className="pb wide"; b.id="pFlag"; b.dataset.flagopen="1"; b.textContent="⚑ Off track?"; b.title="Where am I off track? Let the client flag anything that isn't right"; $("pExit").before(b); }
+  const mb=$("meetBar"); if(mb&&!$("mFlag")){ const b=document.createElement("button"); b.className="btn small mflag"; b.id="mFlag"; b.dataset.flagopen="1"; b.textContent="⚑ Off track?"; $("meetEnd").before(b); } })();
+const _pmRenderK=pmPresRender; pmPresRender=function(){ _pmRenderK(); const bar=document.querySelector("#pmPres .bar"); if(bar&&!bar.querySelector("[data-flagopen]")) bar.querySelector("[data-pmpx]").insertAdjacentHTML("beforebegin",`<button class="pb wide" data-flagopen="1">⚑ Off track?</button>`); };
+
+/* ---------- 2 · Rehearse the meeting ---------- */
+let rh=null;
+function rhStakeholders(){ const s=S.pm?pmNamedS().map(c=>sName(c)):[]; return s.length?s:["CEO","CFO","CIO","VP Sales"]; }
+function rehearseOpen(){ rh=null; const b=kitOpen("Rehearse the meeting",`<p class="kitlead">Claude plays one of ${esc(aidTitle())}'s stakeholders and pushes back on your work, one question at a time, in character. Answer as you would in the room. It ends with a scorecard.</p>
+  <p class="note">Who should Claude play?</p><div class="pmchips">${rhStakeholders().map(n=>`<button data-rhwho="${esc(n)}">${esc(n)}</button>`).join("")}</div>
+  <div class="seg" role="radiogroup" aria-label="How tough">${["Curious","Skeptical","Tough"].map((t,i)=>`<button role="radio" data-rhtone="${t}" aria-checked="${i===1}">${t}</button>`).join("")}</div>
+  ${sample?"":`<p class="note">Rehearsal needs the page opened in Claude.</p>`}`,true);
+  let tone="Skeptical"; b.querySelectorAll("[data-rhtone]").forEach(x=>x.onclick=()=>{ tone=x.dataset.rhtone; b.querySelectorAll("[data-rhtone]").forEach(y=>y.setAttribute("aria-checked",y===x)); });
+  b.querySelectorAll("[data-rhwho]").forEach(x=>x.onclick=()=>{ if(!sample){ toast("Rehearsal needs the page opened in Claude"); return; } rh={who:x.dataset.rhwho,tone,msgs:[],turns:0}; rhTurn(); }); }
+function rhSystem(){ const c=S.pm?pmNamedS().find(c=>sName(c)===rh.who):null, pri=c!=null?pmNamedI().map(r=>`${iName(r)}: ${PRI[pmCell(r,c).p]||"not rated"}`).join("; "):"";
+  return `You are role-playing ${rh.who} at ${aidTitle()} in a meeting with a salesperson or advisor who is presenting KA (Knowledge-Advantage) engagement aids. Stay in character as ${rh.who}: ${rh.tone.toLowerCase()}, busy, and focused on what your role is accountable for.${pri?` Your priorities, as the presenter has mapped them: ${pri}.`:""}
+Ask ONE question or raise ONE objection at a time, about the work below: whether it reflects your priorities, whether the alignment holds, whether the criteria are measurable and agreed, what it costs and risks. React to the presenter's last answer first in a sentence, then ask the next thing. Keep each turn under 70 words. Never break character, never coach, never invent facts about the company beyond the work and general knowledge of the role.
+THE PRESENTER'S WORK:
+${engagementText()}`; }
+async function rhTurn(answer){ if(answer){ rh.msgs.push({role:"user",content:answer}); rh.turns++; } rhPaint(true);
+  kitCtl=new AbortController(); try{ const open=rhSystem()+"\n\nBegin the meeting now with your first question.";
+    const r=await sample(rh.msgs.length?[{role:"user",content:open},...rh.msgs]:open,{signal:kitCtl.signal,cache:false}); rh.msgs.push({role:"assistant",content:r.text.trim()}); }
+  catch(e){ const m=failMsg(e); if(m!==null) toast(m||"The rehearsal stopped"); }
+  rhPaint(false); }
+function rhPaint(busy){ const log=rh.msgs.map(m=>`<div class="rhmsg ${m.role==="assistant"?"them":"you"}"><b>${m.role==="assistant"?esc(rh.who):"You"}</b><p>${esc(m.content)}</p></div>`).join("");
+  const b=kitOpen(`Rehearse · ${rh.who} (${rh.tone.toLowerCase()})`,`<div class="rhlog" id="rhLog">${log}${busy?`<div class="rhmsg them"><b>${esc(rh.who)}</b><p class="note">thinking…</p></div>`:""}</div>
+    <textarea id="rhAns" class="tin" rows="3" placeholder="Your answer, as you'd say it in the room" ${busy?"disabled":""}></textarea>
+    <div class="arow" style="flex:0 1 auto">${kitMic("rhAns")}<button class="btn primary" id="rhSend" ${busy?"disabled":""}>Answer</button><button class="btn" id="rhEnd" ${busy||rh.turns<1?"disabled":""}>End and score</button><span class="note">${rh.turns} answered${rh.turns>=5?" · a good place to score":""}</span></div>`,true);
+  const l=$("rhLog"); l.scrollTop=l.scrollHeight; if(!busy) setTimeout(()=>$("rhAns")?.focus(),30);
+  $("rhSend").onclick=()=>{ const v=$("rhAns").value.trim(); if(v) rhTurn(v); }; $("rhAns").onkeydown=ev=>{ if(ev.key==="Enter"&&(ev.metaKey||ev.ctrlKey)) $("rhSend").click(); };
+  $("rhEnd").onclick=rhScore; }
+async function rhScore(){ kitOpen(`Rehearse · scorecard`,`<p class="note">Scoring the rehearsal…</p>`,true); kitCtl=new AbortController();
+  try{ const t=rh.msgs.map(m=>`${m.role==="assistant"?rh.who:"PRESENTER"}: ${m.content}`).join("\n\n");
+    const r=await sample.json(`You coached this rehearsal for a KA (Knowledge-Advantage) engagement meeting with ${aidTitle()}. ${rh.who} (${rh.tone}) questioned the presenter. Score the presenter honestly.
+Transcript:\n${t}\n\nReply with JSON only: {"score":0-100,"headline":"one sentence","convincing":["up to 3 specific moments that landed"],"weak":["up to 3 specific moments that didn't, and why"],"fix":["up to 3 concrete things to change in the aids or the answers before the real meeting"]}`,{signal:kitCtl.signal,modelTier:"complex",cache:false});
+    S.rehearsals=S.rehearsals||[]; S.rehearsals.push({t:Date.now(),who:rh.who,score:r.score}); save();
+    kitOpen(`Rehearse · scorecard`,`<div class="score"><span class="big">${Math.max(0,Math.min(100,+r.score||0))}</span><div><b>${esc(rh.who)}</b><p>${esc(r.headline||"")}</p></div></div>
+      <div class="rd2"><div class="rcard ok"><h3>Landed</h3><ul>${(r.convincing||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="rcard warn"><h3>Didn't land</h3><ul>${(r.weak||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="rcard"><h3>Fix before the meeting</h3><ul>${(r.fix||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>
+      <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-kit="rehearse">Rehearse again</button><button class="btn" data-kit="brief">The 60-second brief</button></div>`,true); }
+  catch(e){ const m=failMsg(e); kitOpen("Rehearse",`<p class="note">${esc(m===null?"Stopped.":(m||"Couldn't score this time."))}</p>`); } }
+
+/* ---------- 3 · The 60-second brief ---------- */
+function briefFallback(){ const qs=(S.pm?pmNamedS():[]).map(c=>({who:sName(c),qs:pmNamedI().filter(r=>pmCell(r,c).p>=2).slice(0,3).map(r=>`How will you know ${iName(r)} is working for you?`)})).filter(x=>x.qs.length);
+  return {believe:allFilled().filter(id=>/^(goals|strategies)/.test(id)).map(id=>`${nameOf(id)}${item(id).d?`: ${item(id).d}`:""}`).slice(0,5),
+    confirm:[...allFilled().filter(id=>/public|provider/i.test(item(id).src||"")).map(id=>`${nameOf(id)} (from research)`),...(S.pm?[`${pmRated().filter(([,,x])=>x.src==="claude").length} of the map's priorities are Claude's view`]:[])].slice(0,5),
+    questions:qs, conflicts:S.pm?pmConflicts().map(r=>{ const x=pmRowRead(r); return `${iName(r)}: High for ${listJoin(x.hi.map(c=>sName(c)))}, Low for ${listJoin(x.lo.map(c=>sName(c)))}`; }):[],
+    agreed:cpAll().map(([,,r])=>r.t).slice(0,5)}; }
+function briefRatios(){ return RATIO_GROUPS.map(g=>{ const rs=g.r.map(([k])=>S.fin?.[k]?.read).filter(Boolean); const w=rs.includes("Weak")||rs.includes("weak")?"Weak":rs.includes("Watch")||rs.includes("watch")?"Watch":rs.length?"Strong":""; return w?`${g.l}: ${w}`:""; }).filter(Boolean); }
+async function briefMake(){ const b=kitOpen("The 60-second brief",`<p class="note">${sample?"Claude is writing the brief from all three aids…":"Building the brief from the aids…"}</p>`,true);
+  let d=null; if(sample){ kitCtl=new AbortController(); try{ d=await sample.json(`You are a KA (Knowledge-Advantage) engagement coach. Write a one-page pre-meeting brief a salesperson can read in 60 seconds, from the engagement below only. Never invent facts; anything unconfirmed goes under "confirm".
+${engagementText()}
+Reply with JSON only: {"believe":["up to 5 things we believe matter most to the client, each under 18 words"],"confirm":["up to 5 things we still need to confirm"],"questions":[{"who":"stakeholder","qs":["3 short questions for them"]}],"conflicts":["up to 4 conflicts or tensions to probe"],"agreed":["up to 4 things that 'agreed' would look like at the end of the meeting"],"opener":"one sentence to open the meeting"}`,{signal:kitCtl.signal,modelTier:"complex",cache:false}); }catch(e){ const m=failMsg(e); if(m===null){ kitClose(); return; } } }
+  d=d&&typeof d==="object"?d:briefFallback(); S.brief={t:Date.now(),d}; save(); briefShow(); }
+function briefShow(){ const d=S.brief.d, R=briefRatios(), sec=(h,a)=>a&&a.length?`<section><h3>${h}</h3><ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></section>`:"";
+  kitOpen(`The 60-second brief · ${aidTitle()}`,`<div class="brief">${d.opener?`<p class="opener">“${esc(d.opener)}”</p>`:""}${sec("What we believe",d.believe)}${sec("Still to confirm",d.confirm)}
+    ${(d.questions||[]).length?`<section><h3>Questions by stakeholder</h3>${d.questions.map(q=>`<div class="bq"><b>${esc(q.who)}</b><ol>${(q.qs||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>`).join("")}</section>`:""}
+    ${sec("Conflicts to probe",d.conflicts)}${sec("Key ratios",R)}${sec("What “agreed” looks like",d.agreed)}</div>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="brPdf">Download PDF</button><button class="btn" id="brCopy">Copy</button><button class="btn" id="brSay" hidden>🔊 Read it to me</button><button class="btn ghost" id="brAgain">Write it again</button><span class="note">Written ${new Date(S.brief.t).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}</span></div>`,true);
+  $("brCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(briefText()); toast("Brief copied"); }catch(e){ toast("Copy didn't work in this view"); } }; $("brAgain").onclick=briefMake; $("brPdf").onclick=briefPdf;
+  if(tts){ const s=$("brSay"); s.hidden=false; s.onclick=()=>{ if(s.dataset.on){ tts.stop(); return; } const lines=briefText().split(/\n\n+/).map(t=>({text:t.replace(/^- /gm,"").slice(0,1900)})); s.dataset.on="1"; s.textContent="■ Stop"; tts.speak(lines).catch(()=>{}).finally(()=>{ delete s.dataset.on; s.textContent="🔊 Read it to me"; }); }; } }
+function briefText(){ const d=S.brief.d, L=[`Brief for ${aidTitle()}.`]; if(d.opener) L.push(`Open with: ${d.opener}`); const add=(h,a)=>{ if(a&&a.length) L.push(`${h}:\n${a.map(x=>"- "+x).join("\n")}`); };
+  add("What we believe",d.believe); add("Still to confirm",d.confirm); (d.questions||[]).forEach(q=>add(`Questions for ${q.who}`,q.qs)); add("Conflicts to probe",d.conflicts); add("Key ratios",briefRatios()); add("What agreed looks like",d.agreed); return L.join("\n\n"); }
+async function briefPdf(){ toast("Making the brief PDF…",null,true); try{ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"portrait",unit:"mm",format:"letter"}), PT=2.8346, W=215.9, H=279.4, M=18, d=S.brief.d; let y=40;
+    doc.setFont("helvetica","bold"); doc.setFontSize(3.6*PT); doc.setTextColor(PDFC.plum); doc.setCharSpace(.4); doc.text("THE 60-SECOND BRIEF",M,20); doc.setCharSpace(0);
+    doc.setFont("helvetica","normal"); doc.setFontSize(9*PT); doc.setTextColor(PDFC.title); doc.text(aidTitle(),M,32,{maxWidth:W-2*M-70}); pdfClientMark(doc,{right:W-M,top:13,h:13,maxW:70,fs:4.2});
+    const para=(t,sz,c,ind=0)=>{ doc.setFontSize(sz*PT); doc.setTextColor(c); const ls=doc.splitTextToSize(t,W-2*M-ind); if(y+ls.length*sz*.5>H-24){ doc.addPage(); y=20; } doc.text(ls,M+ind,y); y+=ls.length*sz*.47+1.2; };
+    if(d.opener){ doc.setFont("helvetica","italic"); para(`“${d.opener}”`,4.2,PDFC.muted); y+=2; }
+    const sec=(h,a)=>{ if(!a||!a.length) return; y+=3; doc.setFont("helvetica","bold"); para(h.toUpperCase(),3.2,PDFC.plum); doc.setFont("helvetica","normal"); a.forEach(x=>para("• "+x,3.7,PDFC.ink,2)); };
+    sec("What we believe",d.believe); sec("Still to confirm",d.confirm); (d.questions||[]).forEach(q=>sec(`Questions for ${q.who}`,(q.qs||[]).map((x,i)=>`${i+1}. ${x}`))); sec("Conflicts to probe",d.conflicts); sec("Key ratios",briefRatios()); sec("What “agreed” looks like",d.agreed);
+    pdfKaFoot(doc,M,H-16); const filename=`60-second brief - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
+    if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
+  catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here"); } }
+let tts=null; (async()=>{ try{ tts=window.claude?await window.claude.use("tts"):null; }catch(e){ tts=null; } })();
+
+/* ---------- 4 · Debrief once, update everything ---------- */
+let dbProp=null;
+function debriefOpen(){ kitOpen("Debrief the meeting",`<p class="kitlead">Say or type what happened. Claude proposes changes across the Alignment of Priorities, the Priorities Map and the Criteria Proposition; you accept or reject each one.</p>
+  <textarea id="dbText" class="tin" rows="6" placeholder="e.g. The CFO cares more about cash than growth this year. The CIO doesn't want new systems before Q3. They agreed the renewal target of 92%.">${esc(S.debriefText||"")}</textarea>
+  <div class="arow" style="flex:0 1 auto">${kitMic("dbText")}<button class="btn primary" id="dbGo" ${sample?"":"disabled"}>Propose the changes</button>${sample?"":`<span class="note">Needs the page opened in Claude.</span>`}</div>`,true);
+  $("dbText").oninput=e=>{ S.debriefText=e.target.value; save(); }; $("dbGo").onclick=debriefRun; }
+function debriefPrompt(text){ const P=S.pm?pmData():null, aop={}; COLS.forEach(c=>S.items[c.k].forEach((it,i)=>{ aop[`${c.k}.${i}`]=it.t?{choice:it.t,supports:it.d}:null; }));
+  const cpR={}; CPB.forEach(b=>cpData()[b.k].forEach((r,i)=>{ cpR[`${b.k}.${i}`]=r.t?{dir:r.dir,text:r.t,agreed:!!r.ok}:null; }));
+  return `You are a KA (Knowledge-Advantage) engagement coach. After a client meeting the presenter dictated this debrief:\n"""${text}"""\n
+Propose ONLY changes the debrief supports, never invented facts. Current state:
+ALIGNMENT OF PRIORITIES boxes (id → choice and what supports it; null = empty box): ${JSON.stringify(aop)}
+Allowed standard choices per column (use exactly as written): ${JSON.stringify(Object.fromEntries(COLS.filter(c=>CHOICES[c.k]).map(c=>[c.k,CHOICES[c.k]])))}; solutions are free text.
+${P?`PRIORITIES MAP stakeholders (column index → name): ${JSON.stringify(P.stake.map(s=>s.n))}; initiatives (row index → name): ${JSON.stringify(P.init.map(s=>s.n))}; ratings "r.c" → 0 none,1 Low,2 Medium,3 High: ${JSON.stringify(Object.fromEntries(Object.entries(P.cells).map(([k,v])=>[k,v.p])))}`:""}
+CRITERIA PROPOSITION rows (id → direction up|down|flat, text, agreed): ${JSON.stringify(cpR)}
+Reply with JSON only: {"summary":"one sentence","aop":[{"id":"goals.0","choice":"…","supports":"under 60 characters","why":"from the debrief"}],"pm":[{"r":0,"c":0,"p":0-3,"why":""}],"cp":[{"id":"org.0 or org.new","dir":"up|down|flat","text":"","agreed":true|false,"why":""}]}. Use an empty box id to add an item. Keep it to the changes that matter (at most 12 in all).`; }
+async function debriefRun(){ const text=$("dbText").value.trim(); if(!text){ $("dbText").focus(); return; } kitOpen("Debrief the meeting",`<p class="note">Claude is reading the debrief against all three aids…</p>`,true); kitCtl=new AbortController();
+  try{ const r=await sample.json(debriefPrompt(text),{signal:kitCtl.signal,modelTier:"complex",cache:false}); dbProp=debriefClean(r); debriefShow(); }
+  catch(e){ const m=failMsg(e); kitOpen("Debrief the meeting",`<p class="note">${esc(m===null?"Stopped.":(m||"Couldn't read the debrief this time."))}</p><button class="btn" data-kit="debrief">Back</button>`); } }
+function debriefClean(r){ const out=[], P=S.pm?pmData():null;
+  (Array.isArray(r?.aop)?r.aop:[]).forEach(x=>{ const [k,i]=String(x.id||"").split("."), c=COLS.find(c=>c.k===k); if(!c||!(+i>=0&&+i<c.n)) return; let choice=String(x.choice||"").trim(); if(CHOICES[k]&&choice&&!CHOICES[k].includes(choice)) return; const cur=S.items[k][+i]; if(CHOICES[k]&&choice&&choice!==cur.t&&(S.items[k].some((z,j)=>j!==+i&&z.t===choice)||out.some(o=>o.kind==="aop"&&o.id.startsWith(k+".")&&o.choice===choice))) return;
+    const supports=fitText(k,String(x.supports||cur.d||"")); if(!choice&&!supports) return; out.push({kind:"aop",id:`${k}.${+i}`,from:cur.t?`${cur.t}${cur.d?`: ${cur.d}`:""}`:"empty",to:`${choice||cur.t}${supports?`: ${supports}`:""}`,choice:choice||cur.t,supports,why:String(x.why||""),on:true}); });
+  if(P) (Array.isArray(r?.pm)?r.pm:[]).forEach(x=>{ const ri=+x.r, c=+x.c, p=Math.max(0,Math.min(3,Math.round(+x.p||0))); if(!(ri>=0&&ri<6&&c>=0&&c<6)||!P.init[ri].n||!P.stake[c].n) return; const cur=pmCell(ri,c).p; if(cur===p) return;
+    out.push({kind:"pm",r:ri,c,p,from:`${iName(ri)} for ${sName(c)}: ${PRI[cur]||"not rated"}`,to:`${PRI[p]||"not rated"}`,why:String(x.why||""),on:true}); });
+  (Array.isArray(r?.cp)?r.cp:[]).forEach(x=>{ const [b,i]=String(x.id||"").split("."); if(!CPB.some(z=>z.k===b)) return; const R=cpData()[b]; const at=i==="new"?R.findIndex(z=>!z.t.trim()):+i; if(!(at>=0&&at<R.length)) return;
+    const text=String(x.text||R[at].t||"").trim().slice(0,CP_BUDGET+10); if(!text) return; out.push({kind:"cp",id:`${b}.${at}`,dir:["up","down","flat"].includes(x.dir)?x.dir:R[at].dir,text,ok:!!x.agreed,from:R[at].t?`${R[at].t}${R[at].ok?" (agreed)":""}`:"empty",to:`${text}${x.agreed?" (agreed)":""}`,why:String(x.why||""),on:true}); });
+  return {summary:String(r?.summary||""),items:out.slice(0,16)}; }
+function debriefShow(){ const it=dbProp.items, grp=k=>it.map((x,i)=>[x,i]).filter(([x])=>x.kind===k);
+  const block=(k,l)=>grp(k).length?`<h3>${l}</h3>${grp(k).map(([x,i])=>`<label class="dbrow"><input type="checkbox" data-dbon="${i}" ${x.on?"checked":""}><span><s>${esc(x.from)}</s> → <b>${esc(x.to)}</b>${x.why?`<i>${esc(x.why)}</i>`:""}</span></label>`).join("")}`:"";
+  kitOpen("Debrief · proposed changes",`${dbProp.summary?`<p class="kitlead">${esc(dbProp.summary)}</p>`:""}${it.length?block("aop","Alignment of Priorities")+block("pm","Priorities Map")+block("cp","Criteria Proposition"):`<p class="note">Nothing in the debrief changes the aids.</p>`}
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="dbApply" ${it.length?"":"disabled"}>Apply ${it.filter(x=>x.on).length} change${it.filter(x=>x.on).length===1?"":"s"}</button><button class="btn" data-kit="debrief">Back to the debrief</button></div>`,true);
+  document.querySelectorAll("[data-dbon]").forEach(c=>c.onchange=()=>{ dbProp.items[+c.dataset.dbon].on=c.checked; $("dbApply").textContent=`Apply ${dbProp.items.filter(x=>x.on).length} changes`; });
+  $("dbApply").onclick=debriefApply; }
+function debriefApply(){ const snap=JSON.stringify(S); let n=0; const P=S.pm?pmData():null;
+  dbProp.items.filter(x=>x.on).forEach(x=>{ if(x.kind==="aop"){ const [k,i]=x.id.split("."), it=S.items[k][+i]; it.t=x.choice; it.d=x.supports; it.src="Debrief"; n++; }
+    if(x.kind==="pm"&&P){ const k=`${x.r}.${x.c}`; if(x.p) P.cells[k]=Object.assign({},P.cells[k]||{},{p:x.p,src:"client",why:x.why}); else delete P.cells[k]; n++; }
+    if(x.kind==="cp"){ const r=cpRow(x.id); Object.assign(r,{dir:x.dir,t:x.text,ok:x.ok,src:"Debrief"}); n++; } });
+  save(); renderAll(true); kitClose(); toast(`${n} change${n===1?"":"s"} applied from the debrief`,()=>{ S=norm(JSON.parse(snap)); save(); renderAll(true); if(route==="overview") renderOverview(); },true); if(route==="overview") renderOverview(); }
+
+/* ---------- 5 · The follow-up email ---------- */
+function meetSnapTake(){ S.meetSnap={t:Date.now(),items:JSON.parse(JSON.stringify(S.items)),pm:S.pm?JSON.parse(JSON.stringify(S.pm)):null,cp:JSON.parse(JSON.stringify(cpData()))}; save(); }
+const _plRunK=plRun; plRun=function(){ meetSnapTake(); return _plRunK(); };
+document.addEventListener("click",e=>{ if(e.target.closest('[data-way="together"],[data-way="interview"]')) meetSnapTake(); },true);
+function followDraft(){ const s=S.meetSnap, L=[], name=aidTitle(), heard=[], agreed=[], open=[];
+  if(s){ COLS.forEach(c=>S.items[c.k].forEach((it,i)=>{ const o=s.items[c.k][i]; if(it.t&&(!o||o.t!==it.t||o.d!==it.d)) heard.push(`${it.t}${it.d?`: ${it.d}`:""}`); }));
+    if(S.pm&&s.pm){ let ch=0; Object.keys({...S.pm.cells,...s.pm.cells}).forEach(k=>{ if((S.pm.cells[k]?.p||0)!==(s.pm.cells[k]?.p||0)) ch++; }); if(ch) heard.push(`${ch} of the stakeholders' priorities changed when we went through them together`); } }
+  if(S.pm) pmConflicts().forEach(r=>{ const x=pmRowRead(r); heard.push(`${iName(r)} matters differently across the team (High for ${listJoin(x.hi.map(c=>sName(c)))}, Low for ${listJoin(x.lo.map(c=>sName(c)))})`); });
+  (S.flags||[]).filter(f=>f.st!=="dismissed"&&(!s||f.t>=s.t)).forEach(f=>heard.push(`${f.label}: ${f.kind.toLowerCase()}${f.note?` (“${f.note}”)`:""}`));
+  cpAll().forEach(([,,r])=>{ if(r.ok) agreed.push(r.t); else open.push(`${r.t}${cpHasTarget(r.t)?"":" (a target to set)"}`); });
+  if(S.pm){ const cl=pmRated().filter(([,,x])=>x.src==="claude").length; if(cl) open.push(`Confirming ${cl} of the stakeholder priorities on the map`); }
+  const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"].seq, at=Q.indexOf("Criteria Proposition"), nxt=Q[at+1]||"Assessment Roadmap";
+  const first=(S.company?.eyes||"").replace(/^the\s+/i,"")||"everyone";
+  L.push(`Hi ${first},`,"",`Thank you for the time today. ${KEVIN.split(".")[0]}, so here is what I heard. Please correct anything I have off track.`);
+  if(heard.length) L.push("","What we heard:",...heard.slice(0,8).map(x=>"• "+x)); if(agreed.length) L.push("","What we agreed:",...agreed.slice(0,8).map(x=>"• "+x)); if(open.length) L.push("","Still open:",...open.slice(0,8).map(x=>"• "+x));
+  L.push("",`Next step: a short working session on the ${nxt}${NEXT_DESC[nxt]?` (${NEXT_DESC[nxt].charAt(0).toLowerCase()+NEXT_DESC[nxt].slice(1).replace(/\.$/,"")})`:""}. Would next week work?`,"","I've attached the leave-behind from today.","","Best regards,");
+  return {subject:`${name}: what we heard and next steps`,body:L.join("\n")}; }
+function followOpen(){ const d=S.follow&&S.follow.t>=(S.meetSnap?.t||0)?S.follow:Object.assign({t:Date.now()},followDraft());
+  kitOpen("The follow-up email",`<p class="kitlead">${S.meetSnap?`Built from what changed since the meeting started (${new Date(S.meetSnap.t).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}), the agreed criteria, what's still open and KA's next aid.`:"No meeting snapshot yet: it's built from the aids as they are. Present or Work together takes one automatically."}</p>
+    <label class="note" for="fuSub">Subject</label><input id="fuSub" class="tin" value="${esc(d.subject)}"><label class="note" for="fuBody">Email</label><textarea id="fuBody" class="tin" rows="14">${esc(d.body)}</textarea>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="fuMail">Open in my email</button><button class="btn" id="fuCopy">Copy</button>${sample?`<button class="btn" id="fuPolish">Polish with Claude</button>`:""}<button class="btn ghost" id="fuReset">Rebuild from the aids</button></div>
+    <p class="note">Attach a leave-behind: <button class="btn small" data-fudeck="aop">Alignment</button> <button class="btn small" data-fudeck="pm">Priorities Map</button> <button class="btn small" data-fudeck="cp">Criteria</button></p>`,true);
+  const keep=()=>{ S.follow={t:Date.now(),subject:$("fuSub").value,body:$("fuBody").value}; save(); }; $("fuSub").oninput=keep; $("fuBody").oninput=keep;
+  $("fuMail").onclick=()=>{ keep(); location.href=`mailto:?subject=${encodeURIComponent($("fuSub").value)}&body=${encodeURIComponent($("fuBody").value)}`; };
+  $("fuCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(`Subject: ${$("fuSub").value}\n\n${$("fuBody").value}`); toast("Email copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+  $("fuReset").onclick=()=>{ S.follow=null; save(); followOpen(); };
+  document.querySelectorAll("[data-fudeck]").forEach(b=>b.onclick=()=>{ const a=b.dataset.fudeck; if(a==="pm") pmDownload(true); else if(a==="cp") cpDownload(true); else downloadDeck(); });
+  if($("fuPolish")) $("fuPolish").onclick=async()=>{ const btn=$("fuPolish"); btn.disabled=true; btn.textContent="Polishing…"; kitCtl=new AbortController();
+    try{ const r=await sample(`Rewrite this follow-up email so it reads warm, crisp and professional, from a salesperson to their client. Keep every fact, list and the next step exactly; add nothing new. Keep the bullets. Reply with the email body only.\n\n${$("fuBody").value}`,{signal:kitCtl.signal,modelTier:"quick",cache:false}); $("fuBody").value=r.text.trim(); keep(); }
+    catch(e){ toast("Couldn't polish it this time"); } finally{ btn.disabled=false; btn.textContent="Polish with Claude"; } }; }
+
+/* ---------- the kit on the Overview, on Meet the client and in ⌘K ---------- */
+function kitRun(k){ ({brief:()=>S.brief?briefShow():briefMake(),rehearse:rehearseOpen,debrief:debriefOpen,follow:followOpen,flags:()=>kitOpen("Corrections from the client",trayHTML(),true)})[k]?.(); }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-kit]"); if(b){ e.preventDefault(); kitRun(b.dataset.kit); } });
+function kitStripHTML(){ const n=(S.flags||[]).filter(f=>f.st==="open").length, last=(S.rehearsals||[]).slice(-1)[0];
+  return `<div class="kitstrip"><div><span class="kk">Before</span><button class="btn small" data-kit="brief">⚡ 60-second brief</button><button class="btn small" data-kit="rehearse">🎭 Rehearse${last?` · last ${last.score}`:""}</button></div>
+    <div><span class="kk">During</span><span class="note">⚑ Off track? in every presentation and in Work together</span></div>
+    <div><span class="kk">After</span><button class="btn small" data-kit="debrief">🎙 Debrief</button><button class="btn small" data-kit="follow">✉ Follow-up email</button><button class="btn small ${n?"primary":""}" data-kit="flags">⚑ Corrections${n?` · ${n}`:""}</button></div></div>`; }
+function kitPaint(){ const o=$("ovKit"); if(o) o.innerHTML=`<h3>Meeting kit</h3>${kitStripHTML()}${(S.flags||[]).some(f=>f.st==="open")?`<h3 style="margin-top:6px">Corrections from the client</h3>${trayHTML()}`:""}`; const m=$("meetKit"); if(m) m.innerHTML=kitStripHTML();
+  const k=$("kit"); if(k&&!k.hidden&&$("kitTitle").textContent==="Corrections from the client") $("kitBody").innerHTML=trayHTML(); }
+const _roK=renderOverview; renderOverview=function(){ _roK(); const nx=$("ovNext"); if(nx&&!$("ovKit")){ const d=document.createElement("div"); d.className="scard ovkit"; d.id="ovKit"; nx.after(d); } kitPaint(); };
+(function(){ const pick=$("plPick"); if(pick&&!$("meetKit")){ const d=document.createElement("section"); d.id="meetKit"; d.className="plpick"; pick.after(d); } })();
+const _rmK=renderMeet; renderMeet=function(){ _rmK(); kitPaint(); };
+const _cmdK=cmdActions; cmdActions=function(){ const A=_cmdK(); [["The 60-second brief","brief"],["Rehearse the meeting with a stakeholder","rehearse"],["Debrief the meeting (update every aid)","debrief"],["Follow-up email","follow"],["Corrections from the client","flags"]].forEach(([t,k])=>A.push({g:"Meeting kit",t,run:()=>kitRun(k),hint:""})); A.push({g:"Meeting kit",t:"⚑ Off track? (flag something)",run:flagOpen,hint:""}); return A; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
