@@ -470,6 +470,15 @@ body.presenting.laser,body.presenting.laser *{cursor:none!important}
 .ps{position:absolute;inset:0;padding:6.2cqw 7cqw 5.5cqw;display:flex;flex-direction:column;font-family:var(--font);overflow:hidden}
 .ps-top{display:flex;justify-content:space-between;align-items:center;gap:2cqw}
 .ps-kick{font-size:1.15cqw;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--plum)}
+.ps-client{display:flex;align-items:center;gap:1.2cqw;font-size:1.6cqw;color:var(--title);font-weight:600;max-width:42%;text-align:right}.ps-client img{max-height:3.8cqw;max-width:12cqw;object-fit:contain}
+.ps-kafoot{position:absolute;left:7cqw;bottom:2.2cqw;z-index:3;display:flex;align-items:center;gap:.7cqw;font-size:.85cqw;color:var(--blue);line-height:1.25}.ps-kafoot b{display:grid;place-items:center;width:2cqw;height:2.4cqw;border:.12cqw solid #1f2430;font-size:1.1cqw;font-weight:600}.ps-kafoot i{display:block;font-style:normal;color:#5b6476}
+.logoslot{border:0;background:transparent;cursor:pointer;border-radius:calc(1*var(--mm));padding:0;display:flex;align-items:center;justify-content:flex-start;z-index:7}
+.logoslot:hover,.logoslot:focus-visible{outline:calc(.3*var(--mm)) dashed color-mix(in srgb,var(--blue) 45%,transparent)}
+.logoslot.empty span{font:600 calc(2.6*var(--mm)) var(--font);color:var(--blue);opacity:.55;border:calc(.25*var(--mm)) dashed currentColor;border-radius:calc(1*var(--mm));padding:calc(1.2*var(--mm)) calc(2*var(--mm));margin-left:calc(2*var(--mm))}
+body.client .logoslot,body.presenting .logoslot{display:none!important}
+.ovlogo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}.ovlogo img{max-height:52px;max-width:200px;object-fit:contain;background:#fff;border-radius:8px;padding:4px 8px;border:1px solid var(--rule)}
+#suLogoImg{max-height:40px;max-width:160px;object-fit:contain;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:3px 6px}
+@media print{.logoslot{display:none!important}}
 .ps-ka{display:flex;align-items:center;gap:.9cqw;font-size:1.15cqw;color:var(--blue)}
 .ps-ka b{display:grid;place-items:center;width:3cqw;height:3.6cqw;border:.14cqw solid currentColor;font-size:1.7cqw;font-weight:600}
 .ps h2{font-size:3.6cqw;font-weight:300;color:var(--title);margin:2.2cqw 0 2.6cqw;line-height:1.12;letter-spacing:-.01em}
@@ -1151,13 +1160,9 @@ body.presenting .appbar,body.presenting .aidhead,body.presenting .meetbar{displa
           <text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Gain Business Clarity</text>
           <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="125.5" lengthAdjust="spacingAndGlyphs">Alignment of Priorities</text>
           <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
-          <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/>
-          <text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
-          <text x="225" y="21.2" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="3.6">Knowledge-Advantage, Inc.</text>
+          <g id="clientMarkG"></g>
           <text class="subt" x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Organizational, Operational, and Infrastructure Priorities</text>
-          <rect x="10.9" y="204" width="4.3" height="5.5" fill="none" stroke="var(--ink)" stroke-width=".3"/>
-          <text x="13.05" y="208" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="2.4">ka</text>
-          <text x="16.2" y="207.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2015</text>
+          <rect x="10.9" y="202.4" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="207.4" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="205.4" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="208.9" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>
           <line id="arrowLine" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
           <path id="arrowHead" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="#fff"/>
         </svg>
@@ -1179,7 +1184,8 @@ body.presenting .appbar,body.presenting .aidhead,body.presenting .meetbar{displa
         <div class="callout at" style="--x:197.4;--y:67.4;--w:56.6;--h:15.3">Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.</div>
         <div class="callout at" style="--x:197.4;--y:141.6;--w:33.6;--h:12.7">View or add additional details.</div>
         <div class="callout at" style="--x:235;--y:167.4;--w:34;--h:13.4">Open menu for additional options.</div>
-        <button class="helpbox at prep-only" id="helpBox" style="--x:40;--y:186;--w:52;--h:24"><span>STILL NEED HELP?<br>Ask the assistant to suggest, draft or challenge.<br><b>ASK</b></span></button>
+        <button class="logoslot at prep-only" id="logoSlot" style="--x:166;--y:8.6;--w:104;--h:20.2" aria-label="Client logo"></button>
+        <button class="helpbox at prep-only" id="helpBox" style="--x:62;--y:186;--w:52;--h:24"><span>STILL NEED HELP?<br>Ask the assistant to suggest, draft or challenge.<br><b>ASK</b></span></button>
         <button class="menubtn at" id="menuBtn" style="--x:261.6;--y:202.7;--w:7.4;--h:7.3" aria-label="Menu: more options">≡</button>
       </div><div class="pslide" id="pslide" hidden></div><div class="pcap" id="pcap" hidden></div></div></div>
       <div class="walkbar" id="walkbar" hidden>
@@ -2316,17 +2322,17 @@ function ratioStrip(){ return RATIO_GROUPS.map(g=>{ const rd=groupRead(g); const
 function slideHTML(sl){ if(sl.k.startsWith("cp")) return cpSlideHTML(sl);
   if(sl.k==="title"){ const eyes=eyesOf();
     return `<div class="ps ps-title">
-      <div class="ps-top"><span class="ps-kick">Alignment of Priorities · Gain Business Clarity</span>${KA_MARK}</div>
+      <div class="ps-top"><span class="ps-kick">Alignment of Priorities · Gain Business Clarity</span>${CLIENT_MARK()}</div>
       <div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div>
       <blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
-  if(sl.k==="outside") return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">Outside in</span>${KA_MARK}</div><h2>What’s happening around ${esc(S.company?.name||"them")}</h2>
+  if(sl.k==="outside") return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">Outside in</span>${CLIENT_MARK()}</div><h2>What’s happening around ${esc(S.company?.name||"them")}</h2>
       <div class="ps-ext">${EXT.map(([k,l])=>`<div><span class="ps-lab">${l}</span><p>${esc(S.ext[k].t.trim()||"—")}</p></div>`).join("")}</div>
       ${RATIO_GROUPS.some(g=>g.r.some(([k])=>S.fin?.[k]?.v||S.fin?.[k]?.read))?`<div class="ps-ratios"><span class="ps-lab">Key ratios · now, and the change over 24 months</span><div class="ps-rgs">${ratioStrip()}</div></div>`:""}</div>`;
   if(sl.k==="heard"){ const ch=chainsHeard();
     const node=id=>{ const ix=ci(id.split(".")[0]), it=item(id); return `<div class="ps-node c${ix}"><small>${COLS[ix].one}</small><b>${esc(nameOf(id))}</b>${it.d.trim()?`<em>${esc(it.d.trim())}</em>`:""}</div>`; };
     const body=ch.length?ch.map(c=>`<div class="ps-chain">${c.map((id,j)=>`${j?`<div class="ps-verb"><span>${VERB_OF[ci(id.split(".")[0])]}</span><i aria-hidden="true">←</i></div>`:""}${node(id)}`).join("")}</div>`).join("")
       :`<div class="ps-chain">${colFilled(0).concat(colFilled(1)).slice(0,4).map(node).join("")}</div>`;
-    return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What we heard</span>${KA_MARK}</div><h2>How it comes together</h2><div class="ps-chains">${body}</div>
+    return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What we heard</span>${CLIENT_MARK()}</div><h2>How it comes together</h2><div class="ps-chains">${body}</div>
       <div class="ps-foot"><p class="ps-close">Where am I off track?</p><p class="ps-next">${esc(nextStep())}</p></div></div>`; }
   return ""; }
 function capHTML(sl){
@@ -2488,8 +2494,7 @@ async function buildDeck(){
     font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text(clean(kick).toUpperCase(),M,22); doc.setCharSpace(0);
     font("normal",9.5,PDFC.title); doc.text(clean(title),M,36,{maxWidth:PW-2*M});
     doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42);
-    font("normal",2.8,PDFC.muted); doc.text(clean(`${aidTitle()} · Alignment of Priorities`),M,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"});
-    doc.setDrawColor(PDFC.ink); doc.setLineWidth(.3); doc.rect(PW-M-30,PH-14.6,4.3,5.5); font("bold",2.4,PDFC.blue); doc.text("ka",PW-M-27.85,PH-10.6,{align:"center"}); };
+    pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2}); pdfKaFoot(doc,M,PH-16.4); font("normal",2.8,PDFC.muted); doc.text(clean(`${aidTitle()} · Alignment of Priorities`),M+44,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
   const wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(clean(t),w); };
   // 1 · title
   doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor("#1d2d52"); doc.circle(PW*.78,PH*.2,120,"F"); doc.setFillColor("#14203b"); doc.rect(0,PH*.86,PW,PH*.14,"F");
@@ -2498,7 +2503,7 @@ async function buildDeck(){
   font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96);
   if(who){ font("normal",5,"#c8d2ea"); doc.text(clean(who),M,112); }
   font("italic",4.4,"#e8ecf6"); doc.text(wrap(`“${KEVIN}”`,PW-2*M-30,4.4),M,170);
-  doc.setDrawColor("#ffffff"); doc.setLineWidth(.4); doc.rect(PW-M-14,18,13.4,16.6); font("bold",7,"#ffffff"); doc.text("ka",PW-M-7.3,29.2,{align:"center"});
+  pdfClientMark(doc,{right:PW-M,top:16,h:16.6,maxW:110,fs:5.4,color:"#ffffff",plate:true});
   // 2 · outside in
   if(hasOutside()){ frame("Outside in",`What's happening around ${S.company?.name||"them"}`);
     const cw=(PW-2*M-16)/3; EXT.forEach(([k,l],i)=>{ const x=M+i*(cw+8); font("bold",3.2,PDFC.plum); doc.text(l.toUpperCase(),x,54); font("normal",3.9,PDFC.ink); doc.text(wrap(S.ext[k].t.trim()||"-",cw,3.9).slice(0,8),x,61,{lineHeightFactor:1.35}); });
@@ -2556,7 +2561,7 @@ async function buildPdf(doc0){
   // masthead
   color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Gain Business Clarity",10.4,14.2);
   color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",10.4,28.4);
-  doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
+  pdfClientMark(doc);
   color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Organizational, Operational, and Infrastructure Priorities"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
   // external factors and column headers
   const tri=(x,y)=>{ draw(PDFC.muted); doc.setLineWidth(.25); doc.triangle(x,y-2,x,y,x+1.7,y-1,"S"); };
@@ -2582,8 +2587,7 @@ async function buildPdf(doc0){
       const maxL=Math.floor((c.dh-1.4)/(g*1.2)); if(lines.length>maxL){ lines=lines.slice(0,maxL); lines[maxL-1]=lines[maxL-1].replace(/\s*\S*$/,"")+"…"; }
       color(PDFC.ink); doc.text(lines,c.x+1.4,dy+.7+g*.95,{lineHeightFactor:1.2}); } }));
   // footer
-  draw(PDFC.ink); doc.setLineWidth(.3); doc.rect(10.9,204,4.3,5.5); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(2.4*PT); doc.text("ka",13.05,208,{align:"center"});
-  color(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2*PT); doc.text("© Copyright 2015",16.2,207.6);
+  pdfKaFoot(doc); color(PDFC.muted);
   const who=[S.company?.name,Object.keys(S.lenses).length>1?`through the eyes of ${S.lenses[S.lens].name}`:"",new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"})].filter(Boolean).join(" · ").replace(/^./,m=>m.toUpperCase());
   doc.setFontSize(2.6*PT); doc.text(who,139.7,207.6,{align:"center"});
   return doc;
@@ -2830,10 +2834,8 @@ function cpSheetHTML({mode="edit",spot=null,band=null}={}){ const R=cpData(), u=
   h+=`<text x="10.4" y="14.2" fill="var(--tan)" font-family="Open Sans,sans-serif" font-weight="700" font-size="3.9">Measure What Matters</text>
     <text x="10.4" y="28.4" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="300" font-size="13.4" textLength="109" lengthAdjust="spacingAndGlyphs">Criteria Proposition</text>
     <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
-    <rect x="209.5" y="10.4" width="13.4" height="16.6" fill="none" stroke="var(--ink)" stroke-width=".55"/><text x="216.2" y="21.6" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="7">ka</text>
-    <text x="225" y="21.2" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="3.6">Knowledge-Advantage, Inc.</text>
-    <rect x="10.9" y="204" width="4.3" height="5.5" fill="none" stroke="var(--ink)" stroke-width=".3"/><text x="13.05" y="208" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="2.4">ka</text>
-    <text x="16.2" y="207.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2015</text></svg>`;
+    ${clientMarkSVG()}${kaFootSVG()}</svg>`;
+  if(mode==="edit") h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="left:calc(166*var(--mm));top:calc(8.6*var(--mm));width:calc(104*var(--mm));height:calc(20.2*var(--mm))" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`;
   const at2=(x,y,w,hh)=>`left:calc(${x}*var(--mm));top:calc(${y}*var(--mm));width:calc(${w}*var(--mm));height:calc(${hh}*var(--mm))`;
   if(mode==="edit") CPB.forEach(b=>h+=`<button class="cpnote prep-only" data-cpnote="${b.k}" style="${at2(14.6,b.band[0]+1.4,6.6,4.6)}" aria-label="${b.l}: view or add details">▷${N[b.k]?.trim()?'<i></i>':""}</button>`);
   CPB.forEach(b=>R[b.k].forEach((r,i)=>{ const id=`${b.k}.${i}`, y=b.ys[i], f=cpFilled(r), on=spot===id, dim=(spot&&!on)||(band&&band!==b.k);
@@ -3037,15 +3039,15 @@ function cpSlides(){ const sl=[{k:"cpTitle"},{k:"cpFrom"},{k:"cpWhole"}];
 function cpSlideLabel(sl){ return sl.k==="cpTitle"?aidTitle():sl.k==="cpFrom"?"From the alignment":sl.k==="cpWhole"?"The Criteria Proposition":sl.k==="cpBand"?`${cpB(sl.b).lens} · ${cpB(sl.b).l}`:sl.k==="cpRow"?`${cpB(sl.b).lens}: ${cpRow(sl.id).t.slice(0,42)}`:"What success looks like"; }
 function cpCap(b,inner){ const [y0,y1]=b.band; return `<div class="cpcap" style="top:calc(${y0+3}*var(--mm));height:calc(${y1-y0-6}*var(--mm))">${inner}</div>`; }
 function cpSlideHTML(sl){
-  if(sl.k==="cpTitle"){ const eyes=eyesOf(); return `<div class="ps ps-title"><div class="ps-top"><span class="ps-kick">Criteria Proposition · Measure What Matters</span>${KA_MARK}</div><div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div><blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
+  if(sl.k==="cpTitle"){ const eyes=eyesOf(); return `<div class="ps ps-title"><div class="ps-top"><span class="ps-kick">Criteria Proposition · Measure What Matters</span>${CLIENT_MARK()}</div><div class="ps-mid"><h1>${esc(aidTitle())}</h1>${eyes?`<p class="ps-who">Through the eyes of ${esc(eyes)}</p>`:""}<p class="ps-date">${esc(longDate())}</p></div><blockquote class="ps-q">“${esc(KEVIN)}”</blockquote></div>`; }
   if(sl.k==="cpFrom"){ const cols=[["org","Goals & strategies",["goals","strategies"]],["op","Processes",["processes"]],["inf","Initiatives & solutions",["initiatives","solutions"]]];
-    return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">From the alignment</span>${KA_MARK}</div><h2>What we agreed matters, and how we'll measure it</h2>
+    return `<div class="ps ps-out"><div class="ps-top"><span class="ps-kick">From the alignment</span>${CLIENT_MARK()}</div><h2>What we agreed matters, and how we'll measure it</h2>
       <div class="cpfromps">${cols.map(([k,l,cs])=>`<div class="${k}"><span class="ps-lab">${l} · ${cpB(k).lens}</span><ul>${cs.flatMap(c=>S.items[c].filter(x=>x.t.trim()).map(it=>`<li><b>${esc(it.t)}</b>${c==="processes"&&gainsOf(it).length?`<em>${esc(gainsOf(it).join(" · "))}</em>`:it.d?`<em>${esc(it.d)}</em>`:""}</li>`)).join("")}</ul></div>`).join("")}</div></div>`; }
   if(sl.k==="cpWhole") return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present"})}</div></div>`;
   if(sl.k==="cpBand"){ const b=cpB(sl.b); return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present",band:b.k})}${cpCap(b,`<span class="pc-kick">${b.lens} · ${b.color}</span><b class="pc-title">${esc(b.full)}</b><span class="pc-sub">${esc(b.what)}</span>`)}</div></div>`; }
   if(sl.k==="cpRow"){ const b=cpB(sl.b), r=cpRow(sl.id), R=cpData()[b.k].map((x,i)=>[x,i]).filter(([x])=>cpFilled(x)), n=R.findIndex(([,i])=>`${b.k}.${i}`===sl.id)+1, ms=(r.m||[]).map(cpName).filter(Boolean);
     const dw=(CP_DIRS.find(x=>x[0]===r.dir)||["","►","Hold"]); return `<div class="ps cps"><div class="cpcv present">${cpSheetHTML({mode:"present",spot:sl.id})}${cpCap(b,`<span class="pc-kick">${b.lens} · ${n} of ${R.length}</span><b class="pc-title">${dw[1]} ${dw[2]}</b>${ms.length?`<span class="pc-meta"><span><em>Measures</em> ${esc(ms.join(", "))}</span></span>`:""}<span class="pc-meta"><span>${r.ok?"<em>✓ Agreed</em>":"<em>To agree</em>"}</span></span>`)}</div></div>`; }
-  return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What success looks like</span>${KA_MARK}</div><h2>How we'll know it was worth it</h2>
+  return `<div class="ps ps-heard"><div class="ps-top"><span class="ps-kick">What success looks like</span>${CLIENT_MARK()}</div><h2>How we'll know it was worth it</h2>
     <div class="cpsucc">${["inf","op","org"].map(k=>{ const b=cpB(k), rows=cpData()[k].filter(cpFilled); return `<div class="${k}"><span class="ps-lab">${b.lens} · ${esc(b.full)}</span><ul>${rows.map(r=>`<li><i class="cpar ${r.dir||"flat"}">${cpArrow(r.dir||"flat")}</i><span>${esc(r.t)}</span>${r.ok?"<b>✓</b>":""}</li>`).join("")||"<li class='ps-muted'>—</li>"}</ul></div>`; }).join("")}</div>
     <div class="ps-foot"><p class="ps-close">Where am I off track?</p><p class="ps-next">${esc(cpNextStep())}</p></div></div>`; }
 function cpNextStep(){ const Q=NEXT_SEQ[S.space==="solution"?"solution":"problem"], at=Q.seq.indexOf("Criteria Proposition"), n=Q.seq[at+1]; return n?`Agree these criteria together, then build the ${n}.`:"Agree these criteria together."; }
@@ -3072,17 +3074,15 @@ function cpDrawSheet(doc){ const PT=2.8346, fill=c=>doc.setFillColor(c), color=c
       if(r.ok){ color(["#8c2b33","#7a5606","#2c6142"][ix]); doc.setFont("helvetica","bold"); doc.setFontSize(3.2*PT); doc.text("agreed",CPX.box+CPX.boxw-2,y+CPX.boxh/2+1.1,{align:"right"}); } }); });
   color(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text("Measure What Matters",10.4,14.2);
   color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Criteria Proposition",10.4,28.4);
-  doc.setDrawColor(PDFC.ink); doc.setLineWidth(.5); doc.rect(209.5,10.4,13.4,16.6); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(7*PT); doc.text("ka",216.2,21.6,{align:"center"}); doc.setFont("helvetica","normal"); doc.setFontSize(3.6*PT); doc.text("Knowledge-Advantage, Inc.",225,21.2);
-  doc.setDrawColor(PDFC.ink); doc.setLineWidth(.3); doc.rect(10.9,204,4.3,5.5); color(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(2.4*PT); doc.text("ka",13.05,208,{align:"center"});
-  color(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2*PT); doc.text("© Copyright 2015",16.2,207.6);
+  pdfClientMark(doc); pdfKaFoot(doc); color(PDFC.muted); doc.setFont("helvetica","normal");
   const who=[S.company?.name,eyesOf()&&`through the eyes of ${eyesOf()}`,longDate()].filter(Boolean).join(" · "); doc.setFontSize(2.6*PT); doc.text(who,139.7,207.6,{align:"center"}); }
 async function cpBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, PW=279.4, PH=215.9, M=20;
   if(!deck){ cpDrawSheet(doc); return doc; }
   const font=(w,sz,c)=>{ doc.setFont("helvetica",w); doc.setFontSize(sz*PT); doc.setTextColor(c); }, wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(String(t||""),w); };
   let pageNo=1; const frame=(kick,title)=>{ doc.addPage("letter","landscape"); pageNo++; doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
     font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text(kick.toUpperCase(),M,22); doc.setCharSpace(0); font("normal",9.5,PDFC.title); doc.text(title,M,36);
-    doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42); font("normal",2.8,PDFC.muted); doc.text(`${aidTitle()} · Criteria Proposition`,M,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
-  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("CRITERIA PROPOSITION · MEASURE WHAT MATTERS",M,28); doc.setCharSpace(0);
+    doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42); pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2}); pdfKaFoot(doc,M,PH-16.4); font("normal",2.8,PDFC.muted); doc.text(`${aidTitle()} · Criteria Proposition`,M+44,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
+  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("CRITERIA PROPOSITION · MEASURE WHAT MATTERS",M,28); doc.setCharSpace(0); pdfClientMark(doc,{right:PW-M,top:16,h:16.6,maxW:110,fs:5.4,color:"#ffffff",plate:true});
   font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96); const eyes=eyesOf(); font("normal",5,"#c8d2ea"); doc.text([eyes&&`Through the eyes of ${eyes}`,longDate()].filter(Boolean).join(" · "),M,112);
   font("italic",4.4,"#e8ecf6"); doc.text(wrap(`“${KEVIN}”`,PW-2*M-30,4.4),M,170);
   frame("From the alignment","What we agreed matters"); const cw=(PW-2*M-16)/3;
@@ -3393,6 +3393,55 @@ const _ro=renderOverview; renderOverview=function(){ _ro(); if(allFilled().lengt
   c.innerHTML=`<h3>Next step</h3><p>Research ${esc(S.company.name)}: Claude fills the alignment, then drafts the criteria. You review and write over anything.</p><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="ovResearch">Research ${esc(S.company.name)}</button><button class="btn small" data-nav="aop" data-view="build">Build by hand</button></div>`;
   $("ovResearch").onclick=()=>goCompany(); };
 const _ro2=renderOverview; renderOverview=function(){ _ro2(); const c=document.querySelector("#ovSide .scard.next"); if(c){ $("ovNext").innerHTML=""; $("ovNext").appendChild(c); } };
+
+/* ===== the client's name and logo top right; KA's logo bottom left, © 2010 (Dave, Nov 17: "I want to put the name of the client and their logo the upper right corner instead of the KA logo. I want the KA logo in the lower left with a copyright 2010") ===== */
+function clientMark(){ const c=S.company||{}; return {name:String(c.name||"").trim(), logo:c.logo||null, lw:+c.logoW||0, lh:+c.logoH||0}; }
+let _mc=null; function textMM(str,size,weight){ _mc=_mc||document.createElement("canvas").getContext("2d"); _mc.font=`${weight||400} 100px "Open Sans", Arial, sans-serif`; return _mc.measureText(str).width/100*size; }
+/* the block's layout, in mm, shared by the sheets and the PDFs: [logo] [name], right-aligned to the KA lockup's old right edge */
+function clientLayout(right=268.6,top=10.4,h=16.6,maxW=100,nameFs=5.4){ const m=clientMark(); if(!m.name&&!m.logo) return null;
+  let lw=0,lh=0; if(m.logo&&m.lw&&m.lh){ lh=h; lw=lh*m.lw/m.lh; if(lw>46){ lw=46; lh=lw*m.lh/m.lw; } }
+  const gap=m.logo&&m.name?3:0; let fs=nameFs; const room=maxW-lw-gap; while(m.name&&textMM(m.name,fs,600)>room&&fs>3.2) fs-=.1;
+  const nw=m.name?Math.min(room,textMM(m.name,fs,600)):0, nx=right-nw, lx=nx-gap-lw;
+  return {m,lw,lh,lx,ly:top+(h-lh)/2,nx,nw,ny:top+h/2+fs*.36,fs,squeeze:m.name&&textMM(m.name,fs,600)>room}; }
+function clientMarkSVG(){ const L=clientLayout(); if(!L) return ""; const {m}=L;
+  return `${m.logo&&L.lw?`<image href="${m.logo}" x="${L.lx}" y="${L.ly}" width="${L.lw}" height="${L.lh}" preserveAspectRatio="xMidYMid meet"/>`:""}${m.name?`<text x="${L.nx}" y="${L.ny}" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="600" font-size="${L.fs}"${L.squeeze?` textLength="${L.nw}" lengthAdjust="spacingAndGlyphs"`:""}>${esc(m.name)}</text>`:""}`; }
+function kaFootSVG(){ return `<rect x="10.9" y="202.4" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="207.4" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="205.4" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="208.9" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>`; }
+/* the same in the PDFs */
+function pdfFmt(u){ return /^data:image\/png/i.test(u)?"PNG":"JPEG"; }
+function pdfClientMark(doc,o={}){ const L=clientLayout(o.right,o.top,o.h,o.maxW,o.fs); if(!L) return; const PT=2.8346;
+  if(L.m.logo&&L.lw){ if(o.plate){ doc.setFillColor("#ffffff"); doc.roundedRect(L.lx-2,L.ly-2,L.lw+4,L.lh+4,1.5,1.5,"F"); } try{ doc.addImage(L.m.logo,pdfFmt(L.m.logo),L.lx,L.ly,L.lw,L.lh); }catch(e){} }
+  if(L.m.name){ doc.setFont("helvetica","bold"); doc.setFontSize(L.fs*PT); doc.setTextColor(o.color||PDFC.title); let fs=L.fs; while(doc.getTextWidth(L.m.name)>L.nw+.5&&fs>2.5){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(L.m.name,(o.right||268.6),L.ny,{align:"right"}); } }
+function pdfKaFoot(doc,x=10.9,y=202.4,s=1){ const PT=2.8346; doc.setDrawColor(PDFC.ink); doc.setLineWidth(.35*s); doc.rect(x,y,5.6*s,7*s);
+  doc.setTextColor(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*s*PT); doc.text("ka",x+2.8*s,y+5*s,{align:"center"});
+  doc.setFont("helvetica","normal"); doc.setFontSize(2.4*s*PT); doc.text("Knowledge-Advantage, Inc.",x+7.3*s,y+3*s); doc.setTextColor(PDFC.muted); doc.setFontSize(2*s*PT); doc.text("© Copyright 2010",x+7.3*s,y+6.5*s); }
+/* Present's slides */
+function CLIENT_MARK(){ const m=clientMark(); return `<span class="ps-client">${m.logo?`<img src="${m.logo}" alt="">`:""}${m.name?`<b>${esc(m.name)}</b>`:""}</span><span class="ps-kafoot"><b>ka</b><span>Knowledge-Advantage, Inc.<i>© Copyright 2010</i></span></span>`; }
+/* the KA lockup sits at the slide's foot, outside the rising header */
+new MutationObserver(()=>{ document.querySelectorAll("#pslide .ps-top .ps-kafoot").forEach(k=>{ const ps=k.closest(".ps"); if(ps) ps.appendChild(k); }); }).observe($("pslide"),{childList:true,subtree:true});
+/* adding the logo: kept small, on this device, with the engagement */
+function pickClientLogo(after){ const inp=document.createElement("input"); inp.type="file"; inp.accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif";
+  inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ const k=Math.min(1,600/img.width,240/img.height), w=Math.max(1,Math.round(img.width*k)), h=Math.max(1,Math.round(img.height*k));
+      const c=document.createElement("canvas"); c.width=w; c.height=h; const x=c.getContext("2d"); x.drawImage(img,0,0,w,h); let url=c.toDataURL("image/png"); if(url.length>220000) url=c.toDataURL("image/jpeg",.88);
+      S.company=Object.assign(S.company||{},{logo:url,logoW:w,logoH:h}); save(); refreshBrand(); toast("Client logo added"); after&&after(); }; img.onerror=()=>toast("That file couldn't be read as an image"); img.src=r.result; }; r.readAsDataURL(f); };
+  inp.click(); }
+function removeClientLogo(){ const keep={logo:S.company.logo,logoW:S.company.logoW,logoH:S.company.logoH}; delete S.company.logo; delete S.company.logoW; delete S.company.logoH; save(); refreshBrand();
+  toast("Client logo removed",()=>{ Object.assign(S.company,keep); save(); refreshBrand(); }); }
+function paintClientMarks(){ const g=$("clientMarkG"); if(g) g.innerHTML=clientMarkSVG(); const s=$("logoSlot"); if(s){ const m=clientMark(); s.classList.toggle("empty",!m.logo); s.innerHTML=m.logo?"":`<span>＋ Client logo</span>`; s.title=m.logo?"Change or remove the client's logo":"Add the client's logo"; } }
+function refreshBrand(){ paintClientMarks(); if(typeof cpRefresh==="function"&&cpMode) cpRefresh(); if(route==="overview") renderOverview(); }
+const _rp=renderPicture; renderPicture=function(i){ _rp(i); paintClientMarks(); };
+document.addEventListener("click",e=>{ const s=e.target.closest("#logoSlot,[data-logoslot]"); if(!s) return; e.stopPropagation();
+  if(!S.company?.logo){ pickClientLogo(); return; } closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Client logo");
+  pop.innerHTML=`<h5>${esc(S.company?.name||"Client")} logo</h5><div class="menu"><button data-lg="change">Change the logo</button><button data-lg="remove" class="danger">Remove the logo</button></div>`; place(pop,s); popEl=pop;
+  pop.onclick=ev=>{ const b=ev.target.closest("[data-lg]"); if(!b) return; closePop(); b.dataset.lg==="change"?pickClientLogo():removeClientLogo(); }; },true);
+/* the Overview shows the client's mark, with a way to add or change the logo */
+const _ro3=renderOverview; renderOverview=function(){ _ro3(); const h=document.querySelector("#viewOverview .ovhead .hhead>div"); if(!h) return; let b=$("ovLogo"); if(!b){ b=document.createElement("div"); b.id="ovLogo"; b.className="ovlogo"; h.prepend(b); }
+  const m=clientMark(); b.innerHTML=m.logo?`<img src="${m.logo}" alt="${esc(m.name)} logo"><button class="btn small ghost" data-logoslot>Change logo</button>`:`<button class="btn small" data-logoslot>＋ Add ${esc(m.name||"the client")}'s logo</button><span class="note">It sits top right on every sheet, slide and PDF.</span>`; };
+/* New engagement takes the logo too */
+(function(){ const files=document.querySelector("#suForm .coFiles"); if(!files) return; const d=document.createElement("div"); d.className="field"; d.innerHTML=`<label>Client logo <span class="opt">optional · top right on every sheet, slide and PDF</span></label><div class="coFiles"><button type="button" class="btn small" id="suLogo">Add a logo</button><img id="suLogoImg" alt="" hidden><span class="note" id="suLogoNote">PNG, JPG or SVG. Kept in this browser.</span></div>`; files.before(d);
+  let pending=null; $("suLogo").onclick=()=>{ const keep=S; const tmp={company:{}}; const inp=document.createElement("input"); inp.type="file"; inp.accept="image/*";
+    inp.onchange=()=>{ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ const img=new Image(); img.onload=()=>{ const k=Math.min(1,600/img.width,240/img.height), w=Math.round(img.width*k)||1, h=Math.round(img.height*k)||1; const c=document.createElement("canvas"); c.width=w; c.height=h; c.getContext("2d").drawImage(img,0,0,w,h); let url=c.toDataURL("image/png"); if(url.length>220000) url=c.toDataURL("image/jpeg",.88);
+      pending={logo:url,logoW:w,logoH:h}; $("suLogoImg").src=url; $("suLogoImg").hidden=false; $("suLogo").textContent="Change the logo"; $("suLogoNote").textContent=f.name; }; img.src=r.result; }; r.readAsDataURL(f); }; inp.click(); };
+  const _sf=setupFill; setupFill=function(b){ const r=_sf(b); if(r&&pending){ Object.assign(S.company,pending); save(); refreshBrand(); } if(r){ pending=null; $("suLogoImg").hidden=true; $("suLogo").textContent="Add a logo"; $("suLogoNote").textContent="PNG, JPG or SVG. Kept in this browser."; } return r; }; })();
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
