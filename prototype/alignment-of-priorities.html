@@ -4574,7 +4574,7 @@ async function rmWrite(id,val){ RM.wq[id]=val; if(RM.writing[id]) return; RM.wri
 /* what changed since the store last agreed with us */
 function rmDiff(){ const segs=rmSegs(S), ch=[]; Object.entries(segs).forEach(([id,doc])=>{ const j=JSON.stringify(doc); if(RM.last[id]!==j){ RM.last[id]=j; ch.push([id,doc]); } });
   Object.keys(RM.last).forEach(id=>{ if(!(id in segs)){ delete RM.last[id]; ch.push([id,null]); } }); return ch; }
-let rmOutT=0; function rmSyncOut(){ if(!RM.on||!RM.loaded) return; clearTimeout(rmOutT); rmOutT=setTimeout(()=>{ const ch=rmDiff(); if(!ch.length) return;
+let rmOutT=0; function rmSyncOut(){ if(!RM.on||!RM.loaded||RM.empty) return; clearTimeout(rmOutT); rmOutT=setTimeout(()=>{ const ch=rmDiff(); if(!ch.length) return;
   if(RM.owner) ch.forEach(([id,doc])=>rmWrite(id,doc));
   else { ch.forEach(([id])=>RM.pend[id]=Date.now()); rmSend({type:"edit",docs:ch}); } },350); }
 const _saveRoom=save; save=function(){ _saveRoom(); rmSyncOut(); };
@@ -4773,7 +4773,9 @@ function rmInviteCard(name){ kitOpen(`${name||"The engagement"} is in`,`<p class
   <div class="shstep"><span class="shn">1</span><div><b>Open this page's Share menu</b><p>At the top of the page, beside its title.</p></div></div>
   <div class="shstep"><span class="shn">2</span><div><b>Invite up to five people as Contributors</b><p>Team members and clients. They'll see who's here and can work in it live while you have this page open.</p></div></div>
   <button class="btn primary" id="rmInvOk">Got it</button>`,false); $("rmInvOk").onclick=kitClose; }
-const _rmIncomingSeed=rmIncoming; rmIncoming=function(snap){ const fresh=!RM.loaded; _rmIncomingSeed(snap); if(fresh&&RM.empty&&RM.owner) rmSeedLoad(); };
+/* a store holding only a blank engagement (an empty page that saved before anything was loaded) counts as empty */
+function rmBlank(){ try{ return !allFilled().length&&!(S.company&&S.company.name&&S.company.name.trim())&&!cpAll().length&&!(S.pm&&pmRated().length)&&!(S.situation||"").trim(); }catch(e){ return false; } }
+const _rmIncomingSeed=rmIncoming; rmIncoming=function(snap){ const fresh=!RM.loaded; _rmIncomingSeed(snap); if(fresh&&RM.owner){ setTimeout(()=>{ if(!RM.empty&&rmBlank()){ RM.empty=true; if(route==="overview") renderOverview(); } if(RM.empty) rmSeedLoad(); },50); } };
 
 
 /* ===================== Assessment Roadmap, its own aid (Dave, Nov 17: "Build the Assessment Roadmap as its own aid! You need to automate this so it is 'click' easy.")
