@@ -1167,6 +1167,22 @@ body.pmpresenting.laser,body.pmpresenting.laser *{cursor:none!important}
 @media (max-width:900px){.pipecols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:480px){.pipecols{grid-template-columns:1fr}.pcol:has(.pempty){display:none}}
 .pbtxt{display:inline-flex;align-items:baseline;justify-content:center}.pbtxt .pbl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pbtxt .pbn{flex:none;white-space:nowrap}
+
+/* shared engagements */
+.rmbar{display:flex;align-items:center;gap:6px;margin-left:auto;margin-right:8px;flex-wrap:nowrap;min-width:0;overflow:hidden}
+.rmtag{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#14213d;background:var(--glow);border-radius:99px;padding:2px 8px}
+.rmface{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-size:11px;font-weight:700;border:2px solid #fff;flex:none;overflow:hidden}
+.rmface img{width:100%;height:100%;object-fit:cover}.rmface.host{box-shadow:0 0 0 2px var(--glow)}
+.rmhost,.rmwait{font-size:12px;color:#c9d4ee;white-space:nowrap}.rmhost.on{color:#9fe0b8}.rmwait{color:var(--glow)}
+.slot.rmpeer{outline:2px solid var(--rmc);outline-offset:2px}
+.rmpin{position:absolute;right:-6px;top:-8px;background:var(--rmc);color:#fff;font-size:9px;font-weight:700;border-radius:99px;padding:1px 5px;z-index:5;pointer-events:none}
+.rmfollow{position:fixed;left:50%;transform:translateX(-50%);top:14px;z-index:90;display:flex;gap:8px;align-items:center;background:#fff;color:#1f2430;border:1px solid var(--rule);border-radius:99px;padding:6px 8px 6px 14px;box-shadow:0 8px 28px rgb(30 45 80 /.18);font-size:14px}
+.rmfollow[hidden]{display:none}
+.rmsteps{margin:0;padding-left:20px;display:grid;gap:10px}.rmsteps li{display:grid;gap:6px;justify-items:start}
+.rmask{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rmask code{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:6px 8px;font-size:13px}
+.rmload{border:2px dashed var(--glow)}
+body.roommode #egrid .ecard.new,body.roommode #homeEx{display:none}
+@media (max-width:640px){.rmbar .rmhost,.rmbar .rmwait,.rmbar .rmface:nth-of-type(n+4){display:none}}
 </style>
 
 <div class="shell">
@@ -1556,6 +1572,8 @@ body.pmpresenting.laser,body.pmpresenting.laser *{cursor:none!important}
 <aside class="presnotes" id="presNotes" hidden aria-label="Presenter notes"></aside>
 
 <script>
+/* a shared engagement's own page sets this to true (scripts/build-room.mjs); the personal app keeps it false */
+const KA_ROOM=false;
 /* ---------- KA's standards: the PDF's drop-down lists, exactly as printed ---------- */
 /* two process lists (Dave, Nov 16: "toggle between the current processes and the original health system processes"): the book's fifteen, and the PDF's original thirteen */
 const PROC_SETS={book:["Performance Mgt.","Business Planning","Sourcing","Product Dev.","Production","Collections","Distribution","Marketing","Sales Forecasting","Sales Analysis","Order Fulfillment","Order Processing","Customer Service","Customer Relations","Customer Creation"],
@@ -4425,6 +4443,186 @@ function fitSlide(ps){ if(!ps) return; requestAnimationFrame(()=>{ const cw=(ps.
   const body=[...ps.children].filter(c=>!c.matches(".ps-top,.pmtop,.ps-kafoot,h2,.ps-foot,.k")); body.forEach(c=>c.style.zoom="");
   for(let z=1,n=0;n<8&&ps.scrollHeight>ps.clientHeight+1;n++){ z-=.05; body.forEach(c=>c.style.zoom=z); } }); }
 addEventListener("resize",()=>{ if(presenting&&!$("pslide").hidden) fitSlide($("pslide").querySelector(".ps")); if(typeof pmOn==="function"&&pmOn()) fitSlide(document.querySelector("#pmPres .slide")); });
+
+
+/* ===================== Shared engagements (Dave, Nov 17: "I want the ability to send a link to 1-5 folks so we can collaborate in real time together on a single engagement"; "I only want individuals to be Contributors, not editors. I would invite team members and clients. I want it to run off my Claude account. Definitely want per-engagement privacy."; "I have an individual plan… Straight away… For now, wait for me!")
+   Each shared engagement is its own published copy of this page (KA_ROOM true), with its own data store and its own share list.
+   The owner's open page is the host: it alone writes the shared store (on an individual plan nobody else can), applies everyone's edits straight away,
+   and runs everyone's Claude requests on the owner's account. Others send edits and requests over the live room, in small pieces, and wait for the host. ===================== */
+const RM={on:false,db:null,room:null,user:null,owner:false,me:null,last:{},pend:{},outQ:[],tx:null,ackSeen:{},inbox:{},reqs:{},hostHere:false,loaded:false,applyQ:null,dirty:false,follow:false,writing:{},wq:{},fromNames:{}};
+const RM_LOCAL=new Set(["items","lens","compare","bIdx","showLinks","animate"]);
+const rmId=(...p)=>{ const raw=p.join("~"), s=raw.replace(/[^A-Za-z0-9_~-]/g,"_"); if(s===raw) return s.slice(0,180); let h=0; for(const ch of raw) h=(h*31+ch.charCodeAt(0))|0; return (s.slice(0,160)+"-"+(h>>>0).toString(36)); };
+/* the engagement as documents: one per column per stakeholder view, one per criteria band, one per map row, one per snapshot, one per other field */
+function rmSegs(st){ const out={}, put=(meta,v)=>{ const id=rmId(...meta.p); out[id]={m:meta,v}; };
+  Object.entries(st).forEach(([k,v])=>{ if(RM_LOCAL.has(k)||v===undefined) return;
+    if(k==="lenses"){ Object.entries(v||{}).forEach(([L,lv])=>{ const {items,...rest}=lv||{}; put({t:"lens",L,p:["lens",L]},rest); Object.entries(items||{}).forEach(([col,arr])=>put({t:"col",L,col,p:["col",L,col]},arr)); }); return; }
+    if(k==="cp"){ Object.entries(v||{}).forEach(([L,cv])=>{ if(cv&&typeof cv==="object"&&!Array.isArray(cv)) Object.entries(cv).forEach(([b,bv])=>put({t:"cp",L,b,p:["cp",L,b]},bv)); else put({t:"cpx",L,p:["cpx",L]},cv); }); return; }
+    if(k==="pm"&&v&&typeof v==="object"){ const {cells,...rest}=v; put({t:"pm",p:["pm"]},rest); const rows={}; Object.entries(cells||{}).forEach(([key,c])=>{ const r=key.split(".")[0]; (rows[r]=rows[r]||{})[key]=c; }); for(let r=0;r<6;r++) put({t:"pmr",r:String(r),p:["pmr",String(r)]},rows[r]||{}); return; }
+    if(k==="snaps"&&Array.isArray(v)){ v.forEach((s,i)=>put({t:"snap",id:s.id||("n"+i),p:["snap",s.id||("n"+i)]},s)); put({t:"snapo",p:["snapo"]},v.map((s,i)=>s.id||("n"+i))); return; }
+    put({t:"s",k,p:["s",k]},v); });
+  return out; }
+/* put one document back into a state object */
+function rmApplyDoc(st,m,v){ if(!m) return;
+  if(m.t==="s") st[m.k]=v;
+  else if(m.t==="lens"){ st.lenses=st.lenses||{}; const L=st.lenses[m.L]=st.lenses[m.L]||{items:blank().items}; Object.keys(L).forEach(k=>{ if(k!=="items") delete L[k]; }); Object.assign(L,v||{}); }
+  else if(m.t==="col"){ st.lenses=st.lenses||{}; const L=st.lenses[m.L]=st.lenses[m.L]||{name:"Company",items:blank().items}; L.items=L.items||blank().items; L.items[m.col]=v; }
+  else if(m.t==="cp"){ st.cp=st.cp||{}; st.cp[m.L]=(st.cp[m.L]&&typeof st.cp[m.L]==="object")?st.cp[m.L]:{}; st.cp[m.L][m.b]=v; }
+  else if(m.t==="cpx"){ st.cp=st.cp||{}; st.cp[m.L]=v; }
+  else if(m.t==="pm"){ const cells=st.pm&&st.pm.cells||{}; st.pm=Object.assign({},v||{},{cells}); }
+  else if(m.t==="pmr"){ st.pm=st.pm||{cells:{}}; st.pm.cells=st.pm.cells||{}; Object.keys(st.pm.cells).forEach(k=>{ if(k.split(".")[0]===m.r) delete st.pm.cells[k]; }); Object.assign(st.pm.cells,v||{}); }
+  else if(m.t==="snap"){ st.__snaps=st.__snaps||{}; st.__snaps[m.id]=v; }
+  else if(m.t==="snapo"){ st.__snapo=v; } }
+function rmRemoveDoc(st,m){ if(!m) return; if(m.t==="s") delete st[m.k]; else if(m.t==="lens"&&st.lenses){ delete st.lenses[m.L]; if(st.cp) delete st.cp[m.L]; } else if(m.t==="snap"&&st.__snaps) delete st.__snaps[m.id]; }
+function rmFinish(st){ if(st.__snaps||st.__snapo){ const by=st.__snaps||{}, order=st.__snapo||Object.keys(by); st.snaps=order.map(id=>by[id]).filter(Boolean); } delete st.__snaps; delete st.__snapo; return st; }
+
+/* ---------- writing: the host writes the store, one write at a time per document ---------- */
+async function rmWrite(id,val){ RM.wq[id]=val; if(RM.writing[id]) return; RM.writing[id]=true;
+  try{ while(id in RM.wq){ const v=RM.wq[id]; delete RM.wq[id]; const ref=RM.db.collection("e").doc(id); if(v===null) await ref.delete(); else await ref.set({m:v.m,v:v.v,at:Date.now()}); } }
+  catch(e){ console.warn("shared write",e); toast("A change couldn't be saved to the shared engagement. It'll try again with your next change.",null,true); }
+  finally{ RM.writing[id]=false; } }
+/* what changed since the store last agreed with us */
+function rmDiff(){ const segs=rmSegs(S), ch=[]; Object.entries(segs).forEach(([id,doc])=>{ const j=JSON.stringify(doc); if(RM.last[id]!==j){ RM.last[id]=j; ch.push([id,doc]); } });
+  Object.keys(RM.last).forEach(id=>{ if(!(id in segs)){ delete RM.last[id]; ch.push([id,null]); } }); return ch; }
+let rmOutT=0; function rmSyncOut(){ if(!RM.on||!RM.loaded) return; clearTimeout(rmOutT); rmOutT=setTimeout(()=>{ const ch=rmDiff(); if(!ch.length) return;
+  if(RM.owner) ch.forEach(([id,doc])=>rmWrite(id,doc));
+  else { ch.forEach(([id])=>RM.pend[id]=Date.now()); rmSend({type:"edit",docs:ch}); } },350); }
+const _saveRoom=save; save=function(){ _saveRoom(); rmSyncOut(); };
+
+/* ---------- the live channel: messages in pieces through presence, each piece acknowledged by the host ---------- */
+const RM_CHUNK=2800;
+const rmB64=s=>{ const u=new TextEncoder().encode(s); let b=""; for(let i=0;i<u.length;i+=8192) b+=String.fromCharCode.apply(null,u.subarray(i,i+8192)); return btoa(b); };
+const rmUnB64=b=>new TextDecoder().decode(Uint8Array.from(atob(b),c=>c.charCodeAt(0)));
+function rmSend(msg){ const s=rmB64(JSON.stringify(msg)), id=Date.now().toString(36)+Math.random().toString(36).slice(2,6), n=Math.max(1,Math.ceil(s.length/RM_CHUNK));
+  RM.outQ.push({id,s,n,i:0}); rmPump(); rmPaint(); }
+function rmPump(){ if(!RM.room||RM.tx) return; const m=RM.outQ[0]; if(!m) return; RM.tx=m; RM.room.presence({tx:{id:m.id,i:m.i,n:m.n,d:m.s.slice(m.i*RM_CHUNK,(m.i+1)*RM_CHUNK)}}).catch(()=>{}); }
+function rmOnAck(a){ const m=RM.tx; if(!m||!a||a.id!==m.id||a.i!==m.i) return; m.i++; RM.tx=null;
+  if(m.i>=m.n){ RM.outQ.shift(); RM.room.presence({tx:null}).catch(()=>{}); } rmPump(); rmPaint(); }
+const rmPeerKey=p=>String(p.by||p.peer||"x").replace(/[^A-Za-z0-9_-]/g,"_").slice(0,120);
+/* host: read everyone's pieces, acknowledge each, act on whole messages */
+function rmHostPeers(ch){ (ch.joined||[]).concat(ch.updated||[]).forEach(p=>{ if(p.isMe) return; const tx=p.presence&&p.presence.tx; if(!tx||typeof tx!=="object") return; const key=rmPeerKey(p);
+    const seen=RM.ackSeen[key]; if(seen&&seen.id===tx.id&&seen.i>=tx.i) return; const box=RM.inbox[key]=(RM.inbox[key]&&RM.inbox[key].id===tx.id)?RM.inbox[key]:{id:tx.id,parts:[]};
+    box.parts[tx.i]=String(tx.d||""); RM.ackSeen[key]={id:tx.id,i:tx.i}; RM.db.collection("x").doc("ack~"+key).set({id:tx.id,i:tx.i,at:Date.now()}).catch(()=>{});
+    if(tx.i===tx.n-1&&box.parts.filter(x=>x!==undefined).length===tx.n){ delete RM.inbox[key]; let msg=null; try{ msg=JSON.parse(rmUnB64(box.parts.join(""))); }catch(e){} if(msg) rmHostMessage(msg,p); } }); }
+async function rmHostMessage(msg,p){
+  if(msg.type==="edit"&&Array.isArray(msg.docs)){ let n=0; msg.docs.slice(0,400).forEach(([id,doc])=>{ if(typeof id!=="string"||id.length>200) return; if(doc!==null&&(!doc||typeof doc!=="object"||!doc.m)) return;
+      if(doc===null){ delete RM.last[id]; rmRemoveDoc(S,RM.metaOf[id]); } else { RM.last[id]=JSON.stringify(doc); rmApplyDoc(S,doc.m,doc.v); RM.metaOf[id]=doc.m; } rmWrite(id,doc); n++; });
+    if(n){ S=norm(rmFinish(S)); _saveRoom(); rmRerender(); RM.lastBy=p.by; rmActivity(p,"edited"); } }
+  if(msg.type==="ask"&&msg.rid){ const rid=String(msg.rid).replace(/[^A-Za-z0-9_-]/g,"").slice(0,40); if(!rid||RM.reqs[rid]) return; RM.reqs[rid]=1; rmActivity(p,"asked Claude");
+    const raw=RM.rawSample; let res; try{ if(!raw) throw {code:"unavailable",message:"Claude isn't available in Dave's session"};
+      RM.asker=p.by; const opts=Object.assign({},msg.opts||{}); delete opts.signal; delete opts.onText; delete opts.tools;
+      if(msg.mode==="json") res={ok:true,value:await sample.json(msg.input,opts)}; else { const r=await sample(msg.input,opts); res={ok:true,text:r.text,truncated:!!r.truncated,modelTierApplied:r.modelTierApplied}; } }
+    catch(e){ res={ok:false,code:e&&e.code||"error",message:String(e&&e.message||"Claude couldn't answer")}; }
+    finally{ RM.asker=null; }
+    RM.db.collection("x").doc("res~"+rid).set(Object.assign({at:Date.now()},res)).catch(()=>{}); } }
+RM.metaOf={};
+
+/* ---------- Claude for everyone, on the owner's account ---------- */
+function rmProxySample(){ const call=(mode)=>(input,opts={})=>new Promise((resolve,reject)=>{ const rid=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+    if(opts.signal){ if(opts.signal.aborted) return reject({code:"aborted",message:"Stopped"}); opts.signal.addEventListener("abort",()=>{ delete RM.waits[rid]; rmPaint(); reject({code:"aborted",message:"Stopped"}); }); }
+    RM.waits[rid]={resolve,reject,mode,at:Date.now()}; const {signal,onText,tools,...o}=opts; rmSend({type:"ask",rid,mode,input,opts:o}); rmPaint();
+    if(!RM.hostHere) toast(`Waiting for ${RM.hostName||"Dave"}'s session: Claude runs on ${RM.hostName?RM.hostName+"'s":"Dave's"} account and starts when they open this engagement.`,null,true); });
+  const f=call("text"); f.json=call("json"); f.limits=async()=>({images:false}); f.__tok=true; f.__proxy=true; return f; }
+RM.waits={};
+function rmOnRes(id,d){ const rid=id.slice(4), w=RM.waits[rid]; if(!w||!d) return; delete RM.waits[rid]; rmPaint();
+  if(!d.ok) return w.reject({code:d.code||"error",message:d.message||"Claude couldn't answer"}); w.resolve(w.mode==="json"?d.value:{text:d.text||"",truncated:!!d.truncated,modelTierApplied:d.modelTierApplied}); }
+
+/* ---------- reading: everyone renders from the store ---------- */
+function rmIncoming(snap){ const fresh=!RM.loaded; let changed=false;
+  snap.docChanges().forEach(c=>{ const id=c.doc.id, d=c.doc.data(); if(c.type==="removed"){ if(id in RM.last||RM.metaOf[id]){ delete RM.last[id]; rmRemoveDoc(RM.stage||(RM.stage=JSON.parse(JSON.stringify(S))),RM.metaOf[id]); delete RM.metaOf[id]; changed=true; } return; }
+    if(!d||!d.m) return; const doc={m:d.m,v:d.v}, j=JSON.stringify(doc); RM.metaOf[id]=d.m;
+    if(RM.pend[id]&&Date.now()-RM.pend[id]<15000){ if(RM.last[id]===j){ delete RM.pend[id]; } return; } delete RM.pend[id];
+    if(RM.last[id]===j) return; RM.last[id]=j; rmApplyDoc(RM.stage||(RM.stage=fresh?blank():JSON.parse(JSON.stringify(S))),d.m,d.v); changed=true; });
+  if(fresh){ RM.loaded=true; if(!snap.size){ RM.empty=true; rmPaint(); if(route==="overview") renderOverview(); return; } RM.empty=false; }
+  if(changed) rmCommit(fresh); }
+function rmCommit(first){ const typing=document.activeElement&&document.activeElement.matches&&document.activeElement.matches("input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select,[contenteditable]")&&!document.activeElement.closest(".kit");
+  if(typing&&!first){ RM.dirty=true; return; } const st=RM.stage; RM.stage=null; if(!st) return; const keepLens=S.lens, local={}; RM_LOCAL.forEach(k=>{ if(k!=="items") local[k]=S[k]; });
+  S=rmFinish(st); RM_LOCAL.forEach(k=>{ if(k!=="items"&&local[k]!==undefined) S[k]=local[k]; }); if(!S.lenses||!S.lenses[keepLens]) S.lens=Object.keys(S.lenses||{})[0]; S=norm(S); _saveRoom(); if(first){ try{ wasAligned=true; }catch(e){} } rmRerender(first); }
+document.addEventListener("focusout",()=>setTimeout(()=>{ if(RM.dirty&&RM.stage){ RM.dirty=false; rmCommit(false); } },60));
+let rmRT=0; function rmRerender(first){ cancelAnimationFrame(rmRT); rmRT=requestAnimationFrame(()=>{ try{ renderCrumbs(); }catch(e){}
+  if(presenting||(typeof pmOn==="function"&&pmOn())) return;
+  if(route==="aid"){ try{ syncTop(); renderAll(!!first); if(cpMode) cpRefresh(); if(pmMode) pmRefresh(); renderNextPill(); }catch(e){ console.warn(e); } }
+  else if(route==="overview") renderOverview(); else if(route==="meet") renderMeet(); rmPaintBoxes(); }); }
+
+/* ---------- who's here ---------- */
+async function rmNames(ids){ ids=ids.filter(Boolean); if(!ids.length||!RM.user) return {}; try{ return await RM.user.profiles(ids); }catch(e){ return {}; } }
+let rmPeerList=[];
+async function rmPeers(ch){ rmPeerList=ch.peers.slice(); if(RM.owner) rmHostPeers(ch);
+  const host=ch.peers.find(p=>!p.isMe&&p.presence&&p.presence.host); RM.hostHere=RM.owner||!!host; if(host) RM.hostBy=host.by;
+  const ps=await rmNames(ch.peers.map(p=>p.by)); RM.fromNames=ps; if(RM.hostBy&&ps[RM.hostBy]) RM.hostName=(ps[RM.hostBy].name||"").split(" ")[0]||RM.hostName;
+  if(!RM.owner&&host) rmFollowFrom(host); rmPaint(); rmPaintBoxes(); if(RM.hostHere&&Object.keys(RM.waits).length) rmPump(); }
+function rmInitials(n){ return (n||"?").split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("")||"?"; }
+function rmPaint(){ if(!RM.on) return; let b=$("rmBar"); if(!b){ b=document.createElement("div"); b.id="rmBar"; b.className="rmbar"; $("cmdBtn").before(b); }
+  const people=rmPeerList.filter(p=>p.kind==="viewer"), seen=new Set(), chips=[];
+  people.forEach(p=>{ const k=p.by||p.peer; if(seen.has(k)) return; seen.add(k); const pr=RM.fromNames[p.by]||{}, name=p.isMe?"You":(pr.name||"Someone"), col=pr.color||"#7a8296", doing=p.presence&&p.presence.doing||"";
+    chips.push(`<span class="rmface${p.presence&&p.presence.host?" host":""}" style="--c:${col}" title="${esc(name)}${p.presence&&p.presence.host?" · host, Claude runs here":""}${p.guest?" · guest":""}${doing?" · "+esc(doing):""}">${pr.avatarUrl&&!p.isMe?`<img src="${esc(pr.avatarUrl)}" alt="">`:esc(p.isMe?"You":rmInitials(pr.name))}</span>`); });
+  const waiting=Object.keys(RM.waits).length, sending=RM.outQ.length;
+  b.innerHTML=`<span class="rmtag" title="Only the people this engagement is shared with can open it">Shared</span>${chips.join("")}${!RM.owner?`<span class="rmhost ${RM.hostHere?"on":""}">${RM.hostHere?`${esc(RM.hostName||"Host")} is here`:`${esc(RM.hostName||"Host")} is away`}</span>`:""}${waiting?`<span class="rmwait">Claude: waiting for ${esc(RM.hostName||"the host")} · ${waiting}</span>`:""}${sending&&!waiting?`<span class="rmwait">Sending…</span>`:""}`; }
+/* each person's place: which box they have open, outlined on everyone's sheet */
+function rmMyPlace(){ if(!RM.room) return; const doing=route==="aid"?`${pmMode?"Priorities Map":cpMode?"Criteria":"Alignment"} · ${curView==="aid"?"sheet":curView}${!cpMode&&!pmMode&&sel?" · "+nameOf(sel):""}`:route; RM.room.presence({doing:doing.slice(0,120),box:!cpMode&&!pmMode&&sel?sel:null,host:RM.owner||null}).catch(()=>{}); }
+setInterval(()=>{ if(RM.on&&RM.room){ const k=`${route}|${curView}|${cpMode}|${pmMode}|${sel}`; if(k!==RM.placeK){ RM.placeK=k; rmMyPlace(); } } },700);
+function rmPaintBoxes(){ document.querySelectorAll(".rmpeer").forEach(x=>x.classList.remove("rmpeer")); document.querySelectorAll(".rmpin").forEach(x=>x.remove());
+  rmPeerList.forEach(p=>{ if(p.isMe||!p.presence||!p.presence.box) return; const el=document.querySelector(`#cv .slot[data-id="${CSS.escape(String(p.presence.box))}"]`); if(!el) return; const pr=RM.fromNames[p.by]||{};
+    el.classList.add("rmpeer"); el.style.setProperty("--rmc",pr.color||"#7a8296"); el.insertAdjacentHTML("beforeend",`<span class="rmpin" style="--rmc:${pr.color||"#7a8296"}">${esc(rmInitials(pr.name))}</span>`); }); }
+function rmActivity(p,what){ const pr=RM.fromNames[p.by]||{}; RM.act=RM.act||[]; RM.act.unshift({by:p.by,what,t:Date.now()}); RM.act=RM.act.slice(0,20); }
+
+/* ---------- follow the host's presentation ---------- */
+function rmPresState(){ if(!RM.owner||!RM.room) return; const on=presenting||(typeof pmOn==="function"&&pmOn()); const st=on?{seg:PL?PL.i:0,i:pmOn()?pmSi:presIx,a:PL?PL.segs[PL.i].a:(pmOn()?"pm":presCP?"cp":"aop"),pick:PL?S.presPick:null}:null;
+  const k=JSON.stringify(st); if(k!==RM.presK){ RM.presK=k; RM.room.presence({pres:st}).catch(()=>{}); } }
+setInterval(()=>{ if(RM.on&&RM.owner) rmPresState(); },400);
+function rmFollowFrom(host){ const st=host.presence&&host.presence.pres; const on=presenting||(typeof pmOn==="function"&&pmOn());
+  if(!st){ if(RM.follow&&on){ if(pmOn()) pmPresEnd(); else stopPresent(); } RM.follow=false; rmFollowBanner(false); return; }
+  if(!RM.follow){ rmFollowBanner(true); return; } rmFollowBanner(false); rmGoTo(st); }
+function rmGoTo(st){ const on=presenting||(typeof pmOn==="function"&&pmOn());
+  if(!on){ if(st.pick){ S.presPick=st.pick; PL=null; plRun(); } else { if(st.a==="pm"){ openPM("aid"); pmPresent(); } else { if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } if((st.a==="cp")!==cpMode) setAidMode(st.a==="cp"); startPresent(st.a==="cp"); } } setTimeout(()=>rmGoTo(st),500); return; }
+  if(PL&&PL.i!==st.seg){ if(!plSwitching) plJump(st.seg,false); setTimeout(()=>rmGoTo(st),500); return; }
+  if(pmOn()){ if(pmSi!==st.i){ pmSi=Math.max(0,Math.min(pmSl.length-1,st.i)); pmPresRender(); } } else if(presIx!==st.i) _goPl(st.i); }
+function rmFollowBanner(show){ let b=$("rmFollow"); if(!show){ if(b) b.hidden=true; return; } if(!b){ b=document.createElement("div"); b.id="rmFollow"; b.className="rmfollow"; document.body.appendChild(b); }
+  b.innerHTML=`<span>${esc(RM.hostName||"The host")} is presenting</span><button class="btn small primary" id="rmFollowGo">Follow along</button><button class="btn small ghost" id="rmFollowNo" aria-label="Not now">✕</button>`; b.hidden=false;
+  $("rmFollowGo").onclick=()=>{ RM.follow=true; b.hidden=true; const h=rmPeerList.find(p=>p.presence&&p.presence.host); if(h) rmFollowFrom(h); toast("Following the presentation. Exit leaves it.",null,true); };
+  $("rmFollowNo").onclick=()=>{ b.hidden=true; RM.followDeclined=true; }; if(RM.followDeclined) b.hidden=true; }
+const _stopRm=stopPresent; stopPresent=function(){ _stopRm(); if(!plSwitching&&RM.follow&&!RM.owner){ RM.follow=false; } };
+
+/* ---------- the owner brings the engagement in, once ---------- */
+function rmLoadCardHTML(){ return `<div class="scard rmload"><h3>Bring the engagement in</h3><p>This shared copy is empty. Choose the file you saved with <b>Share this engagement</b> in your own KA Engagement Aids.</p>
+  <label class="btn primary">Choose the engagement file<input type="file" id="rmFile" accept=".json,application/json" hidden></label><p class="note">After it loads, open the Share menu and invite up to five people as Contributors.</p></div>`; }
+async function rmLoadFile(f){ try{ const j=JSON.parse(await f.text()); const data=j&&j.format==="ka-engagement"?j.data:j; if(!data||typeof data!=="object"||!data.lenses&&!data.items) throw new Error("not an engagement");
+    S=norm(data); RM.loaded=true; RM.empty=false; RM.last={}; _saveRoom(); const ch=rmDiff(); toast(`Loading ${ch.length} parts of the engagement…`,null,true);
+    for(const [id,doc] of ch) await rmWrite(id,doc); if(j.name){ LIBD.aids[LIBD.cur].name=j.name; try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} }
+    toast("The engagement is in. Now share this page with your people as Contributors.",null,true); renderCrumbs(); renderOverview(); }
+  catch(e){ toast("That file isn't an engagement saved by Share this engagement.",null,true); } }
+document.addEventListener("change",e=>{ if(e.target&&e.target.id==="rmFile"&&e.target.files[0]) rmLoadFile(e.target.files[0]); });
+
+/* ---------- the personal app: Share this engagement ---------- */
+function shareEngagement(){ flushSave(); const name=aidName(), data=JSON.parse(JSON.stringify(S)); delete data.snaps; RM_LOCAL.forEach(k=>{ if(k!=="items"&&k!=="lens") delete data[k]; });
+  const blob=new Blob([JSON.stringify({format:"ka-engagement",v:1,name,saved:Date.now(),data})],{type:"application/json"}), filename=`${name.replace(/[\\/:*?"<>|]+/g," ").trim()||"Engagement"}.ka-engagement.json`;
+  const ask=`Set up a shared KA Engagement Room for "${name}"`;
+  kitOpen("Share this engagement",`<p class="kitlead">Each shared engagement gets its own private page: only the people you invite to it can open it, and your other engagements stay in your browser.</p>
+    <ol class="rmsteps"><li><b>Save the engagement file.</b><button class="btn small primary" id="rmSave">Save ${esc(filename)}</button></li>
+    <li><b>Ask Claude for the shared page.</b> Paste this in your chat with Claude:<div class="rmask"><code>${esc(ask)}</code><button class="btn small" id="rmCopyAsk">Copy</button></div></li>
+    <li><b>Open the new page and choose the file.</b> It loads everything once.</li>
+    <li><b>Share it from its Share menu</b> with up to five people as <b>Contributors</b>. Team members and clients can work in it live while you have it open. Claude runs on your account, from your open page.</li></ol>`,true);
+  $("rmSave").onclick=async()=>{ try{ if(downloads){ await downloads.save({filename,data:blob}); } else { const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=filename; document.body.appendChild(a); a.click(); a.remove(); } toast("Engagement file saved",null,true); }catch(e){ toast(e&&e.code==="declined"?"Not saved":"Saving isn't available in this view",null,true); } };
+  $("rmCopyAsk").onclick=async()=>{ try{ await navigator.clipboard.writeText(ask); toast("Copied"); }catch(e){ toast("Copy didn't work in this view"); } }; }
+
+/* ---------- wiring ---------- */
+const _roRm=renderOverview; renderOverview=function(){ _roRm(); const side=$("ovNext")||$("ovSide");
+  if(RM.on){ if(RM.owner&&RM.loaded&&RM.empty&&side&&!$("rmLoad")){ const d=document.createElement("div"); d.id="rmLoad"; d.innerHTML=rmLoadCardHTML(); side.before(d); } }
+  else if(side&&!$("rmShare")&&!/^Untitled/.test(aidName())){ const d=document.createElement("div"); d.id="rmShare"; d.className="scard rmshare"; d.innerHTML=`<h3>Work on it together</h3><p class="note" style="margin:0">Give this engagement its own private page and invite up to five people, team members or clients, as Contributors.</p><button class="btn small" id="rmShareBtn">Share this engagement</button>`; side.after(d); $("rmShareBtn").onclick=shareEngagement; } };
+const _cmdRm=cmdActions; cmdActions=function(){ const A=_cmdRm(); if(!RM.on) A.push({g:"Work",t:"Share this engagement (its own private page)",run:shareEngagement,hint:""}); return A; };
+if(KA_ROOM){ RM.on=true; document.body.classList.add("roommode");
+  const _navRm=nav; nav=function(r,opt){ if(r==="home"||r==="new") r="overview"; return _navRm(r,opt); };
+  (async()=>{ const C=window.claude; if(!C) return; let db=null, room=null, user=null; try{ [db,room,user]=await Promise.all([C.use("db"),C.use("room"),C.use("user")]); }catch(e){}
+    RM.db=db; RM.room=room; RM.user=user; if(!db){ toast("This shared engagement needs you to be signed in to Claude with access to it.",null,true); return; }
+    RM.owner=user?await user.isOwner():false; try{ RM.me=user?await user.id():null; }catch(e){}
+    const raw=C?await C.use("sample").catch(()=>null):null; await Promise.resolve(); RM.rawSample=raw;
+    if(!RM.owner){ sample=rmProxySample(); try{ if(assistOff){ assistOff=false; btns.forEach(b=>b.disabled=false); if($("ivStart")) $("ivStart").disabled=false; if($("asCoGo")) $("asCoGo").disabled=false; $("assistNote").textContent=`Claude runs on ${RM.hostName||"the host"}'s account, from their open page.`; } }catch(e){} }
+    db.collection("e").onSnapshot(rmIncoming,err=>toast("The shared engagement can't be reached right now.",null,true));
+    db.collection("x").onSnapshot(s=>s.docChanges().forEach(c=>{ if(c.type==="removed") return; const id=c.doc.id, d=c.doc.data(); if(id==="ack~"+(RM.myKey||"")) rmOnAck(d); else if(id.startsWith("res~")) rmOnRes(id,d); }),()=>{});
+    if(room){ room.onPeers(ch=>{ const me=ch.peers.find(p=>p.isMe); if(me) RM.myKey=rmPeerKey(me); rmPeers(ch); }); rmMyPlace(); }
+    rmPaint(); if(route==="home"||route==="new") nav("overview"); })(); }
+const _mstRm=meetSnapTake; meetSnapTake=function(){ if(RM.on&&!RM.owner&&RM.follow) return; _mstRm(); };
+/* tokens: on the host, a guest's request is counted with who asked */
+const _tokRm=tokRecord; tokRecord=function(p,r,t){ _tokRm(p,r,t); if(RM.on&&RM.owner&&RM.asker){ const T=S.tokens; T.who=T.who||{}; const w=T.who[RM.asker]=T.who[RM.asker]||{n:0}; w.n++; save(); } };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
