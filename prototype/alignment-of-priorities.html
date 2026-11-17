@@ -1044,11 +1044,12 @@ textarea.pmname{padding-top:calc(.6*var(--mm))}
 /* Present */
 .pmpres{position:fixed;inset:0;z-index:70;background:#fff;display:grid;grid-template-rows:1fr auto;color:#1f2430}
 .pmpres .stage{display:grid;place-items:center;padding:2vh 3vw 0;min-height:0}
-.pmpres .frame{aspect-ratio:279.4/215.9;width:min(94vw,calc((100vh - 140px)*279.4/215.9));container-type:inline-size;position:relative}
+.pmpres .frame{aspect-ratio:279.4/215.9;width:min(94vw,calc((100dvh - 150px)*279.4/215.9));container-type:inline-size;position:relative}
 .pmpres .cap{position:absolute;left:calc(26*var(--mmp));top:calc(178*var(--mmp));width:calc(150*var(--mmp));--mmp:calc(100cqw/279.4);background:#fff;border-left:calc(.7*var(--mmp)) solid var(--plum);border-radius:calc(1.2*var(--mmp));padding:calc(1.6*var(--mmp)) calc(2.4*var(--mmp));box-shadow:0 calc(.8*var(--mmp)) calc(3*var(--mmp)) rgb(30 45 80 /.10);font-size:calc(2.6*var(--mmp));line-height:1.35;animation:psrise .6s both}
 .pmpres .cap b{display:block;color:var(--plum);font-size:calc(2.1*var(--mmp));letter-spacing:.14em;text-transform:uppercase;margin-bottom:calc(.6*var(--mmp))}
 .pmpres .cap h4{margin:0 0 calc(.6*var(--mmp));font-size:calc(3.6*var(--mmp));font-weight:600;color:#3f62ad}
-.pmpres .bar{display:flex;gap:8px;justify-content:center;align-items:center;padding:10px;flex-wrap:wrap}
+.pmpres .stage{overflow:hidden}
+.pmpres .bar{position:relative;z-index:3;background:#fff;display:flex;gap:8px;justify-content:center;align-items:center;padding:10px;flex-wrap:wrap}
 .pmpres .bar .pb{min-height:40px}
 .pmpres .slide{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;justify-content:center;padding:6cqw 7cqw;gap:2cqw}
 .pmpres .slide h2{margin:0;font-weight:300;font-size:4.4cqw;color:#3f62ad}
@@ -2528,7 +2529,8 @@ function presRender(){ if(!presenting) return; const sl=slides[presIx]; if(!sl) 
     cap.innerHTML=capHTML(sl); cap.classList.toggle("quiet",sl.k==="whole"||sl.k==="col"); cap.hidden=false; cap.classList.remove("in"); void cap.offsetWidth; cap.classList.add("in"); }
   else { camera(null); ps.innerHTML=slideHTML(sl); ps.hidden=false; void ps.offsetWidth; ps.classList.add("in"); cap.classList.remove("in"); cap.hidden=true; }
   $("pText").textContent=`${slideLabel(sl)} · ${presIx+1} of ${slides.length}`;
-  $("pPrev").disabled=presIx<=0; $("pNext").disabled=presIx>=slides.length-1;
+  { const plN=typeof PL!=="undefined"&&PL&&PL.i<PL.segs.length-1, plP=typeof PL!=="undefined"&&PL&&PL.i>0; $("pPrev").disabled=presIx<=0&&!plP; $("pNext").disabled=presIx>=slides.length-1&&!plN;
+    $("pNext").title=presIx>=slides.length-1&&plN?`Next: ${TOK_AID[PL.segs[PL.i+1].a]}`:"Next"; $("pPrev").title=presIx<=0&&plP?`Back: ${TOK_AID[PL.segs[PL.i-1].a]}`:"Back"; }
   $("pprog").firstElementChild.style.width=`${(presIx+1)/slides.length*100}%`;
   if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); }
 function go(i){ if(!presenting) return; const n=Math.max(0,Math.min(slides.length-1,i)); if(n===presIx&&slides[n]) return presRender(); presIx=n; presRender(); }
