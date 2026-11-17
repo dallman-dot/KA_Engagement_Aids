@@ -1044,7 +1044,7 @@ textarea.pmname{padding-top:calc(.6*var(--mm))}
 /* Present */
 .pmpres{position:fixed;inset:0;z-index:70;background:#fff;display:grid;grid-template-rows:1fr auto;color:#1f2430}
 .pmpres .stage{display:grid;place-items:center;padding:2vh 3vw 0;min-height:0}
-.pmpres .frame{width:min(94vw,calc((100vh - 140px)*279.4/215.9));container-type:inline-size;position:relative}
+.pmpres .frame{aspect-ratio:279.4/215.9;width:min(94vw,calc((100vh - 140px)*279.4/215.9));container-type:inline-size;position:relative}
 .pmpres .cap{position:absolute;left:calc(26*var(--mmp));top:calc(178*var(--mmp));width:calc(150*var(--mmp));--mmp:calc(100cqw/279.4);background:#fff;border-left:calc(.7*var(--mmp)) solid var(--plum);border-radius:calc(1.2*var(--mmp));padding:calc(1.6*var(--mmp)) calc(2.4*var(--mmp));box-shadow:0 calc(.8*var(--mmp)) calc(3*var(--mmp)) rgb(30 45 80 /.10);font-size:calc(2.6*var(--mmp));line-height:1.35;animation:psrise .6s both}
 .pmpres .cap b{display:block;color:var(--plum);font-size:calc(2.1*var(--mmp));letter-spacing:.14em;text-transform:uppercase;margin-bottom:calc(.6*var(--mmp))}
 .pmpres .cap h4{margin:0 0 calc(.6*var(--mmp));font-size:calc(3.6*var(--mmp));font-weight:600;color:#3f62ad}
@@ -1063,6 +1063,23 @@ body.pmpresenting{overflow:hidden}
 .pmname[data-ph]:empty::before,.pminit[data-ph]:empty::before{content:attr(data-ph);color:var(--blue);opacity:.4;font-weight:400}
 @media (max-width:640px){#viewAidPM .ctlcard{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}}
 body.client .pmbanner{display:none!important}
+/* token counter, present picker, client marks on every aid */
+.toktab{width:100%;border-collapse:collapse;font-size:13.5px}.toktab th{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;font-weight:700;padding:2px 4px}.toktab th:first-child{text-align:left}
+.toktab td{padding:3px 4px;text-align:right;border-top:1px solid var(--rule)}.toktab td:first-child{text-align:left}.toktab tr.aid td{font-weight:700;color:var(--blue);border-top:0;padding-top:8px}.toktab tr.tot td{font-weight:700;border-top:2px solid var(--rule)}
+.plpick{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:14px;display:grid;gap:12px}
+.plhead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.plhead h3{margin:0;font-size:17px;text-transform:none;letter-spacing:0;color:var(--ink)}
+.plrows{display:grid;gap:8px}
+.plrow{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,1.4fr) minmax(0,1.4fr);gap:10px;align-items:center;border:1px solid var(--rule);border-left:5px solid var(--why);border-radius:12px;padding:10px 12px}
+.plrow.cp{border-left-color:var(--how)}.plrow.pm{border-left-color:color-mix(in srgb,var(--why) 55%,var(--glow))}.plrow.off{opacity:.55}
+.plname{display:grid;gap:2px}.plname b{font-size:15px}
+.plopt{display:flex;gap:9px;align-items:flex-start;cursor:pointer;border:1px solid var(--rule);border-radius:10px;padding:8px 10px;min-height:44px}
+.plopt input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--blue);flex:none}.plopt span{display:grid;gap:1px}.plopt i{font-style:normal;font-size:12.5px;color:var(--muted)}
+.plopt:has(input:checked){border-color:var(--blue);background:color-mix(in srgb,var(--blue) 6%,var(--paper))}
+@media (max-width:760px){.plrow{grid-template-columns:minmax(0,1fr)}}
+.plcover{position:fixed;inset:0;background:#fff;z-index:90;opacity:0;pointer-events:none;transition:opacity .12s}.plcover.on{opacity:1;pointer-events:auto}
+.ghclient{display:flex;align-items:center;gap:10px;flex:none;max-width:45%}.ghclient img{max-height:44px;max-width:150px;object-fit:contain}.ghclient b{color:var(--title);font-size:17px;font-weight:600;text-align:right}
+@media (max-width:600px){.ghclient b{display:none}}
+.pmpres .slide .pmtop{display:flex;justify-content:space-between;align-items:center;gap:2cqw;position:absolute;top:4.5cqw;left:7cqw;right:7cqw}
 </style>
 
 <div class="shell">
@@ -1133,7 +1150,7 @@ body.client .pmbanner{display:none!important}
 
   <section class="rview" id="viewMeet" hidden aria-label="Meet the client">
     <div class="hhead"><div><small>Meet the client</small><h1 id="meetName">Meet the client</h1><p>Pick the aid, then how you'll use it. Whatever you choose, the client sees only the work: no coaching, scores, warnings or empty boxes.</p></div></div>
-    <div class="meetpick"><span class="note">Which aid?</span><div class="seg" role="radiogroup" aria-label="Which aid"><button role="radio" data-meet-aid="aop" aria-checked="true">Alignment of Priorities</button><button role="radio" data-meet-aid="cp" aria-checked="false">Criteria Proposition</button></div></div>
+    <div class="meetpick"><span class="note">Work together or interview on</span><div class="seg" role="radiogroup" aria-label="Which aid"><button role="radio" data-meet-aid="aop" aria-checked="true">Alignment of Priorities</button><button role="radio" data-meet-aid="cp" aria-checked="false">Criteria Proposition</button></div></div>
     <div class="meetways">
       <button class="way" data-way="present"><span class="wi">▶</span><h3>Present the story</h3><p>Full screen, the whole picture first, then each part in order. Presenter view and notes on your laptop.</p><ul><li>Clicker and keys work</li><li>Leave-behind PDF at the end</li></ul></button>
       <button class="way p2" data-way="together"><span class="wi">✎</span><h3>Work through it together</h3><p>The sheet, large and clean, for you both to change in the meeting. Coaching stays out of sight.</p><ul><li>Edit any box as you talk</li><li>End the meeting to get your tools back</li></ul></button>
@@ -2882,7 +2899,7 @@ $("aLinks").onclick=async()=>{
 $("aChallenge").onclick=()=>ask(`${ctx()}\n\nChallenge this alignment as an experienced KA principal would before it goes in front of the client. Use KA's own Problem Space steps: challenge the relevance of initiatives or solutions under consideration, and document any ambiguity that creates gaps to success. Name specific items. Cover what isn't tied in, standard choices whose support is thin, and which of the five gaps it exposes. At most 6 short bullets, most important first. Plain text, "- " bullets.`);
 $("aQuestions").onclick=()=>ask(`${ctx()}\n\nWrite 5 open questions to ask the client while filling this aid in together, each tied to a specific column or choice (name it in brackets first), aimed at the gaps and the items not tied in. Plain text, numbered.`);
 $("askForm").onsubmit=e=>{ e.preventDefault(); const q=$("askBox").value.trim(); if(!q) return; ask(`${ctx()}${sel?`\n\nThe user is looking at: ${nameOf(sel)} (${sel}).`:""}\n\nQuestion: ${q}\n\nAnswer in under 150 words, plain text.`); };
-(async()=>{ try{ sample=window.claude?await window.claude.use("sample"):null; }catch(e){ sample=null; } if(!sample) off("The assistant works when this page is opened in Claude. The aid works by hand everywhere."); })();
+(async()=>{ try{ sample=window.claude?await window.claude.use("sample"):null; }catch(e){ sample=null; } sample=wrapSample(sample); if(!sample) off("The assistant works when this page is opened in Claude. The aid works by hand everywhere."); })();
 
 /* ===================== Criteria Proposition (Dave, Nov 17: "start the build out of the Criteria Proposition… information from the AoP will heavily determine what goes into the Criteria Proposition"; "go with your recommendations on all four") ===================== */
 /* the three bands, their lens from the book (Dimensions of Success, p. 51), and the PDF's own coordinates (mm, page 2) */
@@ -3841,11 +3858,11 @@ function pmPresRender(){ const o=$("pmPres"), sl=pmSl[pmSi], P=pmData(); let inn
   if(sl.k==="whole"){ inner=pmSheetHTML({mode:"present"}); cap=`<b>The whole map · our point of view</b><h4>How ${esc(aidTitle())}'s stakeholders prioritize the same initiatives</h4>${esc(KEVIN)}`; }
   if(sl.k==="row"){ const x=pmRowRead(sl.r); inner=pmSheetHTML({mode:"present",spot:{r:sl.r}}); cap=`<b>Initiative · ${pmSi} of ${pmSl.filter(s=>s.k==="row").length}</b><h4>${esc(iName(sl.r))}</h4>High for ${esc(listJoin(x.hi.map(c=>sName(c))))||"no one"} · Medium for ${esc(listJoin(x.md.map(c=>sName(c))))||"no one"} · Low for ${esc(listJoin(x.lo.map(c=>sName(c))))||"no one"}.${x.spread>=2?" Where do you see this differently?":""}`; }
   if(sl.k==="compare"){ const cf=pmConflicts(), cm=pmCommon(); inner=pmSheetHTML({mode:"present",spot:{rows:[...cf,...cm],mark:"conflict"}}); cap=`<b>Similarities and differences</b><h4>${cf.length?`${cf.length} potential conflict${cf.length>1?"s":""}`:"No conflicts"}${cm.length?` · ${cm.length} common ground`:""}</h4>${cf.map(r=>esc(iName(r))).join(" · ")}${cf.length&&cm.length?" | ":""}${cm.map(r=>esc(iName(r))).join(" · ")}`; }
-  if(sl.k==="take"){ inner=`<div class="slide"><span class="k">Key takeaways</span><h2>Where am I off track?</h2>${P.take.trim()?`<ul>${P.take.trim().split(/\n+/).map(l=>`<li>${esc(l.replace(/^[-•]\s*/,""))}</li>`).join("")}</ul>`:`<div class="two"><div class="w"><h3>Potential conflicts</h3><ul>${pmConflicts().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None</li>"}</ul></div><div class="o"><h3>Common ground</h3><ul>${pmCommon().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None yet</li>"}</ul></div></div>`}<p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
-  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap">${cap}</div>`:""}</div></div><div class="bar"><button class="pb" data-pmp="-1" aria-label="Previous">◀</button><span class="pbtxt">${pmSi+1} of ${pmSl.length}</span><button class="pb" data-pmp="1" aria-label="Next">▶</button><button class="pb wide" data-pmpdeck>Leave-behind PDF</button><button class="pb wide" data-pmpx>Exit</button></div>`; }
+  if(sl.k==="take"){ inner=`<div class="slide"><div class="pmtop"><span class="k">Key takeaways</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2>${P.take.trim()?`<ul>${P.take.trim().split(/\n+/).map(l=>`<li>${esc(l.replace(/^[-•]\s*/,""))}</li>`).join("")}</ul>`:`<div class="two"><div class="w"><h3>Potential conflicts</h3><ul>${pmConflicts().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None</li>"}</ul></div><div class="o"><h3>Common ground</h3><ul>${pmCommon().map(r=>`<li>${esc(iName(r))}</li>`).join("")||"<li>None yet</li>"}</ul></div></div>`}<p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap">${cap}</div>`:""}</div></div><div class="bar"><button class="pb" data-pmp="-1" aria-label="Previous">◀</button><span class="pbtxt">${pmSi+1} of ${pmSl.length}</span><button class="pb" data-pmp="1" aria-label="Next">▶</button><button class="pb wide" data-pmpdeck>Leave-behind PDF</button><button class="pb wide" data-pmpx>Exit</button></div>`;  o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); }
 function pmPresEnd(){ const o=$("pmPres"); if(o) o.hidden=true; document.body.classList.remove("pmpresenting"); try{ document.fullscreenElement&&document.exitFullscreen(); }catch(e){} }
-document.addEventListener("click",e=>{ const b=e.target.closest("[data-pmp]"); if(b){ pmSi=Math.max(0,Math.min(pmSl.length-1,pmSi+ +b.dataset.pmp)); pmPresRender(); } if(e.target.closest("[data-pmpx]")) pmPresEnd(); if(e.target.closest("[data-pmpdeck]")) pmDownload(true); });
-addEventListener("keydown",e=>{ const o=$("pmPres"); if(!o||o.hidden) return; if(["ArrowRight","PageDown"," "].includes(e.key)){ e.preventDefault(); pmSi=Math.min(pmSl.length-1,pmSi+1); pmPresRender(); } if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); pmSi=Math.max(0,pmSi-1); pmPresRender(); } if(e.key==="Escape") pmPresEnd(); });
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-pmp]"); if(b){ pmMove(+b.dataset.pmp); } if(e.target.closest("[data-pmpx]")) pmPresEnd(); if(e.target.closest("[data-pmpdeck]")) pmDownload(true); });
+addEventListener("keydown",e=>{ const o=$("pmPres"); if(!o||o.hidden) return; if(["ArrowRight","PageDown"," "].includes(e.key)){ e.preventDefault(); pmMove(1); } if(["ArrowLeft","PageUp"].includes(e.key)){ e.preventDefault(); pmMove(-1); } if(e.key==="Escape") pmPresEnd(); });
 
 /* ---------- PDFs: the map on one letter landscape page, and a leave-behind ---------- */
 function pmBall(doc,cx,cy,r,p){ doc.setDrawColor(PDFC.plum); doc.setLineWidth(.6); doc.circle(cx,cy,r,"S"); doc.setFillColor(PDFC.plum);
@@ -3914,8 +3931,8 @@ const _ro4=renderOverview; renderOverview=function(){ _ro4(); const card=documen
   d.innerHTML=`<hr style="border:0;border-top:1px dashed var(--rule);margin:4px 0"><h3 style="margin:0;font-size:17px">Priorities Map</h3><div class="drow">${ringSVG(sc)}<div class="scoretxt"><b>Map ${sc}%</b><span>${pmNamedS().length} stakeholders · ${pmRated().length} priorities${cf?` · ${cf} potential conflict${cf>1?"s":""}`:""}</span></div></div><button class="thumb" data-nav="pm" data-view="aid" aria-label="Open the Priorities Map">${pmSheetHTML({mode:"view"})}</button><div class="arow" style="flex:0 1 auto"><button class="btn small primary" data-nav="pm" data-view="build">Build</button><button class="btn small" data-nav="pm" data-view="aid">Sheet</button></div>`;
   card.appendChild(d); const cr=$("ovCarry"); if(cr&&!cr.querySelector(".pmchip")) cr.querySelector(".chip.inf")?.insertAdjacentHTML("afterend",`<span class="chip pmchip" style="background:var(--plum-soft);color:var(--plum)">Map's success measures → Criteria</span>`); };
 /* Meet: the map is the third choice */
-(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="pm"]')) g.insertAdjacentHTML("beforeend",`<button role="radio" data-meet-aid="pm" aria-checked="false">Priorities Map</button>`); })();
-document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="pm") return; e.stopImmediatePropagation(); const way=w.dataset.way;
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="pm"]')) g.querySelector('[data-meet-aid="cp"]').insertAdjacentHTML("beforebegin",`<button role="radio" data-meet-aid="pm" aria-checked="false">Priorities Map</button>`); })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="pm"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way;
   if(way==="present"){ openPM("aid"); setTimeout(pmPresent,60); }
   if(way==="together"){ openPM("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; pmSheet(); }
   if(way==="interview"){ openPM("build"); pmGo(2); openAssist(); toast("Ask the client to rate each initiative; tap the balls as they answer."); } },true);
@@ -3932,6 +3949,91 @@ const _cpDraft=cpDraft; cpDraft=async function(b){ if(suBusy){ const li=document
 /* the map's success measures feed the Criteria Proposition's draft */
 const _cpPrompt=cpDraftPrompt; cpDraftPrompt=function(b){ const base=_cpPrompt(b); if(!S.pm) return base; const L=[]; pmNamedI().forEach(r=>pmNamedS().forEach(c=>{ const x=pmCell(r,c); if(x.p>=2||(x.d||"").trim()) L.push(`${iName(r)} · ${sName(c)} (${PRI[x.p]||"unrated"})${x.d?`: success = ${x.d}`:""}`); }));
   return L.length?base+`\n\nFrom the Priorities Map (stakeholders' priorities and how they measure success; use them to word the criteria, never invent numbers): ${JSON.stringify(L.slice(0,40))}`:base; };
+
+
+/* ===================== the token counter (Dave, Nov 17: "add the token counter") =====================
+   The page isn't told Claude's real token counts (sample returns only the text and the tier), so each call is measured from
+   the text sent and the text received, at about four characters a token. Claude's thinking isn't counted: it isn't sent to the page. */
+const TOK_CHARS=4, TOK_IN=4, TOK_OUT=20; /* Claude Opus 5.5 API rates, dollars per million tokens */
+const TOK_AID={aop:"Alignment of Priorities",pm:"Priorities Map",cp:"Criteria Proposition"};
+function tokKind(prompt){ const h=String(prompt).slice(0,700);
+  if(/SOLUTION PROVIDER/.test(h)) return ["aop","Solutions from your company"];
+  if(/"Priorities Map"/.test(h)) return ["pm","Stakeholders and priorities"];
+  if(/interview/i.test(h)) return [pmMode?"pm":cpMode?"cp":"aop","Client interview"];
+  if(/"Criteria Proposition"/.test(h)) return ["cp",/sharpen/i.test(h)?"Sharpen":"Draft the criteria"];
+  if(/preparing a first draft/.test(h)) return ["aop","Company research"];
+  return [pmMode?"pm":cpMode?"cp":"aop","Coach and suggestions"]; }
+const tokText=x=>typeof x==="string"?x:Array.isArray(x)?x.map(m=>m&&m.content||"").join("\n"):JSON.stringify(x||"");
+function tokRecord(prompt,reply,tier){ const [aid,what]=tokKind(tokText(prompt)), i=Math.ceil(tokText(prompt).length/TOK_CHARS), o=Math.ceil((typeof reply==="string"?reply:JSON.stringify(reply||"")).length/TOK_CHARS);
+  S.tokens=S.tokens||{calls:0,in:0,out:0,by:{}}; const T=S.tokens, k=`${aid}|${what}`; T.calls++; T.in+=i; T.out+=o; T.by[k]=T.by[k]||{n:0,in:0,out:0}; T.by[k].n++; T.by[k].in+=i; T.by[k].out+=o; T.last=Date.now(); if(tier) T.tier=tier; save();
+  try{ const A=JSON.parse(localStorage.getItem("ka-tokens")||'{"calls":0,"in":0,"out":0}'); A.calls++; A.in+=i; A.out+=o; localStorage.setItem("ka-tokens",JSON.stringify(A)); }catch(e){}
+  tokPaint(); }
+/* wraps the viewer's Claude connection once it arrives; the platform's own object is left untouched */
+function wrapSample(raw){ if(!raw||raw.__tok) return raw; const w=async(input,opts)=>{ const r=await raw(input,opts); try{ tokRecord(input,r&&r.text,r&&r.modelTierApplied); }catch(e){} return r; };
+  w.json=async(input,opts)=>{ const r=await raw.json(input,opts); try{ tokRecord(input,r); }catch(e){} return r; }; if(raw.limits) w.limits=(...a)=>raw.limits(...a); w.__tok=true; return w; }
+const fmtTok=n=>n>=10000?`${Math.round(n/1000)}k`:n>=1000?`${(n/1000).toFixed(1)}k`:String(n||0);
+const tokCost=(i,o,k=1)=>(i*TOK_IN+o*k*TOK_OUT)/1e6, money=v=>v<.01?"under 1¢":v<1?`${Math.round(v*100)}¢`:`$${v.toFixed(2)}`;
+function tokHTML(T=S.tokens){ if(!T||!T.calls) return `<p class="note" style="margin:0">No Claude calls yet in this engagement.</p>`;
+  const by={}; Object.entries(T.by).forEach(([k,v])=>{ const [aid,what]=k.split("|"); (by[aid]=by[aid]||[]).push([what,v]); });
+  return `<table class="toktab"><thead><tr><th></th><th>Calls</th><th>Sent</th><th>Received</th></tr></thead><tbody>${["aop","pm","cp"].filter(a=>by[a]).map(a=>`<tr class="aid"><td colspan="4">${TOK_AID[a]}</td></tr>${by[a].map(([w,v])=>`<tr><td>${esc(w)}</td><td>${v.n}</td><td>~${fmtTok(v.in)}</td><td>~${fmtTok(v.out)}</td></tr>`).join("")}`).join("")}
+    <tr class="tot"><td>This engagement</td><td>${T.calls}</td><td>~${fmtTok(T.in)}</td><td>~${fmtTok(T.out)}</td></tr></tbody></table>
+    <p class="note" style="margin:0">At Claude Opus 5.5 API rates: about <b>${money(tokCost(T.in,T.out))}</b> for the text, <b>${money(tokCost(T.in,T.out,2))}–${money(tokCost(T.in,T.out,3))}</b> allowing for Claude's thinking, which the page isn't told. On a Claude plan these calls use the viewer's plan instead of a bill.</p>`; }
+function tokPaint(){ const n=$("tokNote"); if(n){ const T=S.tokens; n.textContent=T&&T.calls?`This engagement: ${T.calls} Claude call${T.calls>1?"s":""} · ~${fmtTok(T.in+T.out)} tokens of text`:""; } if(route==="overview"){ const c=$("ovTok"); if(c) c.innerHTML=`<h3>Claude usage</h3>${tokHTML()}`; } }
+function tokPop(anchor){ closePop(); const pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Claude usage"); let all={calls:0,in:0,out:0}; try{ all=JSON.parse(localStorage.getItem("ka-tokens")||"null")||all; }catch(e){}
+  pop.innerHTML=`<h5>Claude usage · ${esc(aidName())}</h5>${tokHTML()}${all.calls?`<p class="note" style="margin:0">All engagements in this browser: ${all.calls} calls · ~${fmtTok(all.in)} sent · ~${fmtTok(all.out)} received.</p>`:""}`;
+  place(pop,anchor||$("cmdBtn")); popEl=pop; }
+const _ro5=renderOverview; renderOverview=function(){ _ro5(); const side=$("ovSide"); if(side&&!$("ovTok")){ const d=document.createElement("div"); d.className="scard"; d.id="ovTok"; side.appendChild(d); } tokPaint(); };
+(function(){ const a=$("assistNote"); if(a&&!$("tokNote")){ const p=document.createElement("p"); p.className="note"; p.id="tokNote"; a.after(p); } })();
+const _cmdB=cmdActions; cmdActions=function(){ const A=_cmdB(); A.push({g:"Work",t:"Claude usage (token counter)",run:()=>{ if(route!=="overview") nav("overview"); setTimeout(()=>$("ovTok")?.scrollIntoView({block:"center",behavior:"smooth"}),80); },hint:""}); return A; };
+
+/* ===================== present any combination of aids, summary or details (Dave, Nov 17: "I need the user to be able to pick which engagement aids they want to present. They should be able to pick any combination of summaries or details.") =====================
+   One presentation in KA's path order: Alignment of Priorities → Priorities Map → Criteria Proposition. Each aid's summary and details are its own slides;
+   the opening title shows once, and → at the end of one aid carries on into the next. */
+const PL_ORDER=["aop","pm","cp"];
+const PL_PARTS={aop:{sum:["title","outside","whole","heard"],det:["col","box"],sumL:"The whole alignment, outside in, what we heard",detL:"Each column and box in turn"},
+  pm:{sum:["whole","compare","take"],det:["row"],sumL:"The whole map, conflicts and common ground, takeaways",detL:"Each initiative across the stakeholders"},
+  cp:{sum:["cpTitle","cpFrom","cpWhole","cpSuccess"],det:["cpBand","cpRow"],sumL:"From the alignment, the whole proposition, what success looks like",detL:"Each band and criterion"}};
+let PL=null, plSwitching=false;
+function plHas(a){ return a==="aop"?allFilled().length>0:a==="pm"?pmRated().length>0:cpAll().length>0; }
+function plPick(){ S.presPick=S.presPick||{}; PL_ORDER.forEach(a=>{ if(!S.presPick[a]) S.presPick[a]={sum:plHas(a),det:a===meetAid&&plHas(a)}; }); return S.presPick; }
+function plSlidesFor(a,first){ let all; if(a==="pm") all=pmSlidesRaw(); else { const keep=presCP; presCP=a==="cp"; all=buildSlidesRaw(); presCP=keep; }
+  const p=plPick()[a], P=PL_PARTS[a]; return all.filter(s=>((p.sum&&P.sum.includes(s.k))||(p.det&&P.det.includes(s.k)))&&(first||!["title","cpTitle"].includes(s.k))); }
+function plCounts(){ let first=true; return PL_ORDER.map(a=>{ if(!plHas(a)) return [a,0]; const p=plPick()[a]; if(!p.sum&&!p.det) return [a,0]; const n=plSlidesFor(a,first).length; if(n) first=false; return [a,n]; }); }
+/* the engines' own slide lists, filtered while a combined presentation runs */
+const buildSlidesRaw=buildSlides; buildSlides=function(){ const all=buildSlidesRaw(); if(!PL) return all; const seg=PL.segs[PL.i], a=presCP?"cp":"aop"; if(!seg||seg.a!==a) return all; return plSlidesFor(a,PL.i===0); };
+const pmSlidesRaw=pmSlides; pmSlides=function(){ const all=pmSlidesRaw(); if(!PL) return all; const seg=PL.segs[PL.i]; if(!seg||seg.a!=="pm") return all; return plSlidesFor("pm",PL.i===0); };
+const _goPl=go; go=function(i){ if(PL&&presenting&&!plSwitching){ if(i>=slides.length) return plStep(1); if(i<0) return plStep(-1); } return _goPl(i); };
+function pmMove(d){ const j=pmSi+d; if(PL&&!plSwitching&&(j>=pmSl.length||j<0)) return plStep(d>0?1:-1); pmSi=Math.max(0,Math.min(pmSl.length-1,j)); pmPresRender(); }
+const _stopPl=stopPresent; stopPresent=function(){ _stopPl(); if(!plSwitching) PL=null; }; $("pExit").onclick=()=>stopPresent();
+const _pmEndPl=pmPresEnd; pmPresEnd=function(){ _pmEndPl(); if(!plSwitching) PL=null; };
+function plCover(on){ let c=$("plCover"); if(!c){ c=document.createElement("div"); c.id="plCover"; c.className="plcover"; document.body.appendChild(c); } c.classList.toggle("on",on); }
+function plStart(seg,atEnd){ if(seg.a==="pm"){ openPM("aid"); pmPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } return; }
+  const cp=seg.a==="cp"; if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } if(cp!==cpMode) setAidMode(cp); else show("aid");
+  startPresent(cp); if(atEnd) requestAnimationFrame(()=>requestAnimationFrame(()=>_goPl(slides.length-1))); }
+function plStep(d){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; }
+  plSwitching=true; plCover(true); const cur=PL.segs[PL.i]; if(cur.a==="pm") pmPresEnd(); else stopPresent(); PL.i=j;
+  setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); }
+function plRun(){ const segs=plCounts().filter(([,n])=>n>0).map(([a])=>({a})); if(!segs.length){ toast("Choose at least one summary or details to present"); return; }
+  PL={segs,i:0}; closePop(); plStart(segs[0],false); }
+/* the picker, on Meet the client */
+(function(){ const ways=document.querySelector("#viewMeet .meetways"); if(!ways||$("plPick")) return; const d=document.createElement("section"); d.id="plPick"; d.className="plpick"; d.setAttribute("aria-label","What to present"); ways.after(d); })();
+function plRender(){ const box=$("plPick"); if(!box) return; const pick=plPick(), counts=Object.fromEntries(plCounts()), total=Object.values(counts).reduce((a,b)=>a+b,0);
+  box.innerHTML=`<div class="plhead"><div><h3>Present the story · choose what to show</h3><p class="note">Any combination, in KA's order: why, then how they'll measure it. → at the end of one aid carries on into the next.</p></div><button class="btn primary" data-plrun ${total?"":"disabled"}>▶ Present ${total} slide${total===1?"":"s"}</button></div>
+    <div class="plrows">${PL_ORDER.map(a=>{ const has=plHas(a), p=pick[a], P=PL_PARTS[a]; return `<div class="plrow ${a} ${has?"":"off"}"><div class="plname"><b>${TOK_AID[a]}</b><span class="note">${has?(counts[a]?`${counts[a]} slides`:"Not included"):"Nothing to present yet"}</span></div>
+      <label class="plopt"><input type="checkbox" data-plpick="${a}|sum" ${p.sum&&has?"checked":""} ${has?"":"disabled"}><span><b>Summary</b><i>${P.sumL}</i></span></label>
+      <label class="plopt"><input type="checkbox" data-plpick="${a}|det" ${p.det&&has?"checked":""} ${has?"":"disabled"}><span><b>Details</b><i>${P.detL}</i></span></label></div>`; }).join("")}</div>`; }
+document.addEventListener("change",e=>{ const c=e.target.closest("[data-plpick]"); if(!c) return; const [a,k]=c.dataset.plpick.split("|"); plPick()[a][k]=c.checked; save(); plRender(); });
+document.addEventListener("click",e=>{ if(e.target.closest("[data-plrun]")){ plRun(); return; } const w=e.target.closest('[data-way="present"]'); if(w){ e.stopImmediatePropagation(); plRun(); } },true);
+const _rmPl=renderMeet; renderMeet=function(){ _rmPl(); plRender(); };
+const _cmdC=cmdActions; cmdActions=function(){ const A=_cmdC(); A.splice(A.findIndex(a=>a.g==="Meet"),0,{g:"Meet",t:"Present: choose the aids, summaries and details",run:()=>nav("meet"),hint:""}); return A; };
+
+/* ===================== the client's name and logo top right on every aid (Dave, Nov 17: "Make sure we are including the logo of the company in the upper right corner with their names for all of the aids.") ===================== */
+function gheadMarks(){ const m=clientMark(); document.querySelectorAll(".ghead").forEach(g=>{ let k=g.querySelector(".ghclient"), ka=g.querySelector(".kabrand");
+    if(!m.name&&!m.logo){ if(k) k.remove(); if(ka) ka.hidden=false; return; }
+    if(!k){ k=document.createElement("div"); k.className="ghclient"; g.appendChild(k); } if(ka) ka.hidden=true;
+    k.innerHTML=`${m.logo?`<img src="${m.logo}" alt="">`:""}${m.name?`<b>${esc(m.name)}</b>`:""}`; }); }
+const _showGh=show; show=function(v){ const r=_showGh(v); gheadMarks(); return r; };
+const _rbGh=refreshBrand; refreshBrand=function(){ _rbGh(); gheadMarks(); if(pmMode&&curView==="aid") pmSheet(); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
