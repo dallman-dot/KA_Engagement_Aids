@@ -5862,6 +5862,49 @@ const _applyFigK=typeof applyDraft==="function"?applyDraft:null;
 try{ const F=S.fin&&S.fin._fig; if(F&&(finHasFigs(F.latest)||finHasFigs(F.earlier))) finRecalc(); }catch(e){}
 const _switchAidF=switchAid; switchAid=function(id,msg){ const r=_switchAidF(id,msg); try{ const F=S.fin&&S.fin._fig; if(F&&(finHasFigs(F.latest)||finHasFigs(F.earlier))){ finRecalc(); } }catch(e){} return r; };
 
+
+
+/* ===================== Engagements on every device (Dave, Nov 18: "why don't i see Gartner and Advent health?", from his iPhone: the engagements were in his computer's browser only)
+   Each engagement is kept in this app's own store on Dave's Claude account (collection "lib", owner-only), in pieces, newest wins; the browser keeps its copy too.
+   Opening the app anywhere brings in what's newer there; every save goes back up a moment later; a delete leaves a marker so it stays deleted everywhere. ===================== */
+const SYNC_CHUNK=180000, SY={db:null,ok:false,pushed:{},gone:{},busy:false,last:0,err:""};
+const syEmpty=a=>!a||(/^Untitled/.test(a.name||"Untitled")&&(!a.data||((!a.data.company||!a.data.company.name)&&!JSON.stringify(a.data.lenses||{}).match(/"t":"[^"]/))));
+function sySig(a){ try{ return JSON.stringify([a.name,a.updated]); }catch(e){ return ""; } }
+async function syPull(){ const snap=await SY.db.collection("lib").get(); const heads={}, parts={};
+  snap.docs.forEach(d=>{ const x=d.data()||{}, id=d.id; const m=id.match(/^(.+)~(\d+)$/); if(m){ (parts[m[1]]=parts[m[1]]||{})[+m[2]]=x.d||""; } else heads[id]=x; });
+  let got=0, gone=0;
+  Object.entries(heads).forEach(([id,h])=>{ const loc=LIBD.aids[id]; if(SY.gone[id]) return;
+    if(h.deleted){ if(loc&&(loc.updated||0)<=(h.updated||0)&&id!==LIBD.cur){ delete LIBD.aids[id]; gone++; } return; }
+    if(loc&&(loc.updated||0)>=(h.updated||0)) return; const P=parts[id]||{}; let s=""; for(let i=0;i<(h.n||0);i++){ if(P[i]==null) return; s+=P[i]; }
+    try{ const data=JSON.parse(s); if(id===LIBD.cur){ S=norm(data); } LIBD.aids[id]={name:h.name||"Untitled engagement",updated:h.updated||Date.now(),data}; SY.pushed[id]=sySig(LIBD.aids[id]); got++; }catch(e){} });
+  if(got||gone){ try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} }
+  return {got,gone,heads}; }
+async function syPushOne(id,heads){ const a=LIBD.aids[id]; if(!a||syEmpty(a)) return false; const sig=sySig(a); if(SY.pushed[id]===sig) return false;
+  const h=heads&&heads[id]; if(h&&!h.deleted&&(h.updated||0)>=(a.updated||0)){ SY.pushed[id]=sig; return false; }
+  const data=id===LIBD.cur?S:a.data, s=JSON.stringify(data), n=Math.max(1,Math.ceil(s.length/SYNC_CHUNK)), col=SY.db.collection("lib");
+  for(let i=0;i<n;i++) await col.doc(`${id}~${i}`).set({d:s.slice(i*SYNC_CHUNK,(i+1)*SYNC_CHUNK)});
+  const oldN=h&&h.n||0; for(let i=n;i<oldN;i++){ try{ await col.doc(`${id}~${i}`).delete(); }catch(e){} }
+  await col.doc(id).set({name:a.name||"Untitled engagement",updated:a.updated||Date.now(),n,at:Date.now()}); SY.pushed[id]=sig; return true; }
+async function sySync(why){ if(!SY.db||SY.busy) return; SY.busy=true;
+  try{ syGone(); const {got,gone,heads}=await syPull(); let up=0; for(const id of Object.keys(LIBD.aids)){ try{ if(await syPushOne(id,heads)) up++; }catch(e){ SY.err=String(e&&e.message||e); } }
+    SY.ok=true; SY.last=Date.now(); syFoot();
+    if(got||gone){ if(route==="home") renderHome(); else if(route==="overview") renderOverview(); else if(route==="aid"){ try{ renderAll(); renderAidHead(); }catch(e){} } if(why==="open") toast(`${got} engagement${got===1?"":"s"} brought in from your other devices.`,null,true); } }
+  catch(e){ SY.err=String(e&&e.message||e); SY.ok=false; syFoot(); }
+  finally{ SY.busy=false; } }
+async function syTomb(id){ if(!SY.db) return; try{ await SY.db.collection("lib").doc(id).set({deleted:true,updated:Date.now()}); }catch(e){} }
+function syFoot(){ document.querySelectorAll("footer span").forEach(sp=>{ if(/Your work stays in this browser|Saved to your Claude account|Saved in this browser only/.test(sp.textContent)) sp.textContent=SY.ok?"Saved to your Claude account: open this app on any device to see your engagements.":"Saved in this browser only."; }); }
+/* every save goes up a moment later; a delete leaves its marker */
+const _persistSy=persist; persist=function(){ _persistSy(); if(SY.ok){ clearTimeout(SY.t); SY.t=setTimeout(()=>sySync("save"),2500); } };
+/* a deleted engagement is never brought back, and is marked deleted for every device once its Undo has passed (about 7 seconds) */
+function syGone(){ const now=Date.now(); Object.keys(SY.pushed).forEach(id=>{ if(!LIBD.aids[id]) SY.gone[id]=SY.gone[id]||now; else delete SY.gone[id]; });
+  Object.entries(SY.gone).forEach(([id,t])=>{ if(LIBD.aids[id]){ delete SY.gone[id]; return; } if(now-t>7000){ syTomb(id); delete SY.pushed[id]; } }); }
+setInterval(()=>{ if(SY.ok) syGone(); },2000);
+(async()=>{ if(KA_ROOM||!window.claude) return; try{ let db=null; for(let i=0;i<40&&!db;i++){ db=SH.db; if(!db) await new Promise(r=>setTimeout(r,250)); } if(!db) return;
+    try{ const u=await window.claude.use("user"); if(u&&typeof u.isOwner==="function"&&!(await u.isOwner())) return; }catch(e){}
+    SY.db=db; await sySync("open"); setInterval(()=>{ if(document.visibilityState==="visible") sySync("tick"); },60000);
+    document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") sySync("focus"); }); }catch(e){} })();
+const _rhomeSy=renderHome; renderHome=function(){ _rhomeSy(); syFoot(); };
+
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
