@@ -5786,6 +5786,14 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-oneflag]")) fl
 const _kpOne=kitPaint; kitPaint=function(){ _kpOne(); if(route==="overview") try{ onePaintOverview(); }catch(e){} };
 const _cmdOne=cmdActions; cmdActions=function(){ const A=_cmdOne(); A.push({g:"Work",t:"Share & export",run:()=>oneMenu("share",$("cmdBtn"),route==="overview"?"overview":""),hint:""}); if(route==="aid") A.push({g:"Work",t:"Fill or improve with Claude",run:oneClaude,hint:""}); return A; };
 
+
+/* ---------- a shared page has no list of engagements: its first crumb says so; and anything that fails says what failed (Nov 18: "click to return to see all engagements and nothing happens. Click present and nothing happens.") ---------- */
+const _crumbsRoom=renderCrumbs; renderCrumbs=function(){ _crumbsRoom(); if(!KA_ROOM) return; const b=$("crumbs")?.querySelector('button[data-nav="home"]'); if(b){ b.removeAttribute("data-nav"); b.dataset.roomhome=""; b.textContent="Shared engagement"; b.title="This shared page holds one engagement. Your other engagements are in your own KA Engagement Aids."; } };
+document.addEventListener("click",e=>{ if(!e.target.closest("[data-roomhome]")) return; kitOpen("This page holds one engagement",`<p class="kitlead">This shared page holds ${esc(aidName())} only, so everyone you invite sees just this engagement. Your other engagements are in your own KA Engagement Aids.</p><div class="arow" style="flex:0 1 auto"><a class="btn primary" href="${APP_URL}" target="_blank" rel="noopener">Open my KA Engagement Aids</a><button class="btn" onclick="kitClose()">Stay here</button></div>`); });
+let errShown=0; function errSay(msg){ msg=String(msg||"").replace(/^Uncaught\s+/,""); if(!msg||/ResizeObserver|Script error\.?$/.test(msg)) return; if(Date.now()-errShown<4000) return; errShown=Date.now(); try{ toast(`That didn't work: ${msg.slice(0,140)}. Tell Claude this message.`,null,true); }catch(e){} }
+addEventListener("error",e=>{ if(e.error||e.message) errSay(e.message||e.error); });
+addEventListener("unhandledrejection",e=>{ const r=e.reason; if(r&&(r.name==="AbortError"||r.code==="declined")) return; errSay(r&&(r.message||r)); });
+
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
