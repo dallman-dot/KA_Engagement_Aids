@@ -1351,6 +1351,12 @@ body.lovon{overflow:hidden}
 body.presenting .shell>#oneWrap{display:block!important}body.presenting #oneWrap>*:not(#viewAid){display:none!important}
 @media print{.shell>#oneWrap{display:block!important}#oneWrap>*:not(#viewAid){display:none!important}}
 @media (max-width:1199px){body.one #oneWrap{grid-template-columns:minmax(0,1fr)}body.one #oneWrap .stage{min-width:940px}body.one #oneWrap .stage.fit{min-width:0}body.one #oneWrap>.onesheet{order:1}body.one #oneWrap>.onepanel{order:2}body.one #oneWrap>.onesheet,body.one #oneWrap>.onepanel{grid-column:1;grid-row:auto}body.one #oneWrap>.onepanel{position:static;max-height:none;overflow:visible}body.one .onepanel .bnav{bottom:0}}
+.finstmt{border:1px solid var(--rule);border-radius:12px;padding:10px 12px;margin:0 0 12px;background:var(--paper)}
+.finhead{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;margin-bottom:6px}.finhead h4{margin:0;font-size:14px}
+.fintable{display:grid;gap:4px}.finrow{display:grid;grid-template-columns:minmax(96px,1fr) minmax(64px,110px) minmax(64px,110px);gap:6px;align-items:center;font-size:13px}.finrow>span{overflow-wrap:normal;word-break:normal;hyphens:none;line-height:1.25}
+body.one .onepanel .finrow{grid-template-columns:minmax(96px,1fr) 76px 76px;font-size:12.5px}body.one .onepanel .finstmt{padding:8px}
+.finrow input.tin{padding:5px 7px;font-size:14px;text-align:right;font-variant-numeric:tabular-nums;min-width:0}.fintop input.tin{text-align:left}.fintop small{display:block;color:var(--muted);font-size:11px}
+.fin-msg:empty{display:none}.finpaste{margin-top:8px}
 </style>
 
 <div class="shell">
@@ -5795,6 +5801,66 @@ document.addEventListener("click",e=>{ if(!e.target.closest("[data-roomhome]")) 
 let errShown=0; function errSay(msg){ msg=String(msg||"").replace(/^Uncaught\s+/,""); if(!msg||/ResizeObserver|Script error\.?$/.test(msg)) return; if(Date.now()-errShown<4000) return; errShown=Date.now(); try{ toast(`That didn't work: ${msg.slice(0,140)}. Tell Claude this message.`,null,true); }catch(e){} }
 addEventListener("error",e=>{ if(e.error||e.message) errSay(e.message||e.error); });
 addEventListener("unhandledrejection",e=>{ const r=e.reason; if(r&&(r.name==="AbortError"||r.code==="declined")) return; errSay(r&&(r.message||r)); });
+
+
+
+/* ===================== The key ratios worked out from the client's financials (Dave, Nov 18: "I want you to calculate the financial ratios when the financials are available for a client. It's important to see changes from 24 months prior when available.")
+   An editable statements table (latest year and 24 months earlier, USD millions); every ratio is worked out from it the moment a figure changes, with its
+   24-month change. Claude can find the figures from public filings or read them from statements you paste; it never invents a number. A ratio you type
+   yourself is kept. ===================== */
+const _ratiosFromK=ratiosFrom; ratiosFrom=function(F){ if(!F) return {}; const G=Object.assign({},F); const n=k=>typeof G[k]==="number"&&isFinite(G[k]);
+  if(!n("netWorth")&&n("totalAssets")&&n("totalLiabilities")) G.netWorth=G.totalAssets-G.totalLiabilities;
+  if(!n("totalLiabilities")&&n("totalAssets")&&n("netWorth")) G.totalLiabilities=G.totalAssets-G.netWorth; return _ratiosFromK(G); };
+const FIN_EMPTY=()=>({year:""});
+function finFig(){ const f=S.fin||(S.fin={}); f._fig=f._fig||{}; f._fig.latest=f._fig.latest||FIN_EMPTY(); f._fig.earlier=f._fig.earlier||FIN_EMPTY(); return f._fig; }
+const finHasFigs=F=>!!F&&FIGS.some(([k])=>typeof F[k]==="number"&&isFinite(F[k]));
+/* work every ratio out from the figures; a ratio typed by hand (src "you") is left alone */
+function finRecalc(){ const F=finFig(), now=ratiosFrom(F.latest), then=ratiosFrom(F.earlier); let n=0, n24=0;
+  RATIO_GROUPS.forEach(g=>g.r.forEach(([k])=>{ const o=S.fin[k]=S.fin[k]||{}; if(o.src==="you"&&(o.v||o.v0)) return;
+    const v=now[k]||"", v0=then[k]||""; if(!v&&!v0){ if(o.src==="From the figures"||o.src==="Public info"){ delete o.v; delete o.v0; } return; }
+    o.v=v; o.v0=v0; o.yr=F.latest.year||""; o.yr0=F.earlier.year||""; o.src="From the figures"; if(v) n++; if(v&&v0) n24++; }));
+  return {n,n24}; }
+function finTableHTML(){ const F=finFig(), L=F.latest, E=F.earlier, val=v=>typeof v==="number"&&isFinite(v)?String(v):"";
+  const anyL=finHasFigs(L), anyE=finHasFigs(E);
+  return `<div class="finstmt"><div class="finhead"><h4>The client's financial statements</h4><span class="note">USD millions · the ratios are worked out from these${anyL&&!anyE?". Add the year 24 months earlier to see the change.":""}</span></div>
+    <div class="fintable" role="group" aria-label="Financial statements"><div class="finrow fintop"><span></span><label><small>Latest year</small><input class="tin" data-finyr="latest" value="${esc(L.year||"")}" placeholder="e.g. FY2025" aria-label="Latest fiscal year"></label><label><small>24 months earlier</small><input class="tin" data-finyr="earlier" value="${esc(E.year||"")}" placeholder="e.g. FY2023" aria-label="Fiscal year 24 months earlier"></label></div>
+    ${FIGS.map(([k,l])=>{ const der=X=>{ const n=q=>typeof X[q]==="number"&&isFinite(X[q]); return k==="netWorth"&&n("totalAssets")&&n("totalLiabilities")?`= ${Math.round((X.totalAssets-X.totalLiabilities)*10)/10}`:k==="totalLiabilities"&&n("totalAssets")&&n("netWorth")?`= ${Math.round((X.totalAssets-X.netWorth)*10)/10}`:"—"; };
+      return `<div class="finrow"><span>${esc(k==="netWorth"?"Net worth (equity or net assets)":l)}</span><input class="tin" inputmode="decimal" data-finv="latest|${k}" value="${esc(val(L[k]))}" placeholder="${der(L)}" aria-label="${esc(l)}, latest year"><input class="tin" inputmode="decimal" data-finv="earlier|${k}" value="${esc(val(E[k]))}" placeholder="${der(E)}" aria-label="${esc(l)}, 24 months earlier"></div>`; }).join("")}</div>
+    <div class="arow" style="flex:0 1 auto;margin-top:8px"><button class="btn small primary" data-finfind ${S.company?.name?"":"disabled"}>✦ Find the figures with Claude</button><button class="btn small" data-finpaste>Paste the statements</button>${anyL||anyE?`<button class="btn small ghost" data-finclear>Clear the figures</button>`:""}</div>
+    <div class="finpaste" hidden><textarea class="tin" rows="5" id="finPasteBox" placeholder="Paste the balance sheet and income statement (or the annual report's financial pages). Claude reads the figures from them; nothing is invented."></textarea><div class="arow" style="flex:0 1 auto;margin-top:6px"><button class="btn small primary" data-finread>Read the figures</button></div></div>
+    <p class="note fin-msg" aria-live="polite">${esc(finMsg||"")}</p></div>`; }
+let finMsg="", finBusy=false;
+const _renderRatiosF=renderRatios; renderRatios=function(){ _renderRatiosF(); const r=$("ratios"); if(!r) return; r.querySelector(".rfigs")?.remove(); r.insertAdjacentHTML("afterbegin",finTableHTML()); };
+function finAfter(msg){ const {n,n24}=finRecalc(); save(); renderRatios(); try{ if(typeof oneRefreshSheet==="function") oneRefreshSheet(); }catch(e){} if(msg) toast(msg.replace("{n}",n).replace("{n24}",n24),null,true); return {n,n24}; }
+document.addEventListener("input",e=>{ const t=e.target; if(t.dataset.finv){ const [w,k]=t.dataset.finv.split("|"), F=finFig(), v=rnum(t.value); if(isFinite(v)) F[w][k]=v; else delete F[w][k];
+    finRecalc(); save(); clearTimeout(finAfter._t); finAfter._t=setTimeout(()=>{ const a=document.activeElement, id=a&&a.dataset&&a.dataset.finv; renderRatios(); if(id){ const el=document.querySelector(`[data-finv="${id}"]`); if(el){ el.focus(); try{ el.setSelectionRange(el.value.length,el.value.length); }catch(er){} } } },600); return; }
+  if(t.dataset.finyr){ finFig()[t.dataset.finyr].year=t.value.slice(0,16); finRecalc(); save(); return; }
+  if(t.dataset.rv||t.dataset.rv0){ const k=t.dataset.rv||t.dataset.rv0; if(S.fin[k]) S.fin[k].src="you"; } },true);
+document.addEventListener("click",e=>{ if(e.target.closest("[data-finpaste]")){ const p=$("ratios").querySelector(".finpaste"); p.hidden=!p.hidden; if(!p.hidden) $("finPasteBox").focus(); return; }
+  if(e.target.closest("[data-finclear]")){ const snap=JSON.stringify(S.fin); S.fin._fig={latest:FIN_EMPTY(),earlier:FIN_EMPTY()}; RATIO_GROUPS.forEach(g=>g.r.forEach(([k])=>{ const o=S.fin[k]; if(o&&o.src==="From the figures"){ delete o.v; delete o.v0; } })); save(); renderRatios(); toast("Figures cleared",()=>{ S.fin=JSON.parse(snap); save(); renderRatios(); }); return; }
+  if(e.target.closest("[data-finfind]")){ finClaude("find"); return; }
+  if(e.target.closest("[data-finread]")){ finClaude("read",$("finPasteBox")?.value||""); return; } });
+function finPrompt(mode,text){ const co=S.company?.name||aidTitle();
+  return `You are a financial analyst for Knowledge-Advantage (KA). ${mode==="read"?`Read the financial statement figures from the TEXT below for ${co}. Use only numbers that appear in the text.`:`Give the reported financial statement figures for ${co}${S.company?.site?` (${S.company.site})`:""} from its public filings (annual report, 10-K or audited financial statements), as you know them.`}
+Two fiscal years: the LATEST full fiscal year, and the fiscal year TWO YEARS EARLIER (24 months before it). Convert to USD millions. For a nonprofit, net worth is total net assets, net profit is the operating income or the change in net assets (say which in "note").
+Never estimate or invent: any figure you don't know with confidence is null. If you don't know this company's financials at all${mode==="read"?" or the text has none":""}, return {"known":false}.
+${mode==="read"?`TEXT:\n${String(text).slice(0,40000)}\n`:""}Reply with JSON only: {"known":true,"latest":{"year":"FY2025","revenue":0,"netIncome":0,"totalAssets":0,"currentAssets":0,"currentLiabilities":0,"cash":0,"receivables":0,"inventory":0,"totalLiabilities":0,"netWorth":0},"earlier":{ same keys },"source":"where the figures come from, e.g. FY2025 audited statements","note":"one line"}`; }
+async function finClaude(mode,text){ if(finBusy) return; if(!sample){ toast("This needs the page opened in Claude",null,true); return; } if(mode==="read"&&!String(text).trim()){ toast("Paste the statements first",null,true); return; }
+  finBusy=true; finMsg=mode==="read"?"Claude is reading the figures…":`Claude is looking up ${S.company?.name||"the client"}'s reported figures…`; renderRatios();
+  try{ const r=await sample.json(finPrompt(mode,text),{modelTier:"complex"}); const F=finFig(), snap=JSON.stringify(S.fin); let got=0;
+    if(!r||r.known===false){ finMsg=mode==="read"?"Claude found no statement figures in that text.":`Claude doesn't know ${S.company?.name||"the client"}'s reported figures well enough. Paste the statements (or type them) and the ratios work themselves out.`; }
+    else { ["latest","earlier"].forEach(w=>{ const x=r[w]; if(!x||typeof x!=="object") return; const before=FIGS.filter(([k])=>typeof F[w][k]==="number").length; if(x.year&&(!F[w].year||before<3)) F[w].year=String(x.year).slice(0,16);
+        FIGS.forEach(([k])=>{ const v=typeof x[k]==="number"?x[k]:rnum(x[k]); if(isFinite(v)&&F[w][k]==null){ F[w][k]=Math.round(v*10)/10; got++; } }); });
+      F.source=String(r.source||"").slice(0,120); F.note=String(r.note||"").slice(0,160); F.from=mode==="read"?"your statements":"public filings";
+      finMsg=got?`${got} figures from ${F.from}${F.source?` (${F.source})`:""}. ${mode==="read"?"":"Approximate: confirm with the client. "}${F.note||""}`:"No new figures: the ones you already have were kept.";
+      const {n,n24}=finRecalc(); save(); if(got) toast(`Ratios worked out: ${n} now${n24?`, ${n24} with the 24-month change`:""}.`,()=>{ S.fin=JSON.parse(snap); save(); renderRatios(); },true); } }
+  catch(e){ const m=failMsg(e); finMsg=m===null?"":(m||"Claude couldn't get the figures this time."); }
+  finally{ finBusy=false; renderRatios(); } }
+/* company research's figures land in the same table */
+const _applyFigK=typeof applyDraft==="function"?applyDraft:null;
+/* older engagements: if figures exist but ratios were never worked out, work them out on opening */
+try{ const F=S.fin&&S.fin._fig; if(F&&(finHasFigs(F.latest)||finHasFigs(F.earlier))) finRecalc(); }catch(e){}
+const _switchAidF=switchAid; switchAid=function(id,msg){ const r=_switchAidF(id,msg); try{ const F=S.fin&&S.fin._fig; if(F&&(finHasFigs(F.latest)||finHasFigs(F.earlier))){ finRecalc(); } }catch(e){} return r; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
