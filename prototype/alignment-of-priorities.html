@@ -1280,6 +1280,77 @@ em.s-vendor{background:color-mix(in srgb,var(--glow) 22%,transparent);color:#7a5
 .ahpath button.d-what[data-nav="uap"]{opacity:1;cursor:pointer}.ahpath button.d-what[data-nav="uap"][aria-current="page"]{background:var(--what);color:#fff;border-color:var(--what)}
 @media (max-width:640px){.ahpath .d-what[data-nav="uap"]{display:flex}#viewAidUAP .ctlcard{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}#viewAidUAP .ctlcard::-webkit-scrollbar{display:none}}
 #viewAidUAP .sheetwrap>*{min-width:0}#uapTabs{min-width:0}#uapRead .rcard{min-width:0}#uapRead{min-width:0}
+
+/* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
+#oneWrap{display:block;min-width:0}
+body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
+body.one #oneWrap .stage{min-width:0}
+body.one #oneWrap>section{min-width:0}
+body.one #oneWrap>.onesheet{grid-column:1;grid-row:1}
+body.one #oneWrap>.onepanel{grid-column:2;grid-row:1;position:sticky;top:8px;max-height:calc(100svh - 16px);overflow:auto;overscroll-behavior:contain;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px;scrollbar-width:thin}
+body.one #aidHead .ahtop .seg{display:none}
+body.one .onepanel .bwrap{display:block}
+body.one .onepanel .bside{position:static;width:auto;margin-top:12px;display:grid;gap:8px}
+body.one .onepanel .bside .minibtn,body.one .onepanel .bside>.minicap:first-child,body.one .onepanel #scorebar2,body.one .onepanel #lensbar2,body.one .onepanel #cpScore2,body.one .onepanel #cpLens2,body.one #bCompany,body.one #cpBDraft{display:none!important}
+body.one .onepanel .bsteps{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 10px;padding:0;overflow:visible}
+body.one .onepanel .bsteps li button{font-size:12.5px;padding:4px 8px;min-height:30px}
+body.one .onepanel .bnav{position:sticky;bottom:-12px;background:var(--paper);padding:8px 0 4px;margin-top:10px;border-top:1px solid var(--rule);display:flex;gap:6px;align-items:center;justify-content:space-between;z-index:2}
+body.one .onepanel .bmain{min-width:0}
+body.one .onepanel .bmain h2{font-size:20px}
+body.one .onepanel .choices,body.one .onepanel .cgrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))!important}
+body.one .onepanel .two,body.one .onepanel .uapways,body.one .onepanel .coGrid{grid-template-columns:minmax(0,1fr)!important}
+body.one .onepanel *{max-width:100%}
+body.one .onepanel .pmrowed{grid-template-columns:28px minmax(0,1fr)}body.one .onepanel .pmrowed>.pmkind{grid-column:1/-1;flex-wrap:wrap;justify-self:start}body.one .onepanel .pmrowed>*{min-width:0}
+.oneclaude{width:100%;border:0;border-radius:12px;background:var(--how,#9e2a55);color:#fff;padding:11px 14px;text-align:left;display:grid;gap:1px;cursor:pointer;font:700 15px var(--font);margin-bottom:12px}
+.oneclaude small{font-weight:400;font-size:12.5px;opacity:.92}.oneclaude:hover{filter:brightness(1.07)}
+body.client .oneclaude,body.meeting .oneclaude{display:none}
+/* the toolbars' buttons moved into the two menus */
+body.one #viewAid .ctlcard>h3,body.one #viewAid .ctlrow.prep-only,body.one #viewAidCP .ctlcard,body.one #viewAidPM .ctlcard,body.one #viewAidAR .ctlcard,body.one #viewAidUAP .ctlcard,body.one #viewAid .scorebar,body.one #viewAidCP .scorebar{display:none!important}
+body.one #viewAid .ctlcard{padding:0}
+body.client.one #viewAidCP .ctlcard{display:grid!important}body.client.one #viewAidCP .ctlcard>*:not(.client-only){display:none!important}
+.onehide{display:none!important}
+.asco{display:none!important}
+.onemenus{display:inline-flex;gap:6px;flex-wrap:wrap}
+body.client .onemenus,body.meeting .onemenus{display:none}
+.onemenu{min-width:250px;max-width:min(320px,92vw);padding:6px}.onemenu h5{margin:4px 8px 6px}
+.onemenu button[role="menuitem"]{display:flex;justify-content:space-between;gap:10px;width:100%;border:0;background:transparent;text-align:left;font:inherit;font-size:14px;color:var(--ink);padding:8px 10px;border-radius:8px;cursor:pointer;min-height:38px;align-items:center}
+.onemenu button[role="menuitem"]:hover,.onemenu button[role="menuitem"]:focus-visible{background:color-mix(in srgb,var(--why) 9%,transparent)}
+.onemenu button small{color:var(--muted);font-size:12px;text-align:right}
+/* four path chips, each aid inside */
+.ahpath{display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;min-width:0}.ahpath::-webkit-scrollbar{display:none}
+.ahpath .pchip{display:flex;align-items:center;gap:3px;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--paper);flex:0 0 auto;border-top-width:3px}
+.ahpath .pchip .pk{font:800 11px var(--font);letter-spacing:.08em;padding:0 6px 0 8px}
+.ahpath .pchip.p-why{border-top-color:var(--why)}.ahpath .pchip.p-why .pk{color:var(--why)}
+.ahpath .pchip.p-what{border-top-color:var(--what)}.ahpath .pchip.p-what .pk{color:var(--what)}
+.ahpath .pchip.p-how{border-top-color:var(--how)}.ahpath .pchip.p-how .pk{color:var(--how)}
+.ahpath .pchip.p-when{border-top-color:#b7861a}.ahpath .pchip.p-when .pk{color:#b7861a}
+.ahpath .pchip button{border:0!important;background:transparent;border-radius:999px;padding:5px 10px;font:600 13px var(--font);color:var(--ink);min-height:32px;cursor:pointer;display:inline-flex!important;opacity:1}
+.ahpath .pchip button small{font-weight:400;color:var(--muted);margin-left:4px}
+.ahpath .pchip button[disabled]{color:var(--muted);cursor:default;font-weight:400}
+.ahpath .pchip.p-why button[aria-current="page"]{background:var(--why);color:#fff}.ahpath .pchip.p-what button[aria-current="page"]{background:var(--what);color:#fff}.ahpath .pchip.p-how button[aria-current="page"]{background:var(--how);color:#fff}.ahpath .pchip.p-when button[aria-current="page"]{background:#b7861a;color:#fff}
+.ahpath .pchip button:not([disabled]):not([aria-current]):hover{background:var(--card)}
+@media (max-width:640px){.ahpath .pchip button:not([aria-current="page"]):not([disabled]){padding:5px 8px}.ahpath .pchip button[disabled]{display:none!important}}
+.onevia{font-style:normal;color:var(--muted)}
+/* the guide as an overlay */
+body.lovon{overflow:hidden}
+#oneWrap>.lov{position:fixed;inset:0;z-index:400;overflow:auto;background:color-mix(in srgb,var(--ink) 45%,transparent);padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));display:block}
+#oneWrap>.lov>*:not(.lovx){max-width:900px;margin-left:auto;margin-right:auto;background:var(--paper);border-radius:0}
+#oneWrap>.lov>.ghead{border-radius:16px 16px 0 0;padding:16px 18px 0;margin-top:0}
+#oneWrap>.lov>.lwrap{border-radius:0 0 16px 16px;padding:12px 18px 18px}
+.lovx{display:none}#oneWrap>.lov>.lovx{display:block;margin:0 auto 10px;max-width:900px;width:100%;text-align:right;background:transparent;border:0;color:#fff;font:700 14px var(--font);cursor:pointer;padding:6px 2px}
+/* the Overview */
+.onenext{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:linear-gradient(90deg,color-mix(in srgb,var(--glow) 16%,var(--paper)),var(--paper));border-color:color-mix(in srgb,var(--glow) 45%,transparent)}
+.onenext .ontxt{flex:1 1 280px;min-width:0;display:grid;gap:2px}.onenext .onlbl{font:800 12px var(--font);letter-spacing:.1em;color:var(--plum);text-transform:uppercase}.onenext b{font-size:16px}.onenext small{color:var(--muted)}
+.onesix{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:6px}.onesix i{height:6px;border-radius:3px;background:var(--rule);position:relative;overflow:hidden}.onesix i s{position:absolute;inset:0 auto 0 0;background:var(--why)}.onesix i.cur s{background:var(--plum)}.onesix i.cur{outline:1px solid var(--plum)}
+.onesixl{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;font-size:11px;color:var(--muted)}.onesixl span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.onebda .onebdah{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.bda3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.bda3>div{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start;border:1px solid var(--rule);border-radius:12px;padding:10px}.bda3>div>b{flex-basis:100%;font-size:15px}
+@media (max-width:760px){.bda3{grid-template-columns:minmax(0,1fr)}}
+.ovmore{border:1px solid var(--rule);border-radius:14px;background:var(--paper);padding:10px 14px}.ovmore>summary{cursor:pointer;font-weight:700;list-style-position:inside;padding:4px 0}.ovmore>summary small{font-weight:400;color:var(--muted);margin-left:6px}.ovmore[open]>summary{margin-bottom:10px}
+/* presenting and printing still find the sheet inside the wrap */
+body.presenting .shell>#oneWrap{display:block!important}body.presenting #oneWrap>*:not(#viewAid){display:none!important}
+@media print{.shell>#oneWrap{display:block!important}#oneWrap>*:not(#viewAid){display:none!important}}
+@media (max-width:1199px){body.one #oneWrap{grid-template-columns:minmax(0,1fr)}body.one #oneWrap .stage{min-width:940px}body.one #oneWrap .stage.fit{min-width:0}body.one #oneWrap>.onesheet{order:1}body.one #oneWrap>.onepanel{order:2}body.one #oneWrap>.onesheet,body.one #oneWrap>.onepanel{grid-column:1;grid-row:auto}body.one #oneWrap>.onepanel{position:static;max-height:none;overflow:visible}body.one .onepanel .bnav{bottom:0}}
 </style>
 
 <div class="shell">
@@ -5575,6 +5646,145 @@ document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); i
   if(way==="together"){ openUAP("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; uapSheet(); }
   if(way==="interview"){ openUAP("build"); uapIdx=uapProb()?1:0; uapBuild(); toast("Ask the client each box in order; their words are kept as yours.",null,true); } },true);
 const _uapNM=uapNextMove; uapNextMove=function(){ const m=_uapNM(); if(m.done) m.go=()=>{ meetAid="uap"; nav("meet"); }; return m; };
+
+
+
+/* ===================== Simpler, with every feature kept (Dave, Nov 18: "I feel there is a lot of unnessary complexities to use. I want your opinion on how to simplify without losing functionality (value)."; "Mock-up first"; "build all seven")
+   (1) one screen per aid: the sheet and its guide side by side, Learn as an overlay; (2) one next step for the engagement, from the six A's;
+   (3) four path chips; (4) one Claude button per aid; (5) one Share & export menu; (6) advanced tools behind More, only when they apply;
+   (7) Meet the client as Before · During · After. ===================== */
+const ONE={aop:{L:"viewLearn",B:"viewBuild",A:"viewAid"},cp:{L:"viewLearnCP",B:"viewBuildCP",A:"viewAidCP"},pm:{L:"viewLearnPM",B:"viewBuildPM",A:"viewAidPM"},ar:{L:"viewLearnAR",B:"viewBuildAR",A:"viewAidAR"},uap:{L:"viewLearnUAP",B:"viewBuildUAP",A:"viewAidUAP"}};
+const ONE_NAME={aop:"Alignment of Priorities",pm:"Priorities Map",uap:"Understanding a Problem",cp:"Criteria Proposition",ar:"Assessment Roadmap"};
+const oneAid=()=>uapMode?"uap":arMode?"ar":pmMode?"pm":cpMode?"cp":"aop";
+const onePanelRender=()=>({aop:()=>renderBuild(),cp:()=>cpBuild(),pm:()=>pmBuild(),ar:()=>arBuild(),uap:()=>uapBuild()})[oneAid()]();
+const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet(),ar:()=>arSheet(),uap:()=>uapSheet()})[oneAid()]();
+/* every aid's sections live in one two-column wrap */
+(function(){ const first=$("viewLearn"); if(!first||$("oneWrap")) return; const w=document.createElement("div"); w.id="oneWrap"; first.before(w);
+  Object.values(ONE).forEach(s=>[s.L,s.B,s.A].forEach(id=>{ const el=$(id); if(el) w.appendChild(el); }));
+  Object.entries(ONE).forEach(([k,s])=>{ const L=$(s.L); if(L&&!L.querySelector(".lovx")) L.insertAdjacentHTML("afterbegin",`<button class="lovx" data-lovx aria-label="Close the guide">✕ Back to the ${esc(ONE_NAME[k])}</button>`); }); })();
+let oneLearn=false, oneSync=false;
+function oneMark(){ const a=oneAid(); Object.entries(ONE).forEach(([k,s])=>{ $(s.B)?.classList.toggle("onepanel",k===a); $(s.A)?.classList.toggle("onesheet",k===a); }); }
+function oneLearnClose(){ if(!oneLearn) return; oneLearn=false; document.body.classList.remove("lovon"); Object.values(ONE).forEach(s=>{ const L=$(s.L); if(L){ L.hidden=true; L.classList.remove("lov"); } }); try{ if(route==="aid"&&/learn$/.test(location.hash)) history.replaceState(null,"",routeHash()); }catch(e){} }
+function oneLearnOpen(){ const s=ONE[oneAid()], L=$(s.L); if(!L) return; oneLearn=true; ({aop:()=>renderLearn(),cp:()=>cpLearn(),pm:()=>pmLearn(),ar:()=>arLearn(),uap:()=>uapLearn()})[oneAid()]();
+  L.hidden=false; L.classList.add("lov"); document.body.classList.add("lovon"); L.querySelector(".lovx")?.focus(); try{ history.replaceState(null,"",({aop:"#learn",cp:"#cp-learn",pm:"#pm-learn",ar:"#ar-learn",uap:"#uap-learn"})[oneAid()]); }catch(e){} }
+const oneQuiet=()=>{ try{ return !!(plSwitching||(typeof PL!=="undefined"&&PL)||document.body.classList.contains("presenting")||document.body.classList.contains("pmpresenting")||document.body.classList.contains("meeting")); }catch(e){ return false; } };
+const _showOne=show; show=function(view){ if(view==="learn"&&oneQuiet()) view="aid"; if(view==="learn"){ _showOne("aid"); oneOn(); oneLearnOpen(); return; }
+  oneLearnClose(); _showOne("aid"); oneOn(); if(view==="build") oneToPanel(); };
+function oneOn(){ const s=ONE[oneAid()]; document.body.classList.add("one"); oneMark(); const B=$(s.B); if(B) B.hidden=false; oneClaudeBtn(); try{ oneSync=true; onePanelRender(); }finally{ oneSync=false; } renderAidHead(); }
+function oneToPanel(){ const p=document.querySelector(".onepanel"); if(!p) return; if(matchMedia("(max-width:980px)").matches) p.scrollIntoView({behavior:"smooth",block:"start"}); else p.scrollTop=0; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-lovx]")) oneLearnClose(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&oneLearn){ oneLearnClose(); e.stopPropagation(); } },true);
+const _navOne=nav; nav=function(r,opt={}){ if(r!=="aid"){ document.body.classList.remove("one"); oneLearnClose(); } return _navOne(r,opt); };
+/* the panel follows what you tap on the sheet */
+document.addEventListener("click",e=>{ if(!document.body.classList.contains("one")) return; const sheet=e.target.closest(".onesheet"); if(!sheet) return; const a=oneAid(); let to=null;
+  if(a==="aop"){ const s=e.target.closest("#slots [data-id]"); if(s){ const k=s.dataset.id.split(".")[0], i=COLS.findIndex(c=>c.k===k); if(i>=0) to=()=>{ bIdx=i+1; S.bIdx=bIdx; renderBuild(); }; } else if(e.target.closest('[data-note^="ext:"]')) to=()=>{ bIdx=0; renderBuild(); }; }
+  if(a==="cp"){ const r=e.target.closest("[data-cpt],[data-cpdir],[data-cpok],[data-cphd]"); const k=r&&String(Object.values(r.dataset)[0]).split(/[.|]/)[0]; const n={org:1,op:2,inf:3}[k]; if(n) to=()=>{ cpIdx=n; cpBuild(); }; }
+  if(a==="pm"){ if(e.target.closest("[data-pmcell]")) to=()=>{ pmIdx=2; pmBuild(); }; else if(e.target.closest("[data-pminit]")) to=()=>{ pmIdx=1; pmBuild(); }; else if(e.target.closest("[data-pmst],[data-pmstake]")) to=()=>{ pmIdx=0; pmBuild(); }; }
+  if(a==="ar"){ const d=e.target.closest("[data-ardot],[data-aract],[data-argo2],[data-arhd]"); if(d){ const v=d.dataset.ardot||d.dataset.aract||d.dataset.argo2||d.dataset.arhd; const n=+String(v).split("|").pop().split(".")[0]; if(n>=1&&n<=6) to=()=>{ arIdx=n; arBuild(); }; } }
+  if(a==="uap"){ const b=e.target.closest("[data-uapbox],[data-uaphd],[data-uapok]"); if(b){ const i=+(b.dataset.uapbox??b.dataset.uaphd??b.dataset.uapok); to=()=>{ uapIdx=i+1; uapBuild(); }; } }
+  if(to) setTimeout(()=>{ try{ oneSync=true; to(); }finally{ oneSync=false; } },0); },true);
+document.addEventListener("focusin",e=>{ if(!document.body.classList.contains("one")||oneAid()!=="uap") return; const t=e.target.closest(".onesheet [data-uapbox]"); if(t&&uapIdx!==+t.dataset.uapbox+1){ uapIdx=+t.dataset.uapbox+1; oneSync=true; try{ uapBuild(); }finally{ oneSync=false; } } });
+/* the two sides stay in step: a box typed on one side shows on the other */
+document.addEventListener("input",e=>{ if(!document.body.classList.contains("one")) return; const t=e.target.closest("[data-uapbox]"); if(t){ document.querySelectorAll(`[data-uapbox="${t.dataset.uapbox}"]`).forEach(o=>{ if(o!==t) o.value=t.value; }); } });
+function oneRefreshPanel(){ if(oneSync||!document.body.classList.contains("one")) return; const p=document.querySelector(".onepanel"); const ae=document.activeElement; if(!p||(p.contains(ae)&&ae.matches("input,textarea,select,[contenteditable]"))) return; oneSync=true; try{ onePanelRender(); }finally{ oneSync=false; } }
+function oneRefreshSheet(){ if(oneSync||!document.body.classList.contains("one")) return; const s=document.querySelector(".onesheet"); const ae=document.activeElement; if(!s||(s.contains(ae)&&ae.matches("input,textarea,select,[contenteditable]"))) return; oneSync=true; try{ oneSheetRender(); }finally{ oneSync=false; } }
+let oneT=0; const oneLater=f=>{ clearTimeout(oneT); oneT=setTimeout(f,60); };
+[["renderAll","aop"],["cpSheet","cp"],["pmSheet","pm"],["arSheet","ar"],["uapSheet","uap"]].forEach(([fn,a])=>{ const f=window[fn]; if(typeof f!=="function") return; window[fn]=function(...x){ const r=f.apply(this,x); if(oneAid()===a&&!oneSync) oneLater(oneRefreshPanel); return r; }; });
+[["cpBuild","cp"],["pmBuild","pm"],["arBuild","ar"],["uapBuild","uap"]].forEach(([fn,a])=>{ const f=window[fn]; if(typeof f!=="function") return; window[fn]=function(...x){ const r=f.apply(this,x); if(oneAid()===a&&!oneSync&&document.body.classList.contains("one")) oneLater(oneRefreshSheet); return r; }; });
+document.addEventListener("focusout",e=>{ if(!document.body.classList.contains("one")) return; const s=e.target.closest(".onesheet"); if(s&&!(e.relatedTarget&&e.relatedTarget.closest(".onepanel"))) setTimeout(oneRefreshPanel,0); });
+/* the guide's "See the sheet" and the mini sheet need no switch now */
+["mini","cpMini","pmMini","arMini","uapMini"].forEach(id=>{ const m=$(id); if(m) m.onclick=()=>document.querySelector(".onesheet")?.scrollIntoView({behavior:"smooth",block:"start"}); });
+
+/* ---------- (4) one Claude button per aid ---------- */
+function oneClaudeBtn(){ const s=ONE[oneAid()], B=$(s.B); if(!B||B.querySelector(".oneclaude")) return;
+  B.insertAdjacentHTML("afterbegin",`<button class="oneclaude prep-only" data-oneclaude><span>✦ Fill or improve with Claude</span><small>Fills what's empty and suggests the rest; never replaces your words</small></button>`); }
+function oneClaude(){ const a=oneAid();
+  if(a==="aop"){ if(!allFilled().length&&(S.company?.name||"").trim()){ bIdx=0; renderBuild(); $("coGo")?.click(); return; } $("aFill")?.click(); return; }
+  if(a==="cp"){ $("cpDraftBtn")?.click(); return; }
+  if(a==="pm"){ pmDraft(); return; }
+  if(a==="ar"){ arIdx=0; arBuild(); arDraft(); return; }
+  if(a==="uap"){ const p=uapProb(); if(!p){ uapIdx=0; uapBuild(); setTimeout(()=>$("uapLine")?.focus(),60); toast("Add a problem first: a line, or a vendor",null,true); return; } document.querySelector(".onepanel [data-uaprefill]")?.click()||(()=>{ uapIdx=1; uapBuild(); document.querySelector("[data-uaprefill]")?.click(); })(); } }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-oneclaude]")) oneClaude(); });
+
+/* ---------- (5) Share & export, (6) More: two menus in the aid's header and on the Overview ---------- */
+const ONE_BTN={pdf:{aop:"pdfBtn",cp:"cpPdf",pm:"pmPdf",ar:"arPdf",uap:"uapPdf"},deck:{aop:"deckBtn",cp:"cpDeck",pm:"pmDeck"},copy:{aop:"copyBtn",cp:"cpCopyBtn",pm:"pmCopy",ar:"arCopy",uap:"uapCopy"},
+  snap:{aop:"snapBtn",cp:"cpSnapBtn"},how:{aop:"howBtn",pm:"pmHow"},clear:{aop:"sClearAll",cp:"cpBClear",pm:"pmClear",ar:"arClear",uap:"uapClear"}};
+const oneHas=(k,a=oneAid())=>!!(ONE_BTN[k][a]&&$(ONE_BTN[k][a]));
+const oneClick=(k,a=oneAid())=>{ const b=$(ONE_BTN[k][a]); if(b) b.click(); };
+function oneShareItems(where){ const a=where==="overview"?null:oneAid(), sh=S.share&&S.share.state;
+  const it=[]; if(a){ it.push(["Download PDF","this aid, one page","pdf"]); if(oneHas("deck",a)) it.push(["Leave-behind PDF","for the client","deck"]); it.push(["Copy summary","","copy"]); }
+  else it.push(["Download a PDF","choose the aid","pdfpick"]);
+  it.push([sh==="ready"?"Open the shared page":sh==="pending"?"Shared page · being created":"Share with my team and client",sh==="ready"?"Ready":"","shared"],["Follow-up email","after the meeting","follow"]); return it; }
+function oneMoreItems(){ const a=oneAid(), L=Object.keys(S.lenses||{}).length, it=[];
+  if(a==="uap") it.push(["＋ Add a problem","from a line or a vendor","uapadd"]);
+  if(a==="ar") it.push(["Propose the timeline","from today, by KA's phases","artime"]);
+  if(a==="pm"){ it.push(["Read the map","spotlight a row or column","pmread"]); if($("pmConfirm")&&!$("pmConfirm").hidden) it.push(["Confirm Claude's view","with the client","pmconfirm"]); }
+  if(a==="cp") it.push(["🎙 Interview the client","fills the criteria","cpiv"]);
+  if(a==="aop") it.push(["Show the alignment","column by column","walk"]);
+  if(["aop","cp"].includes(a)){ it.push(["＋ Stakeholder view",`${L} now`,"addlens"]); it.push(["Rename or remove this view",S.lenses?.[S.lens]?.name||"","editlens"]); if(L>1) it.push([S.compare?"Stop comparing":"Compare views","","compare"]); }
+  if(oneHas("snap",a)) it.push(["Snapshots",(S.snaps||[]).length?`${S.snaps.length} saved`:"save the aid as it is","snap"]);
+  it.push(["Rehearse","Claude plays a stakeholder","rehearse"],["Coach","ask anything about this aid","coach"]);
+  if(oneHas("how",a)) it.push(["Show me how","the PDF's callouts","how"]);
+  if(a==="aop") it.push(["Process list",S.procSet==="health"?"Health system · 13":"From the book · 15","proc"]);
+  it.push(["Claude usage","this engagement","tokens"]); if(oneHas("clear",a)) it.push(["Clear…","asks once more","clear"]); return it; }
+function oneMenu(kind,anchor,where){ closePop(); const items=kind==="share"?oneShareItems(where):oneMoreItems(), pop=document.createElement("div"); pop.className="pop onemenu"; pop.setAttribute("role","menu"); pop.setAttribute("aria-label",kind==="share"?"Share & export":"More");
+  pop.innerHTML=`<h5>${kind==="share"?"Share & export":"More"}</h5>${items.map(([t,s,k])=>`<button role="menuitem" data-oneact="${k}"><span>${esc(t)}</span>${s?`<small>${esc(s)}</small>`:""}</button>`).join("")}`; place(pop,anchor); popEl=pop; pop.querySelector("button")?.focus(); }
+function oneAct(k,anchor){ closePop(); const a=oneAid();
+  const run={pdf:()=>oneClick("pdf"),deck:()=>oneClick("deck"),copy:()=>oneClick("copy"),shared:()=>shareEngagement(),follow:()=>kitRun("follow"),
+    pdfpick:()=>onePdfPick(anchor),uapadd:()=>$("uapAddBtn")?.click(),artime:()=>arProposeTimeline(),pmread:()=>$("pmReadBtn")?.click(),pmconfirm:()=>$("pmConfirm")?.click(),cpiv:()=>$("cpIvBtn")?.click(),walk:()=>$("walkBtn")?.click(),
+    addlens:()=>oneLensClick("[data-addlens]"),editlens:()=>oneLensClick("[data-lensedit]"),compare:()=>oneLensClick("[data-compare]"),snap:()=>oneClick("snap"),rehearse:()=>kitRun("rehearse"),coach:()=>{ ($("assistBtn")||$("bAssist"))?.click(); },
+    how:()=>oneClick("how"),proc:()=>{ const nx=S.procSet==="health"?"book":"health"; document.querySelector(`[data-procset="${nx}"]`)?.click(); },tokens:()=>{ nav("overview"); setTimeout(()=>{ const d=$("ovMore"); if(d) d.open=true; $("ovTok")?.scrollIntoView({behavior:"smooth",block:"center"}); },120); },clear:()=>oneConfirmClear(anchor)}[k]; run&&run(); }
+function oneLensClick(sel){ let host=$("lensbar"); if(!host||!host.querySelector(sel)){ host=document.createElement("div"); host.style.display="none"; host.id="oneLensHost"; document.body.appendChild(host); renderLenses(); host.innerHTML=$("lensbar")?.innerHTML||""; } const b=($("lensbar")?.querySelector(sel))||host.querySelector(sel); b?.click(); }
+function oneConfirmClear(anchor){ closePop(); const pop=document.createElement("div"); pop.className="pop onemenu"; pop.setAttribute("role","dialog"); pop.innerHTML=`<h5>Clear the ${esc(ONE_NAME[oneAid()])}?</h5><p class="note" style="margin:0 0 8px">You can undo it for a few seconds afterwards.</p><div class="arow" style="flex:0 1 auto"><button class="btn small danger" data-oneclear>Clear it</button><button class="btn small" data-onecancel>Keep it</button></div>`; place(pop,anchor); popEl=pop; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-oneclear]")){ closePop(); const b=$(ONE_BTN.clear[oneAid()]); if(b){ b.click(); b.click(); } return; } if(e.target.closest("[data-onecancel]")){ closePop(); return; }
+  const m=e.target.closest("[data-onemenu]"); if(m){ e.preventDefault(); oneMenu(m.dataset.onemenu,m,m.dataset.where); return; }
+  const x=e.target.closest("[data-oneact]"); if(x){ oneAct(x.dataset.oneact,x.closest(".pop")?._anchor||x); } });
+function onePdfPick(anchor){ closePop(); const pop=document.createElement("div"); pop.className="pop onemenu"; pop.setAttribute("role","menu"); pop.innerHTML=`<h5>Download a PDF</h5>${Object.entries(ONE_NAME).map(([k,n])=>`<button role="menuitem" data-onepdf="${k}"><span>${esc(n)}</span></button>`).join("")}`; place(pop,anchor); popEl=pop; }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]"); if(!b) return; closePop(); const k=b.dataset.onepdf, open={aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),ar:()=>openAR("aid"),uap:()=>openUAP("aid")}[k]; open(); setTimeout(()=>oneClick("pdf",k),200); });
+
+/* ---------- (3) four path chips, (2) the engagement's next step in the header ---------- */
+const _aidHeadOne=renderAidHead; renderAidHead=function(){ _aidHeadOne(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
+  p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
+    <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button disabled title="Requirements: the next aids being rebuilt">Requirements <small>soon</small></button></div>
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button></div>
+    <div class="pchip p-when"><span class="pk">WHEN</span><button data-nav="ar" ${cur("ar")}>Roadmap</button></div>`;
+  $("ahTitle").textContent=ONE_NAME[a]; const row=document.querySelector("#aidHead .ahrow"); if(row&&!row.querySelector(".onemenus")){ const m=row.querySelector(".meetbtn"); m.insertAdjacentHTML("beforebegin",`<span class="onemenus"><button class="btn small" data-onemenu="share">Share & export ▾</button><button class="btn small" data-onemenu="more">More ▾</button></span>`); }
+  oneLensVis(); renderNextPill(); };
+/* the stakeholder bar shows only once there is a second view; adding one lives in More */
+function oneLensVis(){ const many=Object.keys(S.lenses||{}).length>1; ["ahLens","ovLens","lensbar","lensbar2","cpLens","cpLens2"].forEach(id=>{ const el=$(id); if(el) el.classList.toggle("onehide",!many); }); }
+const _rlOne=renderLenses; renderLenses=function(){ _rlOne(); oneLensVis(); };
+/* the engagement's one next step, read from the Assessment Roadmap's six A's */
+function engNext(){ const auto=arAuto(), loc=arLoc(auto), ph=+loc.split(".")[0], act=arName(loc), via=(aid,m,open)=>({aid,loc,act,t:m.t,done:!!m.done,go:()=>{ open(); setTimeout(()=>m.go(),80); }});
+  if(loc==="1.1") return via("aop",nextMove(),()=>openAid(false,"build"));
+  if(loc==="1.2"||loc==="1.3") return via("pm",pmNextMove(),()=>openPM("build"));
+  if(loc==="1.4") return via("cp",cpNextMove(),()=>openAid(true,"build"));
+  if(loc==="2.1") return via("uap",uapNextMove(),()=>openUAP("build"));
+  return via("ar",arNextMove(),()=>openAR("build")); }
+function engNextScore(){ const auto=arAuto(), ph=+arLoc(auto).split(".")[0]; return arPct(ph,auto); }
+const _pillOne=renderNextPill; renderNextPill=function(){ if(route!=="aid") return; let n; try{ n=engNext(); }catch(e){ return _pillOne(); } const here=n.aid===oneAid(), ph=AR[+n.loc.split(".")[0]-1];
+  $("ahNext").innerHTML=`${ringSVG(engNextScore(),34)}<b>Next</b><span title="${esc(`${ph.l} · ${n.loc} ${n.act}: ${n.t}`)}">${here?"":`<i class="onevia">${esc(ONE_NAME[n.aid])} ·</i> `}${esc(n.t)}</span><button class="btn small" data-engnext>${here?"Do it":"Go"}</button>`; };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-engnext]")){ e.stopImmediatePropagation(); engNext().go(); } },true);
+
+/* ---------- the Overview: one next step, Before · During · After, the rest folded away ---------- */
+const _roOne=renderOverview; renderOverview=function(){ _roOne(); try{ onePaintOverview(); }catch(e){ console.error(e); } };
+function onePaintOverview(){ const nx=$("ovNext"), empty=!allFilled().length&&!cpAll().length&&!(S.uap?.probs||[]).length&&!(S.pm&&pmRated().length);
+  if(nx&&!empty){ const n=engNext(), auto=arAuto(), cur=+n.loc.split(".")[0];
+    nx.innerHTML=`<div class="scard next onenext">${ringSVG(engNextScore())}<div class="ontxt"><span class="onlbl">Next step</span><b>${esc(AR[cur-1].l)} · ${esc(n.loc)} ${esc(n.act)}: ${esc(n.t)}</b><small>In the ${esc(ONE_NAME[n.aid])}. Read from where the decision is on the Assessment Roadmap.</small>
+      <div class="onesix">${AR.map((p,i)=>`<i class="${i+1===cur?"cur":""}" title="${p.l} ${arPct(i+1,auto)}%"><s style="width:${arPct(i+1,auto)}%"></s></i>`).join("")}</div><div class="onesixl">${AR.map(p=>`<span>${p.l}</span>`).join("")}</div></div><button class="btn primary" data-engnext>Do it</button></div>`; }
+  const k=$("ovKit"); if(k){ const fl=(S.flags||[]).filter(f=>f.st==="open").length, last=(S.rehearsals||[]).slice(-1)[0];
+    k.classList.add("onebda"); k.innerHTML=`<div class="onebdah"><h3>Meet the client</h3><button class="btn small" data-onemenu="share" data-where="overview">Share & export ▾</button></div>
+      <div class="bda3"><div><b>Before</b><button class="btn small" data-kit="brief">⚡ 60-second brief</button><button class="btn small" data-kit="rehearse">🎭 Rehearse${last?` · last ${last.score}`:""}</button>${fl?`<button class="btn small primary" data-kit="flags">⚑ Corrections · ${fl}</button>`:""}</div>
+      <div><b>During</b><button class="btn small primary" data-nav="meet">▶ Present, work together or interview</button><button class="btn small" data-oneflag>⚑ Off track?</button></div>
+      <div><b>After</b><button class="btn small" data-kit="debrief">🎙 Debrief</button><button class="btn small" data-kit="follow">✉ Follow-up email</button></div></div>`; }
+  const rs=$("rmShare"); if(rs) rs.hidden=!(S.share&&(S.share.state==="pending"||S.share.state==="ready"));
+  const carry=$("ovCarry"), side=$("ovSide"); if(carry&&side){ let d=$("ovMore"); if(!d){ d=document.createElement("details"); d.id="ovMore"; d.className="ovmore"; d.innerHTML=`<summary>More about this engagement <small>what carries forward, before the meeting, outside in, history, Claude usage</small></summary>`; carry.before(d); }
+    if(carry.parentElement!==d){ d.appendChild(carry); d.appendChild(side); } }
+  document.querySelectorAll("#ovPath .dimc .arow, #ovAR .arow").forEach(r=>{ const bs=[...r.querySelectorAll("button[data-nav]")]; const sh=bs.find(x=>x.dataset.view==="aid"); if(bs.length>1&&sh){ bs.forEach(x=>{ if(x!==sh) x.remove(); }); sh.textContent="Open"; sh.classList.add("primary"); } });
+  oneLensVis(); }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-oneflag]")) flagOpen(); });
+/* the old Meeting kit card keeps its id for kitPaint, which now paints Before · During · After */
+const _kpOne=kitPaint; kitPaint=function(){ _kpOne(); if(route==="overview") try{ onePaintOverview(); }catch(e){} };
+const _cmdOne=cmdActions; cmdActions=function(){ const A=_cmdOne(); A.push({g:"Work",t:"Share & export",run:()=>oneMenu("share",$("cmdBtn"),route==="overview"?"overview":""),hint:""}); if(route==="aid") A.push({g:"Work",t:"Fill or improve with Claude",run:oneClaude,hint:""}); return A; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
