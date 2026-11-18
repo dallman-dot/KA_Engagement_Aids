@@ -1239,6 +1239,47 @@ div.aract{cursor:default}.arcv .aract .arn{color:#2c4f9b;font-weight:700;min-wid
 .shlock{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--glow) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--glow) 55%,var(--rule));border-radius:12px;padding:8px 12px;margin:10px 0 0;font-size:14px;color:var(--ink)}
 .shlock[hidden]{display:none}.rmban{background:color-mix(in srgb,var(--why) 10%,var(--paper));border-color:color-mix(in srgb,var(--why) 35%,var(--rule))}
 .rmload .linkbtn{display:inline-block;margin-top:6px}
+/* Understanding a Problem */
+.uapcv .uapbox{border-radius:calc(.8*var(--mm));display:flex;flex-direction:column;transition:opacity .35s,background .2s}
+.uapcv .uapbox.claude{background:color-mix(in srgb,var(--plum) 6%,transparent);outline:calc(.25*var(--mm)) dashed color-mix(in srgb,var(--plum) 45%,transparent);outline-offset:calc(-.2*var(--mm))}
+.uapcv .uapbox.dimmed{opacity:.22}.uapcv .uapbox.spot{background:color-mix(in srgb,var(--glow) 16%,transparent)}
+.uapcv .uapta,.uapcv .uaptx{flex:1;width:100%;min-height:0;border:0;background:transparent;resize:none;font-family:var(--font);font-size:calc(2.9*var(--mm));line-height:1.3;color:var(--ink);padding:calc(.8*var(--mm)) calc(1*var(--mm));overflow:hidden}
+.uapcv .uapta:focus{outline:calc(.3*var(--mm)) solid color-mix(in srgb,var(--blue) 50%,transparent);border-radius:calc(.8*var(--mm));background:color-mix(in srgb,var(--paper) 92%,var(--blue))}
+.uapcv .uapta::placeholder{color:color-mix(in srgb,var(--muted) 70%,transparent);font-style:italic}
+.uapcv .uapbox.over::after{content:"!";position:absolute;right:calc(.6*var(--mm));bottom:calc(.4*var(--mm));color:var(--warn);font-weight:800;font-size:calc(3*var(--mm))}
+.uapcv .uappri{display:flex;gap:calc(2*var(--mm));align-items:center;padding:calc(.6*var(--mm)) calc(1*var(--mm)) 0;font-size:calc(3*var(--mm))}.uapcv .uappri:empty{display:none}
+.uapprib{display:inline-flex;align-items:center;gap:calc(1*var(--mm))}.uapcv .uapprib svg{width:calc(4.4*var(--mm));height:calc(4.4*var(--mm))}
+.uapgo{font-weight:800;color:#2d7a52}.uapgo.stop{color:#a6501d}
+.uapball{width:18px;height:18px;vertical-align:middle}
+.uapcv .uapok{border:0;background:transparent;border-radius:50%;cursor:pointer}.uapcv .uapok:hover{box-shadow:0 0 0 calc(.4*var(--mm)) color-mix(in srgb,var(--ok) 50%,transparent)}
+.uapcv .uapws,.uapcv .uappart{border:0;background:transparent;display:flex;gap:calc(.8*var(--mm));align-items:center;justify-content:center;cursor:pointer;font-size:calc(3.6*var(--mm));padding:0}.uapcv .uapws svg{width:calc(4.6*var(--mm));height:calc(4.6*var(--mm))}
+.uapcv .uapempty{display:grid;place-items:center;text-align:center;gap:calc(2*var(--mm));font-size:calc(3.2*var(--mm));color:var(--muted)}.uapcv .uapempty p{margin:0}
+.pmpres .uapcv .uaptx{font-size:calc(3.1*var(--mm))}
+.uaptabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:thin}.uaptabs button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.uaptabs button small{margin-left:6px;color:var(--muted)}.uaptabs button[aria-selected="true"]{background:var(--why);border-color:var(--why);color:#fff}.uaptabs button[aria-selected="true"] small{color:#dfe6f5}.uaptabs .uapaddtab{border-style:dashed;color:var(--blue)}
+.uapways{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin:10px 0}
+.uapplist{list-style:none;margin:8px 0;padding:0;display:grid;gap:4px}.uapplist li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:6px 10px;border-radius:10px;border:1px solid var(--line)}.uapplist li.cur{border-color:var(--why)}.uapplist li span{color:var(--muted);font-size:13px;flex:1 1 160px}
+.uapfound{margin-top:10px;display:grid;gap:6px}.uapfound .chk{align-items:flex-start}
+.uapmeta{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:flex-start;justify-content:space-between;margin-top:4px}
+.uaplines{list-style:none;margin:0;padding:0;display:grid;gap:3px;flex:1 1 280px}.uaplines li{display:flex;gap:8px;align-items:baseline;font-size:13px}.uaplines li span{flex:1;min-width:0}
+.uaplines em,.uapfound em{font-style:normal;font-size:11px;padding:1px 6px;border-radius:999px;white-space:nowrap;background:color-mix(in srgb,var(--blue) 10%,transparent);color:var(--blue)}
+em.s-vendor{background:color-mix(in srgb,var(--glow) 22%,transparent);color:#7a5a00}em.s-assumption{background:color-mix(in srgb,var(--plum) 10%,transparent);color:var(--plum)}em.s-engagement,em.s-material{background:color-mix(in srgb,var(--ok) 12%,transparent);color:var(--ok)}
+.uapcarry{margin-top:12px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--ok) 7%,var(--card));border:1px solid color-mix(in srgb,var(--ok) 25%,transparent)}.uapcarry p{margin:4px 0 8px}
+.uapcheck{margin-top:12px;display:grid;gap:6px}.uapcheck>div{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:8px 10px;border-radius:10px;border-left:4px solid var(--ok);background:var(--card)}.uapcheck>div.symptom{border-color:var(--warn)}.uapcheck>div.generic{border-color:var(--plum)}.uapcheck small{flex-basis:100%;color:var(--muted)}
+.uappribuild{display:grid;gap:6px;margin:6px 0 10px}.uappribuild .btn .uapball{width:16px;height:16px}
+.uapcmp{overflow-x:auto}.uapcmp table{border-collapse:collapse;font-size:13px;min-width:100%}.uapcmp th,.uapcmp td{border:1px solid var(--line);padding:6px 8px;vertical-align:top;text-align:left}.uapcmp thead th{background:color-mix(in srgb,var(--why) 10%,transparent)}
+.uapws2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.uapwsh{display:block;padding:6px 8px;color:#fff;background:#1f2430;font-size:12px}.uapwsh.s{background:#8a8f99}
+.uapwsrow{display:flex;gap:6px;align-items:center;width:100%;border:0;background:transparent;text-align:left;padding:5px 4px;border-radius:6px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer}.uapwsrow.on{background:color-mix(in srgb,var(--glow) 25%,transparent);font-weight:700}.uapwsrow svg,.uapz{width:16px;height:16px;flex:0 0 16px}
+.uapwspop{max-width:min(560px,94vw)}@media (max-width:560px){.uapws2{grid-template-columns:1fr}}
+.uaplearn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.uaplearn p{margin:0 0 8px}.uaplearn small{display:block;color:var(--muted)}@media (max-width:700px){.uaplearn{grid-template-columns:1fr}}
+.uapslcmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:2cqw}.uapslcmp>div{border:1px solid #d8dce5;border-radius:1cqw;padding:1.6cqw;display:grid;gap:.6cqw;font-size:1.6cqw}.uapslcmp b{font-size:2cqw}.uapslcmp small{color:#5b6476}
+.srcb{font-size:12px;padding:1px 8px;border-radius:999px;background:color-mix(in srgb,var(--plum) 10%,transparent);color:var(--plum)}.srcb.you{background:color-mix(in srgb,var(--blue) 10%,transparent);color:var(--blue)}.srcb.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.thumb .uapcv{pointer-events:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) em.s-vendor{color:var(--glow)}}:root[data-theme="dark"] em.s-vendor{color:var(--glow)}
+.uapsrcs{flex:1 1 280px;min-width:0}.uapsrcs>small{display:block;color:var(--muted);font-size:12px;margin-bottom:2px}.uaplines li span{color:var(--muted)}
+.ahpath button.d-what[data-nav="uap"]{opacity:1;cursor:pointer}.ahpath button.d-what[data-nav="uap"][aria-current="page"]{background:var(--what);color:#fff;border-color:var(--what)}
+@media (max-width:640px){.ahpath .d-what[data-nav="uap"]{display:flex}#viewAidUAP .ctlcard{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}#viewAidUAP .ctlcard::-webkit-scrollbar{display:none}}
+#viewAidUAP .sheetwrap>*{min-width:0}#uapTabs{min-width:0}#uapRead .rcard{min-width:0}#uapRead{min-width:0}
 </style>
 
 <div class="shell">
@@ -1581,6 +1622,26 @@ div.aract{cursor:default}.arcv .aract .arn{color:#2c4f9b;font-weight:700;min-wid
       <p class="pmbanner prep-only" id="arBanner" hidden></p>
       <div class="cpscroll"><div class="cpstage pmstage" id="arSheet"></div></div>
       <div class="pmread" id="arRead"></div>
+    </div>
+  </section>
+  <section id="viewLearnUAP" class="pmview uapview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Pinpoint Core Business Problems</small><h1>Understanding a Problem</h1><p class="gsub">Learn the nine boxes in five short cards. Then frame the problem.</p></div></div>
+    <div class="lwrap"><ol class="ldots" id="uapLdots" aria-label="Cards"></ol><article class="lcard" id="uapLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="uapLPrev">← Back</button><button class="btn primary" id="uapLNext">Next →</button></div></div>
+  </section>
+  <section id="viewBuildUAP" class="pmview uapview" role="tabpanel" hidden>
+    <ol class="bsteps" id="uapBsteps" aria-label="Steps"></ol>
+    <div class="bwrap"><div class="bmain" id="uapBmain"></div>
+      <aside class="bside"><p class="minicap">The problem, as you build it</p><button class="minibtn pmmini" id="uapMini" aria-label="Open the full sheet"></button><div id="uapAsk" class="askclient"></div></aside></div>
+    <div class="bnav"><button class="btn" id="uapBBack">← Back</button><span id="uapBpos" class="note"></span><button class="btn primary" id="uapBNext">Next →</button></div>
+  </section>
+  <section id="viewAidUAP" class="pmview uapview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <section class="ctlcard" aria-label="Controls"><button class="btn small prep-only" id="uapAddBtn">＋ Add a problem</button><button class="btn small" id="uapPdf">Download PDF</button><button class="btn small" id="uapCopy">Copy summary</button><button class="btn small danger prep-only" id="uapClear">Clear this problem</button></section>
+      <div id="uapTabs"></div>
+      <p class="pmbanner prep-only" id="uapBanner" hidden></p>
+      <div class="cpscroll"><div class="cpstage pmstage" id="uapSheet"></div></div>
+      <div class="pmread" id="uapRead"></div>
     </div>
   </section>
   <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2010). A prototype.</span><span>Your work stays in this browser.</span></footer>
@@ -5114,8 +5175,409 @@ const _rmIncK=rmIncoming; rmIncoming=function(snap){ _rmIncK(snap); rmBanner(); 
 const _rmRrK=rmRerender; rmRerender=function(f){ _rmRrK(f); setTimeout(rmBanner,0); };
 if(KA_ROOM) setInterval(()=>{ try{ rmBanner(); }catch(e){} },1500);
 
+
+
+/* ===================== Understanding a Problem (Dave, Nov 18: "This is the next job aid I want built."; "go with your recommendations on all four. I also want the ability to add a problem and have Claude automatically the nine boxes that the user can overwrite."; then "Specific to Understanding a problem, I want to be able to start from a vendor (solution) perspective… what problem does Vax Care solve… create a compelling (credible) Understanding a Problem draft"; "You got it!")
+   2 · Problem · WHAT on the path (Analysis 2.1 Pinpoint Core Business Problems). The PDF's page 2 on its own coordinates: ASSESSMENT, nine boxes in three columns.
+   Up to 4 problems per engagement with Compare; Claude fills the nine boxes from a problem line or from a vendor; every box can be written over; Priority is a decision
+   (Low/Medium/High and Pursue/Stop) with Agreed; the PDF's Will/Skill rater and Participants; Roadmap 2.1 ticks itself. ===================== */
+const UAP_BOX=[ // in the PDF's number order; c = column, r = row
+  {n:1,k:"situation",l:"Situation/Problem to Solve",s:"Situation",c:0,r:0,q:"What is the situation, and the problem to solve, in a sentence or two?"},
+  {n:2,k:"symptoms",l:"Symptoms",s:"Symptoms",c:0,r:1,q:"What do people see and feel day to day?"},
+  {n:3,k:"current",l:"Current Approaches",s:"Current approaches",c:0,r:2,q:"How is it handled today, and what's been tried?"},
+  {n:4,k:"causes",l:"Causes",s:"Causes",c:1,r:0,q:"What causes it, underneath the symptoms?"},
+  {n:5,k:"consequences",l:"Consequences",s:"Consequences",c:1,r:1,q:"What happens if nothing changes?"},
+  {n:6,k:"constraints",l:"Constraints",s:"Constraints",c:1,r:2,q:"What limits any solution: budget, sign-offs, people, policies, politics?"},
+  {n:7,k:"requirements",l:"Requirements",s:"Requirements",c:2,r:0,q:"What must any solution do?"},
+  {n:8,k:"costs",l:"Costs",s:"Costs",c:2,r:1,q:"What does the problem cost now, and what would solving it cost?"},
+  {n:9,k:"priority",l:"Priority",s:"Priority",c:2,r:2,q:"How important is solving it, and do we pursue it?"}];
+const UAP_COLX=[11.876,97.713,184.33], UAP_ROWY=[55.744,108.799,161.328], UAP_W=83.26, UAP_H=40.64, UAP_HDY=[47.6,100.6,153.1], UAP_NUMX=[90.7,176.6,263.1];
+const UAP_TXT={kicker:"Pinpoint Core Business Problems",purpose:"A visual aid to accurately decompose and frame the key attributes of a business problem.",
+  why:"We will frame and address root cause problems, as opposed to solving for generic issues that result in limited worth to the business.",
+  outcomes:["A thorough understanding of the problem being confronted","Decision to pursue or stop pursuit of a solution to solve a problem","Agreement to the importance of addressing a business problem"],
+  when:"The Understanding a Problem is best used in the Problem Space during the Analysis Phase (2.1) to “Pinpoint Core Business Problems.” It’s also useful in the Solution Space to illustrate the complexity of business problems.",
+  threat:"A clear sense of threats to scope, time and resources is required before solving any business problem.",
+  gaps:[["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]],
+  problem:["Review major elements to consider and understand when framing a business problem","Confirm understanding and agreement to business problems worth solving","Compare similarities and differences among business problems","Document possible gaps to resolving problems"],
+  solution:["Illustrate how previous business problems have been framed","Confirm a complete understanding of the business problem the solution addresses","Challenge assumptions among stakeholders about a potential business problem","Brainstorm potential alternatives to already considered solutions","List key takeaways (gaps, risks, actions, etc.)"],
+  callouts:["Focused on decomposing and framing the key attributes of a business problem.","Follow the numbers sequentially (1-9) as you initially complete, review, and refine the business problem.","The objective is to gain agreement on the priority (importance) of solving the business problem."]};
+/* the PDF's "Rate Your Usage of This Aid", word for word */
+const UAP_WS={q:"What is the level of CONFIDENCE (commitment) and COMPETENCE (completeness) for this aid?",
+  w:["None (Not personally committed)","Personal (I am committed)","Team (Team is committed)","Key Stakeholders (Fully committed)"],
+  s:["Skipped (Didn’t think about it)","Covered (Thought/talked about it)","Documented (Captured with team)","Verified (Confirmed by key stakeholders)"]};
+const UAP_SRC={vendor:"Vendor's claim · confirm",industry:"Industry knowledge",material:"From your material",engagement:"From this engagement",assumption:"Assumption · confirm",client:"Client",you:"Your words"};
+const UAP_PL=["Not set","Low","Medium","High"], UAP_MAXP=4, UAP_BUDGET=240;
+let uapMode=false, uapIdx=0, uapL=0, uapBusy=false, uapMsg="", uapCtl=null, uapSpot=null, presUAP=false, uapVend=null, uapCheck=null;
+
+function uapBlankProb(name){ return {id:"p"+Date.now().toString(36)+Math.random().toString(36).slice(2,4),name:name||"",box:UAP_BOX.map(()=>({t:"",d:"",src:"",ls:[],ok:false})),pri:{p:0,go:"",why:""},from:{kind:"hand"},qs:[]}; }
+function uapData(){ if(!S.uap||!Array.isArray(S.uap.probs)) S.uap={probs:[],cur:0,ws:{w:null,s:null},part:{date:"",names:""},gaps:{},checksP:[],checksS:[],outcomes:[],take:"",vendor:{name:"",site:"",material:"",found:null}};
+  const U=S.uap; U.ws=U.ws||{w:null,s:null}; U.part=U.part||{date:"",names:""}; U.gaps=U.gaps||{}; U.vendor=U.vendor||{name:"",site:"",material:"",found:null};
+  U.probs.forEach(p=>{ while(p.box.length<9) p.box.push({t:"",d:"",src:"",ls:[],ok:false}); p.pri=p.pri||{p:0,go:"",why:""}; p.from=p.from||{kind:"hand"}; p.qs=p.qs||[]; });
+  if(!(U.cur>=0&&U.cur<U.probs.length)) U.cur=0; return U; }
+const uapProb=()=>{ const U=uapData(); return U.probs[U.cur]||null; };
+const uapFilled=p=>p?p.box.filter(b=>(b.t||"").trim()).length:0;
+function uapScoreOf(p){ if(!p) return 0; let s=uapFilled(p)/9*60; if(p.pri.p) s+=10; if(p.pri.go) s+=10; s+=p.box.filter(b=>b.ok).length/9*20; return Math.round(Math.min(100,s)); }
+function uapScore(){ const U=uapData(); return U.probs.length?Math.max(...U.probs.map(uapScoreOf)):0; }
+const uapFramed=p=>p&&uapFilled(p)===9&&p.pri.p>0&&p.box[8].ok;
+const uapClient=()=>(S.company?.name||"").trim();
+/* the dots: KA's Low ◔ / Medium ◑ / High ● in plum */
+function uapBall(p,cls=""){ return `<svg viewBox="0 0 10 10" class="uapball ${cls}" aria-hidden="true"><circle cx="5" cy="5" r="4.2" fill="none" stroke="var(--plum)" stroke-width=".9"/>${p===2?`<path d="M5 .8 A4.2 4.2 0 0 0 5 9.2 Z" fill="var(--plum)"/>`:p===3?`<circle cx="5" cy="5" r="4.2" fill="var(--plum)"/>`:""}</svg>`; }
+function uapWsDot(kind,v){ const c=kind==="w"?"#1f2430":"#8a8f99"; return `<svg viewBox="0 0 10 10" class="ardot" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="none" stroke="${c}" stroke-width="1"/>${v===2?`<path d="M5 1 A4 4 0 0 0 5 9 Z" fill="${c}"/>`:v===3?`<circle cx="5" cy="5" r="4" fill="${c}"/>`:""}</svg>`; }
+const uapWsPct=()=>{ const W=uapData().ws; return W.w==null&&W.s==null?null:Math.round(((W.w||0)+(W.s||0))/6*100); };
+
+/* ---------- the picture: the PDF's page 2 ---------- */
+function uapSheetHTML({mode="edit",spot=null,p=uapProb()}={}){ const ed=mode==="edit", pres=mode==="present", F="Open Sans,sans-serif";
+  let s=`<svg class="pmbase" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true">
+    <text x="10.4" y="14.2" fill="var(--tan)" font-family="${F}" font-weight="700" font-size="3.9">${UAP_TXT.kicker}</text>
+    <text x="10.4" y="28.4" fill="var(--title)" font-family="${F}" font-weight="300" font-size="13.4" textLength="127" lengthAdjust="spacingAndGlyphs">Understanding a Problem</text>
+    <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>${clientMarkSVG()}
+    <rect x="10.9" y="35.6" width="258" height="8.2" fill="#2c4f9b"/><text x="139.9" y="41.5" text-anchor="middle" fill="#fff" font-family="${F}" font-weight="800" font-size="4.6" letter-spacing="1.1">ASSESSMENT</text>
+    <line x1="96.5" y1="43.8" x2="96.5" y2="202.2" stroke="#9aa0ab" stroke-width=".3"/><line x1="182.6" y1="43.8" x2="182.6" y2="202.2" stroke="#9aa0ab" stroke-width=".3"/>`;
+  UAP_BOX.forEach((b,i)=>{ const x=UAP_COLX[b.c], y=UAP_HDY[b.r], lit=!spot||spot===i+1, bx=p&&p.box[i];
+    s+=`<g opacity="${lit?1:.22}"><text x="${x+.6}" y="${y+1.3}" font-family="${F}" font-size="2.7" fill="#2c4f9b">▷</text><text x="${x+4.6}" y="${y+1.4}" font-family="${F}" font-size="3.6" fill="#2c4f9b">${b.l}</text>
+      <circle cx="${UAP_NUMX[b.c]}" cy="${y+1.9}" r="3.25" fill="${bx&&bx.ok?"var(--ok)":"#9e2a55"}"/><text x="${UAP_NUMX[b.c]}" y="${y+3.25}" text-anchor="middle" font-family="${F}" font-weight="800" font-size="3.9" fill="#fff">${bx&&bx.ok?"✓":b.n}</text></g>`; });
+  const W=uapData().ws, pc=uapWsPct();
+  if(!pres&&!ed&&(W.w!=null||W.s!=null)) s+=`<text x="241" y="208.8" text-anchor="end" font-family="${F}" font-size="2.4" fill="var(--muted)">Will · Skill ${pc}%</text>`;
+  s+=kaFootSVG()+`</svg>`;
+  let h=s;
+  UAP_BOX.forEach((b,i)=>{ const x=UAP_COLX[b.c], y=UAP_ROWY[b.r], bx=p?p.box[i]:{t:"",ok:false,src:""}, lit=!spot||spot===i+1, cl=bx.src&&!["you","client"].includes(bx.src)&&bx.t.trim();
+    let inner="";
+    if(i===8&&p){ const P=p.pri; inner=`<div class="uappri">${P.p?`<span class="uapprib">${uapBall(P.p)}<b>${UAP_PL[P.p]}</b></span>`:""}${P.go?`<span class="uapgo ${P.go}">${P.go==="pursue"?"Pursue":"Stop"}</span>`:""}</div>`; }
+    if(ed&&p){ h+=`<div class="px uapbox ${cl?"claude":""} ${lit?"":"dimmed"}" style="${PX(x,y,UAP_W,UAP_H)}">${inner}<textarea class="uapta" data-uapbox="${i}" aria-label="${b.n} ${b.l}" placeholder="${esc(b.q)}">${esc(bx.t)}</textarea></div>`;
+      h+=`<button class="px pmhdbtn" style="${PX(x-.4,UAP_HDY[b.r]-2.6,5,5)}" data-uaphd="${i}" aria-label="${b.l}: view or add additional details">▷</button>`;
+      h+=`<button class="px uapok ${bx.ok?"on":""}" style="${PX(UAP_NUMX[b.c]-3.6,UAP_HDY[b.r]-1.7,7.2,7.2)}" data-uapok="${i}" title="${bx.ok?"Agreed with the stakeholder · tap to undo":"Tap when agreed with the stakeholder"}" aria-label="${b.l}: agreed"></button>`; }
+    else { const txt=(bx.t||"").trim(); h+=`<div class="px uapbox ro ${lit?"":"dimmed"} ${spot===i+1?"spot":""}" style="${PX(x,y,UAP_W,UAP_H)}">${inner}<div class="uaptx">${esc(txt).replace(/\n/g,"<br>")}</div></div>`; } });
+  if(ed&&!p) h+=`<div class="px uapempty" style="${PX(60,100,160,30)}"><button class="btn primary" data-uapadd>＋ Add a problem</button><p>Claude fills the nine boxes from a problem or from a vendor; you can write over any of them.</p></div>`;
+  if(ed){ h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${PX(166,8.6,104,20.2)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`;
+    h+=`<button class="px uapws" style="${PX(243,203.5,14,7)}" data-uapws title="Rate your usage of this aid">${uapWsDot("w",W.w||0)}${uapWsDot("s",W.s||0)}</button><button class="px uappart" style="${PX(229,203.5,12,7)}" data-uappart title="Participants and date">👥</button>`; }
+  return `<div class="pmcv uapcv">${h}</div>`; }
+function uapFit(root){ (root||document).querySelectorAll(".uapbox").forEach(el=>{ const t=el.querySelector(".uapta,.uaptx"); if(!t) return; let f=1; t.style.fontSize=""; const max=el.clientHeight-(el.querySelector(".uappri")?.offsetHeight||0);
+  for(let k=0;k<8&&t.scrollHeight>max+2;k++){ f-=.08; t.style.fontSize=`calc(${(2.9*f).toFixed(2)} * var(--mm))`; } el.classList.toggle("over",t.scrollHeight>max+2); }); }
+
+/* ---------- carried forward from the other aids (suggestions you accept) ---------- */
+function uapCarry(i){ const L=[];
+  try{ if(i===0){ if((S.situation||"").trim()&&!/^EXAMPLE/.test(S.situation)) L.push(S.situation.trim()); if(S.company?.summary) L.push(S.company.summary); EXT.forEach(([k,l])=>{ const t=S.ext?.[k]?.t; if(t) L.push(`${l}: ${t}`); }); }
+    if(i===3){ RATIO_GROUPS.forEach(g=>{ const r=groupRead(g); if(r==="weak"||r==="watch") L.push(`${g.l} reads ${r==="weak"?"Weak":"Watch"}: ${g.r.map(([k,l])=>S.fin?.[k]?.note?`${l.toLowerCase()} (${S.fin[k].note})`:"").filter(Boolean).join("; ")||g.q}`); }); }
+    if(i===5){ UAP_TXT.gaps.forEach(([k,l])=>{ const a=S.gaps?.[k], n=a&&typeof a==="object"?a.note:a, r=S.roadmap?.gaps?.[k]; [n,r].filter(x=>x&&String(x).trim()).forEach(x=>L.push(`${l}: ${String(x).trim()}`)); }); }
+    if(i===7){ RATIO_GROUPS.forEach(g=>g.r.forEach(([k,l])=>{ const o=S.fin?.[k]; if(o&&(o.v||o.note)&&(o.read==="weak"||o.read==="watch")){ const t=trendOf(k); L.push(`${l}${o.v?` ${o.v}`:""}${t?` (${t.word.toLowerCase()} over 24 months)`:""}${o.note?`: ${o.note}`:""}`); } })); }
+    if(i===6){ (S.cp?.[S.lens]?["org","op","inf"].flatMap(b=>(S.cp[S.lens][b]||[]).filter(r=>(r.t||"").trim()).map(r=>`${r.dir==="up"?"Increase":r.dir==="down"?"Reduce":"Hold"} ${r.t}`)):[]).slice(0,4).forEach(x=>L.push(x)); }
+    if(i===8&&S.pm){ const P=pmData(); pmNamedI(P).map(r=>[P.init[r].n,pmNamedS(P).filter(c=>pmCell(r,c,P).p===3).map(c=>P.stake[c].n)]).filter(([,h])=>h.length).sort((a,b)=>b[1].length-a[1].length).slice(0,2).forEach(([n,h])=>L.push(`${n} is High for ${h.join(", ")} on the Priorities Map`)); }
+  }catch(e){}
+  return L.join("\n"); }
+const UAP_CARRY_FROM={0:"the alignment's situation and outside factors",3:"key ratios read Watch or Weak",5:"the five gaps noted in your other aids",6:"the Criteria Proposition",7:"the key ratios and their 24-month change",8:"the Priorities Map's High ratings"};
+
+/* ---------- Claude: fill the nine boxes, from a problem or from a vendor (never over your own words) ---------- */
+function uapFrameFor(){ const c=uapClient(); return c?`the client, ${c}${S.company?.eyes?` (through the eyes of ${S.company.eyes})`:""}`:""; }
+function uapFillPrompt(o){ const c=uapClient(), eng=c||S.situation?engagementText().slice(0,12000):"";
+  const head=o.vendor?`Start from a VENDOR (solution) perspective. The vendor is ${o.vendor.name}${o.vendor.site?` (${o.vendor.site})`:""}. The problem it solves: "${o.problem}"${o.who?`, for ${o.who}`:""}.
+Write the problem from the BUYER's side, not as the vendor's marketing. Frame it for ${c?`the client, ${c}`:`the vendor's typical customer${o.who?` (${o.who})`:""}`}.
+Requirements are what ANY good solution must do, not the vendor's feature list. Current Approaches are how buyers cope today without this vendor.`
+    :`Frame this business problem${c?` for the client, ${c}`:""}: "${o.problem}".`;
+  return `You are a KA (Knowledge-Advantage) principal filling in KA's "Understanding a Problem" aid: nine boxes that decompose and frame a business problem, so we address root causes, not generic issues.
+${head}
+BOXES, in order: 1 Situation/Problem to Solve, 2 Symptoms, 3 Current Approaches, 4 Causes (root causes, not symptoms), 5 Consequences (if nothing changes), 6 Constraints (budget, sign-offs, decision makers, policies, politics), 7 Requirements, 8 Costs (of the problem now, and of solving it), 9 Priority.
+RULES: credible over compelling. Never invent facts about ${c||"a client"}. A number appears only when the vendor's own public descriptions${o.material?", the material,":""} or the engagement give it; otherwise describe it in words. Where something is unknown, write it as a question ending in "?". Tag every line with where it came from: "vendor" (the vendor's own claims), "industry" (general industry knowledge), "material" (the pasted material), "engagement" (the engagement below), or "assumption" (your inference, to confirm). Each box: 2 to 4 short lines, together under ${UAP_BUDGET} characters, written so a buyer recognises their own situation. Logical abbreviations are fine.
+${o.material?`MATERIAL (from the user):\n${o.material.slice(0,30000)}\n`:""}${eng?`THE ENGAGEMENT:\n${eng}\n`:""}
+Reply with JSON only: {"name":"the problem in 3 to 7 words","boxes":[{"lines":[{"t":"…","src":"vendor|industry|material|engagement|assumption"}],"details":"optional longer note, under 400 characters"}],"priority":{"level":"low|medium|high","go":"pursue|stop|","why":"one sentence"},"questions":["up to 5 questions to ask the client"],"asOf":"how current your knowledge is"}. Exactly nine boxes, in order. Box 9's lines say why it matters now.`; }
+function uapVendorPrompt(v){ const c=uapClient();
+  return `You are a KA (Knowledge-Advantage) principal. Evaluate what the vendor ${v.name}${v.site?` (${v.site})`:""} says it does, from its own public descriptions you know${v.material?" and the material below":""}, and name the business problems it solves${c?`, as they would apply to the client ${c}`:""}.
+If you do not know this vendor and there is no material, reply {"known":false}. Never invent capabilities.
+${v.material?`MATERIAL:\n${v.material.slice(0,30000)}\n`:""}${c?`THE CLIENT:\n${engagementText().slice(0,6000)}\n`:""}
+Reply with JSON only: {"known":true,"summary":"what the vendor says it does, one sentence","asOf":"how current your knowledge is","problems":[{"name":"the problem in 3 to 7 words","who":"who has it (e.g. pediatric practices)","line":"one sentence, from the buyer's side","src":"vendor|industry|material"}]}. Up to 4 problems, the most credible first.`; }
+function uapApply(p,r,o){ const snap=JSON.stringify(p); let n=0;
+  (Array.isArray(r&&r.boxes)?r.boxes:[]).slice(0,9).forEach((bx,i)=>{ const B=p.box[i]; if(B.src==="you"||B.src==="client") return; const lines=(Array.isArray(bx.lines)?bx.lines:[]).map(l=>({t:String(l.t||"").trim(),src:UAP_SRC[l.src]?l.src:"assumption"})).filter(l=>l.t);
+    if(!lines.length) return; let t=lines.map(l=>l.t).join("\n"); if(t.length>UAP_BUDGET+60) t=t.slice(0,UAP_BUDGET+60).replace(/\s+\S*$/,"…");
+    Object.assign(B,{t,ls:lines.map(l=>l.src),d:String(bx.details||"").slice(0,600)||B.d,src:o.vendor?"vendor-draft":"claude",ok:false}); n++; });
+  const pr=r&&r.priority; if(pr&&p.pri.src!=="you"){ const lv={low:1,medium:2,high:3}[String(pr.level||"").toLowerCase()]; if(lv) p.pri.p=lv; if(["pursue","stop"].includes(pr.go)) p.pri.go=pr.go; p.pri.why=String(pr.why||"").slice(0,240); p.pri.src="claude"; }
+  if(!p.name&&r&&r.name) p.name=String(r.name).slice(0,60); p.qs=(Array.isArray(r&&r.questions)?r.questions:[]).map(String).slice(0,5); p.from.asOf=String(r&&r.asOf||"").slice(0,80); p.from.at=Date.now();
+  return {n,snap}; }
+async function uapFill(p,o){ if(!sample){ toast("Claude's fill needs this page opened in Claude",null,true); return false; }
+  uapBusy=true; uapMsg=o.vendor?`Claude is framing “${o.problem}” from ${o.vendor.name}…`:"Claude is filling the nine boxes…"; uapRefresh(); uapCtl=new AbortController();
+  try{ const r=await sample.json(uapFillPrompt(o),{signal:uapCtl.signal,modelTier:"complex"}); const {n,snap}=uapApply(p,r,o); save(); uapMsg="";
+    toast(n?`Claude filled ${n} of 9 boxes. Write over any of them.`:"Claude didn't fill any boxes this time.",n?()=>{ Object.assign(p,JSON.parse(snap)); save(); uapRefresh(); }:null,true); return true; }
+  catch(e){ const m=failMsg(e); uapMsg=m===null?"":(m||"Claude couldn't fill the boxes this time."); return false; }
+  finally{ uapBusy=false; uapRefresh(); } }
+async function uapFromVendor(){ const U=uapData(), v=U.vendor; if(!v.name.trim()&&!v.material.trim()){ toast("Name the vendor first",null,true); return; } if(!sample){ toast("This needs the page opened in Claude",null,true); return; }
+  uapBusy=true; uapMsg=`Claude is reading what ${v.name||"the vendor"} does…`; uapRefresh(); uapCtl=new AbortController();
+  try{ const r=await sample.json(uapVendorPrompt(v),{signal:uapCtl.signal,modelTier:"complex"});
+    if(!r||r.known===false||!Array.isArray(r.problems)||!r.problems.length){ v.found={known:false}; uapMsg=`Claude doesn't know ${v.name||"this vendor"} well enough to say. Paste what they say they offer (their site, a brochure) and try again.`; }
+    else { v.found={known:true,summary:String(r.summary||"").slice(0,300),asOf:String(r.asOf||"").slice(0,80),problems:r.problems.slice(0,4).map(x=>({name:String(x.name||"").slice(0,70),who:String(x.who||"").slice(0,80),line:String(x.line||"").slice(0,240),src:UAP_SRC[x.src]?x.src:"vendor",pick:false}))}; uapMsg=""; }
+    save(); }
+  catch(e){ const m=failMsg(e); uapMsg=m===null?"":(m||"Claude couldn't read the vendor this time."); }
+  finally{ uapBusy=false; uapRefresh(); } }
+async function uapFramePicked(){ const U=uapData(), v=U.vendor, picks=(v.found?.problems||[]).filter(x=>x.pick); if(!picks.length){ toast("Pick at least one problem",null,true); return; }
+  const room=UAP_MAXP-U.probs.length; if(room<=0){ toast(`An engagement holds ${UAP_MAXP} problems. Remove one to add another.`,null,true); return; }
+  for(const x of picks.slice(0,room)){ const p=uapBlankProb(x.name); p.from={kind:"vendor",vendor:v.name,site:v.site,who:x.who,line:x.line}; U.probs.push(p); U.cur=U.probs.length-1; save(); uapIdx=1;
+    await uapFill(p,{problem:x.line||x.name,who:x.who,vendor:{name:v.name,site:v.site},material:v.material}); }
+  if(picks.length>room) toast(`Added ${room}; an engagement holds ${UAP_MAXP} problems.`,null,true); v.found.problems.forEach(x=>x.pick=false); save(); uapRefresh(); }
+async function uapAddFromLine(line){ const U=uapData(); line=(line||"").trim(); if(!line){ toast("Write the problem in a line first",null,true); return; } if(U.probs.length>=UAP_MAXP){ toast(`An engagement holds ${UAP_MAXP} problems. Remove one to add another.`,null,true); return; }
+  const p=uapBlankProb(""); p.from={kind:"problem",line}; U.probs.push(p); U.cur=U.probs.length-1; save(); uapIdx=1; uapRefresh(); await uapFill(p,{problem:line,material:U.vendor.material&&U.vendor.kind==="problem"?U.vendor.material:""}); }
+function uapAddBlank(){ const U=uapData(); if(U.probs.length>=UAP_MAXP){ toast(`An engagement holds ${UAP_MAXP} problems.`,null,true); return; } U.probs.push(uapBlankProb("")); U.cur=U.probs.length-1; save(); uapIdx=1; uapRefresh(); }
+/* symptom or cause? Claude checks each cause and asks "why?" toward the root */
+async function uapCheckCauses(){ const p=uapProb(); if(!p||!p.box[3].t.trim()){ toast("Write the causes first",null,true); return; } if(!sample){ toast("This needs the page opened in Claude",null,true); return; }
+  uapBusy=true; uapMsg="Claude is checking each cause…"; uapRefresh();
+  try{ const r=await sample.json(`You are a KA principal. KA's aim: "frame and address root cause problems, as opposed to solving for generic issues." For the problem "${p.name||p.box[0].t}", check each line written under Causes. For each, say whether it is a root CAUSE, really a SYMPTOM, or a GENERIC issue, and give one "why?" question that digs one level deeper. Never invent facts.
+SYMPTOMS ALREADY LISTED: ${p.box[1].t}
+CAUSES: ${p.box[3].t}
+Reply with JSON only: {"lines":[{"t":"the cause line as written","verdict":"cause|symptom|generic","why":"under 16 words","ask":"a why? question"}]}`,{modelTier:"quick"});
+    uapCheck={id:p.id,lines:(Array.isArray(r&&r.lines)?r.lines:[]).slice(0,8).map(x=>({t:String(x.t||""),v:["cause","symptom","generic"].includes(x.verdict)?x.verdict:"cause",why:String(x.why||""),ask:String(x.ask||"")}))}; uapMsg=""; }
+  catch(e){ const m=failMsg(e); uapMsg=m===null?"":(m||"Claude couldn't check the causes this time."); }
+  finally{ uapBusy=false; uapRefresh(); } }
+
+/* ---------- editing ---------- */
+document.addEventListener("input",e=>{ const t=e.target.closest("[data-uapbox]"); if(t){ const p=uapProb(); if(!p) return; const B=p.box[+t.dataset.uapbox]; B.t=t.value; if(B.src!=="you"){ B.src="you"; B.ls=[]; } B.ok=false; save(); clearTimeout(uapFit._t); uapFit._t=setTimeout(()=>uapFit(t.closest(".pmcv")||undefined),120); return; }
+  const d=e.target.closest("[data-uapd]"); if(d){ const p=uapProb(); p.box[+d.dataset.uapd].d=d.value; save(); return; }
+  const n=e.target.closest("[data-uapname]"); if(n){ const p=uapProb(); p.name=n.value; save(); return; }
+  const g=e.target.closest("[data-uapgap]"); if(g){ uapData().gaps[g.dataset.uapgap]=g.value; save(); return; }
+  const tk=e.target.closest("[data-uaptake]"); if(tk){ uapData().take=tk.value; save(); return; }
+  const v=e.target.closest("[data-uapv]"); if(v){ uapData().vendor[v.dataset.uapv]=v.value; save(); return; }
+  const pt=e.target.closest("[data-uappt]"); if(pt){ uapData().part[pt.dataset.uappt]=pt.value; save(); return; }
+  const pw=e.target.closest("[data-uappwhy]"); if(pw){ const p=uapProb(); p.pri.why=pw.value; p.pri.src="you"; save(); } });
+document.addEventListener("change",e=>{ const c=e.target.closest("[data-uapchk]"); if(c){ const [k,i]=c.dataset.uapchk.split("|"), U=uapData(); U[k]=U[k]||[]; U[k][+i]=c.checked; save(); uapRefresh(); return; }
+  const pk=e.target.closest("[data-uappick]"); if(pk){ const x=uapData().vendor.found?.problems?.[+pk.dataset.uappick]; if(x){ x.pick=pk.checked; save(); uapRefresh(); } } });
+document.addEventListener("click",e=>{ if(!uapMode&&!e.target.closest("#ovUAP,.uapany")) return;
+  const ok=e.target.closest("[data-uapok]"); if(ok){ const p=uapProb(), i=+ok.dataset.uapok; if(!p.box[i].t.trim()&&i!==8){ toast("Write the box first, then mark it agreed"); return; } p.box[i].ok=!p.box[i].ok; if(p.box[i].ok&&p.box[i].src&&!["you","client"].includes(p.box[i].src)) p.box[i].src="client"; save(); uapRefresh(); toast(p.box[i].ok?`${UAP_BOX[i].s}: agreed with the stakeholder`:`${UAP_BOX[i].s}: not agreed yet`); return; }
+  const hd=e.target.closest("[data-uaphd]"); if(hd){ uapBoxPop(+hd.dataset.uaphd,hd); return; }
+  const pr=e.target.closest("[data-uappri]"); if(pr){ const p=uapProb(); const v=+pr.dataset.uappri; p.pri.p=p.pri.p===v?0:v; p.pri.src="you"; save(); uapRefresh(); return; }
+  const go=e.target.closest("[data-uapgo]"); if(go){ const p=uapProb(); p.pri.go=p.pri.go===go.dataset.uapgo?"":go.dataset.uapgo; p.pri.src="you"; save(); uapRefresh(); return; }
+  const sw=e.target.closest("[data-uapsw]"); if(sw){ uapData().cur=+sw.dataset.uapsw; uapCheck=null; save(); uapRefresh(); return; }
+  if(e.target.closest("[data-uapadd]")){ uapIdx=0; if(curView!=="build") show("build"); else uapBuild(); setTimeout(()=>$("uapLine")?.focus(),60); return; }
+  if(e.target.closest("[data-uapaddline]")){ uapAddFromLine($("uapLine")?.value); return; }
+  if(e.target.closest("[data-uapblank]")){ uapAddBlank(); return; }
+  if(e.target.closest("[data-uapvend]")){ uapFromVendor(); return; }
+  if(e.target.closest("[data-uapframe]")){ uapFramePicked(); return; }
+  if(e.target.closest("[data-uapstop]")){ uapCtl?.abort(); return; }
+  if(e.target.closest("[data-uaprefill]")){ const p=uapProb(); if(!p) return; const o=p.from.kind==="vendor"?{problem:p.from.line||p.name,who:p.from.who,vendor:{name:p.from.vendor,site:p.from.site},material:uapData().vendor.material}:{problem:p.from.line||p.name||p.box[0].t}; uapFill(p,o); return; }
+  if(e.target.closest("[data-uapcause]")){ uapCheckCauses(); return; }
+  const mv=e.target.closest("[data-uapmove]"); if(mv){ const p=uapProb(), t=mv.dataset.uapmove; const lines=p.box[3].t.split("\n").filter(l=>l.trim()!==t.trim()); p.box[3].t=lines.join("\n"); p.box[1].t=(p.box[1].t.trim()?p.box[1].t.trim()+"\n":"")+t; p.box[3].src=p.box[1].src="you"; p.box[3].ls=p.box[1].ls=[]; if(uapCheck) uapCheck.lines=uapCheck.lines.filter(x=>x.t!==t); save(); uapRefresh(); toast("Moved to Symptoms"); return; }
+  const use=e.target.closest("[data-uapuse]"); if(use){ const i=+use.dataset.uapuse, p=uapProb(), c=uapCarry(i); if(!c) return; const B=p.box[i]; B.t=(B.t.trim()?B.t.trim()+"\n":"")+c; B.src="engagement"; B.ls=c.split("\n").map(()=>"engagement"); save(); uapRefresh(); return; }
+  const rm=e.target.closest("[data-uaprm]"); if(rm){ armed(rm,"Tap again to remove it",()=>{ const U=uapData(), snap=JSON.stringify(U), i=+rm.dataset.uaprm, nm=U.probs[i]?.name||"Problem"; U.probs.splice(i,1); U.cur=Math.max(0,Math.min(U.cur,U.probs.length-1)); save(); uapRefresh(); toast(`${nm} removed`,()=>{ S.uap=JSON.parse(snap); save(); uapRefresh(); }); }); return; }
+  if(e.target.closest("[data-uapws]")){ uapWsPop(e.target.closest("[data-uapws]")); return; }
+  const wv=e.target.closest("[data-uapwsv]"); if(wv){ const [k,v]=wv.dataset.uapwsv.split("|"), W=uapData().ws; W[k]=W[k]===+v?null:+v; save(); uapRefresh(); if(popEl&&popEl.classList.contains("uapwspop")) uapWsPop(popEl._anchor); return; }
+  if(e.target.closest("[data-uappart]")){ uapPartPop(e.target.closest("[data-uappart]")); return; }
+  const bs=e.target.closest("[data-uapbs]"); if(bs){ uapIdx=+bs.dataset.uapbs; uapBuild(); return; }
+  const lc=e.target.closest("[data-uapl]"); if(lc){ uapL=+lc.dataset.uapl; uapLearn(); return; }
+  if(e.target.closest("[data-uapstart]")){ show("build"); return; }
+  const sp=e.target.closest("[data-uapspot]"); if(sp){ const n=+sp.dataset.uapspot; uapSpot=uapSpot===n?null:n; uapSheet(); return; }
+  if(e.target.closest("[data-uapex]")){ uapLoadExample(); return; } });
+function uapBoxPop(i,anchor){ closePop(); const p=uapProb(); if(!p) return; const b=UAP_BOX[i], B=p.box[i], pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label",b.l);
+  pop.innerHTML=`<h5>${b.n} · ${b.l}</h5><p class="note" style="margin:0 0 6px">${esc(b.q)}</p><label class="note" for="uapPopD">View or add additional details</label><textarea class="tin" id="uapPopD" rows="4" data-uapd="${i}">${esc(B.d||"")}</textarea>${B.ls&&B.ls.length&&B.src!=="you"?`<p class="note" style="margin:6px 0 0">${uapSrcLine(B)}</p>`:""}<div class="arow" style="flex:0 1 auto;margin-top:6px"><button class="btn small ${B.ok?"primary":""}" data-uapok="${i}">${B.ok?"✓ Agreed":"Mark as agreed"}</button></div>`;
+  place(pop,anchor); popEl=pop; }
+function uapSrcLine(B){ const c={}; (B.ls||[]).forEach(s=>c[s]=(c[s]||0)+1); return Object.entries(c).map(([s,n])=>`${UAP_SRC[s]||s}${n>1?` ×${n}`:""}`).join(" · "); }
+function uapWsPop(anchor){ closePop(); const W=uapData().ws, pop=document.createElement("div"); pop.className="pop uapwspop"; pop._anchor=anchor; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Rate your usage of this aid");
+  const col=(k,lab,list)=>`<div><b class="uapwsh ${k}">${lab}</b><p class="note" style="margin:4px 0">Assessment based on:</p>${list.map((t,v)=>`<button class="uapwsrow ${W[k]===v?"on":""}" data-uapwsv="${k}|${v}">${v?uapWsDot(k,v):"<span class='uapz'></span>"}<span>${v} = ${esc(t)}</span></button>`).join("")}</div>`;
+  pop.innerHTML=`<h5>Rate Your Usage of This Aid</h5><p class="note" style="margin:0 0 8px">${esc(UAP_WS.q)}</p><div class="uapws2">${col("w","CONFIDENCE (WILL TO DO)",UAP_WS.w)}${col("s","COMPETENCE (SKILL TO DO)",UAP_WS.s)}</div><p class="note" style="margin:8px 0 0">It also sets 2.1 on the Assessment Roadmap until you rate that yourself.</p>`;
+  place(pop,anchor); popEl=pop; }
+function uapPartPop(anchor){ closePop(); const P=uapData().part, pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Participants");
+  pop.innerHTML=`<h5>Participants</h5><label class="note" for="uapPd">Date:</label><input type="date" class="tin" id="uapPd" data-uappt="date" value="${esc(P.date||"")}"><label class="note" for="uapPn">Participants:</label><textarea class="tin" id="uapPn" rows="4" data-uappt="names">${esc(P.names||"")}</textarea>`;
+  place(pop,anchor); popEl=pop; }
+
+/* ---------- the example: drawn from Kevin's Morgan Industries alignment (the PDF's own example shows another aid) ---------- */
+const UAP_EX={probs:[{id:"pmi",name:"Sales & marketing costs outpace revenue",from:{kind:"example"},qs:["Which acquired sales teams overlap the most?","What did the last sales operations investment set out to do, and how is it used today?"],
+  pri:{p:3,go:"pursue",why:"Margins are down year to year and acquisitions can't carry more growth.",src:"you"},
+  box:[["MI doubled revenue through acquisitions, but revenue & margins are down year to year. Sales & marketing don't yet work as one."],
+    ["Long sales cycles\nNon-qualified sales activity\nLittle cross selling between acquired businesses"],
+    ["Each acquired business sells on its own\nEarlier sales operations investments not adopted"],
+    ["Redundant applications & systems from acquisitions\nNo shared view of the customer\nAcquired assets under-used"],
+    ["Profit per customer keeps falling\nCash tied up in sales/marketing ops\nCompetitors move faster in a downturn"],
+    ["Resources don't support more acquisitions\nSue Jacobs (VP Sales & Marketing) sets success criteria\nConsensus needed on the Assessment Questions"],
+    ["One view of each customer across businesses\nShorter sales cycles\nAdoption of what's already been bought"],
+    ["Sales/marketing operating expense & cash flow requirements too high\nRedundant systems support"],
+    ["Engage & Retain, MI's eBusiness initiative"]].map((L,i)=>({t:L[0],d:"",src:"you",ls:[],ok:i===0||i===8}))}],
+  cur:0,ws:{w:2,s:2},part:{date:"",names:"Kevin Cooper, Sue Jacobs"},gaps:{people:"Sue Jacobs (VP Sales & Marketing) is the operational owner."},checksP:[],checksS:[],outcomes:[],take:"",vendor:{name:"",site:"",material:"",found:null}};
+try{ EXAMPLE.uap=JSON.parse(JSON.stringify(UAP_EX)); }catch(e){}
+function uapLoadExample(){ const U=uapData(); if(U.probs.length>=UAP_MAXP){ toast(`An engagement holds ${UAP_MAXP} problems.`,null,true); return; } const p=JSON.parse(JSON.stringify(UAP_EX.probs[0])); p.id="p"+Date.now().toString(36); p.name+=" · example"; U.probs.push(p); U.cur=U.probs.length-1; save(); uapRefresh(); toast("The example is in, as a problem you can change or remove."); }
+
+/* ---------- Learn ---------- */
+const UAP_LEARN=[{t:"What it's for",h:()=>`<p class="lkick">${UAP_TXT.kicker}</p><h2>Understanding a Problem</h2><p class="lead">${esc(UAP_TXT.purpose)}</p><h3>Why is it important for us?</h3><p>${esc(UAP_TXT.why)}</p><h3>Expected outcomes</h3><ul>${UAP_TXT.outcomes.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`},
+  {t:"The nine boxes",h:()=>`<h2>Nine boxes, in number order</h2><p class="lead">${esc(UAP_TXT.callouts[1])}</p><div class="uaplearn">${[0,1,2].map(c=>`<div>${UAP_BOX.filter(b=>b.c===c).map(b=>`<p><b>${b.n} · ${b.l}</b><small>${esc(b.q)}</small></p>`).join("")}</div>`).join("")}</div><ul class="callist"><li>${esc(UAP_TXT.callouts[0])}</li><li>${esc(UAP_TXT.callouts[2])}</li></ul>`},
+  {t:"Two ways in",h:()=>`<h2>Start from a problem, or from a vendor</h2><p class="lead"><b>From a problem</b>: write it in a line and Claude fills the nine boxes. <b>From a vendor</b>: name the vendor and Claude reads what it says it does, names the problems it solves, and frames the one you pick from the buyer's side.</p><p>Every line says where it came from: the vendor's claim, industry knowledge, your material or this engagement. A number appears only when someone gave it; anything unknown comes back as a question. Write over any box: your words are never replaced.</p><p class="note">Claude uses what it already knows plus what you add; there's no live web search.</p>`},
+  {t:"When to use it",h:()=>`<h2>When to use it</h2><p class="lead">${esc(UAP_TXT.when)}</p><div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3><ul>${UAP_TXT.problem.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>If we are in the “Solution Space” we need to:</h3><ul>${UAP_TXT.solution.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
+  {t:"The gaps",h:()=>`<h2>Potential gaps and challenges</h2><p class="lead">${esc(UAP_TXT.threat)}</p><ul>${UAP_TXT.gaps.map(([,g])=>`<li>${esc(g)}</li>`).join("")}</ul><blockquote>“${esc(KEVIN)}”<cite>Kevin Cooper, Dimensions of Success</cite></blockquote><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-uapstart>Add a problem →</button><button class="btn" data-uapex>See an example</button></div>`}];
+function uapLearn(){ $("uapLdots").innerHTML=UAP_LEARN.map((c,i)=>`<li><button data-uapl="${i}" aria-current="${i===uapL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join(""); $("uapLcard").innerHTML=UAP_LEARN[uapL].h(); $("uapLPrev").disabled=uapL===0; $("uapLNext").textContent=uapL===UAP_LEARN.length-1?"Add a problem →":"Next →"; }
+$("uapLPrev").onclick=()=>{ if(uapL>0){ uapL--; uapLearn(); } }; $("uapLNext").onclick=()=>{ if(uapL<UAP_LEARN.length-1){ uapL++; uapLearn(); } else show("build"); };
+
+/* ---------- Build: Problems, the nine boxes, Check ---------- */
+const UAP_STEPS=["Problems",...UAP_BOX.map(b=>b.s),"Check"];
+const UAP_ASK=[["What's the problem you'd most like solved?","Who feels it most?","Why now?"],["What's happening today?","Where does it show up?","Who brought it up first?"],["What do people notice day to day?","What do customers or staff complain about?","How often?"],["What do you do about it today?","What's been tried before, and what happened?","Who owns it now?"],["Why does it happen?","And why does that happen?","What would have to change for it to stop?"],["What happens if nothing changes in the next year?","Who's affected most?","What's at risk?"],["What would stop a solution: budget, sign-offs, people?","Whose agenda does this touch?","What policies apply?"],["What must any solution do?","What would make you say no to a solution?","How will you know it worked?"],["What is it costing you today?","What would you expect to invest to solve it?","Where does the money come from?"],["How important is solving this, against everything else?","Do we pursue it?","Who has to agree?"],["Where could budget, sign-offs or agendas slow this down?","Which problem matters most?","What should happen next?"]];
+const uapStepDone=i=>{ const p=uapProb(), U=uapData(); if(i===0) return U.probs.length>0; if(i>=1&&i<=9){ if(!p) return false; return i===9?p.pri.p>0&&!!p.pri.go:!!p.box[i-1].t.trim(); } return Object.values(U.gaps||{}).some(v=>(v||"").trim())||!!(U.take||"").trim(); };
+function uapTabsHTML(){ const U=uapData(); if(!U.probs.length) return ""; return `<div class="uaptabs" role="tablist" aria-label="Problems">${U.probs.map((p,i)=>`<button role="tab" aria-selected="${i===U.cur}" data-uapsw="${i}" title="${esc(p.name||"Untitled problem")}">${p.from.kind==="vendor"?"🏷 ":""}${esc(p.name||"Untitled problem")}<small>${uapFilled(p)}/9</small></button>`).join("")}${U.probs.length<UAP_MAXP?`<button class="uapaddtab" data-uapadd>＋ Add a problem</button>`:""}</div>`; }
+function uapBoxSrcHTML(B){ if(!B.t.trim()||!B.src) return ""; if(B.src==="you") return `<small class="srcb you">Your words${B.ls&&B.ls.length?"":""}</small>`; if(B.src==="client") return `<small class="srcb ok">Agreed with the client</small>`;
+  const lines=B.t.split("\n"); return `<div class="uapsrcs"><small>Where each line came from</small><ul class="uaplines">${lines.map((l,j)=>l.trim()?`<li><span>${esc(l)}</span><em class="s-${B.ls[j]||"assumption"}">${UAP_SRC[B.ls[j]]||UAP_SRC.assumption}</em></li>`:"").join("")}</ul></div>`; }
+function uapBuild(){ const U=uapData(), p=uapProb(), cname=esc(uapClient()||"the client");
+  $("uapBsteps").innerHTML=UAP_STEPS.map((n,i)=>`<li><button data-uapbs="${i}" aria-current="${i===uapIdx?"step":"false"}" class="${uapStepDone(i)?"done":""}" ${i>0&&i<11&&!p?"disabled":""}><span>${uapStepDone(i)&&i!==uapIdx?"✓":i===0?"＋":i<=9?i:"✓"}</span>${n}</button></li>`).join("");
+  const msg=uapMsg?`<p class="note" aria-live="polite">${esc(uapMsg)}${uapBusy?` <button class="btn small" data-uapstop>Stop</button>`:""}</p>`:""; let h="";
+  if(uapIdx===0){ const v=U.vendor, F=v.found;
+    h=`<p class="lkick">Step 1 of ${UAP_STEPS.length} · ${UAP_TXT.kicker}</p><h2>${U.probs.length?`${U.probs.length} problem${U.probs.length>1?"s":""} for ${cname}`:"Add a problem"}</h2><p class="teach">${esc(UAP_TXT.why)} Up to ${UAP_MAXP} problems per engagement; compare them in Check.</p>${uapTabsHTML()}
+      ${U.probs.length?`<ul class="uapplist">${U.probs.map((q,i)=>`<li class="${i===U.cur?"cur":""}"><button class="linkbtn" data-uapsw="${i}"><b>${esc(q.name||"Untitled problem")}</b></button><span>${uapFilled(q)} of 9 · ${q.pri.p?UAP_PL[q.pri.p]:"priority not set"}${q.pri.go?` · ${q.pri.go==="pursue"?"Pursue":"Stop"}`:""}${q.from.kind==="vendor"?` · from ${esc(q.from.vendor)}`:""}</span><button class="btn small ghost" data-uaprm="${i}" data-label="Remove">Remove</button></li>`).join("")}</ul>`:""}
+      ${U.probs.length<UAP_MAXP?`<div class="uapways">
+        <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">From a problem</h3><p class="note" style="margin:2px 0 0">Write it in a line. Claude fills the nine boxes${uapClient()?` for ${cname}, from this engagement`:""}; you write over any of them.</p></div></div>
+          <div class="field"><label for="uapLine">The problem, in a line</label><input class="tin" id="uapLine" placeholder="e.g. Sales cycles are getting longer and fewer deals close"></div>
+          <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-uapaddline ${uapBusy?"disabled":""}>Fill the nine boxes</button><button class="btn" data-uapblank>Start blank</button></div></div>
+        <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">From a vendor</h3><p class="note" style="margin:2px 0 0">Name a vendor. Claude reads what it says it does, names the problems it solves, and frames the one you pick from the buyer's side${uapClient()?`, for ${cname}`:", for its typical customer"}.</p></div></div>
+          <div class="field"><label for="uapVn">Vendor</label><input class="tin" id="uapVn" data-uapv="name" value="${esc(v.name||"")}" placeholder="e.g. VaxCare"></div>
+          <div class="field"><label for="uapVs">Website (optional)</label><input class="tin" id="uapVs" data-uapv="site" value="${esc(v.site||"")}" placeholder="vendor.com"></div>
+          <details ${v.material?"open":""}><summary>Add what they say they offer (optional)</summary><textarea class="tin" id="uapVm" rows="4" data-uapv="material" placeholder="Paste from their site, a brochure or a proposal">${esc(v.material||"")}</textarea></details>
+          <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-uapvend ${uapBusy?"disabled":""}>What problems does it solve?</button></div>
+          ${F&&F.known?`<div class="uapfound"><p class="note" style="margin:0"><b>${esc(v.name)}</b>: ${esc(F.summary)}${F.asOf?` <i>(${esc(F.asOf)})</i>`:""}</p>${F.problems.map((x,i)=>`<label class="chk"><input type="checkbox" data-uappick="${i}" ${x.pick?"checked":""}> <span><b>${esc(x.name)}</b>${x.who?` · ${esc(x.who)}`:""}<br><small>${esc(x.line)} <em class="s-${x.src}">${UAP_SRC[x.src]}</em></small></span></label>`).join("")}<div class="arow" style="flex:0 1 auto"><button class="btn primary" data-uapframe ${uapBusy?"disabled":""}>Frame the ones I picked</button></div></div>`:""}</div>
+      </div>`:`<p class="note">This engagement holds ${UAP_MAXP} problems, the most. Remove one to add another.</p>`}${msg}
+      ${!U.probs.length?`<p class="note">New to it? <button class="linkbtn" data-uapex>See an example</button> drawn from Kevin's Morgan Industries.</p>`:""}`; }
+  else if(uapIdx<=9&&p){ const i=uapIdx-1, b=UAP_BOX[i], B=p.box[i], carry=uapCarry(i), cl=B.src&&!["you","client"].includes(B.src);
+    h=`<p class="lkick">Step ${uapIdx+1} of ${UAP_STEPS.length} · ${esc(p.name||"Untitled problem")}</p>${uapTabsHTML()}<h2>${b.n} · ${b.l}</h2><p class="teach">${esc(b.q)}${i===3?" Root causes, not symptoms or generic issues.":""}</p>
+      ${i===0?`<div class="field"><label for="uapName">The problem's name</label><input class="tin" id="uapName" data-uapname value="${esc(p.name||"")}" placeholder="3 to 7 words"></div>`:""}
+      <div class="field"><label for="uapB${i}">${b.l}</label><textarea class="tin uapbt" id="uapB${i}" rows="5" data-uapbox="${i}" placeholder="${esc(b.q)}">${esc(B.t)}</textarea>
+        <div class="uapmeta">${cl?uapBoxSrcHTML(B):B.src==="you"&&B.t.trim()?`<small class="srcb you">Your words</small>`:B.ok?`<small class="srcb ok">Agreed with the client</small>`:""}<small class="note">${B.t.length} of about ${UAP_BUDGET} characters${B.t.length>UAP_BUDGET?" · long for the printed box":""}</small></div></div>
+      ${i===8?`<div class="uappribuild"><span class="note">How important is solving it?</span><div class="arow" style="flex:0 1 auto">${[1,2,3].map(v=>`<button class="btn small ${p.pri.p===v?"primary":""}" data-uappri="${v}">${uapBall(v)} ${UAP_PL[v]}</button>`).join("")}</div><span class="note">Decision</span><div class="arow" style="flex:0 1 auto"><button class="btn small ${p.pri.go==="pursue"?"primary":""}" data-uapgo="pursue">Pursue</button><button class="btn small ${p.pri.go==="stop"?"warnb":""}" data-uapgo="stop">Stop pursuit</button></div>${p.pri.src==="claude"?`<p class="note" style="margin:0"><span class="srcb">Claude's point of view</span> ${esc(p.pri.why)} Tap to confirm or change it.</p>`:`<div class="field"><label for="uapPw">Why it matters now</label><input class="tin" id="uapPw" data-uappwhy value="${esc(p.pri.why||"")}"></div>`}</div>`:""}
+      <div class="arow" style="flex:0 1 auto"><button class="btn small ${B.ok?"primary":""}" data-uapok="${i}">${B.ok?"✓ Agreed with the stakeholder":"Mark as agreed"}</button><button class="btn small" data-uaphd="${i}">Additional details${B.d?" ·":""}</button>${i===3?`<button class="btn small" data-uapcause ${uapBusy?"disabled":""}>Symptom or cause?</button>`:""}<button class="btn small" data-uaprefill ${uapBusy?"disabled":""}>${uapFilled(p)?"Ask Claude again":"Fill with Claude"}</button></div>${msg}
+      ${carry&&!B.t.includes(carry.split("\n")[0])?`<div class="uapcarry"><p class="minicap">From your aids · ${UAP_CARRY_FROM[i]}</p><p>${esc(carry).replace(/\n/g,"<br>")}</p><button class="btn small" data-uapuse="${i}">Use it</button></div>`:""}
+      ${i===3&&uapCheck&&uapCheck.id===p.id?`<div class="uapcheck">${uapCheck.lines.map(x=>`<div class="${x.v}"><b>${x.v==="cause"?"Root cause":x.v==="symptom"?"A symptom":"Generic"}</b> ${esc(x.t)}<small>${esc(x.why)}${x.ask?` · Ask: <i>${esc(x.ask)}</i>`:""}</small>${x.v==="symptom"?`<button class="btn small" data-uapmove="${esc(x.t)}">Move to Symptoms</button>`:""}</div>`).join("")||"<p class='note'>Nothing to check.</p>"}</div>`:""}
+      ${p.qs&&p.qs.length&&i===0?`<div class="uapcarry"><p class="minicap">Questions Claude would ask the client</p><ul>${p.qs.map(q=>`<li>${esc(q)}</li>`).join("")}</ul></div>`:""}`; }
+  else { h=`<p class="lkick">Step ${UAP_STEPS.length} of ${UAP_STEPS.length}</p>${uapTabsHTML()}<h2>Check the problems</h2><p class="teach">${esc(UAP_TXT.threat)}</p>
+      ${U.probs.length>1?`<h3>Compare the problems</h3><div class="uapcmp"><table><thead><tr><th></th>${U.probs.map(q=>`<th>${esc(q.name||"Untitled")}</th>`).join("")}</tr></thead><tbody>${UAP_BOX.map((b,i)=>`<tr><th>${b.n} ${b.s}</th>${U.probs.map(q=>`<td>${i===8?`${q.pri.p?`${uapBall(q.pri.p)} ${UAP_PL[q.pri.p]}`:"—"}${q.pri.go?` · ${q.pri.go==="pursue"?"Pursue":"Stop"}`:""}`:esc(q.box[i].t||"—").replace(/\n/g,"<br>")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`:""}
+      <h3>Potential gaps and challenges</h3>${UAP_TXT.gaps.map(([k,l])=>`<div class="field"><label for="uapg${k}">${esc(l)}</label><input class="tin" id="uapg${k}" data-uapgap="${k}" value="${esc(U.gaps[k]||"")}" placeholder="Any threat to scope, time or resources?"></div>`).join("")}
+      <div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3>${UAP_TXT.problem.map((x,i)=>`<label class="chk"><input type="checkbox" data-uapchk="checksP|${i}" ${(U.checksP||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div><div><h3>If we are in the “Solution Space” we need to:</h3>${UAP_TXT.solution.map((x,i)=>`<label class="chk"><input type="checkbox" data-uapchk="checksS|${i}" ${(U.checksS||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div></div>
+      <h3>Expected outcomes</h3>${UAP_TXT.outcomes.map((x,i)=>`<label class="chk"><input type="checkbox" data-uapchk="outcomes|${i}" ${(U.outcomes||[])[i]?"checked":""}> ${esc(x)}</label>`).join("")}
+      <h3>Rate your usage of this aid</h3><button class="btn small uapany" data-uapws>${uapWsDot("w",U.ws.w||0)} ${uapWsDot("s",U.ws.s||0)} ${uapWsPct()==null?"Rate it":`Will · Skill ${uapWsPct()}%`}</button> <button class="btn small uapany" data-uappart>👥 Participants${U.part.names?` · ${esc(U.part.names.split(/[,\n]/).filter(Boolean).length)}`:""}</button>
+      <div class="field"><label for="uapTake">Key takeaways</label><textarea class="tin" id="uapTake" rows="3" data-uaptake>${esc(U.take||"")}</textarea></div>`; }
+  $("uapBmain").innerHTML=h; $("uapBpos").textContent=`${uapIdx+1} of ${UAP_STEPS.length}`; $("uapBBack").disabled=uapIdx===0; $("uapBNext").textContent=uapIdx===UAP_STEPS.length-1?"See the sheet →":"Next →"; $("uapBNext").disabled=uapIdx===0&&!p;
+  $("uapMini").innerHTML=uapSheetHTML({mode:"view",spot:uapIdx>=1&&uapIdx<=9?uapIdx:null}); requestAnimationFrame(()=>uapFit($("uapMini")));
+  $("uapAsk").innerHTML=`<p class="minicap">Ask the client</p><ul>${UAP_ASK[uapIdx].map(q=>`<li>${esc(q)}</li>`).join("")}</ul><p class="note">Draft wording for KA to confirm.</p>`; renderNextPill(); }
+$("uapBBack").onclick=()=>{ if(uapIdx>0){ uapIdx--; uapBuild(); } }; $("uapBNext").onclick=()=>{ if(uapIdx<UAP_STEPS.length-1){ uapIdx++; uapBuild(); } else show("aid"); }; $("uapMini").onclick=()=>show("aid");
+
+/* ---------- the sheet ---------- */
+function uapSheet(){ const U=uapData(), p=uapProb(), cl=p&&(p.box.some(b=>b.src&&!["you","client"].includes(b.src)&&b.t.trim())||p.pri.src==="claude");
+  $("uapTabs").innerHTML=uapTabsHTML(); $("uapSheet").innerHTML=uapSheetHTML({mode:"edit",spot:uapSpot}); requestAnimationFrame(()=>uapFit($("uapSheet")));
+  $("uapBanner").hidden=!(cl||uapBusy); $("uapBanner").innerHTML=uapBusy?esc(uapMsg):`<span><b>Shaded boxes are Claude's draft</b>${p&&p.from.kind==="vendor"?` from ${esc(p.from.vendor)}'s perspective`:""}. Write over any of them, and mark each agreed with the stakeholder.</span>`;
+  if(!p){ $("uapRead").innerHTML=""; return; }
+  const agreed=p.box.filter(b=>b.ok).length, open=UAP_BOX.filter((b,i)=>!p.box[i].t.trim()).map(b=>b.s);
+  $("uapRead").innerHTML=`<div class="rcard"><h3>${esc(p.name||"This problem")}</h3><p style="margin:0">${uapFilled(p)} of 9 boxes · ${agreed} agreed${p.from.kind==="vendor"?` · framed from ${esc(p.from.vendor)}`:""}</p><div class="pmchips">${UAP_BOX.map((b,i)=>`<button data-uapspot="${i+1}" class="${uapSpot===i+1?"on":""}">${b.n} ${b.s}</button>`).join("")}</div></div>
+    <div class="rcard"><h3>Priority</h3><p style="margin:0">${p.pri.p?`${uapBall(p.pri.p)} <b>${UAP_PL[p.pri.p]}</b>`:"Not set"}${p.pri.go?` · <b>${p.pri.go==="pursue"?"Pursue":"Stop pursuit"}</b>`:" · decision open"}${p.box[8].ok?" · agreed":""}</p>${p.pri.why?`<p class="note" style="margin:4px 0 0">${esc(p.pri.why)}</p>`:""}</div>
+    <div class="rcard warn"><h3>Still open</h3><ul>${open.length?open.map(o=>`<li>${esc(o)}</li>`).join(""):"<li>All nine boxes have something</li>"}${(p.qs||[]).slice(0,3).map(q=>`<li>Ask: ${esc(q)}</li>`).join("")}</ul></div>`; }
+function uapRefresh(){ if(route==="overview") uapPaint(); if(!uapMode) return; if(curView==="aid") uapSheet(); else if(curView==="build") uapBuild(); else uapLearn(); renderNextPill(); }
+function uapSummary(){ const U=uapData(), L=[`UNDERSTANDING A PROBLEM · ${aidTitle()}`,longDate()]; if(U.part.names) L.push(`Participants: ${U.part.names}${U.part.date?` · ${U.part.date}`:""}`); L.push("");
+  U.probs.forEach(p=>{ L.push(`PROBLEM: ${p.name||"Untitled"}${p.from.kind==="vendor"?` (framed from ${p.from.vendor}'s perspective)`:""}`); UAP_BOX.forEach((b,i)=>{ const B=p.box[i]; if(i===8) L.push(`${b.n} ${b.l}: ${p.pri.p?UAP_PL[p.pri.p]:"not set"}${p.pri.go?` · ${p.pri.go==="pursue"?"Pursue":"Stop"}`:""}${B.ok?" ✓":""}${B.t.trim()?` · ${B.t.replace(/\n/g,"; ")}`:""}`);
+    else if(B.t.trim()) L.push(`${b.n} ${b.l}${B.ok?" ✓":""}: ${B.t.split("\n").map((l,j)=>B.ls&&B.ls[j]&&B.src!=="you"?`${l} [${UAP_SRC[B.ls[j]]}]`:l).join("; ")}`); }); L.push(""); });
+  const g=UAP_TXT.gaps.filter(([k])=>(U.gaps[k]||"").trim()); if(g.length) L.push("GAPS",...g.map(([k,l])=>`- ${l}: ${U.gaps[k]}`)); return L.join("\n"); }
+$("uapPdf").onclick=()=>uapDownload(); $("uapCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(uapSummary()); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+$("uapAddBtn").onclick=()=>{ uapIdx=0; show("build"); setTimeout(()=>$("uapLine")?.focus(),60); };
+$("uapClear").onclick=e=>{ const p=uapProb(); if(!p) return; armed(e.currentTarget,"Tap again to clear this problem's boxes",()=>{ const snap=JSON.stringify(p); p.box=UAP_BOX.map(()=>({t:"",d:"",src:"",ls:[],ok:false})); p.pri={p:0,go:"",why:""}; save(); uapRefresh(); toast("Boxes cleared",()=>{ Object.assign(p,JSON.parse(snap)); save(); uapRefresh(); }); }); };
+
+/* ---------- Roadmap: 2.1 Pinpoint Core Business Problems ticks itself; the rater sets its dots until you do ---------- */
+const _arAutoUAP=arAuto; arAuto=function(){ const o=_arAutoUAP(); try{ const p=(S.uap?.probs||[]).find(uapFramed); if(p) o["2.1"]=`“${p.name||"a problem"}” is framed and its priority agreed`; }catch(e){} return o; };
+if(typeof arDot==="function"){ const _arDotUAP=arDot; arDot=function(kind,id,auto,loc){ const R=arData(); if(id==="2.1"&&(R[kind]||{})[id]==null){ const v=S.uap?.ws?.[kind]; if(v!=null) return {v:v===0?0:v===3?2:1,src:"auto"}; } return _arDotUAP(kind,id,auto,loc); }; }
+
+/* ---------- into the app: routes, the path, the header, Overview, Home, ⌘K ---------- */
+AID_VIEWS.push("viewLearnUAP","viewBuildUAP","viewAidUAP");
+const UAP_VIEWS={learn:"viewLearnUAP",build:"viewBuildUAP",aid:"viewAidUAP"};
+const _showUAP=show; show=function(view){ if(!uapMode){ Object.values(UAP_VIEWS).forEach(v=>$(v).hidden=true); document.body.classList.remove("uap"); return _showUAP(view); }
+  route="aid"; curView=view; ROUTES.forEach(r=>$(RVIEW[r]).hidden=true); AID_VIEWS.forEach(v=>{ const el=$(v); if(el) el.hidden=true; }); $(UAP_VIEWS[view]).hidden=false; closePop();
+  document.body.classList.remove("pm","cp","ar"); document.body.classList.add("uap"); document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); document.body.dataset.route="aid"; $("aidHead").hidden=false;
+  try{ history.replaceState(null,"","#uap-"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") uapLearn(); if(view==="build") uapBuild(); if(view==="aid") uapSheet(); renderAidHead(); renderCrumbs(); };
+function uapLeave(){ if(uapMode){ uapMode=false; document.body.classList.remove("uap"); Object.values(UAP_VIEWS).forEach(v=>$(v).hidden=true); } }
+function openUAP(view){ let seen=true; try{ seen=!!localStorage.getItem("ka-seen-uap"); localStorage.setItem("ka-seen-uap","1"); }catch(e){} const v=!seen?"learn":(view||(uapData().probs.length?"aid":"build"));
+  closeCmd(); closePop(); arLeave(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } uapMode=true; route="aid"; show(v); pushHash(); scrollTo({top:0}); }
+const _setAidUAP=setAidMode; setAidMode=function(cp){ uapLeave(); _setAidUAP(cp); };
+const _openPMUAP=openPM; openPM=function(v){ uapLeave(); _openPMUAP(v); };
+const _openARUAP=openAR; openAR=function(v){ uapLeave(); _openARUAP(v); };
+const _openAidUAP=openAid; openAid=function(cp,view){ if(uapMode){ uapLeave(); if(!!cp===cpMode&&!pmMode) setAidMode(!!cp); } return _openAidUAP(cp,view); };
+const _rhUAP=routeHash; routeHash=function(){ return route==="aid"&&uapMode?"#uap-"+(curView==="aid"?"sheet":curView):_rhUAP(); };
+const _parseUAP=parseRoute; parseRoute=function(){ const h=location.hash.slice(1); if(h.startsWith("uap-")){ const v=h.slice(4); return {r:"aid",uap:true,view:v==="sheet"?"aid":["learn","build"].includes(v)?v:"aid"}; } return _parseUAP(); };
+const _navUAP=nav; nav=function(r,opt={}){ if(r==="aid"&&opt.uap){ if(opt.push===false){ arLeave(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } uapMode=true; show(opt.view||"aid"); return; } openUAP(opt.view); return; }
+  if(r!=="aid"||uapMode) uapLeave(); return _navUAP(r,opt); };
+addEventListener("popstate",e=>{ const p=parseRoute(); if(p&&p.uap){ e.stopImmediatePropagation(); nav("aid",{uap:true,view:p.view,push:false}); } },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="uap"]'); if(!n) return; e.preventDefault(); e.stopImmediatePropagation(); openUAP(n.dataset.view); },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="pm"],[data-nav="aop"],[data-nav="cp"],[data-nav="ar"]'); if(n&&uapMode) uapLeave(); },true);
+const _aidHeadUAP=renderAidHead; renderAidHead=function(){ _aidHeadUAP(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return;
+  if(uapMode) p.querySelectorAll('[aria-current="page"]').forEach(b=>b.removeAttribute("aria-current"));
+  const req=[...p.querySelectorAll("button.d-what[disabled]")].find(b=>/Requirements/.test(b.textContent)); if(req&&!p.querySelector('[data-nav="uap"]')){ req.insertAdjacentHTML("beforebegin",`<button class="d-what" data-nav="uap" ${uapMode?'aria-current="page"':""}><i>2</i><span>Problem</span><small>WHAT</small></button>`); req.querySelector("i").textContent="2b"; req.querySelector("small").textContent="COMING"; }
+  if(uapMode) $("ahTitle").textContent="Understanding a Problem"; renderNextPill(); };
+function uapNextMove(){ const U=uapData(), p=uapProb();
+  if(!p) return {t:"Add a problem: from a line or from a vendor",go:()=>{ uapIdx=0; show("build"); }};
+  const e=p.box.findIndex(b=>!b.t.trim()); if(uapFilled(p)<3) return {t:"Fill the nine boxes with Claude",go:()=>{ uapIdx=1; show("build"); document.querySelector("[data-uaprefill]")?.click(); }};
+  if(e>=0) return {t:`Fill ${UAP_BOX[e].n} · ${UAP_BOX[e].s}`,go:()=>{ uapIdx=e+1; show("build"); }};
+  if(!p.pri.p||!p.pri.go) return {t:"Set the priority and decide: pursue or stop",go:()=>{ uapIdx=9; show("build"); }};
+  if(p.box[3].t.trim()&&!uapCheck&&p.box[3].src!=="client"&&!p.box[3].ok) return {t:"Check the causes: symptom or cause?",go:()=>{ uapIdx=4; show("build"); uapCheckCauses(); }};
+  if(!p.box[8].ok) return {t:"Agree the priority with the stakeholder",go:()=>{ uapIdx=9; show("build"); }};
+  return {t:"Meet the client: present the problem",done:true,go:()=>nav("meet")}; }
+const _pillUAP=renderNextPill; renderNextPill=function(){ if(route!=="aid") return; if(!uapMode) return _pillUAP(); const nm=uapNextMove();
+  $("ahNext").innerHTML=`${ringSVG(uapScore(),34)}<b>${nm.done?"Ready":"Next"}</b><span title="${esc(nm.t)}">${esc(nm.t)}</span><button class="btn small" data-uapnext>${nm.done?"Meet the client":"Do it"}</button>`; };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-uapnext]")) uapNextMove().go(); });
+const _crumbsUAP=renderCrumbs; renderCrumbs=function(){ _crumbsUAP(); if(route==="aid"&&uapMode){ const b=$("crumbs").querySelectorAll("b"); if(b.length&&!document.body.classList.contains("client")) b[b.length-1].textContent="Understanding a Problem"; } };
+const _rbUAP=refreshBrand; refreshBrand=function(){ _rbUAP(); if(uapMode&&curView==="aid") uapSheet(); };
+/* the Overview: Problem takes Requirements' place on the path (Requirements still coming) */
+function uapPaint(){ const c=document.querySelector("#ovPath .dimc.d-what"); if(!c) return; const U=uapData(), p=uapProb(), sc=uapScore(); c.id="ovUAP"; c.classList.add("uapany");
+  c.innerHTML=`<span class="dk">2 · Problem · What</span><h3>Understanding a Problem</h3><div class="drow">${ringSVG(sc)}<div class="scoretxt"><b>Problem ${sc}%</b><span>${U.probs.length?`${U.probs.length} problem${U.probs.length>1?"s":""}${p?` · ${esc(p.name||"Untitled")} · ${p.pri.p?UAP_PL[p.pri.p]:"priority open"}${p.pri.go?` · ${p.pri.go==="pursue"?"Pursue":"Stop"}`:""}`:""}`:"Pinpoint the core business problem"}</span></div></div>
+    ${p?`<button class="thumb" data-nav="uap" data-view="aid" aria-label="Open the problem sheet">${uapSheetHTML({mode:"view"})}</button>`:`<p class="soon">Add a problem from a line or from a vendor; Claude fills the nine boxes.</p>`}
+    <div class="arow" style="flex:0 1 auto"><button class="btn small primary" data-nav="uap" data-view="build">${p?"Build":"Add a problem"}</button>${p?`<button class="btn small" data-nav="uap" data-view="aid">Sheet</button>`:""}</div><p class="soon" style="margin-top:6px">2b · Requirements: the next aids being rebuilt.</p>`; }
+const _roUAP=renderOverview; renderOverview=function(){ _roUAP(); try{ uapPaint(); }catch(e){} };
+const _rhomeUAP=renderHome; renderHome=function(){ _rhomeUAP(); try{ document.querySelectorAll("#egrid .ecard[data-eng]").forEach(c=>{ const a=LIBD.aids[c.dataset.eng], d=a&&(c.dataset.eng===LIBD.cur?S:a.data), U=d&&d.uap, sc=U&&U.probs&&U.probs.length?Math.max(...U.probs.map(uapScoreOf)):0, w=c.querySelector(".jbar .d-what"); if(w) w.innerHTML=`<i><s style="width:${sc}%"></s></i><span>Problem <b>${sc}%</b></span>`; }); }catch(e){} };
+const _cmdUAP=cmdActions; cmdActions=function(){ const A=_cmdUAP(); A.push({g:"Aids",t:"Understanding a Problem · the sheet",run:()=>openUAP("aid"),hint:""},{g:"Aids",t:"Understanding a Problem · add a problem",run:()=>{ openUAP("build"); uapIdx=0; uapBuild(); },hint:""},{g:"Aids",t:"Understanding a Problem · start from a vendor",run:()=>{ openUAP("build"); uapIdx=0; uapBuild(); setTimeout(()=>$("uapVn")?.focus(),60); },hint:""}); return A; };
+TOK_AID.uap="Understanding a Problem";
+try{ SHARE_CONTENT.push("uap"); }catch(e){}
+const _snapUAP=snapData; snapData=function(){ const d=_snapUAP(); d.uap=JSON.parse(JSON.stringify(S.uap||null)); return d; };
+
+/* ---------- Present: the map's engine with the problem's slides ---------- */
+function uapSlidesRaw(){ const U=uapData(), s=[]; U.probs.forEach((p,pi)=>{ if(!uapFilled(p)) return; s.push({k:"uapWhole",pi}); UAP_BOX.forEach((b,i)=>{ if(p.box[i].t.trim()||(i===8&&p.pri.p)) s.push({k:"uapBox",pi,i}); }); }); if(U.probs.filter(uapFilled).length>1) s.push({k:"uapCmp"}); if(U.probs.length) s.push({k:"uapNext"}); return s; }
+function uapPresent(){ presUAP=true; const segOn=typeof PL!=="undefined"&&PL&&PL.segs[PL.i]?.a==="uap"; pmSl=segOn?plSlidesFor("uap",PL.i===0):uapSlidesRaw(); pmSi=0; if(!pmSl.length){ presUAP=false; toast("Fill a problem first",null,true); return; }
+  let o=$("pmPres"); if(!o){ o=document.createElement("div"); o.id="pmPres"; o.className="pmpres"; o.setAttribute("role","dialog"); document.body.appendChild(o); } o.setAttribute("aria-label","Present Understanding a Problem");
+  o.hidden=false; document.body.classList.add("pmpresenting"); pmTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; closePop();
+  $("presbar").hidden=false; $("pprog").hidden=false; if(!(PL&&PL.i>0&&presT0)) presT0=Date.now();
+  try{ const r=!document.fullscreenElement&&document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} pmPresRender(); wake(); bc(stateMsg(true)); }
+const _pmPRuap=pmPresRender; pmPresRender=function(){ const sl=pmSl[pmSi]; if(!presUAP||!sl||!String(sl.k).startsWith("uap")) return _pmPRuap();
+  const o=$("pmPres"), U=uapData(); let inner="", cap="", quiet=false; const p=U.probs[sl.pi];
+  if(sl.k==="uapWhole"){ inner=uapSheetHTML({mode:"present",p}); quiet=true; cap=`<span class="pc-kick">Understanding a Problem${U.probs.length>1?` · ${sl.pi+1} of ${U.probs.length}`:""}</span><b class="pc-title">${esc(p.name||"The problem")}${p.from.kind==="vendor"?` <small>· framed from ${esc(p.from.vendor)}'s perspective</small>`:""}</b>`; }
+  if(sl.k==="uapBox"){ const b=UAP_BOX[sl.i], B=p.box[sl.i]; inner=uapSheetHTML({mode:"present",p,spot:sl.i+1});
+    cap=`<span class="pc-kick">${b.n} of 9 · ${esc(p.name||"")}</span><b class="pc-title">${b.l}</b><span class="pc-meta">${sl.i===8?`<span><em>Priority</em> ${p.pri.p?UAP_PL[p.pri.p]:"to set"}</span><span><em>Decision</em> ${p.pri.go?(p.pri.go==="pursue"?"Pursue":"Stop"):"to decide"}</span>`:""}<span><em>${B.ok?"Agreed":"To agree"}</em> ${B.ok?"with the stakeholder":"Is this right?"}</span></span>`; }
+  if(sl.k==="uapCmp"){ const P=U.probs.filter(uapFilled); inner=`<div class="slide"><div class="pmtop"><span class="k">${UAP_TXT.kicker}</span>${CLIENT_MARK()}</div><h2>Which problem matters most?</h2><div class="uapslcmp">${P.map(q=>`<div><b>${esc(q.name||"Untitled")}</b><span>${q.pri.p?`${uapBall(q.pri.p)} ${UAP_PL[q.pri.p]}`:"Priority to set"}${q.pri.go?` · ${q.pri.go==="pursue"?"Pursue":"Stop"}`:""}</span><small>${esc((q.box[3].t||"").split("\n")[0])}</small></div>`).join("")}</div></div>`; }
+  if(sl.k==="uapNext"){ const gaps=UAP_TXT.gaps.filter(([k])=>(U.gaps[k]||"").trim()); inner=`<div class="slide"><div class="pmtop"><span class="k">What we heard</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2><ul>${U.probs.filter(uapFilled).map(q=>`<li><b>${esc(q.name||"Untitled")}</b>: ${q.pri.p?UAP_PL[q.pri.p]:"priority to set"}${q.pri.go?`, ${q.pri.go==="pursue"?"pursue":"stop"}`:""}${q.pri.why?`. ${esc(q.pri.why)}`:""}</li>`).join("")}${gaps.map(([k,l])=>`<li><b>${esc(l)}</b>: ${esc(U.gaps[k])}</li>`).join("")}${(U.take||"").trim()?U.take.trim().split(/\n+/).map(t=>`<li>${esc(t.replace(/^[-•]\s*/,""))}</li>`).join(""):""}</ul><p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap pmcap${quiet?" quiet":""}">${cap}</div>`:""}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); fitSlide(o.querySelector(".slide")); requestAnimationFrame(()=>uapFit(o));
+  presChrome(pmSi,pmSl.length,pmSlideLabel(sl)); if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); };
+const _pmEndUAP=pmPresEnd; pmPresEnd=function(){ _pmEndUAP(); if(!plSwitching) presUAP=false; };
+const _pmSLuap=pmSlideLabel; pmSlideLabel=function(sl){ if(sl&&String(sl.k).startsWith("uap")){ const p=uapData().probs[sl.pi]; return sl.k==="uapWhole"?(p?.name||"The problem"):sl.k==="uapBox"?UAP_BOX[sl.i].l:sl.k==="uapCmp"?"Which problem matters most?":"What we heard"; } return _pmSLuap(sl); };
+const _pmNHuap=pmNotesHTML; pmNotesHTML=function(sl){ if(!sl||!String(sl.k).startsWith("uap")) return _pmNHuap(sl); const ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`, p=uapData().probs[sl.pi];
+  if(sl.k==="uapBox"){ const B=p.box[sl.i]; return `<p style="margin:0"><b>${UAP_BOX[sl.i].l}</b>${B.ok?" · agreed":""}</p>${B.t?ul(B.t.split("\n").map((l,j)=>B.ls&&B.ls[j]&&B.src!=="you"?`${l} (${UAP_SRC[B.ls[j]]})`:l)):""}${B.d?`<p>${esc(B.d)}</p>`:""}<h4>Ask the client</h4>${ul(UAP_ASK[sl.i+1])}`; }
+  if(sl.k==="uapWhole") return `<p style="margin:0">${esc(UAP_TXT.callouts[2])}</p>${p?.qs?.length?`<h4>Ask</h4>${ul(p.qs)}`:""}`;
+  return `<p style="margin:0">“${esc(KEVIN)}”</p>${ul(UAP_ASK[10])}`; };
+const _pmCTuap=pmCardText; pmCardText=function(sl){ if(!sl||!String(sl.k).startsWith("uap")) return _pmCTuap(sl); return `<small>Understanding a Problem</small><b>${esc(pmSlideLabel(sl))}</b>`; };
+const _pDeckUAP=$("pDeck").onclick; $("pDeck").onclick=()=>presUAP&&pmOn()?uapDownload():_pDeckUAP();
+/* the combined presentation: the problem after the alignment and the map, before the criteria */
+{ const at=PL_ORDER.indexOf("cp"); PL_ORDER.splice(at>=0?at:PL_ORDER.length,0,"uap"); }
+PL_PARTS.uap={sum:["uapWhole","uapCmp","uapNext"],det:["uapBox"],sumL:"Each problem whole, compared, what we heard",detL:"Each of the nine boxes"};
+const _plHasUAP=plHas; plHas=function(a){ if(a==="uap") return (S.uap?.probs||[]).some(uapFilled); return _plHasUAP(a); };
+const _plSFuap=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="uap") return _plSFuap(a,first); const p=plPick()[a]||{}, P=PL_PARTS.uap; return uapSlidesRaw().filter(s=>(p.sum&&P.sum.includes(s.k))||(p.det&&P.det.includes(s.k))); };
+const _plStartUAP=plStart; plStart=function(seg,atEnd){ if(seg.a!=="uap"){ presUAP=false; return _plStartUAP(seg,atEnd); } openUAP("aid"); uapPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } };
+const _plStepUAP=plStep; plStep=function(d){ if(PL&&PL.segs[PL.i]?.a==="uap"){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; } plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plStepUAP(d); };
+const _plJumpUAP=plJump; plJump=function(j,atEnd){ if(PL&&PL.segs[PL.i]?.a==="uap"){ plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],atEnd); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plJumpUAP(j,atEnd); };
+const _rmGoUAP=rmGoTo; rmGoTo=function(st){ if(st&&st.a==="uap"&&!st.pick&&!(presenting||pmOn())){ openUAP("aid"); uapPresent(); setTimeout(()=>rmGoTo(Object.assign({},st,{a:"uapx"})),500); return; } return _rmGoUAP(st); };
+
+/* ---------- PDF: the problem on one letter landscape page ---------- */
+async function uapDownload(){ const p=uapProb(); if(!p){ toast("Add a problem first"); return; } toast("Making the PDF…",null,true);
+  try{ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, font=(st,sz,c)=>{ doc.setFont("helvetica",st); doc.setFontSize(sz*PT); doc.setTextColor(c); };
+    font("bold",3.9,PDFC.tan||"#a39a83"); doc.text(UAP_TXT.kicker,10.4,14.2); font("normal",13.4,PDFC.title); doc.text("Understanding a Problem",10.4,28.4); pdfClientMark(doc,{right:269,top:9,h:14,maxW:90,fs:5});
+    doc.setFillColor("#2c4f9b"); doc.rect(10.9,35.6,258,8.2,"F"); font("bold",4.6,"#ffffff"); doc.text("ASSESSMENT",139.9,41.5,{align:"center",charSpace:1.1});
+    doc.setDrawColor("#9aa0ab"); doc.setLineWidth(.3); doc.line(96.5,43.8,96.5,202.2); doc.line(182.6,43.8,182.6,202.2);
+    font("normal",3,PDFC.muted); doc.text(p.name||"",268.9,32.8,{align:"right"});
+    UAP_BOX.forEach((b,i)=>{ const x=UAP_COLX[b.c], hy=UAP_HDY[b.r], y=UAP_ROWY[b.r], B=p.box[i];
+      font("normal",3.6,"#2c4f9b"); doc.text(`▷  ${b.l}`.replace("▷",">"),x+.6,hy+1.4); doc.setFillColor(B.ok?"#2d7a52":PDFC.plum); doc.circle(UAP_NUMX[b.c],hy+1.9,3.25,"F"); font("bold",3.9,"#ffffff"); doc.text(B.ok?"v":String(b.n),UAP_NUMX[b.c],hy+3.25,{align:"center"});
+      let ty=y+4; if(i===8&&(p.pri.p||p.pri.go)){ if(p.pri.p){ doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.circle(x+3.2,ty-1,2.2,"S"); doc.setFillColor(PDFC.plum); if(p.pri.p===3) doc.circle(x+3.2,ty-1,2.2,"F"); if(p.pri.p===2) doc.triangle(x+3.2,ty-3.2,x+3.2,ty+1.2,x+1,ty-1,"F"); font("bold",3.2,PDFC.ink); doc.text(UAP_PL[p.pri.p],x+6.6,ty); }
+        if(p.pri.go){ font("bold",3.2,p.pri.go==="pursue"?"#2d7a52":"#a6501d"); doc.text(p.pri.go==="pursue"?"Pursue":"Stop pursuit",x+30,ty); } ty+=6; }
+      let fs=3; const t=(B.t||"").trim(); if(!t) return; let lines; for(;fs>=2.2;fs-=.2){ font("normal",fs,PDFC.ink); lines=doc.splitTextToSize(t,UAP_W-2); if(lines.length*fs*1.25<=y+UAP_H-ty) break; }
+      doc.text(lines,x+1,ty,{lineHeightFactor:1.25}); });
+    const U=uapData(); if(U.part.names||U.part.date){ font("normal",2.5,PDFC.muted); doc.text(`Participants: ${U.part.names.replace(/\n/g,", ")}${U.part.date?` · ${U.part.date}`:""}`,24,207.4,{maxWidth:180}); }
+    pdfKaFoot(doc,10.9,202.4); const filename=`Understanding a Problem - ${(p.name||aidTitle()).replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
+    if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
+  catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
+
+/* ---------- Meet the client: work together or interview on the problem ---------- */
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="uap"]')) g.querySelector('[data-meet-aid="cp"]').insertAdjacentHTML("beforebegin",`<button role="radio" data-meet-aid="uap" aria-checked="false">Understanding a Problem</button>`); })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="uap"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way; try{ meetSnapTake(); }catch(er){}
+  if(way==="together"){ openUAP("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; uapSheet(); }
+  if(way==="interview"){ openUAP("build"); uapIdx=uapProb()?1:0; uapBuild(); toast("Ask the client each box in order; their words are kept as yours.",null,true); } },true);
+const _uapNM=uapNextMove; uapNextMove=function(){ const m=_uapNM(); if(m.done) m.go=()=>{ meetAid="uap"; nav("meet"); }; return m; };
+
 mountCoach();
-{ const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
+{ const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}
 if(firstHow&&!allFilled().length&&route==="aid"&&curView==="aid") setTimeout(()=>setHow(true),1700);
 </script>
