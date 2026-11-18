@@ -3,7 +3,7 @@
 // 2. node scripts/room-from-outbox.mjs <dir> <outboxId> <slug>
 //    → prototype/rooms/<slug>.html (built from the app), <dir>/seed/seed-<i>.json, and the ArtifactData batch writes to print.
 // 3. Publish the room as a NEW artifact (capabilities in build-room.mjs), then ArtifactData batch the printed writes to the ROOM's url,
-//    then delete the outbox documents from the app's store. The owner opens the room; it loads the seed by itself and deletes it.
+//    then write the link back to the APP's store (the printed sharedBack: collection "shared", doc = the engagement id) and delete the outbox documents from the app's store. The owner opens the room; it loads the seed by itself and deletes it.
 import {readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync} from "node:fs";
 import {join} from "node:path";
 import {execFileSync} from "node:child_process";
@@ -15,4 +15,4 @@ const text=parts.map(p=>p.d).join(""), eng=JSON.parse(text); if(eng.format!=="ka
 execFileSync("node",[new URL("./build-room.mjs",import.meta.url).pathname,slug],{stdio:"inherit"});
 const CH=180000, n=Math.ceil(text.length/CH), sdir=join(dir,"seed"); mkdirSync(sdir,{recursive:true}); const writes=[];
 for(let i=0;i<n;i++){ const f=join(sdir,`seed-${i}.json`); writeFileSync(f,JSON.stringify({name:eng.name,i,n,d:text.slice(i*CH,(i+1)*CH),at:Date.now()})); writes.push({op:"set",collection:"seed",doc_id:`p${i}`,file_path:f}); }
-console.log(JSON.stringify({engagement:eng.name,title:`${eng.name} · KA Engagement Room`,room:`prototype/rooms/${slug}.html`,writes,outboxDocs:parts.map((_,i)=>`${id}~${i}`)},null,1));
+console.log(JSON.stringify({engagement:eng.name,title:`${eng.name} · KA Engagement Room`,room:`prototype/rooms/${slug}.html`,writes,outboxDocs:parts.map((_,i)=>`${id}~${i}`),sharedBack:{collection:"shared",doc_id:eng.eng||parts[0].eng||slug,data:{eng:eng.eng||parts[0].eng||"",name:eng.name,url:"<the room's url>",at:Date.now()}}},null,1));

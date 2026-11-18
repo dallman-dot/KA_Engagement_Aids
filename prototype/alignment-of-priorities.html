@@ -1236,6 +1236,9 @@ div.aract{cursor:default}.arcv .aract .arn{color:#2c4f9b;font-weight:700;min-wid
 .arcv .ardb.claude{outline:none}.arcv .ardb.claude svg{filter:drop-shadow(0 0 .12cqw var(--plum))}.arcv .ardb.claude::after{content:"";position:absolute;inset:6%;border-radius:50%;border:.1cqw dotted var(--plum)}
 .arrowb{padding:6px 10px;gap:4px 10px}.arwhy{padding-left:40px;margin-top:-2px}.arrowb .linkbtn{margin-left:auto}
 .rmshare{display:grid;gap:8px}.rmshare .btn{justify-self:start}
+.shlock{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--glow) 22%,var(--paper));border:1px solid color-mix(in srgb,var(--glow) 55%,var(--rule));border-radius:12px;padding:8px 12px;margin:10px 0 0;font-size:14px;color:var(--ink)}
+.shlock[hidden]{display:none}.rmban{background:color-mix(in srgb,var(--why) 10%,var(--paper));border-color:color-mix(in srgb,var(--why) 35%,var(--rule))}
+.rmload .linkbtn{display:inline-block;margin-top:6px}
 </style>
 
 <div class="shell">
@@ -5043,6 +5046,73 @@ async function arDownload(){ toast("Making the PDF…",null,true); try{ const js
     pdfKaFoot(doc,8.5,202.5); const filename=`Assessment Roadmap - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
     if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
   catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
+
+
+/* ===================== Sharing, kept simple (Dave, Nov 18: "The process of sharing seems very cumbersome! It has to be KISS!"; "go with your recommendation on all three.")
+   One click to share; Claude writes the shared page's link back into the app (shared/<engagement>); the engagement then lives on its shared page and the app's copy is
+   read-only (Make a private copy to work alone); the shared page opens on the engagement with one invite banner; while Dave is away, guests look only. ===================== */
+const SHARE_CONTENT=["lenses","cp","pm","roadmap","company","ext","situation","fin","provider","gaps","notes","outcomes","stepsP","stepsS","cpg","space","procSet"];
+const shareSig=st=>JSON.stringify(SHARE_CONTENT.map(k=>st&&st[k]));
+const shareOf=()=>S.share&&typeof S.share==="object"?S.share:null;
+const shareLocked=()=>!KA_ROOM&&shareOf()&&shareOf().state==="ready";
+/* the link comes back into the app: Claude writes shared/<engagement id> {eng, name, url} */
+(async()=>{ if(KA_ROOM||!window.claude) return; let db=null; for(let i=0;i<40&&!db;i++){ db=SH.db; if(!db) await new Promise(r=>setTimeout(r,250)); } if(!db) return;
+  db.collection("shared").onSnapshot(snap=>{ let changed=false; snap.docs.forEach(d=>{ const x=d.data()||{}; if(!x.url) return;
+    Object.entries(LIBD.aids).forEach(([id,a])=>{ const match=x.eng?x.eng===id:(a.name||"").trim()===(x.name||"").trim(); if(!match) return; const cur=id===LIBD.cur?S:a.data; if(cur.share&&cur.share.url===x.url) return;
+      cur.share={state:"ready",url:x.url,at:x.at||Date.now()}; if(id!==LIBD.cur) a.data=cur; changed=true; if(id===LIBD.cur) toast(`${a.name}'s shared page is ready.`,null,true); }); });
+    if(changed){ flushSave(); try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} if(route==="overview") renderOverview(); if(route==="home") renderHome(); renderShareLock(); } },()=>{}); })();
+/* one click: save it for Claude and hand Claude the request, in the same click */
+shareEngagement=function(){ const sh=shareOf(); if(sh&&sh.state==="ready"){ window.open(sh.url,"_blank","noopener"); return; }
+  const name=aidName(), eng=LIBD.cur, id="o"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+  const data={request:"Set up a shared KA Engagement Room",engagement:name,eng,outbox:id,app:APP_URL,how:"Read the outbox, publish the engagement's room page, seed it, and write the link back to shared/<eng> in the app's store (CLAUDE.md: Shared engagements)."};
+  const direct=SH.room&&SH.db&&["available","available_if_summoned","available_if_opened"].includes(SH.can);
+  if(direct){ let p; try{ p=SH.room.sendToClaudeSession(data,{deliver:"send",attachPresence:false}); }catch(e){ p=Promise.reject(e); }
+    S.share={state:"pending",outbox:id,at:Date.now()}; save(); renderOverview(); toast("Claude is creating the shared page. The link will appear on this card.",null,true);
+    shareToOutbox(id,name,eng).then(()=>p).catch(e=>{ if(e&&e.code==="claude_unavailable"){ try{ SH.room.sendToClaudeSession(data).then(()=>toast("It's waiting in your chat with Claude: press send there.",null,true)); }catch(e2){} } else { S.share=null; save(); renderOverview(); toast(`Couldn't reach Claude: ${e&&e.message||"try again"}`,null,true); } });
+    return; }
+  if(!SH.db){ toast("Sharing needs this page opened in Claude.",null,true); return; }
+  const ask=`Set up a shared KA Engagement Room for "${name}" (outbox ${id}, engagement ${eng}).`;
+  kitOpen("Share with my team and client",`<p class="kitlead">This page can't reach Claude directly here. Copy this into your chat with Claude; the link will appear on the engagement's card.</p><div class="rmask"><code>${esc(ask)}</code><button class="btn small primary" id="shCopy">Copy</button></div>`,true);
+  $("shCopy").onclick=async()=>{ try{ await shareToOutbox(id,name,eng); await navigator.clipboard.writeText(ask); S.share={state:"pending",outbox:id,at:Date.now()}; save(); kitClose(); renderOverview(); toast("Copied. Paste it into your chat with Claude.",null,true); }catch(e){ toast("Copy didn't work in this view: select the text and copy it.",null,true); } }; };
+const _sto=shareToOutbox; shareToOutbox=async function(id,name,eng){ const s=JSON.stringify({format:"ka-engagement",v:1,name,eng,saved:Date.now(),data:shareData()}), n=Math.max(1,Math.ceil(s.length/OUT_CHUNK));
+  for(let i=0;i<n;i++) await SH.db.collection("outbox").doc(`${id}~${i}`).set({name,eng:eng||"",i,n,d:s.slice(i*OUT_CHUNK,(i+1)*OUT_CHUNK),at:Date.now()}); return n; };
+const _shareDataK=shareData; shareData=function(){ const d=_shareDataK(); delete d.share; return d; };
+/* the card on the Overview: Share → Creating… → Ready · Open the shared page */
+function shareCardHTML(){ const sh=shareOf();
+  if(sh&&sh.state==="ready") return `<h3>Shared · ready</h3><p class="note" style="margin:0">This engagement now lives on its shared page. Invite people there: <b>Share</b> (top right) → add their email → <b>Contributor</b>.</p><div class="arow" style="flex:0 1 auto"><a class="btn small primary" href="${esc(sh.url)}" target="_blank" rel="noopener">Open the shared page</a><button class="btn small" data-shcopy>Make a private copy</button></div>`;
+  if(sh&&sh.state==="pending"){ const late=Date.now()-(sh.at||0)>10*60000; return `<h3>Creating the shared page…</h3><p class="note" style="margin:0">Claude is building it. The link will appear right here${late?"; it's taking longer than usual":""}.</p>${late?`<div class="arow" style="flex:0 1 auto"><button class="btn small" data-shagain>Send it again</button></div>`:""}`; }
+  return `<h3>Work on it together</h3><p class="note" style="margin:0">One click gives this engagement its own private page for up to five people, team members or clients.</p><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="rmShareBtn">Share with my team and client</button></div>`; }
+const _roKiss=renderOverview; renderOverview=function(){ _roKiss(); const c=$("rmShare"); if(c&&!KA_ROOM){ c.innerHTML=shareCardHTML(); const b=$("rmShareBtn"); if(b) b.onclick=shareEngagement; } renderShareLock(); };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-shagain]")){ S.share=null; save(); shareEngagement(); } if(e.target.closest("[data-shcopy]")) shareMakeCopy(); if(e.target.closest("[data-shopen]")){ const sh=shareOf(); if(sh&&sh.url) window.open(sh.url,"_blank","noopener"); } });
+function shareMakeCopy(){ const name=aidName(), d=JSON.parse(JSON.stringify(S)); delete d.share; newAid(`${name} (private copy)`,d); toast("A private copy, only in your browser. The shared page is unchanged.",null,true); if(route==="overview") renderOverview(); }
+/* one copy: once shared, the app's copy is read-only */
+function renderShareLock(){ if(KA_ROOM) return; let b=$("shLock"); const on=shareLocked()&&route!=="home"&&route!=="new";
+  if(!on){ if(b) b.hidden=true; document.body.classList.remove("shlocked"); return; } document.body.classList.add("shlocked");
+  if(!b){ b=document.createElement("div"); b.id="shLock"; b.className="shlock"; $("appbar").after(b); } b.hidden=false;
+  b.innerHTML=`<span>🔒 <b>Shared.</b> ${esc(aidName())} lives on its shared page; this copy is read-only.</span><span class="arow" style="flex:0 1 auto"><button class="btn small primary" data-shopen>Open the shared page</button><button class="btn small" data-shcopy>Make a private copy</button></span>`; }
+const _saveKiss=save; save=function(){ if(shareLocked()){ let base=null; try{ const L=JSON.parse(localStorage.getItem(LIB)||"{}"); base=L.aids&&L.aids[LIBD.cur]&&L.aids[LIBD.cur].data; }catch(e){} if(base&&shareSig(S)!==shareSig(base)){ const keep={}; ["lens","bIdx","showLinks","animate","compare","share","presPick","meetSnap","tokens","brief","flags","rehearsals","follow","snaps"].forEach(k=>keep[k]=S[k]);
+    S=norm(JSON.parse(JSON.stringify(base))); Object.assign(S,keep); S=norm(S); try{ renderAll(); if(typeof cpMode!=="undefined"&&cpMode) cpRefresh(); if(pmMode) pmRefresh(); if(typeof arMode!=="undefined"&&arMode) arRefresh(); }catch(e){}
+    toast("This engagement is shared: edit it on its shared page, or make a private copy.",null,true); } }
+  _saveKiss(); };
+const _navKiss=nav; nav=function(r,opt){ const x=_navKiss(r,opt); setTimeout(renderShareLock,0); return x; };
+const _cmdKiss=cmdActions; cmdActions=function(){ const A=_cmdKiss().filter(a=>!/^Share this engagement/.test(a.t)); if(!KA_ROOM) A.push({g:"Work",t:shareLocked()?"Open the shared page":"Share with my team and client",run:shareEngagement,hint:""}); return A; };
+
+/* ---------- the shared page: open on the engagement, one invite banner, guests look only while the owner is away ---------- */
+rmLoadCardHTML=function(){ const ex=/^Example/.test(document.title); return `<div class="scard rmload"><h3>${ex?"Bring an engagement in":"Waiting for the engagement…"}</h3><p>${ex?"Try it with Kevin's example.":"It arrives by itself a moment after Claude creates this page. Keep this page open."}</p>${ex?`<button class="btn primary" id="rmTryEx">Use Kevin's example to try it</button>`:""}<label class="linkbtn">Choose a file instead<input type="file" id="rmFile" accept=".json,application/json" hidden></label></div>`; };
+function rmBanner(){ if(!RM.on) return; let b=$("rmBan"); let html="";
+  const joined=(()=>{ try{ return localStorage.getItem("ka-room-joined")==="1"; }catch(e){ return false; } })();
+  if(RM.owner&&RM.loaded&&!RM.empty&&!joined&&!RM.banX) html=`<span>👋 <b>Invite people on this page only:</b> <b>Share</b> (top right) → add their email → <b>Contributor</b>. Keep this page open while they work.</span><button class="btn small ghost" data-rmbanx aria-label="Hide">✕</button>`;
+  if(!RM.owner&&RM.loaded&&!RM.hostHere) html=`<span>⏸ <b>${esc(RM.hostName||"The host")} is away.</b> You can look; changes open when ${esc(RM.hostName||"they")} ${RM.hostName?"is":"are"} back.</span>`;
+  if(!html){ if(b) b.hidden=true; return; } if(!b){ b=document.createElement("div"); b.id="rmBan"; b.className="shlock rmban"; $("appbar").after(b); } b.hidden=false; b.innerHTML=html; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-rmbanx]")){ RM.banX=true; rmBanner(); } });
+const _rmPaintK=rmPaint; rmPaint=function(){ _rmPaintK(); if(!RM.on) return; if(rmPeerList.some(p=>!p.isMe&&p.kind==="viewer")){ try{ localStorage.setItem("ka-room-joined","1"); }catch(e){} } rmBanner(); };
+/* guests look only while the owner is away: an edit is put back, with the reason */
+function rmFromStore(){ const st=blank(); Object.values(RM.last).forEach(j=>{ try{ const d=JSON.parse(j); rmApplyDoc(st,d.m,d.v); }catch(e){} }); return rmFinish(st); }
+const _saveRmK=save; save=function(){ if(RM.on&&!RM.owner&&RM.loaded&&!RM.hostHere){ const keep={}; RM_LOCAL.forEach(k=>{ if(k!=="items") keep[k]=S[k]; });
+    S=norm(Object.assign(rmFromStore(),keep)); rmRerender(); toast(`${RM.hostName||"The host"} is away: you can look, and changes open when they're back.`,null,true); return; } _saveRmK(); };
+const _rmIncK=rmIncoming; rmIncoming=function(snap){ _rmIncK(snap); rmBanner(); };
+const _rmRrK=rmRerender; rmRerender=function(f){ _rmRrK(f); setTimeout(rmBanner,0); };
+if(KA_ROOM) setInterval(()=>{ try{ rmBanner(); }catch(e){} },1500);
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",{view:p.view,cp:p.cp,push:false}); else nav(p?p.r:"home",{push:false}); }
