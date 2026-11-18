@@ -9,7 +9,7 @@ import {join} from "node:path";
 import {execFileSync} from "node:child_process";
 const [dir,id,slug]=process.argv.slice(2); if(!dir||!id||!slug){ console.error("usage: room-from-outbox.mjs <dir> <outboxId> <slug>"); process.exit(1); }
 const odir=existsSync(join(dir,"outbox"))?join(dir,"outbox"):dir;
-const parts=readdirSync(odir).filter(f=>f.startsWith(id+"~")&&f.endsWith(".json")).map(f=>{ const j=JSON.parse(readFileSync(join(odir,f),"utf8")); return j.data&&j.data.d!=null?j.data:j; }).sort((a,b)=>a.i-b.i);
+const parts=readdirSync(odir).filter(f=>(f.startsWith(id+"~")||f.startsWith(id+"@"))&&f.endsWith(".json")).map(f=>{ const j=JSON.parse(readFileSync(join(odir,f),"utf8")); return j.data&&j.data.d!=null?j.data:j; }).sort((a,b)=>a.i-b.i);
 if(!parts.length) throw new Error("no outbox parts for "+id); if(parts.length!==parts[0].n) throw new Error(`have ${parts.length} of ${parts[0].n} parts`);
 const text=parts.map(p=>p.d).join(""), eng=JSON.parse(text); if(eng.format!=="ka-engagement") throw new Error("not an engagement");
 execFileSync("node",[new URL("./build-room.mjs",import.meta.url).pathname,slug],{stdio:"inherit"});
