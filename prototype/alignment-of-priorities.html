@@ -4675,7 +4675,7 @@ const _stopRm=stopPresent; stopPresent=function(){ _stopRm(); if(!plSwitching&&R
 
 /* ---------- the owner brings the engagement in, once ---------- */
 function rmLoadCardHTML(){ return `<div class="scard rmload"><h3>Bring the engagement in</h3><p>This shared copy is empty. Choose the file you saved with <b>Share this engagement</b> in your own KA Engagement Aids.</p>
-  <label class="btn primary">Choose the engagement file<input type="file" id="rmFile" accept=".json,application/json" hidden></label><button class="btn" id="rmTryEx">Use Kevin's example to try it</button><p class="note">After it loads, open the Share menu and invite up to five people as Contributors.</p></div>`; }
+  <label class="btn primary">Choose the engagement file<input type="file" id="rmFile" accept=".json,application/json" hidden></label>${/^Example/.test(document.title)?`<button class="btn" id="rmTryEx">Use Kevin's example to try it</button>`:""}<p class="note">After it loads, open the Share menu and invite up to five people as Contributors.</p></div>`; }
 async function rmLoadFile(f){ try{ const j=JSON.parse(await f.text()); const data=j&&j.format==="ka-engagement"?j.data:j; if(!data||typeof data!=="object"||!data.lenses&&!data.items) throw new Error("not an engagement");
     S=norm(data); RM.loaded=true; RM.empty=false; RM.last={}; _saveRoom(); const ch=rmDiff(); toast(`Loading ${ch.length} parts of the engagement…`,null,true);
     for(const [id,doc] of ch) await rmWrite(id,doc); if(j.name){ LIBD.aids[LIBD.cur].name=j.name; try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} }
@@ -4763,9 +4763,12 @@ const _rmShareBtn=()=>{ const b=$("rmShareBtn"); if(b) b.onclick=shareEngagement
 const _roShare2=renderOverview; renderOverview=function(){ _roShare2(); _rmShareBtn(); };
 
 /* ---------- the room: the owner's page loads the engagement Claude put there, once ---------- */
-async function rmSeedLoad(){ if(!RM.owner||!RM.db||RM.seedTried) return; RM.seedTried=true;
+async function rmSeedLoad(ask){ if(!RM.owner||!RM.db||RM.seedTried) return; RM.seedTried=true;
   try{ const snap=await RM.db.collection("seed").get(); if(!snap||!snap.docs||!snap.docs.length) return; const parts=snap.docs.map(d=>({id:d.id,...d.data()})).filter(p=>p.d!=null).sort((a,b)=>a.i-b.i);
     if(!parts.length||parts.length!==parts[0].n) return; const j=JSON.parse(parts.map(p=>p.d).join(""));
+    /* the page already holds an engagement and a copy is waiting: ask before replacing it */
+    if(ask){ const ok=await new Promise(res=>{ kitOpen(`A copy of ${j.name||"the engagement"} is waiting`,`<p class="kitlead">You sent ${esc(j.name||"an engagement")} to this page${j.saved?` on ${esc(new Date(j.saved).toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))}`:""}, but it already holds <b>${esc(aidTitle())}</b>.</p><div class="arow" style="flex:0 1 auto"><button class="btn primary" id="rmSeedYes">Replace it with ${esc(j.name||"the copy")}</button><button class="btn" id="rmSeedNo">Keep what's here</button></div>`,false); $("rmSeedYes").onclick=()=>{ kitClose(); res(true); }; $("rmSeedNo").onclick=()=>{ kitClose(); res(false); }; });
+      if(!ok){ for(const d of snap.docs){ try{ await RM.db.collection("seed").doc(d.id).delete(); }catch(e){} } return; } }
     await rmLoadFile(new File([JSON.stringify(j)],"seed.json")); for(const d of snap.docs){ try{ await RM.db.collection("seed").doc(d.id).delete(); }catch(e){} }
     rmInviteCard(j.name); }
   catch(e){ console.warn("seed",e); } }
@@ -4775,7 +4778,7 @@ function rmInviteCard(name){ kitOpen(`${name||"The engagement"} is in`,`<p class
   <button class="btn primary" id="rmInvOk">Got it</button>`,false); $("rmInvOk").onclick=kitClose; }
 /* a store holding only a blank engagement (an empty page that saved before anything was loaded) counts as empty */
 function rmBlank(){ try{ return !allFilled().length&&!(S.company&&S.company.name&&S.company.name.trim())&&!cpAll().length&&!(S.pm&&pmRated().length)&&!(S.situation||"").trim(); }catch(e){ return false; } }
-const _rmIncomingSeed=rmIncoming; rmIncoming=function(snap){ const fresh=!RM.loaded; _rmIncomingSeed(snap); if(fresh&&RM.owner){ setTimeout(()=>{ if(!RM.empty&&rmBlank()){ RM.empty=true; if(route==="overview") renderOverview(); } if(RM.empty) rmSeedLoad(); },50); } };
+const _rmIncomingSeed=rmIncoming; rmIncoming=function(snap){ const fresh=!RM.loaded; _rmIncomingSeed(snap); if(fresh&&RM.owner){ setTimeout(()=>{ if(!RM.empty&&rmBlank()){ RM.empty=true; if(route==="overview") renderOverview(); } rmSeedLoad(!RM.empty); },50); } };
 
 
 /* ===================== Assessment Roadmap, its own aid (Dave, Nov 17: "Build the Assessment Roadmap as its own aid! You need to automate this so it is 'click' easy.")
