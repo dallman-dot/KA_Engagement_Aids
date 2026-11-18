@@ -2955,8 +2955,7 @@ async function buildDeck(){
     pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2}); pdfKaFoot(doc,M,PH-16.4); font("normal",2.8,PDFC.muted); doc.text(clean(`${aidTitle()} · Alignment of Priorities`),M+44,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
   const wrap=(t,w,sz)=>{ doc.setFontSize(sz*PT); return doc.splitTextToSize(clean(t),w); };
   // 1 · title
-  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor("#1d2d52"); doc.circle(PW*.78,PH*.2,120,"F"); doc.setFillColor("#14203b"); doc.rect(0,PH*.86,PW,PH*.14,"F");
-  doc.setDrawColor("#ffffff"); doc.setLineWidth(1.6); doc.setLineCap("round"); doc.line(-5,40,PW+5,128); doc.setLineCap("butt");
+  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor(PDFC.org[0]); doc.rect(0,PH-6,PW/3,6,"F"); doc.setFillColor(PDFC.op[0]); doc.rect(PW/3,PH-6,PW/3,6,"F"); doc.setFillColor(PDFC.inf[0]); doc.rect(2*PW/3,PH-6,PW/3+1,6,"F");
   font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("ALIGNMENT OF PRIORITIES · GAIN BUSINESS CLARITY",M,28); doc.setCharSpace(0);
   font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96);
   if(who){ font("normal",5,"#c8d2ea"); doc.text(clean(who),M,112); }
@@ -2969,18 +2968,18 @@ async function buildDeck(){
     if(any){ let y=112; font("bold",3.2,PDFC.plum); doc.text("KEY RATIOS · NOW, AND THE CHANGE OVER 24 MONTHS",M,y); y+=6;
       RATIO_GROUPS.forEach((g,i)=>{ const x=M+i*(cw+8); let yy=y; doc.setFillColor("#f5f6f9"); doc.roundedRect(x,yy,cw,62,2,2,"F"); const rd=groupRead(g);
         font("bold",4.2,PDFC.ink); doc.text(g.l,x+5,yy+9); if(rd){ const c={strong:"#1f7a46",watch:"#8a6a10",weak:"#a32d2d"}[rd]; font("bold",3,c); doc.text(READS.find(r=>r[0]===rd)[1].toUpperCase(),x+cw-5,yy+9,{align:"right"}); }
-        yy+=17; g.r.forEach(([k,l])=>{ const o=S.fin?.[k]||{}; font("normal",3.2,PDFC.muted); doc.text(l,x+5,yy); font("bold",3.8,PDFC.ink); doc.text(clean(o.v||"-"),x+5,yy+5.6);
+        yy+=17; g.r.forEach(([k,l])=>{ const o=S.fin?.[k]||{}; font("normal",3.2,PDFC.muted); doc.text(l,x+5,yy); if(o.v){ font("bold",3.8,PDFC.ink); doc.text(clean(o.v),x+5,yy+5.6); } else { font("normal",3.3,"#9aa1af"); doc.text("Not given",x+5,yy+5.6); }
           const t=trendOf(k); if(t){ const c=t.t==="better"?"#1f7a46":t.t==="worse"?"#a32d2d":PDFC.muted; font("bold",3,c); doc.text(clean(t.t==="steady"?"Steady":`${t.word} from ${o.v0}`),x+cw-5,yy+5.6,{align:"right"}); }
           yy+=14; }); });
-      font("normal",2.8,PDFC.muted); doc.text(clean(`Values ${S.fin?.current?.yr||"latest"} vs ${S.fin?.current?.yr0||"24 months earlier"}, from public information: approximate, to be confirmed.`),M,190); } }
+      font("normal",2.8,PDFC.muted); doc.text(clean(RATIO_GROUPS.some(g=>g.r.some(([k])=>S.fin?.[k]?.v))?`Values ${S.fin?.current?.yr||"latest"} vs ${S.fin?.current?.yr0||"24 months earlier"}, from public information: approximate, to be confirmed.`:"Reads from public information. Values to be confirmed with the client."),M,190); } }
   // 3 · one page per column
   COLS.forEach((c,ix)=>{ const ids=colFilled(ix); if(!ids.length) return; frame(c.label,c.walk); let y=54;
     ids.forEach(id=>{ const it=item(id), sv=(it.serves||[]).filter(filled).map(nameOf), by=servedBy(id).filter(filled).map(nameOf), g=gainsOf(it);
       const sup=it.d.trim()?wrap(it.d.trim(),PW-2*M-70,3.9):[], meta=[sv.length&&`${VERB_OF[ix]}S: ${sv.join(", ")}`,by.length&&`Served by: ${by.join(", ")}`,g.length&&`Improve for: ${g.join(", ")}`].filter(Boolean).join("   ·   ");
-      const h=Math.max(16,8+sup.length*5.4+(meta?6:0)); if(y+h>PH-20) return;
+      const nm=wrap(it.t,50,4.6), metaL=meta?wrap(meta,PW-2*M-70,3):[], h=Math.max(16,8+Math.max(sup.length*5.4,nm.length*6.2)+metaL.length*4.3+(metaL.length?2:0)); if(y+h>PH-20) return;
       doc.setFillColor("#f5f6f9"); doc.roundedRect(M,y,PW-2*M,h,2,2,"F"); doc.setFillColor([PDFC.org[2],PDFC.org[2],PDFC.op[2],PDFC.inf[2],PDFC.inf[2]][ix]); doc.rect(M,y,2.2,h,"F");
-      font("bold",4.6,PDFC.ink); doc.text(clean(it.t),M+7,y+8.5); if(sup.length){ font("normal",3.9,PDFC.ink); doc.text(sup,M+66,y+8.5,{lineHeightFactor:1.35}); }
-      if(meta){ font("normal",3,PDFC.muted); doc.text(clean(meta),M+66,y+h-4.5,{maxWidth:PW-2*M-70}); }
+      font("bold",4.6,PDFC.ink); doc.text(nm,M+7,y+8.5,{lineHeightFactor:1.3}); if(sup.length){ font("normal",3.9,PDFC.ink); doc.text(sup,M+66,y+8.5,{lineHeightFactor:1.35}); }
+      if(metaL.length){ font("normal",3,PDFC.muted); doc.text(metaL,M+66,y+h-4.5-(metaL.length-1)*4.3,{lineHeightFactor:1.4}); }
       y+=h+5; }); });
   // 4 · the formal sheet
   doc.addPage("letter","landscape"); pageNo++; await buildPdf(doc);
@@ -3024,13 +3023,14 @@ async function buildPdf(doc0){
   color(PDFC.title); doc.setFont("helvetica","normal"); doc.setFontSize(13.4*PT); doc.text("Alignment of Priorities",10.4,28.4);
   pdfClientMark(doc);
   color(PDFC.plum); doc.setFont("helvetica","bold"); let fs=4.7; doc.setFontSize(fs*PT); const sub="Aligning Organizational, Operational, and Infrastructure Priorities"; while(doc.getTextWidth(sub)>170.4&&fs>3){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(sub,98.8,40.2);
+  // the plum diagonal
+  doc.setLineCap("round"); draw("#ffffff"); doc.setLineWidth(1.9); doc.line(56.6,41.6,268.6,118); fill("#ffffff"); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
+  doc.setLineCap("butt");
   // external factors and column headers
   const tri=(x,y)=>{ draw(PDFC.muted); doc.setLineWidth(.25); doc.triangle(x,y-2,x,y,x+1.7,y-1,"S"); };
   doc.setFont("helvetica","bold"); doc.setFontSize(3.4*PT); color(PDFC.blue);
   EXT.forEach(([k,l,y])=>{ tri(17.4,y+2.9); doc.text(l.toUpperCase(),20.2,y+2.9); });
   COLS.forEach(c=>{ tri(c.hd[0],c.hd[1]+3.2); doc.setFontSize(3.7*PT); doc.text(c.label.toUpperCase(),c.hd[0]+2.8,c.hd[1]+3.2); });
-  // the plum diagonal
-  doc.setLineCap("round"); draw("#ffffff"); doc.setLineWidth(1.9); doc.line(56.6,41.6,268.6,118); fill("#ffffff"); doc.triangle(273.5,119.6,264.6,121.7,267.8,113.1,"F");
   // connections
   doc.setLineCap("butt");
   COLS.forEach((c,ix)=>{ if(!ix) return; S.items[c.k].forEach((it,i)=>{ const from=`${c.k}.${i}`; if(!filled(from)) return;
@@ -3543,7 +3543,7 @@ async function cpBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({o
   let pageNo=1; const frame=(kick,title)=>{ doc.addPage("letter","landscape"); pageNo++; doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
     font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text(kick.toUpperCase(),M,22); doc.setCharSpace(0); font("normal",9.5,PDFC.title); doc.text(title,M,36);
     doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(M,42,PW-M,42); pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2}); pdfKaFoot(doc,M,PH-16.4); font("normal",2.8,PDFC.muted); doc.text(`${aidTitle()} · Criteria Proposition`,M+44,PH-10); doc.text(String(pageNo),PW-M,PH-10,{align:"right"}); };
-  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("CRITERIA PROPOSITION · MEASURE WHAT MATTERS",M,28); doc.setCharSpace(0); pdfClientMark(doc,{right:PW-M,top:16,h:16.6,maxW:110,fs:5.4,color:"#ffffff",plate:true});
+  doc.setFillColor("#14203b"); doc.rect(0,0,PW,PH,"F"); doc.setFillColor(PDFC.org[0]); doc.rect(0,PH-6,PW/3,6,"F"); doc.setFillColor(PDFC.op[0]); doc.rect(PW/3,PH-6,PW/3,6,"F"); doc.setFillColor(PDFC.inf[0]); doc.rect(2*PW/3,PH-6,PW/3+1,6,"F"); font("bold",3.4,"#c9a5b8"); doc.setCharSpace(.4); doc.text("CRITERIA PROPOSITION · MEASURE WHAT MATTERS",M,28); doc.setCharSpace(0); pdfClientMark(doc,{right:PW-M,top:16,h:16.6,maxW:110,fs:5.4,color:"#ffffff",plate:true});
   font("normal",17,"#ffffff"); doc.text(wrap(aidTitle(),PW-2*M,17),M,96); const eyes=eyesOf(); font("normal",5,"#c8d2ea"); doc.text([eyes&&`Through the eyes of ${eyes}`,longDate()].filter(Boolean).join(" · "),M,112);
   font("italic",4.4,"#e8ecf6"); doc.text(wrap(`“${KEVIN}”`,PW-2*M-30,4.4),M,170);
   frame("From the alignment","What we agreed matters"); const cw=(PW-2*M-16)/3;
@@ -4204,7 +4204,7 @@ function pmDrawSheet(doc){ const PT=2.8346, P=pmData(), tc=c=>doc.setTextColor(c
     for(let c=0;c<6;c++){ const x=pmCell(r,c); if(x.p) pmBall(doc,PMG.cx0+16.134+c*PMG.cw,y+9.6,4.4,x.p); } }
   [1,2,3].forEach((p,j)=>{ const y=181.5+j*8.5; pmBall(doc,234.5,y-.1,2.9,p); tc(PDFC.ink); doc.setFont("helvetica","normal"); doc.setFontSize(2.9*PT); doc.text(`${PRI[p]} Priority`,239.6,y+1); });
   if(P.notes?.trim()){ tc(PDFC.ink); doc.setFontSize(2.8*PT); doc.text(doc.splitTextToSize(P.notes.trim(),183).slice(0,5),27,183.5); }
-  pdfKaFoot(doc); }
+  pdfKaFoot(doc); tc(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2.6*PT); doc.text([aidTitle(),longDate()].join(" · "),139.7,207.6,{align:"center"}); }
 async function pmBuildPdf(deck){ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}), PT=2.8346, PW=279.4, PH=215.9, M=20; pmDrawSheet(doc); if(!deck) return doc;
   const font=(w,sz,c)=>{ doc.setFont("helvetica",w); doc.setFontSize(sz*PT); doc.setTextColor(c); }; doc.addPage("letter","landscape"); doc.setFillColor(PDFC.plum); doc.rect(0,0,4,PH,"F");
   font("bold",3.4,PDFC.plum); doc.setCharSpace(.35); doc.text("WHAT WE HEARD",M,22); doc.setCharSpace(0); font("normal",9.5,PDFC.title); doc.text("Similarities, differences and takeaways",M,36); pdfClientMark(doc,{right:PW-M,top:13,h:11,maxW:90,fs:4.2});
@@ -5167,15 +5167,15 @@ async function arDownload(){ toast("Making the PDF…",null,true); try{ const js
     font("bold",3.9,PDFC.tan||"#9a8a6a"); doc.text("Establish Timeline with Milestones",10.4,14.2); font("normal",13.4,PDFC.title); doc.text("Assessment Roadmap",10.4,28.4); pdfClientMark(doc,{right:269,top:9,h:14,maxW:90,fs:5});
     const lab=[["Awareness",56,41,70],["Analysis",95,51,94],["Alternatives",136,36,135],["Answer",159,51,155],["Acceptance",190,36,174],["Actions",210,54,198]];
     lab.forEach(([t,x,y,lx],i)=>{ font(i+1===curP?"bold":"normal",5.2,i+1===curP?PDFC.plum:"#2c4f9b"); doc.text(t,x,y,{align:"center"}); doc.setDrawColor("#1f2430"); doc.setLineWidth(.3); doc.line(x,y+1.6,lx,66); font("normal",11,i+1===curP?PDFC.plum:"#2c4f9b"); doc.text(i<2?"A":"a",lx,78,{align:"center"}); if(R.go[i+1]){ font("bold",2.6,R.go[i+1]==="go"?"#2d7a52":"#a6501d"); doc.text(R.go[i+1]==="go"?"GO":"NO GO",lx,62,{align:"center"}); } });
-    doc.setDrawColor("#2c4f9b"); doc.setLineWidth(.9); doc.line(119,31,119,113); doc.setDrawColor("#1f2430"); doc.setLineWidth(.5); doc.line(62,85,222,85); doc.line(219,82.5,224,85); doc.line(219,87.5,224,85);
+    doc.setDrawColor("#2c4f9b"); doc.setLineWidth(.9); doc.line(119,35,119,113); doc.setDrawColor("#1f2430"); doc.setLineWidth(.5); doc.line(62,85,222,85); doc.line(219,82.5,224,85); doc.line(219,87.5,224,85);
     font("normal",6,"#2c4f9b"); doc.text("Problem Space",86,97,{align:"center"}); doc.text("Solution Space",150,96,{align:"center"});
     const dot=(kind,v,x,y)=>{ const c=kind==="w"?"#1f2430":"#8a8f99"; doc.setDrawColor(c); doc.setLineWidth(.3); doc.circle(x,y,1.7,"S"); doc.setFillColor(c); if(v===2) doc.circle(x,y,1.7,"F"); if(v===1){ doc.lines([[0,0]],x,y); doc.triangle(x,y-1.7,x,y+1.7,x-1.7,y,"F"); doc.circle(x-.6,y,1.1,"F"); } };
     dot("w",2,13.6,108.8); font("normal",2.6,PDFC.ink); doc.text("= CONFIDENCE (WILL TO DO)",17.6,110); dot("s",2,13.6,114.4); doc.text("= COMPETENCE (SKILL TO DO)",17.6,115.6);
     AR.forEach((ph,pi)=>{ const g=ARG[pi], n=pi+1; font("bold",4.3,n===curP?PDFC.plum:"#2c4f9b"); doc.text(ph.l,g.tx,g.hy+4.1); if(R.dates&&R.dates[n]){ font("normal",2.6,PDFC.muted); doc.text(`by ${arDateFmt(R.dates[n])}`,g.tx+g.tw,g.hy+4,{align:"right"}); }
       for(let i=1;i<=6;i++){ const id=`${n}.${i}`, k=i-1, y=i<6?g.ty[k]:g.y6; if(i<6){ dot("w",arDot("w",id,auto,loc).v,g.wx+2.54,g.ys[k]+2.54); dot("s",arDot("s",id,auto,loc).v,g.sx+2.54,g.ys[k]+2.54); }
-        font(id===loc?"bold":"normal",2.8,arDone(id,auto)?PDFC.muted:PDFC.ink); doc.text(`${id}`,g.nx,y+2.9); const goTxt=i===6&&n<6&&R.go[n]?` · ${R.go[n]==="go"?"Go":"No go"}`:""; doc.text(doc.splitTextToSize(ph.a[k]+goTxt+(i<6&&arDone(id,auto)?" ✓":""),g.tw),g.tx,y+2.9,{lineHeightFactor:1.2}); }
+        font(id===loc?"bold":"normal",2.8,arDone(id,auto)?PDFC.muted:PDFC.ink); doc.text(`${id}`,g.nx,y+2.9); const goTxt=i===6&&n<6&&R.go[n]?` · ${R.go[n]==="go"?"Go":"No go"}`:""; const lines=doc.splitTextToSize(ph.a[k]+goTxt,g.tw-3); doc.text(lines,g.tx,y+2.9,{lineHeightFactor:1.2}); if(i<6&&arDone(id,auto)){ const lw=doc.getTextWidth(lines[lines.length-1]), tx=g.tx+lw+1.2, ty=y+2.9+(lines.length-1)*3.36-1; doc.setDrawColor("#2d7a52"); doc.setLineWidth(.45); doc.lines([[.7,.8],[1.5,-1.9]],tx,ty,[1,1],"S"); } }
       const pct=arPct(n,auto); doc.setFillColor(pct?"#fbe6b4":"#f1f3f7"); doc.roundedRect(g.px,g.py+.2,9,4.6,.8,.8,"F"); font("bold",2.7,"#1f2430"); doc.text(`${pct}%`,g.px+4.5,g.py+3.6,{align:"center"}); });
-    pdfKaFoot(doc,8.5,202.5); const filename=`Assessment Roadmap - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
+    pdfKaFoot(doc,8.5,202.5); font("normal",2.8,PDFC.muted); doc.text([aidTitle(),longDate()].join(" · "),139.7,207.4,{align:"center"}); const filename=`Assessment Roadmap - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
     if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
   catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
 
@@ -5630,12 +5630,14 @@ async function uapDownload(){ const p=uapProb(); if(!p){ toast("Add a problem fi
     doc.setDrawColor("#9aa0ab"); doc.setLineWidth(.3); doc.line(96.5,43.8,96.5,202.2); doc.line(182.6,43.8,182.6,202.2);
     font("normal",3,PDFC.muted); doc.text(p.name||"",268.9,32.8,{align:"right"});
     UAP_BOX.forEach((b,i)=>{ const x=UAP_COLX[b.c], hy=UAP_HDY[b.r], y=UAP_ROWY[b.r], B=p.box[i];
-      font("normal",3.6,"#2c4f9b"); doc.text(`▷  ${b.l}`.replace("▷",">"),x+.6,hy+1.4); doc.setFillColor(B.ok?"#2d7a52":PDFC.plum); doc.circle(UAP_NUMX[b.c],hy+1.9,3.25,"F"); font("bold",3.9,"#ffffff"); doc.text(B.ok?"v":String(b.n),UAP_NUMX[b.c],hy+3.25,{align:"center"});
+      doc.setDrawColor("#2c4f9b"); doc.setLineWidth(.25); doc.triangle(x+.8,hy-.8,x+.8,hy+1.6,x+2.8,hy+.4,"S"); font("normal",3.6,"#2c4f9b"); doc.text(b.l,x+4.6,hy+1.4); doc.setFillColor(B.ok?"#2d7a52":PDFC.plum); doc.circle(UAP_NUMX[b.c],hy+1.9,3.25,"F");
+      if(B.ok){ doc.setDrawColor("#ffffff"); doc.setLineWidth(.6); doc.lines([[1,1.1],[2.1,-2.5]],UAP_NUMX[b.c]-1.5,hy+2,[1,1],"S"); } else { font("bold",3.9,"#ffffff"); doc.text(String(b.n),UAP_NUMX[b.c],hy+3.25,{align:"center"}); }
       let ty=y+4; if(i===8&&(p.pri.p||p.pri.go)){ if(p.pri.p){ doc.setDrawColor(PDFC.plum); doc.setLineWidth(.4); doc.circle(x+3.2,ty-1,2.2,"S"); doc.setFillColor(PDFC.plum); if(p.pri.p===3) doc.circle(x+3.2,ty-1,2.2,"F"); if(p.pri.p===2) doc.triangle(x+3.2,ty-3.2,x+3.2,ty+1.2,x+1,ty-1,"F"); font("bold",3.2,PDFC.ink); doc.text(UAP_PL[p.pri.p],x+6.6,ty); }
         if(p.pri.go){ font("bold",3.2,p.pri.go==="pursue"?"#2d7a52":"#a6501d"); doc.text(p.pri.go==="pursue"?"Pursue":"Stop pursuit",x+30,ty); } ty+=6; }
-      let fs=3; const t=(B.t||"").trim(); if(!t) return; let lines; for(;fs>=2.2;fs-=.2){ font("normal",fs,PDFC.ink); lines=doc.splitTextToSize(t,UAP_W-2); if(lines.length*fs*1.25<=y+UAP_H-ty) break; }
-      doc.text(lines,x+1,ty,{lineHeightFactor:1.25}); });
-    const U=uapData(); if(U.part.names||U.part.date){ font("normal",2.5,PDFC.muted); doc.text(`Participants: ${U.part.names.replace(/\n/g,", ")}${U.part.date?` · ${U.part.date}`:""}`,24,207.4,{maxWidth:180}); }
+      const t=(B.t||"").trim(); if(!t) return; const items=t.split(/\n+/).map(l=>l.replace(/^[-•]\s*/,"").trim()).filter(Boolean), many=items.length>1; let fs=3.8, wrapped;
+      for(;fs>=2.2;fs-=.2){ font("normal",fs,PDFC.ink); wrapped=items.map(l=>doc.splitTextToSize(l,UAP_W-(many?5:2))); const hh=wrapped.reduce((a,w)=>a+w.length*fs*1.3,0)+(wrapped.length-1)*fs*.45; if(hh<=y+UAP_H-ty) break; }
+      let yy=ty; wrapped.forEach(w=>{ if(many){ doc.setFillColor(PDFC.plum); doc.circle(x+1.9,yy-fs*.33,.55,"F"); } doc.text(w,x+(many?4:1),yy,{lineHeightFactor:1.3}); yy+=w.length*fs*1.3+fs*.45; }); });
+    const U=uapData(); font("normal",2.8,PDFC.muted); doc.text([aidTitle(),longDate()].join(" · "),139.7,207.4,{align:"center"}); if(U.part.names||U.part.date){ font("normal",2.5,PDFC.muted); doc.text(`Participants: ${U.part.names.replace(/\n/g,", ")}${U.part.date?` · ${U.part.date}`:""}`,268.9,207.4,{align:"right",maxWidth:90}); }
     pdfKaFoot(doc,10.9,202.4); const filename=`Understanding a Problem - ${(p.name||aidTitle()).replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
     if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
   catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
