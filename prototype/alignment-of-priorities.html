@@ -5480,7 +5480,7 @@ function uapApply(p,r,o){ const snap=JSON.stringify(p); let n=0;
   return {n,snap}; }
 async function uapFill(p,o){ if(!sample){ toast("Claude's fill needs this page opened in Claude",null,true); return false; }
   uapBusy=true; uapMsg=o.vendor?`Claude is framing “${o.problem}” from ${o.vendor.name}…`:"Claude is filling the nine boxes…"; uapRefresh(); uapCtl=new AbortController();
-  try{ const r=await sample.json(uapFillPrompt(o),{signal:uapCtl.signal,modelTier:"complex"}); const {n,snap}=uapApply(p,r,o); save(); uapMsg="";
+  try{ const r=await sample.json(uapFillPrompt(o),{signal:uapCtl.signal,modelTier:"complex"}); { const U=uapData(), q=U.probs.find(x=>x.id===p.id); if(q) p=q; else { U.probs.push(p); U.cur=U.probs.length-1; } } const {n,snap}=uapApply(p,r,o); save(); uapMsg="";
     toast(n?`Claude filled ${n} of 9 boxes. Write over any of them.`:"Claude didn't fill any boxes this time.",n?()=>{ Object.assign(p,JSON.parse(snap)); save(); uapRefresh(); }:null,true); return true; }
   catch(e){ const m=failMsg(e); uapMsg=m===null?"":(m||"Claude couldn't fill the boxes this time."); return false; }
   finally{ uapBusy=false; uapRefresh(); } }
@@ -5909,7 +5909,7 @@ function spApply(p,r){ const snap=JSON.stringify(p); let n=0; const put=(k,cur,v
   p.qs=(Array.isArray(r?.questions)?r.questions:[]).map(String).slice(0,4); return {n,snap}; }
 async function spDraft(){ let p=spPlan(); if(!p){ p=spNew(true); spIdx=1; spRefresh(); } if(!sample){ toast("Claude's plan needs this page opened in Claude",null,true); return; }
   spBusy=true; spMsg="Claude is planning the session from the engagement…"; spRefresh(); spCtl=new AbortController();
-  try{ const r=await sample.json(spPlanPrompt(p),{signal:spCtl.signal,modelTier:"complex"}); const {n,snap}=spApply(p,r); save(); spMsg="";
+  try{ const r=await sample.json(spPlanPrompt(p),{signal:spCtl.signal,modelTier:"complex"}); { const D=spData(), q=D.plans.find(x=>x.id===p.id); if(q) p=q; else { D.plans.push(p); D.cur=D.plans.length-1; } } const {n,snap}=spApply(p,r); save(); spMsg="";
     toast(n?`Claude planned ${n} part${n===1?"":"s"} of the session. Write over any of them.`:"Nothing was empty to plan.",n?()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); }:null,true); }
   catch(e){ const m=failMsg(e); spMsg=m===null?"":(m||"Claude couldn't plan the session this time."); }
   finally{ spBusy=false; spRefresh(); } }
@@ -6406,7 +6406,7 @@ async function syPull(){ const snap=await SY.db.collection("lib").get(); const h
   Object.entries(heads).forEach(([id,h])=>{ const loc=LIBD.aids[id]; if(SY.gone[id]) return;
     if(h.deleted){ if(loc&&(loc.updated||0)<=(h.updated||0)&&id!==LIBD.cur){ delete LIBD.aids[id]; gone++; } return; }
     if(loc&&(loc.updated||0)>=(h.updated||0)) return; const P=parts[id]||{}; let s=""; for(let i=0;i<(h.n||0);i++){ if(P[i]==null) return; s+=P[i]; }
-    try{ const data=JSON.parse(s); if(id===LIBD.cur){ S=norm(data); } LIBD.aids[id]={name:h.name||"Untitled engagement",updated:h.updated||Date.now(),data}; SY.pushed[id]=sySig(LIBD.aids[id]); got++; }catch(e){} });
+    try{ const data=JSON.parse(s); if(id===LIBD.cur){ if(window.__clCalling>0) return; S=norm(data); } LIBD.aids[id]={name:h.name||"Untitled engagement",updated:h.updated||Date.now(),data}; SY.pushed[id]=sySig(LIBD.aids[id]); got++; }catch(e){} });
   if(got||gone){ try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(e){} }
   return {got,gone,heads}; }
 async function syPushOne(id,heads){ const a=LIBD.aids[id]; if(!a||syEmpty(a)) return false; const sig=sySig(a); if(SY.pushed[id]===sig) return false;
@@ -6555,6 +6555,13 @@ function clNoClaude(){ kitOpen("Claude can't run in this view",`<p class="kitlea
   <div class="arow" style="flex:0 1 auto"><button class="btn primary" onclick="kitClose()">OK</button></div>`,true); }
 const _oneClaudeNC=oneClaude; oneClaude=function(){ if(!sample){ if(oneAid()==="sp"&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); } clNoClaude(); return; } return _oneClaudeNC(); };
 document.addEventListener("click",e=>{ if(!sample&&e.target.closest("[data-spdraft],[data-clnext],[data-uaprefill],[data-uapvend],[data-uapaddline],#coGo,#aFill,#cpDraftBtn,#suGo,[data-finfind]")){ e.preventDefault(); e.stopImmediatePropagation(); if(e.target.closest("[data-spdraft]")&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); spToGuide(); } clNoClaude(); } },true);
+
+
+/* ---------- on opening, Claude waits (a few seconds at most) for your engagements to come in from your Claude account (Dave, Nov 19: "clicked. got nothing filled in on my phone") ---------- */
+let syFirstRes; const syFirst=new Promise(r=>{ syFirstRes=r; setTimeout(r,4000); });
+const _sySyncF=sySync; sySync=async function(w){ try{ return await _sySyncF(w); } finally{ if(SY.last) syFirstRes(); } };
+if(KA_ROOM||!window.claude) syFirstRes();
+const _clWrapF=clWrap; clWrap=function(f){ if(!f||f.__busy) return f; const run=async(fn)=>{ await syFirst; window.__clCalling=(window.__clCalling||0)+1; try{ return await fn(); } finally{ window.__clCalling--; } }; const g=(...a)=>run(()=>f(...a)); g.json=(...a)=>run(()=>f.json(...a)); Object.keys(f).forEach(k=>{ if(!(k in g)) g[k]=f[k]; }); if(f.limits) g.limits=(...x)=>f.limits(...x); return _clWrapF(g); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
