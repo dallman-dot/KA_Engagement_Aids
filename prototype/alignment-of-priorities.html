@@ -1370,6 +1370,55 @@ body.one .onepanel .finrow{grid-template-columns:minmax(96px,1fr) 76px 76px;font
 .ovroad>div{display:grid;min-width:0}.ovroad b{font-size:14px}.ovroad span{font-size:12.5px;color:var(--muted)}
 .ovsoon{font-size:12.5px;color:var(--muted);margin:4px 0 0}
 body.meeting .stagesel{display:none}
+
+/* Session Plan: the PDF's portrait page */
+.spstage{position:relative;width:min(100%,860px);min-width:640px;margin:0 auto;display:grid;gap:18px}
+.spcv{position:relative;width:100%;aspect-ratio:215.9/279.4;--mm:calc(100cqw / 215.9);container-type:inline-size;background:var(--paper);box-shadow:0 1px 3px rgb(0 0 0 /.12),0 8px 28px rgb(0 0 0 /.08);border-radius:6px}
+.spcv.p2{aspect-ratio:215.9/279.4}
+.spcv>svg.pmbase{position:absolute;inset:0;width:100%;height:100%}
+.spcv .px{position:absolute}
+.spcv .spin{width:100%;height:100%;border:0;background:transparent;color:var(--ink);font-family:var(--font);font-size:calc(2.75*var(--mm));padding:0 calc(.8*var(--mm));border-radius:calc(.6*var(--mm));min-width:0}
+.spcv textarea.spin{resize:none;line-height:1.3;padding:calc(.6*var(--mm)) calc(.8*var(--mm));overflow:hidden}
+.spcv select.spin{appearance:none;-webkit-appearance:none;cursor:pointer;font-weight:600;text-overflow:ellipsis}
+.spcv .spin:hover{background:color-mix(in srgb,var(--blue) 5%,transparent)}
+.spcv .spin:focus{outline:calc(.3*var(--mm)) solid color-mix(in srgb,var(--blue) 50%,transparent);background:var(--paper);z-index:4;overflow:auto}
+.spcv .spin::placeholder{color:color-mix(in srgb,var(--muted) 65%,transparent);font-style:italic}
+.spcv .spin.claude{background:color-mix(in srgb,var(--plum) 7%,transparent);outline:calc(.22*var(--mm)) dashed color-mix(in srgb,var(--plum) 45%,transparent);outline-offset:calc(-.2*var(--mm))}
+.spcv .spin.big{font-size:calc(3.6*var(--mm))}
+.spcv input[type=date].spin:invalid:not(:focus){color:transparent}.spcv input[type=date].spin:invalid:not(:focus)::-webkit-calendar-picker-indicator{opacity:0}.spcv input[type=date].spin{font-size:calc(2.5*var(--mm))}
+.spcv .spmet{border:calc(.35*var(--mm)) solid var(--ink);background:var(--paper);border-radius:calc(.4*var(--mm));cursor:pointer;padding:0;display:grid;place-items:center;color:#2d7a52;font-weight:800;font-size:calc(3.6*var(--mm));line-height:1}
+.spcv .spmet.on{border-color:#2d7a52}
+.spcv .sptx{font-size:calc(2.75*var(--mm));line-height:1.3;color:var(--ink);padding:calc(.4*var(--mm)) calc(.8*var(--mm));overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere}
+.spcv .sptx.b{font-weight:600}
+.spcv .sptot{display:grid;place-items:center;font-weight:800;font-size:calc(3*var(--mm));color:var(--ink)}
+.spcv .sppast{color:#c0392b;font-weight:800;font-size:calc(1.9*var(--mm));letter-spacing:.04em;text-align:center}
+.spcv .dimmed{opacity:.22}.spcv .spot{background:color-mix(in srgb,var(--glow,#f2b632) 16%,transparent);border-radius:calc(.6*var(--mm))}
+.spcv .spws,.spcv .sppart{border:0;background:transparent;display:flex;gap:calc(.8*var(--mm));align-items:center;justify-content:center;cursor:pointer;font-size:calc(3.6*var(--mm));padding:0}.spcv .spws svg{width:calc(4.4*var(--mm));height:calc(4.4*var(--mm))}
+.spcv .spempty{display:grid;place-items:center;text-align:center;gap:calc(2*var(--mm));font-size:calc(3.2*var(--mm));color:var(--muted)}.spcv .spempty p{margin:0}
+.thumb .spcv,.pmmini .spcv{pointer-events:none;box-shadow:none}
+.pmmini .spstage,.thumb .spstage{min-width:0;width:100%}
+.spcap{font-size:13px;color:var(--muted);margin:0 0 -10px}
+.sprow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr) minmax(0,.45fr);gap:6px;align-items:start;padding:8px 0;border-top:1px solid var(--line)}
+.sprow.ns{grid-template-columns:minmax(0,1fr) minmax(0,.55fr) minmax(0,.45fr) minmax(0,.45fr)}
+.sprow .n{font-weight:800;color:var(--muted);font-size:12px;grid-column:1/-1}
+.sprow label{display:grid;gap:2px;font-size:12px;color:var(--muted);min-width:0}.sprow .tin{min-width:0;width:100%}
+.sppri{display:grid;gap:8px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px}.sppri .tin{width:100%}
+.sptwo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.spsum{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin:6px 0}
+.spplist{list-style:none;margin:8px 0;padding:0;display:grid;gap:4px}.spplist li{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;padding:6px 10px;border-radius:10px;border:1px solid var(--line)}.spplist li.cur{border-color:var(--how)}.spplist li span{color:var(--muted);font-size:13px;flex:1;min-width:0}
+.sptabs button[aria-selected="true"]{background:var(--how)!important;border-color:var(--how)!important}
+.spprop{display:grid;gap:4px;margin:8px 0}.spprop .dbrow{display:flex;gap:8px;align-items:flex-start}
+.spslide table{width:100%;border-collapse:collapse;font-size:1.55cqw}.spslide th,.spslide td{border-bottom:1px solid #d8dce5;padding:.5cqw .8cqw;text-align:left;vertical-align:top}.spslide th{color:#9e2a55;font-size:1.25cqw;letter-spacing:.05em;text-transform:uppercase}
+.spslide .sp2{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw}.spslide .sp2 h3{font-size:1.5cqw;color:#2c4f9b;margin:0 0 .6cqw}.spslide .sp2 ol{margin:0;padding-left:2cqw;font-size:1.6cqw;display:grid;gap:.5cqw}
+.spslide .spmeta{display:flex;flex-wrap:wrap;gap:.6cqw 2cqw;font-size:1.45cqw;color:#5b6476;margin:0 0 1.4cqw}.spslide .spmeta b{color:#1f2430}
+.spslide .sptotal{text-align:right;font-weight:800;font-size:1.5cqw;margin-top:.6cqw}
+.spslide .met{color:#2d7a52;font-weight:800}.spslide .past{color:#c0392b;font-weight:800;font-size:1.2cqw}
+.spslide .big1{font-size:3.2cqw;line-height:1.25;margin:2cqw 0;color:#1f2430}
+@media (max-width:640px){.sptwo{grid-template-columns:minmax(0,1fr)}.sprow,.sprow.ns{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+body.one .onepanel .sptwo{grid-template-columns:minmax(0,1fr)}
+#viewAidSP .sheetwrap>*{min-width:0}#spTabs,#spRead{min-width:0}#viewAidSP .cpscroll{overflow-x:auto;max-width:100%}
+body.one .onesheet .spstage{min-width:0}
+@media (max-width:980px){body.one .onesheet .spstage{min-width:640px}}
 </style>
 
 <div class="shell">
@@ -1732,6 +1781,26 @@ body.meeting .stagesel{display:none}
       <p class="pmbanner prep-only" id="uapBanner" hidden></p>
       <div class="cpscroll"><div class="cpstage pmstage" id="uapSheet"></div></div>
       <div class="pmread" id="uapRead"></div>
+    </div>
+  </section>
+  <section id="viewLearnSP" class="pmview spview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Plan every session</small><h1>Session Plan</h1><p class="gsub">Plan the session in four short cards. Then plan it.</p></div></div>
+    <div class="lwrap"><ol class="ldots" id="spLdots" aria-label="Cards"></ol><article class="lcard" id="spLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="spLPrev">← Back</button><button class="btn primary" id="spLNext">Next →</button></div></div>
+  </section>
+  <section id="viewBuildSP" class="pmview spview" role="tabpanel" hidden>
+    <ol class="bsteps" id="spBsteps" aria-label="Steps"></ol>
+    <div class="bwrap"><div class="bmain" id="spBmain"></div>
+      <aside class="bside"><p class="minicap">The plan, as you build it</p><button class="minibtn pmmini" id="spMini" aria-label="Open the full sheet"></button><div id="spAsk" class="askclient"></div></aside></div>
+    <div class="bnav"><button class="btn" id="spBBack">← Back</button><span id="spBpos" class="note"></span><button class="btn primary" id="spBNext">Next →</button></div>
+  </section>
+  <section id="viewAidSP" class="pmview spview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <section class="ctlcard" aria-label="Controls"><button class="btn small prep-only" id="spAddBtn">＋ New session plan</button><button class="btn small" id="spPdf">Download PDF</button><button class="btn small" id="spCopy">Copy summary</button><button class="btn small danger prep-only" id="spClear">Clear this plan</button></section>
+      <div id="spTabs"></div>
+      <p class="pmbanner prep-only" id="spBanner" hidden></p>
+      <div class="cpscroll"><div class="spwrap" id="spSheet"></div></div>
+      <div class="pmread" id="spRead"></div>
     </div>
   </section>
   <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2010). A prototype.</span><span>Your work stays in this browser.</span></footer>
@@ -5670,15 +5739,428 @@ const _uapNM=uapNextMove; uapNextMove=function(){ const m=_uapNM(); if(m.done) m
 
 
 
+/* ===================== Session Plan, the last aid (Dave, Nov 19: "the last aid I want to build is the Session Plan. It should go in "How""; "go with your recommendations")
+   The PDF's two portrait pages on their own coordinates: Logistics, Priorities (the 36 Assessment Roadmap activities as the forced choices), the
+   Meeting Agenda with its total, Requirements · Next Steps with PAST DUE, and page 2's Session Recap. One plan per session, a dated list.
+   A new plan starts at the engagement's stage; changing a plan's phase never moves the stage. The Debrief ticks Met, writes the recap and proposes
+   next steps; the follow-up email, the 60-second brief and Rehearse read the plan. ===================== */
+const SP_TYPES=["Annual Review","Discovery (Initial Due-Diligence)","Finalist","Implementation","Initial Meeting","Internal Prep Session","Optimization","Quarterly Review","Status","Warm-up","Work-out","Workshop"];
+const SP_DUR=["0 hr 5 min","0 hr 10 min","0 hr 15 min","0 hr 20 min","0 hr 30 min","0 hr 45 min","1 hr 0 min","1 hr 15 min","1 hr 30 min","1 hr 45 min","2 hr 0 min","2 hr 30 min","3 hr 0 min","3 hr 30 min","4 hr 0 min","4 hr 30 min","5 hr 0 min","5 hr 30 min","6 hr 0 min"];
+const SP_DUR_ITEM=[...SP_DUR,"6 hr 30 min","7 hr 0 min","7 hr 30 min","8 hr 0 min","8 hr 30 min","9 hr 0 min"];
+/* the priorities list, as printed in the PDF; the three spelling slips fixed (Creiteria, Stakholders, Implemenation) */
+const SP_ACT=[["Awareness",["1.1 Gain Business Clarity","1.2 Identify Key Stakeholders","1.3 Frame Points of View","1.4 Verify Success Criteria","1.5 Establish Timeline with Milestones","1.6 Determine Go/No Go"]],
+  ["Analysis",["2.1 Pinpoint Core Business Problems","2.2 Design a Blueprint to Solve Bus. Problems","2.3 Illustrate Innovative Solutions","2.4 Highlight Value of Solving Bus. Problems","2.5 Assess Readiness","2.6 Determine Go/No Go"]],
+  ["Alternatives",["3.1 Validate Technical PRC of Stakeholders","3.2 Identify Viable Options","3.3 Determine Value, Costs & Risks of Options","3.4 Prioritize Options","3.5 Architect & Illustrate Options","3.6 Determine Go/No Go"]],
+  ["Answer",["4.1 Select Solution with Stakeholders","4.2 Confirm Roles (Roles, Responsibilities, Deliverables)","4.3 Build Business Case","4.4 Present Business Case","4.5 Gain Commitment to Proceed From Stakeholders","4.6 Determine Go/No Go"]],
+  ["Acceptance",["5.1 Negotiate Agreements with Vendor(s)","5.2 Identify & Confirm Implementation Team","5.3 Establish contingency & Risk Mitigation Plans","5.4 Communicate Commitments to Stakeholders","5.5 Validate Implementation Expectations","5.6 Determine Go/No Go"]],
+  ["Actions",["6.1 Prepare for Implementation Kick-Off","6.2 Conduct Implementation Kick-Off","6.3 Begin Implementation","6.4 Monitor Implementation","6.5 Conduct Milestone Checkpoint Sessions","6.6 Review Quarterly with Sponsoring Execs."]]];
+const SP_ALL=SP_ACT.flatMap(([,a])=>a);
+const SP_PHASES=["Awareness","Analysis","Alternatives","Answer","Acceptance","Actions"];
+/* the aid's own prompts (its tooltips), word for word */
+const SP_TIP={date:"What is today’s date? Note: Enter today’s date each time you revise the session plan.",title:"What is the name of the prospect/customer?",type:"What type of session is this?",phase:"Where are you and prospect/customer in the Assessment Roadmap?",
+  parts:"Who will be participating in the session? Note: Include titles for non-company attendees.",loc:"Where will the Session take place?",dur:"How long do you expect the entire session to last?",
+  pri:"What are our objectives for the session? Note: Define what we are specifically trying to achieve as a result of the session.",met:"Was the priority/objective met? Note: To be answered after the session. Be objective!",
+  item:"What needs to be the focus of the meeting to achieve the objectives?",owner:"Who is the owner (or owners) of this item during this meeting?",idur:"How long would you need to address this item?",total:"This is the total duration for this meeting agenda.",
+  action:"What action must be taken to advance this opportunity? Note: Actions should include items to meet session objectives if they were not met.",who:"Who are the owners responsible to make sure this action is completed?",due:"When must this action be completed?",done:"When did the action actually get completed?",
+  notes:"Provide any additional information or insights specific to the next steps.",recap:"Provide a recap of the session.",where:"The Session Planning Aid can be used during any phase of the Assessment Roadmap."};
+const SP_WS={q:"What is the level of CONFIDENCE (commitment) and COMPETENCE (completeness) for this aid?",w:["None (Not Willing to Advance)","Personal (Willing to Advance)","Team (Team Willing to Advance)","Key Stakeholders (Fully committed)"],s:["Skipped (didn't think about it)","Covered (thought about it)","Documented (captured with team)","Verified (Confirmed by key stakeholders)"]};
+let spMode=false, spIdx=0, spL=0, spBusy=false, spMsg="", spCtl=null, spSpot=null, presSP=false, spDb=null;
+
+const spMins=s=>{ const m=String(s||"").match(/(\d+)\s*hr\s*(\d+)\s*min/); return m?(+m[1])*60+(+m[2]):0; };
+const spFmt=n=>`${Math.floor(n/60)} hr ${n%60} min`;
+const spToday=()=>new Date().toISOString().slice(0,10);
+function spBlank(){ return {id:"s"+Date.now().toString(36)+Math.random().toString(36).slice(2,4),made:Date.now(),title:"",date:spToday(),type:"",phase:stageOf?stageOf():0,loc:"",dur:"",parts:{client:"",ours:""},
+  cp:[0,1,2].map(()=>({a:"",d:"",met:false})),op:[0,1,2].map(()=>({a:"",d:"",met:false})),ag:[0,1,2,3,4,5].map(()=>({t:"",o:"",dur:"",d:""})),ns:[0,1,2,3,4,5].map(()=>({a:"",who:"",due:"",done:"",d:""})),notes:"",recap:"",src:{},det:{},part:{date:"",names:""},qs:[]}; }
+function spData(){ if(!S.sp||!Array.isArray(S.sp.plans)) S.sp={plans:[],cur:0,ws:{w:null,s:null}}; const D=S.sp; D.ws=D.ws||{w:null,s:null};
+  D.plans.forEach(p=>{ const b=spBlank(); ["parts","src","det","part"].forEach(k=>p[k]=Object.assign({},b[k],p[k]||{})); ["cp","op"].forEach(k=>{ p[k]=p[k]||[]; while(p[k].length<3) p[k].push({a:"",d:"",met:false}); }); p.ag=p.ag||[]; while(p.ag.length<6) p.ag.push({t:"",o:"",dur:"",d:""}); p.ns=p.ns||[]; while(p.ns.length<6) p.ns.push({a:"",who:"",due:"",done:"",d:""}); p.qs=p.qs||[]; });
+  if(!(D.cur>=0&&D.cur<D.plans.length)) D.cur=Math.max(0,D.plans.length-1); return D; }
+const spPlan=()=>{ const D=spData(); return D.plans[D.cur]||null; };
+const spTotal=p=>p?p.ag.reduce((a,x)=>a+spMins(x.dur),0):0;
+const spPast=n=>!!(n.a.trim()&&n.due&&!n.done&&n.due<spToday());
+const spPris=p=>p?[...p.cp,...p.op].filter(x=>x.a):[];
+function spScoreOf(p){ if(!p) return 0; let s=0; s+=[p.type,p.phase,p.date,p.dur].filter(Boolean).length*5; s+=Math.min(25,spPris(p).length*25/3); s+=Math.min(25,p.ag.filter(x=>x.t.trim()).length*25/3); s+=Math.min(20,p.ns.filter(x=>x.a.trim()).length*10); if(spPris(p).some(x=>x.met)||(p.recap||"").trim()) s+=10; return Math.round(Math.min(100,s)); }
+function spScore(){ const p=spPlan(); return p?spScoreOf(p):0; }
+const spWho=()=>{ const out=[]; const add=t=>String(t||"").split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean).forEach(x=>{ if(!out.includes(x)) out.push(x); }); const p=spPlan(); if(p){ add(p.parts.client); add(p.parts.ours); } return out.slice(0,12); };
+function spLabel(p){ const d=p.date?new Date(p.date+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}):"No date"; return `${d}${p.type?` · ${p.type}`:""}`; }
+
+/* ---------- the picture: the PDF's page 1 and page 2 ---------- */
+const SPY={log:[29.6,35.3],pri:[67,73,76.4],prow:[76.4,90.7,105.1,119.4],ag:[119.4,125.2,129.1],arow:[129.1,139.5,149.6,160,170.2,180.3,190.7],tot:[190.7,196.7],rq:[196.7,202.7,206.7],rrow:[206.7,216.4,226.1,236,245.7,255.4,265.1]};
+const SPF={pri:{c:{x:21.6,w:76.2,dx:21.6,dw:84.6,m:98.6},o:{x:118.5,w:76.2,dx:118.5,dw:84.6,m:195.6}},ag:{t:[15.5,125.3],o:[142.2,35.7],d:[179.8,24.6]},ns:{a:[15.8,61.9],w:[79.3,35.3],du:[117.1,23.2],dn:[142.6,23.2]},notes:[168.3,206.9,36.8,57.4]};
+function spWsDot(kind,v){ const c=kind==="w"?"#1f2430":"#8a8f99"; return `<svg viewBox="0 0 10 10" class="ardot" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="none" stroke="${c}" stroke-width="1"/>${v===2?`<path d="M5 1 A4 4 0 0 0 5 9 Z" fill="${c}"/>`:v===3?`<circle cx="5" cy="5" r="4" fill="${c}"/>`:""}</svg>`; }
+function spMarkSVG(){ const L=clientLayout(205.3,7.6,12.6,88,4.6); if(!L) return ""; const {m}=L;
+  return `${m.logo&&L.lw?`<image href="${m.logo}" x="${L.lx}" y="${L.ly}" width="${L.lw}" height="${L.lh}" preserveAspectRatio="xMidYMid meet"/>`:""}${m.name?`<text x="${L.nx}" y="${L.ny}" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="600" font-size="${L.fs}"${L.squeeze?` textLength="${L.nw}" lengthAdjust="spacingAndGlyphs"`:""}>${esc(m.name)}</text>`:""}`; }
+const spFoot=y=>`<rect x="10.9" y="${y}" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="${y+5}" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="${y+3}" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="${y+6.5}" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>`;
+function spHeadSVG(big){ const F="Open Sans,sans-serif"; return `${big?`<text x="10.4" y="18.6" fill="var(--title)" font-family="${F}" font-weight="300" font-size="11.4">Session Plan</text>`:`<text x="10.6" y="13.6" fill="var(--title)" font-family="${F}" font-weight="400" font-size="4.6">Session Plan</text>`}
+  <circle cx="104.6" cy="8.6" r=".95" fill="${big?"var(--plum)":"var(--muted)"}"/><circle cx="108" cy="8.6" r=".95" fill="${big?"var(--muted)":"var(--plum)"}"/>${spMarkSVG()}`; }
+function spBar(y0,y1,t){ return `<rect x="10.6" y="${y0}" width="194.7" height="${y1-y0}" fill="#2c4f9b"/><text x="108" y="${(y0+y1)/2+1.2}" text-anchor="middle" fill="#fff" font-family="Open Sans,sans-serif" font-weight="800" font-size="3.2" letter-spacing=".3">${t}</text>`; }
+function spSub(y0,y1,cols){ return `<rect x="10.6" y="${y0}" width="194.7" height="${y1-y0}" fill="#9e2a55"/>${cols.map(([x,t,a])=>`<text x="${x}" y="${y1-1.05}" ${a?`text-anchor="${a}"`:""} fill="#fff" font-family="Open Sans,sans-serif" font-weight="700" font-size="2.1">${t}</text>`).join("")}`; }
+const spTri=(x,y)=>`<text x="${x}" y="${y}" font-family="Open Sans,sans-serif" font-size="2.3" fill="#9aa0ab">▷</text>`;
+function spPage1({mode="edit",spot=null,p=spPlan()}={}){ const ed=mode==="edit"&&p, F="Open Sans,sans-serif", L="#c3c7cf", lt=k=>!spot||spot===k;
+  let s=`<svg class="pmbase" viewBox="0 0 215.9 279.4" preserveAspectRatio="none" aria-hidden="true">${spHeadSVG(true)}
+    <text x="10.6" y="26.2" fill="#2c4f9b" font-family="${F}" font-size="4.3">FOR</text><line x1="20.4" y1="27.4" x2="159.3" y2="27.4" stroke="#1f2430" stroke-width=".25"/>
+    <text x="161.6" y="26.2" fill="#2c4f9b" font-family="${F}" font-size="4.3">DATE</text><line x1="174.6" y1="27.4" x2="205.3" y2="27.4" stroke="#1f2430" stroke-width=".25"/>
+    ${spBar(...SPY.log,"LOGISTICS")}
+    <g stroke="${L}" stroke-width=".3"><line x1="103.9" y1="35.3" x2="103.9" y2="67"/><line x1="154.5" y1="35.3" x2="154.5" y2="67"/><line x1="10.6" y1="46" x2="103.9" y2="46"/><line x1="10.6" y1="56.3" x2="103.9" y2="56.3"/><line x1="77.4" y1="56.3" x2="77.4" y2="67"/><line x1="10.6" y1="35.3" x2="10.6" y2="67"/><line x1="205.3" y1="35.3" x2="205.3" y2="67"/></g>
+    <g font-family="${F}" font-weight="700" font-size="2.05" fill="#1f2430">${spTri(11.4,38.6)}<text x="14.2" y="38.6">TYPE OF SESSION</text>${spTri(11.4,49)}<text x="14.2" y="49">ASSESSMENT PHASE</text>${spTri(11.4,59.4)}<text x="14.2" y="59.4">LOCATION</text>${spTri(78.2,59.4)}<text x="81" y="59.4">DURATION</text>${spTri(104.8,38.6)}<text x="107.6" y="38.6">CLIENT/ADVISOR PARTICIPANTS</text>${spTri(155.6,38.6)}<text x="158.4" y="38.6">OUR PARTICIPANTS</text></g>
+    ${spBar(SPY.pri[0],SPY.pri[1],"PRIORITIES - OBJECTIVES FOR THE SESSION")}${spSub(SPY.pri[1],SPY.pri[2],[[11.8,"CLIENT/ADVISOR PRIORITIES"],[101.1,"MET","middle"],[109.4,"OUR PRIORITIES"],[198.1,"MET","middle"]])}`;
+  [0,1,2].forEach(i=>{ const y=SPY.prow[i], h=SPY.prow[i+1]-y; if(i===1) s+=`<rect x="10.6" y="${y}" width="194.7" height="${h}" fill="#f2f3f5"/>`;
+    s+=`<g opacity="${lt("pri")?1:.22}"><text x="11.8" y="${y+6.6}" font-family="${F}" font-weight="700" font-size="5.4" fill="#c8ccd3">${i+1}</text><text x="109.2" y="${y+6.6}" font-family="${F}" font-weight="700" font-size="5.4" fill="#c8ccd3">${i+1}</text>
+      <text x="11.8" y="${y+9.4}" font-family="${F}" font-weight="700" font-size="1.9" fill="#1f2430">DETAILS</text><text x="109.2" y="${y+9.4}" font-family="${F}" font-weight="700" font-size="1.9" fill="#1f2430">DETAILS</text>${spTri(11.6,y+12.6)}${spTri(109,y+12.6)}</g>`;
+    s+=`<line x1="10.6" y1="${y+h}" x2="205.3" y2="${y+h}" stroke="${L}" stroke-width=".3"/>`; });
+  s+=`<line x1="107.8" y1="76.4" x2="107.8" y2="119.4" stroke="#1f2430" stroke-width=".8"/>`;
+  s+=spBar(SPY.ag[0],SPY.ag[1],"MEETING AGENDA TO ACHIEVE OBJECTIVES")+spSub(SPY.ag[1],SPY.ag[2],[[11.8,"ITEM"],[142.6,"OWNER"],[179.8,"DURATION"]]);
+  for(let i=0;i<6;i++){ const y=SPY.arow[i], h=SPY.arow[i+1]-y; if(i%2) s+=`<rect x="10.6" y="${y}" width="194.7" height="${h}" fill="#f2f3f5"/>`; s+=`<g opacity="${lt("ag")?1:.22}"><text x="11.6" y="${y+5.2}" font-family="${F}" font-weight="700" font-size="4.6" fill="#c8ccd3">${i+1}</text>${spTri(11.6,y+8.6)}</g><line x1="10.6" y1="${y+h}" x2="205.3" y2="${y+h}" stroke="${L}" stroke-width=".3"/>`; }
+  s+=`<g stroke="${L}" stroke-width=".3"><line x1="141.8" y1="129.1" x2="141.8" y2="190.7"/><line x1="179" y1="129.1" x2="179" y2="190.7"/></g><rect x="10.6" y="190.7" width="194.7" height="6" fill="#8c9099"/><rect x="179" y="191.1" width="26.3" height="5.2" fill="var(--paper)"/><text x="176.4" y="194.6" text-anchor="end" fill="#fff" font-family="${F}" font-weight="700" font-size="2.05">TOTAL DURATION</text>`;
+  s+=spBar(SPY.rq[0],SPY.rq[1],"REQUIREMENTS - NEXT STEPS")+spSub(SPY.rq[1],SPY.rq[2],[[11.8,"ACTION"],[79.3,"WHO"],[117.1,"DUE DATE"],[142.6,"COMPLETION DATE"],[168.3,"NOTES"]]);
+  for(let i=0;i<6;i++){ const y=SPY.rrow[i], h=SPY.rrow[i+1]-y; if(i%2) s+=`<rect x="10.6" y="${y}" width="156.4" height="${h}" fill="#f2f3f5"/>`; s+=`<g opacity="${lt("ns")?1:.22}"><text x="11.6" y="${y+4.8}" font-family="${F}" font-weight="700" font-size="4.4" fill="#c8ccd3">${i+1}</text>${spTri(11.6,y+8.2)}</g><line x1="10.6" y1="${y+h}" x2="167" y2="${y+h}" stroke="${L}" stroke-width=".3"/>`; }
+  s+=`<g stroke="${L}" stroke-width=".3"><line x1="78.5" y1="206.7" x2="78.5" y2="265.1"/><line x1="116.4" y1="206.7" x2="116.4" y2="265.1"/><line x1="141.5" y1="206.7" x2="141.5" y2="265.1"/><line x1="167" y1="206.7" x2="167" y2="265.1"/><line x1="10.6" y1="265.1" x2="205.3" y2="265.1"/></g>`;
+  s+=spFoot(268.4)+`</svg>`; let h=s;
+  const at=(x,y,w,ht)=>`left:calc(${x}*var(--mm));top:calc(${y}*var(--mm));width:calc(${w}*var(--mm));height:calc(${ht}*var(--mm))`;
+  const cls=k=>p&&p.src[k]==="claude"?"claude":"";
+  const sel=(k,v,opts,x,y,w,ht,ph,extra="")=>ed?`<select class="px spin ${cls(k)} ${extra}" style="${at(x,y,w,ht)}" data-spf="${k}" aria-label="${esc(ph)}" title="${esc(ph)}"><option value="">${esc(ph)}</option>${opts}</select>`:`<div class="px sptx b" style="${at(x,y,w,ht)}">${esc(v||"")}</div>`;
+  const inp=(k,v,x,y,w,ht,ph,type="text",extra="",short="")=>ed?`<input class="px spin ${cls(k)} ${extra}" type="${type}" ${type==="date"?"required":""} style="${at(x,y,w,ht)}" data-spf="${k}" value="${esc(v||"")}" placeholder="${esc(type==="date"?"":short)}" aria-label="${esc(ph)}" title="${esc(ph)}">`:`<div class="px sptx ${extra}" style="${at(x,y,w,ht)}">${esc(type==="date"&&v?new Date(v+"T12:00:00").toLocaleDateString(undefined,{month:"2-digit",day:"2-digit",year:"numeric"}):v||"")}</div>`;
+  const ta=(k,v,x,y,w,ht,ph,short="")=>ed?`<textarea class="px spin ${cls(k)}" style="${at(x,y,w,ht)}" data-spf="${k}" placeholder="${esc(short)}" aria-label="${esc(ph)}" title="${esc(ph)}">${esc(v||"")}</textarea>`:`<div class="px sptx" style="${at(x,y,w,ht)}">${esc(v||"")}</div>`;
+  const opt=(list,v)=>list.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("");
+  const actOpt=v=>SP_ACT.map(([g,a])=>`<optgroup label="${g}">${a.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</optgroup>`).join("");
+  if(!p){ h+=`<div class="px spempty" style="${at(40,120,136,30)}"><button class="btn primary" data-spnew>＋ New session plan</button><p>One plan per session. Claude drafts it from the engagement; you write over anything.</p></div>`; return `<div class="spcv">${h}</div>`; }
+  const dim=k=>lt(k)?"":"dimmed";
+  h+=inp("title",p.title||aidTitle(),20.6,21.4,138.4,5,SP_TIP.title,"text","big")+inp("date",p.date,174.5,21.4,30.8,5,SP_TIP.date,"date");
+  h+=`<div class="${dim("log")}">`+sel("type",p.type,opt(SP_TYPES,p.type),11.6,39.6,91.6,5.8,"Type of session")+(ed?`<select class="px spin ${cls("phase")}" style="${at(11.6,50,91.6,5.8)}" data-spf="phase" title="${esc(SP_TIP.phase)}" aria-label="Assessment phase"><option value="0">Assessment phase</option><optgroup label="Problem Space">${[1,2].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup><optgroup label="Solution Space">${[3,4,5,6].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup></select>`:`<div class="px sptx b" style="${at(11.6,50,91.6,5.8)}">${p.phase?SP_PHASES[p.phase-1]:""}</div>`)
+    +inp("loc",p.loc,11.6,60.6,65.4,5.4,SP_TIP.loc,"text","","Where?")+sel("dur",p.dur,opt(SP_DUR,p.dur),78.2,60.6,25.2,5.4,"Duration")+ta("parts.client",p.parts.client,104.6,39.6,49.6,27,SP_TIP.parts,"Names and titles")+ta("parts.ours",p.parts.ours,155,39.6,50,27,SP_TIP.parts,"Names")+`</div>`;
+  h+=`<div class="${dim("pri")}">`; ["c","o"].forEach(side=>{ const G=SPF.pri[side], A=side==="c"?p.cp:p.op; A.forEach((x,i)=>{ const y=SPY.prow[i];
+    h+=sel(`${side}p.${i}`,x.a,actOpt(x.a),G.x,y+1.4,G.w,4.9,"Choose a priority")+ta(`${side}d.${i}`,x.d,G.dx,y+7.2,G.dw,6.8,"Details",x.a?"Details":"");
+    h+=ed?`<button class="px spmet ${x.met?"on":""}" style="${at(G.m-2.2,y+1.3,4.6,4.6)}" data-spmet="${side}.${i}" title="${esc(SP_TIP.met)}" aria-label="Met">${x.met?"✓":""}</button>`:`<div class="px spmet ${x.met?"on":""}" style="${at(G.m-2.2,y+1.3,4.6,4.6)}">${x.met?"✓":""}</div>`; }); }); h+=`</div>`;
+  h+=`<div class="${dim("ag")}">`; p.ag.forEach((x,i)=>{ const y=SPY.arow[i]; h+=ta(`ag.${i}.t`,x.t,SPF.ag.t[0],y+.6,SPF.ag.t[1],9.2,SP_TIP.item,i===0?"The focus of this item":"")+ta(`ag.${i}.o`,x.o,SPF.ag.o[0],y+.6,SPF.ag.o[1],9.2,SP_TIP.owner)+sel(`ag.${i}.dur`,x.dur,opt(SP_DUR_ITEM,x.dur),SPF.ag.d[0],y+2.6,SPF.ag.d[1],5,""); });
+  const tot=spTotal(p), over=p.dur&&tot>spMins(p.dur); h+=`<div class="px sptot" style="${at(179,191.1,26.3,5.2)}${over?";color:#c0392b":""}" title="${esc(over?`Longer than the session's ${p.dur}`:SP_TIP.total)}">${spFmt(tot)}</div></div>`;
+  h+=`<div class="${dim("ns")}">`; p.ns.forEach((x,i)=>{ const y=SPY.rrow[i]; h+=ta(`ns.${i}.a`,x.a,SPF.ns.a[0],y+.6,SPF.ns.a[1],8.4,SP_TIP.action,i===0?"An action that advances it":"")+ta(`ns.${i}.who`,x.who,SPF.ns.w[0],y+.6,SPF.ns.w[1],8.4,SP_TIP.who)+inp(`ns.${i}.due`,x.due,SPF.ns.du[0],y+2.8,SPF.ns.du[1],5,SP_TIP.due,"date")+inp(`ns.${i}.done`,x.done,SPF.ns.dn[0],y+2.8,SPF.ns.dn[1],5,SP_TIP.done,"date");
+    if(spPast(x)) h+=`<div class="px sppast" style="${at(117.1,y+.3,23.2,2.6)}">PAST DUE</div>`; });
+  h+=ta("notes",p.notes,...SPF.notes,SP_TIP.notes,"Notes")+`</div>`;
+  if(ed){ const W=spData().ws; h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${at(122,6.4,84,14.6)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`;
+    h+=`<button class="px sppart" style="${at(178,267.4,9,7)}" data-sppart title="Participants and date">👥</button><button class="px spws" style="${at(189,267.4,14,7)}" data-spws title="Rate your usage of this aid">${spWsDot("w",W.w||0)}${spWsDot("s",W.s||0)}</button>`; }
+  return `<div class="spcv">${h}</div>`; }
+function spPage2({mode="edit",p=spPlan()}={}){ if(!p) return ""; const ed=mode==="edit", F="Open Sans,sans-serif";
+  let h=`<svg class="pmbase" viewBox="0 0 215.9 279.4" preserveAspectRatio="none" aria-hidden="true">${spHeadSVG(false)}${spBar(20,25.8,"SESSION RECAP")}<text x="11.7" y="28.6" font-family="${F}" font-weight="700" font-size="1.9" fill="#1f2430">NOTES</text><line x1="10.6" y1="265.3" x2="205.3" y2="265.3" stroke="#c3c7cf" stroke-width=".3"/>${spFoot(268.4)}</svg>`;
+  const at=`left:calc(11.7*var(--mm));top:calc(30*var(--mm));width:calc(193.4*var(--mm));height:calc(234.6*var(--mm))`;
+  h+=ed?`<textarea class="px spin ${p.src.recap==="claude"?"claude":""}" style="${at}" data-spf="recap" placeholder="${esc(SP_TIP.recap)}" aria-label="Session recap">${esc(p.recap||"")}</textarea>`:`<div class="px sptx" style="${at}">${esc(p.recap||"")}</div>`;
+  return `<div class="spcv p2">${h}</div>`; }
+function spSheetHTML(o={}){ const p=o.p||spPlan(); return `<div class="spstage">${spPage1(o)}${p&&o.page2!==false?`<p class="spcap">Page 2 · Session recap</p>${spPage2(o)}`:""}</div>`; }
+
+/* ---------- editing ---------- */
+function spSet(p,k,v){ const [a,b,c]=k.split(".");
+  if(a==="parts") p.parts[b]=v; else if(a==="cp"||a==="op") (a==="cp"?p.cp:p.op)[+b].a=v; else if(a==="cd"||a==="od") (a==="cd"?p.cp:p.op)[+b].d=v;
+  else if(a==="ag"||a==="ns") p[a][+b][c]=v; else if(a==="phase") p.phase=+v||0; else p[a]=v; p.src[k]="you"; }
+document.addEventListener("input",e=>{ const t=e.target.closest("[data-spf]"); if(!t) return; const p=spPlan(); if(!p) return; if(t.tagName==="SELECT") return; spSet(p,t.dataset.spf,t.value); t.classList.remove("claude"); save(); spMirror(t);
+  if(/^ns\.\d+\.(due|done)$/.test(t.dataset.spf)) spLater(); });
+document.addEventListener("change",e=>{ const t=e.target.closest("[data-spf]"); if(!t) return; const p=spPlan(); if(!p) return; spSet(p,t.dataset.spf,t.value); save(); spMirror(t); spLater(); document.querySelectorAll(".spcv .sptot").forEach(el=>el.textContent=spFmt(spTotal(p))); });
+document.addEventListener("change",e=>{ const c=e.target.closest("[data-spchk]"); if(c){ const p=spPlan(), [k,i]=c.dataset.spchk.split("|"); p.chk=p.chk||{}; (p.chk[k]=p.chk[k]||[])[+i]=c.checked; save(); return; }
+  const d=e.target.closest("[data-spdbon]"); if(d&&spDb){ spDb.items[+d.dataset.spdbon].on=d.checked; } });
+function spMirror(t){ document.querySelectorAll(`[data-spf="${t.dataset.spf}"]`).forEach(o=>{ if(o!==t&&o.value!==t.value) o.value=t.value; }); }
+document.addEventListener("focusout",e=>{ if(e.target.closest&&e.target.closest("#spSheet [data-spf]")) spLater(); });
+let spLT=0; function spLater(){ clearTimeout(spLT); spLT=setTimeout(()=>spRefresh(true),250); }
+
+/* ---------- Claude: plan this session from the engagement (only empty fields; never over your words) ---------- */
+function spPlanPrompt(p){ const st=p.phase||stageOf(), who=spWho();
+  return `You are a KA (Knowledge-Advantage) principal filling in KA's "Session Plan" for the next session with ${aidTitle()}.
+Plan the session from THE ENGAGEMENT below only. Never invent people, names, dates, places or facts.
+${st?`They are in the ${SP_PHASES[st-1]} phase of KA's Assessment Roadmap.`:""}
+PRIORITIES must be chosen EXACTLY from this list (the Assessment Roadmap activities, as printed): ${JSON.stringify(SP_ALL)}. Up to 3 client/advisor priorities (what the client wants from the session) and up to 3 of ours (what we are specifically trying to achieve as a result of the session). Each with details under 90 characters.
+AGENDA: up to 6 items, each "what needs to be the focus of the meeting to achieve the objectives", under 70 characters, tied to the engagement's aids where it helps (e.g. confirm the stakeholders' priorities on the map, walk through the alignment, agree the criteria). Owner: ${who.length?`one of these participants only: ${JSON.stringify(who)}, or "Us" or "Client"`:`"Us" or "Client" (no names were given)`}. Duration from this list only: ${JSON.stringify(SP_DUR_ITEM)}.${p.dur?` The items should add up to no more than ${p.dur}.`:""}
+TYPE OF SESSION from this list only: ${JSON.stringify(SP_TYPES)}. SESSION DURATION from: ${JSON.stringify(SP_DUR)}.
+NEXT STEPS: up to 4 likely actions to advance the opportunity after the session, each under 60 characters; "who" uses the same rule as owners; no dates.
+THE ENGAGEMENT:
+${engagementText().slice(0,14000)}
+Reply with JSON only: {"type":"…","duration":"…","client":[{"a":"exact item","d":"details"}],"ours":[{"a":"exact item","d":"details"}],"agenda":[{"t":"…","o":"…","dur":"…"}],"next":[{"a":"…","who":"…"}],"questions":["up to 4 questions to confirm before the session"]}`; }
+function spApply(p,r){ const snap=JSON.stringify(p); let n=0; const put=(k,cur,v,fn)=>{ if(!v||p.src[k]==="you"||String(cur||"").trim()) return; fn(v); p.src[k]="claude"; n++; };
+  put("type",p.type,SP_TYPES.includes(r?.type)?r.type:"",v=>p.type=v); put("dur",p.dur,SP_DUR.includes(r?.duration)?r.duration:"",v=>p.dur=v);
+  [["client","cp","c"],["ours","op","o"]].forEach(([rk,pk,sd])=>{ const used=new Set(p[pk].map(x=>x.a).filter(Boolean)); (Array.isArray(r?.[rk])?r[rk]:[]).filter(x=>SP_ALL.includes(x?.a)&&!used.has(x.a)).slice(0,3).forEach(x=>{ const i=p[pk].findIndex(z=>!z.a); if(i<0||p.src[`${sd}p.${i}`]==="you") return; used.add(x.a); p[pk][i].a=x.a; p.src[`${sd}p.${i}`]="claude"; if(!p[pk][i].d.trim()&&x.d){ p[pk][i].d=String(x.d).slice(0,140); p.src[`${sd}d.${i}`]="claude"; } n++; }); });
+  const ok=o=>{ o=String(o||"").trim(); const who=spWho(); return !o||o==="Us"||o==="Client"||who.includes(o)?o:""; };
+  (Array.isArray(r?.agenda)?r.agenda:[]).slice(0,6).forEach(x=>{ const i=p.ag.findIndex(z=>!z.t.trim()); if(i<0||!x?.t) return; p.ag[i].t=String(x.t).slice(0,120); p.src[`ag.${i}.t`]="claude"; if(!p.ag[i].o.trim()){ p.ag[i].o=ok(x.o); if(p.ag[i].o) p.src[`ag.${i}.o`]="claude"; } if(!p.ag[i].dur&&SP_DUR_ITEM.includes(x.dur)){ p.ag[i].dur=x.dur; p.src[`ag.${i}.dur`]="claude"; } n++; });
+  (Array.isArray(r?.next)?r.next:[]).slice(0,4).forEach(x=>{ const i=p.ns.findIndex(z=>!z.a.trim()); if(i<0||!x?.a) return; p.ns[i].a=String(x.a).slice(0,100); p.src[`ns.${i}.a`]="claude"; if(!p.ns[i].who.trim()){ p.ns[i].who=ok(x.who); if(p.ns[i].who) p.src[`ns.${i}.who`]="claude"; } n++; });
+  p.qs=(Array.isArray(r?.questions)?r.questions:[]).map(String).slice(0,4); return {n,snap}; }
+async function spDraft(){ let p=spPlan(); if(!p){ p=spNew(true); } if(!sample){ toast("Claude's plan needs this page opened in Claude",null,true); return; }
+  spBusy=true; spMsg="Claude is planning the session from the engagement…"; spRefresh(); spCtl=new AbortController();
+  try{ const r=await sample.json(spPlanPrompt(p),{signal:spCtl.signal,modelTier:"complex"}); const {n,snap}=spApply(p,r); save(); spMsg="";
+    toast(n?`Claude planned ${n} part${n===1?"":"s"} of the session. Write over any of them.`:"Nothing was empty to plan.",n?()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); }:null,true); }
+  catch(e){ const m=failMsg(e); spMsg=m===null?"":(m||"Claude couldn't plan the session this time."); }
+  finally{ spBusy=false; spRefresh(); } }
+
+/* ---------- after the session: Met, the recap and next steps from a debrief (shown first, you pick) ---------- */
+function spDebriefPart(p){ return `SESSION PLAN for ${spLabel(p)}: client/advisor priorities ${JSON.stringify(p.cp.map(x=>x.a||null))}, our priorities ${JSON.stringify(p.op.map(x=>x.a||null))}, agenda ${JSON.stringify(p.ag.filter(x=>x.t.trim()).map(x=>x.t))}, next steps already listed ${JSON.stringify(p.ns.filter(x=>x.a.trim()).map(x=>x.a))}.`; }
+function spDebriefPrompt(p,text){ const who=spWho(); return `You are a KA (Knowledge-Advantage) engagement coach. After the session the presenter dictated:\n"""${text}"""\n${spDebriefPart(p)}
+Use ONLY what the debrief says. "met" is true only where the debrief clearly says the priority/objective was met ("Be objective!"). The recap is a factual summary of the session in the presenter's own terms, under 900 characters. Next steps: actions that advance the opportunity, including any objective not met; "who" ${who.length?`from ${JSON.stringify(who)} or "Us"/"Client"`:`"Us" or "Client"`}; a due date (YYYY-MM-DD) only when the debrief gives one.
+Reply with JSON only: {"met":{"client":[true|false|null,…3],"ours":[…3]},"recap":"…","next":[{"a":"under 60 characters","who":"…","due":""}]}`; }
+function spDbClean(p,r){ const it=[]; [["client","cp","Client/advisor"],["ours","op","Our"]].forEach(([rk,pk,l])=>{ const m=r?.met?.[rk]; if(!Array.isArray(m)) return; m.slice(0,3).forEach((v,i)=>{ const x=p[pk][i]; if(x&&x.a&&typeof v==="boolean"&&v!==x.met) it.push({kind:"met",pk,i,v,from:`${l} priority ${i+1}: ${x.a} · ${x.met?"met":"not met"}`,to:v?"Met":"Not met",on:true}); }); });
+  const rc=String(r?.recap||"").trim(); if(rc) it.push({kind:"recap",v:rc.slice(0,1500),from:p.recap.trim()?"the recap you have":"no recap yet",to:rc.slice(0,1500),on:!p.recap.trim()});
+  const have=new Set(p.ns.map(x=>x.a.trim().toLowerCase())); (Array.isArray(r?.next)?r.next:[]).slice(0,6).forEach(x=>{ const a=String(x?.a||"").trim().slice(0,100); if(!a||have.has(a.toLowerCase())) return; const due=/^\d{4}-\d{2}-\d{2}$/.test(x.due||"")?x.due:""; it.push({kind:"ns",a,who:String(x.who||"").slice(0,60),due,from:"new next step",to:`${a}${x.who?` · ${x.who}`:""}${due?` · due ${due}`:""}`,on:true}); });
+  return it; }
+function spDbApply(p,items){ let n=0; items.filter(x=>x.on).forEach(x=>{ if(x.kind==="met"){ p[x.pk][x.i].met=x.v; n++; } if(x.kind==="recap"){ p.recap=x.v; p.src.recap="claude"; n++; }
+    if(x.kind==="ns"){ const i=p.ns.findIndex(z=>!z.a.trim()); if(i<0) return; Object.assign(p.ns[i],{a:x.a,who:x.who,due:x.due}); p.src[`ns.${i}.a`]="claude"; n++; } }); return n; }
+async function spDebrief(text){ const p=spPlan(); if(!p||!text.trim()){ toast("Say or type what happened first",null,true); return; } if(!sample){ toast("This needs the page opened in Claude",null,true); return; }
+  spBusy=true; spMsg="Claude is reading the debrief against the plan…"; spRefresh(); spCtl=new AbortController();
+  try{ const r=await sample.json(spDebriefPrompt(p,text),{signal:spCtl.signal,modelTier:"complex",cache:false}); spDb={id:p.id,items:spDbClean(p,r)}; spMsg=spDb.items.length?"":"Nothing in the debrief changes the plan."; }
+  catch(e){ const m=failMsg(e); spMsg=m===null?"":(m||"Couldn't read the debrief this time."); }
+  finally{ spBusy=false; spRefresh(); } }
+/* the Meeting kit's Debrief covers the plan too */
+const _dbPromptSP=debriefPrompt; debriefPrompt=function(text){ const base=_dbPromptSP(text), p=spPlan(); if(!p) return base;
+  return base.replace(/Reply with JSON only: \{/,`${spDebriefPart(p)}\nAlso propose for the session plan: "sp":{"met":{"client":[true|false|null x3],"ours":[x3]} (true only where clearly met), "recap":"factual, under 900 characters","next":[{"a":"","who":"","due":"YYYY-MM-DD only if said"}]}.\nReply with JSON only: {"sp":{…},`); };
+const _dbCleanSP=debriefClean; debriefClean=function(r){ const o=_dbCleanSP(r), p=spPlan(); if(p&&r&&r.sp) spDbClean(p,r.sp).forEach(x=>o.items.push(Object.assign({},x,{kind:"sp_"+x.kind}))); return o; };
+const _dbShowSP=debriefShow; debriefShow=function(){ _dbShowSP(); const it=dbProp.items, rows=it.map((x,i)=>[x,i]).filter(([x])=>String(x.kind).startsWith("sp_")); if(!rows.length) return; const row=document.querySelector("#dbApply")?.closest(".arow"); if(!row) return;
+  row.insertAdjacentHTML("beforebegin",`<h3>Session Plan</h3>${rows.map(([x,i])=>`<label class="dbrow"><input type="checkbox" data-dbon="${i}" ${x.on?"checked":""}><span><s>${esc(x.from)}</s> → <b>${esc(x.to)}</b></span></label>`).join("")}`);
+  document.querySelectorAll("[data-dbon]").forEach(c=>c.onchange=()=>{ dbProp.items[+c.dataset.dbon].on=c.checked; $("dbApply").textContent=`Apply ${dbProp.items.filter(x=>x.on).length} changes`; });
+  if(it.length===rows.length){ const b=$("dbApply"); if(b){ b.disabled=false; b.textContent=`Apply ${it.filter(x=>x.on).length} changes`; } document.querySelectorAll(".kitbody .note,.kit .note").forEach(n=>{ if(/Nothing in the debrief changes the aids/.test(n.textContent)) n.remove(); }); } };
+const _dbApplySP=debriefApply; debriefApply=function(){ const sp=dbProp.items.filter(x=>String(x.kind).startsWith("sp_")&&x.on).map(x=>Object.assign({},x,{kind:x.kind.slice(3)})); dbProp.items=dbProp.items.filter(x=>!String(x.kind).startsWith("sp_"));
+  const p=spPlan(); if(p&&sp.length){ spDbApply(p,sp); save(); } _dbApplySP(); spRefresh(); };
+/* the follow-up email names the plan's next steps; the brief and Rehearse read the plan */
+const _followSP=followDraft; followDraft=function(){ const d=_followSP(), p=spPlan(); if(!p) return d; const ns=p.ns.filter(x=>x.a.trim()&&!x.done), met=spPris(p).filter(x=>x.met);
+  let add=""; if(met.length) add+=`\nObjectives we met:\n${met.map(x=>"• "+x.a.replace(/^\d\.\d\s+/,"")).join("\n")}\n`; if(ns.length) add+=`\nNext steps:\n${ns.map(x=>`• ${x.a}${x.who?` (${x.who})`:""}${x.due?`, by ${new Date(x.due+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"})}`:""}`).join("\n")}\n`;
+  if(add) d.body=d.body.replace(/\nNext step: /,`${add}\nNext step: `); return d; };
+const _engTextSP=engagementText; engagementText=function(){ const t=_engTextSP(), p=spPlan(); if(!p||!(spPris(p).length||p.ag.some(x=>x.t.trim()))) return t;
+  return `${t}\nSESSION PLAN (${spLabel(p)}${p.phase?`, ${SP_PHASES[p.phase-1]}`:""}${p.dur?`, ${p.dur}`:""}):\nClient/advisor priorities: ${p.cp.filter(x=>x.a).map(x=>`${x.a}${x.d?` (${x.d})`:""}`).join("; ")||"none yet"}\nOur priorities: ${p.op.filter(x=>x.a).map(x=>`${x.a}${x.d?` (${x.d})`:""}`).join("; ")||"none yet"}\nAgenda: ${p.ag.filter(x=>x.t.trim()).map(x=>`${x.t}${x.o?` [${x.o}]`:""}${x.dur?` ${x.dur}`:""}`).join("; ")||"none yet"}\nParticipants: ${[p.parts.client,p.parts.ours].filter(x=>x.trim()).join("; ").replace(/\n/g,", ")||"not named"}`; };
+
+/* ---------- plans: new, switch, remove ---------- */
+function spNew(quiet){ const D=spData(), p=spBlank(); const prev=D.plans[D.cur]; if(prev){ p.parts=Object.assign({},prev.parts); p.loc=prev.loc; p.src["parts.client"]=p.src["parts.ours"]="you"; p.ns=prev.ns.filter(x=>x.a.trim()&&!x.done).map(x=>Object.assign({},x)).concat([0,1,2,3,4,5].map(()=>({a:"",who:"",due:"",done:"",d:""}))).slice(0,6); }
+  D.plans.push(p); D.cur=D.plans.length-1; save(); spIdx=1; if(!quiet) toast(prev?"New session plan · participants, location and open next steps carried over":"New session plan",null,true); return p; }
+function spTabsHTML(){ const D=spData(); if(!D.plans.length) return ""; return `<div class="uaptabs sptabs" role="tablist" aria-label="Session plans">${D.plans.map((p,i)=>`<button role="tab" aria-selected="${i===D.cur}" data-spsw="${i}">${esc(spLabel(p))}<small>${spScoreOf(p)}%</small></button>`).join("")}<button class="uapaddtab" data-spnew>＋ New session plan</button></div>`; }
+document.addEventListener("click",e=>{ if(!spMode&&!e.target.closest("#ovSP,.spany,.kit")) return;
+  if(e.target.closest("[data-spnew]")){ spNew(); if(curView!=="build") show("build"); else spRefresh(); return; }
+  const sw=e.target.closest("[data-spsw]"); if(sw){ spData().cur=+sw.dataset.spsw; spDb=null; save(); spRefresh(); return; }
+  const m=e.target.closest("[data-spmet]"); if(m){ const p=spPlan(), [sd,i]=m.dataset.spmet.split("."), x=(sd==="c"?p.cp:p.op)[+i]; if(!x.a){ toast("Choose the priority first"); return; } x.met=!x.met; save(); spRefresh(); toast(x.met?"Marked met":"Not met"); return; }
+  if(e.target.closest("[data-spdraft]")){ spDraft(); return; }
+  if(e.target.closest("[data-spstop]")){ spCtl?.abort(); return; }
+  if(e.target.closest("[data-spdbgo]")){ spDebrief($("spDbText")?.value||""); return; }
+  if(e.target.closest("[data-spdbapply]")){ const p=spPlan(); if(!p||!spDb) return; const snap=JSON.stringify(p), n=spDbApply(p,spDb.items); spDb=null; save(); spRefresh(); toast(`${n} change${n===1?"":"s"} applied from the debrief`,()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); },true); return; }
+  if(e.target.closest("[data-spdbx]")){ spDb=null; spRefresh(); return; }
+  const rm=e.target.closest("[data-sprm]"); if(rm){ armed(rm,"Tap again to remove it",()=>{ const D=spData(), snap=JSON.stringify(D), i=+rm.dataset.sprm; D.plans.splice(i,1); D.cur=Math.max(0,Math.min(D.cur,D.plans.length-1)); save(); spRefresh(); toast("Session plan removed",()=>{ S.sp=JSON.parse(snap); save(); spRefresh(); }); }); return; }
+  if(e.target.closest("[data-spws]")){ spWsPop(e.target.closest("[data-spws]")); return; }
+  const wv=e.target.closest("[data-spwsv]"); if(wv){ const [k,v]=wv.dataset.spwsv.split("|"), W=spData().ws; W[k]=W[k]===+v?null:+v; save(); spRefresh(); if(popEl&&popEl.classList.contains("uapwspop")) spWsPop(popEl._anchor); return; }
+  if(e.target.closest("[data-sppart]")){ spPartPop(e.target.closest("[data-sppart]")); return; }
+  const bs=e.target.closest("[data-spbs]"); if(bs){ spIdx=+bs.dataset.spbs; spBuild(); return; }
+  const lc=e.target.closest("[data-spl]"); if(lc){ spL=+lc.dataset.spl; spLearn(); return; }
+  if(e.target.closest("[data-spstart]")){ if(!spPlan()) spNew(true); show("build"); return; }
+  const sp=e.target.closest("[data-spspot]"); if(sp){ spSpot=spSpot===sp.dataset.spspot?null:sp.dataset.spspot; spSheet(); return; }
+  if(e.target.closest("[data-spex]")){ spLoadExample(); return; } });
+document.addEventListener("input",e=>{ const pt=e.target.closest("[data-sppt]"); if(pt){ const p=spPlan(); if(p){ p.part[pt.dataset.sppt]=pt.value; save(); } return; } const dt=e.target.closest("#spDbText"); if(dt){ const p=spPlan(); if(p){ p.dbText=dt.value; save(); } } });
+function spWsPop(anchor){ closePop(); const W=spData().ws, pop=document.createElement("div"); pop.className="pop uapwspop"; pop._anchor=anchor; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Rate your usage of this aid");
+  const col=(k,lab,list)=>`<div><b class="uapwsh ${k}">${lab}</b><p class="note" style="margin:4px 0">Assessment based on:</p>${list.map((t,v)=>`<button class="uapwsrow ${W[k]===v?"on":""}" data-spwsv="${k}|${v}">${v?spWsDot(k,v):"<span class='uapz'></span>"}<span>${v} = ${esc(t)}</span></button>`).join("")}</div>`;
+  pop.innerHTML=`<h5>Rate Your Usage of This Aid</h5><p class="note" style="margin:0 0 8px">${esc(SP_WS.q)}</p><div class="uapws2">${col("w","CONFIDENCE (WILL TO DO)",SP_WS.w)}${col("s","COMPETENCE (SKILL TO DO)",SP_WS.s)}</div>`; place(pop,anchor); popEl=pop; }
+function spPartPop(anchor){ closePop(); const p=spPlan(); if(!p) return; const P=p.part, pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Participants");
+  pop.innerHTML=`<h5>Participants</h5><label class="note" for="spPd">Date:</label><input type="date" class="tin" id="spPd" data-sppt="date" value="${esc(P.date||"")}"><label class="note" for="spPn">Participants:</label><textarea class="tin" id="spPn" rows="4" data-sppt="names">${esc(P.names||"")}</textarea>`; place(pop,anchor); popEl=pop; }
+
+/* ---------- the example: Kevin's working session with Morgan Industries ---------- */
+const SP_EX={plans:[{id:"smi",made:0,title:"Morgan Industries (MI)",date:"",type:"Work-out",phase:1,loc:"MI headquarters, executive conference room",dur:"2 hr 0 min",parts:{client:"Sue Jacobs, VP Sales & Marketing\nJim Bowman, CFO",ours:"Kevin Cooper"},
+  cp:[{a:"1.1 Gain Business Clarity",d:"See how Engage & Retain ties to MI's goals",met:true},{a:"1.4 Verify Success Criteria",d:"Agree how success will be measured",met:false},{a:"",d:"",met:false}],
+  op:[{a:"1.2 Identify Key Stakeholders",d:"Confirm who decides and who must agree",met:true},{a:"1.3 Frame Points of View",d:"Hear Sue's and Jim's priorities in their words",met:true},{a:"",d:"",met:false}],
+  ag:[{t:"Walk through the Alignment of Priorities",o:"Kevin Cooper",dur:"0 hr 30 min",d:""},{t:"Confirm each stakeholder's priorities on the map",o:"Sue Jacobs",dur:"0 hr 30 min",d:""},{t:"Review the key ratios and what they point to",o:"Jim Bowman",dur:"0 hr 20 min",d:""},{t:"Draft the success criteria together",o:"Kevin Cooper",dur:"0 hr 30 min",d:""},{t:"Agree next steps",o:"Sue Jacobs",dur:"0 hr 10 min",d:""},{t:"",o:"",dur:"",d:""}],
+  ns:[{a:"Send the Criteria Proposition for review",who:"Kevin Cooper",due:"",done:"",d:""},{a:"Set targets for the ROI criteria",who:"Sue Jacobs",due:"",done:"",d:""},{a:"Confirm the cash-flow target",who:"Jim Bowman",due:"",done:"",d:""},{a:"",who:"",due:"",done:"",d:""},{a:"",who:"",due:"",done:"",d:""},{a:"",who:"",due:"",done:"",d:""}],
+  notes:"Criteria not yet agreed: carry 1.4 into the next session.",recap:"Sue and Jim agreed the alignment reflects MI's goals. The map confirmed Engage & Retain is High for both. Success criteria are drafted but not agreed; targets for ROI and cash flow are still to set.",src:{},det:{},part:{date:"",names:"Kevin Cooper, Sue Jacobs, Jim Bowman"},qs:[]}],cur:0,ws:{w:2,s:2}};
+try{ EXAMPLE.sp=JSON.parse(JSON.stringify(SP_EX)); }catch(e){}
+function spLoadExample(){ const D=spData(), p=JSON.parse(JSON.stringify(SP_EX.plans[0])); p.id="s"+Date.now().toString(36); p.made=Date.now(); p.date=spToday(); D.plans.push(p); D.cur=D.plans.length-1; save(); spRefresh(); toast("The example is in, as a plan you can change or remove."); }
+
+/* ---------- Learn: the aid's own words ---------- */
+const SP_LEARN=[{t:"What it's for",h:()=>`<p class="lkick">Plan every session</p><h2>Session Plan</h2><p class="lead">Plan each session with the client: the logistics, both sides' priorities for the session, an agenda that achieves them, and the next steps that advance the opportunity. Afterwards, record what was met and recap the session.</p><p class="note">The Session Plan's reference guide wasn't in the PDF, so these cards use the aid's own prompts, word for word.</p><h3>Where to use it</h3><p>${esc(SP_TIP.where)}</p>`},
+  {t:"Logistics and priorities",h:()=>`<h2>Logistics, then priorities</h2><ul><li><b>Type of session</b>: ${esc(SP_TIP.type)} <small>(${SP_TYPES.length} types, from Annual Review to Workshop)</small></li><li><b>Assessment phase</b>: ${esc(SP_TIP.phase)}</li><li><b>Participants</b>: ${esc(SP_TIP.parts)}</li><li><b>Location</b> and <b>duration</b>: ${esc(SP_TIP.loc)} ${esc(SP_TIP.dur)}</li></ul><h3>Priorities · objectives for the session</h3><p>${esc(SP_TIP.pri)}</p><p>Up to three for the client or advisor and three of ours, each chosen from the 36 Assessment Roadmap activities, so every session moves the decision forward.</p>`},
+  {t:"Agenda and next steps",h:()=>`<h2>An agenda that achieves the objectives</h2><p class="lead">${esc(SP_TIP.item)}</p><ul><li><b>Owner</b>: ${esc(SP_TIP.owner)}</li><li><b>Duration</b>: ${esc(SP_TIP.idur)} The total adds itself up.</li></ul><h3>Requirements · next steps</h3><p>${esc(SP_TIP.action)}</p><ul><li><b>Who</b>: ${esc(SP_TIP.who)}</li><li><b>Due date</b>: ${esc(SP_TIP.due)} An action past its due date with no completion date says PAST DUE.</li></ul>`},
+  {t:"After the session",h:()=>`<h2>After the session</h2><p class="lead"><b>Met?</b> ${esc(SP_TIP.met)}</p><p><b>Session recap</b>: ${esc(SP_TIP.recap)} Say or type what happened and Claude proposes the Met ticks, the recap and next steps; you choose which to keep.</p><blockquote>“${esc(KEVIN)}”<cite>Kevin Cooper, Dimensions of Success</cite></blockquote><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-spstart>Plan a session →</button><button class="btn" data-spex>See an example</button></div>`}];
+function spLearn(){ $("spLdots").innerHTML=SP_LEARN.map((c,i)=>`<li><button data-spl="${i}" aria-current="${i===spL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join(""); $("spLcard").innerHTML=SP_LEARN[spL].h(); $("spLPrev").disabled=spL===0; $("spLNext").textContent=spL===SP_LEARN.length-1?"Plan a session →":"Next →"; }
+$("spLPrev").onclick=()=>{ if(spL>0){ spL--; spLearn(); } }; $("spLNext").onclick=()=>{ if(spL<SP_LEARN.length-1){ spL++; spLearn(); } else { if(!spPlan()) spNew(true); show("build"); } };
+
+/* ---------- Build: Sessions, Logistics, Priorities, Agenda, Next steps, After the session, Check ---------- */
+const SP_STEPS=["Sessions","Logistics","Priorities","Agenda","Next steps","After the session","Check"];
+const SP_SPOT=[null,"log","pri","ag","ns",null,null];
+const SP_TIPS=[[SP_TIP.where],[SP_TIP.type,SP_TIP.phase,SP_TIP.parts,SP_TIP.loc,SP_TIP.dur],[SP_TIP.pri,SP_TIP.met],[SP_TIP.item,SP_TIP.owner,SP_TIP.idur],[SP_TIP.action,SP_TIP.who,SP_TIP.due,SP_TIP.done,SP_TIP.notes],[SP_TIP.met,SP_TIP.recap],[SP_WS.q]];
+const spStepDone=i=>{ const p=spPlan(); if(i===0) return !!p; if(!p) return false; return [true,!!(p.type&&p.phase&&p.dur),spPris(p).length>0,p.ag.some(x=>x.t.trim()),p.ns.some(x=>x.a.trim()),spPris(p).some(x=>x.met)||!!p.recap.trim(),spData().ws.w!=null][i]; };
+function spBuild(){ const D=spData(), p=spPlan(), cname=esc(aidTitle());
+  $("spBsteps").innerHTML=SP_STEPS.map((n,i)=>`<li><button data-spbs="${i}" aria-current="${i===spIdx?"step":"false"}" class="${spStepDone(i)?"done":""}" ${i>0&&!p?"disabled":""}><span>${spStepDone(i)&&i!==spIdx?"✓":i===0?"＋":i}</span>${n}</button></li>`).join("");
+  const msg=spMsg?`<p class="note" aria-live="polite">${esc(spMsg)}${spBusy?` <button class="btn small" data-spstop>Stop</button>`:""}</p>`:""; let h="";
+  const fld=(k,v,lab,type="text",ph="")=>`<div class="field"><label for="spB_${k.replace(/\./g,"_")}">${lab}</label><input class="tin" id="spB_${k.replace(/\./g,"_")}" type="${type}" data-spf="${k}" value="${esc(v||"")}" placeholder="${esc(ph)}"></div>`;
+  const tfld=(k,v,lab,rows=3,ph="")=>`<div class="field"><label for="spB_${k.replace(/\./g,"_")}">${lab}</label><textarea class="tin" id="spB_${k.replace(/\./g,"_")}" rows="${rows}" data-spf="${k}" placeholder="${esc(ph)}">${esc(v||"")}</textarea></div>`;
+  const sfld=(k,v,lab,list,ph)=>`<div class="field"><label for="spB_${k.replace(/\./g,"_")}">${lab}</label><select class="tin" id="spB_${k.replace(/\./g,"_")}" data-spf="${k}"><option value="">${esc(ph)}</option>${list.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</select></div>`;
+  const actSel=(k,v)=>`<select class="tin" data-spf="${k}" aria-label="Priority"><option value="">Choose from the Assessment Roadmap</option>${SP_ACT.map(([g,a])=>`<optgroup label="${g}">${a.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</optgroup>`).join("")}</select>`;
+  const claudeCard=`<div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">Plan this session</h3><p class="note" style="margin:2px 0 0">From the engagement: priorities from the Assessment Roadmap, an agenda tied to your aids, owners from the participants you name. Fills only what's empty; never names people you didn't.</p></div></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-spdraft ${spBusy?"disabled":""}>Plan this session</button></div>${msg}</div>`;
+  if(spIdx===0){ h=`<p class="lkick">Step 1 of ${SP_STEPS.length} · Plan every session</p><h2>${D.plans.length?`${D.plans.length} session plan${D.plans.length>1?"s":""} for ${cname}`:"Plan the next session"}</h2><p class="teach">One plan per session, kept as a dated list. ${esc(SP_TIP.where)}</p>${spTabsHTML()}
+      ${D.plans.length?`<ul class="spplist">${D.plans.map((q,i)=>`<li class="${i===D.cur?"cur":""}"><button class="linkbtn" data-spsw="${i}"><b>${esc(spLabel(q))}</b></button><span>${q.phase?SP_PHASES[q.phase-1]:"phase not set"} · ${spPris(q).length} priorit${spPris(q).length===1?"y":"ies"} · ${q.ag.filter(x=>x.t.trim()).length} agenda items${spPris(q).some(x=>x.met)?` · ${spPris(q).filter(x=>x.met).length} met`:""}</span><button class="btn small ghost" data-sprm="${i}">Remove</button></li>`).join("")}</ul>`:""}
+      <div class="arow" style="flex:0 1 auto"><button class="btn ${p?"":"primary"}" data-spnew>＋ New session plan</button>${p?"":`<button class="btn" data-spex>See an example</button>`}</div>${p?claudeCard:""}${D.plans.length>1?`<p class="note">A new plan carries over the participants, the location and any open next steps.</p>`:""}`; }
+  else if(!p){ h=`<p class="note">Start a session plan first.</p>`; }
+  else if(spIdx===1){ h=`<p class="lkick">Step 2 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>Logistics</h2>${claudeCard}<div class="sptwo">${fld("title",p.title||aidTitle(),"For")}${fld("date",p.date,"Date","date")}</div><p class="note" style="margin:-4px 0 8px">${esc(SP_TIP.date)}</p>
+      <div class="sptwo">${sfld("type",p.type,"Type of session",SP_TYPES,"Choose")}<div class="field"><label for="spB_phase">Assessment phase</label><select class="tin" id="spB_phase" data-spf="phase"><option value="0">Choose</option><optgroup label="Problem Space">${[1,2].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup><optgroup label="Solution Space">${[3,4,5,6].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup></select></div></div>
+      <p class="note" style="margin:-4px 0 8px">The plan started at the engagement's stage${stageOf()?` (${SP_PHASES[stageOf()-1]})`:""}; changing it here doesn't change the stage.</p>
+      <div class="sptwo">${fld("loc",p.loc,"Location","text","Where will the session take place?")}${sfld("dur",p.dur,"Duration",SP_DUR,"How long?")}</div>
+      <div class="sptwo">${tfld("parts.client",p.parts.client,"Client/advisor participants",4,"Names and titles")}${tfld("parts.ours",p.parts.ours,"Our participants",4,"Names")}</div>`; }
+  else if(spIdx===2){ h=`<p class="lkick">Step 3 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>Priorities · objectives for the session</h2><p class="teach">${esc(SP_TIP.pri)}</p>${claudeCard}
+      <div class="sptwo">${[["c","cp","Client/advisor priorities"],["o","op","Our priorities"]].map(([sd,pk,l])=>`<div><h3>${l}</h3>${p[pk].map((x,i)=>`<div class="sppri"><b>${i+1}</b>${actSel(`${sd}p.${i}`,x.a)}<input class="tin" data-spf="${sd}d.${i}" value="${esc(x.d)}" placeholder="Details" aria-label="Details"><label class="chk"><input type="checkbox" data-spmetc="${sd}.${i}" ${x.met?"checked":""} ${x.a?"":"disabled"}> Met <small class="note">(after the session)</small></label></div>`).join("")}</div>`).join("")}</div>
+      <p class="note">${p.phase?`Activities from ${SP_PHASES[p.phase-1]} are the natural place to start.`:""} Each activity once per side.</p>`; }
+  else if(spIdx===3){ const tot=spTotal(p), dur=spMins(p.dur); h=`<p class="lkick">Step 4 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>Meeting agenda to achieve objectives</h2><p class="teach">${esc(SP_TIP.item)}</p>${claudeCard}
+      ${p.ag.map((x,i)=>`<div class="sprow"><span class="n">${i+1}</span><label>Item<textarea class="tin" rows="2" data-spf="ag.${i}.t">${esc(x.t)}</textarea></label><label>Owner<input class="tin" data-spf="ag.${i}.o" value="${esc(x.o)}" list="spWhoList"></label><label>Duration<select class="tin" data-spf="ag.${i}.dur"><option value=""></option>${SP_DUR_ITEM.map(o=>`<option ${o===x.dur?"selected":""}>${o}</option>`).join("")}</select></label></div>`).join("")}
+      <datalist id="spWhoList">${["Us","Client",...spWho()].map(w=>`<option value="${esc(w)}">`).join("")}</datalist>
+      <p class="spsum"><b>Total duration: ${spFmt(tot)}</b>${dur?`<span style="${tot>dur?"color:#c0392b":""}">${tot>dur?`${spFmt(tot-dur)} over`:`${spFmt(dur-tot)} to spare`} in the session's ${esc(p.dur)}</span>`:""}</p>`; }
+  else if(spIdx===4){ h=`<p class="lkick">Step 5 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>Requirements · next steps</h2><p class="teach">${esc(SP_TIP.action)}</p>
+      ${p.ns.map((x,i)=>`<div class="sprow ns"><span class="n">${i+1}${spPast(x)?` · <span style="color:#c0392b">PAST DUE</span>`:""}</span><label>Action<textarea class="tin" rows="2" data-spf="ns.${i}.a">${esc(x.a)}</textarea></label><label>Who<input class="tin" data-spf="ns.${i}.who" value="${esc(x.who)}" list="spWhoList"></label><label>Due date<input class="tin" type="date" data-spf="ns.${i}.due" value="${esc(x.due)}"></label><label>Completed<input class="tin" type="date" data-spf="ns.${i}.done" value="${esc(x.done)}"></label></div>`).join("")}
+      <datalist id="spWhoList">${["Us","Client",...spWho()].map(w=>`<option value="${esc(w)}">`).join("")}</datalist>${tfld("notes",p.notes,"Notes",3,SP_TIP.notes)}`; }
+  else if(spIdx===5){ h=`<p class="lkick">Step 6 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>After the session</h2><p class="teach">${esc(SP_TIP.met)}</p>
+      <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">Debrief the session</h3><p class="note" style="margin:2px 0 0">Say or type what happened. Claude proposes the Met ticks, the recap and next steps; you choose which to keep.</p></div></div>
+        <textarea id="spDbText" class="tin" rows="4" placeholder="e.g. Sue agreed the alignment; Jim wants the cash-flow target before he signs off. We'll send the criteria by Friday.">${esc(p.dbText||"")}</textarea>
+        <div class="arow" style="flex:0 1 auto">${typeof kitMic==="function"?kitMic("spDbText"):""}<button class="btn primary" data-spdbgo ${spBusy||!sample?"disabled":""}>Propose from the debrief</button></div>${msg}
+        ${spDb&&spDb.id===p.id&&spDb.items.length?`<div class="spprop">${spDb.items.map((x,i)=>`<label class="dbrow"><input type="checkbox" data-spdbon="${i}" ${x.on?"checked":""}><span><s>${esc(x.from)}</s> → <b>${esc(x.kind==="recap"?x.to.slice(0,200)+(x.to.length>200?"…":""):x.to)}</b></span></label>`).join("")}<div class="arow" style="flex:0 1 auto"><button class="btn primary" data-spdbapply>Apply what's ticked</button><button class="btn" data-spdbx>Discard</button></div></div>`:""}</div>
+      <h3>Met?</h3>${[["c","cp","Client/advisor"],["o","op","Ours"]].map(([sd,pk,l])=>p[pk].filter(x=>x.a).length?`<p class="minicap">${l}</p>${p[pk].map((x,i)=>x.a?`<label class="chk"><input type="checkbox" data-spmetc="${sd}.${i}" ${x.met?"checked":""}> ${esc(x.a)}</label>`:"").join("")}`:"").join("")||`<p class="note">Choose the priorities first.</p>`}
+      ${tfld("recap",p.recap,"Session recap (page 2)",6,SP_TIP.recap)}`; }
+  else { const W=D.ws; h=`<p class="lkick">Step 7 of ${SP_STEPS.length} · ${esc(spLabel(p))}</p><h2>Check the plan</h2>
+      <ul class="spsum" style="display:grid;gap:4px;list-style:none;padding:0">${[[!!(p.type&&p.phase&&p.dur&&p.date),"Logistics: type, phase, date and duration"],[!!(p.parts.client.trim()||p.parts.ours.trim()),"Participants named"],[spPris(p).length>0,"Priorities chosen from the Assessment Roadmap"],[p.ag.some(x=>x.t.trim()),"An agenda"],[!p.dur||spTotal(p)<=spMins(p.dur),"The agenda fits the session"],[p.ns.some(x=>x.a.trim()),"Next steps with owners"],[!p.ns.some(spPast),"Nothing past due"]].map(([ok,t])=>`<li>${ok?"✓":"○"} ${esc(t)}</li>`).join("")}</ul>
+      ${p.qs&&p.qs.length?`<div class="uapcarry"><p class="minicap">To confirm before the session</p><ul>${p.qs.map(q=>`<li>${esc(q)}</li>`).join("")}</ul></div>`:""}
+      <h3>Rate your usage of this aid</h3><button class="btn small spany" data-spws>${spWsDot("w",W.w||0)} ${spWsDot("s",W.s||0)} ${W.w==null&&W.s==null?"Rate it":`Will · Skill ${Math.round(((W.w||0)+(W.s||0))/6*100)}%`}</button> <button class="btn small spany" data-sppart>👥 Participants${p.part.names?` · ${p.part.names.split(/[,\n]/).filter(Boolean).length}`:""}</button>`; }
+  $("spBmain").innerHTML=h; $("spBpos").textContent=`${spIdx+1} of ${SP_STEPS.length}`; $("spBBack").disabled=spIdx===0; $("spBNext").textContent=spIdx===SP_STEPS.length-1?"See the sheet →":"Next →"; $("spBNext").disabled=spIdx===0&&!p;
+  $("spMini").innerHTML=spSheetHTML({mode:"view",spot:SP_SPOT[spIdx],page2:false});
+  $("spAsk").innerHTML=`<p class="minicap">From the aid</p><ul>${SP_TIPS[spIdx].map(q=>`<li>${esc(q)}</li>`).join("")}</ul>`; renderNextPill(); }
+document.addEventListener("change",e=>{ const m=e.target.closest("[data-spmetc]"); if(!m) return; const p=spPlan(), [sd,i]=m.dataset.spmetc.split("."); (sd==="c"?p.cp:p.op)[+i].met=m.checked; save(); spLater(); });
+$("spBBack").onclick=()=>{ if(spIdx>0){ spIdx--; spBuild(); } }; $("spBNext").onclick=()=>{ if(spIdx<SP_STEPS.length-1){ spIdx++; spBuild(); } else show("aid"); }; $("spMini").onclick=()=>show("aid");
+
+/* ---------- the sheet ---------- */
+function spSheet(){ const p=spPlan(), cl=p&&Object.values(p.src).includes("claude");
+  $("spTabs").innerHTML=spTabsHTML(); $("spSheet").innerHTML=spSheetHTML({mode:"edit",spot:spSpot});
+  $("spBanner").hidden=!(cl||spBusy); $("spBanner").innerHTML=spBusy?esc(spMsg):`<span><b>Shaded fields are Claude's draft.</b> Write over any of them.</span>`;
+  if(!p){ $("spRead").innerHTML=""; return; } const met=spPris(p).filter(x=>x.met).length, past=p.ns.filter(spPast).length, tot=spTotal(p);
+  $("spRead").innerHTML=`<div class="rcard"><h3>${esc(spLabel(p))}</h3><p style="margin:0">${p.phase?SP_PHASES[p.phase-1]:"Phase not set"}${p.dur?` · ${esc(p.dur)}`:""}${p.loc?` · ${esc(p.loc)}`:""}</p><div class="pmchips">${[["log","Logistics"],["pri","Priorities"],["ag","Agenda"],["ns","Next steps"]].map(([k,l])=>`<button data-spspot="${k}" class="${spSpot===k?"on":""}">${l}</button>`).join("")}</div></div>
+    <div class="rcard"><h3>Priorities</h3><p style="margin:0">${spPris(p).length} chosen · ${met} met</p><p class="note" style="margin:4px 0 0">Agenda ${spFmt(tot)}${p.dur?` of ${esc(p.dur)}`:""}</p></div>
+    <div class="rcard ${past?"warn":""}"><h3>Next steps</h3><p style="margin:0">${p.ns.filter(x=>x.a.trim()).length} listed · ${p.ns.filter(x=>x.done).length} completed${past?` · <b>${past} past due</b>`:""}</p></div>`; }
+function spRefresh(soft){ if(route==="overview") try{ spPaint(); }catch(e){} if(!spMode) return; const ae=document.activeElement, inSheet=$("spSheet")?.contains(ae)&&ae.matches("input,textarea,select"), inPanel=$("viewBuildSP")?.contains(ae)&&ae.matches("input,textarea,select");
+  const one=document.body.classList.contains("one"); if(one||curView==="aid"){ if(!(soft&&inSheet)) spSheet(); } if(one||curView==="build"){ if(!(soft&&inPanel)) spBuild(); } if(curView==="learn"&&!one) spLearn(); renderNextPill(); }
+function spSummary(){ const p=spPlan(); if(!p) return ""; const L=[`SESSION PLAN · ${p.title||aidTitle()}`,spLabel(p)];
+  L.push(`Type: ${p.type||"—"} · Assessment phase: ${p.phase?SP_PHASES[p.phase-1]:"—"} · Location: ${p.loc||"—"} · Duration: ${p.dur||"—"}`); if(p.parts.client.trim()) L.push(`Client/advisor participants: ${p.parts.client.replace(/\n/g,", ")}`); if(p.parts.ours.trim()) L.push(`Our participants: ${p.parts.ours.replace(/\n/g,", ")}`);
+  L.push("","PRIORITIES - OBJECTIVES FOR THE SESSION"); [["Client/advisor",p.cp],["Ours",p.op]].forEach(([l,A])=>A.forEach((x,i)=>{ if(x.a) L.push(`${l} ${i+1}: ${x.a}${x.d?` · ${x.d}`:""}${x.met?" · MET":""}`); }));
+  L.push("","MEETING AGENDA"); p.ag.forEach((x,i)=>{ if(x.t.trim()) L.push(`${i+1}. ${x.t}${x.o?` · ${x.o}`:""}${x.dur?` · ${x.dur}`:""}`); }); L.push(`Total duration: ${spFmt(spTotal(p))}`);
+  L.push("","REQUIREMENTS - NEXT STEPS"); p.ns.forEach((x,i)=>{ if(x.a.trim()) L.push(`${i+1}. ${x.a}${x.who?` · ${x.who}`:""}${x.due?` · due ${x.due}`:""}${x.done?` · completed ${x.done}`:spPast(x)?" · PAST DUE":""}`); }); if(p.notes.trim()) L.push(`Notes: ${p.notes}`);
+  if(p.recap.trim()) L.push("","SESSION RECAP",p.recap); return L.join("\n"); }
+$("spPdf").onclick=()=>spDownload(); $("spCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(spSummary()); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+$("spAddBtn").onclick=()=>{ spNew(); show("build"); };
+$("spClear").onclick=e=>{ const p=spPlan(); if(!p) return; armed(e.currentTarget,"Tap again to clear this plan",()=>{ const snap=JSON.stringify(p), b=spBlank(); Object.keys(b).forEach(k=>{ if(!["id","made","date","phase"].includes(k)) p[k]=b[k]; }); save(); spRefresh(); toast("Plan cleared",()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); }); }); };
+
+/* ---------- into the app: routes, the path, the header, Overview, ⌘K ---------- */
+AID_VIEWS.push("viewLearnSP","viewBuildSP","viewAidSP");
+const SP_VIEWS={learn:"viewLearnSP",build:"viewBuildSP",aid:"viewAidSP"};
+const _showSP=show; show=function(view){ if(!spMode){ Object.values(SP_VIEWS).forEach(v=>$(v).hidden=true); document.body.classList.remove("sp"); return _showSP(view); }
+  route="aid"; curView=view; ROUTES.forEach(r=>$(RVIEW[r]).hidden=true); AID_VIEWS.forEach(v=>{ const el=$(v); if(el) el.hidden=true; }); $(SP_VIEWS[view]).hidden=false; closePop();
+  document.body.classList.remove("pm","cp","ar","uap"); document.body.classList.add("sp"); document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); document.body.dataset.route="aid"; $("aidHead").hidden=false;
+  try{ history.replaceState(null,"","#sp-"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") spLearn(); if(view==="build") spBuild(); if(view==="aid") spSheet(); renderAidHead(); renderCrumbs(); };
+function spLeave(){ if(spMode){ spMode=false; document.body.classList.remove("sp"); Object.values(SP_VIEWS).forEach(v=>$(v).hidden=true); } }
+function openSP(view){ let seen=true; try{ seen=!!localStorage.getItem("ka-seen-sp"); localStorage.setItem("ka-seen-sp","1"); }catch(e){} const v=!seen?"learn":(view||(spPlan()?"aid":"build"));
+  closeCmd(); closePop(); arLeave(); uapLeave(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } spMode=true; route="aid"; show(v); pushHash(); scrollTo({top:0}); }
+const _setAidSP=setAidMode; setAidMode=function(cp){ spLeave(); _setAidSP(cp); };
+const _openPMSP=openPM; openPM=function(v){ spLeave(); _openPMSP(v); };
+const _openARSP=openAR; openAR=function(v){ spLeave(); _openARSP(v); };
+const _openUAPSP=openUAP; openUAP=function(v){ spLeave(); _openUAPSP(v); };
+const _openAidSP=openAid; openAid=function(cp,view){ if(spMode){ spLeave(); if(!!cp===cpMode&&!pmMode) setAidMode(!!cp); } return _openAidSP(cp,view); };
+const _rhSP=routeHash; routeHash=function(){ return route==="aid"&&spMode?"#sp-"+(curView==="aid"?"sheet":curView):_rhSP(); };
+const _parseSP=parseRoute; parseRoute=function(){ const h=location.hash.slice(1); if(h.startsWith("sp-")){ const v=h.slice(3); return {r:"aid",sp:true,view:v==="sheet"?"aid":["learn","build"].includes(v)?v:"aid"}; } return _parseSP(); };
+const _navSP=nav; nav=function(r,opt={}){ if(r==="aid"&&opt.sp){ if(opt.push===false){ arLeave(); uapLeave(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } spMode=true; show(opt.view||"aid"); return; } openSP(opt.view); return; }
+  if(r!=="aid"||spMode) spLeave(); return _navSP(r,opt); };
+addEventListener("popstate",e=>{ const p=parseRoute(); if(p&&p.sp){ e.stopImmediatePropagation(); nav("aid",{sp:true,view:p.view,push:false}); } },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="sp"]'); if(!n) return; e.preventDefault(); e.stopImmediatePropagation(); openSP(n.dataset.view); },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="pm"],[data-nav="aop"],[data-nav="cp"],[data-nav="ar"],[data-nav="uap"]'); if(n&&spMode) spLeave(); },true);
+const _aidHeadSP=renderAidHead; renderAidHead=function(){ _aidHeadSP(); if(route!=="aid") return; if(spMode){ $("ahPath")?.querySelectorAll('[aria-current="page"]').forEach(b=>b.removeAttribute("aria-current")); $("ahTitle").textContent="Session Plan"; } };
+function spNextMove(){ const p=spPlan();
+  if(!p) return {t:"Plan the next session",go:()=>{ spNew(true); spIdx=1; show("build"); }};
+  if(!spPris(p).length&&!p.ag.some(x=>x.t.trim())&&sample) return {t:"Plan this session with Claude",go:()=>{ spIdx=1; show("build"); spDraft(); }};
+  if(!(p.type&&p.phase&&p.dur)) return {t:"Set the logistics: type, phase and duration",go:()=>{ spIdx=1; show("build"); }};
+  if(!spPris(p).length) return {t:"Choose the session's priorities",go:()=>{ spIdx=2; show("build"); }};
+  if(!p.ag.some(x=>x.t.trim())) return {t:"Build the agenda",go:()=>{ spIdx=3; show("build"); }};
+  if(p.date&&p.date<spToday()&&!spPris(p).some(x=>x.met)&&!p.recap.trim()) return {t:"Recap the session: what was met?",go:()=>{ spIdx=5; show("build"); }};
+  const past=p.ns.filter(spPast).length; if(past) return {t:`${past} next step${past>1?"s are":" is"} past due`,go:()=>{ spIdx=4; show("build"); }};
+  if(!p.ns.some(x=>x.a.trim())) return {t:"Agree the next steps",go:()=>{ spIdx=4; show("build"); }};
+  return {t:"Meet the client: present the session plan",done:true,go:()=>{ meetAid="sp"; nav("meet"); }}; }
+const _crumbsSP=renderCrumbs; renderCrumbs=function(){ _crumbsSP(); if(route==="aid"&&spMode){ const b=$("crumbs").querySelectorAll("b"); if(b.length&&!document.body.classList.contains("client")) b[b.length-1].textContent="Session Plan"; } };
+const _rbSP=refreshBrand; refreshBrand=function(){ _rbSP(); if(spMode&&curView==="aid") spSheet(); };
+function spPaint(){ const c=document.querySelector("#ovPath .dimc.d-how"); if(!c) return; c.querySelector(".ovsp")?.remove(); const p=spPlan(), sc=spScore(), past=p?p.ns.filter(spPast).length:0;
+  c.insertAdjacentHTML("beforeend",`<div class="ovroad ovsp spany" id="ovSP"><div><b>Session Plan</b><span>${p?`${esc(spLabel(p))} · ${sc}%${past?` · ${past} past due`:""}`:"Plan the next session"}</span></div><button class="btn small" data-nav="sp" data-view="${p?"aid":"build"}">${p?"Open":"Plan"}</button></div>`); }
+const _roSP=renderOverview; renderOverview=function(){ _roSP(); try{ spPaint(); }catch(e){} };
+const _cmdSP=cmdActions; cmdActions=function(){ const A=_cmdSP(); A.push({g:"Aids",t:"Session Plan · the sheet",run:()=>openSP("aid"),hint:""},{g:"Aids",t:"Session Plan · new session plan",run:()=>{ openSP("build"); spNew(); spBuild(); },hint:""},{g:"Aids",t:"Session Plan · plan it with Claude",run:()=>{ openSP("build"); spDraft(); },hint:""}); return A; };
+TOK_AID.sp="Session Plan";
+try{ SHARE_CONTENT.push("sp"); }catch(e){}
+const _snapSP=snapData; snapData=function(){ const d=_snapSP(); d.sp=JSON.parse(JSON.stringify(S.sp||null)); return d; };
+
+/* ---------- Present: today's session and its next steps (the map's engine and shared bar) ---------- */
+function spSlidesRaw(){ const p=spPlan(), s=[]; if(!p) return s; if(spPris(p).length||p.ag.some(x=>x.t.trim())) s.push({k:"spToday"}); p.ag.forEach((x,i)=>{ if(x.t.trim()) s.push({k:"spItem",i}); }); if(p.ns.some(x=>x.a.trim())||spPris(p).some(x=>x.met)) s.push({k:"spNext"}); return s; }
+function spPresent(){ presSP=true; const segOn=typeof PL!=="undefined"&&PL&&PL.segs[PL.i]?.a==="sp"; pmSl=segOn?plSlidesFor("sp",PL.i===0):spSlidesRaw(); pmSi=0; if(!pmSl.length){ presSP=false; toast("Plan the session first",null,true); return; }
+  let o=$("pmPres"); if(!o){ o=document.createElement("div"); o.id="pmPres"; o.className="pmpres"; o.setAttribute("role","dialog"); document.body.appendChild(o); } o.setAttribute("aria-label","Present the Session Plan");
+  o.hidden=false; document.body.classList.add("pmpresenting"); pmTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; closePop();
+  $("presbar").hidden=false; $("pprog").hidden=false; if(!(PL&&PL.i>0&&presT0)) presT0=Date.now();
+  try{ const r=!document.fullscreenElement&&document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} pmPresRender(); wake(); bc(stateMsg(true)); }
+const _pmPRsp=pmPresRender; pmPresRender=function(){ const sl=pmSl[pmSi]; if(!presSP||!sl||!String(sl.k).startsWith("sp")) return _pmPRsp();
+  const o=$("pmPres"), p=spPlan(); let inner="";
+  const meta=`<p class="spmeta">${p.date?`<span><b>${esc(new Date(p.date+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"}))}</b></span>`:""}${p.type?`<span>${esc(p.type)}</span>`:""}${p.phase?`<span>${SP_PHASES[p.phase-1]} phase</span>`:""}${p.loc?`<span>${esc(p.loc)}</span>`:""}${p.dur?`<span>${esc(p.dur)}</span>`:""}</p>`;
+  const pri=(A,l)=>`<div><h3>${l}</h3><ol>${A.filter(x=>x.a).map(x=>`<li>${esc(x.a.replace(/^\d\.\d\s+/,""))}${x.d?` <small style="color:#5b6476">· ${esc(x.d)}</small>`:""}${x.met?` <span class="met">✓ Met</span>`:""}</li>`).join("")||"<li style='color:#8a8f99'>None yet</li>"}</ol></div>`;
+  if(sl.k==="spToday") inner=`<div class="slide spslide"><div class="pmtop"><span class="k">Session Plan</span>${CLIENT_MARK()}</div><h2>Today’s session</h2>${meta}<div class="sp2">${pri(p.cp,"Your priorities")}${pri(p.op,"Ours")}</div><h3 style="font-size:1.5cqw;color:#2c4f9b;margin:2cqw 0 .6cqw">Agenda</h3><table><thead><tr><th>Item</th><th>Owner</th><th>Duration</th></tr></thead><tbody>${p.ag.filter(x=>x.t.trim()).map(x=>`<tr><td>${esc(x.t)}</td><td>${esc(x.o)}</td><td>${esc(x.dur)}</td></tr>`).join("")}</tbody></table><p class="sptotal">Total duration ${spFmt(spTotal(p))}</p></div>`;
+  if(sl.k==="spItem"){ const x=p.ag[sl.i], n=p.ag.filter(z=>z.t.trim()).indexOf(x)+1, all=p.ag.filter(z=>z.t.trim()).length; inner=`<div class="slide spslide"><div class="pmtop"><span class="k">Agenda · ${n} of ${all}</span>${CLIENT_MARK()}</div><p class="big1">${esc(x.t)}</p><p class="spmeta">${x.o?`<span>Owner <b>${esc(x.o)}</b></span>`:""}${x.dur?`<span>${esc(x.dur)}</span>`:""}</p><div class="sp2">${pri(p.cp,"Your priorities")}${pri(p.op,"Ours")}</div></div>`; }
+  if(sl.k==="spNext"){ const ns=p.ns.filter(x=>x.a.trim()); inner=`<div class="slide spslide"><div class="pmtop"><span class="k">Requirements · next steps</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2>${spPris(p).some(x=>x.met)?`<p class="spmeta"><span><b>Met:</b> ${spPris(p).filter(x=>x.met).map(x=>esc(x.a.replace(/^\d\.\d\s+/,""))).join(" · ")}</span></p>`:""}<table><thead><tr><th>Action</th><th>Who</th><th>Due</th></tr></thead><tbody>${ns.map(x=>`<tr><td>${esc(x.a)}</td><td>${esc(x.who)}</td><td>${x.due?esc(new Date(x.due+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"})):""}${x.done?` <span class="met">✓</span>`:spPast(x)?` <span class="past">PAST DUE</span>`:""}</td></tr>`).join("")}</tbody></table><p style="font-size:1.5cqw;color:#5b6476;margin:1.6cqw 0 0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); fitSlide(o.querySelector(".slide"));
+  presChrome(pmSi,pmSl.length,pmSlideLabel(sl)); if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); };
+const _pmEndSP=pmPresEnd; pmPresEnd=function(){ _pmEndSP(); if(!plSwitching) presSP=false; };
+const _pmSLsp=pmSlideLabel; pmSlideLabel=function(sl){ if(sl&&String(sl.k).startsWith("sp")){ const p=spPlan(); return sl.k==="spToday"?"Today’s session":sl.k==="spItem"?(p?.ag[sl.i]?.t||"Agenda item"):"Next steps"; } return _pmSLsp(sl); };
+const _pmNHsp=pmNotesHTML; pmNotesHTML=function(sl){ if(!sl||!String(sl.k).startsWith("sp")) return _pmNHsp(sl); const p=spPlan(), ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(sl.k==="spItem"){ const x=p.ag[sl.i]; return `<p style="margin:0"><b>${esc(x.t)}</b>${x.o?` · ${esc(x.o)}`:""}${x.dur?` · ${esc(x.dur)}`:""}</p>${x.d?`<p>${esc(x.d)}</p>`:""}<h4>Objectives it serves</h4>${ul(spPris(p).map(z=>z.a))}`; }
+  if(sl.k==="spToday") return `<p style="margin:0">${esc(SP_TIP.pri)}</p>${p.qs?.length?`<h4>To confirm</h4>${ul(p.qs)}`:""}`;
+  return `<p style="margin:0">${esc(SP_TIP.action)}</p>`; };
+const _pmCTsp=pmCardText; pmCardText=function(sl){ if(!sl||!String(sl.k).startsWith("sp")) return _pmCTsp(sl); return `<small>Session Plan</small><b>${esc(pmSlideLabel(sl))}</b>`; };
+const _pDeckSP=$("pDeck").onclick; $("pDeck").onclick=()=>presSP&&pmOn()?spDownload():_pDeckSP();
+/* the combined presentation: today's session opens the story */
+PL_ORDER.unshift("sp");
+PL_PARTS.sp={sum:["spToday","spNext"],det:["spItem"],sumL:"Today's session and its next steps",detL:"Each agenda item"};
+const _plHasSP=plHas; plHas=function(a){ if(a==="sp") return spSlidesRaw().length>0; return _plHasSP(a); };
+const _plSFsp=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="sp") return _plSFsp(a,first); const pk=plPick()[a]||{}, P=PL_PARTS.sp; return spSlidesRaw().filter(s=>(pk.sum&&P.sum.includes(s.k))||(pk.det&&P.det.includes(s.k))); };
+const _plStartSP=plStart; plStart=function(seg,atEnd){ if(seg.a!=="sp"){ presSP=false; return _plStartSP(seg,atEnd); } openSP("aid"); spPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } };
+const _plStepSP=plStep; plStep=function(d){ if(PL&&PL.segs[PL.i]?.a==="sp"){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; } plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plStepSP(d); };
+const _plJumpSP=plJump; plJump=function(j,atEnd){ if(PL&&PL.segs[PL.i]?.a==="sp"){ plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],atEnd); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plJumpSP(j,atEnd); };
+const _rmGoSP=rmGoTo; rmGoTo=function(st){ if(st&&st.a==="sp"&&!st.pick&&!(presenting||pmOn())){ openSP("aid"); spPresent(); setTimeout(()=>rmGoTo(Object.assign({},st,{a:"spx"})),500); return; } return _rmGoSP(st); };
+
+/* ---------- PDF: the plan on two portrait letter pages ---------- */
+async function spDownload(){ const p=spPlan(); if(!p){ toast("Start a session plan first"); return; } toast("Making the PDF…",null,true);
+  try{ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"portrait",unit:"mm",format:"letter"}), PT=2.8346, font=(st,sz,c)=>{ doc.setFont("helvetica",st); doc.setFontSize(sz*PT); doc.setTextColor(c); };
+    const bar=(y0,y1,t)=>{ doc.setFillColor("#2c4f9b"); doc.rect(10.6,y0,194.7,y1-y0,"F"); font("bold",3.2,"#ffffff"); doc.text(t,108,(y0+y1)/2+1.15,{align:"center",charSpace:.3}); };
+    const sub=(y0,y1,cols)=>{ doc.setFillColor(PDFC.plum); doc.rect(10.6,y0,194.7,y1-y0,"F"); font("bold",2.1,"#ffffff"); cols.forEach(([x,t,a])=>doc.text(t,x,y1-1.05,a?{align:a}:undefined)); };
+    const tri=(x,y)=>{ doc.setDrawColor("#9aa0ab"); doc.setLineWidth(.2); doc.triangle(x,y-1.6,x,y,x+1.4,y-.8,"S"); };
+    const fit=(t,x,y,w,h,fs=2.75,st="normal")=>{ t=String(t||"").trim(); if(!t) return; let ls; for(;fs>=1.8;fs-=.15){ font(st,fs,PDFC.ink); ls=doc.splitTextToSize(t,w-1.4); if(ls.length*fs*1.25<=h) break; } doc.text(ls,x+.7,y+fs*.95,{lineHeightFactor:1.25}); };
+    const D=v=>v?new Date(v+"T12:00:00").toLocaleDateString("en-US",{month:"2-digit",day:"2-digit",year:"numeric"}):"";
+    const head=big=>{ if(big){ font("normal",11.4,PDFC.title); doc.text("Session Plan",10.4,18.6); } else { font("normal",4.6,PDFC.title); doc.text("Session Plan",10.6,13.6); } doc.setFillColor(big?PDFC.plum:"#9aa0ab"); doc.circle(104.6,8.6,.95,"F"); doc.setFillColor(big?"#9aa0ab":PDFC.plum); doc.circle(108,8.6,.95,"F"); pdfClientMark(doc,{right:205.3,top:7.6,h:12.6,maxW:88,fs:4.6}); };
+    head(true); font("normal",4.3,"#2c4f9b"); doc.text("FOR",10.6,26.2); doc.text("DATE",161.6,26.2); doc.setDrawColor(PDFC.ink); doc.setLineWidth(.25); doc.line(20.4,27.4,159.3,27.4); doc.line(174.6,27.4,205.3,27.4);
+    font("normal",4,PDFC.ink); doc.text(doc.splitTextToSize(p.title||aidTitle(),136)[0],21,25.9); font("normal",3.4,PDFC.ink); doc.text(D(p.date),175.4,25.9);
+    bar(29.6,35.3,"LOGISTICS"); doc.setDrawColor("#c3c7cf"); doc.setLineWidth(.3); [[103.9,35.3,103.9,67],[154.5,35.3,154.5,67],[10.6,46,103.9,46],[10.6,56.3,103.9,56.3],[77.4,56.3,77.4,67],[10.6,35.3,10.6,67],[205.3,35.3,205.3,67]].forEach(l=>doc.line(...l));
+    font("bold",2.05,PDFC.ink); [[14.2,38.6,"TYPE OF SESSION"],[14.2,49,"ASSESSMENT PHASE"],[14.2,59.4,"LOCATION"],[81,59.4,"DURATION"],[107.6,38.6,"CLIENT/ADVISOR PARTICIPANTS"],[158.4,38.6,"OUR PARTICIPANTS"]].forEach(([x,y,t])=>{ doc.text(t,x,y); tri(x-2.6,y); });
+    fit(p.type,11.6,40,91.6,5.4,3,"bold"); fit(p.phase?SP_PHASES[p.phase-1]:"",11.6,50.4,91.6,5.4,3,"bold"); fit(p.loc,11.6,60.4,65.4,6.2); fit(p.dur,78.2,60.4,25.2,6.2,2.75,"bold"); fit(p.parts.client,104.6,40,49.6,26.4); fit(p.parts.ours,155,40,50,26.4);
+    bar(67,73,"PRIORITIES - OBJECTIVES FOR THE SESSION"); sub(73,76.4,[[11.8,"CLIENT/ADVISOR PRIORITIES"],[101.1,"MET","center"],[109.4,"OUR PRIORITIES"],[198.1,"MET","center"]]);
+    [0,1,2].forEach(i=>{ const y=SPY.prow[i], h=SPY.prow[i+1]-y; if(i===1){ doc.setFillColor("#f2f3f5"); doc.rect(10.6,y,194.7,h,"F"); } font("bold",5.4,"#c8ccd3"); doc.text(String(i+1),11.8,y+6.6); doc.text(String(i+1),109.2,y+6.6); font("bold",1.9,PDFC.ink); doc.text("DETAILS",11.8,y+9.4); doc.text("DETAILS",109.2,y+9.4);
+      [["c",p.cp],["o",p.op]].forEach(([sd,A])=>{ const G=SPF.pri[sd], x=A[i]; fit(x.a,G.x,y+1.2,G.w,5,2.9,"bold"); fit(x.d,G.dx,y+7.2,G.dw,6.8,2.5); doc.setDrawColor(PDFC.ink); doc.setLineWidth(.35); doc.rect(G.m-2.2,y+1.3,4.6,4.6); if(x.met){ doc.setDrawColor("#2d7a52"); doc.setLineWidth(.6); doc.lines([[1.1,1.2],[2.1,-2.6]],G.m-1.3,y+3.6,[1,1],"S"); } });
+      doc.setDrawColor("#c3c7cf"); doc.setLineWidth(.3); doc.line(10.6,y+h,205.3,y+h); });
+    doc.setDrawColor(PDFC.ink); doc.setLineWidth(.8); doc.line(107.8,76.4,107.8,119.4);
+    bar(119.4,125.2,"MEETING AGENDA TO ACHIEVE OBJECTIVES"); sub(125.2,129.1,[[11.8,"ITEM"],[142.6,"OWNER"],[179.8,"DURATION"]]);
+    p.ag.forEach((x,i)=>{ const y=SPY.arow[i], h=SPY.arow[i+1]-y; if(i%2){ doc.setFillColor("#f2f3f5"); doc.rect(10.6,y,194.7,h,"F"); } font("bold",4.6,"#c8ccd3"); doc.text(String(i+1),11.6,y+5.2); fit(x.t,15.5,y+.6,125.3,9.2); fit(x.o,142.2,y+.6,35.7,9.2); fit(x.dur,179.8,y+2.4,24.6,5,2.75,"bold"); doc.setDrawColor("#c3c7cf"); doc.setLineWidth(.3); doc.line(10.6,y+h,205.3,y+h); });
+    doc.line(141.8,129.1,141.8,190.7); doc.line(179,129.1,179,190.7); doc.setFillColor("#8c9099"); doc.rect(10.6,190.7,194.7,6,"F"); doc.setFillColor("#ffffff"); doc.rect(179,191.1,26.3,5.2,"F"); font("bold",2.05,"#ffffff"); doc.text("TOTAL DURATION",176.4,194.6,{align:"right"}); font("bold",3,PDFC.ink); doc.text(spFmt(spTotal(p)),192.15,194.7,{align:"center"});
+    bar(196.7,202.7,"REQUIREMENTS - NEXT STEPS"); sub(202.7,206.7,[[11.8,"ACTION"],[79.3,"WHO"],[117.1,"DUE DATE"],[142.6,"COMPLETION DATE"],[168.3,"NOTES"]]);
+    p.ns.forEach((x,i)=>{ const y=SPY.rrow[i], h=SPY.rrow[i+1]-y; if(i%2){ doc.setFillColor("#f2f3f5"); doc.rect(10.6,y,156.4,h,"F"); } font("bold",4.4,"#c8ccd3"); doc.text(String(i+1),11.6,y+4.8); fit(x.a,15.8,y+.6,61.9,8.4); fit(x.who,79.3,y+.6,35.3,8.4); fit(D(x.due),117.1,y+2.6,23.2,5); fit(D(x.done),142.6,y+2.6,23.2,5);
+      if(spPast(x)){ font("bold",1.9,"#c0392b"); doc.text("PAST DUE",128.7,y+2.2,{align:"center"}); } doc.setDrawColor("#c3c7cf"); doc.setLineWidth(.3); doc.line(10.6,y+h,167,y+h); });
+    [78.5,116.4,141.5,167].forEach(x=>doc.line(x,206.7,x,265.1)); doc.line(10.6,265.1,205.3,265.1); fit(p.notes,...SPF.notes);
+    pdfKaFoot(doc,10.9,268.4); font("normal",2.6,PDFC.muted); doc.text([p.title||aidTitle(),spLabel(p)].join(" · "),108,272.6,{align:"center"}); if(p.part.names){ font("normal",2.4,PDFC.muted); doc.text(`Participants: ${p.part.names.replace(/\n/g,", ")}${p.part.date?` · ${p.part.date}`:""}`,205.3,272.6,{align:"right",maxWidth:60}); }
+    doc.addPage("letter","portrait"); head(false); bar(20,25.8,"SESSION RECAP"); font("bold",1.9,PDFC.ink); doc.text("NOTES",11.7,28.6); doc.setDrawColor("#c3c7cf"); doc.setLineWidth(.3); doc.line(10.6,265.3,205.3,265.3);
+    if(p.recap.trim()){ font("normal",3.4,PDFC.ink); doc.text(doc.splitTextToSize(p.recap.trim(),190),12.4,34,{lineHeightFactor:1.4}); } pdfKaFoot(doc,10.9,268.4);
+    const filename=`Session Plan - ${(p.title||aidTitle()).replace(/[\\/:*?"<>|]+/g," ").trim()} - ${p.date||"undated"}.pdf`;
+    if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
+  catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
+
+/* ---------- Meet the client: work together or interview on the plan ---------- */
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="sp"]')) g.insertAdjacentHTML("beforeend",`<button role="radio" data-meet-aid="sp" aria-checked="false">Session Plan</button>`); })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="sp"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way; try{ meetSnapTake(); }catch(er){}
+  if(way==="together"){ openSP("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; spSheet(); }
+  if(way==="interview"){ openSP("build"); if(!spPlan()) spNew(true); spIdx=2; spBuild(); toast("Ask the client their priorities for the session, then the agenda.",null,true); } },true);
+
+
+
 /* ===================== Simpler, with every feature kept (Dave, Nov 18: "I feel there is a lot of unnessary complexities to use. I want your opinion on how to simplify without losing functionality (value)."; "Mock-up first"; "build all seven")
    (1) one screen per aid: the sheet and its guide side by side, Learn as an overlay; (2) one next step for the engagement, from the six A's;
    (3) four path chips; (4) one Claude button per aid; (5) one Share & export menu; (6) advanced tools behind More, only when they apply;
    (7) Meet the client as Before · During · After. ===================== */
-const ONE={aop:{L:"viewLearn",B:"viewBuild",A:"viewAid"},cp:{L:"viewLearnCP",B:"viewBuildCP",A:"viewAidCP"},pm:{L:"viewLearnPM",B:"viewBuildPM",A:"viewAidPM"},ar:{L:"viewLearnAR",B:"viewBuildAR",A:"viewAidAR"},uap:{L:"viewLearnUAP",B:"viewBuildUAP",A:"viewAidUAP"}};
-const ONE_NAME={aop:"Alignment of Priorities",pm:"Priorities Map",uap:"Understanding a Problem",cp:"Criteria Proposition",ar:"Assessment Roadmap"};
-const oneAid=()=>uapMode?"uap":arMode?"ar":pmMode?"pm":cpMode?"cp":"aop";
-const onePanelRender=()=>({aop:()=>renderBuild(),cp:()=>cpBuild(),pm:()=>pmBuild(),ar:()=>arBuild(),uap:()=>uapBuild()})[oneAid()]();
-const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet(),ar:()=>arSheet(),uap:()=>uapSheet()})[oneAid()]();
+const ONE={aop:{L:"viewLearn",B:"viewBuild",A:"viewAid"},cp:{L:"viewLearnCP",B:"viewBuildCP",A:"viewAidCP"},pm:{L:"viewLearnPM",B:"viewBuildPM",A:"viewAidPM"},ar:{L:"viewLearnAR",B:"viewBuildAR",A:"viewAidAR"},uap:{L:"viewLearnUAP",B:"viewBuildUAP",A:"viewAidUAP"},sp:{L:"viewLearnSP",B:"viewBuildSP",A:"viewAidSP"}};
+const ONE_NAME={aop:"Alignment of Priorities",pm:"Priorities Map",uap:"Understanding a Problem",cp:"Criteria Proposition",ar:"Assessment Roadmap",sp:"Session Plan"};
+const oneAid=()=>spMode?"sp":uapMode?"uap":arMode?"ar":pmMode?"pm":cpMode?"cp":"aop";
+const onePanelRender=()=>({aop:()=>renderBuild(),cp:()=>cpBuild(),pm:()=>pmBuild(),ar:()=>arBuild(),uap:()=>uapBuild(),sp:()=>spBuild()})[oneAid()]();
+const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet(),ar:()=>arSheet(),uap:()=>uapSheet(),sp:()=>spSheet()})[oneAid()]();
 /* every aid's sections live in one two-column wrap */
 (function(){ const first=$("viewLearn"); if(!first||$("oneWrap")) return; const w=document.createElement("div"); w.id="oneWrap"; first.before(w);
   Object.values(ONE).forEach(s=>[s.L,s.B,s.A].forEach(id=>{ const el=$(id); if(el) w.appendChild(el); }));
@@ -5686,8 +6168,8 @@ const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet()
 let oneLearn=false, oneSync=false;
 function oneMark(){ const a=oneAid(); Object.entries(ONE).forEach(([k,s])=>{ $(s.B)?.classList.toggle("onepanel",k===a); $(s.A)?.classList.toggle("onesheet",k===a); }); }
 function oneLearnClose(){ if(!oneLearn) return; oneLearn=false; document.body.classList.remove("lovon"); Object.values(ONE).forEach(s=>{ const L=$(s.L); if(L){ L.hidden=true; L.classList.remove("lov"); } }); try{ if(route==="aid"&&/learn$/.test(location.hash)) history.replaceState(null,"",routeHash()); }catch(e){} }
-function oneLearnOpen(){ const s=ONE[oneAid()], L=$(s.L); if(!L) return; oneLearn=true; ({aop:()=>renderLearn(),cp:()=>cpLearn(),pm:()=>pmLearn(),ar:()=>arLearn(),uap:()=>uapLearn()})[oneAid()]();
-  L.hidden=false; L.classList.add("lov"); document.body.classList.add("lovon"); L.querySelector(".lovx")?.focus(); try{ history.replaceState(null,"",({aop:"#learn",cp:"#cp-learn",pm:"#pm-learn",ar:"#ar-learn",uap:"#uap-learn"})[oneAid()]); }catch(e){} }
+function oneLearnOpen(){ const s=ONE[oneAid()], L=$(s.L); if(!L) return; oneLearn=true; ({aop:()=>renderLearn(),cp:()=>cpLearn(),pm:()=>pmLearn(),ar:()=>arLearn(),uap:()=>uapLearn(),sp:()=>spLearn()})[oneAid()]();
+  L.hidden=false; L.classList.add("lov"); document.body.classList.add("lovon"); L.querySelector(".lovx")?.focus(); try{ history.replaceState(null,"",({aop:"#learn",cp:"#cp-learn",pm:"#pm-learn",ar:"#ar-learn",uap:"#uap-learn",sp:"#sp-learn"})[oneAid()]); }catch(e){} }
 const oneQuiet=()=>{ try{ return !!(plSwitching||(typeof PL!=="undefined"&&PL)||document.body.classList.contains("presenting")||document.body.classList.contains("pmpresenting")||document.body.classList.contains("meeting")); }catch(e){ return false; } };
 const _showOne=show; show=function(view){ if(view==="learn"&&oneQuiet()) view="aid"; if(view==="learn"){ _showOne("aid"); oneOn(); oneLearnOpen(); return; }
   oneLearnClose(); _showOne("aid"); oneOn(); if(view==="build") oneToPanel(); };
@@ -5703,6 +6185,7 @@ document.addEventListener("click",e=>{ if(!document.body.classList.contains("one
   if(a==="pm"){ if(e.target.closest("[data-pmcell]")) to=()=>{ pmIdx=2; pmBuild(); }; else if(e.target.closest("[data-pminit]")) to=()=>{ pmIdx=1; pmBuild(); }; else if(e.target.closest("[data-pmst],[data-pmstake]")) to=()=>{ pmIdx=0; pmBuild(); }; }
   if(a==="ar"){ const d=e.target.closest("[data-ardot],[data-aract],[data-argo2],[data-arhd]"); if(d){ const v=d.dataset.ardot||d.dataset.aract||d.dataset.argo2||d.dataset.arhd; const n=+String(v).split("|").pop().split(".")[0]; if(n>=1&&n<=6) to=()=>{ arIdx=n; arBuild(); }; } }
   if(a==="uap"){ const b=e.target.closest("[data-uapbox],[data-uaphd],[data-uapok]"); if(b){ const i=+(b.dataset.uapbox??b.dataset.uaphd??b.dataset.uapok); to=()=>{ uapIdx=i+1; uapBuild(); }; } }
+  if(a==="sp"){ const f=e.target.closest("[data-spf],[data-spmet]"); if(f){ const k=(f.dataset.spf||"cp").split(".")[0], st={title:1,date:1,type:1,phase:1,loc:1,dur:1,parts:1,cp:2,op:2,cd:2,od:2,ag:3,ns:4,notes:4,recap:5}[k]; if(st&&st!==spIdx) to=()=>{ spIdx=st; spBuild(); }; } }
   if(to) setTimeout(()=>{ try{ oneSync=true; to(); }finally{ oneSync=false; } },0); },true);
 document.addEventListener("focusin",e=>{ if(!document.body.classList.contains("one")||oneAid()!=="uap") return; const t=e.target.closest(".onesheet [data-uapbox]"); if(t&&uapIdx!==+t.dataset.uapbox+1){ uapIdx=+t.dataset.uapbox+1; oneSync=true; try{ uapBuild(); }finally{ oneSync=false; } } });
 /* the two sides stay in step: a box typed on one side shows on the other */
@@ -5719,7 +6202,7 @@ document.addEventListener("focusout",e=>{ if(!document.body.classList.contains("
 /* ---------- (4) one Claude button per aid ---------- */
 function oneClaudeBtn(){ const s=ONE[oneAid()], B=$(s.B); if(!B||B.querySelector(".oneclaude")) return;
   B.insertAdjacentHTML("afterbegin",`<button class="oneclaude prep-only" data-oneclaude><span>✦ Fill or improve with Claude</span><small>Fills what's empty and suggests the rest; never replaces your words</small></button>`); }
-function oneClaude(){ const a=oneAid();
+function oneClaude(){ const a=oneAid(); if(a==="sp"){ spIdx=Math.max(1,spIdx); spBuild(); spDraft(); return; }
   if(a==="aop"){ if(!allFilled().length&&(S.company?.name||"").trim()){ bIdx=0; renderBuild(); $("coGo")?.click(); return; } $("aFill")?.click(); return; }
   if(a==="cp"){ $("cpDraftBtn")?.click(); return; }
   if(a==="pm"){ pmDraft(); return; }
@@ -5738,6 +6221,7 @@ function oneShareItems(where){ const a=where==="overview"?null:oneAid(), sh=S.sh
   it.push([sh==="ready"?"Open the shared page":sh==="pending"?"Shared page · being created":"Share with my team and client",sh==="ready"?"Ready":"","shared"],["Follow-up email","after the meeting","follow"]); return it; }
 function oneMoreItems(){ const a=oneAid(), L=Object.keys(S.lenses||{}).length, it=[];
   if(a==="uap") it.push(["＋ Add a problem","from a line or a vendor","uapadd"]);
+  if(a==="sp") it.push(["＋ New session plan","carries over participants and open next steps","spnew"]);
   if(a==="ar") it.push(["Propose the timeline","from today, by KA's phases","artime"]);
   if(a==="pm"){ it.push(["Read the map","spotlight a row or column","pmread"]); if($("pmConfirm")&&!$("pmConfirm").hidden) it.push(["Confirm Claude's view","with the client","pmconfirm"]); }
   if(a==="cp") it.push(["🎙 Interview the client","fills the criteria","cpiv"]);
@@ -5752,7 +6236,7 @@ function oneMenu(kind,anchor,where){ closePop(); const items=kind==="share"?oneS
   pop.innerHTML=`<h5>${kind==="share"?"Share & export":"More"}</h5>${items.map(([t,s,k])=>`<button role="menuitem" data-oneact="${k}"><span>${esc(t)}</span>${s?`<small>${esc(s)}</small>`:""}</button>`).join("")}`; place(pop,anchor); popEl=pop; pop.querySelector("button")?.focus(); }
 function oneAct(k,anchor){ closePop(); const a=oneAid();
   const run={pdf:()=>oneClick("pdf"),deck:()=>oneClick("deck"),copy:()=>oneClick("copy"),shared:()=>shareEngagement(),follow:()=>kitRun("follow"),
-    pdfpick:()=>onePdfPick(anchor),uapadd:()=>$("uapAddBtn")?.click(),artime:()=>arProposeTimeline(),pmread:()=>$("pmReadBtn")?.click(),pmconfirm:()=>$("pmConfirm")?.click(),cpiv:()=>$("cpIvBtn")?.click(),walk:()=>$("walkBtn")?.click(),
+    pdfpick:()=>onePdfPick(anchor),uapadd:()=>$("uapAddBtn")?.click(),spnew:()=>$("spAddBtn")?.click(),artime:()=>arProposeTimeline(),pmread:()=>$("pmReadBtn")?.click(),pmconfirm:()=>$("pmConfirm")?.click(),cpiv:()=>$("cpIvBtn")?.click(),walk:()=>$("walkBtn")?.click(),
     addlens:()=>oneLensClick("[data-addlens]"),editlens:()=>oneLensClick("[data-lensedit]"),compare:()=>oneLensClick("[data-compare]"),snap:()=>oneClick("snap"),rehearse:()=>kitRun("rehearse"),coach:()=>{ ($("assistBtn")||$("bAssist"))?.click(); },
     how:()=>oneClick("how"),proc:()=>{ const nx=S.procSet==="health"?"book":"health"; document.querySelector(`[data-procset="${nx}"]`)?.click(); },tokens:()=>{ nav("overview"); setTimeout(()=>{ const d=$("ovMore"); if(d) d.open=true; $("ovTok")?.scrollIntoView({behavior:"smooth",block:"center"}); },120); },clear:()=>oneConfirmClear(anchor)}[k]; run&&run(); }
 function oneLensClick(sel){ let host=$("lensbar"); if(!host||!host.querySelector(sel)){ host=document.createElement("div"); host.style.display="none"; host.id="oneLensHost"; document.body.appendChild(host); renderLenses(); host.innerHTML=$("lensbar")?.innerHTML||""; } const b=($("lensbar")?.querySelector(sel))||host.querySelector(sel); b?.click(); }
@@ -5761,13 +6245,13 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-oneclear]")){ 
   const m=e.target.closest("[data-onemenu]"); if(m){ e.preventDefault(); oneMenu(m.dataset.onemenu,m,m.dataset.where); return; }
   const x=e.target.closest("[data-oneact]"); if(x){ oneAct(x.dataset.oneact,x.closest(".pop")?._anchor||x); } });
 function onePdfPick(anchor){ closePop(); const pop=document.createElement("div"); pop.className="pop onemenu"; pop.setAttribute("role","menu"); pop.innerHTML=`<h5>Download a PDF</h5>${Object.entries(ONE_NAME).map(([k,n])=>`<button role="menuitem" data-onepdf="${k}"><span>${esc(n)}</span></button>`).join("")}`; place(pop,anchor); popEl=pop; }
-document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]"); if(!b) return; closePop(); const k=b.dataset.onepdf, open={aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),ar:()=>openAR("aid"),uap:()=>openUAP("aid")}[k]; open(); setTimeout(()=>oneClick("pdf",k),200); });
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]"); if(!b) return; closePop(); const k=b.dataset.onepdf, open={aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),ar:()=>openAR("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid")}[k]; open(); setTimeout(()=>oneClick("pdf",k),200); });
 
 /* ---------- (3) four path chips, (2) the engagement's next step in the header ---------- */
 const _aidHeadOne=renderAidHead; renderAidHead=function(){ _aidHeadOne(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button disabled title="Requirements: the next aids being rebuilt">Requirements <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button></div>
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>
     <div class="pchip p-when"><span class="pk">WHEN</span><button data-nav="ar" ${cur("ar")}>Roadmap</button></div>`;
   $("ahTitle").textContent=ONE_NAME[a]; const row=document.querySelector("#aidHead .ahrow"); if(row&&!row.querySelector(".onemenus")){ const m=row.querySelector(".meetbtn"); m.insertAdjacentHTML("beforebegin",`<span class="onemenus"><button class="btn small" data-onemenu="share">Share & export ▾</button><button class="btn small" data-onemenu="more">More ▾</button></span>`); }
   oneLensVis(); renderNextPill(); };
@@ -5958,7 +6442,7 @@ const ENG_DIM={aop:"Why",pm:"Why",uap:"What",ar:"What",cp:"How"};
 const _aidHeadSt=renderAidHead; renderAidHead=function(){ _aidHeadSt(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button data-nav="ar" ${cur("ar")}>Roadmap</button><button disabled title="More Requirements aids are being rebuilt">more <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button></div>`;
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>`;
   const row=document.querySelector("#aidHead .ahrow"); if(row){ row.querySelector(".stagesel")?.remove(); const m=row.querySelector(".onemenus")||row.querySelector(".meetbtn"); if(m&&!document.body.classList.contains("meeting")) m.insertAdjacentHTML("beforebegin",stageSelHTML(stageOf(),"cur")); }
   renderNextPill(); };
 renderNextPill=function(){ if(route!=="aid") return; const n=engNext(), here=n.aid===oneAid();
@@ -5996,6 +6480,12 @@ renderHome=function(){ const list=Object.entries(LIBD.aids).sort((a,b)=>b[1].upd
   try{ syFoot(); }catch(e){} };
 $("egrid").addEventListener("keydown",e=>{ if(e.target.closest(".stagesel")) e.stopImmediatePropagation(); },true);
 const _cmdSt=cmdActions; cmdActions=function(){ return _cmdSt().filter(a=>!/^Assessment Roadmap: where the decision is/.test(a.t)); };
+
+
+/* ---------- the Session Plan in the simplified layer and on the path (How · Criteria, Session Plan) ---------- */
+ONE_BTN.pdf.sp="spPdf"; ONE_BTN.copy.sp="spCopy"; ONE_BTN.clear.sp="spClear";
+ENG_PATH.push("sp"); ENG_OPEN.sp=()=>openSP("build"); ENG_SCORE.sp=()=>spScore(); ENG_DIM.sp="How";
+const _engNeedsSP=engNeeds; engNeeds=function(k){ if(k==="sp"){ try{ const m=spNextMove(); return m.done?null:m; }catch(e){ return null; } } return _engNeedsSP(k); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }

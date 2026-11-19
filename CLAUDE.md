@@ -83,11 +83,21 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **The path is Why · What · How**, with What holding Problem, Roadmap and "more soon". On the Overview, the Roadmap is a row in the What card; the six-phase roadmap card is hidden.
   - **The next step follows the path** (`engNext`, `ENG_PATH` aop → pm → uap → ar → cp): the first aid that still needs work (Alignment under 80, Map under 60, Problem under 70, Roadmap without its five milestones, Criteria under 80), else Meet the client.
   - No Home stage filter for now.
+- **Session Plan, the last aid, under How** (Dave, November 19: "the last aid I want to build is the Session Plan. It should go in "How""; on the design: "go with your recommendations, delete the duplicate"):
+  - **On the path** beside the Criteria: HOW · Criteria, Session Plan (`spMode`, `openSP`, `#sp-learn|build|sheet`, `ka-seen-sp`, `S.sp`). The engagement's next step reaches it after the Criteria.
+  - **The sheet** is the PDF's two portrait letter pages on their own coordinates (`SPY`, `SPF`). Page 1: For and Date; Logistics (type of session, assessment phase, location, duration, both sets of participants); Priorities · objectives for the session (three client/advisor, three ours, each with details and a Met box); the Meeting Agenda (six items, owner, duration, the total added up and red when longer than the session); Requirements · Next Steps (action, who, due, completed, notes; PAST DUE when the due date has passed with no completion date). Page 2 is the Session Recap. The client's mark is top right and KA's bottom left, with the Will/Skill rater and participants as in the PDF.
+  - **The PDF's lists are the forced choices**: the 12 session types, the six A's, both duration lists and the 36 Assessment Roadmap activities as the priorities (`SP_TYPES`, `SP_DUR`, `SP_DUR_ITEM`, `SP_ACT`). Three slips are fixed: Creiteria, Stakholders, Implemenation. The aid's own tooltips are its guidance, word for word (`SP_TIP`). The reference guide wasn't in the PDF, and Learn says so.
+  - **One plan per session**, kept as a dated list (tabs). A new plan carries over the participants, the location and open next steps. It starts at the engagement's stage; changing its phase never moves the stage.
+  - **Plan this session** (the aid's Claude button, `spDraft`, complex tier) fills only empty fields. Priorities come only from the 36 activities; agenda items are tied to the aids; owners and who come only from the named participants, else Us or Client; durations come from the lists; no dates, names or places are invented.
+  - **After the session**: Debrief the session in step 6, or the Meeting kit's Debrief, proposes Met ticks, the recap and next steps, each shown before → after to tick (`spDbClean`, `spDbApply`, the kit's `debriefPrompt`/`debriefClean`/`debriefShow`/`debriefApply` wrapped). The follow-up email lists the objectives met and the plan's next steps. The 60-second brief and Rehearse read the plan through `engagementText`.
+  - **Present**: Today's session (logistics, both priorities, the agenda and its total), each agenda item, and Next steps ("Where am I off track?"), on the shared bar. It opens the combined presentation (`PL_ORDER` starts with `sp`). Also Download PDF (two portrait pages), Copy summary, Work together, Interview, the Overview's row in the How card, and ⌘K.
+  - Kevin's example: a Work-out with Sue Jacobs and Jim Bowman (`SP_EX`).
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
 
-- The rest of the PDFs; first the configurator's most recommended: Session Plan, Assessment Questions, Fast Path/Gap, Solution Snapshot (Criteria Proposition built November 16, Priorities Map and Assessment Roadmap November 17).
+- The aids built: Alignment of Priorities, Priorities Map, Understanding a Problem, Assessment Roadmap, Criteria Proposition, Session Plan (Dave called the Session Plan the last, November 19).
 - Public or private repository (it was created public).
 - Sharing with clients: a link the client fills in while the advisor watches (needs sign-in and shared saving), or screen-sharing only for now.
 - The configurator's slips: Assessment Roadmap twice, Outcomes Map's missing description, 531 with no optional aids.
