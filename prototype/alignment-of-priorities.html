@@ -1447,6 +1447,15 @@ body.one .onesheet .spstage{min-width:0}
 @media (prefers-reduced-motion:reduce){.clspin{animation:none}}
 body.pmpresenting .clpill,body.presenting .clpill{display:none}
 .toast{z-index:95!important}body.one .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
+
+/* Claude's draft, shown all at once */
+body.clreview .onepanel{display:none!important}
+body.clreview #oneWrap{grid-template-columns:minmax(0,1fr)!important}
+.clbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:92;width:min(760px,calc(100vw - 20px));background:var(--paper);border:2px solid #9e2a55;border-radius:16px;box-shadow:0 12px 36px rgb(0 0 0 /.22);padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between}
+.clbar>div:first-child{display:grid;gap:2px;flex:1 1 260px;min-width:0}.clbar b{color:#9e2a55;font-size:15px}.clbar span{font-size:13.5px;color:var(--muted)}
+body.clreview footer{padding-bottom:120px}
+@media (max-width:600px){.clbar{padding:10px 12px;gap:8px}.clbar span{display:none}.clbar b{font-size:14px}.clbar .arow{width:100%;display:grid!important;grid-template-columns:1fr 1fr 1fr;gap:6px}.clbar .btn{font-size:13px;padding:8px 6px;min-height:40px}}
+body.clreview .toast{display:none!important}
 </style>
 
 <div class="shell">
@@ -6562,6 +6571,25 @@ let syFirstRes; const syFirst=new Promise(r=>{ syFirstRes=r; setTimeout(r,4000);
 const _sySyncF=sySync; sySync=async function(w){ try{ return await _sySyncF(w); } finally{ if(SY.last) syFirstRes(); } };
 if(KA_ROOM||!window.claude) syFirstRes();
 const _clWrapF=clWrap; clWrap=function(f){ if(!f||f.__busy) return f; const run=async(fn)=>{ await syFirst; window.__clCalling=(window.__clCalling||0)+1; try{ return await fn(); } finally{ window.__clCalling--; } }; const g=(...a)=>run(()=>f(...a)); g.json=(...a)=>run(()=>f.json(...a)); Object.keys(f).forEach(k=>{ if(!(k in g)) g[k]=f[k]; }); if(f.limits) g.limits=(...x)=>f.limits(...x); return _clWrapF(g); };
+
+
+/* ---------- Claude makes the whole aid, then shows it all at once (Dave, Nov 19: "Clicking planning with claude should generate and then present what it creates all at once. This should be the same [across] all of the applications.")
+   Every aid's Claude button: when Claude has finished, the guide steps aside and the whole sheet is shown, with one bar: Keep it · Undo · Review step by step. ---------- */
+const CL_SLICE={aop:()=>[S.lenses,S.ext,S.situation,S.fin],pm:()=>{ const P=pmData(); return [P.stake,P.cells,P.init]; },uap:()=>uapData().probs,cp:()=>S.cp,ar:()=>{ const R=arData(); return [R.w,R.s,R.why,R.gaps,R.dates]; },sp:()=>spData().plans};
+let clRun=null;
+const _oneClaudeRv=oneClaude; oneClaude=function(){ const a=oneAid(); if(sample) clRun={aid:a,snap:JSON.stringify(S),before:JSON.stringify(CL_SLICE[a]()||null),seen:false}; clReviewEnd(); return _oneClaudeRv(); };
+const _clPillRv=clPill; clPill=function(){ _clPillRv(); if(!clRun) return; if(clBusy>0){ clRun.seen=true; return; } if(clRun.seen){ const r=clRun; clRun=null; setTimeout(()=>clPresent(r),350); } };
+function clPresent(r){ if(route!=="aid"||oneAid()!==r.aid) return; let after=""; try{ after=JSON.stringify(CL_SLICE[r.aid]()||null); }catch(e){}
+  if(after===r.before){ toast("Claude didn't add anything this time. Everything stays as it was.",null,true); return; }
+  { const t=$("toast"); if(t) t.hidden=true; }
+  try{ oneSheetRender(); }catch(e){} document.body.classList.add("clreview"); let bar=$("clBar"); if(!bar){ bar=document.createElement("div"); bar.id="clBar"; bar.className="clbar"; bar.setAttribute("role","region"); bar.setAttribute("aria-label","Claude's draft"); document.body.appendChild(bar); }
+  bar._snap=r.snap; bar.innerHTML=`<div><b>✦ Claude's draft of the ${esc(ONE_NAME[r.aid])}</b><span>All of it is on the sheet. Shaded parts are Claude's; write over anything.</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-clkeep>Keep it</button><button class="btn" data-clreviewsteps>Review step by step</button><button class="btn ghost" data-clundo>Undo</button></div>`;
+  const sh=document.querySelector(".onesheet")||document.querySelector(`#${ONE[r.aid].A}`); if(sh){ const y=sh.getBoundingClientRect().top+scrollY-70; try{ scrollTo({top:Math.max(0,y),behavior:"smooth"}); }catch(e){ scrollTo(0,y); } } }
+function clReviewEnd(){ document.body.classList.remove("clreview"); $("clBar")?.remove(); }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-clkeep]")){ clReviewEnd(); toast("Kept. It's yours to change."); return; }
+  if(e.target.closest("[data-clundo]")){ const snap=$("clBar")?._snap; clReviewEnd(); if(snap){ S=norm(JSON.parse(snap)); save(); try{ oneSheetRender(); onePanelRender(); renderAidHead(); }catch(er){} toast("Claude's draft undone"); } return; }
+  if(e.target.closest("[data-clreviewsteps]")){ clReviewEnd(); show("build"); return; } });
+const _navRv=nav; nav=function(r,o){ clReviewEnd(); return _navRv(r,o); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
