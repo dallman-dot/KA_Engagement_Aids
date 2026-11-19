@@ -1357,6 +1357,19 @@ body.presenting .shell>#oneWrap{display:block!important}body.presenting #oneWrap
 body.one .onepanel .finrow{grid-template-columns:minmax(96px,1fr) 76px 76px;font-size:12.5px}body.one .onepanel .finstmt{padding:8px}
 .finrow input.tin{padding:5px 7px;font-size:14px;text-align:right;font-variant-numeric:tabular-nums;min-width:0}.fintop input.tin{text-align:left}.fintop small{display:block;color:var(--muted);font-size:11px}
 .fin-msg:empty{display:none}.finpaste{margin-top:8px}
+
+/* the engagement's stage, set by you */
+.stagesel{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-width:0;max-width:100%}
+.stagesel>span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.stagesel select{font:600 14px "Open Sans",system-ui,sans-serif;color:var(--ink);background-color:var(--bg);border:1px solid var(--rule);border-radius:999px;padding:6px 30px 6px 12px;min-height:36px;max-width:100%;appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 16px) 55%,calc(100% - 11px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.stagesel select:focus-visible{outline:3px solid color-mix(in srgb,var(--gold,#f2b632) 70%,transparent);outline-offset:2px}
+.ecstage{margin-top:-2px}
+.ovstage{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:0 0 12px}.ovstage .note{font-size:13px}
+.ovroad{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px dashed var(--rule);padding-top:8px;margin-top:6px}
+.ovroad>div{display:grid;min-width:0}.ovroad b{font-size:14px}.ovroad span{font-size:12.5px;color:var(--muted)}
+.ovsoon{font-size:12.5px;color:var(--muted);margin:4px 0 0}
+body.meeting .stagesel{display:none}
 </style>
 
 <div class="shell">
@@ -5904,6 +5917,85 @@ setInterval(()=>{ if(SY.ok) syGone(); },2000);
     SY.db=db; await sySync("open"); setInterval(()=>{ if(document.visibilityState==="visible") sySync("tick"); },60000);
     document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") sySync("focus"); }); }catch(e){} })();
 const _rhomeSy=renderHome; renderHome=function(){ _rhomeSy(); syFoot(); };
+
+
+
+/* ===================== The engagement's stage, set by you (Dave, Nov 19: "I don't want to orient the engagements to the 6As. Instead, I want a simple drop-down that allows me to check where the engagement is in the 6As… I want the Assessment Roadmap as a part of the "What" (Requirements)."; "go with your recommendations, build it")
+   1 Home is a plain list: no pipeline, no roadmap bars, readiness or nudges. 2 One Stage drop-down per engagement (Home card, the Overview, the aid header).
+   3 The path is Why · What · How; the Roadmap sits under What beside Problem. 4 The next step follows that path. The Roadmap's "We're here" follows the drop-down. ===================== */
+const stageOf=d=>{ const n=+((d||S).stage||0); return n>=1&&n<=6?n:0; };
+function stageSelHTML(n,key,label=true){ const o=(i)=>`<option value="${i+1}" ${n===i+1?"selected":""}>${AR[i].l}</option>`;
+  return `<label class="stagesel">${label?"<span>Stage</span>":""}<select data-stage="${esc(key)}" aria-label="Stage in the six A's"><option value="0" ${n?"":"selected"}>Not set</option><optgroup label="Problem Space">${[0,1].map(o).join("")}</optgroup><optgroup label="Solution Space">${[2,3,4,5].map(o).join("")}</optgroup></select></label>`; }
+/* the Roadmap's "We're here" reads the stage: within the chosen phase, the activity marked here, else its first open one */
+const _arLocSt=arLoc; arLoc=function(auto){ const st=stageOf(); if(!st) return _arLocSt(auto); const R=arData(); if(R.loc&&+R.loc.split(".")[0]===st&&arName(R.loc)) return R.loc;
+  for(let i=1;i<=6;i++) if(!arDone(`${st}.${i}`,auto)) return `${st}.${i}`; return `${st}.6`; };
+/* marking "We're here" on the Roadmap moves the stage with it */
+document.addEventListener("click",e=>{ const l=e.target.closest("[data-arloc]"); if(!l) return; setTimeout(()=>{ const R=arData(); if(R.loc){ S.stage=+R.loc.split(".")[0]; save(); stagePaint(); } },0); });
+function setStage(key,n){ n=+n||0; const name=k=>LIBD.aids[k]?.name||"The engagement";
+  if(key===LIBD.cur||key==="cur"){ if(n) S.stage=n; else delete S.stage; const R=arData(); if(R.loc&&+R.loc.split(".")[0]!==n) delete R.loc; save(); }
+  else { const a=LIBD.aids[key]; if(!a) return; a.data=a.data||{}; if(n) a.data.stage=n; else delete a.data.stage; const R=a.data.roadmap; if(R&&R.loc&&+R.loc.split(".")[0]!==n) delete R.loc; a.updated=Date.now(); try{ localStorage.setItem(LIB,JSON.stringify(LIBD)); }catch(er){} try{ persist(); }catch(er){} }
+  toast(n?`${name(key==="cur"?LIBD.cur:key)} is at ${AR[n-1].l}`:"Stage cleared"); stagePaint(); }
+document.addEventListener("change",e=>{ const s=e.target.closest("select[data-stage]"); if(s) setStage(s.dataset.stage,s.value); });
+document.addEventListener("click",e=>{ if(e.target.closest(".stagesel")) e.stopPropagation(); },true);
+function stagePaint(){ if(route==="home") renderHome(); else if(route==="overview") renderOverview(); else if(route==="aid"){ renderAidHead(); try{ if(arMode) arPaint(); }catch(er){} } }
+
+/* the engagement's one next step, along the path: Why (Alignment, Priorities Map) → What (Problem, Roadmap) → How (Criteria) */
+const ENG_PATH=["aop","pm","uap","ar","cp"];
+function engNeeds(k){ try{
+  if(k==="aop"){ const m=nextMove(); return !m.done&&alignScore()<80?m:null; }
+  if(k==="pm"){ const m=pmNextMove(); return !m.done&&pmScore()<60?m:null; }
+  if(k==="uap"){ const m=uapNextMove(); return !m.done&&uapScore()<70?m:null; }
+  if(k==="ar"){ const R=arData(); if(R.dates&&[1,2,3,4,5].every(p=>R.dates[p])) return null; return {t:"Propose the timeline",go:()=>arProposeTimeline()}; }
+  if(k==="cp"){ const m=cpNextMove(); return !m.done&&cpScore()<80?m:null; } }catch(e){} return null; }
+const ENG_OPEN={aop:()=>openAid(false,"build"),pm:()=>openPM("build"),uap:()=>openUAP("build"),ar:()=>openAR("build"),cp:()=>openAid(true,"build")};
+const ENG_SCORE={aop:()=>alignScore(),pm:()=>pmScore(),uap:()=>uapScore(),ar:()=>arScore(),cp:()=>cpScore()};
+engNext=function(){ let loc="1.1"; try{ loc=arLoc(); }catch(e){} const act=arName(loc); for(const k of ENG_PATH){ const m=engNeeds(k); if(m) return {aid:k,loc,act,t:m.t,done:false,go:()=>{ ENG_OPEN[k](); setTimeout(()=>m.go(),80); }}; }
+  return {aid:"meet",loc,act,t:"Every aid is ready. Meet the client.",done:true,go:()=>nav("meet")}; };
+engNextScore=function(){ const n=engNext(); try{ return n.done?100:ENG_SCORE[n.aid](); }catch(e){ return 0; } };
+const ENG_DIM={aop:"Why",pm:"Why",uap:"What",ar:"What",cp:"How"};
+
+/* ---------- the aid header: Why · What · How, and the stage ---------- */
+const _aidHeadSt=renderAidHead; renderAidHead=function(){ _aidHeadSt(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
+  p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
+    <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button data-nav="ar" ${cur("ar")}>Roadmap</button><button disabled title="More Requirements aids are being rebuilt">more <small>soon</small></button></div>
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button></div>`;
+  const row=document.querySelector("#aidHead .ahrow"); if(row){ row.querySelector(".stagesel")?.remove(); const m=row.querySelector(".onemenus")||row.querySelector(".meetbtn"); if(m&&!document.body.classList.contains("meeting")) m.insertAdjacentHTML("beforebegin",stageSelHTML(stageOf(),"cur")); }
+  renderNextPill(); };
+renderNextPill=function(){ if(route!=="aid") return; const n=engNext(), here=n.aid===oneAid();
+  $("ahNext").innerHTML=`${ringSVG(engNextScore(),34)}<b>${n.done?"Ready":"Next"}</b><span title="${esc(n.t)}">${here||n.done?"":`<i class="onevia">${esc(ONE_NAME[n.aid]||"")} ·</i> `}${esc(n.t)}</span><button class="btn small" data-engnext>${n.done?"Meet the client":here?"Do it":"Go"}</button>`; };
+
+/* ---------- the Overview: the stage beside the name, the next step along the path, the Roadmap inside What ---------- */
+const _ovSt=onePaintOverview; onePaintOverview=function(){ _ovSt(); const nx=$("ovNext"), empty=!allFilled().length&&!cpAll().length&&!(S.uap?.probs||[]).length&&!(S.pm&&pmRated().length);
+  if(nx&&!empty){ const n=engNext();
+    nx.innerHTML=`<div class="scard next onenext">${ringSVG(engNextScore())}<div class="ontxt"><span class="onlbl">Next step</span><b>${n.done?"":`${esc(ENG_DIM[n.aid])} · ${esc(ONE_NAME[n.aid])}: `}${esc(n.t)}</b><small>The first aid along Why → What → How that still needs work.</small></div><button class="btn primary" data-engnext>${n.done?"Meet the client":"Do it"}</button></div>`; }
+  const ttl=document.querySelector("#ovHead, .ovhead, #view-overview h1")||null; const host=$("ovStage")||(()=>{ const d=document.createElement("div"); d.id="ovStage"; d.className="ovstage"; (nx||$("ovPath")).before(d); return d; })();
+  host.innerHTML=`${stageSelHTML(stageOf(),"cur")}<span class="note">Where ${esc(S.company?.name||aidName())} is in the six A's. You set it; nothing changes it for you.</span>`;
+  const ar=$("ovAR"); if(ar) ar.hidden=true;
+  const w=document.querySelector("#ovPath .dimc.d-what"); if(w&&!w.querySelector(".ovroad")){ const st=stageOf(), R=arData(), dated=R.dates?[1,2,3,4,5].filter(p=>R.dates[p]).length:0;
+    w.querySelector(".dk")&&(w.querySelector(".dk").textContent="2 · Requirements · What");
+    w.insertAdjacentHTML("beforeend",`<div class="ovroad"><div><b>Assessment Roadmap</b><span>${st?`Stage: ${AR[st-1].l}`:"Stage not set"}${dated?` · ${dated} of 5 milestones dated`:""}</span></div><button class="btn small" data-nav="ar" data-view="aid">Open</button></div>`); } };
+
+/* ---------- Home: a plain list, each card with its stage, Why · What · How and the next step ---------- */
+function stageStats(id){ const keep=S; let o={empty:true};
+  try{ S=norm(clone(LIBD.aids[id].data)); const pm=S.pm?pmScore():0, a=alignScore(), U=S.uap, what=U&&U.probs&&U.probs.length?Math.max(...U.probs.map(uapScoreOf)):0, n=engNext();
+    o={empty:!allFilled().length&&!S.situation&&!(U&&U.probs&&U.probs.length)&&!cpAll().length,why:S.pm&&pmRated().length?Math.round((a+pm)/2):a,what,how:cpScore(),stage:stageOf(),next:n.done?n.t:`${ENG_DIM[n.aid]} · ${ONE_NAME[n.aid]}: ${n.t}`,lenses:Object.keys(S.lenses).length,eyes:S.company?.eyes||""}; }
+  catch(e){} finally{ S=keep; applyProcSet(S.procSet||"book"); } return o; }
+renderHome=function(){ const list=Object.entries(LIBD.aids).sort((a,b)=>b[1].updated-a[1].updated).map(([id,a])=>[id,a,stageStats(id)]).filter(([id,a,s])=>!(/^Untitled/.test(a.name||"Untitled")&&s.empty));
+  const pipe=$("pipe"); if(pipe){ pipe.hidden=true; pipe.innerHTML=""; }
+  const bar=(c,l,v)=>`<div class="${c}"><i><s style="width:${v}%"></s></i><span>${l} <b>${v}%</b></span></div>`;
+  const cards=list.map(([id,a,s])=>`<div class="ecard ${id===LIBD.cur?"cur":""}" role="button" tabindex="0" data-eng="${id}">
+      <button class="more" data-engmore="${id}" aria-label="More for ${esc(a.name)}">⋯</button>
+      <h3>${esc(a.name||"Untitled engagement")}</h3>
+      <div class="meta">${s.eyes?`Through the eyes of ${esc(s.eyes)} · `:""}${s.lenses>1?`${s.lenses} stakeholders · `:""}Updated ${ago(a.updated)}</div>
+      <div class="ecstage">${stageSelHTML(s.stage||0,id)}</div>
+      <div class="jbar">${bar("d-why","Why",s.why||0)}${bar("d-what","What",s.what||0)}${bar("d-how","How",s.how||0)}</div>
+      <div class="nx"><b>Next</b>${esc(s.empty?"Research the company, or build by hand":s.next)}</div></div>`).join("");
+  $("egrid").innerHTML=`<button class="ecard new" data-nav="new"><span class="plus">＋</span><h3>New engagement</h3><span class="meta">Name the client; Claude fills every aid for you to review.</span></button>${cards}
+    <button class="ecard ex" id="homeEx"><h3>See Kevin's example</h3><span class="meta">Morgan Industries' eBusiness initiative, from <i>Dimensions of Success</i>: the alignment and the criteria, finished.</span><span class="nx"><b>Example</b>Open a copy to explore</span></button>`;
+  $("homeEx").onclick=()=>{ newAid("Morgan Industries · example"); replaceState(Object.assign(blank(),clone(EXAMPLE)),"Kevin's example, as a copy you can change"); nav("overview"); };
+  try{ syFoot(); }catch(e){} };
+$("egrid").addEventListener("keydown",e=>{ if(e.target.closest(".stagesel")) e.stopImmediatePropagation(); },true);
+const _cmdSt=cmdActions; cmdActions=function(){ return _cmdSt().filter(a=>!/^Assessment Roadmap: where the decision is/.test(a.t)); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
