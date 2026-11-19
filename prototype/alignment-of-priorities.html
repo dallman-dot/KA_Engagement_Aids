@@ -1396,6 +1396,11 @@ body.meeting .stagesel{display:none}
 .spcv .spws,.spcv .sppart{border:0;background:transparent;display:flex;gap:calc(.8*var(--mm));align-items:center;justify-content:center;cursor:pointer;font-size:calc(3.6*var(--mm));padding:0}.spcv .spws svg{width:calc(4.4*var(--mm));height:calc(4.4*var(--mm))}
 .spcv .spempty{display:grid;place-items:center;text-align:center;gap:calc(2*var(--mm));font-size:calc(3.2*var(--mm));color:var(--muted)}.spcv .spempty p{margin:0}
 .thumb .spcv,.pmmini .spcv{pointer-events:none;box-shadow:none}
+.spcv .sptap{border:0;background:transparent;cursor:pointer;border-radius:calc(.6*var(--mm))}.spcv .sptap:active,.spcv .sptap:focus-visible{background:color-mix(in srgb,var(--blue) 10%,transparent);outline:2px solid color-mix(in srgb,var(--blue) 45%,transparent)}
+.spcv .spempty{font-size:13px;line-height:1.35;z-index:3;background:var(--paper);border-radius:12px;padding:12px;box-shadow:0 6px 24px rgb(0 0 0 /.14);align-content:center}.spcv .spempty .btn{font-size:15px}
+body.one #viewAidSP .ctlcard{display:none!important}
+@media (max-width:700px){.spstage,#viewAidSP .spstage{min-width:0!important;width:100%}body.one .onesheet .spstage{min-width:0!important}#spSheet.tapmode+*{}}
+#spSheet.tapmode::before{content:"Tap a section to fill it in below";display:block;text-align:center;font-size:13px;color:var(--muted);margin:0 0 6px}
 .pmmini .spstage,.thumb .spstage{min-width:0;width:100%}
 .spcap{font-size:13px;color:var(--muted);margin:0 0 -10px}
 .sprow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr) minmax(0,.45fr);gap:6px;align-items:start;padding:8px 0;border-top:1px solid var(--line)}
@@ -1418,7 +1423,7 @@ body.meeting .stagesel{display:none}
 body.one .onepanel .sptwo{grid-template-columns:minmax(0,1fr)}
 #viewAidSP .sheetwrap>*{min-width:0}#spTabs,#spRead{min-width:0}#viewAidSP .cpscroll{overflow-x:auto;max-width:100%}
 body.one .onesheet .spstage{min-width:0}
-@media (max-width:980px){body.one .onesheet .spstage{min-width:640px}}
+@media (max-width:980px) and (min-width:701px){body.one .onesheet .spstage{min-width:640px}}
 
 /* presenting on a phone held upright: the slide in the middle, a bar that fits (Dave's iPhone screenshot, Nov 19) */
 .pmpres .stage{align-items:center;align-content:center;align-self:center}.pmpres .frame{align-self:center}
@@ -1430,6 +1435,17 @@ body.one .onesheet .spstage{min-width:0}
   body.presenting #pFlag,body.pmpresenting #pFlag{font-size:0;padding:0 10px}body.presenting #pFlag::before,body.pmpresenting #pFlag::before{content:"⚑";font-size:15px}
 }
 @media (max-width:700px) and (orientation:portrait){body.pmpresenting #pmPres::after,body.presenting #viewAid::after{content:"Turn your phone sideways for a larger view";position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));text-align:center;color:#9aa4bd;font:500 13px "Open Sans",sans-serif;pointer-events:none}}
+
+/* Claude, easy to reach */
+.btn.clbtn{background:linear-gradient(135deg,#9e2a55,#7a1f43);border-color:#7a1f43;color:#fff;font-weight:700}.btn.clbtn:hover{filter:brightness(1.08)}
+@media (max-width:700px){.ahrow .clbtn span{display:none}}
+.clstart{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;background:color-mix(in srgb,#9e2a55 8%,var(--paper));border:1px solid color-mix(in srgb,#9e2a55 35%,transparent);border-radius:14px;padding:12px 14px;margin:0 0 12px}
+.clstart>div:first-child{display:grid;gap:2px;min-width:0;flex:1 1 260px}.clstart b{color:#9e2a55;font-size:15px}.clstart span{font-size:14px;color:var(--muted)}
+.clpill{position:fixed;left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));z-index:90;background:#1d2233;color:#fff;border-radius:999px;padding:8px 14px;font:600 14px "Open Sans",sans-serif;display:flex;gap:8px;align-items:center;box-shadow:0 8px 26px rgb(0 0 0 /.25);max-width:calc(100vw - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clpill small{opacity:.7;font-weight:400}@media (max-width:600px){.clpill .clwhere{display:none}}
+.clspin{width:14px;height:14px;border-radius:50%;border:2px solid rgb(255 255 255 /.3);border-top-color:#f2b632;animation:clspin .8s linear infinite;flex:0 0 14px}@keyframes clspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.clspin{animation:none}}
+body.pmpresenting .clpill,body.presenting .clpill{display:none}
 </style>
 
 <div class="shell">
@@ -5833,7 +5849,7 @@ function spPage1({mode="edit",spot=null,p=spPlan()}={}){ const ed=mode==="edit"&
   const ta=(k,v,x,y,w,ht,ph,short="")=>ed?`<textarea class="px spin ${cls(k)}" style="${at(x,y,w,ht)}" data-spf="${k}" placeholder="${esc(short)}" aria-label="${esc(ph)}" title="${esc(ph)}">${esc(v||"")}</textarea>`:`<div class="px sptx" style="${at(x,y,w,ht)}">${esc(v||"")}</div>`;
   const opt=(list,v)=>list.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("");
   const actOpt=v=>SP_ACT.map(([g,a])=>`<optgroup label="${g}">${a.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</optgroup>`).join("");
-  if(!p){ h+=`<div class="px spempty" style="${at(40,120,136,30)}"><button class="btn primary" data-spnew>＋ New session plan</button><p>One plan per session. Claude drafts it from the engagement; you write over anything.</p></div>`; return `<div class="spcv">${h}</div>`; }
+  if(!p){ h+=`<div class="px spempty" style="${at(22,104,172,64)}"><div class="arow" style="flex:0 1 auto;justify-content:center"><button class="btn primary" data-spdraft>✦ Plan it with Claude</button><button class="btn" data-spnew>Start blank</button></div><p>One plan per session. Claude drafts it from the engagement; you write over anything.</p></div>`; return `<div class="spcv">${h}</div>`; }
   const dim=k=>lt(k)?"":"dimmed";
   h+=inp("title",p.title||aidTitle(),20.6,21.4,138.4,5,SP_TIP.title,"text","big")+inp("date",p.date,174.5,21.4,30.8,5,SP_TIP.date,"date");
   h+=`<div class="${dim("log")}">`+sel("type",p.type,opt(SP_TYPES,p.type),11.6,39.6,91.6,5.8,"Type of session")+(ed?`<select class="px spin ${cls("phase")}" style="${at(11.6,50,91.6,5.8)}" data-spf="phase" title="${esc(SP_TIP.phase)}" aria-label="Assessment phase"><option value="0">Assessment phase</option><optgroup label="Problem Space">${[1,2].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup><optgroup label="Solution Space">${[3,4,5,6].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup></select>`:`<div class="px sptx b" style="${at(11.6,50,91.6,5.8)}">${p.phase?SP_PHASES[p.phase-1]:""}</div>`)
@@ -5848,11 +5864,13 @@ function spPage1({mode="edit",spot=null,p=spPlan()}={}){ const ed=mode==="edit"&
   h+=ta("notes",p.notes,...SPF.notes,SP_TIP.notes,"Notes")+`</div>`;
   if(ed){ const W=spData().ws; h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${at(122,6.4,84,14.6)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`;
     h+=`<button class="px sppart" style="${at(178,267.4,9,7)}" data-sppart title="Participants and date">👥</button><button class="px spws" style="${at(189,267.4,14,7)}" data-spws title="Rate your usage of this aid">${spWsDot("w",W.w||0)}${spWsDot("s",W.s||0)}</button>`; }
+  if(mode==="tap") [[1,20,29.6],[1,29.6,67],[2,67,119.4],[3,119.4,196.7],[4,196.7,265.1]].forEach(([n,y0,y1])=>{ h+=`<button class="px sptap" style="${at(10.6,y0,194.7,y1-y0)}" data-spgo="${n}" aria-label="Edit ${SP_STEPS[n]}"></button>`; });
   return `<div class="spcv">${h}</div>`; }
 function spPage2({mode="edit",p=spPlan()}={}){ if(!p) return ""; const ed=mode==="edit", F="Open Sans,sans-serif";
   let h=`<svg class="pmbase" viewBox="0 0 215.9 279.4" preserveAspectRatio="none" aria-hidden="true">${spHeadSVG(false)}${spBar(20,25.8,"SESSION RECAP")}<text x="11.7" y="28.6" font-family="${F}" font-weight="700" font-size="1.9" fill="#1f2430">NOTES</text><line x1="10.6" y1="265.3" x2="205.3" y2="265.3" stroke="#c3c7cf" stroke-width=".3"/>${spFoot(268.4)}</svg>`;
   const at=`left:calc(11.7*var(--mm));top:calc(30*var(--mm));width:calc(193.4*var(--mm));height:calc(234.6*var(--mm))`;
   h+=ed?`<textarea class="px spin ${p.src.recap==="claude"?"claude":""}" style="${at}" data-spf="recap" placeholder="${esc(SP_TIP.recap)}" aria-label="Session recap">${esc(p.recap||"")}</textarea>`:`<div class="px sptx" style="${at}">${esc(p.recap||"")}</div>`;
+  if(mode==="tap") h+=`<button class="px sptap" style="left:calc(10.6*var(--mm));top:calc(20*var(--mm));width:calc(194.7*var(--mm));height:calc(245*var(--mm))" data-spgo="5" aria-label="Edit the session recap"></button>`;
   return `<div class="spcv p2">${h}</div>`; }
 function spSheetHTML(o={}){ const p=o.p||spPlan(); return `<div class="spstage">${spPage1(o)}${p&&o.page2!==false?`<p class="spcap">Page 2 · Session recap</p>${spPage2(o)}`:""}</div>`; }
 
@@ -5933,10 +5951,10 @@ function spNew(quiet){ const D=spData(), p=spBlank(); const prev=D.plans[D.cur];
   D.plans.push(p); D.cur=D.plans.length-1; save(); spIdx=1; if(!quiet) toast(prev?"New session plan · participants, location and open next steps carried over":"New session plan",null,true); return p; }
 function spTabsHTML(){ const D=spData(); if(!D.plans.length) return ""; return `<div class="uaptabs sptabs" role="tablist" aria-label="Session plans">${D.plans.map((p,i)=>`<button role="tab" aria-selected="${i===D.cur}" data-spsw="${i}">${esc(spLabel(p))}<small>${spScoreOf(p)}%</small></button>`).join("")}<button class="uapaddtab" data-spnew>＋ New session plan</button></div>`; }
 document.addEventListener("click",e=>{ if(!spMode&&!e.target.closest("#ovSP,.spany,.kit")) return;
-  if(e.target.closest("[data-spnew]")){ spNew(); if(curView!=="build") show("build"); else spRefresh(); return; }
+  if(e.target.closest("[data-spnew]")){ spNew(); if(curView!=="build") show("build"); else spRefresh(); spToGuide(); return; }
   const sw=e.target.closest("[data-spsw]"); if(sw){ spData().cur=+sw.dataset.spsw; spDb=null; save(); spRefresh(); return; }
   const m=e.target.closest("[data-spmet]"); if(m){ const p=spPlan(), [sd,i]=m.dataset.spmet.split("."), x=(sd==="c"?p.cp:p.op)[+i]; if(!x.a){ toast("Choose the priority first"); return; } x.met=!x.met; save(); spRefresh(); toast(x.met?"Marked met":"Not met"); return; }
-  if(e.target.closest("[data-spdraft]")){ spDraft(); return; }
+  if(e.target.closest("[data-spdraft]")){ const fresh=!spPlan(); spDraft(); if(fresh){ spIdx=1; spRefresh(); } spToGuide(); return; }
   if(e.target.closest("[data-spstop]")){ spCtl?.abort(); return; }
   if(e.target.closest("[data-spdbgo]")){ spDebrief($("spDbText")?.value||""); return; }
   if(e.target.closest("[data-spdbapply]")){ const p=spPlan(); if(!p||!spDb) return; const snap=JSON.stringify(p), n=spDbApply(p,spDb.items); spDb=null; save(); spRefresh(); toast(`${n} change${n===1?"":"s"} applied from the debrief`,()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); },true); return; }
@@ -6025,8 +6043,11 @@ document.addEventListener("change",e=>{ const m=e.target.closest("[data-spmetc]"
 $("spBBack").onclick=()=>{ if(spIdx>0){ spIdx--; spBuild(); } }; $("spBNext").onclick=()=>{ if(spIdx<SP_STEPS.length-1){ spIdx++; spBuild(); } else show("aid"); }; $("spMini").onclick=()=>show("aid");
 
 /* ---------- the sheet ---------- */
+const spPhone=()=>matchMedia("(max-width:700px)").matches;
+function spToGuide(){ setTimeout(()=>{ const g=document.querySelector("#viewBuildSP .bmain")||document.querySelector(".onepanel"); if(g){ try{ window.scrollTo({top:g.getBoundingClientRect().top+scrollY-70,behavior:"smooth"}); }catch(e){ window.scrollTo(0,g.getBoundingClientRect().top+scrollY-70); } } },120); }
+document.addEventListener("click",e=>{ const g=e.target.closest("[data-spgo]"); if(!g) return; spIdx=+g.dataset.spgo; spBuild(); spToGuide(); });
 function spSheet(){ const p=spPlan(), cl=p&&Object.values(p.src).includes("claude");
-  $("spTabs").innerHTML=spTabsHTML(); $("spSheet").innerHTML=spSheetHTML({mode:"edit",spot:spSpot});
+  $("spTabs").innerHTML=spTabsHTML(); $("spSheet").innerHTML=spSheetHTML({mode:spPhone()?"tap":"edit",spot:spSpot}); $("spSheet").classList.toggle("tapmode",spPhone());
   $("spBanner").hidden=!(cl||spBusy); $("spBanner").innerHTML=spBusy?esc(spMsg):`<span><b>Shaded fields are Claude's draft.</b> Write over any of them.</span>`;
   if(!p){ $("spRead").innerHTML=""; return; } const met=spPris(p).filter(x=>x.met).length, past=p.ns.filter(spPast).length, tot=spTotal(p);
   $("spRead").innerHTML=`<div class="rcard"><h3>${esc(spLabel(p))}</h3><p style="margin:0">${p.phase?SP_PHASES[p.phase-1]:"Phase not set"}${p.dur?` · ${esc(p.dur)}`:""}${p.loc?` · ${esc(p.loc)}`:""}</p><div class="pmchips">${[["log","Logistics"],["pri","Priorities"],["ag","Agenda"],["ns","Next steps"]].map(([k,l])=>`<button data-spspot="${k}" class="${spSpot===k?"on":""}">${l}</button>`).join("")}</div></div>
@@ -6497,6 +6518,34 @@ const _cmdSt=cmdActions; cmdActions=function(){ return _cmdSt().filter(a=>!/^Ass
 ONE_BTN.pdf.sp="spPdf"; ONE_BTN.copy.sp="spCopy"; ONE_BTN.clear.sp="spClear";
 ENG_PATH.push("sp"); ENG_OPEN.sp=()=>openSP("build"); ENG_SCORE.sp=()=>spScore(); ENG_DIM.sp="How";
 const _engNeedsSP=engNeeds; engNeeds=function(k){ if(k==="sp"){ try{ const m=spNextMove(); return m.done?null:m; }catch(e){ return null; } } return _engNeedsSP(k); };
+
+
+/* ===================== Claude, easy to reach everywhere (Dave, Nov 19: "Generating via Claude needs to be easier (more intuitive) across the application!")
+   1 one "✦ Fill with Claude" button in every aid's header, always in view; 2 an empty aid opens with "Start with Claude" at the top of its sheet;
+   3 while Claude works, a pill says so (with the time), so a tap never looks like nothing happened; 4 the Overview's next step offers Claude too. ===================== */
+const CL_EMPTY={aop:()=>!allFilled().length,pm:()=>!(S.pm&&pmRated().length),uap:()=>!(S.uap?.probs||[]).length,cp:()=>!cpAll().length,ar:()=>{ const R=arData(); return !(R.drafted||Object.keys(R.w||{}).length); },sp:()=>!spPlan()};
+const CL_WHAT={aop:"researches the company and fills the alignment",pm:"names the key stakeholders and rates each initiative",uap:"frames a problem in nine boxes, from a line or a vendor",cp:"drafts the criteria from your alignment",ar:"rates where they are on every activity",sp:"plans the session from the engagement"};
+const _aidHeadCl=renderAidHead; renderAidHead=function(){ _aidHeadCl(); if(route!=="aid") return; const row=document.querySelector("#aidHead .ahrow"); if(!row) return; row.querySelector(".clbtn")?.remove();
+  if(document.body.classList.contains("meeting")||document.body.classList.contains("client")) return;
+  const at=row.querySelector(".stagesel")||row.querySelector(".onemenus")||row.querySelector(".meetbtn"); at&&at.insertAdjacentHTML("beforebegin",`<button class="btn small clbtn prep-only" data-oneclaude title="Claude ${esc(CL_WHAT[oneAid()]||"fills this aid")}; you review and write over anything">✦ <span>Fill with</span> Claude</button>`); clEmptyPaint(); };
+function clEmptyPaint(){ document.querySelectorAll(".clstart").forEach(x=>x.remove()); if(route!=="aid"||document.body.classList.contains("meeting")||document.body.classList.contains("client")) return; const a=oneAid(); if(a==="sp") return;
+  let empty=false; try{ empty=CL_EMPTY[a](); }catch(e){} if(!empty||(S.clSkip||{})[a]) return; const host=document.querySelector(".onesheet")||document.querySelector(`#${ONE[a].A}`); if(!host) return;
+  host.insertAdjacentHTML("afterbegin",`<div class="clstart prep-only"><div><b>✦ Start with Claude</b><span>Claude ${esc(CL_WHAT[a])}. You review it and write over anything.</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-oneclaude>✦ Fill it with Claude</button><button class="btn ghost" data-clskip="${a}">I'll do it myself</button></div></div>`); }
+document.addEventListener("click",e=>{ const k=e.target.closest("[data-clskip]"); if(k){ S.clSkip=Object.assign({},S.clSkip,{[k.dataset.clskip]:1}); save(); clEmptyPaint(); } });
+setInterval(()=>{ if(route==="aid"){ const a=oneAid(), has=!!document.querySelector(".clstart"); let empty=false; try{ empty=CL_EMPTY[a]()&&!(S.clSkip||{})[a]&&a!=="sp"; }catch(e){} if(has!==empty) clEmptyPaint(); } },900);
+/* the working pill: every Claude call shows it until the answer is back */
+let clBusy=0, clT0=0, clTick=null;
+function clPill(){ let el=$("clPill"); if(!clBusy){ el&&el.remove(); clearInterval(clTick); clTick=null; return; } if(!el){ el=document.createElement("div"); el.id="clPill"; el.className="clpill"; el.setAttribute("role","status"); document.body.appendChild(el); }
+  const s=Math.round((Date.now()-clT0)/1000), where=route==="aid"?`on the ${ONE_NAME[oneAid()]}`:route==="overview"?"on this engagement":"";
+  el.innerHTML=`<span class="clspin" aria-hidden="true"></span>✦ Claude is working<span class="clwhere"> ${esc(where)}</span>… <small>${s}s</small>`; }
+function clWrap(f){ if(!f||f.__busy) return f; const w=async(...a)=>{ if(!clBusy++){ clT0=Date.now(); clTick=setInterval(clPill,1000); } clPill(); try{ return await f(...a); } finally{ clBusy=Math.max(0,clBusy-1); clPill(); } };
+  w.json=async(...a)=>{ if(!clBusy++){ clT0=Date.now(); clTick=setInterval(clPill,1000); } clPill(); try{ return await f.json(...a); } finally{ clBusy=Math.max(0,clBusy-1); clPill(); } };
+  Object.keys(f).forEach(k=>{ if(!(k in w)) w[k]=f[k]; }); if(f.limits) w.limits=(...x)=>f.limits(...x); w.__busy=true; w.__tok=f.__tok; return w; }
+setInterval(()=>{ try{ if(sample&&!sample.__busy) sample=clWrap(sample); }catch(e){} },400);
+/* the Overview's next step: one tap to let Claude do it */
+const _ovCl=onePaintOverview; onePaintOverview=function(){ _ovCl(); const card=document.querySelector("#ovNext .onenext"); if(!card||card.querySelector(".clbtn")) return; let n=null; try{ n=engNext(); }catch(e){} if(!n||n.done||!ONE[n.aid]) return;
+  card.querySelector("[data-engnext]")?.insertAdjacentHTML("afterend",`<button class="btn clbtn" data-clnext="${n.aid}">✦ Let Claude do it</button>`); };
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-clnext]"); if(!b) return; ENG_OPEN[b.dataset.clnext](); setTimeout(()=>oneClaude(),150); });
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }

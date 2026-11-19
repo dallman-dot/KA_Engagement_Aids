@@ -97,6 +97,13 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
 
 - **A Home Screen icon** (Dave, November 19: "i want to have an icon I can put on my Apple iphone home screen to launch KA Engagement Aids"): a published artifact can't set its own Home Screen icon (it runs inside claude.ai's page), so `docs/index.html` is a tiny launcher for GitHub Pages (main, /docs): it carries the KA icon (`docs/apple-touch-icon.png`, 180 px; `docs/ka-icon-512.png`; the boxed "ka" with Engagement Aids) and the name "KA Aids", and goes straight to the app's link. With `?setup` it shows how to add it and drops `?setup` from the address first. There's no web-app-capable tag, so a tap opens Safari, where Dave is already signed in to Claude. Waiting on Dave to turn on Pages; the address will be https://dallman-dot.github.io/KA_Engagement_Aids/.
 
+- **Claude, easy to reach everywhere** (Dave, November 19: "clicked to generate Session Plan and nothing happened", then "Generating via Claude needs to be easier (more intuitive) across the application!"):
+  - **✦ Fill with Claude** in every aid's header, always in view (just "✦ Claude" on a phone; hidden in a meeting and the client view), calling the aid's own Claude action (`oneClaude`).
+  - **An empty aid opens with Start with Claude** at the top of its sheet, saying what Claude will do (`CL_WHAT`), with Fill it with Claude and I'll do it myself (remembered per engagement, `S.clSkip`).
+  - **A pill at the top while Claude works** ("✦ Claude is working on the …", with the seconds), on every call (`clWrap` around `sample`), so a tap never looks like nothing happened.
+  - **The Overview's next step** adds ✦ Let Claude do it.
+  - **The Session Plan on a phone**: the sheet fits the screen; tap a section to fill it in the guide below (`spgo`, `spToGuide`). An empty plan offers ✦ Plan it with Claude or Start blank, both taking you to the guide. The old Controls card is hidden like the other aids'.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
