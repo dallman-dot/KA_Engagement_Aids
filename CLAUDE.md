@@ -102,6 +102,7 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **An empty aid opens with Start with Claude** at the top of its sheet, saying what Claude will do (`CL_WHAT`), with Fill it with Claude and I'll do it myself (remembered per engagement, `S.clSkip`).
   - **A pill at the top while Claude works** ("✦ Claude is working on the …", with the seconds), on every call (`clWrap` around `sample`), so a tap never looks like nothing happened.
   - **The Overview's next step** adds ✦ Let Claude do it.
+  - **When Claude can't run in this view** (Dave, November 19, on his iPhone in the Claude app: "clicked Claude and don't see anything"): every Claude button opens a window in the middle of the screen, "Claude can't run in this view", saying nothing was drafted, everything is safe, and to open the app on a computer at claude.ai or in Safari, or fill it in by hand (`clNoClaude`); toasts now sit above the guide's Back/Next bar, where one had been hidden.
   - **The Session Plan on a phone**: the sheet fits the screen; tap a section to fill it in the guide below (`spgo`, `spToGuide`). An empty plan offers ✦ Plan it with Claude or Start blank, both taking you to the guide. The old Controls card is hidden like the other aids'.
 
 ## Open for Dave

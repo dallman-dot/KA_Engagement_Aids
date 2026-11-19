@@ -1446,6 +1446,7 @@ body.one .onesheet .spstage{min-width:0}
 .clspin{width:14px;height:14px;border-radius:50%;border:2px solid rgb(255 255 255 /.3);border-top-color:#f2b632;animation:clspin .8s linear infinite;flex:0 0 14px}@keyframes clspin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.clspin{animation:none}}
 body.pmpresenting .clpill,body.presenting .clpill{display:none}
+.toast{z-index:95!important}body.one .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
 </style>
 
 <div class="shell">
@@ -5906,7 +5907,7 @@ function spApply(p,r){ const snap=JSON.stringify(p); let n=0; const put=(k,cur,v
   (Array.isArray(r?.agenda)?r.agenda:[]).slice(0,6).forEach(x=>{ const i=p.ag.findIndex(z=>!z.t.trim()); if(i<0||!x?.t) return; p.ag[i].t=String(x.t).slice(0,120); p.src[`ag.${i}.t`]="claude"; if(!p.ag[i].o.trim()){ p.ag[i].o=ok(x.o); if(p.ag[i].o) p.src[`ag.${i}.o`]="claude"; } if(!p.ag[i].dur&&SP_DUR_ITEM.includes(x.dur)){ p.ag[i].dur=x.dur; p.src[`ag.${i}.dur`]="claude"; } n++; });
   (Array.isArray(r?.next)?r.next:[]).slice(0,4).forEach(x=>{ const i=p.ns.findIndex(z=>!z.a.trim()); if(i<0||!x?.a) return; p.ns[i].a=String(x.a).slice(0,100); p.src[`ns.${i}.a`]="claude"; if(!p.ns[i].who.trim()){ p.ns[i].who=ok(x.who); if(p.ns[i].who) p.src[`ns.${i}.who`]="claude"; } n++; });
   p.qs=(Array.isArray(r?.questions)?r.questions:[]).map(String).slice(0,4); return {n,snap}; }
-async function spDraft(){ let p=spPlan(); if(!p){ p=spNew(true); } if(!sample){ toast("Claude's plan needs this page opened in Claude",null,true); return; }
+async function spDraft(){ let p=spPlan(); if(!p){ p=spNew(true); spIdx=1; spRefresh(); } if(!sample){ toast("Claude's plan needs this page opened in Claude",null,true); return; }
   spBusy=true; spMsg="Claude is planning the session from the engagement…"; spRefresh(); spCtl=new AbortController();
   try{ const r=await sample.json(spPlanPrompt(p),{signal:spCtl.signal,modelTier:"complex"}); const {n,snap}=spApply(p,r); save(); spMsg="";
     toast(n?`Claude planned ${n} part${n===1?"":"s"} of the session. Write over any of them.`:"Nothing was empty to plan.",n?()=>{ Object.assign(p,JSON.parse(snap)); save(); spRefresh(); }:null,true); }
@@ -6546,6 +6547,14 @@ setInterval(()=>{ try{ if(sample&&!sample.__busy) sample=clWrap(sample); }catch(
 const _ovCl=onePaintOverview; onePaintOverview=function(){ _ovCl(); const card=document.querySelector("#ovNext .onenext"); if(!card||card.querySelector(".clbtn")) return; let n=null; try{ n=engNext(); }catch(e){} if(!n||n.done||!ONE[n.aid]) return;
   card.querySelector("[data-engnext]")?.insertAdjacentHTML("afterend",`<button class="btn clbtn" data-clnext="${n.aid}">✦ Let Claude do it</button>`); };
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-clnext]"); if(!b) return; ENG_OPEN[b.dataset.clnext](); setTimeout(()=>oneClaude(),150); });
+
+
+/* ---------- when Claude can't run in this view, say so plainly, in the middle of the screen (Dave, Nov 19: "clicked Claude and don't see anything") ---------- */
+function clNoClaude(){ kitOpen("Claude can't run in this view",`<p class="kitlead">The page couldn't reach Claude here, so nothing was drafted. Everything you've filled in is safe.</p>
+  <ul><li>Open KA Engagement Aids on your <b>computer</b> at claude.ai, or in <b>Safari</b> on this phone, signed in to Claude. Your engagements are there too.</li><li>Or fill it in by hand here: every box works without Claude.</li></ul>
+  <div class="arow" style="flex:0 1 auto"><button class="btn primary" onclick="kitClose()">OK</button></div>`,true); }
+const _oneClaudeNC=oneClaude; oneClaude=function(){ if(!sample){ if(oneAid()==="sp"&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); } clNoClaude(); return; } return _oneClaudeNC(); };
+document.addEventListener("click",e=>{ if(!sample&&e.target.closest("[data-spdraft],[data-clnext],[data-uaprefill],[data-uapvend],[data-uapaddline],#coGo,#aFill,#cpDraftBtn,#suGo,[data-finfind]")){ e.preventDefault(); e.stopImmediatePropagation(); if(e.target.closest("[data-spdraft]")&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); spToGuide(); } clNoClaude(); } },true);
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
