@@ -93,6 +93,8 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **Present**: Today's session (logistics, both priorities, the agenda and its total), each agenda item, and Next steps ("Where am I off track?"), on the shared bar. It opens the combined presentation (`PL_ORDER` starts with `sp`). Also Download PDF (two portrait pages), Copy summary, Work together, Interview, the Overview's row in the How card, and ⌘K.
   - Kevin's example: a Work-out with Sue Jacobs and Jim Bowman (`SP_EX`).
 
+- **Presenting on a phone held upright** (Dave, November 19, an iPhone screenshot of a slide stuck at the top and the bar cut off): every slide sits in the middle of the screen; under 700 px wide the bar keeps ◀, the label (shortened), ▶, Notes, ⚑ and Exit, with Presenter view, Leave-behind PDF and ? left off (the leave-behind is still in Share & export); upright, a quiet line says "Turn your phone sideways for a larger view".
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.

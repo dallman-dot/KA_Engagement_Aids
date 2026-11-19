@@ -1419,6 +1419,17 @@ body.one .onepanel .sptwo{grid-template-columns:minmax(0,1fr)}
 #viewAidSP .sheetwrap>*{min-width:0}#spTabs,#spRead{min-width:0}#viewAidSP .cpscroll{overflow-x:auto;max-width:100%}
 body.one .onesheet .spstage{min-width:0}
 @media (max-width:980px){body.one .onesheet .spstage{min-width:640px}}
+
+/* presenting on a phone held upright: the slide in the middle, a bar that fits (Dave's iPhone screenshot, Nov 19) */
+.pmpres .stage{align-items:center;align-content:center;align-self:center}.pmpres .frame{align-self:center}
+@media (max-width:700px){
+  body.presenting .presbar,body.pmpresenting .presbar{max-width:calc(100vw - 16px);gap:3px;padding:4px 5px}
+  body.presenting #pPresenter,body.pmpresenting #pPresenter,body.presenting #pDeck,body.pmpresenting #pDeck,body.presenting #pKeys,body.pmpresenting #pKeys{display:none}
+  body.presenting .pbtxt,body.pmpresenting .pbtxt{min-width:0;max-width:none;flex:1 1 auto;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  body.presenting .pb.wide,body.pmpresenting .pb.wide{padding:0 9px;font-size:13px}
+  body.presenting #pFlag,body.pmpresenting #pFlag{font-size:0;padding:0 10px}body.presenting #pFlag::before,body.pmpresenting #pFlag::before{content:"⚑";font-size:15px}
+}
+@media (max-width:700px) and (orientation:portrait){body.pmpresenting #pmPres::after,body.presenting #viewAid::after{content:"Turn your phone sideways for a larger view";position:fixed;left:0;right:0;bottom:calc(76px + env(safe-area-inset-bottom,0px));text-align:center;color:#9aa4bd;font:500 13px "Open Sans",sans-serif;pointer-events:none}}
 </style>
 
 <div class="shell">
