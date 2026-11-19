@@ -1,0 +1,139 @@
+<title>Engagement Stage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap">
+<style>
+/* Layout: the app's own chrome (navy bar, Why/What/How colours), today → proposed, then a clickable Home, Overview and aid header */
+:root{--navy:#16213f;--paper:#fff;--bg:#eef1f6;--ink:#1f2430;--muted:#5b6476;--rule:#d8dce5;--card:#f7f8fb;--soft:#e7ebf3;
+  --why:#2c4f9b;--what:#7a4bc4;--how:#9e2a55;--glow:#f2b632;--ok:#2d7a52;--font:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1b2131;--bg:#11151f;--ink:#e6e9f0;--muted:#a3abbc;--rule:#2f3850;--card:#222a3d;--soft:#2a3349;--why:#7f9fe6;--what:#b79af0;--how:#e07ea2;--ok:#6cc495;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#1b2131;--bg:#11151f;--ink:#e6e9f0;--muted:#a3abbc;--rule:#2f3850;--card:#222a3d;--soft:#2a3349;--why:#7f9fe6;--what:#b79af0;--how:#e07ea2;--ok:#6cc495;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--font)}
+.wrap{max-width:1120px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:26px}
+.wrap>*{min-width:0}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font-weight:300;color:var(--why);font-size:clamp(28px,4vw,38px)}
+.kick{font-weight:700;color:#a39a83;font-size:13px;letter-spacing:.04em;margin:0 0 4px}
+.lede{color:var(--muted);max-width:68ch;margin:8px 0 0}
+h2{font-size:20px;font-weight:700;margin-bottom:10px}
+.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px}
+.chg{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.chg h3{font-size:16px;display:flex;gap:8px;align-items:center}.chg .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--how);color:#fff;font-size:13px;font-weight:800;flex:0 0 24px}
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;font-size:13px}
+.ba>div{border-radius:10px;padding:7px 9px}.ba .t{background:var(--card);color:var(--muted)}.ba .p{background:color-mix(in srgb,var(--ok) 10%,var(--paper));border:1px solid color-mix(in srgb,var(--ok) 30%,transparent)}
+.ba b{display:block;color:var(--ink);font-size:14px}.ba .ar{align-self:center;color:var(--muted);font-weight:700;padding:0}
+.chg p{margin:0;font-size:13.5px;color:var(--muted)}
+/* the clickable app */
+.demohead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--paper)}
+.seg button{border:0;background:transparent;font:600 13px var(--font);color:var(--ink);padding:6px 12px;border-radius:999px;cursor:pointer}.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.frame{margin:0 auto;width:100%;background:var(--bg);border:1px solid var(--rule);border-radius:16px;overflow:hidden}.frame.phone{max-width:400px}
+.bar{background:var(--navy);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 14px}
+.ka{background:#fff;color:#2c4f9b;font-weight:700;border-radius:6px;padding:3px 8px;display:flex;gap:8px;align-items:center;font-size:12px}.ka i{font-style:normal;border:1.5px solid #2c4f9b;padding:0 4px;font-size:14px}.frame.phone .ka span{display:none}
+.crumb{font-size:13px;color:#c9d2e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}.crumb b{color:#fff}.crumb button{all:unset;cursor:pointer;color:#c9d2e8}.crumb button:hover{color:#fff;text-decoration:underline}
+.app{padding:14px;display:grid;gap:12px;min-width:0}
+.ttl{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.ttl h3{font-weight:300;font-size:26px;color:var(--why)}
+.btn{font:600 14px var(--font);border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer;min-height:36px}
+.btn.pri{background:var(--why);border-color:var(--why);color:#fff}.btn.how{background:var(--how);border-color:var(--how);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:12px}
+.ec{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;display:grid;gap:10px;align-content:start;cursor:pointer;min-width:0}
+.ec:hover{border-color:var(--why)}.ec h4{margin:0;font-size:17px}.ec .meta{font-size:12.5px;color:var(--muted)}
+.ec.new{border-style:dashed;place-items:center;text-align:center;color:var(--why)}.ec.new .plus{font-size:34px;line-height:1}
+/* the stage drop-down */
+.stage{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.stage select{font:600 14px var(--font);color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:5px 30px 5px 12px;appearance:none;cursor:pointer;min-height:34px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.stage select:focus-visible{outline:3px solid color-mix(in srgb,var(--glow) 70%,transparent);outline-offset:2px}
+.stage .sp{font-size:11px;letter-spacing:.06em;font-weight:700}
+/* three path bars */
+.bars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:12px}
+.bars div{display:grid;gap:3px}.bars i{height:6px;border-radius:3px;background:var(--soft);position:relative;overflow:hidden}.bars s{position:absolute;inset:0 auto 0 0}
+.b-why s{background:var(--why)}.b-what s{background:var(--what)}.b-how s{background:var(--how)}
+.nx{font-size:13px;border-top:1px solid var(--rule);padding-top:8px}.nx b{color:var(--how);margin-right:6px;font-size:11px;letter-spacing:.08em}
+/* path chips in the aid header */
+.head{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:10px;display:grid;gap:8px}
+.path{display:flex;gap:6px;flex-wrap:wrap}
+.pchip{display:flex;align-items:center;gap:3px;border:1px solid var(--rule);border-top-width:3px;border-radius:999px;padding:3px;background:var(--paper)}
+.pchip .pk{font:800 11px var(--font);letter-spacing:.08em;padding:0 6px 0 8px}
+.pchip button{border:0;background:transparent;border-radius:999px;padding:5px 10px;font:600 13px var(--font);color:var(--ink);cursor:pointer;min-height:32px}
+.pchip button[disabled]{color:var(--muted);font-weight:400;cursor:default}
+.p-why{border-top-color:var(--why)}.p-why .pk{color:var(--why)}.p-what{border-top-color:var(--what)}.p-what .pk{color:var(--what)}.p-how{border-top-color:var(--how)}.p-how .pk{color:var(--how)}
+.p-why button[aria-current]{background:var(--why);color:#fff}.p-what button[aria-current]{background:var(--what);color:#fff}.p-how button[aria-current]{background:var(--how);color:#fff}
+.headrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.pill{display:flex;align-items:center;gap:8px;border:1px solid color-mix(in srgb,var(--glow) 50%,transparent);background:color-mix(in srgb,var(--glow) 12%,var(--paper));border-radius:999px;padding:4px 6px 4px 12px;font-size:13px;min-width:0}
+.pill b{color:var(--how);font-size:11px;letter-spacing:.08em}.pill span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:14px;min-width:0}
+.ovpath{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.frame.phone .ovpath{grid-template-columns:1fr}
+.dim{border:1px solid var(--rule);border-top-width:4px;border-radius:12px;padding:12px;display:grid;gap:6px;background:var(--paper);align-content:start}
+.dim .dk{font:800 11px var(--font);letter-spacing:.08em}.dim h4{margin:0;font-size:15px}.dim .row{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;border-top:1px dashed var(--rule);padding-top:6px}.dim .row em{font-style:normal;color:var(--muted)}
+.d-why{border-top-color:var(--why)}.d-why .dk{color:var(--why)}.d-what{border-top-color:var(--what)}.d-what .dk{color:var(--what)}.d-how{border-top-color:var(--how)}.d-how .dk{color:var(--how)}
+.soon{color:var(--muted)}
+.pin{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:50%;background:var(--glow);color:#1f2430;font-weight:800;font-size:11px;margin-left:4px;vertical-align:middle;cursor:help}
+.hide-pins .pin{display:none}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 16px;border-radius:999px;font-size:14px;z-index:20;max-width:calc(100vw - 32px)}
+.note{color:var(--muted);font-size:13px;margin:0}
+.ask{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:16px;display:grid;gap:12px}
+.ask ol{margin:0;padding-left:20px;display:grid;gap:10px}.ask li b{display:block}
+.rec{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--ok);margin-left:6px}
+</style>
+
+<div class="wrap">
+  <header><p class="kick">KA Engagement Aids · a mock-up, nothing in the app has changed</p>
+    <h1>The engagement's stage, set by you</h1>
+    <p class="lede">Home stops being built around the six A's. Each engagement gets one simple drop-down: Awareness, Analysis, Alternatives, Answer, Acceptance or Actions. You set it, and it stays as you left it. The Assessment Roadmap moves under What, beside Understanding a Problem, so the path is Why · What · How.</p></header>
+
+  <section aria-labelledby="h-chg"><h2 id="h-chg">What changes</h2><div class="changes">
+    <div class="chg"><h3><span class="n">1</span>Home is a plain list again</h3><div class="ba"><div class="t"><b>Today</b>A six-column pipeline, the roadmap bar, "Ready for the meeting" and nudges on every card</div><span class="ar">→</span><div class="p"><b>Proposed</b>Each card: the client, its stage drop-down, Why · What · How bars, the next step</div></div><p>The pipeline strip and the six-segment bars go. Newest first, as before.</p></div>
+    <div class="chg"><h3><span class="n">2</span>One drop-down for the stage</h3><div class="ba"><div class="t"><b>Today</b>Worked out from the aids and roadmap ticks; you can't simply say where it is</div><span class="ar">→</span><div class="p"><b>Proposed</b>Stage ▾ on each Home card and in the engagement's header; you pick it</div></div><p>Problem Space (Awareness, Analysis), then Solution Space (Alternatives, Answer, Acceptance, Actions), plus "Not set".</p></div>
+    <div class="chg"><h3><span class="n">3</span>The Roadmap lives under What</h3><div class="ba"><div class="t"><b>Today</b>Why · What · How · When, with the Roadmap alone under When</div><span class="ar">→</span><div class="p"><b>Proposed</b>Why · What · How; What holds Problem and Roadmap (more Requirements aids to come)</div></div><p>The Roadmap aid itself is unchanged: its sheet, Claude's read, the timeline, Present and PDF.</p></div>
+    <div class="chg"><h3><span class="n">4</span>The next step follows the path</h3><div class="ba"><div class="t"><b>Today</b>Read from the roadmap's current activity</div><span class="ar">→</span><div class="p"><b>Proposed</b>The first aid along Why → What → How that still needs work</div></div><p>So nothing on Home or the Overview depends on the six A's except the drop-down you set.</p></div>
+  </div></section>
+
+  <section aria-labelledby="h-demo"><div class="demohead"><h2 id="h-demo">Click through it</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><div class="seg" role="group" aria-label="Screen"><button id="fDesk" aria-pressed="true">Computer</button><button id="fPhone" aria-pressed="false">Phone</button></div><div class="seg" role="group" aria-label="Markers"><button id="pOn" aria-pressed="true">Show the changes</button><button id="pOff" aria-pressed="false">Hide</button></div></div></div>
+    <p class="note" style="margin-bottom:10px">Example engagements. Change a stage on Home, open one, and the same stage shows in its header.</p>
+    <div class="frame" id="frame"><div class="bar"><span class="ka"><i>ka</i><span>Knowledge-Advantage, Inc.</span></span><span class="crumb" id="crumb"></span></div><div class="app" id="app"></div></div></section>
+
+  <section class="ask" aria-labelledby="h-ask"><h2 id="h-ask" style="margin:0">Three things to decide</h2><ol>
+    <li><b>Should the next step follow the path (Why → What → How) instead of the roadmap?<span class="rec">RECOMMENDED</span></b><span class="note">Otherwise the six A's would still steer the engagement behind the scenes.</span></li>
+    <li><b>Should the Roadmap aid show the stage you pick as "We're here"?<span class="rec">RECOMMENDED</span></b><span class="note">One place to set it, the drop-down, and the Roadmap sheet agrees. The Roadmap's own ticks, Claude's read and the timeline stay as they are.</span></li>
+    <li><b>A small "Show: All stages ▾" filter above the Home list?</b><span class="note">Useful once you have more than a handful of engagements. Easy to leave out for now.</span></li>
+  </ol></section>
+</div>
+
+<script>
+const A=["Awareness","Analysis","Alternatives","Answer","Acceptance","Actions"];
+const E=[{n:"Advcate Health",st:"Analysis",why:84,what:62,how:50,next:"What · Understanding a Problem: agree the priority",up:"today"},
+         {n:"Gartner",st:"Awareness",why:40,what:0,how:0,next:"Why · Alignment of Priorities: choose the strategies",up:"yesterday"},
+         {n:"Morgan Industries · example",st:"Acceptance",why:96,what:84,how:94,next:"Meet the client: present the story",up:"3 days ago"}];
+const S={view:"home",cur:0,phone:false,pins:true,aid:"uap"};
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pin=n=>`<span class="pin" title="Change ${n}">${n}</span>`;
+function toast(m){ const t=document.createElement("div"); t.className="toast"; t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2400); }
+function stageSel(i,label=true){ const e=E[i]; return `<label class="stage">${label?"Stage":""}<select data-stage="${i}" aria-label="Stage for ${esc(e.n)}"><option value="">Not set</option><optgroup label="Problem Space">${A.slice(0,2).map(a=>`<option ${a===e.st?"selected":""}>${a}</option>`).join("")}</optgroup><optgroup label="Solution Space">${A.slice(2).map(a=>`<option ${a===e.st?"selected":""}>${a}</option>`).join("")}</optgroup></select></label>`; }
+const bars=e=>`<div class="bars"><div class="b-why"><span>Why <b>${e.why}%</b></span><i><s style="width:${e.why}%"></s></i></div><div class="b-what"><span>What <b>${e.what}%</b></span><i><s style="width:${e.what}%"></s></i></div><div class="b-how"><span>How <b>${e.how}%</b></span><i><s style="width:${e.how}%"></s></i></div></div>`;
+function home(){ return `<div class="ttl"><h3>Your engagements</h3></div>
+  <div class="grid"><div class="ec new" data-t="New engagement"><span class="plus">＋</span><h4>New engagement</h4><span class="meta">Name the client; Claude fills every aid for you to review.</span></div>
+  ${E.map((e,i)=>`<div class="ec" data-open="${i}"><h4>${esc(e.n)}</h4><div>${stageSel(i)}${i===0?pin(2):""}</div>${bars(e)}${i===0?pin(1):""}<div class="nx"><b>NEXT</b>${esc(e.next)}${i===0?pin(4):""}</div><span class="meta">Updated ${e.up}</span></div>`).join("")}</div>`; }
+function overview(){ const e=E[S.cur]; return `<div class="ttl"><div><p class="kick" style="margin:0">Engagement</p><h3>${esc(e.n)}</h3></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${stageSel(S.cur)}${pin(2)}<button class="btn how" data-t="Meet the client">Meet the client</button></div></div>
+  <div class="card" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:color-mix(in srgb,var(--glow) 12%,var(--paper))"><b style="color:var(--how);font-size:12px;letter-spacing:.08em">NEXT STEP</b><span style="flex:1;min-width:0">${esc(e.next)}</span>${pin(4)}<button class="btn pri" data-aid="uap">Do it</button></div>
+  <div class="ovpath">${pin(3)}<div class="dim d-why"><span class="dk">WHY · PRIORITIES</span><div class="row"><span>Alignment of Priorities</span><em>${e.why}%</em></div><div class="row"><span>Priorities Map</span><em>70%</em></div></div>
+    <div class="dim d-what"><span class="dk">WHAT · REQUIREMENTS</span><div class="row"><span>Understanding a Problem</span><em>${e.what}%</em></div><div class="row"><span>Assessment Roadmap</span><em>${esc(e.st||"Not set")}</em></div><div class="row soon"><span>More Requirements aids</span><em>coming</em></div></div>
+    <div class="dim d-how"><span class="dk">HOW · CRITERIA</span><div class="row"><span>Criteria Proposition</span><em>${e.how}%</em></div></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-aid="uap">Open Understanding a Problem</button><button class="btn" data-aid="ar">Open the Assessment Roadmap</button></div>`; }
+function aid(){ const e=E[S.cur], ar=S.aid==="ar"; return `<div class="head"><div class="path">${pin(3)}<div class="pchip p-why"><span class="pk">WHY</span><button>Alignment</button><button>Priorities Map</button></div><div class="pchip p-what"><span class="pk">WHAT</span><button data-aid="uap" ${!ar?"aria-current":""}>Problem</button><button data-aid="ar" ${ar?"aria-current":""}>Roadmap</button><button disabled>more soon</button></div><div class="pchip p-how"><span class="pk">HOW</span><button>Criteria</button></div></div>
+  <div class="headrow"><div class="pill"><b>NEXT</b><span>${esc(e.next)}</span><button class="btn" style="min-height:30px;padding:3px 10px">Do it</button></div><div style="display:flex;gap:8px;align-items:center">${stageSel(S.cur)}${pin(2)}</div></div></div>
+  <div class="card"><b>${ar?"Assessment Roadmap":"Understanding a Problem"}</b><p class="note">${ar?`The Roadmap's sheet as today, with “We're here” on <b>${esc(e.st||"no stage yet")}</b>, the stage chosen in the drop-down. Claude's read, the timeline, Present and the PDF are unchanged.`:"The sheet and its guide, as today."}</p></div>`; }
+function render(){ $("frame").classList.toggle("phone",S.phone); document.body.classList.toggle("hide-pins",!S.pins);
+  $("crumb").innerHTML=S.view==="home"?"<b>Engagements</b>":S.view==="overview"?`<button data-go="home">Engagements</button> › <b>${esc(E[S.cur].n)}</b>`:`<button data-go="home">Engagements</button> › <button data-go="overview">${esc(E[S.cur].n)}</button> › <b>${S.aid==="ar"?"Assessment Roadmap":"Understanding a Problem"}</b>`;
+  $("app").innerHTML=S.view==="home"?home():S.view==="overview"?overview():aid(); }
+document.addEventListener("change",e=>{ const s=e.target.closest("[data-stage]"); if(!s) return; E[+s.dataset.stage].st=s.value; toast(s.value?`${E[+s.dataset.stage].n} is at ${s.value}`:"Stage cleared"); render(); });
+document.addEventListener("click",e=>{ if(e.target.closest("select,label.stage")) return;
+  const g=e.target.closest("[data-go]"); if(g){ S.view=g.dataset.go; render(); return; }
+  const o=e.target.closest("[data-open]"); if(o){ S.cur=+o.dataset.open; S.view="overview"; render(); return; }
+  const a=e.target.closest("[data-aid]"); if(a){ S.aid=a.dataset.aid; S.view="aid"; render(); return; }
+  const t=e.target.closest("[data-t]"); if(t) toast(t.dataset.t+" opens as today"); });
+const seg=(a,b,f)=>{ $(a).onclick=()=>{ f(true); $(a).setAttribute("aria-pressed","true"); $(b).setAttribute("aria-pressed","false"); render(); }; $(b).onclick=()=>{ f(false); $(b).setAttribute("aria-pressed","true"); $(a).setAttribute("aria-pressed","false"); render(); }; };
+seg("fPhone","fDesk",v=>S.phone=v); seg("pOn","pOff",v=>S.pins=v); render();
+</script>
