@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KA Aids</title>
+<!-- The Home Screen icon and name; no "web-app-capable" tag, so a tap opens Safari, where you're already signed in to Claude -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="ka-icon-512.png">
+<meta name="apple-mobile-web-app-title" content="KA Aids">
+<meta name="theme-color" content="#16213f">
+<style>
+:root{color-scheme:light dark}
+body{margin:0;min-height:100svh;display:grid;place-items:center;background:#fff;color:#1f2430;font:16px/1.5 -apple-system,"Open Sans",system-ui,sans-serif;padding:16px;box-sizing:border-box}
+@media (prefers-color-scheme:dark){body{background:#11151f;color:#e6e9f0}}
+main{max-width:420px;text-align:center;display:grid;gap:16px;justify-items:center}
+img{width:120px;height:120px;border-radius:26px;box-shadow:0 6px 24px rgb(0 0 0 /.15)}
+a.go{display:inline-block;background:#2c4f9b;color:#fff;text-decoration:none;font-weight:700;padding:12px 22px;border-radius:999px}
+.how{font-size:14px;color:#6b7385;text-align:left;border-top:1px solid #d8dce5;padding-top:12px}
+</style>
+</head>
+<body>
+<main>
+  <img src="apple-touch-icon.png" alt="">
+  <h1 style="margin:0;font-size:24px">KA Engagement Aids</h1>
+  <a class="go" id="go" href="https://claude.ai/artifact/1K8gASRTunm2UJxM6Nqbyr">Open KA Engagement Aids</a>
+  <div class="how" id="how" hidden>
+    <b>Put it on your Home Screen:</b> in Safari, tap Share (the square with the arrow), then <b>Add to Home Screen</b>, then Add. After that, the KA icon opens the app.
+  </div>
+</main>
+<script>
+// With ?setup: show how to add it, and drop ?setup from the address so the Home Screen icon saves the plain link.
+// Without it (that is, from the Home Screen icon): go straight to the app.
+if (new URLSearchParams(location.search).has("setup")) { document.getElementById("how").hidden = false; history.replaceState(null, "", location.pathname); }
+else { location.replace(document.getElementById("go").href); }
+</script>
+</body>
+</html>
