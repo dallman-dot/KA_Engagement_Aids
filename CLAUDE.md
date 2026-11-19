@@ -95,6 +95,8 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
 
 - **Presenting on a phone held upright** (Dave, November 19, an iPhone screenshot of a slide stuck at the top and the bar cut off): every slide sits in the middle of the screen; under 700 px wide the bar keeps ◀, the label (shortened), ▶, Notes, ⚑ and Exit, with Presenter view, Leave-behind PDF and ? left off (the leave-behind is still in Share & export); upright, a quiet line says "Turn your phone sideways for a larger view".
 
+- **A Home Screen icon** (Dave, November 19: "i want to have an icon I can put on my Apple iphone home screen to launch KA Engagement Aids"): a published artifact can't set its own Home Screen icon (it runs inside claude.ai's page), so `docs/index.html` is a tiny launcher for GitHub Pages (main, /docs): it carries the KA icon (`docs/apple-touch-icon.png`, 180 px; `docs/ka-icon-512.png`; the boxed "ka" with Engagement Aids) and the name "KA Aids", and goes straight to the app's link. With `?setup` it shows how to add it and drops `?setup` from the address first. There's no web-app-capable tag, so a tap opens Safari, where Dave is already signed in to Claude. Waiting on Dave to turn on Pages; the address will be https://dallman-dot.github.io/KA_Engagement_Aids/.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
