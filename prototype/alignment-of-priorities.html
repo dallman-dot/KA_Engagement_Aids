@@ -1281,6 +1281,32 @@ em.s-vendor{background:color-mix(in srgb,var(--glow) 22%,transparent);color:#7a5
 @media (max-width:640px){.ahpath .d-what[data-nav="uap"]{display:flex}#viewAidUAP .ctlcard{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent)}#viewAidUAP .ctlcard::-webkit-scrollbar{display:none}}
 #viewAidUAP .sheetwrap>*{min-width:0}#uapTabs{min-width:0}#uapRead .rcard{min-width:0}#uapRead{min-width:0}
 
+/* ===== the Solutions Map (Dave, Nov 20) ===== */
+.smcv .smname.from{background:color-mix(in srgb,var(--plum) 6%,transparent);border-radius:calc(.6*var(--mm))}
+.smcv .smph{color:var(--muted);font-weight:400;opacity:.7}
+.smcv .sminit.inaop{font-weight:700}
+.smok{border:calc(.3*var(--mm)) solid #9aa0ab;background:var(--paper);border-radius:calc(.6*var(--mm));color:#fff;font:800 calc(3.2*var(--mm))/1 var(--font);display:grid;place-items:center;padding:0;cursor:pointer}
+.smok:hover{border-color:var(--plum)}.smok.on{background:var(--plum);border-color:var(--plum)}.smok:focus-visible{outline:calc(.4*var(--mm)) solid var(--cyan)}
+.smcaps{display:grid;gap:8px;margin:8px 0}.smcaprow{display:grid;grid-template-columns:28px minmax(0,1fr);gap:8px;align-items:start;background:var(--paper);border:1px solid var(--rule);border-left:5px solid var(--blue);border-radius:12px;padding:8px 10px}
+.smcaprow .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--bg);font-weight:700;font-size:12.5px}.smcapf{display:grid;gap:4px;min-width:0}.smcapm{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.smcapm:empty{display:none}
+.thumb .smcv{pointer-events:none}
+body.one #viewAidSM .ctlcard{display:none!important}
+#viewAidSM .sheetwrap>*{min-width:0}
+
+/* ===== New engagement as a conversation (Dave, Nov 20) ===== */
+.suchat{display:grid;gap:10px;align-content:start}
+.suhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.suhead b{flex:1}
+.sumsgs{display:flex;flex-direction:column;gap:8px;max-height:min(56vh,520px);overflow-y:auto;padding:4px 2px;scrollbar-width:thin}
+.sub{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14.5px;line-height:1.45}
+.sub.c{align-self:flex-start;background:var(--paper);border:1px solid var(--rule);border-bottom-left-radius:4px}
+.sub.c.now{border-color:color-mix(in srgb,var(--plum) 40%,var(--rule));box-shadow:0 1px 0 color-mix(in srgb,var(--plum) 18%,transparent)}
+.sub.u{align-self:flex-end;background:color-mix(in srgb,var(--plum) 10%,var(--card));border:1px solid color-mix(in srgb,var(--plum) 25%,transparent);border-bottom-right-radius:4px;color:var(--ink);font:inherit;font-size:14.5px;text-align:right;cursor:pointer}
+.sub.u:hover{border-color:var(--plum)}
+.suin{display:grid;gap:8px}.sugrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sugrid .field{margin:0;display:grid;gap:2px}
+@media (max-width:560px){.sugrid{grid-template-columns:minmax(0,1fr)}.sub{max-width:94%}}
+.suchips{display:flex;flex-wrap:wrap;gap:6px}
+.suchat .clspin{display:inline-block;vertical-align:-2px}.suchat .clspin{border-color:color-mix(in srgb,var(--plum) 25%,transparent);border-top-color:var(--plum)}
+
 /* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
 #oneWrap{display:block;min-width:0}
 body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
@@ -1528,7 +1554,7 @@ body.sdon{overflow:hidden}
         <h3>What happens</h3>
         <ol class="fills" id="suFills">
           <li class="d-why" data-f="aop"><div><b>Priorities · the alignment</b><span>Goals, strategies, processes and initiatives, forced into KA's choices; key ratios from the statements.</span></div></li>
-          <li class="d-why" data-f="sol"><div><b>Solutions from your company</b><span>What it says it offers, fitted to the initiatives. Skipped when no provider is named.</span></div></li>
+          <li class="d-why" data-f="sol"><div><b>Solutions from your company</b><span>What it says it offers, fitted to the initiatives. Skipped when no solution is named.</span></div></li>
           <li class="d-how" data-f="cp"><div><b>Criteria · ROA, ROI, TCO</b><span>Drafted from the alignment. Unknown targets come back as [?] for the client.</span></div></li>
         </ol>
         <p class="note" id="suStatus"></p>
@@ -1859,6 +1885,25 @@ body.sdon{overflow:hidden}
       <p class="pmbanner prep-only" id="spBanner" hidden></p>
       <div class="cpscroll"><div class="spwrap" id="spSheet"></div></div>
       <div class="pmread" id="spRead"></div>
+    </div>
+  </section>
+  <section id="viewLearnSM" class="pmview smview" role="tabpanel" hidden>
+    <div class="ghead"><div><small>Illustrate Innovative Solutions</small><h1>Solutions Map</h1><p class="gsub">Learn the map in four short cards. Then map the solution.</p></div></div>
+    <div class="lwrap"><ol class="ldots" id="smLdots" aria-label="Cards"></ol><article class="lcard" id="smLcard" aria-live="polite"></article>
+      <div class="lnav"><button class="btn" id="smLPrev">← Back</button><button class="btn primary" id="smLNext">Next →</button></div></div>
+  </section>
+  <section id="viewBuildSM" class="pmview smview" role="tabpanel" hidden>
+    <ol class="bsteps" id="smBsteps" aria-label="Steps"></ol>
+    <div class="bwrap"><div class="bmain" id="smBmain"></div>
+      <aside class="bside"><p class="minicap">The map, as you build it</p><button class="minibtn pmmini" id="smMini" aria-label="Open the full map"></button><div id="smAsk" class="askclient"></div></aside></div>
+    <div class="bnav"><button class="btn" id="smBBack">← Back</button><span id="smBpos" class="note"></span><button class="btn primary" id="smBNext">Next →</button></div>
+  </section>
+  <section id="viewAidSM" class="pmview smview" role="tabpanel" hidden>
+    <div class="sheetwrap">
+      <section class="ctlcard" aria-label="Controls"><button class="btn small" id="smPdf">Download PDF</button><button class="btn small" id="smCopy">Copy summary</button><button class="btn small danger prep-only" id="smClear">Clear the map</button></section>
+      <p class="pmbanner prep-only" id="smBanner" hidden></p>
+      <div class="cpscroll"><div class="cpstage pmstage" id="smSheet"></div></div>
+      <div class="pmread" id="smRead"></div>
     </div>
   </section>
   <footer><span>Rebuilt from Knowledge-Advantage's engagement aids (© 2010). A prototype.</span><span>Your work stays in this browser.</span></footer>
@@ -6217,15 +6262,349 @@ document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); i
 
 
 
+
+
+/* ===================== Solutions Map (Dave, Nov 20: "I want to move this to the KA Engagement Aids code"; on the design: capabilities from "The alignment's Solutions",
+   initiatives "Fixed as printed", "Yes, as a seventh visual" in the straw dog; "solution map should come before the Session Plan")
+   The PDF's page 2 on its own coordinates (the same grid as the Priorities Map: Stakeholder1–6 there are Capability 1–6 here): six capabilities across, KA's six initiatives
+   down exactly as printed, Low / Medium / High impact at each intersection, ▷ details per cell, the PDF's validate boxes beside each initiative and above each capability. ===================== */
+const SM_INIT=["Sustainable Growth","Engage & Retain","High Performance Culture","Improve Health & Well-Being","Operational Excellence","Cost Competitiveness"];
+const SM_TXT={kicker:"Illustrate Innovative Solutions",purpose:"A visual aid to map the impact of capabilities to the top of mind initiatives of key stakeholders.",
+  why:"We will demonstrate the tangible worth of a set of capabilities (solution) by illustrating how those capabilities relate to business priorities.",
+  outcomes:["Understanding of how a set of capabilities (solution) contribute to personal, professional and business priorities for stakeholders","Confirmation that a complete set of integrated, innovative capabilities addresses multiple priorities for the business"],
+  when:"The Solutions Map is best used in the Problem Space during the Analysis Phase (2.3) to “Illustrate Innovative Solutions”. It’s also useful in the Solution Space to demonstrate integration points of solutions.",
+  threat:"A clear sense of threats to scope, time and resources is required before solving any business problem.",
+  gaps:[["position","Position (Relevance)"],["people","People (Decision Makers)"],["policies","Policies (Budget)"],["procedures","Procedures (Sign-offs)"],["politics","Politics (Agendas)"]],
+  problem:["Validate “top of mind” initiatives","Explain and confirm an understanding for a set of integrated capabilities","Map and agree to the impact of the capabilities to address “top of mind” initiatives","Determine gaps in capabilities to fully address business priorities"],
+  solution:["Highlight how a solution fits into an enterprise-wide set of integrated capabilities","Demonstrate the synergies to be gained by bringing multiple capabilities together","Demonstrate how capabilities close gaps created by business problems"]};
+const SM_IMP=["","Low","Medium","High"], SMG={cx0:66.586,cw:33.853,cwi:32.268,ry0:57.529,rh:19.356,right:270.17};
+const SM_SRC={alignment:"From the alignment · confirm",ally:"From the solution's offerings",claude:"Claude's point of view",you:"Your words",client:"Confirmed with the client"};
+const SM_STEPS=["Capabilities","Initiatives","Impact","Gaps & synergies","Check"];
+const SM_ASK=[["Which of these capabilities matter most to you?","What do you already have in place for each?","What's missing from this list?"],
+  ["Which of these initiatives are top of mind this year?","Who owns each one?","Which would you drop if you had to?"],
+  ["Where would this capability make the biggest difference?","What would High impact look like for you?","Where are we overstating it?"],
+  ["Which initiative has nothing behind it today?","Where do two capabilities do more together than apart?","What would close the gap?"],
+  ["Where could budget, sign-offs or agendas slow this down?","Who else has to see this map?","What should happen next?"]];
+let smMode=false, smIdx=0, smL=0, smBusy=false, smMsg="", smCtl=null, smSpot=null, presSM=false, smUndo=null;
+
+const smBlankCap=()=>({n:"",d:"",src:"",from:"",ok:false});
+const smFull=n=>PM_FULL[n]||n;
+function smAopInits(){ try{ return S.items.initiatives.filter(x=>(x.t||"").trim()).map(x=>smFull(x.t)); }catch(e){ return []; } }
+const smInAop=r=>smAopInits().includes(SM_INIT[r]);
+/* the alignment's Solutions become the capabilities; a Solution tied to an initiative in the alignment starts as High impact there, to confirm */
+function smSeed(D){ D=D||smData(); let n=0; const sols=(S.items?.solutions||[]).map((s,j)=>[s,j]).filter(([s])=>(s.t||"").trim());
+  sols.forEach(([s,j])=>{ let c=D.cap.findIndex(x=>x.n.trim().toLowerCase()===s.t.trim().toLowerCase()); if(c<0){ c=D.cap.findIndex(x=>!x.n.trim()); if(c<0) return; D.cap[c]={n:s.t.trim(),d:(s.d||"").trim(),src:"alignment",from:`solutions.${j}`,ok:false}; n++; }
+    (s.serves||[]).forEach(id=>{ const ini=item(id); if(!ini||!(ini.t||"").trim()) return; const r=SM_INIT.indexOf(smFull(ini.t)); if(r<0) return; const k=`${r}.${c}`; if(!D.cells[k]||!D.cells[k].p) D.cells[k]={p:3,src:"alignment",why:`The alignment ties ${s.t.trim()} to ${SM_INIT[r]}`,d:D.cells[k]?.d||""}; }); });
+  return n; }
+function smData(){ let fresh=false; if(!S.sm||!Array.isArray(S.sm.cap)){ S.sm={cap:[],ok:[],cells:{},notes:"",hd:{init:"",cap:""},take:"",gaps:{},checksP:[],checksS:[],outcomes:[],drafted:false,basis:"",qs:[]}; fresh=true; }
+  const D=S.sm; while(D.cap.length<6) D.cap.push(smBlankCap()); D.cap=D.cap.slice(0,6); D.ok=Array.isArray(D.ok)?D.ok:[]; while(D.ok.length<6) D.ok.push(false);
+  D.cells=D.cells||{}; D.hd=D.hd||{init:"",cap:""}; D.gaps=D.gaps||{}; ["checksP","checksS","outcomes","qs"].forEach(k=>{ if(!Array.isArray(D[k])) D[k]=[]; });
+  if(fresh) smSeed(D); return D; }
+const smCell=(r,c,D=smData())=>D.cells[`${r}.${c}`]||{p:0};
+const smNamedC=(D=smData())=>D.cap.map((x,i)=>x.n.trim()?i:-1).filter(i=>i>=0);
+const cName=(c,D=smData())=>D.cap[c].n.trim()||`Capability ${c+1}`;
+function smRated(D=smData()){ const o=[]; for(let r=0;r<6;r++) smNamedC(D).forEach(c=>{ const x=smCell(r,c,D); if(x.p) o.push([r,c,x]); }); return o; }
+function smRowRead(r,D=smData()){ const v=smNamedC(D).map(c=>[c,smCell(r,c,D).p]).filter(([,p])=>p); return {v,hi:v.filter(x=>x[1]===3).map(x=>x[0]),md:v.filter(x=>x[1]===2).map(x=>x[0]),lo:v.filter(x=>x[1]===1).map(x=>x[0]),best:v.reduce((m,x)=>Math.max(m,x[1]),0)}; }
+/* gaps: a top-of-mind initiative no capability reaches with Medium or High impact; synergies: two or more capabilities High on the same initiative */
+const smFocus=(D=smData())=>{ const a=smAopInits(); return [0,1,2,3,4,5].filter(r=>D.ok[r]||a.includes(SM_INIT[r])); };
+const smGaps=(D=smData())=>smNamedC(D).length?(smFocus(D).length?smFocus(D):[0,1,2,3,4,5]).filter(r=>smRowRead(r,D).best<2):[];
+const smSyn=(D=smData())=>[0,1,2,3,4,5].filter(r=>smRowRead(r,D).hi.length>=2);
+const smReach=(c,D=smData())=>[0,1,2,3,4,5].filter(r=>smCell(r,c,D).p>=2);
+const smToConfirm=(D=smData())=>smRated(D).filter(([,,x])=>x.src==="claude"||x.src==="alignment");
+function smScore(){ const D=smData(), named=smNamedC(D); if(!named.length) return 0; const rated=smRated(D), conf=rated.filter(([,,x])=>x.src!=="claude"&&x.src!=="alignment").length;
+  let s=Math.min(named.length,3)/3*20+Math.min(1,rated.length/Math.max(6,named.length*3))*35+(rated.length?conf/rated.length*20:0);
+  s+=(D.ok.filter(Boolean).length/6*.5+named.filter(c=>D.cap[c].ok).length/named.length*.5)*15; if((D.take||"").trim()||Object.values(D.gaps).some(v=>(v||"").trim())) s+=10; return Math.round(Math.min(100,s)); }
+function smNextMove(){ const D=smData(), named=smNamedC(D), sols=(S.items?.solutions||[]).filter(s=>(s.t||"").trim());
+  if(!named.length) return sols.length?{t:"Carry over the alignment's Solutions as the capabilities",go:()=>{ smSeed(); save(); smIdx=0; show("build"); smRefresh(); }}:{t:"Name the capabilities (the solution's parts)",go:()=>{ smIdx=0; show("build"); }};
+  if(!smRated(D).length) return {t:sample?"Rate the impact with Claude":"Rate each capability's impact on the initiatives",go:()=>{ smIdx=2; show("build"); if(sample) smDraft(); }};
+  if(smToConfirm(D).length) return {t:`Confirm ${smToConfirm(D).length} impact rating${smToConfirm(D).length>1?"s":""} with the client`,go:()=>{ smIdx=2; show("build"); }};
+  if(!D.ok.some(Boolean)) return {t:"Validate the top-of-mind initiatives",go:()=>{ smIdx=1; show("build"); }};
+  const g=smGaps(D); if(g.length&&!(D.take||"").trim()) return {t:`Note the gap: ${SM_INIT[g[0]]} has no capability with impact`,go:()=>{ smIdx=3; show("build"); }};
+  return {t:"Meet the client: present the Solutions Map",done:true,go:()=>{ meetAid="sm"; nav("meet"); }}; }
+
+/* ---------- the picture: the PDF's page 2 ---------- */
+function smBoxSVG(on,x,y,s=4.572){ return `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx=".5" fill="${on?"var(--plum)":"var(--paper)"}" stroke="${on?"var(--plum)":"#9aa0ab"}" stroke-width=".35"/>${on?`<path d="M${x+1} ${y+s*.52} l${s*.25} ${s*.25} l${s*.45} -${s*.5}" fill="none" stroke="#fff" stroke-width=".6"/>`:""}`; }
+function smSheetHTML({mode="edit",spot=null}={},D=smData()){ const ed=mode==="edit", pres=mode==="present"||mode==="view", F="Open Sans,sans-serif", aop=smAopInits();
+  const dim=spot?(spot.r!=null||spot.rows?"dim dimrows":spot.c!=null?"dim dimcols":""):""; const litR=r=>spot&&(spot.r===r||(spot.rows&&spot.rows.includes(r))), litC=c=>spot&&spot.c===c;
+  let s=`<svg class="pmbase" viewBox="0 0 279.4 215.9" preserveAspectRatio="none" aria-hidden="true">
+    <text x="10.4" y="14.2" fill="var(--tan)" font-family="${F}" font-weight="700" font-size="3.9">${SM_TXT.kicker}</text>
+    <text x="10.4" y="28.4" fill="var(--title)" font-family="${F}" font-weight="300" font-size="13.4" textLength="88" lengthAdjust="spacingAndGlyphs">Solutions Map</text>
+    <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>${clientMarkSVG()}
+    <rect x="65.9" y="34.6" width="${SMG.right-65.9}" height="8.2" fill="#2c4f9b"/><text x="${(65.9+SMG.right)/2}" y="40.4" text-anchor="middle" fill="#fff" font-family="${F}" font-weight="800" font-size="4.4" letter-spacing="1.6">CAPABILITIES</text>`;
+  for(let c=0;c<6;c++){ const x=65.9+c*SMG.cw; s+=`<rect class="pmcol ${litC(c)?"lit":""}" x="${x}" y="42.8" width="${SMG.cw}" height="14.7" fill="${litC(c)?"color-mix(in srgb,var(--blue) 7%,transparent)":"transparent"}"/>`; if(!ed&&(D.cap[c].ok)) s+=smBoxSVG(true,79.951+c*SMG.cw,43.376,3.6); }
+  /* the initiatives' bar takes Infrastructure green, as initiatives do across the portfolio */
+  s+=`<rect x="12.8" y="${SMG.ry0}" width="6.6" height="${SMG.rh*6}" fill="var(--inf-s)"/>`;
+  "INITIATIVES".split("").forEach((ch,j)=>{ s+=`<text x="16.1" y="${SMG.ry0+11+j*9.9}" text-anchor="middle" fill="var(--inf-ink)" font-family="${F}" font-weight="800" font-size="4.6">${ch}</text>`; });
+  for(let r=0;r<6;r++){ const y=SMG.ry0+r*SMG.rh; s+=`<rect class="pmrow ${litR(r)?"lit":""}" x="19.4" y="${y}" width="${SMG.right-19.4}" height="${SMG.rh}" fill="${r%2?"var(--inf-b)":"transparent"}" opacity=".55"/><line x1="19.4" y1="${y+SMG.rh}" x2="${SMG.right}" y2="${y+SMG.rh}" stroke="var(--rule)" stroke-width=".35"/>`;
+    if(!ed&&D.ok[r]) s+=smBoxSVG(true,22.06,y+7.63,3.6); }
+  s+=`<line x1="19.4" y1="${SMG.ry0}" x2="${SMG.right}" y2="${SMG.ry0}" stroke="var(--rule)" stroke-width=".35"/>`;
+  if(spot&&spot.mark==="gap") smGaps(D).forEach(r=>{ s+=`<rect class="conflict-mark" x="20" y="${SMG.ry0+r*SMG.rh+.8}" width="${SMG.right-20.6}" height="${SMG.rh-1.6}" rx="1.5"/>`; });
+  if(spot&&spot.mark==="syn") smSyn(D).forEach(r=>{ s+=`<rect x="20" y="${SMG.ry0+r*SMG.rh+.8}" width="${SMG.right-20.6}" height="${SMG.rh-1.6}" rx="1.5" fill="none" stroke="var(--ok)" stroke-width=".5" stroke-dasharray="1.6 1.2"/>`; });
+  [1,2,3].forEach((p,j)=>{ const y=181.5+j*8.5; s+=`<g transform="translate(231.2 ${y-3.3}) scale(.66)"><circle cx="5" cy="5" r="4.4" fill="none" stroke="var(--plum)" stroke-width="1"/>${p===2?`<path d="M5 .6 A4.4 4.4 0 0 1 5 9.4 Z" fill="var(--plum)"/>`:p===3?`<circle cx="5" cy="5" r="4.4" fill="var(--plum)"/>`:""}</g><text x="239.6" y="${y+1}" fill="var(--ink)" font-family="${F}" font-size="2.9">${SM_IMP[p]} Impact</text>`; });
+  s+=`<path class="pmbub" d="M14 180.2 h7.6 a2 2 0 0 1 2 2 v4.2 a2 2 0 0 1 -2 2 h-3.6 l-2.6 2.4 v-2.4 h-1.4 a2 2 0 0 1 -2 -2 v-4.2 a2 2 0 0 1 2 -2z" fill="none" stroke="var(--plum)" stroke-width=".7"/>`;
+  s+=kaFootSVG()+`</svg>`;
+  let h=s;
+  D.cap.forEach((cp,c)=>{ const st=PX(66.586+c*SMG.cw,47.5,SMG.cwi,9.6); h+=ed?`<div class="px pmcol ${litC(c)?"lit":""}" style="${st}"><div class="pmname smname ${cp.src&&!["you","client"].includes(cp.src)&&cp.n.trim()?"from":""}" contenteditable="true" spellcheck="false" data-smname="${c}" role="textbox" aria-label="Capability ${c+1}" data-ph="Capability ${c+1}" title="${esc(cp.d||"")}">${esc(cp.n)}</div></div>`
+    :`<div class="px pmcol ${litC(c)?"lit":""}" style="${st}"><div class="pmname smname">${cp.n.trim()?esc(cp.n):pres?"":`<span class="smph">Capability ${c+1}</span>`}</div></div>`;
+    if(ed) h+=`<button class="px smok ${cp.ok?"on":""}" style="${PX(79.951+c*SMG.cw,43.376,4.572,4.572)}" data-smokc="${c}" title="${cp.ok?"Understanding confirmed with the stakeholder · tap to undo":"Tap once the stakeholder confirms their understanding of this capability"}" aria-label="Capability ${c+1}: understanding confirmed" aria-pressed="${!!cp.ok}">${cp.ok?"✓":""}</button>`; });
+  SM_INIT.forEach((n,r)=>{ const y=SMG.ry0+r*SMG.rh; h+=`<div class="px pmrow ${litR(r)?"lit":""}" style="${PX(25.4,y+1.4,38,16.6)};display:flex;align-items:flex-start;justify-content:flex-end"><div class="pminit sminit ${aop.includes(n)?"inaop":""}" title="${aop.includes(n)?"In your Alignment of Priorities":""}">${esc(n)}</div></div>`;
+    if(ed) h+=`<button class="px smok ${D.ok[r]?"on":""}" style="${PX(22.06,y+7.63,4.572,4.572)}" data-smoki="${r}" title="${D.ok[r]?"Validated as top of mind · tap to undo":"Tap once the stakeholder validates this as a top-of-mind initiative"}" aria-label="${esc(n)}: validated as top of mind" aria-pressed="${!!D.ok[r]}">${D.ok[r]?"✓":""}</button>`; });
+  for(let r=0;r<6;r++) for(let c=0;c<6;c++){ const x=smCell(r,c,D), cx=SMG.cx0+16.134+c*SMG.cw, cy=SMG.ry0+9.6+r*SMG.rh, named=!!D.cap[c].n.trim(); if(!named&&!ed) continue; if(!x.p&&pres) continue;
+    const lit=(spot&&litR(r))||(spot&&litC(c)), soft=x.src==="claude"||x.src==="alignment";
+    const title=`${SM_INIT[r]} · ${cName(c,D)}: ${x.p?SM_IMP[x.p]+" impact":"not rated"}${soft?` · ${SM_SRC[x.src]}`:""}${x.why?` · ${x.why}`:""}`;
+    h+=ed?`<button class="px pmcell pmrow pmcol ${x.p?"":"empty"} ${soft?"claude":""} ${lit?"lit":""}" style="${PX(cx-5.2,cy-5.2,10.4,10.4)};--i:${c}" data-smcell="${r}.${c}" title="${esc(title)}" aria-label="${esc(title)}" ${named?"":"disabled"}>${ballSVG(x.p)}</button>`
+      :`<div class="px pmcell pmrow pmcol ${x.p?"":"empty"} ${lit?"lit":""}" style="${PX(cx-5.2,cy-5.2,10.4,10.4)};--i:${c}" title="${esc(title)}">${ballSVG(x.p)}</div>`;
+    if(ed&&named) h+=`<button class="px pmmore ${(x.d||"").trim()?"has":""}" style="${PX(93.2+c*SMG.cw,SMG.ry0+.85+r*SMG.rh,6.35,6.35)}" data-smmore="${r}.${c}" aria-label="Details: ${esc(cName(c,D))} on ${esc(SM_INIT[r])}">▷</button>`; }
+  if(ed){ h+=`<button class="px pmhdbtn dark" style="${PX(11.2,SMG.ry0-6.8,7.2,6.4)}" data-smhd="init" aria-label="About the initiatives">▷</button><button class="px pmhdbtn" style="${PX(67,35,6,7)}" data-smhd="cap" aria-label="About the capabilities">▷</button>`;
+    h+=`<div class="px" style="${PX(26.4,179.7,185,21.4)}"><textarea class="pmnotes" data-smnotes placeholder="Notes: participants, the date, what you heard…" aria-label="Notes">${esc(D.notes||"")}</textarea></div>`;
+    h+=`<button class="logoslot prep-only ${S.company?.logo?"":"empty"}" data-logoslot style="${PX(166,8.6,104,20.2)}" aria-label="Client logo">${S.company?.logo?"":"<span>＋ Client logo</span>"}</button>`; }
+  else if((D.notes||"").trim()&&mode!=="present") h+=`<div class="px pmnotes" style="${PX(26.4,179.7,185,21.4)};overflow:hidden">${esc(D.notes)}</div>`;
+  return `<div class="pmcv smcv ${dim}">${h}</div>`; }
+function smPaint(target,opts,D){ const el=typeof target==="string"?$(target):target; if(el) el.innerHTML=smSheetHTML(opts,D); }
+
+/* ---------- editing on the sheet and in the guide ---------- */
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-smcell]"); if(!b||b.disabled) return; const [r,c]=b.dataset.smcell.split(".").map(Number), D=smData(), k=`${r}.${c}`, x=D.cells[k]||{p:0};
+  const soft=x.src==="claude"||x.src==="alignment", p=soft&&x.p?x.p:(x.p+1)%4; D.cells[k]=Object.assign({},x,{p,src:"you"}); if(!p&&!(x.d||"").trim()) delete D.cells[k]; save(); smRefresh(); if(soft&&x.p) toast(`${SM_IMP[p]} impact confirmed. Tap again to change it.`); });
+document.addEventListener("input",e=>{ const t=e.target;
+  if(t.dataset?.smname!=null){ const c=+t.dataset.smname, D=smData(); D.cap[c].n=t.innerText.replace(/\s+/g," ").trim().slice(0,40); D.cap[c].src="you"; if(!D.cap[c].n) Object.keys(D.cells).filter(k=>k.endsWith("."+c)).forEach(k=>{ if(!(D.cells[k].d||"").trim()) delete D.cells[k]; }); save(); clearTimeout(smPaint._t); smPaint._t=setTimeout(()=>{ if(curView!=="aid"||!document.querySelector(".onesheet")?.contains(document.activeElement)) smRefresh(true); },400); return; }
+  if(t.dataset?.smcn!=null){ const c=+t.dataset.smcn, D=smData(); D.cap[c].n=t.value.slice(0,40); D.cap[c].src="you"; save(); return; }
+  if(t.dataset?.smcd!=null){ const D=smData(); D.cap[+t.dataset.smcd].d=t.value.slice(0,160); save(); return; }
+  if(t.dataset?.smnotes!=null){ smData().notes=t.value; save(); return; }
+  if(t.dataset?.smtake!=null){ smData().take=t.value; save(); return; }
+  if(t.dataset?.smgap!=null){ smData().gaps[t.dataset.smgap]=t.value; save(); return; } });
+document.addEventListener("change",e=>{ const c=e.target.closest("[data-smchk]"); if(c){ const [k,i]=c.dataset.smchk.split("|"), D=smData(); D[k][+i]=c.checked; save(); return; } });
+document.addEventListener("focusout",e=>{ if(e.target.dataset?.smname!=null||e.target.dataset?.smcn!=null) setTimeout(()=>smRefresh(),0); });
+function smDetails(r,c,anchor){ closePop(); const D=smData(), k=`${r}.${c}`, x=D.cells[k]||{p:0}, pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog"); pop.setAttribute("aria-label","Impact details");
+  pop.innerHTML=`<h5>${esc(cName(c))} · ${esc(SM_INIT[r])}</h5><div class="arow" style="flex:0 1 auto">${[1,2,3].map(p=>`<button class="btn small ${x.p===p?"primary":""}" data-smset="${p}">${ballInline(p)}${SM_IMP[p]}</button>`).join("")}</div>${x.src&&x.p?`<p class="note" style="margin:6px 0 0">${esc(SM_SRC[x.src]||"")}</p>`:""}${x.why?`<p class="note" style="margin:0"><b>Why:</b> ${esc(x.why)}</p>`:""}
+    <label class="note" for="smD">View or add additional details: how does ${esc(cName(c))} make a difference to ${esc(SM_INIT[r])}?</label><textarea id="smD" class="tin" rows="3">${esc(x.d||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="smDOk">Save</button></div>`;
+  place(pop,anchor); popEl=pop;
+  pop.querySelectorAll("[data-smset]").forEach(b=>b.onclick=()=>{ const p=+b.dataset.smset; D.cells[k]=Object.assign({},D.cells[k]||{},{p:(D.cells[k]?.p===p&&D.cells[k]?.src==="you")?0:p,src:"you"}); save(); smRefresh(); smDetails(r,c,anchor); });
+  pop.querySelector("#smDOk").onclick=()=>{ const v=pop.querySelector("#smD").value.trim(), cur=D.cells[k]||{p:0}; if(v||cur.p) D.cells[k]=Object.assign({},cur,{d:v}); else delete D.cells[k]; save(); closePop(); smRefresh(); toast(v?"Saved":"Cleared"); }; }
+function smHeaderNote(which,anchor){ closePop(); const D=smData(), pop=document.createElement("div"); pop.className="pop"; pop.setAttribute("role","dialog");
+  pop.innerHTML=`<h5>${which==="init"?"Understanding the Initiatives that have been listed.":"Understanding the Capabilities that have been listed."}</h5><textarea id="smHd" class="tin" rows="4">${esc(D.hd[which]||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small primary" id="smHdOk">Save</button></div>`;
+  place(pop,anchor); popEl=pop; pop.querySelector("#smHd").focus(); pop.querySelector("#smHdOk").onclick=()=>{ D.hd[which]=pop.querySelector("#smHd").value; save(); closePop(); toast("Saved"); }; }
+document.addEventListener("click",e=>{ const t=e.target;
+  const m=t.closest("[data-smmore]"); if(m){ e.stopPropagation(); const [r,c]=m.dataset.smmore.split(".").map(Number); smDetails(r,c,m); return; }
+  const hd=t.closest("[data-smhd]"); if(hd){ e.stopPropagation(); smHeaderNote(hd.dataset.smhd,hd); return; }
+  const oi=t.closest("[data-smoki]"); if(oi){ const D=smData(), r=+oi.dataset.smoki; D.ok[r]=!D.ok[r]; save(); smRefresh(); toast(D.ok[r]?`${SM_INIT[r]}: validated as top of mind`:`${SM_INIT[r]}: not validated`); return; }
+  const oc=t.closest("[data-smokc]"); if(oc){ const D=smData(), c=+oc.dataset.smokc; if(!D.cap[c].n.trim()){ toast("Name the capability first"); return; } D.cap[c].ok=!D.cap[c].ok; save(); smRefresh(); toast(D.cap[c].ok?`${cName(c)}: understanding confirmed`:`${cName(c)}: not confirmed yet`); return; }
+  if(t.closest("[data-smseed]")){ const n=smSeed(); save(); smRefresh(); toast(n?`${n} Solution${n>1?"s":""} carried over from the alignment`:"Every Solution in the alignment is already here"); return; }
+  const ad=t.closest("[data-smally]"); if(ad){ const D=smData(), o=(S.provider?.offerings||[])[+ad.dataset.smally]; if(!o) return; const c=D.cap.findIndex(x=>!x.n.trim()); if(c<0){ toast("All six capabilities are named. Clear one to add another.",null,true); return; } D.cap[c]={n:o.name,d:o.desc||"",src:"ally",from:"ally",ok:false}; save(); smRefresh(); return; }
+  const rm=t.closest("[data-smrm]"); if(rm){ const D=smData(), c=+rm.dataset.smrm, snap=JSON.stringify(D); D.cap[c]=smBlankCap(); Object.keys(D.cells).filter(k=>k.endsWith("."+c)).forEach(k=>delete D.cells[k]); save(); smRefresh(); toast("Capability cleared",()=>{ S.sm=JSON.parse(snap); save(); smRefresh(); }); return; }
+  if(t.closest("[data-smdraft]")){ smDraft(); return; } if(t.closest("[data-smstop]")){ smCtl?.abort(); return; }
+  if(t.closest("[data-smundo]")){ if(smUndo){ S.sm=JSON.parse(smUndo); smUndo=null; save(); smRefresh(); toast("Claude's ratings undone"); } return; }
+  if(t.closest("[data-smconfirm]")){ smConfirmAll(); return; }
+  if(t.closest("[data-smtakedraft]")){ const D=smData(), L=[]; smGaps(D).forEach(r=>L.push(`Gap: ${SM_INIT[r]} has no capability with Medium or High impact. What would close it?`)); smSyn(D).forEach(r=>L.push(`Synergy: ${listJoin(smRowRead(r,D).hi.map(c=>cName(c,D)))} together on ${SM_INIT[r]}.`)); D.take=((D.take||"").trim()?D.take.trim()+"\n":"")+L.join("\n"); save(); smRefresh(); return; }
+  const bs=t.closest("[data-smbs]"); if(bs){ smIdx=+bs.dataset.smbs; smBuild(); return; }
+  const lc=t.closest("[data-sml]"); if(lc){ smL=+lc.dataset.sml; smLearn(); return; }
+  if(t.closest("[data-smstart]")){ show("build"); return; }
+  const sr=t.closest("[data-smspotr]"), sc=t.closest("[data-smspotc]"); if(sr){ const v=+sr.dataset.smspotr; smSpot=smSpot?.r===v?null:{r:v}; smSheet(); return; } if(sc){ const v=+sc.dataset.smspotc; smSpot=smSpot?.c===v?null:{c:v}; smSheet(); return; }
+  const mk=t.closest("[data-smspotm]"); if(mk){ const v=mk.dataset.smspotm; smSpot=smSpot?.mark===v?null:{mark:v,rows:v==="gap"?smGaps():smSyn()}; smSheet(); return; }
+  if(t.closest("[data-smspotx]")){ smSpot=null; smSheet(); return; }
+  if(t.closest("[data-smtosheet]")){ show("aid"); return; } });
+function smConfirmAll(){ const D=smData(); let n=0; Object.values(D.cells).forEach(x=>{ if(x.p&&(x.src==="claude"||x.src==="alignment")){ x.src="client"; n++; } }); save(); smRefresh(); toast(n?`${n} impact rating${n>1?"s":""} confirmed with the client`:"Nothing left to confirm"); }
+
+/* ---------- Claude: its point of view on each capability's impact (never over your own ratings) ---------- */
+function smDraftPrompt(){ const D=smData(), caps=smNamedC(D).map(c=>({column:c+1,name:D.cap[c].n,what:D.cap[c].d||""})), aop=smAopInits();
+  const links=[]; (S.items?.solutions||[]).forEach(s=>{ if(!(s.t||"").trim()) return; (s.serves||[]).forEach(id=>{ const i=item(id); if(i&&(i.t||"").trim()) links.push(`${s.t} enhances ${smFull(i.t)}`); }); });
+  const keep=smRated(D).filter(([,,x])=>x.src==="you"||x.src==="client").map(([r,c,x])=>`${cName(c,D)} on ${SM_INIT[r]}: ${SM_IMP[x.p]}`);
+  return `You are a KA (Knowledge-Advantage) principal filling in KA's Solutions Map: "${SM_TXT.purpose}" Its aim: "${SM_TXT.why}"
+The CAPABILITIES (columns) are the solution's parts: ${JSON.stringify(caps)}.
+The INITIATIVES (rows) are KA's six, exactly: ${SM_INIT.map((n,i)=>`${i+1} ${n}${aop.includes(n)?" (top of mind: in the client's Alignment of Priorities)":""}`).join("; ")}.
+${links.length?`The client's Alignment of Priorities already ties: ${links.join("; ")}.\n`:""}${(S.provider?.name||"").trim()?`The solution we bring is ${S.provider.name}${S.provider.summary?`: ${S.provider.summary}`:""}.\n`:""}${keep.length?`Already rated by the user (keep exactly): ${keep.join("; ")}.\n`:""}
+THE ENGAGEMENT:
+${engagementText().slice(0,9000)}
+For EVERY capability and initiative, give your point of view on the capability's impact on that initiative for this client: "none", "low", "medium" or "high". High means the capability directly moves the initiative; be credible, not generous: most cells are none or low. A tie in the alignment is at least medium. Never invent facts about the client; each reason is under 14 words.
+Reply with JSON only: {"basis":"one sentence on what your view rests on","cells":[{"cap":1,"init":1,"impact":"none|low|medium|high","why":"…"}],"gaps":["an initiative the capabilities leave uncovered, and why, under 20 words"],"questions":["up to 4 questions to ask the client"]}`; }
+async function smDraft(){ const D=smData(); if(!sample){ smMsg="Claude's view needs the page opened in Claude. The map works by hand."; smRefresh(); return false; } if(smBusy) return false;
+  if(!smNamedC(D).length){ smSeed(D); save(); } if(!smNamedC(D).length){ smMsg="Name at least one capability first, or fill the alignment's Solutions."; smIdx=0; smRefresh(); return false; }
+  smBusy=true; smMsg="Claude is rating each capability's impact on the initiatives…"; smRefresh(); smCtl=new AbortController(); const snap=JSON.stringify(D);
+  try{ const r=await sample.json(smDraftPrompt(),{signal:smCtl.signal,modelTier:"complex"}); const E=smData(); let n=0;
+    (Array.isArray(r&&r.cells)?r.cells:[]).forEach(x=>{ const c=(+x.cap)-1, ri=(+x.init)-1; if(!(c>=0&&c<6&&ri>=0&&ri<6)||!E.cap[c].n.trim()) return; const k=`${ri}.${c}`, cur=E.cells[k]; if(cur&&(cur.src==="you"||cur.src==="client")) return; const lv={none:0,low:1,medium:2,high:3}[String(x.impact||"").toLowerCase()]; if(cur&&cur.src==="alignment"&&cur.p&&!(lv>cur.p)) return;
+      const p={none:0,low:1,medium:2,high:3}[String(x.impact||"").toLowerCase()]; if(p==null) return; if(!p){ if(cur&&cur.src==="claude"&&!(cur.d||"").trim()) delete E.cells[k]; return; } E.cells[k]={p,src:"claude",why:String(x.why||"").slice(0,120),d:cur?.d||""}; n++; });
+    E.drafted=true; E.basis=String(r&&r.basis||"").slice(0,240); E.qs=(Array.isArray(r&&r.questions)?r.questions:[]).map(String).slice(0,4); E.claudeGaps=(Array.isArray(r&&r.gaps)?r.gaps:[]).map(String).slice(0,4);
+    smUndo=snap; save(); smMsg=n?"":"Claude didn't rate any intersections this time."; toast(n?`Claude rated ${n} intersection${n>1?"s":""}. Dashed until you confirm them.`:"Claude didn't rate any intersections.",null,true); return n>0; }
+  catch(e){ const m=failMsg(e); smMsg=m===null?"":(m||"Claude couldn't rate the map this time."); return false; }
+  finally{ smBusy=false; smRefresh(); } }
+
+/* ---------- Learn ---------- */
+const SM_LEARN=[{t:"What it's for",h:()=>`<p class="lkick">${SM_TXT.kicker}</p><h2>Solutions Map</h2><p class="lead">${esc(SM_TXT.purpose)}</p><h3>Why is it important for us?</h3><p>${esc(SM_TXT.why)}</p><h3>Expected outcomes</h3><ul>${SM_TXT.outcomes.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>`},
+  {t:"Reading the map",h:()=>`<h2>Capabilities across, initiatives down</h2><p class="lead">The capabilities are the solution's parts; they start as the Solutions in your Alignment of Priorities. The six initiatives are KA's, as printed. Each ball is the capability's impact on the initiative.</p><p>${[1,2,3].map(p=>`${ballInline(p)} ${SM_IMP[p]} Impact`).join(" &nbsp; ")}</p><ul><li>Tick the box beside an initiative once the stakeholder validates it as top of mind.</li><li>Tick the box above a capability once the stakeholder confirms they understand it.</li><li>▷ in a cell holds the details: how the capability makes the difference.</li></ul><p class="note">A row with no Medium or High is a gap in capabilities; two or more High in a row is a synergy.</p>`},
+  {t:"When to use it",h:()=>`<h2>When to use it</h2><p class="lead">${esc(SM_TXT.when)}</p><div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3><ul>${SM_TXT.problem.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div><h3>If we are in the “Solution Space” we need to:</h3><ul>${SM_TXT.solution.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`},
+  {t:"The gaps",h:()=>`<h2>Potential gaps and challenges</h2><p class="lead">${esc(SM_TXT.threat)}</p><ul>${SM_TXT.gaps.map(([,g])=>`<li>${esc(g)}</li>`).join("")}</ul><blockquote>“${esc(KEVIN)}”<cite>Kevin Cooper, Dimensions of Success</cite></blockquote><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-smstart>Start mapping →</button></div>`}];
+function smLearn(){ $("smLdots").innerHTML=SM_LEARN.map((c,i)=>`<li><button data-sml="${i}" aria-current="${i===smL?"step":"false"}">${i+1} · ${c.t}</button></li>`).join(""); $("smLcard").innerHTML=SM_LEARN[smL].h(); $("smLPrev").disabled=smL===0; $("smLNext").textContent=smL===SM_LEARN.length-1?"Start mapping →":"Next →"; }
+$("smLPrev").onclick=()=>{ if(smL>0){ smL--; smLearn(); } }; $("smLNext").onclick=()=>{ if(smL<SM_LEARN.length-1){ smL++; smLearn(); } else show("build"); };
+
+/* ---------- Build: Capabilities, Initiatives, Impact, Gaps & synergies, Check ---------- */
+const smStepDone=i=>{ const D=smData(); return i===0?smNamedC(D).length>=1:i===1?D.ok.some(Boolean):i===2?smRated(D).length>0&&!smToConfirm(D).length:i===3?!!(D.take||"").trim():(D.checksP.some(Boolean)||D.checksS.some(Boolean)||Object.values(D.gaps).some(v=>(v||"").trim())); };
+function smReadCards(D=smData()){ const g=smGaps(D), sy=smSyn(D), N=smNamedC(D);
+  return `<div class="rd2"><div class="rcard warn"><h3>Gaps in capabilities</h3>${!N.length?`<p class="note">Name the capabilities first.</p>`:g.length?`<ul>${g.map(r=>`<li><b>${esc(SM_INIT[r])}</b>: no capability with Medium or High impact${smRowRead(r,D).lo.length?` (Low: ${esc(listJoin(smRowRead(r,D).lo.map(c=>cName(c,D))))})`:""}</li>`).join("")}</ul>`:`<p class="note">None: every top-of-mind initiative has a capability with Medium or High impact.</p>`}${(D.claudeGaps||[]).length?`<p class="note" style="margin:4px 0 0"><span class="srcb">Claude</span> ${esc(D.claudeGaps.join(" · "))}</p>`:""}</div>
+    <div class="rcard ok"><h3>Synergies</h3>${sy.length?`<ul>${sy.map(r=>`<li><b>${esc(SM_INIT[r])}</b>: ${esc(listJoin(smRowRead(r,D).hi.map(c=>cName(c,D))))} together</li>`).join("")}</ul>`:`<p class="note">None yet: a synergy is two or more capabilities with High impact on the same initiative.</p>`}</div>
+    <div class="rcard"><h3>Reach by capability</h3>${N.length?`<ul>${N.map(c=>{ const R=smReach(c,D); return `<li><b>${esc(cName(c,D))}</b>: ${R.length?`${R.length} initiative${R.length>1?"s":""} · ${esc(listJoin(R.map(r=>SM_INIT[r])))}`:'<span class="note">no Medium or High impact yet</span>'}</li>`; }).join("")}</ul>`:`<p class="note">No capabilities yet.</p>`}</div></div>`; }
+function smBuild(){ const D=smData(), N=smNamedC(D), cname=esc(S.company?.name||"the client"), sols=(S.items?.solutions||[]).filter(s=>(s.t||"").trim()), offers=S.provider?.offerings||[];
+  $("smBsteps").innerHTML=SM_STEPS.map((n,i)=>`<li><button data-smbs="${i}" aria-current="${i===smIdx?"step":"false"}" class="${smStepDone(i)?"done":""}"><span>${smStepDone(i)&&i!==smIdx?"✓":i+1}</span>${n}</button></li>`).join("");
+  const msg=smMsg?`<p class="note" aria-live="polite" style="margin:0">${esc(smMsg)}${smBusy?` <button class="btn small" data-smstop>Stop</button>`:""}</p>`:""; let h="";
+  if(smIdx===0){ const missing=sols.filter(s=>!D.cap.some(x=>x.n.trim().toLowerCase()===s.t.trim().toLowerCase()));
+    h=`<p class="lkick">Step 1 of 5 · ${SM_TXT.kicker}</p><h2>The capabilities</h2><p class="teach">Explain and confirm an understanding for a set of integrated capabilities. They start as the Solutions in the Alignment of Priorities; write over any of them, and add up to six.</p>
+      ${missing.length?`<div class="uapcarry"><p class="minicap">From your alignment · Solutions</p><p>${esc(missing.map(s=>s.t).join(" · "))}</p><button class="btn small primary" data-smseed>Carry them over</button></div>`:!sols.length?`<p class="note">The alignment has no Solutions yet. Name the capabilities here, or <button class="linkbtn" data-nav="aop" data-view="build">add Solutions to the alignment</button>.</p>`:""}
+      <div class="smcaps">${D.cap.map((x,c)=>`<div class="smcaprow"><span class="n">${c+1}</span><div class="smcapf"><input class="tin" data-smcn="${c}" value="${esc(x.n)}" placeholder="Capability ${c+1}" maxlength="40" aria-label="Capability ${c+1}"><input class="tin" data-smcd="${c}" value="${esc(x.d||"")}" placeholder="What it does, in a line (optional)" maxlength="160" aria-label="Capability ${c+1}: what it does">
+        <div class="smcapm">${x.n.trim()?`${x.src&&x.src!=="you"?`<small class="srcb ${x.src==="client"?"ok":""}">${esc(x.src==="alignment"?"From the alignment's Solutions":x.src==="ally"?`From ${S.provider?.name||"the solution"}'s offerings`:SM_SRC[x.src]||"")}</small>`:`<small class="srcb you">Your words</small>`}<button class="btn small ${x.ok?"primary":""}" data-smokc="${c}">${x.ok?"✓ Understanding confirmed":"Confirm understanding"}</button><button class="btn small ghost" data-smrm="${c}">Clear</button>`:""}</div></div></div>`).join("")}</div>
+      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}`; }
+  if(smIdx===1){ const aop=smAopInits(); h=`<p class="lkick">Step 2 of 5</p><h2>The initiatives</h2><p class="teach">Validate “top of mind” initiatives. The six are KA's, as printed on the Solutions Map; ✓ In your alignment marks the ones ${cname} chose in the Alignment of Priorities. Tick each one the stakeholder validates.</p>
+    <div class="pmgrid">${SM_INIT.map((n,r)=>`<div class="pmrowed ini"><span class="n">${r+1}</span><div><b>${esc(n)}</b>${aop.includes(n)?`<br><span class="note">✓ In your alignment</span>`:""}</div><button class="btn small ${D.ok[r]?"primary":""}" data-smoki="${r}">${D.ok[r]?"✓ Validated as top of mind":"Validate"}</button></div>`).join("")}</div>`; }
+  if(smIdx===2){ const cl=smToConfirm(D).length;
+    h=`<p class="lkick">Step 3 of 5</p><h2>The impact</h2><p class="teach">Map and agree to the impact of the capabilities to address “top of mind” initiatives. Tap a ball: empty → Low → Medium → High.</p>
+      <div class="coCard"><div class="coHead"><span class="coBadge">Claude</span><div><h3 style="margin:0">${D.drafted?"Claude's point of view is in":"Start from Claude's point of view"}</h3><p class="note" style="margin:2px 0 0">${cl?`${cl} rating${cl>1?"s are":" is"} Claude's view or from the alignment (dashed). Confirm them with the client, or tap to change.`:"Claude rates each capability's impact on each initiative from the engagement and the alignment. Your own ratings are never replaced."}</p></div></div><div class="arow" style="flex:0 1 auto"><button class="btn ${D.drafted?"":"primary"}" data-smdraft ${smBusy||!N.length?"disabled":""}>${D.drafted?"Ask Claude again":"Rate the impact with Claude"}</button>${smUndo?`<button class="btn" data-smundo>Undo</button>`:""}${cl?`<button class="btn primary" data-smconfirm>Confirm all with the client</button>`:""}</div>${msg}${D.basis?`<p class="note" style="margin:0">Based on: ${esc(D.basis)}</p>`:""}</div>
+      ${N.length?`<div class="pmtablewrap"><table class="pmtable"><thead><tr><th></th>${N.map(c=>`<th>${esc(cName(c))}</th>`).join("")}</tr></thead><tbody>${SM_INIT.map((n,r)=>`<tr><td class="ini">${esc(n)}${smInAop(r)?" ✓":""}</td>${N.map(c=>{ const x=smCell(r,c), soft=x.src==="claude"||x.src==="alignment"; return `<td><button class="tcell pmcell ${x.p?"":"empty"} ${soft?"claude":""}" data-smcell="${r}.${c}" title="${esc((x.p?SM_IMP[x.p]+" impact":"Not rated")+(soft?` · ${SM_SRC[x.src]}`:"")+(x.why?": "+x.why:""))}" aria-label="${esc(cName(c))} on ${esc(n)}: ${x.p?SM_IMP[x.p]:"not rated"}">${ballSVG(x.p)}</button></td>`; }).join("")}</tr>`).join("")}</tbody></table></div>
+      <p class="note">${[1,2,3].map(p=>`${ballInline(p)}${SM_IMP[p]}`).join(" &nbsp; ")} &nbsp; · dashed = Claude's view or the alignment's tie, to confirm · ✓ = in your alignment</p>`:`<p class="note">Name a capability first.</p>`}`; }
+  if(smIdx===3){ const g=smGaps(D), sy=smSyn(D); h=`<p class="lkick">Step 4 of 5</p><h2>Gaps and synergies</h2><p class="teach">Determine gaps in capabilities to fully address business priorities, and demonstrate the synergies to be gained by bringing multiple capabilities together.</p>${smReadCards(D)}
+    <h3>Key takeaways (gaps, risks, actions)</h3><textarea class="tin" data-smtake rows="4" placeholder="Gaps, risks and actions you see.">${esc(D.take||"")}</textarea>
+    ${g.length||sy.length?`<button class="btn small" data-smtakedraft>Start the takeaways from the gaps and synergies</button>`:""}${D.qs.length?`<div class="uapcarry"><p class="minicap">Questions Claude would ask the client</p><ul>${D.qs.map(q=>`<li>${esc(q)}</li>`).join("")}</ul></div>`:""}`; }
+  if(smIdx===4){ h=`<p class="lkick">Step 5 of 5</p><h2>Check the map</h2><p class="teach">${esc(SM_TXT.threat)}</p>
+      <h3>Potential gaps and challenges</h3>${SM_TXT.gaps.map(([k,l])=>`<div class="field"><label for="smg${k}">${esc(l)}</label><input class="tin" id="smg${k}" data-smgap="${k}" value="${esc(D.gaps[k]||"")}" placeholder="Any threat to scope, time or resources?"></div>`).join("")}
+      <div class="two"><div><h3>If we are in the “Problem Space” we need to:</h3>${SM_TXT.problem.map((x,i)=>`<label class="chk"><input type="checkbox" data-smchk="checksP|${i}" ${D.checksP[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div><div><h3>If we are in the “Solution Space” we need to:</h3>${SM_TXT.solution.map((x,i)=>`<label class="chk"><input type="checkbox" data-smchk="checksS|${i}" ${D.checksS[i]?"checked":""}> ${esc(x)}</label>`).join("")}</div></div>
+      <h3>Expected outcomes</h3>${SM_TXT.outcomes.map((x,i)=>`<label class="chk"><input type="checkbox" data-smchk="outcomes|${i}" ${D.outcomes[i]?"checked":""}> ${esc(x)}</label>`).join("")}
+      <div class="arow"><button class="btn primary" data-smtosheet>See the map →</button><button class="btn" data-nav="meet">Meet the client</button></div>`; }
+  $("smBmain").innerHTML=h; $("smBpos").textContent=`Step ${smIdx+1} of 5`; $("smBBack").disabled=smIdx===0; $("smBNext").textContent=smIdx===4?"See the map →":`Next: ${SM_STEPS[smIdx+1]} →`;
+  $("smAsk").innerHTML=`<h4>Ask the client</h4><ul>${SM_ASK[smIdx].map(q=>`<li>${esc(q)}</li>`).join("")}</ul><p class="note">Draft wording for KA to confirm.</p>`; smPaint("smMini",{mode:"view",spot:smIdx===1?{rows:[0,1,2,3,4,5].filter(r=>D.ok[r])}:null}); renderNextPill(); }
+$("smBBack").onclick=()=>{ if(smIdx>0){ smIdx--; smBuild(); } }; $("smBNext").onclick=()=>{ if(smIdx<4){ smIdx++; smBuild(); } else show("aid"); }; $("smMini").onclick=()=>show("aid");
+
+/* ---------- the sheet ---------- */
+function smReadPanel(){ const D=smData(); let sum="";
+  if(smSpot&&smSpot.r!=null){ const x=smRowRead(smSpot.r); sum=`<p class="pmsum"><b>${esc(SM_INIT[smSpot.r])}</b> · High: ${esc(listJoin(x.hi.map(c=>cName(c))))||"none"}; Medium: ${esc(listJoin(x.md.map(c=>cName(c))))||"none"}; Low: ${esc(listJoin(x.lo.map(c=>cName(c))))||"none"}.${x.best<2?" <b>A gap in capabilities.</b>":x.hi.length>=2?" <b>A synergy.</b>":""}</p>`; }
+  if(smSpot&&smSpot.c!=null){ const by=p=>[0,1,2,3,4,5].filter(r=>smCell(r,smSpot.c).p===p).map(r=>SM_INIT[r]); sum=`<p class="pmsum"><b>${esc(cName(smSpot.c))}</b>${D.cap[smSpot.c].d?` (${esc(D.cap[smSpot.c].d)})`:""} · High: ${esc(listJoin(by(3)))||"none"}; Medium: ${esc(listJoin(by(2)))||"none"}; Low: ${esc(listJoin(by(1)))||"none"}.</p>`; }
+  $("smRead").innerHTML=`<div class="rcard" style="background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:12px 14px;display:grid;gap:8px"><h3 style="margin:0;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Read the map</h3>
+    <div class="pmchips">${SM_INIT.map((n,r)=>`<button class="ini" data-smspotr="${r}" aria-pressed="${smSpot?.r===r}">${esc(n)}</button>`).join("")}</div>
+    <div class="pmchips">${smNamedC().map(c=>`<button data-smspotc="${c}" aria-pressed="${smSpot?.c===c}">${esc(cName(c))}</button>`).join("")}<button data-smspotm="gap" aria-pressed="${smSpot?.mark==="gap"}">Gaps</button><button data-smspotm="syn" aria-pressed="${smSpot?.mark==="syn"}">Synergies</button>${smSpot?`<button data-smspotx>✕ Clear</button>`:""}</div>${sum}</div>${smReadCards()}`; }
+function smSheet(){ smPaint("smSheet",{mode:"edit",spot:smSpot}); smReadPanel(); const cl=smToConfirm().length;
+  $("smBanner").hidden=!(cl||smBusy); $("smBanner").innerHTML=smBusy?esc(smMsg):`<span><b>${cl} impact rating${cl>1?"s are":" is"} to confirm</b> (dashed): Claude's view or the alignment's ties${smData().basis?`. ${esc(smData().basis)}`:""}. Tap to change any; confirm the rest with the client.</span><button class="btn small primary" data-smconfirm>Confirm all</button>`; }
+function smRefresh(soft){ if(route==="overview") try{ smPaint2(); }catch(e){} if(!smMode) return; const ae=document.activeElement, typing=ae&&ae.matches&&ae.matches("input,textarea,[contenteditable]")&&(ae.closest("#viewAidSM")||ae.closest("#viewBuildSM"));
+  if(soft&&typing) return; if(curView==="aid"){ if(!(typing&&ae.closest("#viewAidSM"))) smSheet(); if(document.body.classList.contains("one")&&!(typing&&ae.closest("#viewBuildSM"))) smBuild(); } else if(curView==="build") smBuild(); else smLearn(); renderNextPill(); }
+function smSummary(){ const D=smData(), L=[`SOLUTIONS MAP · ${aidTitle()}`,longDate(),""]; L.push("CAPABILITIES",...smNamedC(D).map(c=>`- ${cName(c,D)}${D.cap[c].d?`: ${D.cap[c].d}`:""}${D.cap[c].ok?" ✓":""}`),"");
+  SM_INIT.forEach((n,r)=>{ const x=smRowRead(r,D); if(!x.v.length&&!D.ok[r]) return; L.push(`${n}${D.ok[r]?" ✓ top of mind":""}: ${x.v.length?x.v.map(([c,p])=>`${cName(c,D)} ${SM_IMP[p]}${["claude","alignment"].includes(smCell(r,c,D).src)?" (to confirm)":""}`).join("; "):"no impact rated"}`); });
+  const g=smGaps(D), sy=smSyn(D); if(g.length) L.push("","GAPS",...g.map(r=>`- ${SM_INIT[r]}`)); if(sy.length) L.push("","SYNERGIES",...sy.map(r=>`- ${SM_INIT[r]}: ${listJoin(smRowRead(r,D).hi.map(c=>cName(c,D)))}`));
+  if((D.take||"").trim()) L.push("","KEY TAKEAWAYS",D.take.trim()); return L.join("\n"); }
+$("smPdf").onclick=()=>smDownload(); $("smCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(smSummary()); toast("Summary copied"); }catch(e){ toast("Copy didn't work in this view"); } };
+$("smClear").onclick=e=>armed(e.currentTarget,"Tap again to clear the map",()=>{ const snap=JSON.stringify(S.sm||null); S.sm={cap:[],cells:{}}; smData(); S.sm.cap=S.sm.cap.map(()=>smBlankCap()); S.sm.cells={}; save(); smRefresh(); toast("Map cleared",()=>{ S.sm=JSON.parse(snap); save(); smRefresh(); }); });
+
+/* ---------- Roadmap: 2.3 Illustrate Innovative Solutions ticks itself once the map is agreed ---------- */
+const _arAutoSM=arAuto; arAuto=function(){ const o=_arAutoSM(); try{ if(S.sm&&smRated().length&&!smToConfirm().length&&smData().ok.some(Boolean)&&smScore()>=70) o["2.3"]=`the Solutions Map is ${smScore()}% and its impact agreed`; }catch(e){} return o; };
+
+/* ---------- PDF: one letter landscape page, on the same coordinates ---------- */
+function smDrawSheet(doc){ const PT=2.8346, D=smData(), aop=smAopInits(), tc=c=>doc.setTextColor(c), fill=c=>doc.setFillColor(c);
+  const box=(x,y,s,on)=>{ doc.setLineWidth(.3); doc.setDrawColor(on?PDFC.plum:"#9aa0ab"); fill(on?PDFC.plum:"#ffffff"); doc.roundedRect(x,y,s,s,.5,.5,"FD"); if(on){ doc.setDrawColor("#ffffff"); doc.setLineWidth(.5); doc.lines([[s*.25,s*.25],[s*.45,-s*.5]],x+s*.22,y+s*.52,[1,1],"S"); } };
+  tc(PDFC.tan); doc.setFont("helvetica","bold"); doc.setFontSize(3.9*PT); doc.text(SM_TXT.kicker,10.4,14.2);
+  tc(PDFC.title); doc.setFont("helvetica","bold"); doc.setFontSize(12.6*PT); doc.text("Solutions Map",10.4,28.4); pdfClientMark(doc);
+  fill(PDFC.blue); doc.rect(65.9,34.6,SMG.right-65.9,8.2,"F"); tc("#ffffff"); doc.setFont("helvetica","bold"); doc.setFontSize(4.4*PT); doc.setCharSpace(1.2); doc.text("CAPABILITIES",(65.9+SMG.right)/2,40.4,{align:"center"}); doc.setCharSpace(0);
+  D.cap.forEach((cp,c)=>{ const x=65.9+c*SMG.cw; if(cp.ok) box(x+SMG.cw/2-1.6,43.6,3.2,true); tc(cp.n.trim()?PDFC.ink:"#9aa0ab"); doc.setFont("helvetica",cp.n.trim()?"bold":"normal"); doc.setFontSize(3*PT); const ls=doc.splitTextToSize(cp.n.trim()||`Capability ${c+1}`,SMG.cwi-2).slice(0,2); doc.text(ls,x+SMG.cw/2,52.6-(ls.length-1)*1.6,{align:"center"}); });
+  fill(PDFC.inf[2]); doc.rect(12.8,SMG.ry0,6.6,SMG.rh*6,"F"); tc("#2c6142"); doc.setFont("helvetica","bold"); doc.setFontSize(4.6*PT); "INITIATIVES".split("").forEach((ch,j)=>doc.text(ch,16.1,SMG.ry0+11+j*9.9,{align:"center"}));
+  doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(19.4,SMG.ry0,SMG.right,SMG.ry0);
+  for(let r=0;r<6;r++){ const y=SMG.ry0+r*SMG.rh; if(r%2){ fill(PDFC.inf[1]); doc.rect(19.4,y,SMG.right-19.4,SMG.rh,"F"); } doc.setDrawColor(PDFC.rule); doc.setLineWidth(.3); doc.line(19.4,y+SMG.rh,SMG.right,y+SMG.rh);
+    tc(PDFC.ink); doc.setFont("helvetica",aop.includes(SM_INIT[r])?"bold":"normal"); doc.setFontSize(3.3*PT); const ls=doc.splitTextToSize(SM_INIT[r],36).slice(0,2); doc.text(ls,63.4,y+4.6,{align:"right",lineHeightFactor:1.15}); if(D.ok[r]) box(22.4,y+8,3.6,true);
+    for(let c=0;c<6;c++){ const x=smCell(r,c,D); if(x.p&&D.cap[c].n.trim()) pmBall(doc,SMG.cx0+16.134+c*SMG.cw,y+9.6,4.4,x.p); } }
+  [1,2,3].forEach((p,j)=>{ const y=181.5+j*8.5; pmBall(doc,234.5,y-.1,2.9,p); tc(PDFC.ink); doc.setFont("helvetica","normal"); doc.setFontSize(2.9*PT); doc.text(`${SM_IMP[p]} Impact`,239.6,y+1); });
+  if((D.notes||"").trim()){ tc(PDFC.ink); doc.setFont("helvetica","normal"); doc.setFontSize(2.8*PT); doc.text(doc.splitTextToSize(D.notes.trim(),183).slice(0,5),27,183.5); }
+  if(aop.length||D.ok.some(Boolean)){ tc(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2.3*PT); doc.text([aop.length?"Bold: in the Alignment of Priorities":"",D.ok.some(Boolean)||D.cap.some(x=>x.ok)?"Ticked box: validated with the stakeholder":""].filter(Boolean).join(" · "),SMG.right,177.6,{align:"right"}); }
+  pdfKaFoot(doc); tc(PDFC.muted); doc.setFont("helvetica","normal"); doc.setFontSize(2.6*PT); doc.text([aidTitle(),longDate()].join(" · "),139.7,207.6,{align:"center"}); }
+async function smDownload(){ if(!smNamedC().length){ toast("Name a capability first"); return; } toast("Making the PDF…",null,true);
+  try{ const jsPDF=await loadJsPdf(), doc=new jsPDF({orientation:"landscape",unit:"mm",format:"letter"}); smDrawSheet(doc); const filename=`Solutions Map - ${aidTitle().replace(/[\\/:*?"<>|]+/g," ").trim()}.pdf`;
+    if(downloads){ await downloads.save({filename,data:doc.output("blob")}); toast("PDF saved"); } else { doc.save(filename); toast("PDF downloaded"); } }
+  catch(e){ toast(e&&e.code==="declined"?"Not saved":"Couldn't make the PDF here. Check the connection and try again."); } }
+
+/* ---------- the example: Kevin's Morgan Industries, from the alignment's Solutions ---------- */
+const SM_EX={cap:[{n:"Infrastructure Services",d:"ISAP: implementation design & delivery",src:"you",from:"",ok:true},{n:"Infrastructure Products",d:"ISAP: architected “open”, always “on”",src:"you",from:"",ok:true},{n:"",d:"",src:"",from:"",ok:false},{n:"",d:"",src:"",from:"",ok:false},{n:"",d:"",src:"",from:"",ok:false},{n:"",d:"",src:"",from:"",ok:false}],
+  ok:[false,true,false,false,true,true],cells:{"1.0":{p:3,src:"you",why:"",d:""},"1.1":{p:3,src:"you",why:"",d:""},"4.0":{p:2,src:"you",why:"",d:""},"4.1":{p:3,src:"you",why:"",d:""},"5.0":{p:2,src:"you",why:"",d:""},"5.1":{p:2,src:"you",why:"",d:""},"0.1":{p:1,src:"you",why:"",d:""}},
+  notes:"Kevin Cooper with Sue Jacobs (VP Sales & Marketing) and Jim Bowman (CFO).",hd:{init:"",cap:""},take:"",gaps:{},checksP:[],checksS:[],outcomes:[],drafted:false,basis:"",qs:[]};
+try{ EXAMPLE.sm=JSON.parse(JSON.stringify(SM_EX)); }catch(e){}
+
+/* ---------- into the app: routes, the path, the header, Overview, ⌘K ---------- */
+AID_VIEWS.push("viewLearnSM","viewBuildSM","viewAidSM");
+const SM_VIEWS={learn:"viewLearnSM",build:"viewBuildSM",aid:"viewAidSM"};
+const _showSM=show; show=function(view){ if(!smMode){ Object.values(SM_VIEWS).forEach(v=>$(v).hidden=true); document.body.classList.remove("sm"); return _showSM(view); }
+  route="aid"; curView=view; ROUTES.forEach(r=>$(RVIEW[r]).hidden=true); AID_VIEWS.forEach(v=>{ const el=$(v); if(el) el.hidden=true; }); $(SM_VIEWS[view]).hidden=false; closePop();
+  document.body.classList.remove("pm","cp","ar","uap","sp"); document.body.classList.add("sm"); document.body.classList.remove("v-learn","v-build","v-aid"); document.body.classList.add("v-"+view); document.body.dataset.route="aid"; $("aidHead").hidden=false;
+  try{ history.replaceState(null,"","#sm-"+(view==="aid"?"sheet":view)); }catch(e){}
+  if(view==="learn") smLearn(); if(view==="build") smBuild(); if(view==="aid") smSheet(); renderAidHead(); renderCrumbs(); };
+function smLeave(){ if(smMode){ smMode=false; document.body.classList.remove("sm"); Object.values(SM_VIEWS).forEach(v=>$(v).hidden=true); } }
+function smEnter(){ arLeave(); uapLeave(); spLeave(); if(cpMode){ cpMode=false; document.body.classList.remove("cp"); } if(pmMode){ pmMode=false; document.body.classList.remove("pm"); } smMode=true; }
+function openSM(view){ let seen=true; try{ seen=!!localStorage.getItem("ka-seen-sm"); localStorage.setItem("ka-seen-sm","1"); }catch(e){} const D=smData(); if(!smNamedC(D).length&&smSeed(D)) save(); const v=!seen?"learn":(view||(smNamedC(D).length?"aid":"build"));
+  closeCmd(); closePop(); smEnter(); route="aid"; show(v); pushHash(); scrollTo({top:0}); }
+const _setAidSM=setAidMode; setAidMode=function(cp){ smLeave(); _setAidSM(cp); };
+const _openPMSM=openPM; openPM=function(v){ smLeave(); _openPMSM(v); };
+const _openARSM=openAR; openAR=function(v){ smLeave(); _openARSM(v); };
+const _openUAPSM=openUAP; openUAP=function(v){ smLeave(); _openUAPSM(v); };
+const _openSPSM=openSP; openSP=function(v){ smLeave(); _openSPSM(v); };
+const _openAidSM=openAid; openAid=function(cp,view){ if(smMode){ smLeave(); if(!!cp===cpMode&&!pmMode) setAidMode(!!cp); } return _openAidSM(cp,view); };
+const _rhSM=routeHash; routeHash=function(){ return route==="aid"&&smMode?"#sm-"+(curView==="aid"?"sheet":curView):_rhSM(); };
+const _parseSM=parseRoute; parseRoute=function(){ const h=location.hash.slice(1); if(h.startsWith("sm-")){ const v=h.slice(3); return {r:"aid",sm:true,view:v==="sheet"?"aid":["learn","build"].includes(v)?v:"aid"}; } return _parseSM(); };
+const _navSM=nav; nav=function(r,opt={}){ if(r==="aid"&&opt.sm){ if(opt.push===false){ smEnter(); show(opt.view||"aid"); return; } openSM(opt.view); return; }
+  if(r!=="aid"||smMode) smLeave(); return _navSM(r,opt); };
+addEventListener("popstate",e=>{ const p=parseRoute(); if(p&&p.sm){ e.stopImmediatePropagation(); nav("aid",{sm:true,view:p.view,push:false}); } },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="sm"]'); if(!n) return; e.preventDefault(); e.stopImmediatePropagation(); openSM(n.dataset.view); },true);
+document.addEventListener("click",e=>{ const n=e.target.closest('[data-nav="pm"],[data-nav="aop"],[data-nav="cp"],[data-nav="ar"],[data-nav="uap"],[data-nav="sp"]'); if(n&&smMode) smLeave(); },true);
+const _aidHeadSM=renderAidHead; renderAidHead=function(){ _aidHeadSM(); if(route!=="aid") return; if(smMode){ $("ahPath")?.querySelectorAll('[aria-current="page"]').forEach(b=>b.removeAttribute("aria-current")); $("ahTitle").textContent="Solutions Map"; } };
+const _crumbsSM=renderCrumbs; renderCrumbs=function(){ _crumbsSM(); if(route==="aid"&&smMode){ const b=$("crumbs").querySelectorAll("b"); if(b.length&&!document.body.classList.contains("client")) b[b.length-1].textContent="Solutions Map"; } };
+const _rbSM=refreshBrand; refreshBrand=function(){ _rbSM(); if(smMode&&curView==="aid") smSheet(); };
+/* the Overview: a row in the How card, before the Session Plan */
+function smPaint2(){ const c=document.querySelector("#ovPath .dimc.d-how"); if(!c) return; c.querySelector(".ovsm")?.remove(); const D=smData(), n=smNamedC(D).length, sc=smScore(), g=smGaps(D).length;
+  const html=`<div class="ovroad ovsm smany" id="ovSM"><div><b>Solutions Map</b><span>${n?`${n} capabilit${n>1?"ies":"y"} · ${sc}%${g?` · ${g} gap${g>1?"s":""}`:""}`:"Map the solution's capabilities to the initiatives"}</span></div><button class="btn small" data-nav="sm" data-view="${n?"aid":"build"}">${n?"Open":"Map"}</button></div>`;
+  const sp=c.querySelector(".ovsp"); if(sp) sp.insertAdjacentHTML("beforebegin",html); else c.insertAdjacentHTML("beforeend",html); }
+const _roSM=renderOverview; renderOverview=function(){ _roSM(); try{ smPaint2(); }catch(e){} };
+const _cmdSM=cmdActions; cmdActions=function(){ const A=_cmdSM(); A.push({g:"Aids",t:"Solutions Map · the sheet",run:()=>openSM("aid"),hint:""},{g:"Aids",t:"Solutions Map · rate the impact with Claude",run:()=>{ openSM("build"); smIdx=2; smBuild(); smDraft(); },hint:""}); return A; };
+TOK_AID.sm="Solutions Map";
+try{ SHARE_CONTENT.push("sm"); }catch(e){}
+const _snapSM=snapData; snapData=function(){ const d=_snapSM(); d.sm=JSON.parse(JSON.stringify(S.sm||null)); return d; };
+
+/* ---------- Present: the map's engine and the shared bar ---------- */
+function smSlidesRaw(){ const D=smData(), s=[]; if(!smRated(D).length) return s; s.push({k:"smWhole"}); for(let r=0;r<6;r++) if(smRowRead(r,D).v.length) s.push({k:"smRow",r}); if(smGaps(D).length||smSyn(D).length) s.push({k:"smGapSyn"}); s.push({k:"smNext"}); return s; }
+function smPresent(){ presSM=true; const segOn=typeof PL!=="undefined"&&PL&&PL.segs[PL.i]?.a==="sm"; pmSl=segOn?plSlidesFor("sm",PL.i===0):smSlidesRaw(); pmSi=0; if(!pmSl.length){ presSM=false; toast("Rate the impact first",null,true); return; }
+  let o=$("pmPres"); if(!o){ o=document.createElement("div"); o.id="pmPres"; o.className="pmpres"; o.setAttribute("role","dialog"); document.body.appendChild(o); } o.setAttribute("aria-label","Present the Solutions Map");
+  o.hidden=false; document.body.classList.add("pmpresenting"); pmTheme=document.documentElement.dataset.theme??null; document.documentElement.dataset.theme="light"; closePop();
+  $("presbar").hidden=false; $("pprog").hidden=false; if(!(PL&&PL.i>0&&presT0)) presT0=Date.now();
+  try{ const r=!document.fullscreenElement&&document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); r&&r.catch&&r.catch(()=>{}); }catch(e){} pmPresRender(); wake(); bc(stateMsg(true)); }
+const _pmPRsm=pmPresRender; pmPresRender=function(){ const sl=pmSl[pmSi]; if(!presSM||!sl||!String(sl.k).startsWith("sm")) return _pmPRsm();
+  const o=$("pmPres"), D=smData(); let inner="", cap="", quiet=false; const who=a=>esc(listJoin(a.map(c=>cName(c,D))))||"none";
+  if(sl.k==="smWhole"){ inner=smSheetHTML({mode:"present"},D); quiet=true; cap=`<span class="pc-kick">Solutions Map</span><b class="pc-title">How ${esc(smNamedC(D).length)} capabilities make a difference to ${esc(aidTitle())}'s initiatives</b>`; }
+  if(sl.k==="smRow"){ const x=smRowRead(sl.r,D); inner=smSheetHTML({mode:"present",spot:{r:sl.r}},D); cap=`<span class="pc-kick">Initiative${D.ok[sl.r]?" · validated as top of mind":smInAop(sl.r)?" · in the alignment":""}</span><b class="pc-title">${esc(SM_INIT[sl.r])}</b><span class="pc-meta"><span><em>High</em> ${who(x.hi)}</span><span><em>Medium</em> ${who(x.md)}</span><span><em>Low</em> ${who(x.lo)}</span></span>`; }
+  if(sl.k==="smGapSyn"){ const g=smGaps(D), sy=smSyn(D); inner=smSheetHTML({mode:"present",spot:{rows:[...g,...sy],mark:g.length?"gap":"syn"}},D); cap=`<span class="pc-kick">Gaps and synergies</span><b class="pc-title">${g.length?`${g.length} gap${g.length>1?"s":""} in capabilities`:"No gaps in capabilities"}${sy.length?` · ${sy.length} synerg${sy.length>1?"ies":"y"}`:""}</b><span class="pc-meta">${g.length?`<span><em>Gaps</em> ${esc(listJoin(g.map(r=>SM_INIT[r])))}</span>`:""}${sy.length?`<span><em>Synergies</em> ${esc(listJoin(sy.map(r=>SM_INIT[r])))}</span>`:""}</span>`; }
+  if(sl.k==="smNext"){ const take=(D.take||"").trim().split(/\n+/).map(t=>t.replace(/^[-•]\s*/,"").trim()).filter(Boolean), g=smGaps(D);
+    inner=`<div class="slide"><div class="pmtop"><span class="k">What we heard</span>${CLIENT_MARK()}</div><h2>Where am I off track?</h2><ul>${smNamedC(D).map(c=>{ const R=smReach(c,D); return `<li><b>${esc(cName(c,D))}</b>: ${R.length?esc(listJoin(R.map(r=>SM_INIT[r]))):"no Medium or High impact yet"}</li>`; }).join("")}${g.map(r=>`<li><b>Gap</b>: ${esc(SM_INIT[r])}</li>`).join("")}${take.map(t=>`<li>${esc(t)}</li>`).join("")}</ul><p style="font-size:1.6cqw;color:#5b6476;margin:0">“${esc(KEVIN)}”</p></div>`; }
+  o.innerHTML=`<div class="stage"><div class="frame cpstage" style="min-width:0;box-shadow:none">${inner}${cap?`<div class="cap pmcap${quiet?" quiet":""}">${cap}</div>`:""}</div></div>`; o.querySelectorAll(".slide .ps-kafoot").forEach(k=>k.closest(".frame").appendChild(k)); fitSlide(o.querySelector(".slide"));
+  presChrome(pmSi,pmSl.length,pmSlideLabel(sl)); if(!$("presNotes").hidden) renderNotes(); bc(stateMsg(false)); };
+const _pmEndSM=pmPresEnd; pmPresEnd=function(){ _pmEndSM(); if(!plSwitching) presSM=false; };
+const _pmSLsm=pmSlideLabel; pmSlideLabel=function(sl){ if(sl&&String(sl.k).startsWith("sm")) return sl.k==="smWhole"?"The whole map":sl.k==="smRow"?`Initiative: ${SM_INIT[sl.r]}`:sl.k==="smGapSyn"?"Gaps and synergies":"What we heard"; return _pmSLsm(sl); };
+const _pmNHsm=pmNotesHTML; pmNotesHTML=function(sl){ if(!sl||!String(sl.k).startsWith("sm")) return _pmNHsm(sl); const D=smData(), ul=a=>`<ul>${a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(sl.k==="smRow") return `<p style="margin:0"><b>${esc(SM_INIT[sl.r])}</b></p>${ul(smRowRead(sl.r,D).v.map(([c,p])=>{ const x=smCell(sl.r,c,D); return `${cName(c,D)}: ${SM_IMP[p]}${x.why?` · ${x.why}`:""}${x.d?` · ${x.d}`:""}`; }))}<h4>Ask the client</h4>${ul(SM_ASK[2])}`;
+  if(sl.k==="smWhole") return `<p style="margin:0">${esc(SM_TXT.why)}</p>${D.qs.length?`<h4>Ask</h4>${ul(D.qs)}`:""}`;
+  return `<p style="margin:0">“${esc(KEVIN)}”</p>${ul(SM_ASK[3])}`; };
+const _pmCTsm=pmCardText; pmCardText=function(sl){ if(!sl||!String(sl.k).startsWith("sm")) return _pmCTsm(sl); return `<small>Solutions Map</small><b>${esc(pmSlideLabel(sl))}</b>`; };
+const _pDeckSM=$("pDeck").onclick; $("pDeck").onclick=()=>presSM&&pmOn()?smDownload():_pDeckSM();
+/* the combined presentation: after the criteria */
+{ const at=PL_ORDER.indexOf("cp"); PL_ORDER.splice(at>=0?at+1:PL_ORDER.length,0,"sm"); }
+PL_PARTS.sm={sum:["smWhole","smGapSyn","smNext"],det:["smRow"],sumL:"The whole map, gaps and synergies, what we heard",detL:"Each initiative across the capabilities"};
+const _plHasSM=plHas; plHas=function(a){ if(a==="sm") return smSlidesRaw().length>0; return _plHasSM(a); };
+const _plSFsm=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="sm") return _plSFsm(a,first); const pk=plPick()[a]||{}, P=PL_PARTS.sm; return smSlidesRaw().filter(s=>(pk.sum&&P.sum.includes(s.k))||(pk.det&&P.det.includes(s.k))); };
+const _plStartSM=plStart; plStart=function(seg,atEnd){ if(seg.a!=="sm"){ presSM=false; return _plStartSM(seg,atEnd); } openSM("aid"); smPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } };
+const _plStepSM=plStep; plStep=function(d){ if(PL&&PL.segs[PL.i]?.a==="sm"){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; } plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plStepSM(d); };
+const _plJumpSM=plJump; plJump=function(j,atEnd){ if(PL&&PL.segs[PL.i]?.a==="sm"){ plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],atEnd); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plJumpSM(j,atEnd); };
+const _rmGoSM=rmGoTo; rmGoTo=function(st){ if(st&&st.a==="sm"&&!st.pick&&!(presenting||pmOn())){ openSM("aid"); smPresent(); setTimeout(()=>rmGoTo(Object.assign({},st,{a:"smx"})),500); return; } return _rmGoSM(st); };
+
+/* ---------- Meet the client: work together or interview on the map ---------- */
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="sm"]')){ const sp=g.querySelector('[data-meet-aid="sp"]'); const h=`<button role="radio" data-meet-aid="sm" aria-checked="false">Solutions Map</button>`; if(sp) sp.insertAdjacentHTML("beforebegin",h); else g.insertAdjacentHTML("beforeend",h); } })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="sm"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way; try{ meetSnapTake(); }catch(er){}
+  if(way==="together"){ openSM("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; smSheet(); }
+  if(way==="interview"){ openSM("build"); smIdx=2; smBuild(); toast("Ask the client each capability's impact, initiative by initiative; their ratings are kept as theirs.",null,true); } },true);
+
+
 /* ===================== Simpler, with every feature kept (Dave, Nov 18: "I feel there is a lot of unnessary complexities to use. I want your opinion on how to simplify without losing functionality (value)."; "Mock-up first"; "build all seven")
    (1) one screen per aid: the sheet and its guide side by side, Learn as an overlay; (2) one next step for the engagement, from the six A's;
    (3) four path chips; (4) one Claude button per aid; (5) one Share & export menu; (6) advanced tools behind More, only when they apply;
    (7) Meet the client as Before · During · After. ===================== */
-const ONE={aop:{L:"viewLearn",B:"viewBuild",A:"viewAid"},cp:{L:"viewLearnCP",B:"viewBuildCP",A:"viewAidCP"},pm:{L:"viewLearnPM",B:"viewBuildPM",A:"viewAidPM"},ar:{L:"viewLearnAR",B:"viewBuildAR",A:"viewAidAR"},uap:{L:"viewLearnUAP",B:"viewBuildUAP",A:"viewAidUAP"},sp:{L:"viewLearnSP",B:"viewBuildSP",A:"viewAidSP"}};
-const ONE_NAME={aop:"Alignment of Priorities",pm:"Priorities Map",uap:"Understanding a Problem",cp:"Criteria Proposition",ar:"Assessment Roadmap",sp:"Session Plan"};
-const oneAid=()=>spMode?"sp":uapMode?"uap":arMode?"ar":pmMode?"pm":cpMode?"cp":"aop";
-const onePanelRender=()=>({aop:()=>renderBuild(),cp:()=>cpBuild(),pm:()=>pmBuild(),ar:()=>arBuild(),uap:()=>uapBuild(),sp:()=>spBuild()})[oneAid()]();
-const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet(),ar:()=>arSheet(),uap:()=>uapSheet(),sp:()=>spSheet()})[oneAid()]();
+const ONE={aop:{L:"viewLearn",B:"viewBuild",A:"viewAid"},cp:{L:"viewLearnCP",B:"viewBuildCP",A:"viewAidCP"},pm:{L:"viewLearnPM",B:"viewBuildPM",A:"viewAidPM"},ar:{L:"viewLearnAR",B:"viewBuildAR",A:"viewAidAR"},uap:{L:"viewLearnUAP",B:"viewBuildUAP",A:"viewAidUAP"},sp:{L:"viewLearnSP",B:"viewBuildSP",A:"viewAidSP"},sm:{L:"viewLearnSM",B:"viewBuildSM",A:"viewAidSM"}};
+const ONE_NAME={aop:"Alignment of Priorities",pm:"Priorities Map",uap:"Understanding a Problem",cp:"Criteria Proposition",ar:"Assessment Roadmap",sp:"Session Plan",sm:"Solutions Map"};
+const oneAid=()=>smMode?"sm":spMode?"sp":uapMode?"uap":arMode?"ar":pmMode?"pm":cpMode?"cp":"aop";
+const onePanelRender=()=>({aop:()=>renderBuild(),cp:()=>cpBuild(),pm:()=>pmBuild(),ar:()=>arBuild(),uap:()=>uapBuild(),sp:()=>spBuild(),sm:()=>smBuild()})[oneAid()]();
+const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet(),ar:()=>arSheet(),uap:()=>uapSheet(),sp:()=>spSheet(),sm:()=>smSheet()})[oneAid()]();
 /* every aid's sections live in one two-column wrap */
 (function(){ const first=$("viewLearn"); if(!first||$("oneWrap")) return; const w=document.createElement("div"); w.id="oneWrap"; first.before(w);
   Object.values(ONE).forEach(s=>[s.L,s.B,s.A].forEach(id=>{ const el=$(id); if(el) w.appendChild(el); }));
@@ -6233,8 +6612,8 @@ const oneSheetRender=()=>({aop:()=>renderAll(),cp:()=>cpSheet(),pm:()=>pmSheet()
 let oneLearn=false, oneSync=false;
 function oneMark(){ const a=oneAid(); Object.entries(ONE).forEach(([k,s])=>{ $(s.B)?.classList.toggle("onepanel",k===a); $(s.A)?.classList.toggle("onesheet",k===a); }); }
 function oneLearnClose(){ if(!oneLearn) return; oneLearn=false; document.body.classList.remove("lovon"); Object.values(ONE).forEach(s=>{ const L=$(s.L); if(L){ L.hidden=true; L.classList.remove("lov"); } }); try{ if(route==="aid"&&/learn$/.test(location.hash)) history.replaceState(null,"",routeHash()); }catch(e){} }
-function oneLearnOpen(){ const s=ONE[oneAid()], L=$(s.L); if(!L) return; oneLearn=true; ({aop:()=>renderLearn(),cp:()=>cpLearn(),pm:()=>pmLearn(),ar:()=>arLearn(),uap:()=>uapLearn(),sp:()=>spLearn()})[oneAid()]();
-  L.hidden=false; L.classList.add("lov"); document.body.classList.add("lovon"); L.querySelector(".lovx")?.focus(); try{ history.replaceState(null,"",({aop:"#learn",cp:"#cp-learn",pm:"#pm-learn",ar:"#ar-learn",uap:"#uap-learn",sp:"#sp-learn"})[oneAid()]); }catch(e){} }
+function oneLearnOpen(){ const s=ONE[oneAid()], L=$(s.L); if(!L) return; oneLearn=true; ({aop:()=>renderLearn(),cp:()=>cpLearn(),pm:()=>pmLearn(),ar:()=>arLearn(),uap:()=>uapLearn(),sp:()=>spLearn(),sm:()=>smLearn()})[oneAid()]();
+  L.hidden=false; L.classList.add("lov"); document.body.classList.add("lovon"); L.querySelector(".lovx")?.focus(); try{ history.replaceState(null,"",({aop:"#learn",cp:"#cp-learn",pm:"#pm-learn",ar:"#ar-learn",uap:"#uap-learn",sp:"#sp-learn",sm:"#sm-learn"})[oneAid()]); }catch(e){} }
 const oneQuiet=()=>{ try{ return !!(plSwitching||(typeof PL!=="undefined"&&PL)||document.body.classList.contains("presenting")||document.body.classList.contains("pmpresenting")||document.body.classList.contains("meeting")); }catch(e){ return false; } };
 const _showOne=show; show=function(view){ if(view==="learn"&&oneQuiet()) view="aid"; if(view==="learn"){ _showOne("aid"); oneOn(); oneLearnOpen(); return; }
   oneLearnClose(); _showOne("aid"); oneOn(); if(view==="build") oneToPanel(); };
@@ -6267,7 +6646,7 @@ document.addEventListener("focusout",e=>{ if(!document.body.classList.contains("
 /* ---------- (4) one Claude button per aid ---------- */
 function oneClaudeBtn(){ const s=ONE[oneAid()], B=$(s.B); if(!B||B.querySelector(".oneclaude")) return;
   B.insertAdjacentHTML("afterbegin",`<button class="oneclaude prep-only" data-oneclaude><span>✦ Fill or improve with Claude</span><small>Fills what's empty and suggests the rest; never replaces your words</small></button>`); }
-function oneClaude(){ const a=oneAid(); if(a==="sp"){ spIdx=Math.max(1,spIdx); spBuild(); spDraft(); return; }
+function oneClaude(){ const a=oneAid(); if(a==="sm"){ smIdx=2; smBuild(); smDraft(); return; } if(a==="sp"){ spIdx=Math.max(1,spIdx); spBuild(); spDraft(); return; }
   if(a==="aop"){ if(!allFilled().length&&(S.company?.name||"").trim()){ bIdx=0; renderBuild(); $("coGo")?.click(); return; } $("aFill")?.click(); return; }
   if(a==="cp"){ $("cpDraftBtn")?.click(); return; }
   if(a==="pm"){ pmDraft(); return; }
@@ -6310,13 +6689,13 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-oneclear]")){ 
   const m=e.target.closest("[data-onemenu]"); if(m){ e.preventDefault(); oneMenu(m.dataset.onemenu,m,m.dataset.where); return; }
   const x=e.target.closest("[data-oneact]"); if(x){ oneAct(x.dataset.oneact,x.closest(".pop")?._anchor||x); } });
 function onePdfPick(anchor){ closePop(); const pop=document.createElement("div"); pop.className="pop onemenu"; pop.setAttribute("role","menu"); pop.innerHTML=`<h5>Download a PDF</h5>${Object.entries(ONE_NAME).map(([k,n])=>`<button role="menuitem" data-onepdf="${k}"><span>${esc(n)}</span></button>`).join("")}`; place(pop,anchor); popEl=pop; }
-document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]"); if(!b) return; closePop(); const k=b.dataset.onepdf, open={aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),ar:()=>openAR("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid")}[k]; open(); setTimeout(()=>oneClick("pdf",k),200); });
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]"); if(!b) return; closePop(); const k=b.dataset.onepdf, open={aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),ar:()=>openAR("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid"),sm:()=>openSM("aid")}[k]; open(); setTimeout(()=>oneClick("pdf",k),200); });
 
 /* ---------- (3) four path chips, (2) the engagement's next step in the header ---------- */
 const _aidHeadOne=renderAidHead; renderAidHead=function(){ _aidHeadOne(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button disabled title="Requirements: the next aids being rebuilt">Requirements <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>
     <div class="pchip p-when"><span class="pk">WHEN</span><button data-nav="ar" ${cur("ar")}>Roadmap</button></div>`;
   $("ahTitle").textContent=ONE_NAME[a]; const row=document.querySelector("#aidHead .ahrow"); if(row&&!row.querySelector(".onemenus")){ const m=row.querySelector(".meetbtn"); m.insertAdjacentHTML("beforebegin",`<span class="onemenus"><button class="btn small" data-onemenu="share">Share & export ▾</button><button class="btn small" data-onemenu="more">More ▾</button></span>`); }
   oneLensVis(); renderNextPill(); };
@@ -6507,7 +6886,7 @@ const ENG_DIM={aop:"Why",pm:"Why",uap:"What",ar:"What",cp:"How"};
 const _aidHeadSt=renderAidHead; renderAidHead=function(){ _aidHeadSt(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button data-nav="ar" ${cur("ar")}>Roadmap</button><button disabled title="More Requirements aids are being rebuilt">more <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>`;
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>`;
   const row=document.querySelector("#aidHead .ahrow"); if(row){ row.querySelector(".stagesel")?.remove(); const m=row.querySelector(".onemenus")||row.querySelector(".meetbtn"); if(m&&!document.body.classList.contains("meeting")) m.insertAdjacentHTML("beforebegin",stageSelHTML(stageOf(),"cur")); }
   renderNextPill(); };
 renderNextPill=function(){ if(route!=="aid") return; const n=engNext(), here=n.aid===oneAid();
@@ -6586,7 +6965,7 @@ function clNoClaude(){ kitOpen("Claude can't run in this view",`<p class="kitlea
   <ul><li>Open KA Engagement Aids on your <b>computer</b> at claude.ai, or in <b>Safari</b> on this phone, signed in to Claude. Your engagements are there too.</li><li>Or fill it in by hand here: every box works without Claude.</li></ul>
   <div class="arow" style="flex:0 1 auto"><button class="btn primary" onclick="kitClose()">OK</button></div>`,true); }
 const _oneClaudeNC=oneClaude; oneClaude=function(){ if(!sample){ if(oneAid()==="sp"&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); } clNoClaude(); return; } return _oneClaudeNC(); };
-document.addEventListener("click",e=>{ if(!sample&&e.target.closest("[data-spdraft],[data-clnext],[data-uaprefill],[data-uapvend],[data-uapaddline],#coGo,#aFill,#cpDraftBtn,#suGo,[data-finfind]")){ e.preventDefault(); e.stopImmediatePropagation(); if(e.target.closest("[data-spdraft]")&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); spToGuide(); } clNoClaude(); } },true);
+document.addEventListener("click",e=>{ if(!sample&&e.target.closest("[data-spdraft],[data-smdraft],[data-clnext],[data-uaprefill],[data-uapvend],[data-uapaddline],#coGo,#aFill,#cpDraftBtn,#suGo,[data-finfind]")){ e.preventDefault(); e.stopImmediatePropagation(); if(e.target.closest("[data-spdraft]")&&!spPlan()){ spNew(true); spIdx=1; spRefresh(); spToGuide(); } clNoClaude(); } },true);
 
 
 /* ---------- on opening, Claude waits (a few seconds at most) for your engagements to come in from your Claude account (Dave, Nov 19: "clicked. got nothing filled in on my phone") ---------- */
@@ -6873,7 +7252,7 @@ const _pmBuildPdfLB=pmBuildPdf; pmBuildPdf=async function(deck){ if(!deck) retur
 /* ---------- the Engagement report: every aid with something in it, in the path's order ---------- */
 async function lbReport(){ const doc=await lbDoc(); doc.__lb.aid="Engagement report"; lbCover(doc,{kicker:"Engagement report",sub:"Where we are, what we heard, and what comes next",motif:LB_MOTIF.report});
   const y0=lbPage(doc,"Contents","Engagement report"); const tocPage=doc.getNumberOfPages(), sections=[];
-  for(const aid of ["aop","pm","uap","ar","cp","sp"]){ const start=doc.getNumberOfPages()+1, before=doc.__lb.toc.length; let ok=false; try{ ok=await LB_SEC[aid](doc,{report:true}); }catch(e){ console.warn(aid,e); ok=false; }
+  for(const aid of ["aop","pm","uap","ar","cp","sm","sp"]){ const start=doc.getNumberOfPages()+1, before=doc.__lb.toc.length; let ok=false; try{ ok=await LB_SEC[aid](doc,{report:true}); }catch(e){ console.warn(aid,e); ok=false; }
     if(ok) sections.push([ONE_NAME[aid],start,doc.__lb.toc.slice(before)]); else doc.__lb.toc.length=before; }
   if(!sections.length) return null;
   doc.__lb.tocAt={page:tocPage,draw:()=>{ let y=lbH2(doc,S.company?.name||aidTitle(),y0); y=lbLede(doc,`The engagement as it stands on ${longDate()}: ${sections.length} aid${sections.length>1?"s":""}, in the order we work through them.`,y);
@@ -6900,11 +7279,11 @@ loadInter();
    (a cover and the five formal sheets, each marked Straw dog · for discussion), drawn from the same PDF that Download PDF saves. ===================== */
 (function(){ const set=(sel,h)=>{ const el=document.querySelector(sel); if(el) el.innerHTML=h; };
   set('label[for="suClient"]','Who is the client?');
-  set('label[for="suProv"]','Who is the ally? <span class="opt">the solution you bring · optional · shapes the Solutions and the problem</span>');
+  set('label[for="suProv"]','What\'s the solution? <span class="opt">the company or offering you bring · optional · shapes the Solutions and the problem</span>');
   const pv=$("suProv"); if(pv) pv.placeholder="e.g. VaxCare"; const go=$("suGo"); if(go) go.textContent="Build the straw dog";
-  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Name the client and the ally. Claude drafts a straw dog of five aids, the alignment, the Priorities Map, the problem, the criteria and the first session plan, and shows them as six visuals to knock down together. You review and write over anything.";
-  const ol=$("suFills"); if(ol){ const sol=ol.querySelector('[data-f="sol"] b'); if(sol) sol.textContent="Solutions from the ally";
-    const cp=ol.querySelector('[data-f="cp"]'); if(cp&&!ol.querySelector('[data-f="uap"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-what" data-f="uap"><div><b>Understanding a Problem · the nine parts</b><span>The core business problem the ally solves for this client, framed from the buyer's side. From the alignment when no ally is named.</span></div></li>`);
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything.";
+  const ol=$("suFills"); if(ol){ const sol=ol.querySelector('[data-f="sol"] b'); if(sol) sol.textContent="Solutions from what you bring";
+    const cp=ol.querySelector('[data-f="cp"]'); if(cp&&!ol.querySelector('[data-f="uap"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-what" data-f="uap"><div><b>Understanding a Problem · the nine parts</b><span>The core business problem the solution solves for this client (or the one you name), framed from the buyer's side. From the alignment when no solution is named.</span></div></li>`);
     if(!ol.querySelector('[data-f="sp"]')) ol.insertAdjacentHTML("beforeend",`<li class="d-how" data-f="sp"><div><b>Initial Session Plan</b><span>Objectives from the Assessment Roadmap's activities, an agenda tied to the aids, next steps.</span></div></li><li class="d-why" data-f="sd"><div><b>The straw dog · six visuals</b><span>A cover and the five sheets, marked for discussion, ready to download as one PDF.</span></div></li>`); } })();
 
 let sdBusy=false;
@@ -6919,14 +7298,16 @@ async function sdProblem(){ const U=uapData(), ally=(S.provider?.name||"").trim(
   const p=uapBlankProb(""); p.from={kind:"problem",line}; uapData().probs.push(p); uapData().cur=uapData().probs.length-1; save(); return await uapFill(p,{problem:line,material:""}); }
 async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").textContent="The straw dog needs the page opened in Claude. Start blank to build it by hand."; return; }
   const client=setupFill(); if(!client) return; sdBusy=true; suBusy=true; $("suGo").disabled=true; $("suBlank").disabled=true; renderCrumbs(); const st=$("suStatus");
-  ["aop","sol","pm","uap","cp","sp","sd"].forEach(k=>sdMark(k)); const mirror=setInterval(()=>{ if($("coStatus").textContent) st.textContent=$("coStatus").textContent; },400);
+  ["aop","sol","pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k)); const mirror=setInterval(()=>{ if($("coStatus").textContent) st.textContent=$("coStatus").textContent; },400);
   try{ sdMark("aop","run"); sdMark("sol",S.provider.name?"run":"skip");
     await $("coGo").onclick(); clearInterval(mirror); sdMark("aop",allFilled().length?"done":"skip"); if(S.provider.name) sdMark("sol",colFilled(4).length?"done":"skip");
-    if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sp","sd"].forEach(k=>sdMark(k,"skip")); return; }
+    if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k,"skip")); return; }
     sdMark("pm","run"); st.textContent="Mapping the stakeholders' priorities…"; pmData(); const okPm=await pmDraft(); sdMark("pm",okPm?"done":"skip");
     sdMark("uap","run"); st.textContent=S.provider.name?`Framing the problem ${S.provider.name} solves for ${client}…`:"Framing the core business problem…"; const okU=await sdProblem(); sdMark("uap",okU&&uapProb()?.box.some(b=>b.t.trim())?"done":"skip");
     sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
+    sdMark("sm","run"); st.textContent="Mapping the capabilities to the initiatives…"; { const D=smData(); if(smSeed(D)) save(); } const okS=smNamedC().length?await smDraft():false; sdMark("sm",okS||smRated().length?"done":"skip");
     sdMark("sp","run"); st.textContent="Planning the first session…"; if(!spPlan()) spNew(true); await spDraft(); sdMark("sp",spPlan()?"done":"skip");
+    sdMark("ar","run"); st.textContent="Reading where they are on the Assessment Roadmap…"; await arDraft(); try{ const R=arData(); if(!(R.dates&&[1,2,3,4,5].some(p=>R.dates[p]))) arProposeTimeline(); }catch(e){} sdMark("ar",arData().drafted?"done":"skip");
     sdMark("sd","run"); st.textContent="Drawing the straw dog…"; S.strawAt=Date.now(); save(); await sdOpen(); sdMark("sd","done");
     st.textContent=`Done. The straw dog is ready: six visuals for discussion. Everything is marked by where it came from; confirm it with the client.`; }
   catch(err){ console.warn(err); st.textContent="Something stopped the straw dog. You can carry on from the engagement."; }
@@ -6944,20 +7325,21 @@ function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), 
   let pt=42; lbFont(doc,"heavy",pt,"#ffffff"); while(doc.getTextWidth(nm)>132&&pt>24){ pt-=1; doc.setFontSize(pt); } const nl=doc.splitTextToSize(nm,132).slice(0,2), nb=72+mmPt(pt)+2; doc.text(nl,20,nb,{lineHeightFactor:1.02});
   let y=nb+(nl.length-1)*mmPt(pt)*1.02+9; if(ally){ lbFont(doc,"normal",13,"#c9d1e3"); doc.text("with",20,y); const ww=doc.getTextWidth("with "); lbFont(doc,"bold",13,"#ffffff"); doc.text(lbClean(ally),20+ww,y); y+=9; }
   lbFont(doc,"normal",10.5,"#c9d1e3"); const sl=doc.splitTextToSize(`A first look at ${nm}'s priorities, the problem worth solving, how we'd measure success and how we'd start. Every line is ours to confirm with you, and yours to correct.`,124); doc.text(sl,20,y+2,{lineHeightFactor:1.4}); y+=2+sl.length*mmPt(10.5)*1.4+9;
-  const e=eyesOf(), cap=t=>String(t).replace(/^the\s+/i,"The ").replace(/^./,c=>c.toUpperCase()), meta=[e&&["THROUGH THE EYES OF",/^[A-Z]{2,5}$/.test(e)?`The ${e}`:cap(e)],ally&&["THE ALLY",ally],["PREPARED",longDate()]].filter(Boolean); let x=20;
+  const e=eyesOf(), cap=t=>String(t).replace(/^the\s+/i,"The ").replace(/^./,c=>c.toUpperCase()), meta=[e&&["THROUGH THE EYES OF",/^[A-Z]{2,5}$/.test(e)?`The ${e}`:cap(e)],ally&&["THE SOLUTION",ally],["PREPARED",longDate()]].filter(Boolean); let x=20;
   meta.forEach(([k,v])=>{ lbFont(doc,"bold",6.6,"#9fb0d0"); const kw=doc.getTextWidth(k)+.45*k.length; lbFont(doc,"bold",10,"#ffffff"); let vv=lbClean(v); while(doc.getTextWidth(vv)>60&&vv.length>4) vv=vv.slice(0,-2).trim()+"…"; const w=Math.max(kw,doc.getTextWidth(vv),24);
     doc.setDrawColor("#5b6b8f"); doc.setLineWidth(.3); doc.line(x,y,x+w,y); lbFont(doc,"bold",6.6,"#9fb0d0"); doc.setCharSpace(.45); doc.text(k,x,y+4.4); doc.setCharSpace(0); lbFont(doc,"bold",10,"#ffffff"); doc.text(vv,x,y+9.6); x+=w+9; });
   // what's inside: the five visuals, on the right
   const rx=172, rw=PW-rx-20; doc.setFillColor("#22335c"); doc.roundedRect(rx-6,50,rw+12,124,2.4,2.4,"F"); lbFont(doc,"bold",7,"#9fb0d0"); doc.setCharSpace(.6); doc.text("IN THIS STRAW DOG",rx,59); doc.setCharSpace(0);
-  SD_LIST.forEach(([k,n,d],i)=>{ const yy=67+i*21; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
+  const sdGap=SD_LIST.length>5?Math.min(17.6,103/(SD_LIST.length-1)):21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?65:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
     lbFont(doc,"bold",10,"#ffffff"); doc.text(n,rx+10,yy+2.2); lbFont(doc,"normal",8,"#b9c4dc"); doc.text(doc.splitTextToSize(d,rw-10).slice(0,2),rx+10,yy+6.6,{lineHeightFactor:1.35});
-    if(i<4){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+15.4,rx+rw,yy+15.4); } });
+    if(i<SD_LIST.length-1){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+sdGap-5.6,rx+rw,yy+sdGap-5.6); } });
   lbFont(doc,"normal",9.5,"#c9d1e3"); doc.text(doc.splitTextToSize(`“${KEVIN}”`,140),20,PH-24); lbBands(doc); }
 async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="Straw dog"; sdCover(doc);
   const add=async(draw,portrait)=>{ doc.addPage("letter",portrait?"portrait":"landscape"); doc.__lb.pages.push({kind:"sheet",portrait}); await draw(doc); sdStamp(doc,portrait); };
   await add(d=>buildPdf(d)); await add(d=>pmDrawSheet(d)); const p=uapProb();
   if(p&&p.box.some(b=>(b.t||"").trim())) await add(d=>uapDrawSheet(d,p)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Understanding a Problem",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No problem framed yet.",10.4,44); });
-  await add(d=>cpDrawSheet(d)); const sp=spPlan();
+  if(SD_LIST.some(x=>x[0]==="ar")) await add(d=>arDrawSheet(d));
+  await add(d=>cpDrawSheet(d)); if(smNamedC().length) await add(d=>smDrawSheet(d)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Solutions Map",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No capabilities mapped yet.",10.4,44); }); const sp=spPlan();
   if(sp){ await add(d=>{ const n=d.getNumberOfPages(); spDrawPages(d,sp); if(d.getNumberOfPages()>n) d.deletePage(d.getNumberOfPages()); },true); }
   return lbFinish(doc); }
 async function sdDownload(){ toast("Making the straw dog PDF…",null,true); let doc; try{ doc=await sdBuild(); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
@@ -6980,12 +7362,180 @@ async function sdOpen(){ let ov=$("sdView"); if(!ov){ ov=document.createElement(
 function sdClose(){ const ov=$("sdView"); if(ov) ov.hidden=true; document.body.classList.remove("sdon"); }
 document.addEventListener("click",e=>{ if(e.target.closest("[data-sdx]")){ sdClose(); return; } if(e.target.closest("[data-sddl]")){ sdDownload(); return; }
   if(e.target.closest("[data-sdeng]")){ sdClose(); ["suClient","suSite","suEyes","suProv","suPaste"].forEach(id=>{ const el=$(id); if(el) el.value=""; }); nav("overview"); return; }
-  const a=e.target.closest("[data-sdaid]"); if(a){ sdClose(); ({aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid")})[a.dataset.sdaid](); } });
+  const a=e.target.closest("[data-sdaid]"); if(a){ sdClose(); ({aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid"),sm:()=>openSM("aid"),ar:()=>openAR("aid")})[a.dataset.sdaid](); } });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.body.classList.contains("sdon")){ e.stopImmediatePropagation(); sdClose(); } },true);
 /* in the menus */
 const _oneShareSD=oneShareItems; oneShareItems=function(where){ const it=_oneShareSD(where), at=it.findIndex(x=>x[2]==="report"); it.splice(at,0,["Straw dog · six visuals","cover and the five sheets, for discussion","straw"]); return it; };
 const _oneActSD=oneAct; oneAct=function(k,anchor){ if(k==="straw"){ closePop(); sdOpen(); return; } return _oneActSD(k,anchor); };
 const _cmdSD=cmdActions; cmdActions=function(){ const A=_cmdSD(); A.push({g:"Work",t:"Straw dog · six visuals",run:sdOpen,hint:"for discussion"}); return A; };
+
+
+/* ---------- the Solutions Map in the simplified layer, on the path (How · Criteria, Solutions Map, Session Plan), with Claude, in the menus, the leave-behinds, the report and the straw dog ---------- */
+ONE_BTN.pdf.sm="smPdf"; ONE_BTN.copy.sm="smCopy"; ONE_BTN.clear.sm="smClear";
+{ const at=ENG_PATH.indexOf("sp"); ENG_PATH.splice(at>=0?at:ENG_PATH.length,0,"sm"); } ENG_OPEN.sm=()=>openSM("build"); ENG_SCORE.sm=()=>smScore(); ENG_DIM.sm="How";
+const _engNeedsSM=engNeeds; engNeeds=function(k){ if(k==="sm"){ try{ const m=smNextMove(); return !m.done&&smScore()<70?m:null; }catch(e){ return null; } } return _engNeedsSM(k); };
+CL_EMPTY.sm=()=>!(S.sm&&smRated().length); CL_WHAT.sm="rates each capability's impact on the six initiatives"; CL_SLICE.sm=()=>{ const D=smData(); return [D.cap,D.cells]; };
+/* the guide follows what you tap on the sheet */
+document.addEventListener("click",e=>{ if(!document.body.classList.contains("one")||oneAid()!=="sm") return; if(!e.target.closest(".onesheet")) return; let n=null;
+  if(e.target.closest("[data-smcell],[data-smmore]")) n=2; else if(e.target.closest("[data-smoki]")||e.target.closest('[data-smhd="init"]')) n=1; else if(e.target.closest("[data-smname],[data-smokc]")||e.target.closest('[data-smhd="cap"]')) n=0;
+  if(n!=null&&n!==smIdx) setTimeout(()=>{ try{ oneSync=true; smIdx=n; smBuild(); }finally{ oneSync=false; } },0); },true);
+$("smMini").onclick=()=>{ const s=document.querySelector(".onesheet"); if(s) s.scrollIntoView({behavior:"smooth",block:"start"}); else show("aid"); };
+/* More: the map's own extras */
+const _oneMoreSM=oneMoreItems; oneMoreItems=function(){ const it=_oneMoreSM(); if(oneAid()==="sm"){ const add=[["Read the map","a row, a column, the gaps or the synergies","smread"]]; if(smToConfirm().length) add.push(["Confirm the dashed ratings","with the client","smconfirm"]); add.push(["Carry over the alignment's Solutions","as capabilities","smseed"]); it.unshift(...add); } return it; };
+const _oneActSM=oneAct; oneAct=function(k,anchor){ if(k==="smread"){ closePop(); $("smRead")?.scrollIntoView({block:"start",behavior:"smooth"}); return; } if(k==="smconfirm"){ closePop(); smConfirmAll(); return; }
+  if(k==="smseed"){ closePop(); const n=smSeed(); save(); smRefresh(); toast(n?`${n} Solution${n>1?"s":""} carried over from the alignment`:"Every Solution in the alignment is already here"); return; } return _oneActSM(k,anchor); };
+/* Claude elsewhere (the brief, the debrief, the session plan) reads the map too */
+const _engTextSM=engagementText; engagementText=function(){ let t=_engTextSM(); try{ if(!smBusy&&S.sm&&smRated().length) t+="\n"+smSummary(); }catch(e){} return t; };
+
+/* the leave-behind: the map, then what we heard */
+LB_SUB.sm="Illustrating innovative solutions";
+LB_MOTIF.sm=doc=>{ for(let r=0;r<6;r++) for(let c=0;c<6;c++){ const k=(r*5+c*3)%4; if(k) doc.circle(176+c*15,46+r*20,k*1.9,"F"); } };
+LB_SEC.sm=async function(doc,o={}){ doc.__lb.aid="Solutions Map"; const D=smData(); if(!smRated(D).length) return false;
+  doc.__lb.toc.push(["The map on one page",await lbSheet(doc,d=>smDrawSheet(d))]);
+  let y=lbPage(doc,"What we heard"); lbMark(doc,"What we heard"); y=lbH2(doc,"Where the capabilities make a difference, and where they don't",y); y=lbLede(doc,"Read from the map: a top-of-mind initiative with no Medium or High impact is a gap in capabilities; two or more capabilities with High impact on one initiative is a synergy.",y);
+  const cw=(243-16)/3, g=smGaps(D), sy=smSyn(D), take=(D.take||"").trim().split(/\n+/).map(l=>l.replace(/^[-•]\s*/,"").trim()).filter(Boolean);
+  const col=(i,label,verb,band,cards)=>{ const x=18+i*(cw+8); let yy=lbSect(doc,label,verb,band,x,y,cw); cards.forEach(c=>{ const h=lbCard(doc,0,0,cw,c,false); if(yy+h>186) return; lbCard(doc,x,yy,cw,c); yy+=h+2.4; }); return yy; };
+  const e1=col(0,"Gaps in capabilities","to close","org",g.length?g.map(r=>({title:SM_INIT[r],band:"org",text:smRowRead(r,D).lo.length?`Low impact only: ${listJoin(smRowRead(r,D).lo.map(c=>cName(c,D)))}.`:"No capability makes a difference here yet."})):[{title:"None on the map",text:"Every top-of-mind initiative has a capability with Medium or High impact."}]);
+  const e2=col(1,"Synergies","to build on","inf",sy.length?sy.map(r=>({title:SM_INIT[r],band:"inf",text:`${listJoin(smRowRead(r,D).hi.map(c=>cName(c,D)))}, together.`})):[{title:"None yet",text:"No initiative has two or more capabilities with High impact."}]);
+  const e3=col(2,"Key takeaways","to agree together","op",take.length?take.map(t=>({title:t,band:"op",tpt:9.2})):[{title:"To be agreed with the client",text:"Write the takeaways once the map has been read together."}]);
+  lbClose(doc,Math.max(e1,e2,e3)+6,"Agree the impact together, then plan the session that confirms it."); return true; };
+(function(){ if($("smDeck")) return; const b=document.createElement("button"); b.id="smDeck"; b.hidden=true; b.onclick=()=>lbDownload("sm"); document.body.appendChild(b); ONE_BTN.deck.sm="smDeck"; })();
+
+/* the straw dog: the Solutions Map is the sixth visual, before the Session Plan (seven in all) */
+SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="sp")),0,["sm","Solutions Map","How the solution's capabilities move the client's initiatives."]);
+(function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="sm"]')) return; const sp=ol.querySelector('[data-f="sp"]'), h=`<li class="d-how" data-f="sm"><div><b>Solutions Map</b><span>The alignment's Solutions as capabilities, and Claude's view of their impact on KA's six initiatives.</span></div></li>`;
+  if(sp) sp.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h);
+  const sd=ol.querySelector('[data-f="sd"] div'); if(sd) sd.innerHTML=`<b>The straw dog · eight visuals</b><span>A cover and the seven sheets, marked for discussion, ready to download as one PDF.</span>`;
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything."; })();
+const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShareSM(where).map(x=>x[2]==="straw"?["Straw dog · eight visuals","cover and the seven sheets, for discussion","straw"]:x); };
+const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="Straw dog · six visuals"?Object.assign({},a,{t:"Straw dog · eight visuals"}):a); };
+
+
+/* ---------- Meet the client from an aid presents that aid (Dave, Nov 20: "present to the client should be aid specific when clicked from the specific tool.")
+   Opened from an aid's header (or its next step), Meet the client and Present the story show that aid alone, summary and details; "Present all the aids" brings back the combined story.
+   Opened from the Overview, it stays the combined story. ---------- */
+let plOnly=null;
+const plSolo=f=>{ if(!plOnly||!PL_ORDER.includes(plOnly)) return f(); const keep=PL_ORDER.slice(); PL_ORDER.splice(0,PL_ORDER.length,plOnly); try{ return f(); } finally{ PL_ORDER.splice(0,PL_ORDER.length,...keep); } };
+const _navPO=nav; nav=function(r,o){ if(r==="meet"&&route!=="meet"){ if(route==="aid"){ const a=oneAid(); plOnly=a; if(document.querySelector(`[data-meet-aid="${a}"]`)) meetAid=a; const pk=plPick(); if(pk[a]&&!pk[a].sum&&!pk[a].det){ pk[a].sum=true; pk[a].det=true; } } else plOnly=null; } return _navPO(r,o); };
+const _plCountsPO=plCounts; plCounts=function(){ return plSolo(()=>_plCountsPO()); };
+const _plRenderPO=plRender; plRender=function(){ plSolo(()=>_plRenderPO()); const box=$("plPick"); if(!box) return; box.querySelector(".plsolo")?.remove();
+  if(plOnly&&PL_ORDER.includes(plOnly)){ const nm=TOK_AID[plOnly]||ONE_NAME[plOnly]||"this aid", h=box.querySelector(".plhead h3"), n=box.querySelector(".plhead .note"); if(h) h.textContent=`Present the ${nm} · choose what to show`; if(n) n.textContent=`Just the ${nm}, because you came from it.`;
+    box.insertAdjacentHTML("beforeend",`<p class="note plsolo" style="margin:8px 0 0"><button class="linkbtn" data-plall>Present all the aids instead</button></p>`); } };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-plall]")){ plOnly=null; plRender(); } });
+
+
+/* ===================== New engagement as a conversation (Dave, Nov 20: "when first creating an engagement I want all the aids to be created by Claude. Claude should ask the essential
+   questions needed to generate the initial set of engagement aids."; "Ally was a typo! It is the solution!"; "build it!" on: chat style, the Roadmap in the straw dog, the form kept)
+   Claude asks one question at a time: the client (and checks it knows them), the solution, whose eyes, the stage, the problem, the next session, what you already know.
+   Follow-ups only when needed: material when Claude doesn't know the client, the process list for a health system, the problem when no solution is named.
+   Every question can be skipped; any answer can be tapped to change it. Build it fills the form underneath and runs the straw dog: all seven aids, then eight visuals. ===================== */
+SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="uap")+1),0,["ar","Assessment Roadmap","Where they are in the six A's, readiness and a timeline."]);
+(function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="ar"]')) return; const sd=ol.querySelector('[data-f="sd"]'), h=`<li class="d-what" data-f="ar"><div><b>Assessment Roadmap</b><span>Claude's read of their will and skill on each activity, and a timeline proposed from today.</span></div></li>`; if(sd) sd.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h); })();
+let SUX={active:false};
+const SU_STEPS=[
+  {k:"client",q:()=>"Who's the client? Their name, and their website if you have it."},
+  {k:"known",when:()=>!!SUX.check,q:()=>SUX.check.known?`I know <b>${esc(SUX.check.name||SUX.client)}</b>: ${esc(SUX.check.line)}${SUX.check.industry?` (${esc(SUX.check.industry)})`:""}. Is that the right one?`:`I don't know ${esc(SUX.client)} well enough to draft from what I know. Paste what you have: their site, an annual report, your notes. Or add a file.`},
+  {k:"proc",when:()=>SUX.health,q:()=>`${SUX.check?.name||SUX.client} is a health system. Which process list should the alignment use?`},
+  {k:"sol",q:()=>"What's the solution you're bringing? The company or offering, e.g. VaxCare."},
+  {k:"eyes",q:()=>`Through whose eyes? The key stakeholder at ${SUX.client||"the client"} you're working with, e.g. the COO.`},
+  {k:"stage",q:()=>"Where are they in the six A's?"},
+  {k:"problem",q:()=>SUX.sol?`What problem do you think ${SUX.client||"they"} have, in a line? Skip it and I'll take it from what ${SUX.sol} solves.`:`With no solution named, what problem do you think ${SUX.client||"they"} have, in a line? Skip it and I'll take it from the alignment.`},
+  {k:"session",q:()=>"What's the next session? Whatever you know: the type, date, length, where, and who's in the room."},
+  {k:"more",q:()=>SUX.matDone?"Anything else before I build? A logo, or more notes.":"Anything you already know? Paste notes or add files, and a logo if you have one."},
+  {k:"done",q:()=>suReadBack()}];
+function suReset(){ SUX={active:true,i:0,log:[],client:"",site:"",check:null,health:false,proc:"book",sol:"",eyes:"",stage:0,problem:"",session:{type:"",date:"",dur:"",loc:"",client:"",ours:""},mat:"",matDone:false,checking:false}; suProc="book"; suFilesRead=[]; $("suFiles").textContent="PDF or text. Read on this device only."; ["suClient","suSite","suEyes","suProv","suPaste"].forEach(id=>{ const el=$(id); if(el) el.value=""; }); suAdvance(0); }
+function suAt(i){ while(i<SU_STEPS.length&&SU_STEPS[i].when&&!SU_STEPS[i].when()) i++; return i; }
+function suAdvance(i){ SUX.i=suAt(i); if(SUX.edit!=null){ SUX.edit=null; SUX.i=suAt(SU_STEPS.length-1); } suRender(); }
+function suAnswerText(k){ const S_=SUX;
+  if(k==="client") return S_.client?`${S_.client}${S_.site?` · ${S_.site}`:""}`:"";
+  if(k==="known") return S_.check?.known?(S_.wrong?"Not that one":"Yes, that's them"):(S_.mat?`Added ${S_.mat.length.toLocaleString()} characters${suFilesRead.length?` and ${suFilesRead.length} file${suFilesRead.length>1?"s":""}`:""}`:suFilesRead.length?`Added ${suFilesRead.map(f=>f.name).join(", ")}`:"Skipped");
+  if(k==="proc") return S_.proc==="health"?"Health system · 13 original":"From the book · 15 operational";
+  if(k==="sol") return S_.sol||"No solution yet"; if(k==="eyes") return S_.eyes||"The whole company"; if(k==="stage") return S_.stage?AR[S_.stage-1].l:"Not sure yet";
+  if(k==="problem") return S_.problem||"Skipped";
+  if(k==="session"){ const x=S_.session, L=[x.type,x.date&&new Date(x.date+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}),x.dur,x.loc,x.client&&`with ${x.client}`].filter(Boolean); return L.length?L.join(" · "):"Not planned yet"; }
+  if(k==="more") return [S_.mat2&&`${S_.mat2.length.toLocaleString()} characters of notes`,suFilesRead.length&&`${suFilesRead.length} file${suFilesRead.length>1?"s":""}`,$("suLogoImg")&&!$("suLogoImg").hidden&&"a logo"].filter(Boolean).join(", ")||"Nothing more";
+  return ""; }
+function suReadBack(){ const x=SUX, se=suAnswerText("session");
+  return `Here's what I have. ${esc(x.client)}${x.sol?` with ${esc(x.sol)}`:""}, through the eyes of ${esc(x.eyes||"the whole company")}${x.stage?`, in ${AR[x.stage-1].l}`:""}.${x.problem?` The problem: ${esc(x.problem)}.`:""}${se!=="Not planned yet"?` Next session: ${esc(se)}.`:""}<br>I'll draft all seven aids, then show the straw dog. It takes a few minutes.`; }
+function suInputHTML(k){ const x=SUX, sub=`<button class="btn small ghost" data-suskip>Skip</button>`;
+  if(k==="client") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. Brown & Brown Insurance" value="${esc(x.client)}" aria-label="Client"><input class="tin" id="suQ2" placeholder="Website or ticker (optional)" value="${esc(x.site)}" aria-label="Website"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button></div></div>`;
+  if(k==="known") return x.check?.known?`<div class="suchips"><button class="btn primary" data-suyes>Yes, that's them</button><button class="btn" data-suno>No, a different one</button></div>`
+    :`<div class="suin"><textarea class="tin" id="suQ1" rows="4" placeholder="Paste what you have">${esc(x.mat)}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small" data-sufile>Add a file</button><span class="note">${esc(suFilesRead.map(f=>f.name).join(", "))}</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="proc") return `<div class="suchips"><button class="btn ${x.proc==="health"?"primary":""}" data-suproc="health">Health system · 13 original</button><button class="btn ${x.proc==="book"?"primary":""}" data-suproc="book">From the book · 15 operational</button></div>`;
+  if(k==="sol") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. VaxCare" value="${esc(x.sol)}" aria-label="The solution"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="eyes") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. the COO" value="${esc(x.eyes)}" aria-label="Through whose eyes"><div class="suchips">${["the CEO","the CFO","the COO","the CIO"].map(t=>`<button class="btn small" data-sueyes="${t}">${t.replace(/^the /,"")}</button>`).join("")}</div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","The whole company")}</div></div>`;
+  if(k==="stage") return `<div class="suchips">${AR.map((a,i)=>`<button class="btn ${x.stage===i+1?"primary":""}" data-sustage="${i+1}"><small class="note" style="display:block;font-size:10.5px">${i<2?"Problem Space":"Solution Space"}</small>${a.l}</button>`).join("")}<button class="btn ghost" data-sustage="0">Not sure yet</button></div>`;
+  if(k==="problem") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. Vaccine inventory ties up cash and expires on the shelf" value="${esc(x.problem)}" aria-label="The problem"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="session"){ const se=x.session; return `<div class="suin sugrid"><label class="field"><span class="note">Type of session</span><select class="tin" id="suS_type"><option value="">Choose…</option>${SP_TYPES.map(t=>`<option ${se.type===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+      <label class="field"><span class="note">Date</span><input class="tin" type="date" id="suS_date" value="${esc(se.date)}"></label>
+      <label class="field"><span class="note">Duration</span><select class="tin" id="suS_dur"><option value="">Choose…</option>${SP_DUR.map(t=>`<option ${se.dur===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+      <label class="field"><span class="note">Location</span><input class="tin" id="suS_loc" value="${esc(se.loc)}" placeholder="e.g. their HQ, or Zoom"></label>
+      <label class="field"><span class="note">Their people</span><input class="tin" id="suS_client" value="${esc(se.client)}" placeholder="Names and roles"></label>
+      <label class="field"><span class="note">Ours</span><input class="tin" id="suS_ours" value="${esc(se.ours)}" placeholder="Names"></label>
+      <div class="arow" style="flex:0 1 auto;grid-column:1/-1"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","Not planned yet")}</div></div>`; }
+  if(k==="more") return `<div class="suin"><textarea class="tin" id="suQ1" rows="3" placeholder="Paste from an annual report, earnings call, investor deck or your own notes">${esc(x.mat2||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small" data-sufile>Add a file</button><button class="btn small" data-sulogo>${$("suLogoImg")&&!$("suLogoImg").hidden?"Change the logo":"Add a logo"}</button><span class="note">${esc(suFilesRead.map(f=>f.name).join(", "))}</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","Nothing more")}</div></div>`;
+  if(k==="done") return `<div class="suchips"><button class="btn primary" data-subuild ${suBusy||sdBusy?"disabled":""}>✦ Build it</button><button class="btn ghost" data-sustart>Start over</button></div>`;
+  return ""; }
+function suRender(){ const box=$("suChat"); if(!box) return; const cur=SU_STEPS[SUX.i], msgs=[];
+  SU_STEPS.forEach((st,j)=>{ if(j>=SUX.i||(st.when&&!st.when())||st.k==="done") return; msgs.push(`<div class="sub c">${st.k==="known"||st.k==="done"?st.q():esc(st.q())}</div>`); const a=suAnswerText(st.k); if(a) msgs.push(`<button class="sub u" data-suedit="${j}" title="Change this answer">${esc(a)}</button>`); });
+  if(SUX.checking) msgs.push(`<div class="sub c"><span class="clspin" aria-hidden="true"></span> Checking what I know about ${esc(SUX.client)}…</div>`);
+  else if(cur) msgs.push(`<div class="sub c now">${cur.k==="known"||cur.k==="done"?cur.q():esc(cur.q())}</div>`);
+  box.innerHTML=`<div class="suhead"><span class="coBadge">Claude</span><b>New engagement</b><button class="linkbtn" data-suform>I'd rather fill in the form</button></div><div class="sumsgs" id="suMsgs">${msgs.join("")}</div>${SUX.checking||!cur?"":suInputHTML(cur.k)}<p class="note" style="margin:6px 0 0">Claude uses what it knows, current to its training date, plus anything you add. It doesn't search the web. Tap any answer to change it.</p>`;
+  const m=$("suMsgs"); if(m) m.scrollTop=m.scrollHeight; setTimeout(()=>{ const f=box.querySelector("#suQ1,.suin select,.suchips .btn.primary,.suchips .btn"); if(f&&route==="new") f.focus({preventScroll:true}); },40); }
+async function suCheckClient(){ SUX.check=null; SUX.health=/\b(health|hospital|medical cent|clinic|healthcare)\b/i.test(SUX.client); if(!sample){ SUX.check={known:false,line:""}; return; }
+  SUX.checking=true; suRender();
+  try{ const r=await sample.json(`You are helping set up a consulting engagement. Do you know the organization "${SUX.client}"${SUX.site?` (${SUX.site})`:""}? If you are unsure which organization is meant, or you don't know it, say known false. Reply with JSON only: {"known":true,"name":"its proper name","line":"what it does, one short sentence","industry":"its industry in 2 to 4 words","health":true if it is a health care provider or health system, else false}`,{modelTier:"quick"});
+    SUX.check={known:!!(r&&r.known),name:String(r&&r.name||"").slice(0,80),line:String(r&&r.line||"").slice(0,200),industry:String(r&&r.industry||"").slice(0,60)}; if(r&&typeof r.health==="boolean") SUX.health=r.health; }
+  catch(e){ SUX.check={known:false,line:""}; }
+  finally{ SUX.checking=false; if(SUX.health) SUX.proc="health"; } }
+function suTakeInput(){ const k=SU_STEPS[SUX.i]?.k, v=id=>($(id)?.value||"").trim();
+  if(k==="client"){ const c=v("suQ1"); if(!c){ toast("Name the client first"); return false; } const changed=c!==SUX.client||v("suQ2")!==SUX.site; SUX.client=c; SUX.site=v("suQ2"); return changed?"check":true; }
+  if(k==="known"&&!SUX.check?.known){ SUX.mat=v("suQ1"); SUX.matDone=!!(SUX.mat||suFilesRead.length); return true; }
+  if(k==="sol"){ SUX.sol=v("suQ1"); return true; } if(k==="eyes"){ SUX.eyes=v("suQ1"); return true; } if(k==="problem"){ SUX.problem=v("suQ1"); return true; }
+  if(k==="session"){ ["type","date","dur","loc","client","ours"].forEach(f=>SUX.session[f]=v("suS_"+f)); return true; }
+  if(k==="more"){ SUX.mat2=v("suQ1"); return true; } return true; }
+async function suNext(){ const t=suTakeInput(); if(!t) return; if(t==="check"){ SUX.wrong=false; await suCheckClient(); suAdvance(SUX.i+1); return; } suAdvance(SUX.i+1); }
+async function suBuild(){ if(suBusy||sdBusy) return; const x=SUX;
+  $("suClient").value=x.client; $("suSite").value=x.site; $("suEyes").value=x.eyes; $("suProv").value=x.sol; $("suPaste").value=[x.mat,x.mat2].filter(Boolean).join("\n\n"); suProc=x.proc;
+  document.querySelectorAll("[data-su-proc]").forEach(b=>b.setAttribute("aria-checked",b.dataset.suProc===suProc));
+  SUX.building=true; const box=$("suChat"); box.querySelector(".suchips")?.remove(); $("suMsgs").insertAdjacentHTML("beforeend",`<div class="sub c now">Building. Follow along on the right; the straw dog opens when it's done.</div>`);
+  try{ await sdRun(); } finally{ SUX.building=false; SUX.active=false; } }
+document.addEventListener("click",e=>{ const t=e.target; if(!t.closest||!t.closest("#suChat")) return;
+  if(t.closest("[data-sugo]")){ suNext(); return; }
+  if(t.closest("[data-suskip]")){ const k=SU_STEPS[SUX.i]?.k; if(k==="sol") SUX.sol=""; if(k==="eyes") SUX.eyes=""; if(k==="problem") SUX.problem=""; if(k==="session") SUX.session={type:"",date:"",dur:"",loc:"",client:"",ours:""}; if(k==="more") SUX.mat2=""; if(k==="known"){ SUX.mat=""; } suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-suyes]")){ SUX.wrong=false; if(SUX.check?.name&&SUX.check.name.length<=80) SUX.client=SUX.check.name; suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-suno]")){ SUX.wrong=true; SUX.check={known:false,line:""}; suRender(); toast("Add their website on the first answer, or paste what you have here.",null,true); return; }
+  const pr=t.closest("[data-suproc]"); if(pr){ SUX.proc=pr.dataset.suproc; suAdvance(SUX.i+1); return; }
+  const ey=t.closest("[data-sueyes]"); if(ey){ SUX.eyes=ey.dataset.sueyes; suAdvance(SUX.i+1); return; }
+  const sg=t.closest("[data-sustage]"); if(sg){ SUX.stage=+sg.dataset.sustage; suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-sufile]")){ const k=SU_STEPS[SUX.i]?.k; if(k==="known") SUX.mat=($("suQ1")?.value||"").trim(); if(k==="more") SUX.mat2=($("suQ1")?.value||"").trim(); $("suFile").click(); return; }
+  if(t.closest("[data-sulogo]")){ SUX.mat2=($("suQ1")?.value||"").trim(); $("suLogo")?.click(); return; }
+  if(t.closest("[data-subuild]")){ suBuild(); return; }
+  if(t.closest("[data-sustart]")){ suReset(); return; }
+  const ed=t.closest("[data-suedit]"); if(ed){ if(suBusy||sdBusy) return; SUX.edit=null; const j=+ed.dataset.suedit; SUX.i=j; suRender(); SUX.edit=SU_STEPS[j].k==="client"?null:j; return; }
+  if(t.closest("[data-suform]")){ suMode(false); return; } });
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey&&e.target.closest&&e.target.closest("#suChat")&&e.target.matches("input")){ e.preventDefault(); suNext(); } });
+/* the files and the logo report back into the conversation */
+$("suFile").addEventListener("change",()=>[900,2500,6000].forEach(ms=>setTimeout(()=>{ if(SUX.active&&!SUX.building){ if(SU_STEPS[SUX.i]?.k==="known"&&suFilesRead.length) SUX.matDone=true; suRender(); } },ms)));
+document.addEventListener("click",e=>{ if(e.target.closest("#suLogo")) setTimeout(function w(){ if(SUX.active&&!SUX.building) suRender(); },2500); });
+/* the conversation or the form */
+function suMode(chat){ const f=$("suForm"), c=$("suChat"); if(!f||!c) return; f.hidden=chat; c.hidden=!chat; if(chat){ if(!SUX.active) suReset(); else suRender(); }
+  else if(!f.querySelector("[data-suchat]")) f.insertAdjacentHTML("afterbegin",`<p class="note" style="margin:0 0 8px"><button type="button" class="linkbtn" data-suchat>← Back to the conversation</button></p>`); }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-suchat]")){ e.preventDefault(); suMode(true); } });
+(function(){ const f=$("suForm"); if(!f||$("suChat")) return; const c=document.createElement("div"); c.id="suChat"; c.className="panel suchat"; c.setAttribute("aria-label","New engagement, as a conversation"); f.before(c); f.hidden=true;
+  const h=document.querySelector("#viewSetup .hhead h1"); if(h) h.textContent="Let's set it up"; })();
+const _renderSetupSU=renderSetup; renderSetup=function(){ _renderSetupSU(); if(suBusy||sdBusy) return; if(!$("suForm").hidden) return; suReset(); };
+/* what the conversation knows goes into the new engagement: the stage, the problem, the next session's logistics */
+const _setupFillSU=setupFill; setupFill=function(b){ const r=_setupFillSU(b); if(r&&SUX.building){ const x=SUX;
+    if(x.stage) S.stage=x.stage; if(x.problem) S._suProblem=x.problem;
+    const se=x.session; if(se&&Object.values(se).some(v=>v)){ const p=spNew(true); if(se.type) p.type=se.type; if(se.date) p.date=se.date; if(se.dur) p.dur=se.dur; if(se.loc) p.loc=se.loc; if(x.stage) p.phase=x.stage; p.parts={client:se.client||"",ours:se.ours||""};
+      p.src=p.src||{}; ["type","date","dur","loc"].forEach(k=>{ if(se[k]) p.src[k]="you"; }); if(se.client) p.src["parts.client"]="you"; if(se.ours) p.src["parts.ours"]="you"; }
+    if(x.check?.known&&x.check.line&&!S.company.summary) S.company.summary=x.check.line; save(); } return r; };
+/* a problem you named is framed first, from the solution's side when there is one */
+const _sdProblemSU=sdProblem; sdProblem=async function(){ const U=uapData(), line=(S._suProblem||"").trim(); if(line&&!U.probs.some(p=>p.box.some(b=>(b.t||"").trim()))){ const sol=(S.provider?.name||"").trim(), p=uapBlankProb("");
+    p.from=sol?{kind:"vendor",vendor:sol,line}:{kind:"problem",line}; U.probs.push(p); U.cur=U.probs.length-1; save(); return await uapFill(p,sol?{problem:line,vendor:{name:sol,site:""},material:""}:{problem:line,material:""}); }
+  return _sdProblemSU(); };
+
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
