@@ -123,18 +123,20 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
 
 - **The straw dog** (Dave, November 21: "when I create an engagement for Claude to ask me who is the client and what is the ally. Then want Claude to auto generate a straw dog flow AoP, Priorities Map, Understanding a Problem, Criteria Proposition, and Initial Session Plan. I want as six visuals. Visual one is a cover. This needs to look professional perfect!"; "ally = solution"; "I want to keep the initial client questions you had!"):
   - **New engagement keeps every question.** Two are reworded: **Who is the client?**, and **Who is the ally?** (the solution you bring; it replaces "Your company, or the provider you represent", `S.provider`). The button reads **Build the straw dog**.
-  - **In KA's order** (Dave, November 21: "session plan should be first. solutions map should come before Criteria Proposition."): the straw dog is **seven visuals**:
-    1. the cover;
-    2. the Initial Session Plan (portrait, its first page);
-    3. the Alignment of Priorities;
-    4. the Priorities Map;
-    5. Understanding a Problem;
-    6. the Solutions Map;
-    7. the Criteria Proposition.
-  - **Building** (`sdRun`, which takes over the form's submit) runs: the alignment with the ally's Solutions, the Priorities Map, Understanding a Problem (the ally's most credible problem for this client via `uapFromVendor` then `uapFill`, or with no ally the problem behind the alignment's first initiative, `sdProblem`), the Solutions Map, the criteria, and the Session Plan last, since it reads every other aid. "What happens" ticks off each step.
-  - **The Solutions Map** follows KA's guide (Illustrate Innovative Solutions, Analysis 2.3; `data/guides/solutions-map.json`): six initiatives (rows, the Priorities Map's) against up to six of the ally's key capabilities (columns), each crossing Low, Medium or High Impact, on the Priorities Map's grid (`smData`, `S.sm`, `smDraft`, `smPrompt`, `smDrawSheet`). Claude uses only capabilities the ally describes publicly or the engagement's Solutions, and returns nothing for an unknown ally. A "Drafted from" line names the basis. It lives in the straw dog and its PDF only, **not yet an aid of its own in the app** (no Build, Learn or Present).
-  - **The cover** (`sdCover`): the client large, "with" the ally, a one-line purpose, Through the eyes of / The ally / Prepared, an "In this straw dog" panel listing visuals 2–7, Kevin's line and the three bands. The sheets are stamped **STRAW DOG · FOR DISCUSSION** (`sdStamp`) and numbered n / 7.
-  - **On screen** (`sdOpen`): the same PDF drawn page by page with pdf.js in a full-screen view, with Download PDF, Open the engagement, "Open the …" under each sheet that has an aid, and ✕ or Esc to close. It opens by itself when building finishes, and later from Share & export ("Straw dog · seven visuals") and ⌘K.
+  - **Building runs in order** (`sdRun`, which takes over the form's submit):
+    1. the alignment, with the ally's Solutions;
+    2. the Priorities Map;
+    3. Understanding a Problem: the ally's most credible problem for this client (`uapFromVendor`, then `uapFill`), or, with no ally, the problem behind the alignment's first initiative (`sdProblem`);
+    4. the Criteria Proposition;
+    5. the initial Session Plan.
+
+    "What happens" ticks off each step, with the straw dog as the last.
+  - **The six visuals** (`sdBuild`):
+    1. A navy cover: the client large, "with" the ally, a one-line purpose, Through the eyes of / The ally / Prepared, an "In this straw dog" panel listing visuals 2–6, Kevin's line and the three bands.
+    2. The five formal sheets, each stamped **STRAW DOG · FOR DISCUSSION** at the top (`sdStamp`). The Session Plan's first page stays portrait.
+
+    Pages are numbered n / 6.
+  - **On screen** (`sdOpen`): the same PDF drawn page by page with pdf.js in a full-screen view, with Download PDF, Open the engagement, "Open the …" under each sheet, and ✕ or Esc to close. It opens by itself when building finishes, and later from Share & export ("Straw dog · six visuals") and ⌘K.
 
 ## Open for Dave
 
@@ -145,4 +147,3 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
 - Sharing with clients: a link the client fills in while the advisor watches (needs sign-in and shared saving), or screen-sharing only for now.
 - The configurator's slips: Assessment Roadmap twice, Outcomes Map's missing description, 531 with no optional aids.
 - The app's stack once more aids exist (the prototype is one page on purpose).
-- The Solutions Map as an aid of its own (Learn, Build, Present, leave-behind), since the straw dog now drafts one.
