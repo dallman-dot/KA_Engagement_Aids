@@ -7395,6 +7395,18 @@ const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShare
 const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="Straw dog · six visuals"?Object.assign({},a,{t:"Straw dog · seven visuals"}):a); };
 
 
+/* ---------- Meet the client from an aid presents that aid (Dave, Nov 20: "present to the client should be aid specific when clicked from the specific tool.")
+   Opened from an aid's header (or its next step), Meet the client and Present the story show that aid alone, summary and details; "Present all the aids" brings back the combined story.
+   Opened from the Overview, it stays the combined story. ---------- */
+let plOnly=null;
+const plSolo=f=>{ if(!plOnly||!PL_ORDER.includes(plOnly)) return f(); const keep=PL_ORDER.slice(); PL_ORDER.splice(0,PL_ORDER.length,plOnly); try{ return f(); } finally{ PL_ORDER.splice(0,PL_ORDER.length,...keep); } };
+const _navPO=nav; nav=function(r,o){ if(r==="meet"&&route!=="meet"){ if(route==="aid"){ const a=oneAid(); plOnly=a; if(document.querySelector(`[data-meet-aid="${a}"]`)) meetAid=a; const pk=plPick(); if(pk[a]&&!pk[a].sum&&!pk[a].det){ pk[a].sum=true; pk[a].det=true; } } else plOnly=null; } return _navPO(r,o); };
+const _plCountsPO=plCounts; plCounts=function(){ return plSolo(()=>_plCountsPO()); };
+const _plRenderPO=plRender; plRender=function(){ plSolo(()=>_plRenderPO()); const box=$("plPick"); if(!box) return; box.querySelector(".plsolo")?.remove();
+  if(plOnly&&PL_ORDER.includes(plOnly)){ const nm=TOK_AID[plOnly]||ONE_NAME[plOnly]||"this aid", h=box.querySelector(".plhead h3"), n=box.querySelector(".plhead .note"); if(h) h.textContent=`Present the ${nm} · choose what to show`; if(n) n.textContent=`Just the ${nm}, because you came from it.`;
+    box.insertAdjacentHTML("beforeend",`<p class="note plsolo" style="margin:8px 0 0"><button class="linkbtn" data-plall>Present all the aids instead</button></p>`); } };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-plall]")){ plOnly=null; plRender(); } });
+
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
 let firstHow=false; try{ firstHow=!localStorage.getItem("ka-aop-how"); localStorage.setItem("ka-aop-how","1"); }catch(e){}

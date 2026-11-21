@@ -149,6 +149,8 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **The straw dog** builds it after the Criteria (seeded from the alignment, then Claude's view) and shows it as the sixth visual, before the Session Plan: **seven visuals** in all (the cover lists six sheets).
   - Kevin's example: Infrastructure Services and Infrastructure Products on MI's initiatives (`SM_EX`). Not yet: the PDF's Will/Skill rater (as with the Priorities Map). Slip fixed in the guide's text: "Solu- tion Space" → "Solution Space" (`data/guides/solutions-map.json`).
 
+- **Meet the client from an aid presents that aid** (Dave, November 20: "present to the client should be aid specific when clicked from the specific tool."): Meet the client opened from an aid's header (or its next step) sets that aid for Work together and Interview, and Present the story's picker shows that aid alone, summary and details on ("Just the …, because you came from it"), with **Present all the aids instead** (`plOnly`, `plSolo` wraps `plCounts` and `plRender`). Opened from the Overview, it stays the combined story.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
