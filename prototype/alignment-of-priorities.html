@@ -1293,6 +1293,20 @@ em.s-vendor{background:color-mix(in srgb,var(--glow) 22%,transparent);color:#7a5
 body.one #viewAidSM .ctlcard{display:none!important}
 #viewAidSM .sheetwrap>*{min-width:0}
 
+/* ===== New engagement as a conversation (Dave, Nov 20) ===== */
+.suchat{display:grid;gap:10px;align-content:start}
+.suhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.suhead b{flex:1}
+.sumsgs{display:flex;flex-direction:column;gap:8px;max-height:min(56vh,520px);overflow-y:auto;padding:4px 2px;scrollbar-width:thin}
+.sub{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14.5px;line-height:1.45}
+.sub.c{align-self:flex-start;background:var(--paper);border:1px solid var(--rule);border-bottom-left-radius:4px}
+.sub.c.now{border-color:color-mix(in srgb,var(--plum) 40%,var(--rule));box-shadow:0 1px 0 color-mix(in srgb,var(--plum) 18%,transparent)}
+.sub.u{align-self:flex-end;background:color-mix(in srgb,var(--plum) 10%,var(--card));border:1px solid color-mix(in srgb,var(--plum) 25%,transparent);border-bottom-right-radius:4px;color:var(--ink);font:inherit;font-size:14.5px;text-align:right;cursor:pointer}
+.sub.u:hover{border-color:var(--plum)}
+.suin{display:grid;gap:8px}.sugrid{grid-template-columns:repeat(2,minmax(0,1fr))}.sugrid .field{margin:0;display:grid;gap:2px}
+@media (max-width:560px){.sugrid{grid-template-columns:minmax(0,1fr)}.sub{max-width:94%}}
+.suchips{display:flex;flex-wrap:wrap;gap:6px}
+.suchat .clspin{display:inline-block;vertical-align:-2px}.suchat .clspin{border-color:color-mix(in srgb,var(--plum) 25%,transparent);border-top-color:var(--plum)}
+
 /* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
 #oneWrap{display:block;min-width:0}
 body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
@@ -1540,7 +1554,7 @@ body.sdon{overflow:hidden}
         <h3>What happens</h3>
         <ol class="fills" id="suFills">
           <li class="d-why" data-f="aop"><div><b>Priorities · the alignment</b><span>Goals, strategies, processes and initiatives, forced into KA's choices; key ratios from the statements.</span></div></li>
-          <li class="d-why" data-f="sol"><div><b>Solutions from your company</b><span>What it says it offers, fitted to the initiatives. Skipped when no provider is named.</span></div></li>
+          <li class="d-why" data-f="sol"><div><b>Solutions from your company</b><span>What it says it offers, fitted to the initiatives. Skipped when no solution is named.</span></div></li>
           <li class="d-how" data-f="cp"><div><b>Criteria · ROA, ROI, TCO</b><span>Drafted from the alignment. Unknown targets come back as [?] for the client.</span></div></li>
         </ol>
         <p class="note" id="suStatus"></p>
@@ -6264,7 +6278,7 @@ const SM_TXT={kicker:"Illustrate Innovative Solutions",purpose:"A visual aid to 
   problem:["Validate “top of mind” initiatives","Explain and confirm an understanding for a set of integrated capabilities","Map and agree to the impact of the capabilities to address “top of mind” initiatives","Determine gaps in capabilities to fully address business priorities"],
   solution:["Highlight how a solution fits into an enterprise-wide set of integrated capabilities","Demonstrate the synergies to be gained by bringing multiple capabilities together","Demonstrate how capabilities close gaps created by business problems"]};
 const SM_IMP=["","Low","Medium","High"], SMG={cx0:66.586,cw:33.853,cwi:32.268,ry0:57.529,rh:19.356,right:270.17};
-const SM_SRC={alignment:"From the alignment · confirm",ally:"From the ally's offerings",claude:"Claude's point of view",you:"Your words",client:"Confirmed with the client"};
+const SM_SRC={alignment:"From the alignment · confirm",ally:"From the solution's offerings",claude:"Claude's point of view",you:"Your words",client:"Confirmed with the client"};
 const SM_STEPS=["Capabilities","Initiatives","Impact","Gaps & synergies","Check"];
 const SM_ASK=[["Which of these capabilities matter most to you?","What do you already have in place for each?","What's missing from this list?"],
   ["Which of these initiatives are top of mind this year?","Who owns each one?","Which would you drop if you had to?"],
@@ -6397,7 +6411,7 @@ function smDraftPrompt(){ const D=smData(), caps=smNamedC(D).map(c=>({column:c+1
   return `You are a KA (Knowledge-Advantage) principal filling in KA's Solutions Map: "${SM_TXT.purpose}" Its aim: "${SM_TXT.why}"
 The CAPABILITIES (columns) are the solution's parts: ${JSON.stringify(caps)}.
 The INITIATIVES (rows) are KA's six, exactly: ${SM_INIT.map((n,i)=>`${i+1} ${n}${aop.includes(n)?" (top of mind: in the client's Alignment of Priorities)":""}`).join("; ")}.
-${links.length?`The client's Alignment of Priorities already ties: ${links.join("; ")}.\n`:""}${(S.provider?.name||"").trim()?`The ally (the solution we bring) is ${S.provider.name}${S.provider.summary?`: ${S.provider.summary}`:""}.\n`:""}${keep.length?`Already rated by the user (keep exactly): ${keep.join("; ")}.\n`:""}
+${links.length?`The client's Alignment of Priorities already ties: ${links.join("; ")}.\n`:""}${(S.provider?.name||"").trim()?`The solution we bring is ${S.provider.name}${S.provider.summary?`: ${S.provider.summary}`:""}.\n`:""}${keep.length?`Already rated by the user (keep exactly): ${keep.join("; ")}.\n`:""}
 THE ENGAGEMENT:
 ${engagementText().slice(0,9000)}
 For EVERY capability and initiative, give your point of view on the capability's impact on that initiative for this client: "none", "low", "medium" or "high". High means the capability directly moves the initiative; be credible, not generous: most cells are none or low. A tie in the alignment is at least medium. Never invent facts about the client; each reason is under 14 words.
@@ -6434,8 +6448,8 @@ function smBuild(){ const D=smData(), N=smNamedC(D), cname=esc(S.company?.name||
     h=`<p class="lkick">Step 1 of 5 · ${SM_TXT.kicker}</p><h2>The capabilities</h2><p class="teach">Explain and confirm an understanding for a set of integrated capabilities. They start as the Solutions in the Alignment of Priorities; write over any of them, and add up to six.</p>
       ${missing.length?`<div class="uapcarry"><p class="minicap">From your alignment · Solutions</p><p>${esc(missing.map(s=>s.t).join(" · "))}</p><button class="btn small primary" data-smseed>Carry them over</button></div>`:!sols.length?`<p class="note">The alignment has no Solutions yet. Name the capabilities here, or <button class="linkbtn" data-nav="aop" data-view="build">add Solutions to the alignment</button>.</p>`:""}
       <div class="smcaps">${D.cap.map((x,c)=>`<div class="smcaprow"><span class="n">${c+1}</span><div class="smcapf"><input class="tin" data-smcn="${c}" value="${esc(x.n)}" placeholder="Capability ${c+1}" maxlength="40" aria-label="Capability ${c+1}"><input class="tin" data-smcd="${c}" value="${esc(x.d||"")}" placeholder="What it does, in a line (optional)" maxlength="160" aria-label="Capability ${c+1}: what it does">
-        <div class="smcapm">${x.n.trim()?`${x.src&&x.src!=="you"?`<small class="srcb ${x.src==="client"?"ok":""}">${esc(x.src==="alignment"?"From the alignment's Solutions":x.src==="ally"?`From ${S.provider?.name||"the ally"}'s offerings`:SM_SRC[x.src]||"")}</small>`:`<small class="srcb you">Your words</small>`}<button class="btn small ${x.ok?"primary":""}" data-smokc="${c}">${x.ok?"✓ Understanding confirmed":"Confirm understanding"}</button><button class="btn small ghost" data-smrm="${c}">Clear</button>`:""}</div></div></div>`).join("")}</div>
-      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the ally")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}`; }
+        <div class="smcapm">${x.n.trim()?`${x.src&&x.src!=="you"?`<small class="srcb ${x.src==="client"?"ok":""}">${esc(x.src==="alignment"?"From the alignment's Solutions":x.src==="ally"?`From ${S.provider?.name||"the solution"}'s offerings`:SM_SRC[x.src]||"")}</small>`:`<small class="srcb you">Your words</small>`}<button class="btn small ${x.ok?"primary":""}" data-smokc="${c}">${x.ok?"✓ Understanding confirmed":"Confirm understanding"}</button><button class="btn small ghost" data-smrm="${c}">Clear</button>`:""}</div></div></div>`).join("")}</div>
+      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}`; }
   if(smIdx===1){ const aop=smAopInits(); h=`<p class="lkick">Step 2 of 5</p><h2>The initiatives</h2><p class="teach">Validate “top of mind” initiatives. The six are KA's, as printed on the Solutions Map; ✓ In your alignment marks the ones ${cname} chose in the Alignment of Priorities. Tick each one the stakeholder validates.</p>
     <div class="pmgrid">${SM_INIT.map((n,r)=>`<div class="pmrowed ini"><span class="n">${r+1}</span><div><b>${esc(n)}</b>${aop.includes(n)?`<br><span class="note">✓ In your alignment</span>`:""}</div><button class="btn small ${D.ok[r]?"primary":""}" data-smoki="${r}">${D.ok[r]?"✓ Validated as top of mind":"Validate"}</button></div>`).join("")}</div>`; }
   if(smIdx===2){ const cl=smToConfirm(D).length;
@@ -7265,11 +7279,11 @@ loadInter();
    (a cover and the five formal sheets, each marked Straw dog · for discussion), drawn from the same PDF that Download PDF saves. ===================== */
 (function(){ const set=(sel,h)=>{ const el=document.querySelector(sel); if(el) el.innerHTML=h; };
   set('label[for="suClient"]','Who is the client?');
-  set('label[for="suProv"]','Who is the ally? <span class="opt">the solution you bring · optional · shapes the Solutions and the problem</span>');
+  set('label[for="suProv"]','What\'s the solution? <span class="opt">the company or offering you bring · optional · shapes the Solutions and the problem</span>');
   const pv=$("suProv"); if(pv) pv.placeholder="e.g. VaxCare"; const go=$("suGo"); if(go) go.textContent="Build the straw dog";
-  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Name the client and the ally. Claude drafts a straw dog of five aids, the alignment, the Priorities Map, the problem, the criteria and the first session plan, and shows them as six visuals to knock down together. You review and write over anything.";
-  const ol=$("suFills"); if(ol){ const sol=ol.querySelector('[data-f="sol"] b'); if(sol) sol.textContent="Solutions from the ally";
-    const cp=ol.querySelector('[data-f="cp"]'); if(cp&&!ol.querySelector('[data-f="uap"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-what" data-f="uap"><div><b>Understanding a Problem · the nine parts</b><span>The core business problem the ally solves for this client, framed from the buyer's side. From the alignment when no ally is named.</span></div></li>`);
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything.";
+  const ol=$("suFills"); if(ol){ const sol=ol.querySelector('[data-f="sol"] b'); if(sol) sol.textContent="Solutions from what you bring";
+    const cp=ol.querySelector('[data-f="cp"]'); if(cp&&!ol.querySelector('[data-f="uap"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-what" data-f="uap"><div><b>Understanding a Problem · the nine parts</b><span>The core business problem the solution solves for this client (or the one you name), framed from the buyer's side. From the alignment when no solution is named.</span></div></li>`);
     if(!ol.querySelector('[data-f="sp"]')) ol.insertAdjacentHTML("beforeend",`<li class="d-how" data-f="sp"><div><b>Initial Session Plan</b><span>Objectives from the Assessment Roadmap's activities, an agenda tied to the aids, next steps.</span></div></li><li class="d-why" data-f="sd"><div><b>The straw dog · six visuals</b><span>A cover and the five sheets, marked for discussion, ready to download as one PDF.</span></div></li>`); } })();
 
 let sdBusy=false;
@@ -7284,15 +7298,16 @@ async function sdProblem(){ const U=uapData(), ally=(S.provider?.name||"").trim(
   const p=uapBlankProb(""); p.from={kind:"problem",line}; uapData().probs.push(p); uapData().cur=uapData().probs.length-1; save(); return await uapFill(p,{problem:line,material:""}); }
 async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").textContent="The straw dog needs the page opened in Claude. Start blank to build it by hand."; return; }
   const client=setupFill(); if(!client) return; sdBusy=true; suBusy=true; $("suGo").disabled=true; $("suBlank").disabled=true; renderCrumbs(); const st=$("suStatus");
-  ["aop","sol","pm","uap","cp","sm","sp","sd"].forEach(k=>sdMark(k)); const mirror=setInterval(()=>{ if($("coStatus").textContent) st.textContent=$("coStatus").textContent; },400);
+  ["aop","sol","pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k)); const mirror=setInterval(()=>{ if($("coStatus").textContent) st.textContent=$("coStatus").textContent; },400);
   try{ sdMark("aop","run"); sdMark("sol",S.provider.name?"run":"skip");
     await $("coGo").onclick(); clearInterval(mirror); sdMark("aop",allFilled().length?"done":"skip"); if(S.provider.name) sdMark("sol",colFilled(4).length?"done":"skip");
-    if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sm","sp","sd"].forEach(k=>sdMark(k,"skip")); return; }
+    if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k,"skip")); return; }
     sdMark("pm","run"); st.textContent="Mapping the stakeholders' priorities…"; pmData(); const okPm=await pmDraft(); sdMark("pm",okPm?"done":"skip");
     sdMark("uap","run"); st.textContent=S.provider.name?`Framing the problem ${S.provider.name} solves for ${client}…`:"Framing the core business problem…"; const okU=await sdProblem(); sdMark("uap",okU&&uapProb()?.box.some(b=>b.t.trim())?"done":"skip");
     sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
     sdMark("sm","run"); st.textContent="Mapping the capabilities to the initiatives…"; { const D=smData(); if(smSeed(D)) save(); } const okS=smNamedC().length?await smDraft():false; sdMark("sm",okS||smRated().length?"done":"skip");
     sdMark("sp","run"); st.textContent="Planning the first session…"; if(!spPlan()) spNew(true); await spDraft(); sdMark("sp",spPlan()?"done":"skip");
+    sdMark("ar","run"); st.textContent="Reading where they are on the Assessment Roadmap…"; await arDraft(); try{ const R=arData(); if(!(R.dates&&[1,2,3,4,5].some(p=>R.dates[p]))) arProposeTimeline(); }catch(e){} sdMark("ar",arData().drafted?"done":"skip");
     sdMark("sd","run"); st.textContent="Drawing the straw dog…"; S.strawAt=Date.now(); save(); await sdOpen(); sdMark("sd","done");
     st.textContent=`Done. The straw dog is ready: six visuals for discussion. Everything is marked by where it came from; confirm it with the client.`; }
   catch(err){ console.warn(err); st.textContent="Something stopped the straw dog. You can carry on from the engagement."; }
@@ -7310,12 +7325,12 @@ function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), 
   let pt=42; lbFont(doc,"heavy",pt,"#ffffff"); while(doc.getTextWidth(nm)>132&&pt>24){ pt-=1; doc.setFontSize(pt); } const nl=doc.splitTextToSize(nm,132).slice(0,2), nb=72+mmPt(pt)+2; doc.text(nl,20,nb,{lineHeightFactor:1.02});
   let y=nb+(nl.length-1)*mmPt(pt)*1.02+9; if(ally){ lbFont(doc,"normal",13,"#c9d1e3"); doc.text("with",20,y); const ww=doc.getTextWidth("with "); lbFont(doc,"bold",13,"#ffffff"); doc.text(lbClean(ally),20+ww,y); y+=9; }
   lbFont(doc,"normal",10.5,"#c9d1e3"); const sl=doc.splitTextToSize(`A first look at ${nm}'s priorities, the problem worth solving, how we'd measure success and how we'd start. Every line is ours to confirm with you, and yours to correct.`,124); doc.text(sl,20,y+2,{lineHeightFactor:1.4}); y+=2+sl.length*mmPt(10.5)*1.4+9;
-  const e=eyesOf(), cap=t=>String(t).replace(/^the\s+/i,"The ").replace(/^./,c=>c.toUpperCase()), meta=[e&&["THROUGH THE EYES OF",/^[A-Z]{2,5}$/.test(e)?`The ${e}`:cap(e)],ally&&["THE ALLY",ally],["PREPARED",longDate()]].filter(Boolean); let x=20;
+  const e=eyesOf(), cap=t=>String(t).replace(/^the\s+/i,"The ").replace(/^./,c=>c.toUpperCase()), meta=[e&&["THROUGH THE EYES OF",/^[A-Z]{2,5}$/.test(e)?`The ${e}`:cap(e)],ally&&["THE SOLUTION",ally],["PREPARED",longDate()]].filter(Boolean); let x=20;
   meta.forEach(([k,v])=>{ lbFont(doc,"bold",6.6,"#9fb0d0"); const kw=doc.getTextWidth(k)+.45*k.length; lbFont(doc,"bold",10,"#ffffff"); let vv=lbClean(v); while(doc.getTextWidth(vv)>60&&vv.length>4) vv=vv.slice(0,-2).trim()+"…"; const w=Math.max(kw,doc.getTextWidth(vv),24);
     doc.setDrawColor("#5b6b8f"); doc.setLineWidth(.3); doc.line(x,y,x+w,y); lbFont(doc,"bold",6.6,"#9fb0d0"); doc.setCharSpace(.45); doc.text(k,x,y+4.4); doc.setCharSpace(0); lbFont(doc,"bold",10,"#ffffff"); doc.text(vv,x,y+9.6); x+=w+9; });
   // what's inside: the five visuals, on the right
   const rx=172, rw=PW-rx-20; doc.setFillColor("#22335c"); doc.roundedRect(rx-6,50,rw+12,124,2.4,2.4,"F"); lbFont(doc,"bold",7,"#9fb0d0"); doc.setCharSpace(.6); doc.text("IN THIS STRAW DOG",rx,59); doc.setCharSpace(0);
-  const sdGap=SD_LIST.length>5?17.6:21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?65:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
+  const sdGap=SD_LIST.length>5?Math.min(17.6,103/(SD_LIST.length-1)):21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?65:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
     lbFont(doc,"bold",10,"#ffffff"); doc.text(n,rx+10,yy+2.2); lbFont(doc,"normal",8,"#b9c4dc"); doc.text(doc.splitTextToSize(d,rw-10).slice(0,2),rx+10,yy+6.6,{lineHeightFactor:1.35});
     if(i<SD_LIST.length-1){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+sdGap-5.6,rx+rw,yy+sdGap-5.6); } });
   lbFont(doc,"normal",9.5,"#c9d1e3"); doc.text(doc.splitTextToSize(`“${KEVIN}”`,140),20,PH-24); lbBands(doc); }
@@ -7323,6 +7338,7 @@ async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="Straw dog"; sdC
   const add=async(draw,portrait)=>{ doc.addPage("letter",portrait?"portrait":"landscape"); doc.__lb.pages.push({kind:"sheet",portrait}); await draw(doc); sdStamp(doc,portrait); };
   await add(d=>buildPdf(d)); await add(d=>pmDrawSheet(d)); const p=uapProb();
   if(p&&p.box.some(b=>(b.t||"").trim())) await add(d=>uapDrawSheet(d,p)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Understanding a Problem",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No problem framed yet.",10.4,44); });
+  if(SD_LIST.some(x=>x[0]==="ar")) await add(d=>arDrawSheet(d));
   await add(d=>cpDrawSheet(d)); if(smNamedC().length) await add(d=>smDrawSheet(d)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Solutions Map",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No capabilities mapped yet.",10.4,44); }); const sp=spPlan();
   if(sp){ await add(d=>{ const n=d.getNumberOfPages(); spDrawPages(d,sp); if(d.getNumberOfPages()>n) d.deletePage(d.getNumberOfPages()); },true); }
   return lbFinish(doc); }
@@ -7346,7 +7362,7 @@ async function sdOpen(){ let ov=$("sdView"); if(!ov){ ov=document.createElement(
 function sdClose(){ const ov=$("sdView"); if(ov) ov.hidden=true; document.body.classList.remove("sdon"); }
 document.addEventListener("click",e=>{ if(e.target.closest("[data-sdx]")){ sdClose(); return; } if(e.target.closest("[data-sddl]")){ sdDownload(); return; }
   if(e.target.closest("[data-sdeng]")){ sdClose(); ["suClient","suSite","suEyes","suProv","suPaste"].forEach(id=>{ const el=$(id); if(el) el.value=""; }); nav("overview"); return; }
-  const a=e.target.closest("[data-sdaid]"); if(a){ sdClose(); ({aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid"),sm:()=>openSM("aid")})[a.dataset.sdaid](); } });
+  const a=e.target.closest("[data-sdaid]"); if(a){ sdClose(); ({aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid"),sm:()=>openSM("aid"),ar:()=>openAR("aid")})[a.dataset.sdaid](); } });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.body.classList.contains("sdon")){ e.stopImmediatePropagation(); sdClose(); } },true);
 /* in the menus */
 const _oneShareSD=oneShareItems; oneShareItems=function(where){ const it=_oneShareSD(where), at=it.findIndex(x=>x[2]==="report"); it.splice(at,0,["Straw dog · six visuals","cover and the five sheets, for discussion","straw"]); return it; };
@@ -7389,10 +7405,10 @@ LB_SEC.sm=async function(doc,o={}){ doc.__lb.aid="Solutions Map"; const D=smData
 SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="sp")),0,["sm","Solutions Map","How the solution's capabilities move the client's initiatives."]);
 (function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="sm"]')) return; const sp=ol.querySelector('[data-f="sp"]'), h=`<li class="d-how" data-f="sm"><div><b>Solutions Map</b><span>The alignment's Solutions as capabilities, and Claude's view of their impact on KA's six initiatives.</span></div></li>`;
   if(sp) sp.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h);
-  const sd=ol.querySelector('[data-f="sd"] div'); if(sd) sd.innerHTML=`<b>The straw dog · seven visuals</b><span>A cover and the six sheets, marked for discussion, ready to download as one PDF.</span>`;
-  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Name the client and the ally. Claude drafts a straw dog of six aids, the alignment, the Priorities Map, the problem, the criteria, the Solutions Map and the first session plan, and shows them as seven visuals to knock down together. You review and write over anything."; })();
-const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShareSM(where).map(x=>x[2]==="straw"?["Straw dog · seven visuals","cover and the six sheets, for discussion","straw"]:x); };
-const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="Straw dog · six visuals"?Object.assign({},a,{t:"Straw dog · seven visuals"}):a); };
+  const sd=ol.querySelector('[data-f="sd"] div'); if(sd) sd.innerHTML=`<b>The straw dog · eight visuals</b><span>A cover and the seven sheets, marked for discussion, ready to download as one PDF.</span>`;
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything."; })();
+const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShareSM(where).map(x=>x[2]==="straw"?["Straw dog · eight visuals","cover and the seven sheets, for discussion","straw"]:x); };
+const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="Straw dog · six visuals"?Object.assign({},a,{t:"Straw dog · eight visuals"}):a); };
 
 
 /* ---------- Meet the client from an aid presents that aid (Dave, Nov 20: "present to the client should be aid specific when clicked from the specific tool.")
@@ -7406,6 +7422,120 @@ const _plRenderPO=plRender; plRender=function(){ plSolo(()=>_plRenderPO()); cons
   if(plOnly&&PL_ORDER.includes(plOnly)){ const nm=TOK_AID[plOnly]||ONE_NAME[plOnly]||"this aid", h=box.querySelector(".plhead h3"), n=box.querySelector(".plhead .note"); if(h) h.textContent=`Present the ${nm} · choose what to show`; if(n) n.textContent=`Just the ${nm}, because you came from it.`;
     box.insertAdjacentHTML("beforeend",`<p class="note plsolo" style="margin:8px 0 0"><button class="linkbtn" data-plall>Present all the aids instead</button></p>`); } };
 document.addEventListener("click",e=>{ if(e.target.closest("[data-plall]")){ plOnly=null; plRender(); } });
+
+
+/* ===================== New engagement as a conversation (Dave, Nov 20: "when first creating an engagement I want all the aids to be created by Claude. Claude should ask the essential
+   questions needed to generate the initial set of engagement aids."; "Ally was a typo! It is the solution!"; "build it!" on: chat style, the Roadmap in the straw dog, the form kept)
+   Claude asks one question at a time: the client (and checks it knows them), the solution, whose eyes, the stage, the problem, the next session, what you already know.
+   Follow-ups only when needed: material when Claude doesn't know the client, the process list for a health system, the problem when no solution is named.
+   Every question can be skipped; any answer can be tapped to change it. Build it fills the form underneath and runs the straw dog: all seven aids, then eight visuals. ===================== */
+SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="uap")+1),0,["ar","Assessment Roadmap","Where they are in the six A's, readiness and a timeline."]);
+(function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="ar"]')) return; const sd=ol.querySelector('[data-f="sd"]'), h=`<li class="d-what" data-f="ar"><div><b>Assessment Roadmap</b><span>Claude's read of their will and skill on each activity, and a timeline proposed from today.</span></div></li>`; if(sd) sd.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h); })();
+let SUX={active:false};
+const SU_STEPS=[
+  {k:"client",q:()=>"Who's the client? Their name, and their website if you have it."},
+  {k:"known",when:()=>!!SUX.check,q:()=>SUX.check.known?`I know <b>${esc(SUX.check.name||SUX.client)}</b>: ${esc(SUX.check.line)}${SUX.check.industry?` (${esc(SUX.check.industry)})`:""}. Is that the right one?`:`I don't know ${esc(SUX.client)} well enough to draft from what I know. Paste what you have: their site, an annual report, your notes. Or add a file.`},
+  {k:"proc",when:()=>SUX.health,q:()=>`${SUX.check?.name||SUX.client} is a health system. Which process list should the alignment use?`},
+  {k:"sol",q:()=>"What's the solution you're bringing? The company or offering, e.g. VaxCare."},
+  {k:"eyes",q:()=>`Through whose eyes? The key stakeholder at ${SUX.client||"the client"} you're working with, e.g. the COO.`},
+  {k:"stage",q:()=>"Where are they in the six A's?"},
+  {k:"problem",q:()=>SUX.sol?`What problem do you think ${SUX.client||"they"} have, in a line? Skip it and I'll take it from what ${SUX.sol} solves.`:`With no solution named, what problem do you think ${SUX.client||"they"} have, in a line? Skip it and I'll take it from the alignment.`},
+  {k:"session",q:()=>"What's the next session? Whatever you know: the type, date, length, where, and who's in the room."},
+  {k:"more",q:()=>SUX.matDone?"Anything else before I build? A logo, or more notes.":"Anything you already know? Paste notes or add files, and a logo if you have one."},
+  {k:"done",q:()=>suReadBack()}];
+function suReset(){ SUX={active:true,i:0,log:[],client:"",site:"",check:null,health:false,proc:"book",sol:"",eyes:"",stage:0,problem:"",session:{type:"",date:"",dur:"",loc:"",client:"",ours:""},mat:"",matDone:false,checking:false}; suProc="book"; suFilesRead=[]; $("suFiles").textContent="PDF or text. Read on this device only."; ["suClient","suSite","suEyes","suProv","suPaste"].forEach(id=>{ const el=$(id); if(el) el.value=""; }); suAdvance(0); }
+function suAt(i){ while(i<SU_STEPS.length&&SU_STEPS[i].when&&!SU_STEPS[i].when()) i++; return i; }
+function suAdvance(i){ SUX.i=suAt(i); if(SUX.edit!=null){ SUX.edit=null; SUX.i=suAt(SU_STEPS.length-1); } suRender(); }
+function suAnswerText(k){ const S_=SUX;
+  if(k==="client") return S_.client?`${S_.client}${S_.site?` · ${S_.site}`:""}`:"";
+  if(k==="known") return S_.check?.known?(S_.wrong?"Not that one":"Yes, that's them"):(S_.mat?`Added ${S_.mat.length.toLocaleString()} characters${suFilesRead.length?` and ${suFilesRead.length} file${suFilesRead.length>1?"s":""}`:""}`:suFilesRead.length?`Added ${suFilesRead.map(f=>f.name).join(", ")}`:"Skipped");
+  if(k==="proc") return S_.proc==="health"?"Health system · 13 original":"From the book · 15 operational";
+  if(k==="sol") return S_.sol||"No solution yet"; if(k==="eyes") return S_.eyes||"The whole company"; if(k==="stage") return S_.stage?AR[S_.stage-1].l:"Not sure yet";
+  if(k==="problem") return S_.problem||"Skipped";
+  if(k==="session"){ const x=S_.session, L=[x.type,x.date&&new Date(x.date+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"}),x.dur,x.loc,x.client&&`with ${x.client}`].filter(Boolean); return L.length?L.join(" · "):"Not planned yet"; }
+  if(k==="more") return [S_.mat2&&`${S_.mat2.length.toLocaleString()} characters of notes`,suFilesRead.length&&`${suFilesRead.length} file${suFilesRead.length>1?"s":""}`,$("suLogoImg")&&!$("suLogoImg").hidden&&"a logo"].filter(Boolean).join(", ")||"Nothing more";
+  return ""; }
+function suReadBack(){ const x=SUX, se=suAnswerText("session");
+  return `Here's what I have. ${esc(x.client)}${x.sol?` with ${esc(x.sol)}`:""}, through the eyes of ${esc(x.eyes||"the whole company")}${x.stage?`, in ${AR[x.stage-1].l}`:""}.${x.problem?` The problem: ${esc(x.problem)}.`:""}${se!=="Not planned yet"?` Next session: ${esc(se)}.`:""}<br>I'll draft all seven aids, then show the straw dog. It takes a few minutes.`; }
+function suInputHTML(k){ const x=SUX, sub=`<button class="btn small ghost" data-suskip>Skip</button>`;
+  if(k==="client") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. Brown & Brown Insurance" value="${esc(x.client)}" aria-label="Client"><input class="tin" id="suQ2" placeholder="Website or ticker (optional)" value="${esc(x.site)}" aria-label="Website"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button></div></div>`;
+  if(k==="known") return x.check?.known?`<div class="suchips"><button class="btn primary" data-suyes>Yes, that's them</button><button class="btn" data-suno>No, a different one</button></div>`
+    :`<div class="suin"><textarea class="tin" id="suQ1" rows="4" placeholder="Paste what you have">${esc(x.mat)}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small" data-sufile>Add a file</button><span class="note">${esc(suFilesRead.map(f=>f.name).join(", "))}</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="proc") return `<div class="suchips"><button class="btn ${x.proc==="health"?"primary":""}" data-suproc="health">Health system · 13 original</button><button class="btn ${x.proc==="book"?"primary":""}" data-suproc="book">From the book · 15 operational</button></div>`;
+  if(k==="sol") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. VaxCare" value="${esc(x.sol)}" aria-label="The solution"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="eyes") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. the COO" value="${esc(x.eyes)}" aria-label="Through whose eyes"><div class="suchips">${["the CEO","the CFO","the COO","the CIO"].map(t=>`<button class="btn small" data-sueyes="${t}">${t.replace(/^the /,"")}</button>`).join("")}</div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","The whole company")}</div></div>`;
+  if(k==="stage") return `<div class="suchips">${AR.map((a,i)=>`<button class="btn ${x.stage===i+1?"primary":""}" data-sustage="${i+1}"><small class="note" style="display:block;font-size:10.5px">${i<2?"Problem Space":"Solution Space"}</small>${a.l}</button>`).join("")}<button class="btn ghost" data-sustage="0">Not sure yet</button></div>`;
+  if(k==="problem") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. Vaccine inventory ties up cash and expires on the shelf" value="${esc(x.problem)}" aria-label="The problem"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub}</div></div>`;
+  if(k==="session"){ const se=x.session; return `<div class="suin sugrid"><label class="field"><span class="note">Type of session</span><select class="tin" id="suS_type"><option value="">Choose…</option>${SP_TYPES.map(t=>`<option ${se.type===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+      <label class="field"><span class="note">Date</span><input class="tin" type="date" id="suS_date" value="${esc(se.date)}"></label>
+      <label class="field"><span class="note">Duration</span><select class="tin" id="suS_dur"><option value="">Choose…</option>${SP_DUR.map(t=>`<option ${se.dur===t?"selected":""}>${esc(t)}</option>`).join("")}</select></label>
+      <label class="field"><span class="note">Location</span><input class="tin" id="suS_loc" value="${esc(se.loc)}" placeholder="e.g. their HQ, or Zoom"></label>
+      <label class="field"><span class="note">Their people</span><input class="tin" id="suS_client" value="${esc(se.client)}" placeholder="Names and roles"></label>
+      <label class="field"><span class="note">Ours</span><input class="tin" id="suS_ours" value="${esc(se.ours)}" placeholder="Names"></label>
+      <div class="arow" style="flex:0 1 auto;grid-column:1/-1"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","Not planned yet")}</div></div>`; }
+  if(k==="more") return `<div class="suin"><textarea class="tin" id="suQ1" rows="3" placeholder="Paste from an annual report, earnings call, investor deck or your own notes">${esc(x.mat2||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn small" data-sufile>Add a file</button><button class="btn small" data-sulogo>${$("suLogoImg")&&!$("suLogoImg").hidden?"Change the logo":"Add a logo"}</button><span class="note">${esc(suFilesRead.map(f=>f.name).join(", "))}</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button>${sub.replace("Skip","Nothing more")}</div></div>`;
+  if(k==="done") return `<div class="suchips"><button class="btn primary" data-subuild ${suBusy||sdBusy?"disabled":""}>✦ Build it</button><button class="btn ghost" data-sustart>Start over</button></div>`;
+  return ""; }
+function suRender(){ const box=$("suChat"); if(!box) return; const cur=SU_STEPS[SUX.i], msgs=[];
+  SU_STEPS.forEach((st,j)=>{ if(j>=SUX.i||(st.when&&!st.when())||st.k==="done") return; msgs.push(`<div class="sub c">${st.k==="known"||st.k==="done"?st.q():esc(st.q())}</div>`); const a=suAnswerText(st.k); if(a) msgs.push(`<button class="sub u" data-suedit="${j}" title="Change this answer">${esc(a)}</button>`); });
+  if(SUX.checking) msgs.push(`<div class="sub c"><span class="clspin" aria-hidden="true"></span> Checking what I know about ${esc(SUX.client)}…</div>`);
+  else if(cur) msgs.push(`<div class="sub c now">${cur.k==="known"||cur.k==="done"?cur.q():esc(cur.q())}</div>`);
+  box.innerHTML=`<div class="suhead"><span class="coBadge">Claude</span><b>New engagement</b><button class="linkbtn" data-suform>I'd rather fill in the form</button></div><div class="sumsgs" id="suMsgs">${msgs.join("")}</div>${SUX.checking||!cur?"":suInputHTML(cur.k)}<p class="note" style="margin:6px 0 0">Claude uses what it knows, current to its training date, plus anything you add. It doesn't search the web. Tap any answer to change it.</p>`;
+  const m=$("suMsgs"); if(m) m.scrollTop=m.scrollHeight; setTimeout(()=>{ const f=box.querySelector("#suQ1,.suin select,.suchips .btn.primary,.suchips .btn"); if(f&&route==="new") f.focus({preventScroll:true}); },40); }
+async function suCheckClient(){ SUX.check=null; SUX.health=/\b(health|hospital|medical cent|clinic|healthcare)\b/i.test(SUX.client); if(!sample){ SUX.check={known:false,line:""}; return; }
+  SUX.checking=true; suRender();
+  try{ const r=await sample.json(`You are helping set up a consulting engagement. Do you know the organization "${SUX.client}"${SUX.site?` (${SUX.site})`:""}? If you are unsure which organization is meant, or you don't know it, say known false. Reply with JSON only: {"known":true,"name":"its proper name","line":"what it does, one short sentence","industry":"its industry in 2 to 4 words","health":true if it is a health care provider or health system, else false}`,{modelTier:"quick"});
+    SUX.check={known:!!(r&&r.known),name:String(r&&r.name||"").slice(0,80),line:String(r&&r.line||"").slice(0,200),industry:String(r&&r.industry||"").slice(0,60)}; if(r&&typeof r.health==="boolean") SUX.health=r.health; }
+  catch(e){ SUX.check={known:false,line:""}; }
+  finally{ SUX.checking=false; if(SUX.health) SUX.proc="health"; } }
+function suTakeInput(){ const k=SU_STEPS[SUX.i]?.k, v=id=>($(id)?.value||"").trim();
+  if(k==="client"){ const c=v("suQ1"); if(!c){ toast("Name the client first"); return false; } const changed=c!==SUX.client||v("suQ2")!==SUX.site; SUX.client=c; SUX.site=v("suQ2"); return changed?"check":true; }
+  if(k==="known"&&!SUX.check?.known){ SUX.mat=v("suQ1"); SUX.matDone=!!(SUX.mat||suFilesRead.length); return true; }
+  if(k==="sol"){ SUX.sol=v("suQ1"); return true; } if(k==="eyes"){ SUX.eyes=v("suQ1"); return true; } if(k==="problem"){ SUX.problem=v("suQ1"); return true; }
+  if(k==="session"){ ["type","date","dur","loc","client","ours"].forEach(f=>SUX.session[f]=v("suS_"+f)); return true; }
+  if(k==="more"){ SUX.mat2=v("suQ1"); return true; } return true; }
+async function suNext(){ const t=suTakeInput(); if(!t) return; if(t==="check"){ SUX.wrong=false; await suCheckClient(); suAdvance(SUX.i+1); return; } suAdvance(SUX.i+1); }
+async function suBuild(){ if(suBusy||sdBusy) return; const x=SUX;
+  $("suClient").value=x.client; $("suSite").value=x.site; $("suEyes").value=x.eyes; $("suProv").value=x.sol; $("suPaste").value=[x.mat,x.mat2].filter(Boolean).join("\n\n"); suProc=x.proc;
+  document.querySelectorAll("[data-su-proc]").forEach(b=>b.setAttribute("aria-checked",b.dataset.suProc===suProc));
+  SUX.building=true; const box=$("suChat"); box.querySelector(".suchips")?.remove(); $("suMsgs").insertAdjacentHTML("beforeend",`<div class="sub c now">Building. Follow along on the right; the straw dog opens when it's done.</div>`);
+  try{ await sdRun(); } finally{ SUX.building=false; SUX.active=false; } }
+document.addEventListener("click",e=>{ const t=e.target; if(!t.closest||!t.closest("#suChat")) return;
+  if(t.closest("[data-sugo]")){ suNext(); return; }
+  if(t.closest("[data-suskip]")){ const k=SU_STEPS[SUX.i]?.k; if(k==="sol") SUX.sol=""; if(k==="eyes") SUX.eyes=""; if(k==="problem") SUX.problem=""; if(k==="session") SUX.session={type:"",date:"",dur:"",loc:"",client:"",ours:""}; if(k==="more") SUX.mat2=""; if(k==="known"){ SUX.mat=""; } suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-suyes]")){ SUX.wrong=false; if(SUX.check?.name&&SUX.check.name.length<=80) SUX.client=SUX.check.name; suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-suno]")){ SUX.wrong=true; SUX.check={known:false,line:""}; suRender(); toast("Add their website on the first answer, or paste what you have here.",null,true); return; }
+  const pr=t.closest("[data-suproc]"); if(pr){ SUX.proc=pr.dataset.suproc; suAdvance(SUX.i+1); return; }
+  const ey=t.closest("[data-sueyes]"); if(ey){ SUX.eyes=ey.dataset.sueyes; suAdvance(SUX.i+1); return; }
+  const sg=t.closest("[data-sustage]"); if(sg){ SUX.stage=+sg.dataset.sustage; suAdvance(SUX.i+1); return; }
+  if(t.closest("[data-sufile]")){ const k=SU_STEPS[SUX.i]?.k; if(k==="known") SUX.mat=($("suQ1")?.value||"").trim(); if(k==="more") SUX.mat2=($("suQ1")?.value||"").trim(); $("suFile").click(); return; }
+  if(t.closest("[data-sulogo]")){ SUX.mat2=($("suQ1")?.value||"").trim(); $("suLogo")?.click(); return; }
+  if(t.closest("[data-subuild]")){ suBuild(); return; }
+  if(t.closest("[data-sustart]")){ suReset(); return; }
+  const ed=t.closest("[data-suedit]"); if(ed){ if(suBusy||sdBusy) return; SUX.edit=null; const j=+ed.dataset.suedit; SUX.i=j; suRender(); SUX.edit=SU_STEPS[j].k==="client"?null:j; return; }
+  if(t.closest("[data-suform]")){ suMode(false); return; } });
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&!e.shiftKey&&e.target.closest&&e.target.closest("#suChat")&&e.target.matches("input")){ e.preventDefault(); suNext(); } });
+/* the files and the logo report back into the conversation */
+$("suFile").addEventListener("change",()=>[900,2500,6000].forEach(ms=>setTimeout(()=>{ if(SUX.active&&!SUX.building){ if(SU_STEPS[SUX.i]?.k==="known"&&suFilesRead.length) SUX.matDone=true; suRender(); } },ms)));
+document.addEventListener("click",e=>{ if(e.target.closest("#suLogo")) setTimeout(function w(){ if(SUX.active&&!SUX.building) suRender(); },2500); });
+/* the conversation or the form */
+function suMode(chat){ const f=$("suForm"), c=$("suChat"); if(!f||!c) return; f.hidden=chat; c.hidden=!chat; if(chat){ if(!SUX.active) suReset(); else suRender(); }
+  else if(!f.querySelector("[data-suchat]")) f.insertAdjacentHTML("afterbegin",`<p class="note" style="margin:0 0 8px"><button type="button" class="linkbtn" data-suchat>← Back to the conversation</button></p>`); }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-suchat]")){ e.preventDefault(); suMode(true); } });
+(function(){ const f=$("suForm"); if(!f||$("suChat")) return; const c=document.createElement("div"); c.id="suChat"; c.className="panel suchat"; c.setAttribute("aria-label","New engagement, as a conversation"); f.before(c); f.hidden=true;
+  const h=document.querySelector("#viewSetup .hhead h1"); if(h) h.textContent="Let's set it up"; })();
+const _renderSetupSU=renderSetup; renderSetup=function(){ _renderSetupSU(); if(suBusy||sdBusy) return; if(!$("suForm").hidden) return; suReset(); };
+/* what the conversation knows goes into the new engagement: the stage, the problem, the next session's logistics */
+const _setupFillSU=setupFill; setupFill=function(b){ const r=_setupFillSU(b); if(r&&SUX.building){ const x=SUX;
+    if(x.stage) S.stage=x.stage; if(x.problem) S._suProblem=x.problem;
+    const se=x.session; if(se&&Object.values(se).some(v=>v)){ const p=spNew(true); if(se.type) p.type=se.type; if(se.date) p.date=se.date; if(se.dur) p.dur=se.dur; if(se.loc) p.loc=se.loc; if(x.stage) p.phase=x.stage; p.parts={client:se.client||"",ours:se.ours||""};
+      p.src=p.src||{}; ["type","date","dur","loc"].forEach(k=>{ if(se[k]) p.src[k]="you"; }); if(se.client) p.src["parts.client"]="you"; if(se.ours) p.src["parts.ours"]="you"; }
+    if(x.check?.known&&x.check.line&&!S.company.summary) S.company.summary=x.check.line; save(); } return r; };
+/* a problem you named is framed first, from the solution's side when there is one */
+const _sdProblemSU=sdProblem; sdProblem=async function(){ const U=uapData(), line=(S._suProblem||"").trim(); if(line&&!U.probs.some(p=>p.box.some(b=>(b.t||"").trim()))){ const sol=(S.provider?.name||"").trim(), p=uapBlankProb("");
+    p.from=sol?{kind:"vendor",vendor:sol,line}:{kind:"problem",line}; U.probs.push(p); U.cur=U.probs.length-1; save(); return await uapFill(p,sol?{problem:line,vendor:{name:sol,site:""},material:""}:{problem:line,material:""}); }
+  return _sdProblemSU(); };
+
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
