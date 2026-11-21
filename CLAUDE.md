@@ -121,6 +121,23 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **The Engagement report** (Share & export on the Overview and in every aid, and ⌘K): one PDF of every aid that has something in it, in the path's order, with a cover, a contents page with page numbers, and a back cover (`lbReport`).
   - The AR, UAP and SP drawing moved into `arDrawSheet`, `uapDrawSheet` and `spDrawPages` so the leave-behinds can reuse them.
 
+- **The straw dog** (Dave, November 21: "when I create an engagement for Claude to ask me who is the client and what is the ally. Then want Claude to auto generate a straw dog flow AoP, Priorities Map, Understanding a Problem, Criteria Proposition, and Initial Session Plan. I want as six visuals. Visual one is a cover. This needs to look professional perfect!"; "ally = solution"; "I want to keep the initial client questions you had!"):
+  - **New engagement keeps every question.** Two are reworded: **Who is the client?**, and **Who is the ally?** (the solution you bring; it replaces "Your company, or the provider you represent", `S.provider`). The button reads **Build the straw dog**.
+  - **Building runs in order** (`sdRun`, which takes over the form's submit):
+    1. the alignment, with the ally's Solutions;
+    2. the Priorities Map;
+    3. Understanding a Problem: the ally's most credible problem for this client (`uapFromVendor`, then `uapFill`), or, with no ally, the problem behind the alignment's first initiative (`sdProblem`);
+    4. the Criteria Proposition;
+    5. the initial Session Plan.
+
+    "What happens" ticks off each step, with the straw dog as the last.
+  - **The six visuals** (`sdBuild`):
+    1. A navy cover: the client large, "with" the ally, a one-line purpose, Through the eyes of / The ally / Prepared, an "In this straw dog" panel listing visuals 2–6, Kevin's line and the three bands.
+    2. The five formal sheets, each stamped **STRAW DOG · FOR DISCUSSION** at the top (`sdStamp`). The Session Plan's first page stays portrait.
+
+    Pages are numbered n / 6.
+  - **On screen** (`sdOpen`): the same PDF drawn page by page with pdf.js in a full-screen view, with Download PDF, Open the engagement, "Open the …" under each sheet, and ✕ or Esc to close. It opens by itself when building finishes, and later from Share & export ("Straw dog · six visuals") and ⌘K.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
