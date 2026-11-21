@@ -6580,7 +6580,7 @@ const _pmNHsm=pmNotesHTML; pmNotesHTML=function(sl){ if(!sl||!String(sl.k).start
 const _pmCTsm=pmCardText; pmCardText=function(sl){ if(!sl||!String(sl.k).startsWith("sm")) return _pmCTsm(sl); return `<small>Solutions Map</small><b>${esc(pmSlideLabel(sl))}</b>`; };
 const _pDeckSM=$("pDeck").onclick; $("pDeck").onclick=()=>presSM&&pmOn()?smDownload():_pDeckSM();
 /* the combined presentation: after the criteria */
-{ const at=PL_ORDER.indexOf("cp"); PL_ORDER.splice(at>=0?at+1:PL_ORDER.length,0,"sm"); }
+{ const at=PL_ORDER.indexOf("cp"); PL_ORDER.splice(at>=0?at:PL_ORDER.length,0,"sm"); }
 PL_PARTS.sm={sum:["smWhole","smGapSyn","smNext"],det:["smRow"],sumL:"The whole map, gaps and synergies, what we heard",detL:"Each initiative across the capabilities"};
 const _plHasSM=plHas; plHas=function(a){ if(a==="sm") return smSlidesRaw().length>0; return _plHasSM(a); };
 const _plSFsm=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="sm") return _plSFsm(a,first); const pk=plPick()[a]||{}, P=PL_PARTS.sm; return smSlidesRaw().filter(s=>(pk.sum&&P.sum.includes(s.k))||(pk.det&&P.det.includes(s.k))); };
@@ -6695,7 +6695,7 @@ document.addEventListener("click",e=>{ const b=e.target.closest("[data-onepdf]")
 const _aidHeadOne=renderAidHead; renderAidHead=function(){ _aidHeadOne(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button disabled title="Requirements: the next aids being rebuilt">Requirements <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>
     <div class="pchip p-when"><span class="pk">WHEN</span><button data-nav="ar" ${cur("ar")}>Roadmap</button></div>`;
   $("ahTitle").textContent=ONE_NAME[a]; const row=document.querySelector("#aidHead .ahrow"); if(row&&!row.querySelector(".onemenus")){ const m=row.querySelector(".meetbtn"); m.insertAdjacentHTML("beforebegin",`<span class="onemenus"><button class="btn small" data-onemenu="share">Share & export ▾</button><button class="btn small" data-onemenu="more">More ▾</button></span>`); }
   oneLensVis(); renderNextPill(); };
@@ -6886,7 +6886,7 @@ const ENG_DIM={aop:"Why",pm:"Why",uap:"What",ar:"What",cp:"How"};
 const _aidHeadSt=renderAidHead; renderAidHead=function(){ _aidHeadSt(); if(route!=="aid") return; const p=$("ahPath"); if(!p) return; const a=oneAid(), cur=k=>k===a?'aria-current="page"':"";
   p.innerHTML=`<div class="pchip p-why"><span class="pk">WHY</span><button data-nav="aop" ${cur("aop")}>Alignment</button><button data-nav="pm" ${cur("pm")}>Priorities Map</button></div>
     <div class="pchip p-what"><span class="pk">WHAT</span><button data-nav="uap" ${cur("uap")}>Problem</button><button data-nav="ar" ${cur("ar")}>Roadmap</button><button disabled title="More Requirements aids are being rebuilt">more <small>soon</small></button></div>
-    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>`;
+    <div class="pchip p-how"><span class="pk">HOW</span><button data-nav="sm" ${cur("sm")}>Solutions Map</button><button data-nav="cp" ${cur("cp")}>Criteria</button><button data-nav="sp" ${cur("sp")}>Session Plan</button></div>`;
   const row=document.querySelector("#aidHead .ahrow"); if(row){ row.querySelector(".stagesel")?.remove(); const m=row.querySelector(".onemenus")||row.querySelector(".meetbtn"); if(m&&!document.body.classList.contains("meeting")) m.insertAdjacentHTML("beforebegin",stageSelHTML(stageOf(),"cur")); }
   renderNextPill(); };
 renderNextPill=function(){ if(route!=="aid") return; const n=engNext(), here=n.aid===oneAid();
@@ -7252,7 +7252,7 @@ const _pmBuildPdfLB=pmBuildPdf; pmBuildPdf=async function(deck){ if(!deck) retur
 /* ---------- the Engagement report: every aid with something in it, in the path's order ---------- */
 async function lbReport(){ const doc=await lbDoc(); doc.__lb.aid="Engagement report"; lbCover(doc,{kicker:"Engagement report",sub:"Where we are, what we heard, and what comes next",motif:LB_MOTIF.report});
   const y0=lbPage(doc,"Contents","Engagement report"); const tocPage=doc.getNumberOfPages(), sections=[];
-  for(const aid of ["aop","pm","uap","ar","cp","sm","sp"]){ const start=doc.getNumberOfPages()+1, before=doc.__lb.toc.length; let ok=false; try{ ok=await LB_SEC[aid](doc,{report:true}); }catch(e){ console.warn(aid,e); ok=false; }
+  for(const aid of ["sp","aop","pm","uap","ar","sm","cp"]){ const start=doc.getNumberOfPages()+1, before=doc.__lb.toc.length; let ok=false; try{ ok=await LB_SEC[aid](doc,{report:true}); }catch(e){ console.warn(aid,e); ok=false; }
     if(ok) sections.push([ONE_NAME[aid],start,doc.__lb.toc.slice(before)]); else doc.__lb.toc.length=before; }
   if(!sections.length) return null;
   doc.__lb.tocAt={page:tocPage,draw:()=>{ let y=lbH2(doc,S.company?.name||aidTitle(),y0); y=lbLede(doc,`The engagement as it stands on ${longDate()}: ${sections.length} aid${sections.length>1?"s":""}, in the order we work through them.`,y);
@@ -7304,12 +7304,12 @@ async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").text
     if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k,"skip")); return; }
     sdMark("pm","run"); st.textContent="Mapping the stakeholders' priorities…"; pmData(); const okPm=await pmDraft(); sdMark("pm",okPm?"done":"skip");
     sdMark("uap","run"); st.textContent=S.provider.name?`Framing the problem ${S.provider.name} solves for ${client}…`:"Framing the core business problem…"; const okU=await sdProblem(); sdMark("uap",okU&&uapProb()?.box.some(b=>b.t.trim())?"done":"skip");
-    sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
     sdMark("sm","run"); st.textContent="Mapping the capabilities to the initiatives…"; { const D=smData(); if(smSeed(D)) save(); } const okS=smNamedC().length?await smDraft():false; sdMark("sm",okS||smRated().length?"done":"skip");
+    sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
     sdMark("sp","run"); st.textContent="Planning the first session…"; if(!spPlan()) spNew(true); await spDraft(); sdMark("sp",spPlan()?"done":"skip");
     sdMark("ar","run"); st.textContent="Reading where they are on the Assessment Roadmap…"; await arDraft(); try{ const R=arData(); if(!(R.dates&&[1,2,3,4,5].some(p=>R.dates[p]))) arProposeTimeline(); }catch(e){} sdMark("ar",arData().drafted?"done":"skip");
     sdMark("sd","run"); st.textContent="Drawing the straw dog…"; S.strawAt=Date.now(); save(); await sdOpen(); sdMark("sd","done");
-    st.textContent=`Done. The straw dog is ready: six visuals for discussion. Everything is marked by where it came from; confirm it with the client.`; }
+    st.textContent=`Done. The straw dog is ready: eight visuals for discussion, in KA's order. Everything is marked by where it came from; confirm it with the client.`; }
   catch(err){ console.warn(err); st.textContent="Something stopped the straw dog. You can carry on from the engagement."; }
   finally{ clearInterval(mirror); sdBusy=false; suBusy=false; $("suGo").disabled=false; $("suBlank").disabled=false; $("suOpen").hidden=false; suFilesRead=[]; $("suFiles").textContent="PDF or text. Read on this device only."; } }
 document.addEventListener("submit",e=>{ if(e.target&&e.target.id==="suForm"){ e.preventDefault(); e.stopImmediatePropagation(); sdRun(); } },true);
@@ -7334,14 +7334,15 @@ function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), 
     lbFont(doc,"bold",10,"#ffffff"); doc.text(n,rx+10,yy+2.2); lbFont(doc,"normal",8,"#b9c4dc"); doc.text(doc.splitTextToSize(d,rw-10).slice(0,2),rx+10,yy+6.6,{lineHeightFactor:1.35});
     if(i<SD_LIST.length-1){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+sdGap-5.6,rx+rw,yy+sdGap-5.6); } });
   lbFont(doc,"normal",9.5,"#c9d1e3"); doc.text(doc.splitTextToSize(`“${KEVIN}”`,140),20,PH-24); lbBands(doc); }
+/* KA's order (Dave, Nov 21: "session plan should be first. solutions map should come before Criteria Proposition.") */
 async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="Straw dog"; sdCover(doc);
   const add=async(draw,portrait)=>{ doc.addPage("letter",portrait?"portrait":"landscape"); doc.__lb.pages.push({kind:"sheet",portrait}); await draw(doc); sdStamp(doc,portrait); };
+  const sp=spPlan(); if(sp) await add(d=>{ const n=d.getNumberOfPages(); spDrawPages(d,sp); if(d.getNumberOfPages()>n) d.deletePage(d.getNumberOfPages()); },true);
   await add(d=>buildPdf(d)); await add(d=>pmDrawSheet(d)); const p=uapProb();
   if(p&&p.box.some(b=>(b.t||"").trim())) await add(d=>uapDrawSheet(d,p)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Understanding a Problem",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No problem framed yet.",10.4,44); });
   if(SD_LIST.some(x=>x[0]==="ar")) await add(d=>arDrawSheet(d));
-  await add(d=>cpDrawSheet(d)); if(smNamedC().length) await add(d=>smDrawSheet(d)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Solutions Map",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No capabilities mapped yet.",10.4,44); }); const sp=spPlan();
-  if(sp){ await add(d=>{ const n=d.getNumberOfPages(); spDrawPages(d,sp); if(d.getNumberOfPages()>n) d.deletePage(d.getNumberOfPages()); },true); }
-  return lbFinish(doc); }
+  if(smNamedC().length) await add(d=>smDrawSheet(d)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Solutions Map",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No capabilities mapped yet.",10.4,44); });
+  await add(d=>cpDrawSheet(d)); return lbFinish(doc); }
 async function sdDownload(){ toast("Making the straw dog PDF…",null,true); let doc; try{ doc=await sdBuild(); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
   await lbSave(doc,`Straw dog - ${lbBase()}.pdf`,"Straw dog PDF"); }
 
@@ -7372,7 +7373,7 @@ const _cmdSD=cmdActions; cmdActions=function(){ const A=_cmdSD(); A.push({g:"Wor
 
 /* ---------- the Solutions Map in the simplified layer, on the path (How · Criteria, Solutions Map, Session Plan), with Claude, in the menus, the leave-behinds, the report and the straw dog ---------- */
 ONE_BTN.pdf.sm="smPdf"; ONE_BTN.copy.sm="smCopy"; ONE_BTN.clear.sm="smClear";
-{ const at=ENG_PATH.indexOf("sp"); ENG_PATH.splice(at>=0?at:ENG_PATH.length,0,"sm"); } ENG_OPEN.sm=()=>openSM("build"); ENG_SCORE.sm=()=>smScore(); ENG_DIM.sm="How";
+{ const at=ENG_PATH.indexOf("cp"); ENG_PATH.splice(at>=0?at:ENG_PATH.length,0,"sm"); } ENG_OPEN.sm=()=>openSM("build"); ENG_SCORE.sm=()=>smScore(); ENG_DIM.sm="How";
 const _engNeedsSM=engNeeds; engNeeds=function(k){ if(k==="sm"){ try{ const m=smNextMove(); return !m.done&&smScore()<70?m:null; }catch(e){ return null; } } return _engNeedsSM(k); };
 CL_EMPTY.sm=()=>!(S.sm&&smRated().length); CL_WHAT.sm="rates each capability's impact on the six initiatives"; CL_SLICE.sm=()=>{ const D=smData(); return [D.cap,D.cells]; };
 /* the guide follows what you tap on the sheet */
@@ -7536,6 +7537,11 @@ const _sdProblemSU=sdProblem; sdProblem=async function(){ const U=uapData(), lin
     p.from=sol?{kind:"vendor",vendor:sol,line}:{kind:"problem",line}; U.probs.push(p); U.cur=U.probs.length-1; save(); return await uapFill(p,sol?{problem:line,vendor:{name:sol,site:""},material:""}:{problem:line,material:""}); }
   return _sdProblemSU(); };
 
+
+/* "What happens" lists the Solutions Map before the Criteria */
+{ const ol=$("suFills"), sm=ol&&ol.querySelector('[data-f="sm"]'), cp=ol&&ol.querySelector('[data-f="cp"]'); if(sm&&cp) cp.before(sm); }
+/* the straw dog's list in KA's order: Session Plan first, the Solutions Map before the Criteria (Dave, Nov 21) */
+{ const ord=["sp","aop","pm","uap","ar","sm","cp"]; SD_LIST.sort((a,b)=>(ord.indexOf(a[0])+99*(ord.indexOf(a[0])<0))-(ord.indexOf(b[0])+99*(ord.indexOf(b[0])<0))); }
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
