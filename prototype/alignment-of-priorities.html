@@ -1310,6 +1310,10 @@ body.one #viewAidSM .ctlcard{display:none!important}
 .presnotes .pnstrip{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:6px}.presnotes .pnstrip b{font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
 .presnotes .pnnext{display:grid;gap:1px;padding:6px 8px;border-radius:8px;background:color-mix(in srgb,var(--blue) 6%,transparent)}.presnotes .pnnext small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.presnotes .pnnext b{font-size:13.5px}
 
+#cpSheet.wton .cpbox:not(.wtspot){opacity:.35;transition:opacity .3s}#cpSheet .cpbox.wtspot{box-shadow:0 0 0 calc(.5*var(--mm,1px)) var(--plum);border-radius:calc(.6*var(--mm,1px))}
+body.one.meeting #oneWrap{grid-template-columns:minmax(0,1fr);padding-bottom:110px}body.one.meeting #oneWrap>.onepanel{display:none!important}
+.meetbar .wthint{font-size:13px;display:inline-flex;gap:6px;align-items:baseline;flex-wrap:wrap}.meetbar .wthint .note{color:inherit;opacity:.75}
+
 /* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
 #oneWrap{display:block;min-width:0}
 body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
@@ -7565,6 +7569,39 @@ let presKbAt=0;
 const _presChromeKb=presChrome; presChrome=function(...a){ _presChromeKb(...a); if(Date.now()-presKbAt>4000){ presKbAt=Date.now(); try{ window.focus(); }catch(e){} }
   const ae=document.activeElement; if(ae&&ae!==document.body&&!ae.closest("#presNotes,#kit,.pop")&&!ae.matches("input,textarea,select")) ae.blur(); };
 document.addEventListener("click",e=>{ const b=e.target.closest("#presbar button"); if(b) setTimeout(()=>{ if(document.activeElement===b) b.blur(); },0); });
+
+/* ---------- Work together: Enter and the arrows step a highlight through the sheet (Dave, Nov 21: "do it!" to the arrow keys stepping a highlight in Work together)
+   Enter, Space, → and ↓ light the next item; ← and ↑ the one before; Esc clears the highlight (End meeting still ends it).
+   The items: the alignment's boxes, column by column; the map's and the Solutions Map's rated initiatives; the problem's nine boxes;
+   the criteria's rows, green → yellow → red; the roadmap's six phases; the session plan's four sections. ---------- */
+let wtI=-1, wtAid="", cpWtSpot=null;
+function wtItems(a){ try{
+  if(a==="aop") return COLS.flatMap(c=>S.items[c.k].map((_,j)=>`${c.k}.${j}`)).filter(filled).map(id=>({go:()=>{ select(id); },l:nameOf(id)}));
+  if(a==="pm") return pmNamedI().filter(r=>pmRowRead(r).v.length).map(r=>({go:()=>{ pmSpot={r}; pmSheet(); },l:iName(r)}));
+  if(a==="sm") return [0,1,2,3,4,5].filter(r=>smRowRead(r).v.length).map(r=>({go:()=>{ smSpot={r}; smSheet(); },l:SM_INIT[r]}));
+  if(a==="uap"){ const pr=uapProb(); return pr?UAP_BOX.map((b,i)=>[b,i]).filter(([,i])=>pr.box[i].t.trim()||(i===8&&pr.pri.p)).map(([b,i])=>({go:()=>{ uapSpot=i+1; uapSheet(); },l:b.l})):[]; }
+  if(a==="cp"){ const L=[]; ["inf","op","org"].forEach(k=>cpData()[k].forEach((r,i)=>{ if(cpFilled(r)) L.push({go:()=>{ cpWtSpot=`${k}.${i}`; cpSheet(); },l:r.t}); })); return L; }
+  if(a==="ar") return AR.map((x,i)=>({go:()=>{ arSpot={p:i+1}; arSheet(); },l:x.l}));
+  if(a==="sp") return spPlan()?[["log","Logistics"],["pri","Priorities"],["ag","Agenda"],["ns","Next steps"]].map(([k,l])=>({go:()=>{ spSpot=k; spSheet(); },l})):[];
+  }catch(e){} return []; }
+function wtClear(a){ try{ if(a==="aop") select(null); if(a==="pm"){ pmSpot=null; pmSheet(); } if(a==="sm"){ smSpot=null; smSheet(); } if(a==="uap"){ uapSpot=null; uapSheet(); } if(a==="cp"){ cpWtSpot=null; cpSheet(); } if(a==="ar"){ arSpot=null; arSheet(); } if(a==="sp"){ spSpot=null; spSheet(); } }catch(e){} wtI=-1; wtHint(); }
+function wtStep(d){ const a=oneAid(); if(a!==wtAid){ wtAid=a; wtI=-1; } const L=wtItems(a); if(!L.length){ toast("Nothing on this sheet to step through yet",null,true); return; }
+  wtI=wtI<0?(d>0?0:L.length-1):Math.max(0,Math.min(L.length-1,wtI+d)); L[wtI].go(); wtHint(L[wtI].l,wtI+1,L.length); }
+function wtHint(l,n,N){ const bar=$("meetBar"); if(!bar) return; let h=bar.querySelector(".wthint"); if(!h){ h=document.createElement("span"); h.className="wthint"; bar.querySelector("#meetEnd")?.before(h); }
+  h.innerHTML=l?`<b>${esc(l)}</b> · ${n} of ${N} <span class="note">← → step · Esc clears</span>`:`<span class="note">Enter or → steps through the sheet</span>`; }
+const _cpPaintWT=cpPaintSheet; cpPaintSheet=function(target,opts){ const r=_cpPaintWT(target,opts); if(target==="cpSheet"){ const el=$("cpSheet"); el&&el.querySelectorAll(".cpbox.wtspot").forEach(x=>x.classList.remove("wtspot")); el&&el.classList.toggle("wton",!!(meeting&&cpWtSpot)); if(meeting&&cpWtSpot){ const i=el&&el.querySelector(`[data-cpt="${cpWtSpot}"]`); const bx=i&&i.closest(".cpbox"); if(bx){ bx.classList.add("wtspot"); bx.scrollIntoView({block:"center",behavior:"smooth"}); } } } return r; };
+document.addEventListener("keydown",e=>{ if(!meeting||presenting||(typeof pmOn==="function"&&pmOn())||route!=="aid") return; const t=e.target;
+  if(t&&(t.matches?.("input,textarea,select")||t.isContentEditable)) return; if(!$("kit")?.hidden&&$("kit")) return; if(document.querySelector(".pop")) return;
+  const k=e.key; if(["ArrowRight","ArrowDown","PageDown","Enter"," "].includes(k)){ if((k==="Enter"||k===" ")&&t&&t.closest?.("button,a")) return; e.preventDefault(); wtStep(1); }
+  else if(["ArrowLeft","ArrowUp","PageUp"].includes(k)){ e.preventDefault(); wtStep(-1); } else if(k==="Escape"&&wtI>=0){ e.preventDefault(); e.stopImmediatePropagation(); wtClear(oneAid()); } },true);
+document.addEventListener("click",e=>{ const w=e.target.closest('[data-way="together"]'); if(w) setTimeout(()=>{ wtI=-1; wtAid=oneAid(); cpWtSpot=null; if(meeting){ wtHint(); try{ window.focus(); }catch(er){} document.activeElement?.blur?.(); } },400); });
+const _endMeetingWT=endMeeting; endMeeting=function(q){ const a=oneAid(); _endMeetingWT(q); if(wtI>=0) wtClear(a); cpWtSpot=null; $("meetBar")?.querySelector(".wthint")?.remove(); };
+
+/* the Roadmap in Meet the client too: Work together and Interview (it had no button, so Meet from the Roadmap opened another aid) */
+(function(){ const g=document.querySelector('.meetpick .seg'); if(g&&!g.querySelector('[data-meet-aid="ar"]')){ const at=g.querySelector('[data-meet-aid="sm"]')||g.querySelector('[data-meet-aid="cp"]'); const h=`<button role="radio" data-meet-aid="ar" aria-checked="false">Assessment Roadmap</button>`; if(at) at.insertAdjacentHTML("beforebegin",h); else g.insertAdjacentHTML("beforeend",h); } })();
+document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="ar"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way; try{ meetSnapTake(); }catch(er){}
+  if(way==="together"){ openAR("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; arSheet(); setTimeout(()=>{ wtI=-1; wtAid="ar"; wtHint(); },300); }
+  if(way==="interview"){ openAR("build"); arIdx=1; arBuild(); toast("Ask where they are on each activity, phase by phase.",null,true); } },true);
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
