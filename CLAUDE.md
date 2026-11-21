@@ -157,6 +157,8 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **All seven aids**: the straw dog now also drafts the **Assessment Roadmap** after the Session Plan (Claude's read, then the proposed timeline if none), and shows it after Understanding a Problem: **eight visuals** (cover, Alignment, Priorities Map, Problem, Roadmap, Criteria, Solutions Map, Session Plan), in the path's order.
   - **The form stays**: "I'd rather fill in the form" (and "← Back to the conversation"). Opening New engagement starts a fresh conversation unless a build is running.
 
+- **Presenter view stays in this window** (Dave, November 21, a screenshot of "claude.ai is blocked · ERR_BLOCKED_BY_RESPONSE" after Presenter view): claude.ai refuses to open the app's frame in a second window, so the popup can't work. Presenter view (the bar's button, P, the ≡ menu) now toggles the presenter panel beside the slide: time presenting, the clock, n of N (across a combined story), **Next** (the next slide, or the next aid), then the notes (`openPresenter` replaced, `pnNext`, `pnPos`, `renderNotes` wrapped); N or P hides it before sharing the screen. The second-window presenter (`#presenter`, BroadcastChannel) is left in the code but no longer opened.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.

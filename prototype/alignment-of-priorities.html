@@ -1307,6 +1307,9 @@ body.one #viewAidSM .ctlcard{display:none!important}
 .suchips{display:flex;flex-wrap:wrap;gap:6px}
 .suchat .clspin{display:inline-block;vertical-align:-2px}.suchat .clspin{border-color:color-mix(in srgb,var(--plum) 25%,transparent);border-top-color:var(--plum)}
 
+.presnotes .pnstrip{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:12.5px;color:var(--muted);border-bottom:1px solid var(--rule);padding-bottom:6px}.presnotes .pnstrip b{font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+.presnotes .pnnext{display:grid;gap:1px;padding:6px 8px;border-radius:8px;background:color-mix(in srgb,var(--blue) 6%,transparent)}.presnotes .pnnext small{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.presnotes .pnnext b{font-size:13.5px}
+
 /* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
 #oneWrap{display:block;min-width:0}
 body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
@@ -2310,7 +2313,7 @@ function openMenu(anchor){
     <button data-m="example" class="prep-only">Load an example</button><button data-m="clear" class="prep-only">Clear all</button></div>`;
   place(pop,anchor); popEl=pop;
   pop.addEventListener("click",e=>{ const m=e.target.closest("[data-m]")?.dataset.m; if(!m) return; closePop();
-    ({snaps:()=>openSnaps($("snapBtn")),present:()=>startPresent(),pdf:()=>downloadPdf(),deck:()=>downloadDeck(),presenter:()=>startPresenterView(),aids:()=>openAids($("aidBtn")),anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
+    ({snaps:()=>openSnaps($("snapBtn")),present:()=>startPresent(),pdf:()=>downloadPdf(),deck:()=>downloadDeck(),presenter:()=>{ startPresent(); setTimeout(()=>openPresenter(),500); },aids:()=>openAids($("aidBtn")),anim:()=>{ S.animate=S.animate===false; save(); renderLineKey(); applyFocus(); },links:()=>{ S.showLinks=!showLinks(); save(); drawLinks(); },company:()=>goCompany(),how:()=>setHow(true),walk:()=>startWalk(),assist:()=>openAssist(),copy:copySummary,example:loadExample,clear:clearAid})[m](); });
   pop.querySelector("button[data-m]").focus({preventScroll:true});
 }
 $("menuBtn").onclick=e=>{ e.stopPropagation(); openMenu($("menuBtn")); };
@@ -7536,6 +7539,19 @@ const _sdProblemSU=sdProblem; sdProblem=async function(){ const U=uapData(), lin
     p.from=sol?{kind:"vendor",vendor:sol,line}:{kind:"problem",line}; U.probs.push(p); U.cur=U.probs.length-1; save(); return await uapFill(p,sol?{problem:line,vendor:{name:sol,site:""},material:""}:{problem:line,material:""}); }
   return _sdProblemSU(); };
 
+
+/* ---------- Presenter view stays in this window (Dave, Nov 21, a screenshot of "claude.ai is blocked · ERR_BLOCKED_BY_RESPONSE" after Presenter view)
+   claude.ai refuses to open the app's frame in a second window, so Presenter view (the button, P, the menu) opens the presenter panel here:
+   the time, the next slide and the notes, beside the slide. N or P hides it before you share your screen. ---------- */
+function pnNext(){ try{ if(pmOn()){ const n=pmSl[pmSi+1]; if(n) return pmSlideLabel(n); } else { const n=slides[presIx+1]; if(n) return slideLabel(n); }
+    if(typeof PL!=="undefined"&&PL&&PL.segs[PL.i+1]) return `${TOK_AID[PL.segs[PL.i+1].a]||"the next aid"} begins`; }catch(e){} return "The end: thank them, and agree the next step"; }
+function pnPos(){ try{ const o=typeof plOffset==="function"?plOffset():null; const i=pmOn()?pmSi:presIx, n=pmOn()?pmSl.length:slides.length; return o?`${o.off+i+1} of ${o.tot}`:`${i+1} of ${n}`; }catch(e){ return ""; } }
+const _renderNotesPV=renderNotes; renderNotes=function(){ _renderNotesPV(); const box=$("presNotes"); if(!box) return; const t=presT0?Math.floor((Date.now()-presT0)/1000):0;
+  box.insertAdjacentHTML("afterbegin",`<div class="pnstrip"><span><b id="pnTimer">${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}</b> presenting</span><span id="pnClock">${new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})}</span><span>${esc(pnPos())}</span></div><div class="pnnext"><small>Next</small><b>${esc(pnNext())}</b></div>`);
+  const last=box.querySelector("p.note:last-child"); if(last) last.textContent="Only you see these unless this screen is shared or mirrored. N or P hides them first."; };
+setInterval(()=>{ const el=$("pnTimer"); if(!el||$("presNotes").hidden) return; const t=presT0?Math.floor((Date.now()-presT0)/1000):0; el.textContent=`${Math.floor(t/60)}:${String(t%60).padStart(2,"0")}`; const c=$("pnClock"); if(c) c.textContent=new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}); },1000);
+openPresenter=function(){ const n=$("presNotes"); if(!n) return; if(!(presenting||pmOn())){ toast("Start Present first; Presenter view opens beside the slides.",null,true); return; }
+  const show=n.hidden; n.hidden=!show; if(show){ renderNotes(); if(!openPresenter._told){ openPresenter._told=1; toast("Presenter view opens here: Claude doesn't allow a second window. N or P hides it before you share your screen.",null,true); } } };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
