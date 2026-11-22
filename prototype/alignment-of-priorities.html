@@ -1546,6 +1546,7 @@ body.meeting .fivenext{display:none}
   body.one:not(.fivezoom) .onesheet .cpstage.pmstage *{cursor:pointer}
 }
 .kit .fld{display:flex;flex-direction:column;gap:4px;margin:10px 0;font-size:13px;font-weight:600;color:var(--muted)}.kit .fld input,.kit .fld textarea{font:inherit;font-weight:400;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);width:100%;box-sizing:border-box}
+.hsort{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0 0 12px}.hsort>span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}.hsort button{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}.hsort button[aria-pressed=true]{background:#17264a;border-color:#17264a;color:#fff}
 </style>
 
 <div class="shell">
@@ -6949,7 +6950,21 @@ function stageStats(id){ const keep=S; let o={empty:true};
   try{ S=norm(clone(LIBD.aids[id].data)); const pm=S.pm?pmScore():0, a=alignScore(), U=S.uap, what=U&&U.probs&&U.probs.length?Math.max(...U.probs.map(uapScoreOf)):0, n=engNext();
     o={empty:!allFilled().length&&!S.situation&&!(U&&U.probs&&U.probs.length)&&!cpAll().length,why:S.pm&&pmRated().length?Math.round((a+pm)/2):a,what,how:cpScore(),stage:stageOf(),next:n.done?n.t:`${ENG_DIM[n.aid]} · ${ONE_NAME[n.aid]}: ${n.t}`,lenses:Object.keys(S.lenses).length,eyes:S.company?.eyes||""}; }
   catch(e){} finally{ S=keep; applyProcSet(S.procSet||"book"); } return o; }
-renderHome=function(){ const list=Object.entries(LIBD.aids).sort((a,b)=>b[1].updated-a[1].updated).map(([id,a])=>[id,a,stageStats(id)]).filter(([id,a,s])=>!(/^Untitled/.test(a.name||"Untitled")&&s.empty));
+/* Sort the engagements (Dave, November 22: "I want the ability to sort engagement by alpha, date, % complete.") */
+const HS_KEYS={alpha:"A–Z",date:"Date",done:"% complete"};
+let homeSortBy=(()=>{ try{ return JSON.parse(localStorage.getItem("ka-home-sort"))||{k:"date",rev:false}; }catch(e){ return {k:"date",rev:false}; } })();
+const homePct=s=>Math.round(((s.why||0)+(s.what||0)+(s.how||0))/3);
+function homeSort(x,y){ const [,a,sa]=x, [,b,sb]=y; let r;
+  if(homeSortBy.k==="alpha") r=String(a.name||"Untitled").localeCompare(String(b.name||"Untitled"),undefined,{sensitivity:"base",numeric:true});
+  else if(homeSortBy.k==="done") r=homePct(sb)-homePct(sa)||(b.updated||0)-(a.updated||0);
+  else r=(b.updated||0)-(a.updated||0);
+  return homeSortBy.rev?-r:r; }
+function homeSortBar(n){ let el=$("hsort"); if(!el){ el=document.createElement("div"); el.id="hsort"; el.className="hsort"; el.setAttribute("role","group"); el.setAttribute("aria-label","Sort engagements"); $("egrid").before(el); }
+  el.hidden=n<2; const arrow=k=>homeSortBy.k!==k?"":(k==="alpha"?(homeSortBy.rev?" ↑":" ↓"):(homeSortBy.rev?" ↑":" ↓"));
+  const tip={alpha:homeSortBy.rev?"Z to A":"A to Z",date:homeSortBy.rev?"Oldest first":"Newest first",done:homeSortBy.rev?"Least complete first":"Most complete first"};
+  el.innerHTML=`<span>Sort</span>${Object.entries(HS_KEYS).map(([k,l])=>`<button data-hsort="${k}" aria-pressed="${homeSortBy.k===k}" title="${homeSortBy.k===k?tip[k]+" · tap to reverse":l}">${l}${arrow(k)}</button>`).join("")}`; }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-hsort]"); if(!b) return; const k=b.dataset.hsort; homeSortBy=homeSortBy.k===k?{k,rev:!homeSortBy.rev}:{k,rev:false}; try{ localStorage.setItem("ka-home-sort",JSON.stringify(homeSortBy)); }catch(err){} renderHome(); });
+renderHome=function(){ const list=Object.entries(LIBD.aids).map(([id,a])=>[id,a,stageStats(id)]).sort(homeSort).filter(([id,a,s])=>!(/^Untitled/.test(a.name||"Untitled")&&s.empty)); homeSortBar(list.length);
   const pipe=$("pipe"); if(pipe){ pipe.hidden=true; pipe.innerHTML=""; }
   const bar=(c,l,v)=>`<div class="${c}"><i><s style="width:${v}%"></s></i><span>${l} <b>${v}%</b></span></div>`;
   const cards=list.map(([id,a,s])=>`<div class="ecard ${id===LIBD.cur?"cur":""}" role="button" tabindex="0" data-eng="${id}">
