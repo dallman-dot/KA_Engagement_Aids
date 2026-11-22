@@ -1552,6 +1552,31 @@ body.meeting .fivenext{display:none}
 @media (max-width:600px){.pmtable th:first-child,.pmtable td.ini{width:118px}.pmtable{min-width:540px}}
 .deftip{position:fixed;z-index:9999;background:#17264a;color:#fff;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.25);pointer-events:none}.deftip b{display:block;font-size:13px;margin-bottom:3px}.deftip span{display:block;color:#e6ebf5}.deftip .muted{color:#b8c2d8;font-style:italic}.deftip i{display:block;margin-top:5px;font-size:11px;color:#c9a227;font-style:normal;letter-spacing:.04em}
 .pmcv .hlband{position:absolute;pointer-events:none;border-radius:8px;background:rgba(139,47,92,.08);box-shadow:inset 0 0 0 2px rgba(139,47,92,.55);z-index:0}.pmcv.hlx .pmcell:not(.hlon){opacity:.28;transition:opacity .15s}.pmcv.hlx .pmrow:not(.pmcell):not(.hlon),.pmcv.hlx .pmcol:not(.pmcell):not(.hlon){opacity:.45}.pmcv.hlx .hlon{opacity:1}.pmcv .pmrow:not(.pmcell),.pmcv .pmcol:not(.pmcell){cursor:pointer}.pmcv .pmrow.hlon .pminit,.pmcv .pmcol.hlon .pmname{font-weight:800;color:var(--plum)}.pmcv .hlclear{position:absolute;z-index:5;font:600 12px/1 'Open Sans',sans-serif;padding:5px 10px;border-radius:999px;border:0;background:var(--plum,#8b2f5c);color:#fff;cursor:pointer;pointer-events:auto}
+/* the steps on the picture */
+body.one .onepanel .bsteps,body.one .onepanel .lkick,body.one .onepanel .bnav .note{display:none!important}
+body.one #oneWrap>.onesheet{position:relative}
+.gslayer{position:absolute;inset:0;pointer-events:none;z-index:6}
+.gsdim{position:absolute;background:rgba(255,255,255,.52);transition:all .25s ease}
+[data-theme=dark] .gsdim,.dark .gsdim{background:rgba(14,18,30,.5)}
+@media (prefers-color-scheme:dark){html:not([data-theme=light]) .gsdim{background:rgba(14,18,30,.5)}}
+.gsring{position:absolute;border-radius:10px;box-shadow:0 0 0 2px var(--plum,#8b2f5c),0 6px 18px rgba(139,47,92,.18);transition:all .25s ease}
+.gscard{position:absolute;pointer-events:auto;width:260px;max-width:calc(100% - 16px);background:var(--paper,#fff);color:var(--ink);border-radius:12px;box-shadow:0 10px 30px rgba(23,38,74,.22);border:1px solid var(--rule);padding:12px 14px 10px;font-size:13.5px;line-height:1.4;transition:left .25s ease,top .25s ease}
+.gscard small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--plum,#8b2f5c);margin:0 18px 4px 0}
+.gscard p{margin:0 0 9px;color:var(--ink)}
+.gscard .gsx{position:absolute;top:6px;right:6px;border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;padding:4px 6px}
+.gsrow{display:flex;gap:6px;margin-bottom:8px}
+.gsnav{display:flex;align-items:center;gap:6px;justify-content:space-between;border-top:1px solid var(--rule);padding-top:8px}
+.gsnav>button{border:0;background:transparent;font:inherit;font-size:13px;font-weight:700;color:var(--plum,#8b2f5c);cursor:pointer;padding:2px 4px}
+.gsnav .gsnext{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+.gsdots{display:flex;gap:5px}
+.gsdots button{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--muted);background:transparent;padding:0;cursor:pointer}
+.gsdots button.ok{background:var(--ok,#2e7d4f);border-color:var(--ok,#2e7d4f)}
+.gsdots button.on{background:var(--plum,#8b2f5c);border-color:var(--plum,#8b2f5c);transform:scale(1.25)}
+.gsdone{position:absolute;pointer-events:auto;width:22px;height:22px;border-radius:50%;border:2px solid var(--paper,#fff);background:var(--ok,#2e7d4f);color:#fff;font-size:12px;font-weight:800;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.gspill{position:absolute;pointer-events:auto;border:0;border-radius:999px;background:var(--plum,#8b2f5c);color:#fff;font:700 12px/1 'Open Sans',sans-serif;padding:8px 12px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.onepanel.gsflash{animation:gsflash 1.1s ease}
+@keyframes gsflash{0%{box-shadow:0 0 0 0 rgba(139,47,92,.5)}40%{box-shadow:0 0 0 6px rgba(139,47,92,.25)}100%{box-shadow:0 0 0 0 rgba(139,47,92,0)}}
+@media print{.gslayer{display:none!important}}
 </style>
 
 <div class="shell">
@@ -7817,6 +7842,56 @@ function hlRepin(){ if(!hlPin) return; if((hlPin.aid==="sm"&&!smMode)||(hlPin.ai
 const _smPaintHl=smPaint; smPaint=function(...a){ const r=_smPaintHl(...a); requestAnimationFrame(hlRepin); return r; };
 const _pmPaintHl=pmPaint; pmPaint=function(...a){ const r=_pmPaintHl(...a); requestAnimationFrame(hlRepin); return r; };
 window.addEventListener("resize",()=>{ if(hlPin) requestAnimationFrame(()=>{ hlClear(); hlRepin(); }); });
+
+/* ---------- The steps live on the picture (Dave, November 22: "the 1-5 sequence is not intuitive and feels separate from the visual aid. I want it more tightly integrated with the interation of the visual aid. This is true across all of the Aids."; "do it")
+   The numbered rail is gone. The part of the sheet the current step works on is lit and the rest softly faded; a coach card sits beside that part (what to do, ✦ Claude, Fill it in, the next step); finished parts carry a ✓ on the sheet; tapping any part of the sheet moves to its step (as before). ---------- */
+const GS_RAIL={aop:"bsteps",cp:"cpBsteps",pm:"pmBsteps",ar:"arBsteps",uap:"uapBsteps",sp:"spBsteps",sm:"smBsteps"};
+let gsHide=false; try{ const v=sessionStorage.getItem("ka-gs-hide"); gsHide=v==="1"||(v==null&&innerWidth<700); }catch(e){}
+function gsSheet(){ return document.querySelector("body.one #oneWrap>.onesheet:not([hidden])")||[...document.querySelectorAll("body.one .onesheet")].find(x=>x.offsetWidth>0); }
+function gsSteps(){ const r=$(GS_RAIL[oneAid()]); if(!r) return []; return [...r.querySelectorAll("button")].map((b,i)=>({i,b,name:[...b.childNodes].filter(n=>!(n.nodeType===1&&n.tagName==="SPAN")).map(n=>n.textContent).join("").trim(),cur:b.getAttribute("aria-current")==="step",done:b.classList.contains("done")})); }
+function gsVis(els,sheet){ return els.filter(e=>{ if(!sheet.contains(e)) return false; const b=e.getBoundingClientRect(); return b.width>2&&b.height>2; }); }
+function gsRegion(a,i,sheet){ const q=sel=>[...sheet.querySelectorAll(sel)];
+  if(a==="aop"){ if(i===0) return q('[data-note^="ext:"]'); if(i>=1&&i<=5){ const k=COLS[i-1].k; return q(`#slots [data-id^="${k}."]`); } if(i===6) return q("#slots [data-id]"); return null; }
+  if(a==="cp"){ const k=["","org","op","inf"][i]; if(!k) return null; return q("[data-cpt],[data-cpdir],[data-cpok]").filter(e=>String(Object.values(e.dataset)[0]).split(/[.|]/)[0]===k); }
+  if(a==="pm"){ if(i===0) return q("[data-pmname]").map(e=>e.closest(".pmcol")||e); if(i===1) return q("[data-pminit]").map(e=>e.closest(".pmrow")||e); if(i===2||i===3) return q("[data-pmcell]"); return null; }
+  if(a==="sm"){ if(i===0) return q("[data-smname],[data-smokc]").map(e=>e.closest(".pmcol")||e); if(i===1) return q(".sminit,[data-smoki]").map(e=>e.closest(".pmrow")||e); if(i===2||i===3) return q("[data-smcell]"); return null; }
+  if(a==="ar"){ if(i<1||i>6) return null; return q("[data-ardot],[data-arhd],[data-argo2]").filter(e=>{ const v=e.dataset.ardot||e.dataset.arhd||e.dataset.argo2; return +String(v).split("|").pop().split(".")[0]===i; }); }
+  if(a==="uap"){ if(i<1||i>9) return null; return q(`[data-uapbox="${i-1}"],[data-uaphd="${i-1}"],[data-uapok="${i-1}"]`); }
+  if(a==="sp"){ if(i<1||i>5) return null; const go=q(`[data-spgo="${i}"]`); if(go.length) return go; const st={title:1,date:1,type:1,phase:1,loc:1,dur:1,parts:1,cp:2,op:2,cd:2,od:2,ag:3,ns:4,notes:4,recap:5};
+    return q("[data-spf],[data-spmet]").filter(e=>st[(e.dataset.spf||"cp").split(".")[0]]===i); }
+  return null; }
+function gsBox(els,sheet){ const v=gsVis(els||[],sheet); if(!v.length) return null; const o=sheet.getBoundingClientRect(); let l=1e9,t=1e9,r=-1e9,b=-1e9; v.forEach(e=>{ const x=e.getBoundingClientRect(); l=Math.min(l,x.left); t=Math.min(t,x.top); r=Math.max(r,x.right); b=Math.max(b,x.bottom); });
+  const pad=6; return {l:l-o.left-pad,t:t-o.top-pad,w:r-l+2*pad,h:b-t+2*pad,W:o.width,H:o.height}; }
+function gsLayer(sheet){ let L=sheet.querySelector(":scope>.gslayer"); if(!L){ L=document.createElement("div"); L.className="gslayer"; sheet.appendChild(L); } return L; }
+let gsRaf=0; function gsLater(){ cancelAnimationFrame(gsRaf); gsRaf=requestAnimationFrame(()=>requestAnimationFrame(gsPaint)); }
+function gsPaint(){ const on=document.body.classList.contains("one")&&!document.body.classList.contains("meeting")&&!(typeof presenting!=="undefined"&&presenting)&&!(typeof pmOn==="function"&&pmOn());
+  document.querySelectorAll(".gslayer").forEach(L=>{ if(!on||L.parentElement!==gsSheet()) L.remove(); }); if(!on) return; const sheet=gsSheet(); if(!sheet) return;
+  const a=oneAid(), steps=gsSteps(); if(!steps.length) return; const cur=steps.find(x=>x.cur)||steps[0], i=cur.i, L=gsLayer(sheet); let html="";
+  const box=gsBox(gsRegion(a,i,sheet),sheet);
+  if(box){ const {l,t,w,h,W,H}=box; html+=`<div class="gsdim" style="left:0;top:0;width:100%;height:${Math.max(0,t)}px"></div><div class="gsdim" style="left:0;top:${t+h}px;width:100%;height:${Math.max(0,H-t-h)}px"></div><div class="gsdim" style="left:0;top:${t}px;width:${Math.max(0,l)}px;height:${h}px"></div><div class="gsdim" style="left:${l+w}px;top:${t}px;width:${Math.max(0,W-l-w)}px;height:${h}px"></div><div class="gsring" style="left:${l}px;top:${t}px;width:${w}px;height:${h}px"></div>`; }
+  /* ✓ on the parts already done */
+  steps.forEach(st=>{ if(!st.done||st.i===i||a==="uap"||(a==="aop"&&st.i===6)) return; const b=gsBox(gsRegion(a,st.i,sheet),sheet); if(b) html+=`<button class="gsdone" style="left:${b.l+b.w-14}px;top:${b.t-8}px" data-gsgo="${st.i}" title="${esc(st.name)} · done · tap to open">✓</button>`; });
+  /* the coach card */
+  const tEl=[...document.querySelectorAll(".onepanel .teach")].find(e=>e.offsetParent&&e.getClientRects().length)||[...document.querySelectorAll(".onepanel .bmain h2+p,.onepanel .bstep h2+p")].find(e=>e.offsetParent); const teach=((tEl&&tEl.textContent)||"").trim(), next=steps[i+1], prev=steps[i-1];
+  if(gsHide) html+=`<button class="gspill" data-gsshow>Guide · ${esc(cur.name)}</button>`;
+  else html+=`<div class="gscard" role="region" aria-label="Guide: ${esc(cur.name)}"><button class="gsx" data-gshide aria-label="Hide the guide">✕</button><small>Now · ${esc(cur.name)}</small>${teach?`<p>${esc(teach.length>160?teach.slice(0,157).replace(/\s+\S*$/,"")+"…":teach)}</p>`:""}
+    <div class="gsrow"><button class="btn small primary" data-gsfill>Fill it in</button><button class="btn small" data-gsclaude>✦ Claude</button></div>
+    <div class="gsnav">${prev?`<button data-gsgo="${prev.i}" title="${esc(prev.name)}">←</button>`:"<span></span>"}<span class="gsdots">${steps.map(st=>`<button class="${st.i===i?"on":st.done?"ok":""}" data-gsgo="${st.i}" title="${esc(st.name)}${st.done?" · done":""}" aria-label="${esc(st.name)}"></button>`).join("")}</span>${next?`<button class="gsnext" data-gsgo="${next.i}">Next: ${esc(next.name)} →</button>`:`<span class="note">Last step</span>`}</div></div>`;
+  L.innerHTML=html;
+  const card=L.querySelector(".gscard,.gspill"); if(card){ const W=sheet.clientWidth, cw=card.offsetWidth, ch=card.offsetHeight; let x,y;
+    if(box){ const Hs=sheet.clientHeight; if(box.l+box.w+12+cw<=W){ x=box.l+box.w+12; y=box.t; } else if(box.t+box.h+10+ch<=Hs){ x=Math.min(Math.max(8,box.l),W-cw-8); y=box.t+box.h+10; } else if(box.t-ch-10>=0){ x=Math.min(Math.max(8,box.l),W-cw-8); y=box.t-ch-10; } else if(box.l-12-cw>=0){ x=box.l-12-cw; y=box.t; } else { x=W-cw-8; y=8; } }
+    else { x=W-cw-12; y=12; }
+    card.style.left=Math.max(4,Math.min(x,W-cw-4))+"px"; card.style.top=Math.max(4,Math.min(y,sheet.clientHeight-ch-4))+"px"; } }
+document.addEventListener("click",e=>{ const g=e.target.closest("[data-gsgo]"); if(g){ e.preventDefault(); const st=gsSteps()[+g.dataset.gsgo]; if(st) st.b.click(); gsLater(); return; }
+  if(e.target.closest("[data-gshide]")){ gsHide=true; try{ sessionStorage.setItem("ka-gs-hide","1"); }catch(_){} gsPaint(); return; }
+  if(e.target.closest("[data-gsshow]")){ gsHide=false; try{ sessionStorage.setItem("ka-gs-hide","0"); }catch(_){} gsPaint(); return; }
+  if(e.target.closest("[data-gsclaude]")){ oneClaude(); return; }
+  if(e.target.closest("[data-gsfill]")){ const p=document.querySelector(".onepanel"); if(!p) return; const f=p.querySelector(".bmain input:not([type=hidden]):not([disabled]),.bmain textarea,.bmain select,.bmain [contenteditable=true],.bmain button.tcell")||p; p.scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(()=>{ try{ f.focus({preventScroll:true}); }catch(_){} },350); p.classList.remove("gsflash"); void p.offsetWidth; p.classList.add("gsflash"); return; }
+  if(e.target.closest(".onesheet,.onepanel,.bsteps,.bnav")) gsLater(); });
+/* repaint when anything that moves the step or the sheet happens */
+["renderBuild","cpBuild","pmBuild","arBuild","uapBuild","spBuild","smBuild","renderAll","cpSheet","pmSheet","arSheet","uapSheet","smRefresh","spRefresh","oneOn"].forEach(fn=>{ const f=window[fn]; if(typeof f!=="function") return; window[fn]=function(...x){ const r=f.apply(this,x); gsLater(); return r; }; });
+window.addEventListener("resize",gsLater); document.addEventListener("input",e=>{ if(e.target.closest&&e.target.closest(".onesheet,.onepanel")) gsLater(); });
+setInterval(()=>{ if(document.body.classList.contains("one")&&!document.hidden){ const L=document.querySelector(".gslayer"); if(!L||L.parentElement!==gsSheet()) gsLater(); } },1500);
 /* No capabilities found: ask for what the solution provides instead of stopping quietly (Dave, November 22: "I asked Claude to create the Solutions Map and it did nothing!") */
 function smAskCaps(){ const P=S.provider||{}, nm=(P.name||"").trim(), site=(P.site||"").trim();
   kitOpen(nm?`What does ${esc(nm)} provide?`:"Which solution is this map for?",`<p class="kitlead">${nm?`Claude doesn't know ${esc(nm)} well enough to name its capabilities${site?`, and it can't open ${esc(site)} from here`:""}. Nothing was made up.`:"The map's columns are the solution's capabilities, and no solution is named yet."} Paste what the solution says it provides (its services or products page works), or type its capabilities, one per line.</p>
