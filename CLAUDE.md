@@ -178,6 +178,8 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **A clean client summary**: "Assumed to be X (name given as 'Y')" becomes "X is …", clamped to two lines (tap for all), with a To confirm line under it (`fiveCleanSummary`).
   - **The maps fit a phone**: the Problem, Solutions Map, Priorities Map and Roadmap sheets fit the screen width under 700 px; a tap on a part opens that step in the guide below instead of editing the tiny sheet (a swipe still scrolls), and Zoom in / Fit to screen switches to the full-size sheet (`fiveZoom`, `fiveRoute`).
 
+- **Kevin's example never replaces an engagement** (Dave, November 22: "Ascension in got Morgan industries"): his new Ascension engagement held Kevin's Morgan Industries example, because the guide's "See a finished example" (Alignment and Criteria Learn) and the command "Load Kevin's example into this engagement" loaded the example into the open engagement (`loadExample`). Now the example always opens as its own engagement, "Morgan Industries · example", and says the one you were in is unchanged; on a shared page it doesn't load. Ascension's own work was overwritten in his synced copy and can't be brought back; build it again with New engagement.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.

@@ -4031,7 +4031,7 @@ function cmdActions(){ const inAid=route==="aid", A=[];
   add("Work",`Process list: ${S.procSet==="health"?"switch to the book's 15":"switch to the health system's 13"}`,()=>setProcSet(S.procSet==="health"?"book":"health"));
   add("Work",`Turn connections ${showLinks()?"off":"on"}`,()=>{ S.showLinks=!showLinks(); save(); drawLinks(); renderLineKey(); });
   add("Work",`Turn animation ${S.animate!==false?"off":"on"}`,()=>{ S.animate=S.animate===false; save(); renderLineKey(); });
-  add("Work","Load Kevin's example into this engagement",()=>{ loadExample(); });
+  add("Work","Open Kevin's example (its own engagement)",()=>{ loadExample(); });
   add("Work",cpMode?"Clear every criterion":"Clear the alignment",()=>{ if(cpMode) cpClearAll(); else clearAll(); });
   Object.entries(LIBD.aids).sort((a,b)=>b[1].updated-a[1].updated).forEach(([id,a])=>{ if(id!==LIBD.cur) add("Engagements",`Open ${a.name}`,()=>openEng(id)); });
   return A; }
@@ -7744,6 +7744,12 @@ const fiveTarget=e=>{ if(fiveZoom||route!=="aid"||!fivePhone()||document.body.cl
 let fiveT0=null; document.addEventListener("touchstart",e=>{ const t=e.touches[0]; fiveT0=t?{x:t.clientX,y:t.clientY}:null; },{capture:true,passive:true});
 document.addEventListener("touchend",e=>{ if(!fiveTarget(e)||e.changedTouches.length!==1) return; const t=e.changedTouches[0]; if(fiveT0&&Math.hypot(t.clientX-fiveT0.x,t.clientY-fiveT0.y)>10) return; const  el=document.elementFromPoint(t.clientX,t.clientY); if(!el) return; if(e.cancelable) e.preventDefault(); e.stopPropagation(); fiveRoute(el); },{capture:true,passive:false});
 document.addEventListener("click",e=>{ if(!fiveTarget(e)) return; e.preventDefault(); e.stopPropagation(); fiveRoute(e.target); },true);
+
+/* ===================== Kevin's example never replaces an engagement (Dave, Nov 22: "Ascension in got Morgan industries")
+   The guide's "See a finished example" and the command "Load Kevin's example" loaded the example into the open engagement, replacing it. Now the example
+   always opens as its own engagement (a copy you can change), and the engagement you were in stays as it was. On a shared page it doesn't load at all. ===================== */
+loadExample=function(){ if(KA_ROOM){ toast("Kevin's example opens in your own KA Engagement Aids, not on a shared page."); return false; }
+  const was=aidName(); flushSave(); newAid("Morgan Industries · example"); replaceState(Object.assign(blank(),clone(EXAMPLE)),`Kevin's example, opened as its own engagement. ${was&&!/^Untitled/.test(was)?`${was} is unchanged.`:""}`.trim()); return true; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
