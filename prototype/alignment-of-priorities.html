@@ -1490,7 +1490,7 @@ body.clreview footer{padding-bottom:120px}
 @media (max-width:600px){.clbar{padding:10px 12px;gap:8px}.clbar span{display:none}.clbar b{font-size:14px}.clbar .arow{width:100%;display:grid!important;grid-template-columns:1fr 1fr 1fr;gap:6px}.clbar .btn{font-size:13px;padding:8px 6px;min-height:40px}}
 body.clreview .toast{display:none!important}
 
-/* the straw dog: six visuals on screen, drawn from the PDF */
+/* the first draft: six visuals on screen, drawn from the PDF */
 .fills li.d-what::before{background:color-mix(in srgb,var(--what,#6b4fb3) 18%,var(--paper));color:var(--what,#6b4fb3)}
 #sdView{position:fixed;inset:0;z-index:80;background:#2b3142;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 #sdView[hidden]{display:none}
@@ -5544,7 +5544,7 @@ Requirements are what ANY good solution must do, not the vendor's feature list. 
   return `You are a KA (Knowledge-Advantage) principal filling in KA's "Understanding a Problem" aid: nine boxes that decompose and frame a business problem, so we address root causes, not generic issues.
 ${head}
 BOXES, in order: 1 Situation/Problem to Solve, 2 Symptoms, 3 Current Approaches, 4 Causes (root causes, not symptoms), 5 Consequences (if nothing changes), 6 Constraints (budget, sign-offs, decision makers, policies, politics), 7 Requirements, 8 Costs (of the problem now, and of solving it), 9 Priority.
-RULES: credible over compelling. Never invent facts about ${c||"a client"}. A number appears only when the vendor's own public descriptions${o.material?", the material,":""} or the engagement give it; otherwise describe it in words. Where something is unknown, write it as a question ending in "?". Tag every line with where it came from: "vendor" (the vendor's own claims), "industry" (general industry knowledge), "material" (the pasted material), "engagement" (the engagement below), or "assumption" (your inference, to confirm). Each box: 2 to 4 short lines, together under ${UAP_BUDGET} characters, written so a buyer recognises their own situation. Logical abbreviations are fine.
+RULES: credible over compelling. Never invent facts about ${c||"a client"}. A number appears only when the vendor's own public descriptions${o.material?", the material,":""} or the engagement give it; otherwise describe it in words. Every line in the boxes is a statement, never a question, and never ends in "?". Where something is unknown, state it plainly as an assumption to confirm (tag it "assumption"); questions belong only in "questions". Tag every line with where it came from: "vendor" (the vendor's own claims), "industry" (general industry knowledge), "material" (the pasted material), "engagement" (the engagement below), or "assumption" (your inference, to confirm). Each box: 2 to 4 short lines, together under ${UAP_BUDGET} characters, written so a buyer recognises their own situation. Logical abbreviations are fine.
 ${o.material?`MATERIAL (from the user):\n${o.material.slice(0,30000)}\n`:""}${eng?`THE ENGAGEMENT:\n${eng}\n`:""}
 Reply with JSON only: {"name":"the problem in 3 to 7 words","boxes":[{"lines":[{"t":"…","src":"vendor|industry|material|engagement|assumption"}],"details":"optional longer note, under 400 characters"}],"priority":{"level":"low|medium|high","go":"pursue|stop|","why":"one sentence"},"questions":["up to 5 questions to ask the client"],"asOf":"how current your knowledge is"}. Exactly nine boxes, in order. Box 9's lines say why it matters now.`; }
 function uapVendorPrompt(v){ const c=uapClient();
@@ -6273,7 +6273,7 @@ document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); i
 
 
 /* ===================== Solutions Map (Dave, Nov 20: "I want to move this to the KA Engagement Aids code"; on the design: capabilities from "The alignment's Solutions",
-   initiatives "Fixed as printed", "Yes, as a seventh visual" in the straw dog; "solution map should come before the Session Plan")
+   initiatives "Fixed as printed", "Yes, as a seventh visual" in the first draft; "solution map should come before the Session Plan")
    The PDF's page 2 on its own coordinates (the same grid as the Priorities Map: Stakeholder1–6 there are Capability 1–6 here): six capabilities across, KA's six initiatives
    down exactly as printed, Low / Medium / High impact at each intersection, ▷ details per cell, the PDF's validate boxes beside each initiative and above each capability. ===================== */
 const SM_INIT=["Sustainable Growth","Engage & Retain","High Performance Culture","Improve Health & Well-Being","Operational Excellence","Cost Competitiveness"];
@@ -7279,20 +7279,20 @@ loadInter();
 
 
 
-/* ===================== The straw dog (Dave, Nov 21: "when I create an engagement for Claude to ask me who is the client and what is the ally… auto generate a straw dog flow AoP, Priorities Map,
+/* ===================== The first draft (Dave, Nov 21: "when I create an engagement for Claude to ask me who is the client and what is the ally… auto generate a first draft flow AoP, Priorities Map,
    Understanding a Problem, Criteria Proposition, and Initial Session Plan… as six visuals. Visual one is a cover. This needs to look professional perfect!"; "ally = solution";
    "I want to keep the initial client questions you had!")
    New engagement keeps every question; the client and the ally (the solution) lead. Building runs, in order: the alignment (and the ally's Solutions), the Priorities Map,
    Understanding a Problem (from the ally's problems, else the alignment), the Criteria Proposition and the initial Session Plan; then shows the six visuals
-   (a cover and the five formal sheets, each marked Straw dog · for discussion), drawn from the same PDF that Download PDF saves. ===================== */
+   (a cover and the five formal sheets, each marked First draft · for discussion), drawn from the same PDF that Download PDF saves. ===================== */
 (function(){ const set=(sel,h)=>{ const el=document.querySelector(sel); if(el) el.innerHTML=h; };
   set('label[for="suClient"]','Who is the client?');
   set('label[for="suProv"]','What\'s the solution? <span class="opt">the company or offering you bring · optional · shapes the Solutions and the problem</span>');
-  const pv=$("suProv"); if(pv) pv.placeholder="e.g. VaxCare"; const go=$("suGo"); if(go) go.textContent="Build the straw dog";
-  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything.";
+  const pv=$("suProv"); if(pv) pv.placeholder="e.g. VaxCare"; const go=$("suGo"); if(go) go.textContent="Build the first draft";
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a first draft to review together. You review and write over anything.";
   const ol=$("suFills"); if(ol){ const sol=ol.querySelector('[data-f="sol"] b'); if(sol) sol.textContent="Solutions from what you bring";
     const cp=ol.querySelector('[data-f="cp"]'); if(cp&&!ol.querySelector('[data-f="uap"]')) cp.insertAdjacentHTML("beforebegin",`<li class="d-what" data-f="uap"><div><b>Understanding a Problem · the nine parts</b><span>The core business problem the solution solves for this client (or the one you name), framed from the buyer's side. From the alignment when no solution is named.</span></div></li>`);
-    if(!ol.querySelector('[data-f="sp"]')) ol.insertAdjacentHTML("beforeend",`<li class="d-how" data-f="sp"><div><b>Initial Session Plan</b><span>Objectives from the Assessment Roadmap's activities, an agenda tied to the aids, next steps.</span></div></li><li class="d-why" data-f="sd"><div><b>The straw dog · six visuals</b><span>A cover and the five sheets, marked for discussion, ready to download as one PDF.</span></div></li>`); } })();
+    if(!ol.querySelector('[data-f="sp"]')) ol.insertAdjacentHTML("beforeend",`<li class="d-how" data-f="sp"><div><b>Initial Session Plan</b><span>Objectives from the Assessment Roadmap's activities, an agenda tied to the aids, next steps.</span></div></li><li class="d-why" data-f="sd"><div><b>The first draft · six visuals</b><span>A cover and the five sheets, marked for discussion, ready to download as one PDF.</span></div></li>`); } })();
 
 let sdBusy=false;
 const sdLi=k=>document.querySelector(`#suFills [data-f="${k}"]`);
@@ -7304,7 +7304,7 @@ async function sdProblem(){ const U=uapData(), ally=(S.provider?.name||"").trim(
       return await uapFill(p,{problem:x.line||x.name,who:x.who,vendor:{name:ally,site:""},material:U.vendor.material||""}); } }
   const ini=S.items.initiatives.find(i=>i.t.trim()), line=ini?`The core business problem behind ${S.company?.name||"the client"}'s ${ini.t} initiative: ${ini.d||""}`.trim():`The core business problem ${S.company?.name||"the client"} most needs to solve now`;
   const p=uapBlankProb(""); p.from={kind:"problem",line}; uapData().probs.push(p); uapData().cur=uapData().probs.length-1; save(); return await uapFill(p,{problem:line,material:""}); }
-async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").textContent="The straw dog needs the page opened in Claude. Start blank to build it by hand."; return; }
+async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").textContent="The first draft needs the page opened in Claude. Start blank to build it by hand."; return; }
   const client=setupFill(); if(!client) return; sdBusy=true; suBusy=true; $("suGo").disabled=true; $("suBlank").disabled=true; renderCrumbs(); const st=$("suStatus");
   ["aop","sol","pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k)); const mirror=setInterval(()=>{ if($("coStatus").textContent) st.textContent=$("coStatus").textContent; },400);
   try{ sdMark("aop","run"); sdMark("sol",S.provider.name?"run":"skip");
@@ -7316,20 +7316,20 @@ async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").text
     sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
     sdMark("sp","run"); st.textContent="Planning the first session…"; if(!spPlan()) spNew(true); await spDraft(); sdMark("sp",spPlan()?"done":"skip");
     sdMark("ar","run"); st.textContent="Reading where they are on the Assessment Roadmap…"; await arDraft(); try{ const R=arData(); if(!(R.dates&&[1,2,3,4,5].some(p=>R.dates[p]))) arProposeTimeline(); }catch(e){} sdMark("ar",arData().drafted?"done":"skip");
-    sdMark("sd","run"); st.textContent="Drawing the straw dog…"; S.strawAt=Date.now(); save(); await sdOpen(); sdMark("sd","done");
-    st.textContent=`Done. The straw dog is ready: eight visuals for discussion, in KA's order. Everything is marked by where it came from; confirm it with the client.`; }
-  catch(err){ console.warn(err); st.textContent="Something stopped the straw dog. You can carry on from the engagement."; }
+    sdMark("sd","run"); st.textContent="Drawing the first draft…"; S.strawAt=Date.now(); save(); await sdOpen(); sdMark("sd","done");
+    st.textContent=`Done. The first draft is ready: eight visuals for discussion, in KA's order. Everything is marked by where it came from; confirm it with the client.`; }
+  catch(err){ console.warn(err); st.textContent="Something stopped the first draft. You can carry on from the engagement."; }
   finally{ clearInterval(mirror); sdBusy=false; suBusy=false; $("suGo").disabled=false; $("suBlank").disabled=false; $("suOpen").hidden=false; suFilesRead=[]; $("suFiles").textContent="PDF or text. Read on this device only."; } }
 document.addEventListener("submit",e=>{ if(e.target&&e.target.id==="suForm"){ e.preventDefault(); e.stopImmediatePropagation(); sdRun(); } },true);
 
 /* ---------- the six visuals, as one PDF ---------- */
 const SD_LIST=[["aop","Alignment of Priorities","Why the business acts: goals, strategies, processes, initiatives and solutions."],["pm","Priorities Map","How each key stakeholder prioritizes the same initiatives."],["uap","Understanding a Problem","The core business problem, in nine parts."],["cp","Criteria Proposition","How we'd measure success: ROA, ROI and TCO."],["sp","Initial Session Plan","The first session: objectives, agenda and next steps."]];
-function sdStamp(doc,portrait){ const W=portrait?215.9:279.4, t="STRAW DOG · FOR DISCUSSION"; doc.setFont("helvetica","bold"); doc.setFontSize(6.6); doc.setCharSpace(.5); const w=doc.getTextWidth(t)+.5*t.length+7, x=(W-w)/2, y=portrait?1.5:4.2;
+function sdStamp(doc,portrait){ const W=portrait?215.9:279.4, t="DRAFT · FOR DISCUSSION"; doc.setFont("helvetica","bold"); doc.setFontSize(6.6); doc.setCharSpace(.5); const w=doc.getTextWidth(t)+.5*t.length+7, x=(W-w)/2, y=portrait?1.5:4.2;
   doc.setDrawColor(PDFC.plum); doc.setFillColor("#ffffff"); doc.setLineWidth(.35); doc.roundedRect(x,y,w,5,2.5,2.5,"FD"); doc.setTextColor(PDFC.plum); doc.text(t,x+3.5,y+3.45); doc.setCharSpace(0); }
 function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), ally=(S.provider?.name||"").trim();
   doc.setFillColor(LBC.navy); doc.rect(0,0,PW,PH,"F"); lbKa(doc,20,16,1.05,"#ffffff");
   const m=clientMark(); if(m.logo){ try{ const h=14, w=Math.min(60,h*(m.logoW&&m.logoH?m.logoW/m.logoH:3)); doc.setFillColor("#ffffff"); doc.roundedRect(PW-20-w-4,12,w+4,h+4,1.5,1.5,"F"); doc.addImage(m.logo,pdfFmt(m.logo),PW-20-w-2,14,w,h); }catch(e){} }
-  const t="STRAW DOG · FOR DISCUSSION"; lbFont(doc,"bold",8,LBC.gold); doc.setCharSpace(.6); const tw=doc.getTextWidth(t)+.6*t.length; doc.setDrawColor(LBC.gold); doc.setLineWidth(.35); doc.roundedRect(20,56,tw+8,7,3.5,3.5,"S"); doc.text(t,24,60.8); doc.setCharSpace(0);
+  const t="DRAFT · FOR DISCUSSION"; lbFont(doc,"bold",8,LBC.gold); doc.setCharSpace(.6); const tw=doc.getTextWidth(t)+.6*t.length; doc.setDrawColor(LBC.gold); doc.setLineWidth(.35); doc.roundedRect(20,56,tw+8,7,3.5,3.5,"S"); doc.text(t,24,60.8); doc.setCharSpace(0);
   let pt=42; lbFont(doc,"heavy",pt,"#ffffff"); while(doc.getTextWidth(nm)>132&&pt>24){ pt-=1; doc.setFontSize(pt); } const nl=doc.splitTextToSize(nm,132).slice(0,2), nb=72+mmPt(pt)+2; doc.text(nl,20,nb,{lineHeightFactor:1.02});
   let y=nb+(nl.length-1)*mmPt(pt)*1.02+9; if(ally){ lbFont(doc,"normal",13,"#c9d1e3"); doc.text("with",20,y); const ww=doc.getTextWidth("with "); lbFont(doc,"bold",13,"#ffffff"); doc.text(lbClean(ally),20+ww,y); y+=9; }
   lbFont(doc,"normal",10.5,"#c9d1e3"); const sl=doc.splitTextToSize(`A first look at ${nm}'s priorities, the problem worth solving, how we'd measure success and how we'd start. Every line is ours to confirm with you, and yours to correct.`,124); doc.text(sl,20,y+2,{lineHeightFactor:1.4}); y+=2+sl.length*mmPt(10.5)*1.4+9;
@@ -7337,13 +7337,13 @@ function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), 
   meta.forEach(([k,v])=>{ lbFont(doc,"bold",6.6,"#9fb0d0"); const kw=doc.getTextWidth(k)+.45*k.length; lbFont(doc,"bold",10,"#ffffff"); let vv=lbClean(v); while(doc.getTextWidth(vv)>60&&vv.length>4) vv=vv.slice(0,-2).trim()+"…"; const w=Math.max(kw,doc.getTextWidth(vv),24);
     doc.setDrawColor("#5b6b8f"); doc.setLineWidth(.3); doc.line(x,y,x+w,y); lbFont(doc,"bold",6.6,"#9fb0d0"); doc.setCharSpace(.45); doc.text(k,x,y+4.4); doc.setCharSpace(0); lbFont(doc,"bold",10,"#ffffff"); doc.text(vv,x,y+9.6); x+=w+9; });
   // what's inside: the five visuals, on the right
-  const rx=172, rw=PW-rx-20; doc.setFillColor("#22335c"); doc.roundedRect(rx-6,50,rw+12,124,2.4,2.4,"F"); lbFont(doc,"bold",7,"#9fb0d0"); doc.setCharSpace(.6); doc.text("IN THIS STRAW DOG",rx,59); doc.setCharSpace(0);
+  const rx=172, rw=PW-rx-20; doc.setFillColor("#22335c"); doc.roundedRect(rx-6,50,rw+12,124,2.4,2.4,"F"); lbFont(doc,"bold",7,"#9fb0d0"); doc.setCharSpace(.6); doc.text("IN THIS DRAFT",rx,59); doc.setCharSpace(0);
   const sdGap=SD_LIST.length>5?Math.min(17.6,103/(SD_LIST.length-1)):21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?65:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
     lbFont(doc,"bold",10,"#ffffff"); doc.text(n,rx+10,yy+2.2); lbFont(doc,"normal",8,"#b9c4dc"); doc.text(doc.splitTextToSize(d,rw-10).slice(0,2),rx+10,yy+6.6,{lineHeightFactor:1.35});
     if(i<SD_LIST.length-1){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+sdGap-5.6,rx+rw,yy+sdGap-5.6); } });
    lbBands(doc); }
 /* KA's order (Dave, Nov 21: "session plan should be first. solutions map should come before Criteria Proposition.") */
-async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="Straw dog"; sdCover(doc);
+async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="First draft"; sdCover(doc);
   const add=async(draw,portrait)=>{ doc.addPage("letter",portrait?"portrait":"landscape"); doc.__lb.pages.push({kind:"sheet",portrait}); await draw(doc); sdStamp(doc,portrait); };
   const sp=spPlan(); if(sp) await add(d=>{ const n=d.getNumberOfPages(); spDrawPages(d,sp); if(d.getNumberOfPages()>n) d.deletePage(d.getNumberOfPages()); },true);
   await add(d=>buildPdf(d)); await add(d=>pmDrawSheet(d)); const p=uapProb();
@@ -7351,14 +7351,14 @@ async function sdBuild(){ const doc=await lbDoc(); doc.__lb.aid="Straw dog"; sdC
   if(SD_LIST.some(x=>x[0]==="ar")) await add(d=>arDrawSheet(d));
   if(smNamedC().length) await add(d=>smDrawSheet(d)); else await add(d=>{ lbFont(d,"bold",12.6*2.8346,PDFC.title); d.text("Solutions Map",10.4,28.4); lbFont(d,"normal",11,LBC.muted); d.text("No capabilities mapped yet.",10.4,44); });
   await add(d=>cpDrawSheet(d)); return lbFinish(doc); }
-async function sdDownload(){ toast("Making the straw dog PDF…",null,true); let doc; try{ doc=await sdBuild(); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
-  await lbSave(doc,`Straw dog - ${lbBase()}.pdf`,"Straw dog PDF"); }
+async function sdDownload(){ toast("Making the first draft PDF…",null,true); let doc; try{ doc=await sdBuild(); }catch(e){ console.warn(e); toast("Couldn't make the PDF here. Check the connection and try again.",null,true); return; }
+  await lbSave(doc,`First draft - ${lbBase()}.pdf`,"First draft PDF"); }
 
 /* ---------- on screen: the same six pages, drawn from the PDF ---------- */
 let sdDocCache=null;
-async function sdOpen(){ let ov=$("sdView"); if(!ov){ ov=document.createElement("div"); ov.id="sdView"; ov.setAttribute("role","dialog"); ov.setAttribute("aria-label","Straw dog"); document.body.appendChild(ov); }
+async function sdOpen(){ let ov=$("sdView"); if(!ov){ ov=document.createElement("div"); ov.id="sdView"; ov.setAttribute("role","dialog"); ov.setAttribute("aria-label","First draft"); document.body.appendChild(ov); }
   const nm=S.company?.name||aidTitle(), ally=(S.provider?.name||"").trim();
-  ov.innerHTML=`<div class="sdbar"><div class="sdt"><small>Straw dog · for discussion</small><b>${esc(nm)}${ally?` <span>with ${esc(ally)}</span>`:""}</b></div><div class="sdacts"><button class="btn small primary" data-sddl>Download PDF</button><button class="btn small" data-sdeng>Open the engagement</button><button class="btn small ghost sdx" data-sdx aria-label="Close">✕</button></div></div>
+  ov.innerHTML=`<div class="sdbar"><div class="sdt"><small>First draft · for discussion</small><b>${esc(nm)}${ally?` <span>with ${esc(ally)}</span>`:""}</b></div><div class="sdacts"><button class="btn small primary" data-sddl>Download PDF</button><button class="btn small" data-sdeng>Open the engagement</button><button class="btn small ghost sdx" data-sdx aria-label="Close">✕</button></div></div>
     <div class="sdpages" id="sdPages"><p class="note sdwait">Drawing the six visuals…</p></div>`;
   ov.hidden=false; document.body.classList.add("sdon"); ov.querySelector("[data-sdx]").focus({preventScroll:true});
   try{ const doc=await sdBuild(); sdDocCache=doc; await loadPdfJs(); const pdf=await window.pdfjsLib.getDocument({data:new Uint8Array(doc.output("arraybuffer"))}).promise; const host=$("sdPages"); host.innerHTML="";
@@ -7374,12 +7374,12 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-sdx]")){ sdClo
   const a=e.target.closest("[data-sdaid]"); if(a){ sdClose(); ({aop:()=>openAid(false,"aid"),cp:()=>openAid(true,"aid"),pm:()=>openPM("aid"),uap:()=>openUAP("aid"),sp:()=>openSP("aid"),sm:()=>openSM("aid"),ar:()=>openAR("aid")})[a.dataset.sdaid](); } });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.body.classList.contains("sdon")){ e.stopImmediatePropagation(); sdClose(); } },true);
 /* in the menus */
-const _oneShareSD=oneShareItems; oneShareItems=function(where){ const it=_oneShareSD(where), at=it.findIndex(x=>x[2]==="report"); it.splice(at,0,["Straw dog · six visuals","cover and the five sheets, for discussion","straw"]); return it; };
+const _oneShareSD=oneShareItems; oneShareItems=function(where){ const it=_oneShareSD(where), at=it.findIndex(x=>x[2]==="report"); it.splice(at,0,["First draft · six visuals","cover and the five sheets, for discussion","straw"]); return it; };
 const _oneActSD=oneAct; oneAct=function(k,anchor){ if(k==="straw"){ closePop(); sdOpen(); return; } return _oneActSD(k,anchor); };
-const _cmdSD=cmdActions; cmdActions=function(){ const A=_cmdSD(); A.push({g:"Work",t:"Straw dog · six visuals",run:sdOpen,hint:"for discussion"}); return A; };
+const _cmdSD=cmdActions; cmdActions=function(){ const A=_cmdSD(); A.push({g:"Work",t:"First draft · six visuals",run:sdOpen,hint:"for discussion"}); return A; };
 
 
-/* ---------- the Solutions Map in the simplified layer, on the path (How · Criteria, Solutions Map, Session Plan), with Claude, in the menus, the leave-behinds, the report and the straw dog ---------- */
+/* ---------- the Solutions Map in the simplified layer, on the path (How · Criteria, Solutions Map, Session Plan), with Claude, in the menus, the leave-behinds, the report and the first draft ---------- */
 ONE_BTN.pdf.sm="smPdf"; ONE_BTN.copy.sm="smCopy"; ONE_BTN.clear.sm="smClear";
 { const at=ENG_PATH.indexOf("cp"); ENG_PATH.splice(at>=0?at:ENG_PATH.length,0,"sm"); } ENG_OPEN.sm=()=>openSM("build"); ENG_SCORE.sm=()=>smScore(); ENG_DIM.sm="How";
 const _engNeedsSM=engNeeds; engNeeds=function(k){ if(k==="sm"){ try{ const m=smNextMove(); return !m.done&&smScore()<70?m:null; }catch(e){ return null; } } return _engNeedsSM(k); };
@@ -7410,14 +7410,14 @@ LB_SEC.sm=async function(doc,o={}){ doc.__lb.aid="Solutions Map"; const D=smData
   lbClose(doc,Math.max(e1,e2,e3)+6,"Agree the impact together, then plan the session that confirms it."); return true; };
 (function(){ if($("smDeck")) return; const b=document.createElement("button"); b.id="smDeck"; b.hidden=true; b.onclick=()=>lbDownload("sm"); document.body.appendChild(b); ONE_BTN.deck.sm="smDeck"; })();
 
-/* the straw dog: the Solutions Map is the sixth visual, before the Session Plan (seven in all) */
+/* the first draft: the Solutions Map is the sixth visual, before the Session Plan (seven in all) */
 SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="sp")),0,["sm","Solutions Map","How the solution's capabilities move the client's initiatives."]);
 (function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="sm"]')) return; const sp=ol.querySelector('[data-f="sp"]'), h=`<li class="d-how" data-f="sm"><div><b>Solutions Map</b><span>The alignment's Solutions as capabilities, and Claude's view of their impact on KA's six initiatives.</span></div></li>`;
   if(sp) sp.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h);
-  const sd=ol.querySelector('[data-f="sd"] div'); if(sd) sd.innerHTML=`<b>The straw dog · eight visuals</b><span>A cover and the seven sheets, marked for discussion, ready to download as one PDF.</span>`;
-  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a straw dog to knock down together. You review and write over anything."; })();
-const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShareSM(where).map(x=>x[2]==="straw"?["Straw dog · eight visuals","cover and the seven sheets, for discussion","straw"]:x); };
-const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="Straw dog · six visuals"?Object.assign({},a,{t:"Straw dog · eight visuals"}):a); };
+  const sd=ol.querySelector('[data-f="sd"] div'); if(sd) sd.innerHTML=`<b>The first draft · eight visuals</b><span>A cover and the seven sheets, marked for discussion, ready to download as one PDF.</span>`;
+  const hp=document.querySelector("#viewSetup .hhead p"); if(hp) hp.textContent="Answer a few questions. Claude drafts every aid for the engagement and shows them as a first draft to review together. You review and write over anything."; })();
+const _oneShareSM=oneShareItems; oneShareItems=function(where){ return _oneShareSM(where).map(x=>x[2]==="straw"?["First draft · eight visuals","cover and the seven sheets, for discussion","straw"]:x); };
+const _cmdSDsm=cmdActions; cmdActions=function(){ return _cmdSDsm().map(a=>a.t==="First draft · six visuals"?Object.assign({},a,{t:"First draft · eight visuals"}):a); };
 
 
 /* ---------- Meet the client from an aid presents that aid (Dave, Nov 20: "present to the client should be aid specific when clicked from the specific tool.")
@@ -7434,10 +7434,10 @@ document.addEventListener("click",e=>{ if(e.target.closest("[data-plall]")){ plO
 
 
 /* ===================== New engagement as a conversation (Dave, Nov 20: "when first creating an engagement I want all the aids to be created by Claude. Claude should ask the essential
-   questions needed to generate the initial set of engagement aids."; "Ally was a typo! It is the solution!"; "build it!" on: chat style, the Roadmap in the straw dog, the form kept)
+   questions needed to generate the initial set of engagement aids."; "Ally was a typo! It is the solution!"; "build it!" on: chat style, the Roadmap in the first draft, the form kept)
    Claude asks one question at a time: the client (and checks it knows them), the solution, whose eyes, the stage, the problem, the next session, what you already know.
    Follow-ups only when needed: material when Claude doesn't know the client, the process list for a health system, the problem when no solution is named.
-   Every question can be skipped; any answer can be tapped to change it. Build it fills the form underneath and runs the straw dog: all seven aids, then eight visuals. ===================== */
+   Every question can be skipped; any answer can be tapped to change it. Build it fills the form underneath and runs the first draft: all seven aids, then eight visuals. ===================== */
 SD_LIST.splice(Math.max(0,SD_LIST.findIndex(x=>x[0]==="uap")+1),0,["ar","Assessment Roadmap","Where they are in the six A's, readiness and a timeline."]);
 (function(){ const ol=$("suFills"); if(!ol||ol.querySelector('[data-f="ar"]')) return; const sd=ol.querySelector('[data-f="sd"]'), h=`<li class="d-what" data-f="ar"><div><b>Assessment Roadmap</b><span>Claude's read of their will and skill on each activity, and a timeline proposed from today.</span></div></li>`; if(sd) sd.insertAdjacentHTML("beforebegin",h); else ol.insertAdjacentHTML("beforeend",h); })();
 let SUX={active:false};
@@ -7465,7 +7465,7 @@ function suAnswerText(k){ const S_=SUX;
   if(k==="more") return [S_.mat2&&`${S_.mat2.length.toLocaleString()} characters of notes`,suFilesRead.length&&`${suFilesRead.length} file${suFilesRead.length>1?"s":""}`,$("suLogoImg")&&!$("suLogoImg").hidden&&"a logo"].filter(Boolean).join(", ")||"Nothing more";
   return ""; }
 function suReadBack(){ const x=SUX, se=suAnswerText("session");
-  return `Here's what I have. ${esc(x.client)}${x.sol?` with ${esc(x.sol)}`:""}, through the eyes of ${esc(x.eyes||"the whole company")}${x.stage?`, in ${AR[x.stage-1].l}`:""}.${x.problem?` The problem: ${esc(x.problem)}.`:""}${se!=="Not planned yet"?` Next session: ${esc(se)}.`:""}<br>I'll draft all seven aids, then show the straw dog. It takes a few minutes.`; }
+  return `Here's what I have. ${esc(x.client)}${x.sol?` with ${esc(x.sol)}`:""}, through the eyes of ${esc(x.eyes||"the whole company")}${x.stage?`, in ${AR[x.stage-1].l}`:""}.${x.problem?` The problem: ${esc(x.problem)}.`:""}${se!=="Not planned yet"?` Next session: ${esc(se)}.`:""}<br>I'll draft all seven aids, then show the first draft. It takes a few minutes.`; }
 function suInputHTML(k){ const x=SUX, sub=`<button class="btn small ghost" data-suskip>Skip</button>`;
   if(k==="client") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. Brown & Brown Insurance" value="${esc(x.client)}" aria-label="Client"><input class="tin" id="suQ2" placeholder="Website or ticker (optional)" value="${esc(x.site)}" aria-label="Website"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button></div></div>`;
   if(k==="known") return x.check?.known?`<div class="suchips"><button class="btn primary" data-suyes>Yes, that's them</button><button class="btn" data-suno>No, a different one</button></div>`
@@ -7507,7 +7507,7 @@ async function suNext(){ const t=suTakeInput(); if(!t) return; if(t==="check"){ 
 async function suBuild(){ if(suBusy||sdBusy) return; const x=SUX;
   $("suClient").value=x.client; $("suSite").value=x.site; $("suEyes").value=x.eyes; $("suProv").value=x.sol; $("suPaste").value=[x.mat,x.mat2].filter(Boolean).join("\n\n"); suProc=x.proc;
   document.querySelectorAll("[data-su-proc]").forEach(b=>b.setAttribute("aria-checked",b.dataset.suProc===suProc));
-  SUX.building=true; const box=$("suChat"); box.querySelector(".suchips")?.remove(); $("suMsgs").insertAdjacentHTML("beforeend",`<div class="sub c now">Building. Follow along on the right; the straw dog opens when it's done.</div>`);
+  SUX.building=true; const box=$("suChat"); box.querySelector(".suchips")?.remove(); $("suMsgs").insertAdjacentHTML("beforeend",`<div class="sub c now">Building. Follow along on the right; the first draft opens when it's done.</div>`);
   try{ await sdRun(); } finally{ SUX.building=false; SUX.active=false; } }
 document.addEventListener("click",e=>{ const t=e.target; if(!t.closest||!t.closest("#suChat")) return;
   if(t.closest("[data-sugo]")){ suNext(); return; }
@@ -7548,7 +7548,7 @@ const _sdProblemSU=sdProblem; sdProblem=async function(){ const U=uapData(), lin
 
 /* "What happens" lists the Solutions Map before the Criteria */
 { const ol=$("suFills"), sm=ol&&ol.querySelector('[data-f="sm"]'), cp=ol&&ol.querySelector('[data-f="cp"]'); if(sm&&cp) cp.before(sm); }
-/* the straw dog's list in KA's order: Session Plan first, the Solutions Map before the Criteria (Dave, Nov 21) */
+/* the first draft's list in KA's order: Session Plan first, the Solutions Map before the Criteria (Dave, Nov 21) */
 { const ord=["sp","aop","pm","uap","ar","sm","cp"]; SD_LIST.sort((a,b)=>(ord.indexOf(a[0])+99*(ord.indexOf(a[0])<0))-(ord.indexOf(b[0])+99*(ord.indexOf(b[0])<0))); }
 /* ---------- Presenter view stays in this window (Dave, Nov 21, a screenshot of "claude.ai is blocked · ERR_BLOCKED_BY_RESPONSE" after Presenter view)
    claude.ai refuses to open the app's frame in a second window, so Presenter view (the button, P, the menu) opens the presenter panel here:
@@ -7603,6 +7603,35 @@ const _endMeetingWT=endMeeting; endMeeting=function(q){ const a=oneAid(); _endMe
 document.addEventListener("click",e=>{ const w=e.target.closest("[data-way]"); if(!w||meetAid!=="ar"||w.dataset.way==="present") return; e.stopImmediatePropagation(); const way=w.dataset.way; try{ meetSnapTake(); }catch(er){}
   if(way==="together"){ openAR("aid"); setMode(true); meeting=true; document.body.classList.add("meeting"); $("meetBar").hidden=false; arSheet(); setTimeout(()=>{ wtI=-1; wtAid="ar"; wtHint(); },300); }
   if(way==="interview"){ openAR("build"); arIdx=1; arBuild(); toast("Ask where they are on each activity, phase by phase.",null,true); } },true);
+
+/* ---------- Understanding a Problem holds statements, not questions (Dave, Nov 22: "understanding the problem should have statements, no questions!")
+   Claude is told to write statements only; any line still ending in "?" moves to the problem's questions for the client (Ask the client), never the boxes.
+   Problems already drafted are tidied the same way, Claude's lines only: your own words are never touched. ---------- */
+function uapNoQuestions(p){ if(!p||!Array.isArray(p.box)) return 0; let n=0; p.qs=Array.isArray(p.qs)?p.qs:[];
+  p.box.forEach(B=>{ if(!B||B.src==="you"||B.src==="client"||!(B.t||"").trim()) return; const lines=B.t.split(/\n+/), ls=Array.isArray(B.ls)?B.ls:[], keep=[], keepLs=[];
+    lines.forEach((l,i)=>{ const t=l.replace(/^[-•]\s*/,"").trim(); if(/\?\s*$/.test(t)){ if(!p.qs.includes(t)) p.qs.push(t); n++; } else { keep.push(l); keepLs.push(ls[i]); } });
+    if(keep.length!==lines.length){ B.t=keep.join("\n"); B.ls=keepLs; } });
+  p.qs=p.qs.slice(0,8); return n; }
+const _uapApplyNQ=uapApply; uapApply=function(p,r,o){ const out=_uapApplyNQ(p,r,o); uapNoQuestions(p); return out; };
+const _normNQ=norm; norm=function(st){ const x=_normNQ(st); try{ (x.uap?.probs||[]).forEach(uapNoQuestions); }catch(e){} return x; };
+try{ (S.uap?.probs||[]).forEach(uapNoQuestions); }catch(e){}
+
+/* ---------- The Solutions Map's six columns, from what the solution says it provides (Dave, Nov 22: "solution map six columns should be try to be completed based on what vendor says publicly the solution provides")
+   Before Claude rates the map, the empty capability columns are filled with the solution's own publicly described capabilities (Claude's knowledge of the vendor's
+   descriptions, plus its offerings already found), never your columns, never a duplicate; an unknown vendor fills nothing. Marked "From <the solution>'s offerings". ---------- */
+async function smVendorCaps(){ const D=smData(), ally=(S.provider?.name||"").trim(); if(!sample||!ally) return 0; const free=D.cap.map((c,i)=>[c,i]).filter(([c])=>!(c.n||"").trim()).map(([,i])=>i); if(!free.length) return 0;
+  const have=D.cap.filter(c=>(c.n||"").trim()).map(c=>c.n.trim()), offers=(S.provider?.offerings||[]).map(o=>({name:o.name,desc:o.desc||""})).slice(0,10);
+  const prompt=`You are a KA (Knowledge-Advantage) principal. List the key capabilities that ${ally}${S.provider?.site?` (${S.provider.site})`:""} itself says publicly that its solution provides: its products, services and programs, as ${ally} describes them.
+${offers.length?`What ${ally} says it offers, as already found: ${JSON.stringify(offers)}\n`:""}Leave out anything already on the map: ${JSON.stringify(have)}.
+Give up to ${free.length}, the most distinct first. Each name at most 24 characters (abbreviate logically), each description at most 80 characters, in the vendor's own terms. Never invent a capability; if you don't know ${ally}, reply {"known":false}.
+Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
+  try{ smMsg=`Claude is reading what ${ally} says it provides…`; smRefresh(); const r=await sample.json(prompt,{modelTier:"complex"}); if(!r||r.known===false||!Array.isArray(r.capabilities)) return 0;
+    const E=smData(); let n=0; const seen=new Set(E.cap.map(c=>(c.n||"").trim().toLowerCase()).filter(Boolean));
+    r.capabilities.forEach(c=>{ let nm=abbreviate(String(c&&c.name||"").trim()); if(nm.length>26) nm=nm.slice(0,26).replace(/\s+\S*$/,""); if(!nm||seen.has(nm.toLowerCase())) return; const i=E.cap.findIndex(x=>!(x.n||"").trim()); if(i<0) return;
+      E.cap[i]={n:nm,d:String(c.desc||"").slice(0,120),src:"ally",ok:false}; seen.add(nm.toLowerCase()); n++; });
+    save(); return n; }
+  catch(e){ return 0; } finally{ smMsg=""; smRefresh(); } }
+const _smDraftVC=smDraft; smDraft=async function(...a){ const D=smData(); if(!smNamedC(D).length){ smSeed(D); save(); } await smVendorCaps(); return _smDraftVC(...a); };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
