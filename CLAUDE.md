@@ -171,6 +171,13 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **The agenda adds up**: when Claude's agenda doesn't add up to 50, its longest item is adjusted, or a closing "Agree next steps and owners" fills the rest (`spApply` wrapped).
   - Your own entries are never replaced.
 
+- **The UI audit's five** (Dave, November 22: "build the five", after the audit):
+  - **The first draft is easy to find**: a First draft · eight visuals card under the Overview's next step, with a small cover, Open the first draft and Download PDF (`fivePaintOverview`, `#ovDraft`); each Home card with something in it ends with a cover tile and Open the first draft (`data-engdraft`).
+  - **One row of header**: the path chips, ✦ Claude, Meet the client, one ⋯ (Stage, Share & export, More; `fiveDots`) and ?. The next step moved to the top of the guide panel (`#oneNextCopy`, copied from the hidden `#ahNext`); the second row shows only when there are two or more stakeholder views. On a phone the path scrolls on its own row with the buttons under it.
+  - **The sheets lose their screen-only bits**: no dashed client-logo box (add it on the Overview), no Still need help? box, no ≡ buttons (everything is in ⋯ and ⌘K). View and lists starts folded, and reads "KA's 15 operational processes".
+  - **A clean client summary**: "Assumed to be X (name given as 'Y')" becomes "X is …", clamped to two lines (tap for all), with a To confirm line under it (`fiveCleanSummary`).
+  - **The maps fit a phone**: the Problem, Solutions Map, Priorities Map and Roadmap sheets fit the screen width under 700 px; a tap on a part opens that step in the guide below instead of editing the tiny sheet (a swipe still scrolls), and Zoom in / Fit to screen switches to the full-size sheet (`fiveZoom`, `fiveRoute`).
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.

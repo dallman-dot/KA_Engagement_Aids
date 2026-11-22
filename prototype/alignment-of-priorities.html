@@ -1511,6 +1511,37 @@ body.sdon{overflow:hidden}
 .sdwait{color:#dfe4ee!important;text-align:center;padding:40px 0}
 @media (max-width:640px){.sdt b{font-size:16px}.sdpages{padding:16px 10px 48px;gap:22px}}
 .coachtabs [data-ctab="book"],[data-cbody="book"],.bookq,.kevin,.ps-q{display:none!important}
+/* the UI audit's five (Nov 22) */
+.fdcover{position:relative;flex:none;width:92px;aspect-ratio:8.5/11;border-radius:6px;background:linear-gradient(160deg,#1d2f5c,#17264a);color:#fff;padding:9px 8px 0;display:flex;flex-direction:column;gap:3px;overflow:hidden;box-shadow:0 2px 10px rgb(23 38 74 /.25)}
+.fdcover .fdk{font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:#e8c46a;font-weight:700}
+.fdcover b{font-size:12px;line-height:1.15;font-weight:700;overflow-wrap:anywhere}
+.fdcover .fdl{font-size:7px;color:#c9d3ea}
+.fdcover .fdb{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-rows:repeat(3,4px)}.fdcover .fdb s:nth-child(1){background:#f2b8b8}.fdcover .fdb s:nth-child(2){background:#f6e1a0}.fdcover .fdb s:nth-child(3){background:#b9dcc3}
+.fdcover.sm{width:44px;padding:5px 4px 0;gap:2px;border-radius:4px}.fdcover.sm .fdk,.fdcover.sm .fdl{display:none}.fdcover.sm b{font-size:6.5px}.fdcover.sm .fdb{grid-template-rows:repeat(3,2px)}
+.ovdraft{display:flex;gap:16px;align-items:center}.ovdraft .arow{justify-content:flex-start}.ovdraft .arow .btn{flex:0 0 auto}.ovdraft .onlbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);font-weight:700}.ovdraft .fdtxt{display:grid;gap:6px;min-width:0}.ovdraft .fdtxt b{font-size:16px}.ovdraft .fdtxt small{color:var(--muted);font-size:13px}
+@media (max-width:560px){.ovdraft{align-items:flex-start}.ovdraft .fdcover{width:70px}.ovdraft .arow{flex-direction:column;align-items:stretch}}
+.ecdraft{display:flex;align-items:center;gap:10px;padding-top:10px;border-top:1px solid var(--rule)}
+body.one #aidHead .ahrow.fivehide{display:none}
+body.one #aidHead .ahrow>:not(#ahLens){display:none!important}
+body.one #aidHead .ahtop{flex-wrap:nowrap}
+body.one #aidHead .ahtop #ahPath{flex:1 1 auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+.ahacts{display:flex;gap:8px;align-items:center;flex:none}
+.ahacts .meetbtn{white-space:nowrap}.onedots{min-width:40px;font-size:18px;line-height:1;padding:4px 10px}
+.fivedots h5{margin-top:10px}.fivedots h5:first-child{margin-top:0}.fdstage select{width:100%;min-height:40px;font-size:16px}
+body.meeting .onedots,body.client .onedots{display:none}
+@media (max-width:820px){body.one #aidHead .ahtop{flex-wrap:wrap}body.one #aidHead .ahtop #ahPath{flex:1 1 100%;order:0}.ahacts{order:1;flex:1 1 auto}.ahacts .meetbtn{flex:1}body.one #aidHead #ahGuide{order:2}}
+@media (max-width:420px){.ahacts .clbtn span{display:none}}
+.fivenext{width:100%;margin:0 0 10px}.fivenext span{white-space:normal}
+body.meeting .fivenext{display:none}
+.onesheet #helpBox,.onesheet .menubtn,.onesheet .logoslot.empty{display:none!important}
+#ovSub.fiveclamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}#ovSub.fiveclamp.open{display:block}
+.ovcaveat{margin:4px 0 0;font-size:13px;color:var(--muted)}.ovcaveat b{color:var(--plum);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-right:6px}
+.fivezbar{display:none}
+@media (max-width:700px){
+  .fivezbar{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px;color:var(--muted);margin:0 0 6px}
+  body.one:not(.fivezoom) .onesheet .cpstage.pmstage{min-width:0!important;width:100%!important}
+  body.one:not(.fivezoom) .onesheet .cpstage.pmstage *{cursor:pointer}
+}
 </style>
 
 <div class="shell">
@@ -7644,6 +7675,75 @@ const _spApply50=spApply; spApply=function(p,r){ if(p.src.dur!=="you"&&(!p.dur||
       for(const [x,i] of mine){ const want=spMins(x.dur)+(goal-tot), fit=SP_DUR_ITEM.find(d=>spMins(d)===want); if(fit&&want>0){ x.dur=fit; break; } }
       tot=spTotal(p); if(tot<goal){ const i=p.ag.findIndex(z=>!z.t.trim()); const rest=SP_DUR_ITEM.find(d=>spMins(d)===goal-tot); if(i>=0&&rest){ p.ag[i]={t:"Agree next steps and owners",o:"Us",dur:rest,d:""}; p.src[`ag.${i}.t`]=p.src[`ag.${i}.o`]=p.src[`ag.${i}.dur`]="claude"; } } } }catch(e){}
   return out; };
+
+/* ===================== The UI audit's five (Dave, Nov 22: "build the five")
+   1 the first draft is easy to find: a card on the Overview, a tile on each Home card; 2 one row of header: path, ✦ Claude, Meet the client, ⋯ (stage, share, more), the next step in the guide;
+   3 no screen-only bits on the sheets (logo box, Still need help?, ≡), View and lists folded; 4 a clean client summary, the caveat under it; 5 the maps fit a phone, tap a part to edit it below. ===================== */
+const fiveHas=()=>{ try{ return !!(allFilled().length||cpAll().length||(S.uap?.probs||[]).length||(S.pm&&pmRated().length)||(typeof smHas==="function"&&smHas())); }catch(e){ return false; } };
+function fiveCover(name,small){ return `<div class="fdcover${small?" sm":""}" aria-hidden="true"><span class="fdk">First draft</span><b>${esc(name||"The client")}</b><span class="fdl">For discussion</span><i class="fdb"><s></s><s></s><s></s></i></div>`; }
+/* (1) the Overview's first draft card */
+const _roFive=renderOverview; renderOverview=function(){ _roFive(); try{ fivePaintOverview(); }catch(e){ console.error(e); } };
+function fivePaintOverview(){ let c=$("ovDraft"); if(!fiveHas()){ c&&c.remove(); return; }
+  if(!c){ c=document.createElement("div"); c.id="ovDraft"; c.className="scard ovdraft"; const at=$("ovNext"); if(!at) return; at.after(c); }
+  c.innerHTML=`${fiveCover(S.company?.name||aidName())}<div class="fdtxt"><span class="onlbl">First draft · eight visuals</span><b>Everything Claude drafted, as one PDF to knock down together</b><small>A cover, then the Session Plan, the Alignment, the Priorities Map, the Problem, the Roadmap, the Solutions Map and the Criteria, as they stand now.</small>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-fdopen>Open the first draft</button><button class="btn" data-fddown>Download PDF</button></div></div>`; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-fdopen]")){ e.preventDefault(); sdOpen(); return; } if(e.target.closest("[data-fddown]")){ e.preventDefault(); sdDownload(); return; }
+  const h=e.target.closest("[data-engdraft]"); if(h){ e.preventDefault(); e.stopPropagation(); openEng(h.dataset.engdraft); setTimeout(()=>sdOpen(),60); } },true);
+/* Home: a tile and Open the first draft on each card with something in it */
+const _rhFive=renderHome; renderHome=function(){ _rhFive(); try{ document.querySelectorAll("#egrid .ecard[data-eng]").forEach(c=>{ if(c.querySelector(".ecdraft")) return; const nx=c.querySelector(".nx"), empty=/Research the company, or build by hand/.test(nx?.textContent||""); if(empty) return;
+    const name=LIBD.aids[c.dataset.eng]?.name||"";
+    nx?.insertAdjacentHTML("afterend",`<div class="ecdraft">${fiveCover(name,true)}<button class="btn small ecdraftbtn" data-engdraft="${c.dataset.eng}">Open the first draft</button></div>`); }); }catch(e){ console.error(e); } };
+
+/* (2) one row: the path, ✦ Claude, Meet the client, ⋯; the next step moves into the guide */
+const _ahFive=renderAidHead; renderAidHead=function(){ _ahFive(); if(route!=="aid") return; const top=document.querySelector("#aidHead .ahtop"), row=document.querySelector("#aidHead .ahrow"); if(!top||!row) return;
+  let acts=top.querySelector(".ahacts"); if(!acts){ acts=document.createElement("span"); acts.className="ahacts"; const g=$("ahGuide"); g?top.insertBefore(acts,g):top.appendChild(acts); }
+  acts.querySelector(".clbtn")?.remove(); const cl=row.querySelector(".clbtn"); if(cl) acts.prepend(cl);
+  const meet=row.querySelector(".meetbtn")||top.querySelector(".meetbtn"); if(meet&&meet.parentElement!==acts) acts.appendChild(meet);
+  if(!acts.querySelector("[data-onedots]")) acts.insertAdjacentHTML("beforeend",`<button class="btn small onedots prep-only" data-onedots aria-label="Stage, share and more" title="Stage, Share & export, More">⋯</button>`); else acts.appendChild(acts.querySelector("[data-onedots]"));
+  const many=Object.keys(S.lenses||{}).length>1; row.classList.toggle("fivehide",!many); fiveNextCopy(); };
+function fiveDots(anchor){ closePop(); const sh=oneShareItems(), mo=oneMoreItems(), pop=document.createElement("div"); pop.className="pop onemenu fivedots"; pop.setAttribute("role","menu"); pop.setAttribute("aria-label","Stage, share and more");
+  const list=items=>items.map(([t,s,k])=>`<button role="menuitem" data-oneact="${k}"><span>${esc(t)}</span>${s?`<small>${esc(s)}</small>`:""}</button>`).join("");
+  pop.innerHTML=`<h5>Stage</h5><div class="fdstage">${stageSelHTML(stageOf(),"cur",false)}</div><h5>Share & export</h5>${list(sh)}<h5>More</h5>${list(mo)}`; place(pop,anchor); pop._anchor=anchor; popEl=pop; pop.querySelector("select,button")?.focus(); }
+document.addEventListener("click",e=>{ const d=e.target.closest("[data-onedots]"); if(d){ e.preventDefault(); e.stopPropagation(); fiveDots(d); } },true);
+function fiveNextCopy(){ if(route!=="aid") return; const p=document.querySelector(".onepanel"), src=$("ahNext"); document.querySelectorAll("#oneNextCopy").forEach(x=>{ if(!p||!p.contains(x)) x.remove(); }); if(!p||!src) return;
+  let c=$("oneNextCopy"); if(!c){ c=document.createElement("div"); c.id="oneNextCopy"; c.className="nextpill fivenext"; p.prepend(c); } else if(p.firstElementChild!==c) p.prepend(c);
+  if(c.innerHTML!==src.innerHTML) c.innerHTML=src.innerHTML; }
+const _pillFive=renderNextPill; renderNextPill=function(){ _pillFive(...arguments); fiveNextCopy(); };
+setInterval(()=>{ if(route==="aid") fiveNextCopy(); },1000);
+
+/* (3) the sheets lose their screen-only bits (CSS); View and lists starts folded; plain words for the process list */
+(function(){ const d=$("viewOpts"); if(d) d.open=false; const v=$("voSum"); if(!v) return; const fix=()=>{ const t=v.textContent, n=t.replace("The book's processes","KA's 15 operational processes").replace("Health system processes","Health system · 13 processes"); if(n!==t) v.textContent=n; };
+  new MutationObserver(fix).observe(v,{childList:true,characterData:true,subtree:true}); fix(); })();
+
+/* (4) the client summary, clean, with any caveat as a line to confirm */
+function fiveCleanSummary(s){ s=String(s||"").trim(); let caveat=""; const m=s.match(/^Assumed to be\s+([^(.,]+?)\s*(?:\((?:name )?given as\s*['"“‘]?([^'"”’)]+)['"”’]?\))?\s*([,.])\s*/i);
+  if(m){ const who=m[1].trim(), given=m[2]; caveat=given?`The name was given as “${given}”; this assumes ${who}.`:`This assumes the client is ${who}.`; const rest=s.slice(m[0].length);
+    s=m[3]===","&&/^[a-z]/.test(rest)?`${who} is ${rest}`:`${who}. ${rest}`; }
+  else { const p=s.match(/\s*\((?:name )?given as\s*['"“‘]?([^'"”’)]+)['"”’]?\)/i); if(p){ caveat=`The name was given as “${p[1]}”.`; s=s.replace(p[0],""); } }
+  return {s:s.replace(/\s{2,}/g," ").trim(),caveat}; }
+const _roFive2=renderOverview; renderOverview=function(){ _roFive2(); try{ const el=$("ovSub"); if(!el) return; const raw=S.company?.summary; document.querySelectorAll("#ovCaveat").forEach(x=>x.remove()); if(!raw) return;
+  const {s,caveat}=fiveCleanSummary(raw); el.textContent=s; el.title=s; el.classList.add("fiveclamp"); el.onclick=()=>el.classList.toggle("open");
+  if(caveat) el.insertAdjacentHTML("afterend",`<p class="ovcaveat" id="ovCaveat"><b>To confirm</b> ${esc(caveat)}</p>`); }catch(e){ console.error(e); } };
+
+/* (5) the maps fit a phone: the whole sheet in view, a tap opens that part below, Zoom in for the full size */
+let fiveZoom=false; const FIVE_MAPS={pm:"pmSheet",uap:"uapSheet",sm:"smSheet",ar:"arSheet"};
+const fivePhone=()=>matchMedia("(max-width:700px)").matches;
+function fiveZoomBar(){ document.body.classList.toggle("fivezoom",fiveZoom); if(route!=="aid") return; const a=oneAid(), id=FIVE_MAPS[a]; if(!id) return; const st=$(id); if(!st) return; const sc=st.closest(".cpscroll")||st.parentElement;
+  let bar=sc.previousElementSibling&&sc.previousElementSibling.classList.contains("fivezbar")?sc.previousElementSibling:null; if(!bar){ bar=document.createElement("div"); bar.className="fivezbar prep-only"; sc.before(bar); }
+  bar.innerHTML=`<span>${fiveZoom?"Full size: scroll sideways to see it all.":"Tap a part to fill it in below."}</span><button class="btn small" data-fivezoom>${fiveZoom?"Fit to screen":"Zoom in"}</button>`; }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-fivezoom]")){ fiveZoom=!fiveZoom; fiveZoomBar(); } });
+const _ahFive2=renderAidHead; renderAidHead=function(){ _ahFive2(); try{ fiveZoomBar(); }catch(e){} };
+function fiveRoute(t){ const a=oneAid(); let go=null;
+  if(a==="uap"){ const b=t.closest("[data-uapbox],[data-uaphd],[data-uapok],[data-uapd]"); if(b){ const i=+(b.dataset.uapbox??b.dataset.uaphd??b.dataset.uapok??b.dataset.uapd); if(i>=0) go=()=>{ uapIdx=i+1; uapBuild(); }; } else go=()=>{ uapIdx=0; uapBuild(); }; }
+  if(a==="sm"){ const n=t.closest("[data-smcell]")?2:t.closest("[data-smoki]")?1:t.closest("[data-smokc],[data-smname],[data-smcn]")?0:t.closest("[data-smnotes]")?3:t.closest("[data-smhd]")?1:2; go=()=>{ smIdx=n; smBuild(); }; }
+  if(a==="pm"){ const n=t.closest("[data-pmcell]")?2:t.closest("[data-pminit]")?1:t.closest("[data-pmst],[data-pmstake]")?0:2; go=()=>{ pmIdx=n; pmBuild(); }; }
+  if(a==="ar"){ const d=t.closest("[data-ardot],[data-aract],[data-argo2],[data-arhd]"); let n=1; if(d){ const v=d.dataset.ardot||d.dataset.aract||d.dataset.argo2||d.dataset.arhd; n=+String(v).split("|").pop().split(".")[0]||1; } go=()=>{ arIdx=Math.min(6,Math.max(1,n)); arBuild(); }; }
+  if(go){ go(); setTimeout(oneToPanel,30); } }
+const fiveTarget=e=>{ if(fiveZoom||route!=="aid"||!fivePhone()||document.body.classList.contains("meeting")||document.body.classList.contains("client")||document.body.classList.contains("presenting")) return null; const id=FIVE_MAPS[oneAid()]; if(!id) return null; const st=$(id); return st&&st.contains(e.target)?st:null; };
+["pointerdown","mousedown"].forEach(ev=>document.addEventListener(ev,e=>{ if(fiveTarget(e)&&e.cancelable) e.preventDefault(); },{capture:true,passive:false}));
+let fiveT0=null; document.addEventListener("touchstart",e=>{ const t=e.touches[0]; fiveT0=t?{x:t.clientX,y:t.clientY}:null; },{capture:true,passive:true});
+document.addEventListener("touchend",e=>{ if(!fiveTarget(e)||e.changedTouches.length!==1) return; const t=e.changedTouches[0]; if(fiveT0&&Math.hypot(t.clientX-fiveT0.x,t.clientY-fiveT0.y)>10) return; const  el=document.elementFromPoint(t.clientX,t.clientY); if(!el) return; if(e.cancelable) e.preventDefault(); e.stopPropagation(); fiveRoute(el); },{capture:true,passive:false});
+document.addEventListener("click",e=>{ if(!fiveTarget(e)) return; e.preventDefault(); e.stopPropagation(); fiveRoute(e.target); },true);
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
