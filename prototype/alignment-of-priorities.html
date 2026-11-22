@@ -5856,7 +5856,7 @@ const _uapNM=uapNextMove; uapNextMove=function(){ const m=_uapNM(); if(m.done) m
    A new plan starts at the engagement's stage; changing a plan's phase never moves the stage. The Debrief ticks Met, writes the recap and proposes
    next steps; the follow-up email, the 60-second brief and Rehearse read the plan. ===================== */
 const SP_TYPES=["Annual Review","Discovery (Initial Due-Diligence)","Finalist","Implementation","Initial Meeting","Internal Prep Session","Optimization","Quarterly Review","Status","Warm-up","Work-out","Workshop"];
-const SP_DUR=["0 hr 5 min","0 hr 10 min","0 hr 15 min","0 hr 20 min","0 hr 30 min","0 hr 45 min","1 hr 0 min","1 hr 15 min","1 hr 30 min","1 hr 45 min","2 hr 0 min","2 hr 30 min","3 hr 0 min","3 hr 30 min","4 hr 0 min","4 hr 30 min","5 hr 0 min","5 hr 30 min","6 hr 0 min"];
+const SP_DUR=["0 hr 5 min","0 hr 10 min","0 hr 15 min","0 hr 20 min","0 hr 30 min","0 hr 45 min","0 hr 50 min","1 hr 0 min","1 hr 15 min","1 hr 30 min","1 hr 45 min","2 hr 0 min","2 hr 30 min","3 hr 0 min","3 hr 30 min","4 hr 0 min","4 hr 30 min","5 hr 0 min","5 hr 30 min","6 hr 0 min"];
 const SP_DUR_ITEM=[...SP_DUR,"6 hr 30 min","7 hr 0 min","7 hr 30 min","8 hr 0 min","8 hr 30 min","9 hr 0 min"];
 /* the priorities list, as printed in the PDF; the three spelling slips fixed (Creiteria, Stakholders, Implemenation) */
 const SP_ACT=[["Awareness",["1.1 Gain Business Clarity","1.2 Identify Key Stakeholders","1.3 Frame Points of View","1.4 Verify Success Criteria","1.5 Establish Timeline with Milestones","1.6 Determine Go/No Go"]],
@@ -5976,13 +5976,13 @@ function spPlanPrompt(p){ const st=p.phase||stageOf(), who=spWho();
   return `You are a KA (Knowledge-Advantage) principal filling in KA's "Session Plan" for the next session with ${aidTitle()}.
 Plan the session from THE ENGAGEMENT below only. Never invent people, names, dates, places or facts.
 ${st?`They are in the ${SP_PHASES[st-1]} phase of KA's Assessment Roadmap.`:""}
-PRIORITIES must be chosen EXACTLY from this list (the Assessment Roadmap activities, as printed): ${JSON.stringify(SP_ALL)}. Up to 3 client/advisor priorities (what the client wants from the session) and up to 3 of ours (what we are specifically trying to achieve as a result of the session). Each with details under 90 characters.
-AGENDA: up to 6 items, each "what needs to be the focus of the meeting to achieve the objectives", under 70 characters, tied to the engagement's aids where it helps (e.g. confirm the stakeholders' priorities on the map, walk through the alignment, agree the criteria). Owner: ${who.length?`one of these participants only: ${JSON.stringify(who)}, or "Us" or "Client"`:`"Us" or "Client" (no names were given)`}. Duration from this list only: ${JSON.stringify(SP_DUR_ITEM)}.${p.dur?` The items should add up to no more than ${p.dur}.`:""}
+PRIORITIES must be chosen EXACTLY from this list (the Assessment Roadmap activities, as printed): ${JSON.stringify(SP_ALL)}. Exactly 3 client/advisor priorities (what the client wants from the session) and exactly 3 of ours (what we are specifically trying to achieve as a result of the session), all different, each with specific details under 90 characters that name what will be confirmed or agreed for this client.
+THE SESSION IS 50 MINUTES ("0 hr 50 min"); always plan for 50 minutes unless the user set another length. AGENDA: 5 or 6 items that fill the 50 minutes exactly, opening with introductions and the session's objectives and closing with agreeing next steps and owners; each item each "what needs to be the focus of the meeting to achieve the objectives", under 70 characters, tied to the engagement's aids where it helps (e.g. confirm the stakeholders' priorities on the map, walk through the alignment, agree the criteria). Owner: ${who.length?`one of these participants only: ${JSON.stringify(who)}, or "Us" or "Client"`:`"Us" or "Client" (no names were given)`}. Duration from this list only: ${JSON.stringify(SP_DUR_ITEM)}.${p.dur&&p.src.dur==="you"?` The items must add up to exactly ${p.dur}.`:" The items must add up to exactly 50 minutes."} Every item has an owner and a duration.
 TYPE OF SESSION from this list only: ${JSON.stringify(SP_TYPES)}. SESSION DURATION from: ${JSON.stringify(SP_DUR)}.
-NEXT STEPS: up to 4 likely actions to advance the opportunity after the session, each under 60 characters; "who" uses the same rule as owners; no dates.
+NEXT STEPS: 3 or 4 likely actions, each with who, to advance the opportunity after the session, each under 60 characters; "who" uses the same rule as owners; no dates.
 THE ENGAGEMENT:
 ${engagementText().slice(0,14000)}
-Reply with JSON only: {"type":"…","duration":"…","client":[{"a":"exact item","d":"details"}],"ours":[{"a":"exact item","d":"details"}],"agenda":[{"t":"…","o":"…","dur":"…"}],"next":[{"a":"…","who":"…"}],"questions":["up to 4 questions to confirm before the session"]}`; }
+Reply with JSON only: {"type":"…","duration":"…","client":[{"a":"exact item","d":"details"}],"ours":[{"a":"exact item","d":"details"}],"agenda":[{"t":"…","o":"…","dur":"…"}],"next":[{"a":"…","who":"…"}],"notes":"one or two lines for the plan's notes: what to bring and what to confirm, under 200 characters","questions":["up to 4 questions to confirm before the session"]}`; }
 function spApply(p,r){ const snap=JSON.stringify(p); let n=0; const put=(k,cur,v,fn)=>{ if(!v||p.src[k]==="you"||String(cur||"").trim()) return; fn(v); p.src[k]="claude"; n++; };
   put("type",p.type,SP_TYPES.includes(r?.type)?r.type:"",v=>p.type=v); put("dur",p.dur,SP_DUR.includes(r?.duration)?r.duration:"",v=>p.dur=v);
   [["client","cp","c"],["ours","op","o"]].forEach(([rk,pk,sd])=>{ const used=new Set(p[pk].map(x=>x.a).filter(Boolean)); (Array.isArray(r?.[rk])?r[rk]:[]).filter(x=>SP_ALL.includes(x?.a)&&!used.has(x.a)).slice(0,3).forEach(x=>{ const i=p[pk].findIndex(z=>!z.a); if(i<0||p.src[`${sd}p.${i}`]==="you") return; used.add(x.a); p[pk][i].a=x.a; p.src[`${sd}p.${i}`]="claude"; if(!p[pk][i].d.trim()&&x.d){ p[pk][i].d=String(x.d).slice(0,140); p.src[`${sd}d.${i}`]="claude"; } n++; }); });
@@ -7632,6 +7632,18 @@ Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
     save(); return n; }
   catch(e){ return 0; } finally{ smMsg=""; smRefresh(); } }
 const _smDraftVC=smDraft; smDraft=async function(...a){ const D=smData(); if(!smNamedC(D).length){ smSeed(D); save(); } await smVendorCaps(); return _smDraftVC(...a); };
+
+/* ---------- Session Plans, complete and 50 minutes (Dave, Nov 22: "Session plans should be more complete when generated by Claude. Always assume meetings are 50 minutes when Claude generates.")
+   Claude plans exactly three priorities on each side with details, five or six agenda items that fill the 50 minutes (opening, closing on next steps), owners, three or four next steps
+   with who, and the notes. The session's duration is 0 hr 50 min unless you set it ("0 hr 50 min" joins the PDF's duration list for this); Claude's agenda is balanced to the total. ---------- */
+const _spApply50=spApply; spApply=function(p,r){ if(p.src.dur!=="you"&&(!p.dur||p.src.dur==="claude")){ p.dur="0 hr 50 min"; p.src.dur="claude"; }
+  if(r&&r.duration&&p.src.dur!=="you") r.duration="0 hr 50 min";
+  const out=_spApply50(p,r);
+  if(r&&r.notes&&!(p.notes||"").trim()&&p.src.notes!=="you"){ p.notes=String(r.notes).slice(0,300); p.src.notes="claude"; out.n++; }
+  try{ const goal=spMins(p.dur)||50; let tot=spTotal(p); if(tot!==goal){ const mine=p.ag.map((x,i)=>[x,i]).filter(([x,i])=>x.t.trim()&&p.src[`ag.${i}.dur`]==="claude").sort((a,b)=>spMins(b[0].dur)-spMins(a[0].dur));
+      for(const [x,i] of mine){ const want=spMins(x.dur)+(goal-tot), fit=SP_DUR_ITEM.find(d=>spMins(d)===want); if(fit&&want>0){ x.dur=fit; break; } }
+      tot=spTotal(p); if(tot<goal){ const i=p.ag.findIndex(z=>!z.t.trim()); const rest=SP_DUR_ITEM.find(d=>spMins(d)===goal-tot); if(i>=0&&rest){ p.ag[i]={t:"Agree next steps and owners",o:"Us",dur:rest,d:""}; p.src[`ag.${i}.t`]=p.src[`ag.${i}.o`]=p.src[`ag.${i}.dur`]="claude"; } } } }catch(e){}
+  return out; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
