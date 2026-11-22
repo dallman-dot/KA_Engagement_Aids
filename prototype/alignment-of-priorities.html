@@ -2824,7 +2824,7 @@ async function fitSolutions({status,signal,all}={}){ const P=S.provider||(S.prov
   if(!S.items.initiatives.some(it=>it.t.trim())) say(`Scanning ${P.name}… (no initiatives chosen yet, so the Solutions will be tied in once you choose them)`);
   provBusy=true; renderProvCard();
   try{ const r=await sample.json(provPrompt(),{signal,cache:false,modelTier:"complex"});
-    if(!r||r.known===false){ say(`Not enough is known about ${P.name}. Paste a page from their website about what they offer, then try again.`); return false; }
+    if(!r||r.known===false){ say(`Not enough is known about ${P.name}${webLastErr?`, and their website couldn't be read: ${webLastErr}`:"."} Paste a page from their website about what they offer, then try again.`); return false; }
     P.summary=String(r.summary||""); P.asOf=String(r.asOf||""); P.offerings=(Array.isArray(r.offerings)?r.offerings:[]).slice(0,8).map(o=>({name:fitName(o?.name),desc:fitText("solutions",String(o?.desc||""))})).filter(o=>o.name);
     const snap=JSON.stringify(S), slots=S.items.solutions, okIds=new Set(S.items.initiatives.map((_,i)=>`initiatives.${i}`).filter(filled)); let placed=0;
     if(all) slots.forEach(it=>{ if(it.src!=="Your words") Object.assign(it,{t:"",d:"",serves:[],src:""}); });
@@ -7694,14 +7694,15 @@ async function webRead(site,say){ const url=webUrl(site); if(!url) return {err:"
 async function webEnsure(say,force){ const P=S.provider; if(!P||!webUrl(P.site)) return false;
   if(!force&&P.webText&&P.web&&P.web.site===P.site&&Date.now()-(P.web.at||0)<7*WEB_DAY) return true;
   const r=await webRead(P.site,say); if(r.text){ const Q=S.provider; Q.webText=r.text; Q.web={site:P.site,at:Date.now(),pages:r.pages}; save(); return true; }
-  if(force||!webWarned){ webWarned=true; toast(webFix(r.err,r.msg),null,true); } return false; }
+  webLastErr=webFix(r.err,r.msg); if(force||!webWarned){ webWarned=true; toast(webLastErr,null,true); } return false; }
+let webLastErr="";
 function webNote(){ const P=S.provider||{}; return P.web&&P.webText?`Read ${esc(webHost(P.web.site))} on ${new Date(P.web.at).toLocaleDateString()} (${(P.web.pages||[]).length} page${(P.web.pages||[]).length===1?"":"s"}). Claude lists the solutions from what the site says; write over anything.`:`🌐 Read their website: Claude reads the site through your Firecrawl connector and lists the solutions it describes. Or scan from what Claude already knows, plus anything you paste.`; }
 function webBtnHTML(){ const P=S.provider||{}; return `<div class="arow" style="flex:0 1 auto;margin-top:8px"><button class="btn${(S.provider?.offerings||[]).length?"":" primary"}" data-webread ${webUrl(P.site)?"":"disabled"}>🌐 ${P.webText?"Read":"Read"} ${P.site?esc(webHost(P.site)):"the solution's website"}${P.webText?" again":""}</button></div><p class="note">${webUrl(P.site)?webNote():"Add the solution's website in New engagement or the Alignment's Solutions step, and Claude can read it."}</p>`; }
 /* one click: read the site, then fill the alignment's Solutions and the Solutions Map's columns, all yours to write over */
 let webBusy=false;
 async function webSolutionsAll(){ if(webBusy) return; const P=S.provider||{}; if(!webUrl(P.site)){ toast(webFix("nourl"),null,true); return; } if(!sample){ toast("Claude isn't available in this view, so nothing was read.",null,true); return; }
   webBusy=true; const snap=JSON.stringify(S); const say=t=>{ provMsg=t; const ps=$("provStatus"); if(ps) ps.textContent=t; smMsg=t; try{ smRefresh(); }catch(e){} };
-  try{ const ok=await webEnsure(say,true); if(!ok){ say(""); return; }
+  try{ const ok=await webEnsure(say,true); if(!ok){ say(`Couldn't read ${webHost(P.site)}. ${webLastErr} Until then, paste their services page above and tap Scan.`); return; }
     say(`Claude is listing ${P.name||"the solution"}'s solutions from its website…`);
     const before=S.items.solutions.filter(x=>x.t.trim()).length; await fitSolutions({status:$("provStatus")}); const nA=S.items.solutions.filter(x=>x.t.trim()).length-before;
     const nS=await smVendorCaps(); webUndo=snap; save(); renderAll(); try{ if(curView==="build") renderBuild(); smRefresh(); }catch(e){}
