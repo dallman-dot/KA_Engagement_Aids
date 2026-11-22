@@ -1546,7 +1546,7 @@ body.meeting .fivenext{display:none}
   body.one:not(.fivezoom) .onesheet .cpstage.pmstage *{cursor:pointer}
 }
 .kit .fld{display:flex;flex-direction:column;gap:4px;margin:10px 0;font-size:13px;font-weight:600;color:var(--muted)}.kit .fld input,.kit .fld textarea{font:inherit;font-weight:400;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);width:100%;box-sizing:border-box}
-.hsort{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0 0 12px}.hsort>span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}.hsort button{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}.hsort button[aria-pressed=true]{background:#17264a;border-color:#17264a;color:#fff}
+.hsort{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;margin:0 0 12px}.hsortb{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.hsearch{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:0 12px;background:var(--card,#fff);min-width:0;flex:0 1 260px}.hsearch span{color:var(--muted)}.hsearch input{border:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:7px 0;width:100%;min-width:0;outline:none}.hcount{font-size:13px}.hsortb>span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}.hsort button{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}.hsort button[aria-pressed=true]{background:#17264a;border-color:#17264a;color:#fff}
 </style>
 
 <div class="shell">
@@ -6627,6 +6627,8 @@ PL_PARTS.sm={sum:["smWhole","smGapSyn","smNext"],det:["smRow"],sumL:"The whole m
 const _plHasSM=plHas; plHas=function(a){ if(a==="sm") return smSlidesRaw().length>0; return _plHasSM(a); };
 const _plSFsm=plSlidesFor; plSlidesFor=function(a,first){ if(a!=="sm") return _plSFsm(a,first); const pk=plPick()[a]||{}, P=PL_PARTS.sm; return smSlidesRaw().filter(s=>(pk.sum&&P.sum.includes(s.k))||(pk.det&&P.det.includes(s.k))); };
 const _plStartSM=plStart; plStart=function(seg,atEnd){ if(seg.a!=="sm"){ presSM=false; return _plStartSM(seg,atEnd); } openSM("aid"); smPresent(); if(atEnd){ pmSi=pmSl.length-1; pmPresRender(); } };
+/* Into the Alignment or the Criteria from any other aid: leave that aid's view first (Dave, November 22: "in present mode the AoP is not showing when I click through it"; coming from the Session Plan, its view stayed on screen) */
+const _plStartLeave=plStart; plStart=function(seg,atEnd){ if(seg&&(seg.a==="aop"||seg.a==="cp")){ arLeave(); uapLeave(); spLeave(); smLeave(); } return _plStartLeave(seg,atEnd); };
 const _plStepSM=plStep; plStep=function(d){ if(PL&&PL.segs[PL.i]?.a==="sm"){ const j=PL.i+d; if(j<0) return; if(j>=PL.segs.length){ toast("End of the presentation",null,true); return; } plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],d<0); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plStepSM(d); };
 const _plJumpSM=plJump; plJump=function(j,atEnd){ if(PL&&PL.segs[PL.i]?.a==="sm"){ plSwitching=true; plCover(true); pmPresEnd(); PL.i=j; setTimeout(()=>{ plStart(PL.segs[j],atEnd); plSwitching=false; setTimeout(()=>plCover(false),120); },60); return; } return _plJumpSM(j,atEnd); };
 const _rmGoSM=rmGoTo; rmGoTo=function(st){ if(st&&st.a==="sm"&&!st.pick&&!(presenting||pmOn())){ openSM("aid"); smPresent(); setTimeout(()=>rmGoTo(Object.assign({},st,{a:"smx"})),500); return; } return _rmGoSM(st); };
@@ -6959,12 +6961,16 @@ function homeSort(x,y){ const [,a,sa]=x, [,b,sb]=y; let r;
   else if(homeSortBy.k==="done") r=homePct(sb)-homePct(sa)||(b.updated||0)-(a.updated||0);
   else r=(b.updated||0)-(a.updated||0);
   return homeSortBy.rev?-r:r; }
-function homeSortBar(n){ let el=$("hsort"); if(!el){ el=document.createElement("div"); el.id="hsort"; el.className="hsort"; el.setAttribute("role","group"); el.setAttribute("aria-label","Sort engagements"); $("egrid").before(el); }
-  el.hidden=n<2; const arrow=k=>homeSortBy.k!==k?"":(k==="alpha"?(homeSortBy.rev?" ↑":" ↓"):(homeSortBy.rev?" ↑":" ↓"));
+let homeQ="";
+function homeSortBar(n,total){ let el=$("hsort"); if(!el){ el=document.createElement("div"); el.id="hsort"; el.className="hsort"; el.innerHTML=`<label class="hsearch"><span aria-hidden="true">⌕</span><input id="hsearchIn" type="search" placeholder="Search by name" aria-label="Search engagements by name" autocomplete="off"></label><span class="hsortb" role="group" aria-label="Sort engagements"></span><span class="hcount note" aria-live="polite"></span>`; $("egrid").before(el);
+    $("hsearchIn").addEventListener("input",e=>{ homeQ=e.target.value; renderHome(); }); $("hsearchIn").addEventListener("keydown",e=>{ if(e.key==="Escape"&&homeQ){ e.preventDefault(); e.target.value=""; homeQ=""; renderHome(); } }); }
+  el.hidden=(total||n)<2; const arrow=k=>homeSortBy.k!==k?"":(homeSortBy.rev?" ↑":" ↓");
   const tip={alpha:homeSortBy.rev?"Z to A":"A to Z",date:homeSortBy.rev?"Oldest first":"Newest first",done:homeSortBy.rev?"Least complete first":"Most complete first"};
-  el.innerHTML=`<span>Sort</span>${Object.entries(HS_KEYS).map(([k,l])=>`<button data-hsort="${k}" aria-pressed="${homeSortBy.k===k}" title="${homeSortBy.k===k?tip[k]+" · tap to reverse":l}">${l}${arrow(k)}</button>`).join("")}`; }
+  el.querySelector(".hsortb").innerHTML=`<span>Sort</span>${Object.entries(HS_KEYS).map(([k,l])=>`<button data-hsort="${k}" aria-pressed="${homeSortBy.k===k}" title="${homeSortBy.k===k?tip[k]+" · tap to reverse":l}">${l}${arrow(k)}</button>`).join("")}`;
+  el.querySelector(".hcount").textContent=homeQ.trim()?(n?`${n} of ${total}`:`No engagement named “${homeQ.trim()}”`):""; }
+function homeMatch(id,a){ const q=homeQ.trim().toLowerCase(); if(!q) return true; const d=id===LIBD.cur?S:a.data; return [a.name,d&&d.company&&d.company.name].some(x=>String(x||"").toLowerCase().includes(q)); }
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-hsort]"); if(!b) return; const k=b.dataset.hsort; homeSortBy=homeSortBy.k===k?{k,rev:!homeSortBy.rev}:{k,rev:false}; try{ localStorage.setItem("ka-home-sort",JSON.stringify(homeSortBy)); }catch(err){} renderHome(); });
-renderHome=function(){ const list=Object.entries(LIBD.aids).map(([id,a])=>[id,a,stageStats(id)]).sort(homeSort).filter(([id,a,s])=>!(/^Untitled/.test(a.name||"Untitled")&&s.empty)); homeSortBar(list.length);
+renderHome=function(){ let list=Object.entries(LIBD.aids).map(([id,a])=>[id,a,stageStats(id)]).sort(homeSort).filter(([id,a,s])=>!(/^Untitled/.test(a.name||"Untitled")&&s.empty)); const hsTotal=list.length; list=list.filter(([id,a])=>homeMatch(id,a)); homeSortBar(list.length,hsTotal);
   const pipe=$("pipe"); if(pipe){ pipe.hidden=true; pipe.innerHTML=""; }
   const bar=(c,l,v)=>`<div class="${c}"><i><s style="width:${v}%"></s></i><span>${l} <b>${v}%</b></span></div>`;
   const cards=list.map(([id,a,s])=>`<div class="ecard ${id===LIBD.cur?"cur":""}" role="button" tabindex="0" data-eng="${id}">
