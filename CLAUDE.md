@@ -145,6 +145,17 @@ KA licenses standards (mind-set, skill-set, tool-set) for better decisions in sa
   - **All seven aids**: the straw dog now also drafts the **Assessment Roadmap** after the Session Plan (Claude's read, then the proposed timeline if none), and shows it after Understanding a Problem: **eight visuals**, in KA's order (Dave, November 21: "session plan should be first. solutions map should come before Criteria Proposition."): cover, Session Plan, Alignment, Priorities Map, Problem, Roadmap, Solutions Map, Criteria (`sdBuild`, `SD_LIST` sorted the same way). The build drafts the Solutions Map before the Criteria and the Session Plan near the end, since it reads the other aids; the Engagement report follows the same order.
   - **The form stays**: "I'd rather fill in the form" (and "← Back to the conversation"). Opening New engagement starts a fresh conversation unless a build is running.
 
+- **No book quotes** (Dave, November 22: "get rid of book quotes (goal not be right, etc.) in interactive aids and PDFs"): Kevin's line ("My goal is not to be right…") and the book's quoted passages are gone from every screen, slide, presenter note and PDF:
+  - the title slides and the leave-behind and straw dog covers;
+  - the Learn gaps cards and the Home footer;
+  - Build's `TEACH.book` and the Criteria's band quotes;
+  - the Coach's From the book tab;
+  - the off-track window, the map, problem, Solutions Map and Session Plan closing slides and notes;
+  - the follow-up email's opener;
+  - the Alignment's "From the book" Learn card (now "An example: one alignment, built from public information") and the Criteria's lenses card (each lens's own words, and "Describe the value in Green (TCO) terms first…").
+
+  Claude's prompts no longer quote the book either. The question "Where am I off track?", Kevin's example (Morgan Industries) and the process list's "From the book · 15" label stay, since they aren't quotes. `KEVIN` stays defined but nothing shows it.
+
 ## Open for Dave
 
 - **Later: a limited offering** (Dave, November 18: "At some point I make it available as a limited offering to a handful of clients… a public www address. Users would log in with an id and password. It would use my Claude account to generate the artifacts/etc."). Until then it is Dave's alone, with shared rooms for others.
