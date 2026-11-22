@@ -1314,6 +1314,9 @@ body.one #viewAidSM .ctlcard{display:none!important}
 body.one.meeting #oneWrap{grid-template-columns:minmax(0,1fr);padding-bottom:110px}body.one.meeting #oneWrap>.onepanel{display:none!important}
 .meetbar .wthint{font-size:13px;display:inline-flex;gap:6px;align-items:baseline;flex-wrap:wrap}.meetbar .wthint .note{color:inherit;opacity:.75}
 
+/* no KA logo, ever (Dave, Nov 22) */
+.appbar .brand .kalogo{display:none!important}.ps-kafoot>b,.ps-ka>b{display:none!important}.ps-ka>span:first-of-type{display:none}
+
 /* ===== Simpler (Nov 18): one screen per aid, four chips, two menus, Before · During · After ===== */
 #oneWrap{display:block;min-width:0}
 body.one #oneWrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,360px);gap:14px;align-items:start}
@@ -1562,12 +1565,13 @@ body.meeting .fivenext{display:none}
 .noclline{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:var(--paper);border:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
 .linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--blue,#2b4f9e);text-decoration:underline;cursor:pointer}
 body.noclaude [data-oneclaude],body.noclaude .clstart,body.noclaude [data-clnext],body.noclaude .clbtn{display:none!important}
+.kit .fld{display:flex;flex-direction:column;gap:4px;margin:10px 0;font-size:13px;font-weight:600;color:var(--muted)}.kit .fld input,.kit .fld textarea{font:inherit;font-weight:400;font-size:15px;color:var(--ink);padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);width:100%;box-sizing:border-box}
 </style>
 
 <div class="shell">
 
   <header class="appbar" id="appbar">
-    <button class="brand" data-nav="home" aria-label="Knowledge-Advantage, Inc. · all engagements"><span class="kalogo"><span class="kab">ka</span><span class="kan">Knowledge-Advantage, Inc.</span></span><span class="bt">Engagement Aids</span></button>
+    <button class="brand" data-nav="home" aria-label="Engagement Aids · all engagements"><span class="bt">Engagement Aids</span></button>
     <nav class="crumbs" id="crumbs" aria-label="Where you are"></nav>
     <button class="cmdbtn" id="cmdBtn" aria-label="Search actions"><span aria-hidden="true">⌕</span><span class="cl">Search actions</span><kbd id="cmdKey">⌘K</kbd></button>
   </header>
@@ -1656,7 +1660,7 @@ body.noclaude [data-oneclaude],body.noclaude .clstart,body.noclaude [data-clnext
   </div>
 
   <section id="viewLearn" role="tabpanel" aria-labelledby="tabLearn" hidden>
-    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1><p class="gsub">Learn the framework in six short cards. Then build your own.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
+    <div class="ghead"><div><small>Gain Business Clarity</small><h1>Alignment of Priorities</h1><p class="gsub">Learn the framework in six short cards. Then build your own.</p></div></div>
     <div class="lwrap">
       <ol class="ldots" id="ldots" aria-label="Cards"></ol>
       <article class="lcard" id="lcard" aria-live="polite"></article>
@@ -1761,7 +1765,7 @@ body.noclaude [data-oneclaude],body.noclaude .clstart,body.noclaude [data-clnext
           <circle cx="137.9" cy="11.5" r="1" fill="var(--muted)"/><circle cx="141.4" cy="11.5" r="1" fill="var(--plum)"/>
           <g id="clientMarkG"></g>
           <text class="subt" x="98.8" y="40.2" fill="var(--plum)" font-family="Open Sans,sans-serif" font-weight="800" font-size="4.7" textLength="170.4" lengthAdjust="spacingAndGlyphs">Aligning Organizational, Operational, and Infrastructure Priorities</text>
-          <rect x="10.9" y="202.4" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="207.4" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="205.4" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="208.9" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>
+          <text x="10.9" y="208.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010 Knowledge-Advantage, Inc.</text>
           <line id="arrowLine" x1="56.6" y1="41.6" x2="268.6" y2="118" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/>
           <path id="arrowHead" d="M273.5 119.6 L264.6 121.7 L267.8 113.1 Z" fill="#fff"/>
         </svg>
@@ -1815,7 +1819,7 @@ body.noclaude [data-oneclaude],body.noclaude .clstart,body.noclaude [data-clnext
   </section>
 
   <section id="viewLearnCP" class="cpview" role="tabpanel" hidden>
-    <div class="ghead"><div><small>Measure What Matters</small><h1>Criteria Proposition</h1><p class="gsub">Learn the framework in five short cards. Then build it from your alignment.</p></div><div class="kabrand"><span class="kabox">ka</span><span>Knowledge-Advantage, Inc.</span></div></div>
+    <div class="ghead"><div><small>Measure What Matters</small><h1>Criteria Proposition</h1><p class="gsub">Learn the framework in five short cards. Then build it from your alignment.</p></div></div>
     <div class="lwrap">
       <ol class="ldots" id="cpLdots" aria-label="Cards"></ol>
       <article class="lcard" id="cpLcard" aria-live="polite"></article>
@@ -2821,7 +2825,7 @@ function coApply(how){ const d=coDraft;
 
 /* ===================== Solutions from a provider (Dave, Nov 16: "I want B… enter the solution company's name and have you scan what they say is available and then have you determine the solutions (capabilities). Solutions will need to include a short description (up to two lines).") ===================== */
 let provCtl=null, provBusy=false, provMsg="";
-function provPrompt(){ const P=S.provider, mat=($("provPaste")?.value||"").trim().slice(0,30000);
+function provPrompt(){ const P=S.provider, mat=[($("provPaste")?.value||P.material||"").trim(), P.webText?`WHAT ${P.name}'S OWN WEBSITE SAYS (read ${new Date(P.web?.at||Date.now()).toLocaleDateString()} from ${(P.web?.pages||[]).join(", ")}; use this first, it is the provider's own public description):\n${P.webText}`:""].filter(Boolean).join("\n\n").slice(0,45000);
   const inits=S.items.initiatives.map((it,i)=>it.t.trim()?{id:`initiatives.${i}`,choice:it.t,supports:it.d,improves:(it.serves||[]).filter(filled).map(nameOf)}:null).filter(Boolean);
   const procs=S.items.processes.filter(it=>it.t.trim()).map(it=>({process:it.t,supports:it.d,improveFor:gainsOf(it)}));
   return `You are a Knowledge-Advantage (KA) engagement analyst. A salesperson or advisor sells the solutions of a SOLUTION PROVIDER and is preparing KA's Alignment of Priorities for a CLIENT. Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.
@@ -2840,7 +2844,7 @@ async function fitSolutions({status,signal,all}={}){ const P=S.provider||(S.prov
   if(!S.items.initiatives.some(it=>it.t.trim())) say(`Scanning ${P.name}… (no initiatives chosen yet, so the Solutions will be tied in once you choose them)`);
   provBusy=true; renderProvCard();
   try{ const r=await sample.json(provPrompt(),{signal,cache:false,modelTier:"complex"});
-    if(!r||r.known===false){ say(`Not enough is known about ${P.name}. Paste a page from their website about what they offer, then try again.`); return false; }
+    if(!r||r.known===false){ say(`Not enough is known about ${P.name}${webLastErr?`, and their website couldn't be read: ${webLastErr}`:"."} Paste a page from their website about what they offer, then try again.`); return false; }
     P.summary=String(r.summary||""); P.asOf=String(r.asOf||""); P.offerings=(Array.isArray(r.offerings)?r.offerings:[]).slice(0,8).map(o=>({name:fitName(o?.name),desc:fitText("solutions",String(o?.desc||""))})).filter(o=>o.name);
     const snap=JSON.stringify(S), slots=S.items.solutions, okIds=new Set(S.items.initiatives.map((_,i)=>`initiatives.${i}`).filter(filled)); let placed=0;
     if(all) slots.forEach(it=>{ if(it.src!=="Your words") Object.assign(it,{t:"",d:"",serves:[],src:""}); });
@@ -2858,8 +2862,8 @@ function renderProvCard(){ const box=$("provCard"); if(!box) return; const P=S.p
     <div class="coGrid"><div class="field"><label for="provName">Solution provider</label><input id="provName" class="tin" data-prov="name" value="${esc(P.name)}" placeholder="e.g. your company, or the vendor you represent" autocomplete="off"></div>
       <div class="field"><label for="provSite">Website <span class="opt">optional</span></label><input id="provSite" class="tin" data-prov="site" value="${esc(P.site)}" placeholder="e.g. isap.com" autocomplete="off"></div></div>
     <div class="field"><label for="provPaste">What they offer <span class="opt">optional · paste a product or services page to make it current</span></label><textarea id="provPaste" rows="2" placeholder="Paste from the provider's website, a capabilities sheet or a proposal."></textarea></div>
-    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="provGo" ${provBusy?"disabled":""}>Scan their offerings and pick Solutions</button>${provBusy?`<button class="btn" id="provStop">Stop</button>`:""}${provUndo&&!provBusy?`<button class="btn" id="provUndo">Undo</button>`:""}</div>
-    <p class="note" id="provStatus" aria-live="polite">${provBusy?"Scanning…":provMsg?esc(provMsg):`Uses Claude's built-in knowledge of the provider, plus anything you paste. It doesn't search the web.`}</p>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-webread ${provBusy||!webUrl(P.site)?"disabled":""} title="${webUrl(P.site)?"":"Add their website first"}">🌐 Read their website</button><button class="btn" id="provGo" ${provBusy?"disabled":""}>Scan from what Claude knows</button>${provBusy?`<button class="btn" id="provStop">Stop</button>`:""}${provUndo&&!provBusy?`<button class="btn" id="provUndo">Undo</button>`:""}</div>
+    <p class="note" id="provStatus" aria-live="polite">${provBusy?"Scanning…":provMsg?esc(provMsg):webNote()}</p>
     ${P.offerings.length?`<div class="provlist"><h4>What ${esc(P.name)} says it offers${P.asOf?` <span class="note">· ${esc(P.asOf)}</span>`:""}</h4>${P.summary?`<p class="note" style="margin:0 0 6px">${esc(P.summary)}</p>`:""}
       ${P.offerings.map((o,i)=>{ const used=sl.some(x=>x.t.trim().toLowerCase()===o.name.toLowerCase()); return `<div class="provitem"><div><b>${esc(o.name)}</b><span>${esc(o.desc)}</span></div><button class="btn small" data-provuse="${i}" ${used?"disabled":""}>${used?"✓ In Solutions":"Use"}</button></div>`; }).join("")}
       <p class="note" style="margin:6px 0 0">From the provider's public descriptions: confirm what's current with them.</p></div>`:""}`;
@@ -3026,7 +3030,7 @@ function buildSlides(){ if(presCP) return cpSlides(); const sl=[{k:"title"}]; if
 function slideLabel(sl){ if(!sl) return ""; if(sl.k.startsWith("cp")) return cpSlideLabel(sl); return sl.k==="title"?aidTitle():sl.k==="outside"?"Outside in":sl.k==="col"?COLS[sl.ix].label:sl.k==="box"?`${COLS[sl.ix].label}: ${nameOf(sl.id)}`:sl.k==="whole"?"The whole alignment":"What we heard"; }
 
 /* ---- the slides that aren't the sheet ---- */
-const KA_MARK=`<span class="ps-ka"><b>ka</b><span>Knowledge-Advantage, Inc.</span></span>`;
+const KA_MARK=``;
 function ratioStrip(){ return RATIO_GROUPS.map(g=>{ const rd=groupRead(g); const rows=g.r.filter(([k])=>S.fin?.[k]?.v).map(([k,l])=>{ const t=trendOf(k); return `<li><span>${l}</span><b>${esc(S.fin[k].v)}</b>${t?`<i class="rtrend ${t.t}">${t.arrow} ${t.t==="steady"?"Steady":`from ${esc(S.fin[k].v0)}`}</i>`:""}</li>`; }).join("");
   return `<div class="ps-rg"><div class="ps-rgh"><span>${g.l}</span>${rd?`<em class="rbadge ${rd}">${READS.find(x=>x[0]===rd)[1]}</em>`:""}</div>${rows?`<ul>${rows}</ul>`:`<p class="ps-muted">${esc(g.q)}</p>`}</div>`; }).join(""); }
 function slideHTML(sl){ if(sl.k.startsWith("cp")) return cpSlideHTML(sl);
@@ -4114,17 +4118,15 @@ function clientLayout(right=268.6,top=10.4,h=16.6,maxW=100,nameFs=5.4){ const m=
   return {m,lw,lh,lx,ly:top+(h-lh)/2,nx,nw,ny:top+h/2+fs*.36,fs,squeeze:m.name&&textMM(m.name,fs,600)>room}; }
 function clientMarkSVG(){ const L=clientLayout(); if(!L) return ""; const {m}=L;
   return `${m.logo&&L.lw?`<image href="${m.logo}" x="${L.lx}" y="${L.ly}" width="${L.lw}" height="${L.lh}" preserveAspectRatio="xMidYMid meet"/>`:""}${m.name?`<text x="${L.nx}" y="${L.ny}" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="600" font-size="${L.fs}"${L.squeeze?` textLength="${L.nw}" lengthAdjust="spacingAndGlyphs"`:""}>${esc(m.name)}</text>`:""}`; }
-function kaFootSVG(){ return `<rect x="10.9" y="202.4" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="207.4" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="205.4" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="208.9" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>`; }
+function kaFootSVG(){ return `<text x="10.9" y="208.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010 Knowledge-Advantage, Inc.</text>`; }
 /* the same in the PDFs */
 function pdfFmt(u){ return /^data:image\/png/i.test(u)?"PNG":"JPEG"; }
 function pdfClientMark(doc,o={}){ const L=clientLayout(o.right,o.top,o.h,o.maxW,o.fs); if(!L) return; const PT=2.8346;
   if(L.m.logo&&L.lw){ if(o.plate){ doc.setFillColor("#ffffff"); doc.roundedRect(L.lx-2,L.ly-2,L.lw+4,L.lh+4,1.5,1.5,"F"); } try{ doc.addImage(L.m.logo,pdfFmt(L.m.logo),L.lx,L.ly,L.lw,L.lh); }catch(e){} }
   if(L.m.name){ doc.setFont("helvetica","bold"); doc.setFontSize(L.fs*PT); doc.setTextColor(o.color||PDFC.title); let fs=L.fs; while(doc.getTextWidth(L.m.name)>L.nw+.5&&fs>2.5){ fs-=.1; doc.setFontSize(fs*PT); } doc.text(L.m.name,(o.right||268.6),L.ny,{align:"right"}); } }
-function pdfKaFoot(doc,x=10.9,y=202.4,s=1){ const PT=2.8346; doc.setDrawColor(PDFC.ink); doc.setLineWidth(.35*s); doc.rect(x,y,5.6*s,7*s);
-  doc.setTextColor(PDFC.blue); doc.setFont("helvetica","bold"); doc.setFontSize(3.1*s*PT); doc.text("ka",x+2.8*s,y+5*s,{align:"center"});
-  doc.setFont("helvetica","normal"); doc.setFontSize(2.4*s*PT); doc.text("Knowledge-Advantage, Inc.",x+7.3*s,y+3*s); doc.setTextColor(PDFC.muted); doc.setFontSize(2*s*PT); doc.text("© Copyright 2010",x+7.3*s,y+6.5*s); }
+function pdfKaFoot(doc,x=10.9,y=202.4,s=1){ const PT=2.8346; doc.setFont("helvetica","normal"); doc.setTextColor(PDFC.muted); doc.setFontSize(2*s*PT); doc.text("© Copyright 2010 Knowledge-Advantage, Inc.",x,y+6.2*s); }
 /* Present's slides */
-function CLIENT_MARK(){ const m=clientMark(); return `<span class="ps-client">${m.logo?`<img src="${m.logo}" alt="">`:""}${m.name?`<b>${esc(m.name)}</b>`:""}</span><span class="ps-kafoot"><b>ka</b><span>Knowledge-Advantage, Inc.<i>© Copyright 2010</i></span></span>`; }
+function CLIENT_MARK(){ const m=clientMark(); return `<span class="ps-client">${m.logo?`<img src="${m.logo}" alt="">`:""}${m.name?`<b>${esc(m.name)}</b>`:""}</span><span class="ps-kafoot"><span><i>© Copyright 2010 Knowledge-Advantage, Inc.</i></span></span>`; }
 /* the KA lockup sits at the slide's foot, outside the rising header */
 new MutationObserver(()=>{ document.querySelectorAll("#pslide .ps-top .ps-kafoot").forEach(k=>{ const ps=k.closest(".ps"); if(ps) ps.appendChild(k); }); }).observe($("pslide"),{childList:true,subtree:true});
 /* adding the logo: kept small, on this device, with the engagement */
@@ -5951,7 +5953,7 @@ const SPF={pri:{c:{x:21.6,w:76.2,dx:21.6,dw:84.6,m:98.6},o:{x:118.5,w:76.2,dx:11
 function spWsDot(kind,v){ const c=kind==="w"?"#1f2430":"#8a8f99"; return `<svg viewBox="0 0 10 10" class="ardot" aria-hidden="true"><circle cx="5" cy="5" r="4" fill="none" stroke="${c}" stroke-width="1"/>${v===2?`<path d="M5 1 A4 4 0 0 0 5 9 Z" fill="${c}"/>`:v===3?`<circle cx="5" cy="5" r="4" fill="${c}"/>`:""}</svg>`; }
 function spMarkSVG(){ const L=clientLayout(205.3,7.6,12.6,88,4.6); if(!L) return ""; const {m}=L;
   return `${m.logo&&L.lw?`<image href="${m.logo}" x="${L.lx}" y="${L.ly}" width="${L.lw}" height="${L.lh}" preserveAspectRatio="xMidYMid meet"/>`:""}${m.name?`<text x="${L.nx}" y="${L.ny}" fill="var(--title)" font-family="Open Sans,sans-serif" font-weight="600" font-size="${L.fs}"${L.squeeze?` textLength="${L.nw}" lengthAdjust="spacingAndGlyphs"`:""}>${esc(m.name)}</text>`:""}`; }
-const spFoot=y=>`<rect x="10.9" y="${y}" width="5.6" height="7" fill="none" stroke="var(--ink)" stroke-width=".35"/><text x="13.7" y="${y+5}" text-anchor="middle" fill="var(--blue)" font-family="Open Sans,sans-serif" font-weight="600" font-size="3.1">ka</text><text x="18.2" y="${y+3}" fill="var(--blue)" font-family="Open Sans,sans-serif" font-size="2.4">Knowledge-Advantage, Inc.</text><text x="18.2" y="${y+6.5}" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010</text>`;
+const spFoot=y=>`<text x="10.9" y="${y+5}" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010 Knowledge-Advantage, Inc.</text>`;
 function spHeadSVG(big){ const F="Open Sans,sans-serif"; return `${big?`<text x="10.4" y="18.6" fill="var(--title)" font-family="${F}" font-weight="300" font-size="11.4">Session Plan</text>`:`<text x="10.6" y="13.6" fill="var(--title)" font-family="${F}" font-weight="400" font-size="4.6">Session Plan</text>`}
   <circle cx="104.6" cy="8.6" r=".95" fill="${big?"var(--plum)":"var(--muted)"}"/><circle cx="108" cy="8.6" r=".95" fill="${big?"var(--muted)":"var(--plum)"}"/>${spMarkSVG()}`; }
 function spBar(y0,y1,t){ return `<rect x="10.6" y="${y0}" width="194.7" height="${y1-y0}" fill="#2c4f9b"/><text x="108" y="${(y0+y1)/2+1.2}" text-anchor="middle" fill="#fff" font-family="Open Sans,sans-serif" font-weight="800" font-size="3.2" letter-spacing=".3">${t}</text>`; }
@@ -6508,7 +6510,7 @@ function smBuild(){ const D=smData(), N=smNamedC(D), cname=esc(S.company?.name||
       ${missing.length?`<div class="uapcarry"><p class="minicap">From your alignment · Solutions</p><p>${esc(missing.map(s=>s.t).join(" · "))}</p><button class="btn small primary" data-smseed>Carry them over</button></div>`:!sols.length?`<p class="note">The alignment has no Solutions yet. Name the capabilities here, or <button class="linkbtn" data-nav="aop" data-view="build">add Solutions to the alignment</button>.</p>`:""}
       <div class="smcaps">${D.cap.map((x,c)=>`<div class="smcaprow"><span class="n">${c+1}</span><div class="smcapf"><input class="tin" data-smcn="${c}" value="${esc(x.n)}" placeholder="Capability ${c+1}" maxlength="40" aria-label="Capability ${c+1}"><input class="tin" data-smcd="${c}" value="${esc(x.d||"")}" placeholder="What it does, in a line (optional)" maxlength="160" aria-label="Capability ${c+1}: what it does">
         <div class="smcapm">${x.n.trim()?`${x.src&&x.src!=="you"?`<small class="srcb ${x.src==="client"?"ok":""}">${esc(x.src==="alignment"?"From the alignment's Solutions":x.src==="ally"?`From ${S.provider?.name||"the solution"}'s offerings`:SM_SRC[x.src]||"")}</small>`:`<small class="srcb you">Your words</small>`}<button class="btn small ${x.ok?"primary":""}" data-smokc="${c}">${x.ok?"✓ Understanding confirmed":"Confirm understanding"}</button><button class="btn small ghost" data-smrm="${c}">Clear</button>`:""}</div></div></div>`).join("")}</div>
-      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}`; }
+      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}${webBtnHTML()}`; }
   if(smIdx===1){ const aop=smAopInits(); h=`<p class="lkick">Step 2 of 5</p><h2>The initiatives</h2><p class="teach">Validate “top of mind” initiatives. The six are KA's, as printed on the Solutions Map; ✓ In your alignment marks the ones ${cname} chose in the Alignment of Priorities. Tick each one the stakeholder validates.</p>
     <div class="pmgrid">${SM_INIT.map((n,r)=>`<div class="pmrowed ini"><span class="n">${r+1}</span><div><b>${esc(n)}</b>${aop.includes(n)?`<br><span class="note">✓ In your alignment</span>`:""}</div><button class="btn small ${D.ok[r]?"primary":""}" data-smoki="${r}">${D.ok[r]?"✓ Validated as top of mind":"Validate"}</button></div>`).join("")}</div>`; }
   if(smIdx===2){ const cl=smToConfirm(D).length;
@@ -7087,7 +7089,7 @@ async function lbDoc(){ const J=await loadJsPdf(); const doc=new J({orientation:
 function lbClean(t){ return String(t??"").replace(/[←]/g,"<").replace(/[→]/g,"→").replace(/[✓]/g,"").replace(/×/g,"x").replace(/\s+/g," ").trim(); }
 function lbFont(doc,w,pt,c){ if(w==="heavy"){ try{ doc.setFont("InterHeavy","normal"); }catch(e){ doc.setFont("helvetica","bold"); } } else doc.setFont("helvetica",w); doc.setFontSize(pt); doc.setTextColor(c||LBC.ink); }
 function lbWrap(doc,t,w,pt){ doc.setFontSize(pt); return doc.splitTextToSize(lbClean(t),w); }
-function lbKa(doc,x,y,s,col){ doc.setDrawColor(col); doc.setLineWidth(.3*s); doc.rect(x,y,4.6*s,5.6*s); lbFont(doc,"heavy",7.5*s,col); doc.text("ka",x+2.3*s,y+4.4*s,{align:"center"}); lbFont(doc,"bold",7*s,col); doc.text("Knowledge-Advantage, Inc.",x+6.4*s,y+3.9*s); }
+function lbKa(){}
 function lbBands(doc){ const PW=279.4,PH=215.9; ["org","op","inf"].forEach((k,i)=>{ doc.setFillColor(LBC.band[k].band); doc.rect(i*PW/3,PH-7,PW/3+.5,7,"F"); }); }
 function lbWho(){ const e=eyesOf(); return [`Prepared for ${S.company?.name||aidTitle()}`,e&&`Through the eyes of ${/^the /i.test(e)?e:/^[A-Z]{2,5}$/.test(e)?`the ${e}`:e}`,longDate()].filter(Boolean).join(" · "); }
 /* the cover: navy, the client large, the aid's own motif faint on the right */
@@ -7095,7 +7097,7 @@ function lbCover(doc,{kicker,sub,motif}){ const PW=279.4,PH=215.9, nm=S.company?
   doc.setFillColor(LBC.navy); doc.rect(0,0,PW,PH,"F");
   if(motif){ doc.setGState(new doc.GState({opacity:.12})); doc.setFillColor("#ffffff"); motif(doc); doc.setGState(new doc.GState({opacity:1})); }
   lbKa(doc,20,16,1.05,"#ffffff");
-  const m=clientMark(); if(m.logo){ try{ const h=14, w=Math.min(60,h*(m.logoW&&m.logoH?m.logoW/m.logoH:3)); doc.setFillColor("#ffffff"); doc.roundedRect(PW-20-w-4,12,w+4,h+4,1.5,1.5,"F"); doc.addImage(m.logo,pdfFmt(m.logo),PW-20-w-2,14,w,h); }catch(e){} }
+  coverLogo(doc);
   lbFont(doc,"bold",9,LBC.gold); doc.setCharSpace(.7); doc.text(kicker.toUpperCase(),20,64); doc.setCharSpace(0);
   let pt=44; lbFont(doc,"heavy",pt,"#ffffff"); while(doc.getTextWidth(nm)>150&&pt>26){ pt-=1; doc.setFontSize(pt); } const nl=doc.splitTextToSize(nm,150).slice(0,2); const nb=64+mmPt(pt)+4; doc.text(nl,20,nb,{lineHeightFactor:1.02}); let y=nb+(nl.length-1)*mmPt(pt)*1.02+10;
   lbFont(doc,"normal",12,"#c9d1e3"); const sl=doc.splitTextToSize(sub,125); doc.text(sl,20,y); y+=sl.length*mmPt(12)*1.35+12;
@@ -7363,7 +7365,7 @@ async function sdRun(){ if(sdBusy||suBusy) return; if(!sample){ $("suNote").text
     if(!allFilled().length){ st.textContent=`Claude didn't know enough about ${client} to draft it. Add material and build again, or build by hand.`; ["pm","uap","cp","sm","sp","ar","sd"].forEach(k=>sdMark(k,"skip")); return; }
     sdMark("pm","run"); st.textContent="Mapping the stakeholders' priorities…"; pmData(); const okPm=await pmDraft(); sdMark("pm",okPm?"done":"skip");
     sdMark("uap","run"); st.textContent=S.provider.name?`Framing the problem ${S.provider.name} solves for ${client}…`:"Framing the core business problem…"; const okU=await sdProblem(); sdMark("uap",okU&&uapProb()?.box.some(b=>b.t.trim())?"done":"skip");
-    sdMark("sm","run"); st.textContent="Mapping the capabilities to the initiatives…"; { const D=smData(); if(smSeed(D)) save(); } const okS=smNamedC().length?await smDraft():false; sdMark("sm",okS||smRated().length?"done":"skip");
+    sdMark("sm","run"); st.textContent="Mapping the capabilities to the initiatives…"; { const D=smData(); if(smSeed(D)) save(); } const okS=await (async()=>{ window.__smQuiet=true; try{ return await smDraft(); } finally{ window.__smQuiet=false; } })(); sdMark("sm",okS||smRated().length?"done":"skip");
     sdMark("cp","run"); st.textContent="Drafting the criteria from the alignment…"; await _cpDraft(CPB.map(b=>b.k)); sdMark("cp",cpAll().length?"done":"skip");
     sdMark("sp","run"); st.textContent="Planning the first session…"; if(!spPlan()) spNew(true); await spDraft(); sdMark("sp",spPlan()?"done":"skip");
     sdMark("ar","run"); st.textContent="Reading where they are on the Assessment Roadmap…"; await arDraft(); try{ const R=arData(); if(!(R.dates&&[1,2,3,4,5].some(p=>R.dates[p]))) arProposeTimeline(); }catch(e){} sdMark("ar",arData().drafted?"done":"skip");
@@ -7379,7 +7381,7 @@ function sdStamp(doc,portrait){ const W=portrait?215.9:279.4, t="DRAFT · FOR DI
   doc.setDrawColor(PDFC.plum); doc.setFillColor("#ffffff"); doc.setLineWidth(.35); doc.roundedRect(x,y,w,5,2.5,2.5,"FD"); doc.setTextColor(PDFC.plum); doc.text(t,x+3.5,y+3.45); doc.setCharSpace(0); }
 function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), ally=(S.provider?.name||"").trim();
   doc.setFillColor(LBC.navy); doc.rect(0,0,PW,PH,"F"); lbKa(doc,20,16,1.05,"#ffffff");
-  const m=clientMark(); if(m.logo){ try{ const h=14, w=Math.min(60,h*(m.logoW&&m.logoH?m.logoW/m.logoH:3)); doc.setFillColor("#ffffff"); doc.roundedRect(PW-20-w-4,12,w+4,h+4,1.5,1.5,"F"); doc.addImage(m.logo,pdfFmt(m.logo),PW-20-w-2,14,w,h); }catch(e){} }
+  coverLogo(doc);
   const t="DRAFT · FOR DISCUSSION"; lbFont(doc,"bold",8,LBC.gold); doc.setCharSpace(.6); const tw=doc.getTextWidth(t)+.6*t.length; doc.setDrawColor(LBC.gold); doc.setLineWidth(.35); doc.roundedRect(20,56,tw+8,7,3.5,3.5,"S"); doc.text(t,24,60.8); doc.setCharSpace(0);
   let pt=42; lbFont(doc,"heavy",pt,"#ffffff"); while(doc.getTextWidth(nm)>132&&pt>24){ pt-=1; doc.setFontSize(pt); } const nl=doc.splitTextToSize(nm,132).slice(0,2), nb=72+mmPt(pt)+2; doc.text(nl,20,nb,{lineHeightFactor:1.02});
   let y=nb+(nl.length-1)*mmPt(pt)*1.02+9; if(ally){ lbFont(doc,"normal",13,"#c9d1e3"); doc.text("with",20,y); const ww=doc.getTextWidth("with "); lbFont(doc,"bold",13,"#ffffff"); doc.text(lbClean(ally),20+ww,y); y+=9; }
@@ -7389,7 +7391,7 @@ function sdCover(doc){ const PW=279.4,PH=215.9, nm=S.company?.name||aidTitle(), 
     doc.setDrawColor("#5b6b8f"); doc.setLineWidth(.3); doc.line(x,y,x+w,y); lbFont(doc,"bold",6.6,"#9fb0d0"); doc.setCharSpace(.45); doc.text(k,x,y+4.4); doc.setCharSpace(0); lbFont(doc,"bold",10,"#ffffff"); doc.text(vv,x,y+9.6); x+=w+9; });
   // what's inside: the five visuals, on the right
   const rx=172, rw=PW-rx-20; doc.setFillColor("#22335c"); doc.roundedRect(rx-6,50,rw+12,124,2.4,2.4,"F"); lbFont(doc,"bold",7,"#9fb0d0"); doc.setCharSpace(.6); doc.text("IN THIS DRAFT",rx,59); doc.setCharSpace(0);
-  const sdGap=SD_LIST.length>5?Math.min(17.6,103/(SD_LIST.length-1)):21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?65:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
+  const sdGap=SD_LIST.length>5?Math.min(17.6,96/(SD_LIST.length-1)):21; SD_LIST.forEach(([k,n,d],i)=>{ const yy=(SD_LIST.length>5?64:67)+i*sdGap; doc.setDrawColor(LBC.gold); doc.setLineWidth(.4); doc.circle(rx+3.4,yy+1.2,3.4,"S"); lbFont(doc,"bold",8.5,LBC.gold); doc.text(String(i+2),rx+3.4,yy+2.4,{align:"center"});
     lbFont(doc,"bold",10,"#ffffff"); doc.text(n,rx+10,yy+2.2); lbFont(doc,"normal",8,"#b9c4dc"); doc.text(doc.splitTextToSize(d,rw-10).slice(0,2),rx+10,yy+6.6,{lineHeightFactor:1.35});
     if(i<SD_LIST.length-1){ doc.setDrawColor("#33456f"); doc.setLineWidth(.2); doc.line(rx+10,yy+sdGap-5.6,rx+rw,yy+sdGap-5.6); } });
    lbBands(doc); }
@@ -7673,8 +7675,8 @@ try{ (S.uap?.probs||[]).forEach(uapNoQuestions); }catch(e){}
 async function smVendorCaps(){ const D=smData(), ally=(S.provider?.name||"").trim(); if(!sample||!ally) return 0; const free=D.cap.map((c,i)=>[c,i]).filter(([c])=>!(c.n||"").trim()).map(([,i])=>i); if(!free.length) return 0;
   const have=D.cap.filter(c=>(c.n||"").trim()).map(c=>c.n.trim()), offers=(S.provider?.offerings||[]).map(o=>({name:o.name,desc:o.desc||""})).slice(0,10);
   const prompt=`You are a KA (Knowledge-Advantage) principal. List the key capabilities that ${ally}${S.provider?.site?` (${S.provider.site})`:""} itself says publicly that its solution provides: its products, services and programs, as ${ally} describes them.
-${offers.length?`What ${ally} says it offers, as already found: ${JSON.stringify(offers)}\n`:""}Leave out anything already on the map: ${JSON.stringify(have)}.
-Give up to ${free.length}, the most distinct first. Each name at most 24 characters (abbreviate logically), each description at most 80 characters, in the vendor's own terms. Never invent a capability; if you don't know ${ally}, reply {"known":false}.
+${offers.length?`What ${ally} says it offers, as already found: ${JSON.stringify(offers)}\n`:""}${S.provider?.webText?`WHAT ${ally}'S OWN WEBSITE SAYS (read just now; use it first):\n${S.provider.webText.slice(0,30000)}\n`:""}${(S.provider?.material||"").trim()?`WHAT ${ally} SAYS IT PROVIDES (pasted by the user; use it first):\n${S.provider.material.slice(0,20000)}\n`:""}Leave out anything already on the map: ${JSON.stringify(have)}.
+Give up to ${free.length}, the most distinct first. Each name at most 24 characters (abbreviate logically), each description at most 80 characters, in the vendor's own terms. Never invent a capability; if you don't know ${ally} and nothing was pasted, reply {"known":false}.
 Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
   try{ smMsg=`Claude is reading what ${ally} says it provides…`; smRefresh(); const r=await sample.json(prompt,{modelTier:"complex"}); if(!r||r.known===false||!Array.isArray(r.capabilities)) return 0;
     const E=smData(); let n=0; const seen=new Set(E.cap.map(c=>(c.n||"").trim().toLowerCase()).filter(Boolean));
@@ -7683,6 +7685,66 @@ Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
     save(); return n; }
   catch(e){ return 0; } finally{ smMsg=""; smRefresh(); } }
 const _smDraftVC=smDraft; smDraft=async function(...a){ const D=smData(); if(!smNamedC(D).length){ smSeed(D); save(); } await smVendorCaps(); return _smDraftVC(...a); };
+
+/* ---------- Reading a public website (Dave, November 22: "I want Claude to be able to visit a public website and to list the key solutions that the user can then override in both the Alignment of Priorities and the Solutions Map.")
+   The page can't reach other sites itself, so it reads through the viewer's Firecrawl connector (mcp), then Claude lists the solutions from what the site says. ---------- */
+const WEB_SRV="Firecrawl", WEB_TOOL="firecrawl_scrape", WEB_DAY=86400000;
+let webMcp, webWarned=false;
+async function webNs(){ if(webMcp===undefined){ try{ webMcp=window.claude?await window.claude.use("mcp"):null; }catch(e){ webMcp=null; } } return webMcp; }
+function webUrl(s){ s=String(s||"").trim(); if(!s||/\s/.test(s)) return ""; if(!/^https?:\/\//i.test(s)) s="https://"+s.replace(/^\/+/,""); try{ const u=new URL(s); return /\.[a-z]{2,}$/i.test(u.hostname)?u.href:""; }catch(e){ return ""; } }
+function webHost(u){ try{ return new URL(webUrl(u)).hostname.replace(/^www\./,""); }catch(e){ return String(u||""); } }
+function webFix(code,msg){ return ({nourl:"Add the solution's website first (e.g. workatgrowth.com).",
+  nomcp:"Reading websites needs the page opened in Claude.",server_not_connected:"To let Claude read websites, add the Firecrawl connector in claude.ai Settings → Connectors, then try again.",
+  needs_reauth:"Reconnect Firecrawl in claude.ai Settings → Connectors, then try again.",not_in_manifest:"Firecrawl isn't allowed for this page. Allow it when asked, then try again.",
+  approval_required:"Reading the website needs your approval: try again and choose Allow.",selection_required:"Choose which Firecrawl connector to use when claude.ai asks, then try again.",
+  blocked_by_policy:"Your organization blocks Firecrawl for this page.",tool_error:`Firecrawl couldn't read the site${msg?`: ${String(msg).slice(0,120)}`:"."}`})[code]||`The website couldn't be read this time${msg?` (${String(msg).slice(0,100)})`:""}.`; }
+async function webScrape(m,url){ const r=await m.callTool(WEB_SRV,WEB_TOOL,{url,formats:["markdown"],onlyMainContent:true},{cache:{staleTime:WEB_DAY,gcTime:WEB_DAY}});
+  const p=r&&r.payload; let md=typeof p==="string"?p:(p&&(p.markdown||(p.data&&p.data.markdown)||p.content))||"";
+  if(!md&&r&&Array.isArray(r.content)) md=r.content.filter(b=>b&&b.type==="text").map(b=>b.text).join("\n"); return String(md||""); }
+async function webRead(site,say){ const url=webUrl(site); if(!url) return {err:"nourl"}; const m=await webNs(); if(!m) return {err:"nomcp"}; const host=new URL(url).hostname;
+  try{ say&&say(`Reading ${host.replace(/^www\./,"")}…`); const home=await webScrape(m,url); if(!home.trim()) return {err:"tool_error",msg:"the page came back empty"};
+    const seen=new Set([url.replace(/\/$/,"")]), picks=[]; const re=/\[([^\]]{1,90})\]\(([^)\s]+)\)/g; let x;
+    while((x=re.exec(home))&&picks.length<3){ let h; try{ h=new URL(x[2],url); }catch(e){ continue; } if(h.hostname!==host) continue; h.hash=""; const k=h.href.replace(/\/$/,"");
+      if(seen.has(k)) continue; if(!/(service|solution|product|offer|what-we-do|whatwedo|platform|capabilit|program|how-we-help|practice|coaching|consult|approach|work-with)/i.test(h.pathname+" "+x[1])) continue; seen.add(k); picks.push(h.href); }
+    const pages=[url], parts=[`PAGE ${url}\n${home.slice(0,20000)}`];
+    for(const u of picks){ try{ say&&say(`Reading ${host.replace(/^www\./,"")} · ${new URL(u).pathname}…`); const t=await webScrape(m,u); if(t.trim()){ pages.push(u); parts.push(`PAGE ${u}\n${t.slice(0,8000)}`); } }catch(e){} }
+    return {text:parts.join("\n\n").slice(0,40000),pages}; }
+  catch(e){ return {err:(e&&e.code)||"error",msg:e&&e.message}; } }
+/* reads the solution's site once a day at most; keeps what it read with the engagement */
+async function webEnsure(say,force){ const P=S.provider; if(!P||!webUrl(P.site)) return false;
+  if(!force&&P.webText&&P.web&&P.web.site===P.site&&Date.now()-(P.web.at||0)<7*WEB_DAY) return true;
+  const r=await webRead(P.site,say); if(r.text){ const Q=S.provider; Q.webText=r.text; Q.web={site:P.site,at:Date.now(),pages:r.pages}; save(); return true; }
+  webLastErr=webFix(r.err,r.msg); if(force||!webWarned){ webWarned=true; toast(webLastErr,null,true); } return false; }
+let webLastErr="";
+function webNote(){ const P=S.provider||{}; return P.web&&P.webText?`Read ${esc(webHost(P.web.site))} on ${new Date(P.web.at).toLocaleDateString()} (${(P.web.pages||[]).length} page${(P.web.pages||[]).length===1?"":"s"}). Claude lists the solutions from what the site says; write over anything.`:`🌐 Read their website: Claude reads the site through your Firecrawl connector and lists the solutions it describes. Or scan from what Claude already knows, plus anything you paste.`; }
+function webBtnHTML(){ const P=S.provider||{}; return `<div class="arow" style="flex:0 1 auto;margin-top:8px"><button class="btn${(S.provider?.offerings||[]).length?"":" primary"}" data-webread ${webUrl(P.site)?"":"disabled"}>🌐 ${P.webText?"Read":"Read"} ${P.site?esc(webHost(P.site)):"the solution's website"}${P.webText?" again":""}</button></div><p class="note">${webUrl(P.site)?webNote():"Add the solution's website in New engagement or the Alignment's Solutions step, and Claude can read it."}</p>`; }
+/* one click: read the site, then fill the alignment's Solutions and the Solutions Map's columns, all yours to write over */
+let webBusy=false;
+async function webSolutionsAll(){ if(webBusy) return; const P=S.provider||{}; if(!webUrl(P.site)){ toast(webFix("nourl"),null,true); return; } if(!sample){ toast("Claude isn't available in this view, so nothing was read.",null,true); return; }
+  webBusy=true; const snap=JSON.stringify(S); const say=t=>{ provMsg=t; const ps=$("provStatus"); if(ps) ps.textContent=t; smMsg=t; try{ smRefresh(); }catch(e){} };
+  try{ const ok=await webEnsure(say,true); if(!ok){ say(`Couldn't read ${webHost(P.site)}. ${webLastErr} Until then, paste their services page above and tap Scan.`); return; }
+    say(`Claude is listing ${P.name||"the solution"}'s solutions from its website…`);
+    const before=S.items.solutions.filter(x=>x.t.trim()).length; await fitSolutions({status:$("provStatus")}); const nA=S.items.solutions.filter(x=>x.t.trim()).length-before;
+    const nS=await smVendorCaps(); webUndo=snap; save(); renderAll(); try{ if(curView==="build") renderBuild(); smRefresh(); }catch(e){}
+    toast(`From ${webHost(P.site)}: ${nA} Solution${nA===1?"":"s"} in the alignment, ${nS} capabilit${nS===1?"y":"ies"} on the Solutions Map. Write over any of them.`,()=>{ if(webUndo){ S=norm(JSON.parse(webUndo)); webUndo=null; save(); renderAll(); try{ renderBuild(); smRefresh(); }catch(e){} } },true); }
+  finally{ webBusy=false; } }
+let webUndo=null;
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-webread]"); if(!b||b.disabled) return; e.preventDefault(); webSolutionsAll(); });
+/* every Claude look-up of the solution reads its website first, when it has one */
+const _fitSolWeb=fitSolutions; fitSolutions=async function(o={}){ if(!webBusy) await webEnsure(t=>{ provMsg=t; if(o.status) o.status.textContent=t; }); return _fitSolWeb(o); };
+const _smVcWeb=smVendorCaps; smVendorCaps=async function(...a){ if(!webBusy) await webEnsure(t=>{ smMsg=t; try{ smRefresh(); }catch(e){} }); return _smVcWeb(...a); };
+/* No capabilities found: ask for what the solution provides instead of stopping quietly (Dave, November 22: "I asked Claude to create the Solutions Map and it did nothing!") */
+function smAskCaps(){ const P=S.provider||{}, nm=(P.name||"").trim(), site=(P.site||"").trim();
+  kitOpen(nm?`What does ${esc(nm)} provide?`:"Which solution is this map for?",`<p class="kitlead">${nm?`Claude doesn't know ${esc(nm)} well enough to name its capabilities${site?`, and it can't open ${esc(site)} from here`:""}. Nothing was made up.`:"The map's columns are the solution's capabilities, and no solution is named yet."} Paste what the solution says it provides (its services or products page works), or type its capabilities, one per line.</p>
+  <label class="fld">Solution<input id="smAskName" value="${esc(nm)}" placeholder="e.g. Growth@Work"></label>
+  <label class="fld">Website (optional)<input id="smAskSite" value="${esc(site)}" placeholder="e.g. workatgrowth.com"></label>
+  <label class="fld">What it provides<textarea id="smAskMat" rows="8" placeholder="Paste from the website, or one capability per line">${esc(P.material||"")}</textarea></label>
+  <div class="arow" style="flex:0 1 auto"><button class="btn" id="smAskWeb">🌐 Read the website</button><button class="btn primary" id="smAskGo">✦ Fill the map with Claude</button><button class="btn" onclick="kitClose()">I'll type them on the sheet</button></div>`,true);
+  $("smAskWeb").onclick=()=>{ const n=$("smAskName").value.trim(), st=$("smAskSite").value.trim(); if(!webUrl(st)){ $("smAskSite").focus(); return; }
+    S.provider=Object.assign({name:"",site:"",summary:"",asOf:"",offerings:[]},S.provider||{},{name:n||P.name||"",site:st}); save(); kitClose(); webSolutionsAll().then(()=>{ if(smNamedC(smData()).length&&sample) smDraft(); }); };
+  $("smAskGo").onclick=()=>{ const n=$("smAskName").value.trim(), m=$("smAskMat").value.trim(); if(!n&&!m){ $("smAskName").focus(); return; }
+    S.provider=Object.assign({name:"",site:"",summary:"",asOf:"",offerings:[]},S.provider||{},{name:n||P.name||"",site:$("smAskSite").value.trim(),material:m}); save(); kitClose(); oneAid()==="sm"?oneClaude():smDraft(); }; }
+const _smDraftNC=smDraft; smDraft=async function(...a){ const r=await _smDraftNC(...a); if(sample&&!window.__smQuiet&&!smNamedC(smData()).length) smAskCaps(); return r; };
 
 /* ---------- Session Plans, complete and 50 minutes (Dave, Nov 22: "Session plans should be more complete when generated by Claude. Always assume meetings are 50 minutes when Claude generates.")
    Claude plans exactly three priorities on each side with details, five or six agenda items that fill the 50 minutes (opening, closing on next steps), owners, three or four next steps
@@ -7873,6 +7935,39 @@ const SEEN_KEYS=["aop","cp","pm","ar","uap","sp","sm"].map(k=>"ka-seen-"+k);
 function seenAll(){ try{ SEEN_KEYS.forEach(k=>localStorage.setItem(k,"1")); }catch(e){} }
 try{ if(SEEN_KEYS.some(k=>localStorage.getItem(k))) seenAll(); }catch(e){}
 const _lovClose=oneLearnClose; oneLearnClose=function(){ const r=_lovClose.apply(this,arguments); seenAll(); return r; };
+/* ---------- No KA logo, ever (Dave, Nov 22: "no KA logo ever! Company logo looks bad.", with screenshots of the first draft's cover)
+   The boxed "ka" and the Knowledge-Advantage lockup are gone from the app bar, the sheets, the slides, the PDFs and the covers. Sheets and PDF pages keep one small
+   text line, "© Copyright 2010 Knowledge-Advantage, Inc.", as the copyright notice. On the navy covers the client's logo no longer sits on a white plate:
+   the cover opens with a white band across the top, the logo at its right edge, a thin gold rule under it. ---------- */
+kaFootSVG=function(){ return `<text x="10.9" y="208.6" fill="var(--muted)" font-family="Open Sans,sans-serif" font-size="2">© Copyright 2010 Knowledge-Advantage, Inc.</text>`; };
+pdfKaFoot=function(doc,x=10.9,y=202.4,s=1){ const PT=2.8346; doc.setFont("helvetica","normal"); doc.setTextColor(PDFC.muted); doc.setFontSize(2*s*PT); doc.text("© Copyright 2010 Knowledge-Advantage, Inc.",x,y+6.2*s); };
+lbKa=function(){};
+function coverLogo(doc){ const m=clientMark(); if(!m.logo) return false; const PW=279.4; try{ const r=m.logoW&&m.logoH?m.logoW/m.logoH:3, h=Math.min(18,70/r), w=h*r;
+    doc.setFillColor("#ffffff"); doc.rect(0,0,PW,34,"F"); doc.setFillColor(LBC.gold); doc.rect(0,34,PW,.8,"F"); doc.addImage(m.logo,pdfFmt(m.logo),PW-20-w,17-h/2,w,h); }catch(e){ return false; } return true; }
+
+/* ---------- The solution: Claude checks it knows it, and asks for what it provides when it doesn't (Dave, Nov 22: "what happened to the Solutions Map based on Growth@Work (workatgrowth.com)?")
+   The Solutions Map's columns come from what the solution says it provides, from Claude's own knowledge (no web search). A solution Claude doesn't know, like a
+   small firm's own offering, filled nothing. Now the conversation asks for the solution's website, checks it, and when Claude doesn't know it asks you to paste
+   what it provides; that text reaches the Solutions, the Solutions Map's columns and the problem framing (`S.provider.material`). ---------- */
+SU_STEPS.splice(SU_STEPS.findIndex(x=>x.k==="sol")+1,0,{k:"solmat",when:()=>!!(SUX.sol&&SUX.solCheck&&!SUX.solCheck.known),q:()=>`I don't know ${SUX.sol} well enough to say what it provides. Paste what it offers (its services page, a brochure, your own description) so the Solutions and the Solutions Map are built from it.`});
+const _suInputSM=suInputHTML; suInputHTML=function(k){ const x=SUX;
+  if(k==="sol") return `<div class="suin"><input class="tin" id="suQ1" placeholder="e.g. VaxCare" value="${esc(x.sol)}" aria-label="The solution"><input class="tin" id="suQ2" placeholder="Its website (optional), e.g. workatgrowth.com" value="${esc(x.solSite||"")}" aria-label="The solution's website"><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button><button class="btn small ghost" data-suskip>Skip</button></div></div>`;
+  if(k==="solmat") return `<div class="suin"><textarea class="tin" id="suQ1" rows="5" placeholder="What ${esc(x.sol)} provides: its services, programs, products">${esc(x.solMat||"")}</textarea><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-sugo>Next</button><button class="btn small ghost" data-suskip>Skip</button></div></div>`;
+  return _suInputSM(k); };
+const _suAnsSM=suAnswerText; suAnswerText=function(k){ const x=SUX; if(k==="sol") return x.sol?`${x.sol}${x.solSite?` · ${x.solSite}`:""}`:"No solution yet"; if(k==="solmat") return x.solMat?`Added ${x.solMat.length.toLocaleString()} characters on what ${x.sol} provides`:"Skipped"; return _suAnsSM(k); };
+const _suTakeSM=suTakeInput; suTakeInput=function(){ const k=SU_STEPS[SUX.i]?.k, v=id=>($(id)?.value||"").trim();
+  if(k==="sol"){ const n=v("suQ1"), site=v("suQ2"), changed=n!==SUX.sol||site!==(SUX.solSite||""); SUX.sol=n; SUX.solSite=site; if(changed) SUX.solCheck=null; return n&&changed?"solcheck":true; }
+  if(k==="solmat"){ SUX.solMat=v("suQ1"); return true; } return _suTakeSM(); };
+suNext=async function(){ const t=suTakeInput(); if(!t) return; if(t==="check"){ SUX.wrong=false; await suCheckClient(); suAdvance(SUX.i+1); return; }
+  if(t==="solcheck"){ if(sample){ SUX.checking=true; const keep=SUX.client; SUX.client=SUX.sol; suRender(); SUX.client=keep;
+      try{ const r=await sample.json(`Do you know the company or offering "${SUX.sol}"${SUX.solSite?` (${SUX.solSite})`:""} well enough to list what it says publicly that it provides? If you are unsure which one is meant, or don't know it, say known false. Reply with JSON only: {"known":true,"line":"what it provides, one short sentence"}`,{modelTier:"quick"}); SUX.solCheck={known:!!(r&&r.known),line:String(r&&r.line||"").slice(0,200)}; }
+      catch(e){ SUX.solCheck={known:false}; } finally{ SUX.checking=false; } } else SUX.solCheck={known:false};
+    suAdvance(SUX.i+1); return; }
+  suAdvance(SUX.i+1); };
+const _setupFillSM=setupFill; setupFill=function(b){ const r=_setupFillSM(b); if(r&&SUX.building&&SUX.sol){ S.provider=S.provider||blankProv(); S.provider.site=SUX.solSite||S.provider.site||""; if(SUX.solMat) S.provider.material=SUX.solMat;
+    if(SUX.solCheck?.known&&SUX.solCheck.line&&!S.provider.summary) S.provider.summary=SUX.solCheck.line;
+    try{ const U=uapData(); U.vendor=Object.assign(U.vendor||{},{name:SUX.sol,site:SUX.solSite||"",material:SUX.solMat||U.vendor?.material||"",kind:"vendor"}); }catch(e){}
+    const pp=$("provPaste"); if(pp&&SUX.solMat) pp.value=SUX.solMat; save(); } return r; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
