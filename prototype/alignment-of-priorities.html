@@ -2805,7 +2805,7 @@ function coApply(how){ const d=coDraft;
 
 /* ===================== Solutions from a provider (Dave, Nov 16: "I want B… enter the solution company's name and have you scan what they say is available and then have you determine the solutions (capabilities). Solutions will need to include a short description (up to two lines).") ===================== */
 let provCtl=null, provBusy=false, provMsg="";
-function provPrompt(){ const P=S.provider, mat=($("provPaste")?.value||"").trim().slice(0,30000);
+function provPrompt(){ const P=S.provider, mat=[($("provPaste")?.value||P.material||"").trim(), P.webText?`WHAT ${P.name}'S OWN WEBSITE SAYS (read ${new Date(P.web?.at||Date.now()).toLocaleDateString()} from ${(P.web?.pages||[]).join(", ")}; use this first, it is the provider's own public description):\n${P.webText}`:""].filter(Boolean).join("\n\n").slice(0,45000);
   const inits=S.items.initiatives.map((it,i)=>it.t.trim()?{id:`initiatives.${i}`,choice:it.t,supports:it.d,improves:(it.serves||[]).filter(filled).map(nameOf)}:null).filter(Boolean);
   const procs=S.items.processes.filter(it=>it.t.trim()).map(it=>({process:it.t,supports:it.d,improveFor:gainsOf(it)}));
   return `You are a Knowledge-Advantage (KA) engagement analyst. A salesperson or advisor sells the solutions of a SOLUTION PROVIDER and is preparing KA's Alignment of Priorities for a CLIENT. Solutions ENHANCE Initiatives to IMPROVE Processes to EXECUTE Strategies to OBTAIN Goals.
@@ -2842,8 +2842,8 @@ function renderProvCard(){ const box=$("provCard"); if(!box) return; const P=S.p
     <div class="coGrid"><div class="field"><label for="provName">Solution provider</label><input id="provName" class="tin" data-prov="name" value="${esc(P.name)}" placeholder="e.g. your company, or the vendor you represent" autocomplete="off"></div>
       <div class="field"><label for="provSite">Website <span class="opt">optional</span></label><input id="provSite" class="tin" data-prov="site" value="${esc(P.site)}" placeholder="e.g. isap.com" autocomplete="off"></div></div>
     <div class="field"><label for="provPaste">What they offer <span class="opt">optional · paste a product or services page to make it current</span></label><textarea id="provPaste" rows="2" placeholder="Paste from the provider's website, a capabilities sheet or a proposal."></textarea></div>
-    <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="provGo" ${provBusy?"disabled":""}>Scan their offerings and pick Solutions</button>${provBusy?`<button class="btn" id="provStop">Stop</button>`:""}${provUndo&&!provBusy?`<button class="btn" id="provUndo">Undo</button>`:""}</div>
-    <p class="note" id="provStatus" aria-live="polite">${provBusy?"Scanning…":provMsg?esc(provMsg):`Uses Claude's built-in knowledge of the provider, plus anything you paste. It doesn't search the web.`}</p>
+    <div class="arow" style="flex:0 1 auto"><button class="btn primary" data-webread ${provBusy||!webUrl(P.site)?"disabled":""} title="${webUrl(P.site)?"":"Add their website first"}">🌐 Read their website</button><button class="btn" id="provGo" ${provBusy?"disabled":""}>Scan from what Claude knows</button>${provBusy?`<button class="btn" id="provStop">Stop</button>`:""}${provUndo&&!provBusy?`<button class="btn" id="provUndo">Undo</button>`:""}</div>
+    <p class="note" id="provStatus" aria-live="polite">${provBusy?"Scanning…":provMsg?esc(provMsg):webNote()}</p>
     ${P.offerings.length?`<div class="provlist"><h4>What ${esc(P.name)} says it offers${P.asOf?` <span class="note">· ${esc(P.asOf)}</span>`:""}</h4>${P.summary?`<p class="note" style="margin:0 0 6px">${esc(P.summary)}</p>`:""}
       ${P.offerings.map((o,i)=>{ const used=sl.some(x=>x.t.trim().toLowerCase()===o.name.toLowerCase()); return `<div class="provitem"><div><b>${esc(o.name)}</b><span>${esc(o.desc)}</span></div><button class="btn small" data-provuse="${i}" ${used?"disabled":""}>${used?"✓ In Solutions":"Use"}</button></div>`; }).join("")}
       <p class="note" style="margin:6px 0 0">From the provider's public descriptions: confirm what's current with them.</p></div>`:""}`;
@@ -6490,7 +6490,7 @@ function smBuild(){ const D=smData(), N=smNamedC(D), cname=esc(S.company?.name||
       ${missing.length?`<div class="uapcarry"><p class="minicap">From your alignment · Solutions</p><p>${esc(missing.map(s=>s.t).join(" · "))}</p><button class="btn small primary" data-smseed>Carry them over</button></div>`:!sols.length?`<p class="note">The alignment has no Solutions yet. Name the capabilities here, or <button class="linkbtn" data-nav="aop" data-view="build">add Solutions to the alignment</button>.</p>`:""}
       <div class="smcaps">${D.cap.map((x,c)=>`<div class="smcaprow"><span class="n">${c+1}</span><div class="smcapf"><input class="tin" data-smcn="${c}" value="${esc(x.n)}" placeholder="Capability ${c+1}" maxlength="40" aria-label="Capability ${c+1}"><input class="tin" data-smcd="${c}" value="${esc(x.d||"")}" placeholder="What it does, in a line (optional)" maxlength="160" aria-label="Capability ${c+1}: what it does">
         <div class="smcapm">${x.n.trim()?`${x.src&&x.src!=="you"?`<small class="srcb ${x.src==="client"?"ok":""}">${esc(x.src==="alignment"?"From the alignment's Solutions":x.src==="ally"?`From ${S.provider?.name||"the solution"}'s offerings`:SM_SRC[x.src]||"")}</small>`:`<small class="srcb you">Your words</small>`}<button class="btn small ${x.ok?"primary":""}" data-smokc="${c}">${x.ok?"✓ Understanding confirmed":"Confirm understanding"}</button><button class="btn small ghost" data-smrm="${c}">Clear</button>`:""}</div></div></div>`).join("")}</div>
-      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}`; }
+      ${offers.length?`<p class="note">From ${esc(S.provider.name||"the solution")}'s offerings:</p><div class="pmchips">${offers.map((o,i)=>`<button data-smally="${i}" ${D.cap.some(x=>x.n.trim().toLowerCase()===o.name.trim().toLowerCase())?"disabled":""} title="${esc(o.desc||"")}">＋ ${esc(o.name)}</button>`).join("")}</div>`:""}${webBtnHTML()}`; }
   if(smIdx===1){ const aop=smAopInits(); h=`<p class="lkick">Step 2 of 5</p><h2>The initiatives</h2><p class="teach">Validate “top of mind” initiatives. The six are KA's, as printed on the Solutions Map; ✓ In your alignment marks the ones ${cname} chose in the Alignment of Priorities. Tick each one the stakeholder validates.</p>
     <div class="pmgrid">${SM_INIT.map((n,r)=>`<div class="pmrowed ini"><span class="n">${r+1}</span><div><b>${esc(n)}</b>${aop.includes(n)?`<br><span class="note">✓ In your alignment</span>`:""}</div><button class="btn small ${D.ok[r]?"primary":""}" data-smoki="${r}">${D.ok[r]?"✓ Validated as top of mind":"Validate"}</button></div>`).join("")}</div>`; }
   if(smIdx===2){ const cl=smToConfirm(D).length;
@@ -7655,7 +7655,7 @@ try{ (S.uap?.probs||[]).forEach(uapNoQuestions); }catch(e){}
 async function smVendorCaps(){ const D=smData(), ally=(S.provider?.name||"").trim(); if(!sample||!ally) return 0; const free=D.cap.map((c,i)=>[c,i]).filter(([c])=>!(c.n||"").trim()).map(([,i])=>i); if(!free.length) return 0;
   const have=D.cap.filter(c=>(c.n||"").trim()).map(c=>c.n.trim()), offers=(S.provider?.offerings||[]).map(o=>({name:o.name,desc:o.desc||""})).slice(0,10);
   const prompt=`You are a KA (Knowledge-Advantage) principal. List the key capabilities that ${ally}${S.provider?.site?` (${S.provider.site})`:""} itself says publicly that its solution provides: its products, services and programs, as ${ally} describes them.
-${offers.length?`What ${ally} says it offers, as already found: ${JSON.stringify(offers)}\n`:""}${(S.provider?.material||"").trim()?`WHAT ${ally} SAYS IT PROVIDES (pasted by the user; use it first):\n${S.provider.material.slice(0,20000)}\n`:""}Leave out anything already on the map: ${JSON.stringify(have)}.
+${offers.length?`What ${ally} says it offers, as already found: ${JSON.stringify(offers)}\n`:""}${S.provider?.webText?`WHAT ${ally}'S OWN WEBSITE SAYS (read just now; use it first):\n${S.provider.webText.slice(0,30000)}\n`:""}${(S.provider?.material||"").trim()?`WHAT ${ally} SAYS IT PROVIDES (pasted by the user; use it first):\n${S.provider.material.slice(0,20000)}\n`:""}Leave out anything already on the map: ${JSON.stringify(have)}.
 Give up to ${free.length}, the most distinct first. Each name at most 24 characters (abbreviate logically), each description at most 80 characters, in the vendor's own terms. Never invent a capability; if you don't know ${ally} and nothing was pasted, reply {"known":false}.
 Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
   try{ smMsg=`Claude is reading what ${ally} says it provides…`; smRefresh(); const r=await sample.json(prompt,{modelTier:"complex"}); if(!r||r.known===false||!Array.isArray(r.capabilities)) return 0;
@@ -7665,13 +7665,62 @@ Reply with JSON only: {"known":true,"capabilities":[{"name":"","desc":""}]}`;
     save(); return n; }
   catch(e){ return 0; } finally{ smMsg=""; smRefresh(); } }
 const _smDraftVC=smDraft; smDraft=async function(...a){ const D=smData(); if(!smNamedC(D).length){ smSeed(D); save(); } await smVendorCaps(); return _smDraftVC(...a); };
+
+/* ---------- Reading a public website (Dave, November 22: "I want Claude to be able to visit a public website and to list the key solutions that the user can then override in both the Alignment of Priorities and the Solutions Map.")
+   The page can't reach other sites itself, so it reads through the viewer's Firecrawl connector (mcp), then Claude lists the solutions from what the site says. ---------- */
+const WEB_SRV="Firecrawl", WEB_TOOL="firecrawl_scrape", WEB_DAY=86400000;
+let webMcp, webWarned=false;
+async function webNs(){ if(webMcp===undefined){ try{ webMcp=window.claude?await window.claude.use("mcp"):null; }catch(e){ webMcp=null; } } return webMcp; }
+function webUrl(s){ s=String(s||"").trim(); if(!s||/\s/.test(s)) return ""; if(!/^https?:\/\//i.test(s)) s="https://"+s.replace(/^\/+/,""); try{ const u=new URL(s); return /\.[a-z]{2,}$/i.test(u.hostname)?u.href:""; }catch(e){ return ""; } }
+function webHost(u){ try{ return new URL(webUrl(u)).hostname.replace(/^www\./,""); }catch(e){ return String(u||""); } }
+function webFix(code,msg){ return ({nourl:"Add the solution's website first (e.g. workatgrowth.com).",
+  nomcp:"Reading websites needs the page opened in Claude.",server_not_connected:"To let Claude read websites, add the Firecrawl connector in claude.ai Settings → Connectors, then try again.",
+  needs_reauth:"Reconnect Firecrawl in claude.ai Settings → Connectors, then try again.",not_in_manifest:"Firecrawl isn't allowed for this page. Allow it when asked, then try again.",
+  approval_required:"Reading the website needs your approval: try again and choose Allow.",selection_required:"Choose which Firecrawl connector to use when claude.ai asks, then try again.",
+  blocked_by_policy:"Your organization blocks Firecrawl for this page.",tool_error:`Firecrawl couldn't read the site${msg?`: ${String(msg).slice(0,120)}`:"."}`})[code]||`The website couldn't be read this time${msg?` (${String(msg).slice(0,100)})`:""}.`; }
+async function webScrape(m,url){ const r=await m.callTool(WEB_SRV,WEB_TOOL,{url,formats:["markdown"],onlyMainContent:true},{cache:{staleTime:WEB_DAY,gcTime:WEB_DAY}});
+  const p=r&&r.payload; let md=typeof p==="string"?p:(p&&(p.markdown||(p.data&&p.data.markdown)||p.content))||"";
+  if(!md&&r&&Array.isArray(r.content)) md=r.content.filter(b=>b&&b.type==="text").map(b=>b.text).join("\n"); return String(md||""); }
+async function webRead(site,say){ const url=webUrl(site); if(!url) return {err:"nourl"}; const m=await webNs(); if(!m) return {err:"nomcp"}; const host=new URL(url).hostname;
+  try{ say&&say(`Reading ${host.replace(/^www\./,"")}…`); const home=await webScrape(m,url); if(!home.trim()) return {err:"tool_error",msg:"the page came back empty"};
+    const seen=new Set([url.replace(/\/$/,"")]), picks=[]; const re=/\[([^\]]{1,90})\]\(([^)\s]+)\)/g; let x;
+    while((x=re.exec(home))&&picks.length<3){ let h; try{ h=new URL(x[2],url); }catch(e){ continue; } if(h.hostname!==host) continue; h.hash=""; const k=h.href.replace(/\/$/,"");
+      if(seen.has(k)) continue; if(!/(service|solution|product|offer|what-we-do|whatwedo|platform|capabilit|program|how-we-help|practice|coaching|consult|approach|work-with)/i.test(h.pathname+" "+x[1])) continue; seen.add(k); picks.push(h.href); }
+    const pages=[url], parts=[`PAGE ${url}\n${home.slice(0,20000)}`];
+    for(const u of picks){ try{ say&&say(`Reading ${host.replace(/^www\./,"")} · ${new URL(u).pathname}…`); const t=await webScrape(m,u); if(t.trim()){ pages.push(u); parts.push(`PAGE ${u}\n${t.slice(0,8000)}`); } }catch(e){} }
+    return {text:parts.join("\n\n").slice(0,40000),pages}; }
+  catch(e){ return {err:(e&&e.code)||"error",msg:e&&e.message}; } }
+/* reads the solution's site once a day at most; keeps what it read with the engagement */
+async function webEnsure(say,force){ const P=S.provider; if(!P||!webUrl(P.site)) return false;
+  if(!force&&P.webText&&P.web&&P.web.site===P.site&&Date.now()-(P.web.at||0)<7*WEB_DAY) return true;
+  const r=await webRead(P.site,say); if(r.text){ const Q=S.provider; Q.webText=r.text; Q.web={site:P.site,at:Date.now(),pages:r.pages}; save(); return true; }
+  if(force||!webWarned){ webWarned=true; toast(webFix(r.err,r.msg),null,true); } return false; }
+function webNote(){ const P=S.provider||{}; return P.web&&P.webText?`Read ${esc(webHost(P.web.site))} on ${new Date(P.web.at).toLocaleDateString()} (${(P.web.pages||[]).length} page${(P.web.pages||[]).length===1?"":"s"}). Claude lists the solutions from what the site says; write over anything.`:`🌐 Read their website: Claude reads the site through your Firecrawl connector and lists the solutions it describes. Or scan from what Claude already knows, plus anything you paste.`; }
+function webBtnHTML(){ const P=S.provider||{}; return `<div class="arow" style="flex:0 1 auto;margin-top:8px"><button class="btn${(S.provider?.offerings||[]).length?"":" primary"}" data-webread ${webUrl(P.site)?"":"disabled"}>🌐 ${P.webText?"Read":"Read"} ${P.site?esc(webHost(P.site)):"the solution's website"}${P.webText?" again":""}</button></div><p class="note">${webUrl(P.site)?webNote():"Add the solution's website in New engagement or the Alignment's Solutions step, and Claude can read it."}</p>`; }
+/* one click: read the site, then fill the alignment's Solutions and the Solutions Map's columns, all yours to write over */
+let webBusy=false;
+async function webSolutionsAll(){ if(webBusy) return; const P=S.provider||{}; if(!webUrl(P.site)){ toast(webFix("nourl"),null,true); return; } if(!sample){ toast("Claude isn't available in this view, so nothing was read.",null,true); return; }
+  webBusy=true; const snap=JSON.stringify(S); const say=t=>{ provMsg=t; const ps=$("provStatus"); if(ps) ps.textContent=t; smMsg=t; try{ smRefresh(); }catch(e){} };
+  try{ const ok=await webEnsure(say,true); if(!ok){ say(""); return; }
+    say(`Claude is listing ${P.name||"the solution"}'s solutions from its website…`);
+    const before=S.items.solutions.filter(x=>x.t.trim()).length; await fitSolutions({status:$("provStatus")}); const nA=S.items.solutions.filter(x=>x.t.trim()).length-before;
+    const nS=await smVendorCaps(); webUndo=snap; save(); renderAll(); try{ if(curView==="build") renderBuild(); smRefresh(); }catch(e){}
+    toast(`From ${webHost(P.site)}: ${nA} Solution${nA===1?"":"s"} in the alignment, ${nS} capabilit${nS===1?"y":"ies"} on the Solutions Map. Write over any of them.`,()=>{ if(webUndo){ S=norm(JSON.parse(webUndo)); webUndo=null; save(); renderAll(); try{ renderBuild(); smRefresh(); }catch(e){} } },true); }
+  finally{ webBusy=false; } }
+let webUndo=null;
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-webread]"); if(!b||b.disabled) return; e.preventDefault(); webSolutionsAll(); });
+/* every Claude look-up of the solution reads its website first, when it has one */
+const _fitSolWeb=fitSolutions; fitSolutions=async function(o={}){ if(!webBusy) await webEnsure(t=>{ provMsg=t; if(o.status) o.status.textContent=t; }); return _fitSolWeb(o); };
+const _smVcWeb=smVendorCaps; smVendorCaps=async function(...a){ if(!webBusy) await webEnsure(t=>{ smMsg=t; try{ smRefresh(); }catch(e){} }); return _smVcWeb(...a); };
 /* No capabilities found: ask for what the solution provides instead of stopping quietly (Dave, November 22: "I asked Claude to create the Solutions Map and it did nothing!") */
 function smAskCaps(){ const P=S.provider||{}, nm=(P.name||"").trim(), site=(P.site||"").trim();
   kitOpen(nm?`What does ${esc(nm)} provide?`:"Which solution is this map for?",`<p class="kitlead">${nm?`Claude doesn't know ${esc(nm)} well enough to name its capabilities${site?`, and it can't open ${esc(site)} from here`:""}. Nothing was made up.`:"The map's columns are the solution's capabilities, and no solution is named yet."} Paste what the solution says it provides (its services or products page works), or type its capabilities, one per line.</p>
   <label class="fld">Solution<input id="smAskName" value="${esc(nm)}" placeholder="e.g. Growth@Work"></label>
   <label class="fld">Website (optional)<input id="smAskSite" value="${esc(site)}" placeholder="e.g. workatgrowth.com"></label>
   <label class="fld">What it provides<textarea id="smAskMat" rows="8" placeholder="Paste from the website, or one capability per line">${esc(P.material||"")}</textarea></label>
-  <div class="arow" style="flex:0 1 auto"><button class="btn primary" id="smAskGo">✦ Fill the map with Claude</button><button class="btn" onclick="kitClose()">I'll type them on the sheet</button></div>`,true);
+  <div class="arow" style="flex:0 1 auto"><button class="btn" id="smAskWeb">🌐 Read the website</button><button class="btn primary" id="smAskGo">✦ Fill the map with Claude</button><button class="btn" onclick="kitClose()">I'll type them on the sheet</button></div>`,true);
+  $("smAskWeb").onclick=()=>{ const n=$("smAskName").value.trim(), st=$("smAskSite").value.trim(); if(!webUrl(st)){ $("smAskSite").focus(); return; }
+    S.provider=Object.assign({name:"",site:"",summary:"",asOf:"",offerings:[]},S.provider||{},{name:n||P.name||"",site:st}); save(); kitClose(); webSolutionsAll().then(()=>{ if(smNamedC(smData()).length&&sample) smDraft(); }); };
   $("smAskGo").onclick=()=>{ const n=$("smAskName").value.trim(), m=$("smAskMat").value.trim(); if(!n&&!m){ $("smAskName").focus(); return; }
     S.provider=Object.assign({name:"",site:"",summary:"",asOf:"",offerings:[]},S.provider||{},{name:n||P.name||"",site:$("smAskSite").value.trim(),material:m}); save(); kitClose(); oneAid()==="sm"?oneClaude():smDraft(); }; }
 const _smDraftNC=smDraft; smDraft=async function(...a){ const r=await _smDraftNC(...a); if(sample&&!window.__smQuiet&&!smNamedC(smData()).length) smAskCaps(); return r; };
