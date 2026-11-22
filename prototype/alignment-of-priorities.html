@@ -1542,6 +1542,26 @@ body.meeting .fivenext{display:none}
   body.one:not(.fivezoom) .onesheet .cpstage.pmstage{min-width:0!important;width:100%!important}
   body.one:not(.fivezoom) .onesheet .cpstage.pmstage *{cursor:pointer}
 }
+/* trust before features (Nov 22) */
+.rplist{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
+.rplist li{display:flex;align-items:center;gap:12px;justify-content:space-between;border:1px solid var(--rule);border-radius:10px;padding:10px 12px;background:var(--paper)}
+.rplist li div{display:grid;gap:2px;min-width:0}.rplist small{color:var(--muted);font-size:12.5px}
+.gqtop{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);margin-bottom:8px}.gqtop i{flex:1;height:5px;border-radius:3px;background:var(--rule);overflow:hidden}.gqtop s{display:block;height:100%;background:var(--plum)}
+.gqwhere{margin:0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--plum);font-weight:700}
+.gqtext{margin:6px 0 8px;font-size:19px;line-height:1.35;color:var(--ink);font-weight:600;overflow-wrap:anywhere}
+.gqwhy{margin:0 0 14px;font-size:14px;color:var(--muted)}.gqwhy b{color:var(--ink);margin-right:6px}
+.gqall{display:block;margin:12px auto 0;font-size:14px}.gqacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.gqacts .btn{min-height:44px}
+.asklist{margin:0 0 10px;padding-left:20px;display:grid;gap:8px}.asklist li span{display:block}.asklist li small{color:var(--muted);font-size:12px}.asklist li{position:relative;padding-right:34px}.asklist [data-askdel]{position:absolute;right:0;top:0}
+.ovmeta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.ovmeta .stagesel{margin:0}.ovmeta .ovlogo{display:contents}.ovmeta .ovlogo .note,.ovmeta .ovlogo img{display:none}
+#viewOverview .ovhead>.meetbtn{display:none}.ovmeta .meetbtn{display:inline-flex}
+#ovStage{display:none!important}
+.ovguess{display:flex;gap:14px;align-items:center;justify-content:space-between;border-left:4px solid var(--plum)}.ovguess>div:first-child{display:grid;gap:4px;min-width:0}.ovguess b{font-size:16px}.ovguess small{color:var(--muted);font-size:13px}
+.ovguess .onlbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);font-weight:700}
+@media (max-width:560px){.ovguess{flex-direction:column;align-items:stretch}.gqacts{grid-template-columns:1fr}}
+.noclline{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:var(--paper);border:1px dashed var(--rule);font-size:13.5px;color:var(--muted)}
+.linkbtn{background:none;border:0;padding:0;font:inherit;color:var(--blue,#2b4f9e);text-decoration:underline;cursor:pointer}
+body.noclaude [data-oneclaude],body.noclaude .clstart,body.noclaude [data-clnext],body.noclaude .clbtn{display:none!important}
 </style>
 
 <div class="shell">
@@ -5964,7 +5984,7 @@ function spPage1({mode="edit",spot=null,p=spPlan()}={}){ const ed=mode==="edit"&
   const ta=(k,v,x,y,w,ht,ph,short="")=>ed?`<textarea class="px spin ${cls(k)}" style="${at(x,y,w,ht)}" data-spf="${k}" placeholder="${esc(short)}" aria-label="${esc(ph)}" title="${esc(ph)}">${esc(v||"")}</textarea>`:`<div class="px sptx" style="${at(x,y,w,ht)}">${esc(v||"")}</div>`;
   const opt=(list,v)=>list.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("");
   const actOpt=v=>SP_ACT.map(([g,a])=>`<optgroup label="${g}">${a.map(o=>`<option ${o===v?"selected":""}>${esc(o)}</option>`).join("")}</optgroup>`).join("");
-  if(!p){ h+=`<div class="px spempty" style="${at(22,104,172,64)}"><div class="arow" style="flex:0 1 auto;justify-content:center"><button class="btn primary" data-spdraft>✦ Plan it with Claude</button><button class="btn" data-spnew>Start blank</button></div><p>One plan per session. Claude drafts it from the engagement; you write over anything.</p></div>`; return `<div class="spcv">${h}</div>`; }
+  if(!p){ h+=`<div class="px spempty" style="${at(22,104,172,64)}"><div class="arow" style="flex:0 1 auto;justify-content:center"><button class="btn primary" data-spdraft>✦ Fill with Claude</button><button class="btn" data-spnew>Start blank</button></div><p>One plan per session. Claude drafts it from the engagement; you write over anything.</p></div>`; return `<div class="spcv">${h}</div>`; }
   const dim=k=>lt(k)?"":"dimmed";
   h+=inp("title",p.title||aidTitle(),20.6,21.4,138.4,5,SP_TIP.title,"text","big")+inp("date",p.date,174.5,21.4,30.8,5,SP_TIP.date,"date");
   h+=`<div class="${dim("log")}">`+sel("type",p.type,opt(SP_TYPES,p.type),11.6,39.6,91.6,5.8,"Type of session")+(ed?`<select class="px spin ${cls("phase")}" style="${at(11.6,50,91.6,5.8)}" data-spf="phase" title="${esc(SP_TIP.phase)}" aria-label="Assessment phase"><option value="0">Assessment phase</option><optgroup label="Problem Space">${[1,2].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup><optgroup label="Solution Space">${[3,4,5,6].map(n=>`<option value="${n}" ${p.phase===n?"selected":""}>${SP_PHASES[n-1]}</option>`).join("")}</optgroup></select>`:`<div class="px sptx b" style="${at(11.6,50,91.6,5.8)}">${p.phase?SP_PHASES[p.phase-1]:""}</div>`)
@@ -6684,7 +6704,7 @@ document.addEventListener("focusout",e=>{ if(!document.body.classList.contains("
 
 /* ---------- (4) one Claude button per aid ---------- */
 function oneClaudeBtn(){ const s=ONE[oneAid()], B=$(s.B); if(!B||B.querySelector(".oneclaude")) return;
-  B.insertAdjacentHTML("afterbegin",`<button class="oneclaude prep-only" data-oneclaude><span>✦ Fill or improve with Claude</span><small>Fills what's empty and suggests the rest; never replaces your words</small></button>`); }
+  B.insertAdjacentHTML("afterbegin",`<button class="oneclaude prep-only" data-oneclaude><span>✦ Fill with Claude</span><small>Fills what's empty and suggests the rest; never replaces your words</small></button>`); }
 function oneClaude(){ const a=oneAid(); if(a==="sm"){ smIdx=2; smBuild(); smDraft(); return; } if(a==="sp"){ spIdx=Math.max(1,spIdx); spBuild(); spDraft(); return; }
   if(a==="aop"){ if(!allFilled().length&&(S.company?.name||"").trim()){ bIdx=0; renderBuild(); $("coGo")?.click(); return; } $("aFill")?.click(); return; }
   if(a==="cp"){ $("cpDraftBtn")?.click(); return; }
@@ -6772,7 +6792,7 @@ function onePaintOverview(){ const nx=$("ovNext"), empty=!allFilled().length&&!c
 document.addEventListener("click",e=>{ if(e.target.closest("[data-oneflag]")) flagOpen(); });
 /* the old Meeting kit card keeps its id for kitPaint, which now paints Before · During · After */
 const _kpOne=kitPaint; kitPaint=function(){ _kpOne(); if(route==="overview") try{ onePaintOverview(); }catch(e){} };
-const _cmdOne=cmdActions; cmdActions=function(){ const A=_cmdOne(); A.push({g:"Work",t:"Share & export",run:()=>oneMenu("share",$("cmdBtn"),route==="overview"?"overview":""),hint:""}); if(route==="aid") A.push({g:"Work",t:"Fill or improve with Claude",run:oneClaude,hint:""}); return A; };
+const _cmdOne=cmdActions; cmdActions=function(){ const A=_cmdOne(); A.push({g:"Work",t:"Share & export",run:()=>oneMenu("share",$("cmdBtn"),route==="overview"?"overview":""),hint:""}); if(route==="aid") A.push({g:"Work",t:"Fill with Claude",run:oneClaude,hint:""}); return A; };
 
 
 /* ---------- a shared page has no list of engagements: its first crumb says so; and anything that fails says what failed (Nov 18: "click to return to see all engagements and nothing happens. Click present and nothing happens.") ---------- */
@@ -6981,7 +7001,7 @@ const _aidHeadCl=renderAidHead; renderAidHead=function(){ _aidHeadCl(); if(route
   const at=row.querySelector(".stagesel")||row.querySelector(".onemenus")||row.querySelector(".meetbtn"); at&&at.insertAdjacentHTML("beforebegin",`<button class="btn small clbtn prep-only" data-oneclaude title="Claude ${esc(CL_WHAT[oneAid()]||"fills this aid")}; you review and write over anything">✦ <span>Fill with</span> Claude</button>`); clEmptyPaint(); };
 function clEmptyPaint(){ document.querySelectorAll(".clstart").forEach(x=>x.remove()); if(route!=="aid"||document.body.classList.contains("meeting")||document.body.classList.contains("client")) return; const a=oneAid(); if(a==="sp") return;
   let empty=false; try{ empty=CL_EMPTY[a](); }catch(e){} if(!empty||(S.clSkip||{})[a]) return; const host=document.querySelector(".onesheet")||document.querySelector(`#${ONE[a].A}`); if(!host) return;
-  host.insertAdjacentHTML("afterbegin",`<div class="clstart prep-only"><div><b>✦ Start with Claude</b><span>Claude ${esc(CL_WHAT[a])}. You review it and write over anything.</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-oneclaude>✦ Fill it with Claude</button><button class="btn ghost" data-clskip="${a}">I'll do it myself</button></div></div>`); }
+  host.insertAdjacentHTML("afterbegin",`<div class="clstart prep-only"><div><b>✦ Start with Claude</b><span>Claude ${esc(CL_WHAT[a])}. You review it and write over anything.</span></div><div class="arow" style="flex:0 1 auto"><button class="btn primary" data-oneclaude>✦ Fill with Claude</button><button class="btn ghost" data-clskip="${a}">I'll do it myself</button></div></div>`); }
 document.addEventListener("click",e=>{ const k=e.target.closest("[data-clskip]"); if(k){ S.clSkip=Object.assign({},S.clSkip,{[k.dataset.clskip]:1}); save(); clEmptyPaint(); } });
 setInterval(()=>{ if(route==="aid"){ const a=oneAid(), has=!!document.querySelector(".clstart"); let empty=false; try{ empty=CL_EMPTY[a]()&&!(S.clSkip||{})[a]&&a!=="sp"; }catch(e){} if(has!==empty) clEmptyPaint(); } },900);
 /* the working pill: every Claude call shows it until the answer is back */
@@ -6995,7 +7015,7 @@ function clWrap(f){ if(!f||f.__busy) return f; const w=async(...a)=>{ if(!clBusy
 setInterval(()=>{ try{ if(sample&&!sample.__busy) sample=clWrap(sample); }catch(e){} },400);
 /* the Overview's next step: one tap to let Claude do it */
 const _ovCl=onePaintOverview; onePaintOverview=function(){ _ovCl(); const card=document.querySelector("#ovNext .onenext"); if(!card||card.querySelector(".clbtn")) return; let n=null; try{ n=engNext(); }catch(e){} if(!n||n.done||!ONE[n.aid]) return;
-  card.querySelector("[data-engnext]")?.insertAdjacentHTML("afterend",`<button class="btn clbtn" data-clnext="${n.aid}">✦ Let Claude do it</button>`); };
+  card.querySelector("[data-engnext]")?.insertAdjacentHTML("afterend",`<button class="btn clbtn" data-clnext="${n.aid}">✦ Fill with Claude</button>`); };
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-clnext]"); if(!b) return; ENG_OPEN[b.dataset.clnext](); setTimeout(()=>oneClaude(),150); });
 
 
@@ -7750,6 +7770,109 @@ document.addEventListener("click",e=>{ if(!fiveTarget(e)) return; e.preventDefau
    always opens as its own engagement (a copy you can change), and the engagement you were in stays as it was. On a shared page it doesn't load at all. ===================== */
 loadExample=function(){ if(KA_ROOM){ toast("Kevin's example opens in your own KA Engagement Aids, not on a shared page."); return false; }
   const was=aidName(); flushSave(); newAid("Morgan Industries · example"); replaceState(Object.assign(blank(),clone(EXAMPLE)),`Kevin's example, opened as its own engagement. ${was&&!/^Untitled/.test(was)?`${was} is unchanged.`:""}`.trim()); return true; };
+
+/* ===================== Trust before features (Dave, Nov 22: "do all five now!")
+   1 nothing is ever lost: restore points before every big change, History to put one back; 2 one place to check Claude's guesses: Right / Fix / Not sure → ask the client;
+   3 the Overview leads with what matters; 4 the phone reviews, presents and captures (no Claude buttons where Claude can't run, a quick note after the meeting);
+   5 one way of saying things (Fill with Claude) and the guide only once. ===================== */
+
+/* ---------- (1) restore points, kept on this device, the last 12 per engagement ---------- */
+const RP_MAX=12; let rpQuiet=false;
+const rpKey=id=>"ka-rp-"+(id||LIBD.cur);
+function rpList(id){ try{ const L=JSON.parse(localStorage.getItem(rpKey(id))||"[]"); return Array.isArray(L)?L:[]; }catch(e){ return []; } }
+function rpHasWork(d){ try{ const x=typeof d==="string"?JSON.parse(d):d; const keep=S; let has=false; try{ S=norm(clone(x)); has=fiveHas()||!!(S.situation||"").trim(); } finally{ S=keep; } return has; }catch(e){ return false; } }
+function rpSave(label,data){ if(rpQuiet) return; try{ const d=data||JSON.stringify(S); if(!rpHasWork(d)) return; const L=rpList(); if(L[0]&&(L[0].d===d||(L[0].label===label&&Date.now()-L[0].at<60000))) return;
+    L.unshift({at:Date.now(),label,d}); L.length=Math.min(L.length,RP_MAX); let k=L.length;
+    while(k>0){ try{ localStorage.setItem(rpKey(),JSON.stringify(L.slice(0,k))); return; }catch(e){ k=Math.floor(k/2); } } }catch(e){ console.warn(e); } }
+function rpCounts(d){ try{ const keep=S; let t=""; try{ S=norm(JSON.parse(d)); const parts=[]; const a=allFilled().length; if(a) parts.push(`${a} alignment boxes`); const c=cpAll().length; if(c) parts.push(`${c} criteria`); const u=(S.uap?.probs||[]).length; if(u) parts.push(`${u} problem${u>1?"s":""}`); if(S.pm&&pmRated().length) parts.push("the map rated"); t=parts.join(" · "); } finally{ S=keep; applyProcSet(S.procSet||"book"); } return t; }catch(e){ return ""; } }
+function openHistory(){ const L=rpList();
+  kitOpen("History · restore points",`<p class="kitlead">Before every big change, the app keeps a copy of ${esc(aidName())} as it was. Put one back and you lose nothing: what's here now is kept as a restore point first.</p>
+    ${L.length?`<ol class="rplist">${L.map((r,i)=>`<li><div><b>${esc(r.label)}</b><small>${new Date(r.at).toLocaleString([], {month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})} · ${esc(ago(r.at))}${rpCounts(r.d)?` · ${esc(rpCounts(r.d))}`:""}</small></div><button class="btn small" data-rprestore="${i}">Restore</button></li>`).join("")}</ol>`:`<p class="note">No restore points yet. One is made before Claude changes anything, before a debrief, before Clear, before a newer copy arrives from another device, and when you open an engagement.</p>`}
+    <p class="note">Kept on this device. Each engagement keeps its last ${RP_MAX}.</p>`,true); }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-rprestore]"); if(!b) return; const r=rpList()[+b.dataset.rprestore]; if(!r) return;
+  rpSave("Before you restored an earlier copy"); rpQuiet=true; try{ replaceState(norm(JSON.parse(r.d)),`Restored: ${r.label.replace(/^Before /,"before ")}`); } finally{ rpQuiet=false; } kitClose(); });
+/* where restore points are made */
+const _rsRP=replaceState; replaceState=function(n,msg){ rpSave(`Before: ${String(msg||"a change").replace(/\.$/,"")}`); return _rsRP(n,msg); };
+const _dbApRP=debriefApply; debriefApply=function(){ rpSave("Before the debrief's changes"); return _dbApRP.apply(this,arguments); };
+document.addEventListener("click",e=>{ if(e.target.closest("[data-oneclear]")) rpSave(`Before Clear the ${ONE_NAME[oneAid()]||"aid"}`); },true);
+const _openEngRP=openEng; openEng=function(id){ const r=_openEngRP(id); const L=rpList(); if(!L[0]||Date.now()-L[0].at>6*3600e3) rpSave("As it was when you opened it"); return r; };
+const _syPullRP=syPull; syPull=async function(){ const cur=LIBD.cur, before=JSON.stringify(S); const r=await _syPullRP.apply(this,arguments); try{ if(LIBD.cur===cur&&JSON.stringify(S)!==before) rpSave("Before a newer copy came in from another device",before); }catch(e){} return r; };
+function rpWrapSample(f){ const label=()=>`Before Claude worked on the ${route==="aid"?(ONE_NAME[oneAid()]||"engagement"):"engagement"}`;
+  const w=async(...a)=>{ rpSave(label()); return f(...a); }; w.json=async(...a)=>{ rpSave(label()); return f.json(...a); };
+  Object.keys(f).forEach(k=>{ if(!(k in w)) w[k]=f[k]; }); if(f.limits) w.limits=(...x)=>f.limits(...x); w.__busy=true; w.__rp=true; w.__tok=f.__tok; return w; }
+setInterval(()=>{ try{ if(sample&&sample.__busy&&!sample.__rp) sample=rpWrapSample(sample); }catch(e){} },400);
+
+/* ---------- (2) Check Claude's guesses: one at a time, Right / Fix / Not sure → ask the client ---------- */
+const GUESS_OK=/^(your words|client|confirmed|debrief|you)\b/i;
+function guessList(){ const G=[], done=S.guessDone||{}, add=g=>{ if(!done[g.key]) G.push(g); };
+  try{ COLS.forEach(c=>(S.items[c.k]||[]).forEach((it,i)=>{ if(it.t&&it.src&&!GUESS_OK.test(it.src)) add({key:`aop:${c.k}.${i}:${it.t}`,aid:"aop",where:`Alignment · ${c.label}`,text:`${it.t}${it.d?`: ${it.d}`:""}`,why:it.src,ok:()=>{ it.src="Confirmed"; }}); })); }catch(e){}
+  try{ const P=S.pm; if(P&&P.cells){ (P.stake||[]).forEach((s,c)=>{ if(s.n&&s.src==="claude") add({key:`pms:${c}:${s.n}`,aid:"pm",where:"Priorities Map · key stakeholder",text:s.n,why:s.why||"",ok:()=>{ s.src="client"; }}); });
+    Object.entries(P.cells).forEach(([k,x])=>{ if(!x||!x.p||x.src!=="claude") return; const [r,c]=k.split(".").map(Number), st=P.stake?.[c]?.n||`Stakeholder ${c+1}`, ini=P.init?.[r]?.n||`Initiative ${r+1}`; add({key:`pmc:${k}:${st}:${ini}`,aid:"pm",where:"Priorities Map",text:`${st} rates ${ini}: ${PRI[x.p]}`,why:x.why||"",ok:()=>{ x.src="client"; }}); }); } }catch(e){}
+  try{ const M=S.sm; if(M&&Array.isArray(M.cap)){ M.cap.forEach((c,i)=>{ if(c&&c.n&&(c.src==="ally"||c.src==="claude")&&!c.ok) add({key:`smc:${i}:${c.n}`,aid:"sm",where:"Solutions Map · capability",text:`${c.n}${c.d?`: ${c.d}`:""}`,why:c.from||"From the solution's own description",ok:()=>{ c.ok=true; }}); });
+    Object.entries(M.cells||{}).forEach(([k,x])=>{ if(!x||!x.p||!(x.src==="claude"||x.src==="alignment")) return; const [r,c]=k.split(".").map(Number), cap=M.cap?.[c]?.n||`Capability ${c+1}`; add({key:`smx:${k}:${cap}`,aid:"sm",where:"Solutions Map",text:`${cap} on ${SM_INIT[r]}: ${SM_IMP[x.p]} impact`,why:x.why||(x.src==="alignment"?"Tied in the alignment":""),ok:()=>{ x.src="client"; }}); }); } }catch(e){}
+  try{ (S.uap?.probs||[]).forEach(p=>(p.box||[]).forEach((b,j)=>{ if(!b||b.src==="you"||b.ok) return; String(b.t||"").split("\n").forEach((line,li)=>{ const l=(b.ls||[])[li]; if(!line.trim()||!["vendor","assumption","industry"].includes(l)) return;
+    add({key:`uap:${p.id}:${j}:${line}`,aid:"uap",where:`Problem · ${p.name||"Problem"} · ${UAP_BOX[j]?.l||"Box"}`,text:line,why:{vendor:"The solution's own claim",assumption:"An assumption",industry:"Industry knowledge"}[l],ok:null}); }); })); }catch(e){}
+  try{ CPB.forEach(bd=>cpData()[bd.k].forEach((r,i)=>{ if(r.t&&!r.ok&&r.src&&!GUESS_OK.test(r.src)) add({key:`cp:${S.lens}:${bd.k}.${i}:${r.t}`,aid:"cp",where:`Criteria · ${bd.k==="org"?"Organizational · ROA":bd.k==="op"?"Operational · ROI":"Infrastructure · TCO"}`,text:`${r.dir==="up"?"▲ ":r.dir==="down"?"▼ ":""}${r.t}`,why:r.why||r.src,ok:null}); })); }catch(e){}
+  try{ const R=S.roadmap; if(R){ const ids=new Set([...Object.keys(R.wsrc||{}),...Object.keys(R.ssrc||{})].filter(id=>(R.wsrc||{})[id]==="claude"||(R.ssrc||{})[id]==="claude")); const D=["○ low","◑ some","● strong"];
+    [...ids].sort().forEach(id=>{ const [ph,ac]=id.split(".").map(Number), nm=AR[ph-1]?.a?.[ac-1]||id; add({key:`ar:${id}`,aid:"ar",where:`Roadmap · ${AR[ph-1]?.l||""}`,text:`${id} ${nm}: will ${D[(R.w||{})[id]||0]}, skill ${D[(R.s||{})[id]||0]}`,why:(R.why||{})[id]||"",ok:()=>{ ["w","s"].forEach(k=>{ if((R[k+"src"]||{})[id]==="claude") R[k+"src"][id]="client"; }); }}); }); } }catch(e){}
+  try{ const c=fiveCleanSummary(S.company?.summary||"").caveat; if(c) add({key:`co:${c}`,aid:null,where:"The client",text:c,why:"From Claude's research",ok:null}); }catch(e){}
+  return G; }
+let gq={list:[],i:0,n:0};
+function guessOpen(){ gq={list:guessList(),i:0,n:0}; guessShow(); }
+function guessShow(){ const g=gq.list[gq.i], asks=(S.toAsk||[]).length;
+  if(!g){ kitOpen("Claude's guesses",`<p class="kitlead">${gq.n?`All checked. `:"Nothing left to check. "}${asks?`${asks} question${asks>1?"s are":" is"} waiting for the client.`:""}</p>${asks?askListHTML():""}<div class="arow" style="flex:0 1 auto"><button class="btn primary" onclick="kitClose()">Done</button></div>`,true); return; }
+  kitOpen("Check Claude's guesses",`<div class="gqtop"><span>${gq.i+1} of ${gq.list.length}</span><i><s style="width:${Math.round(gq.i/gq.list.length*100)}%"></s></i></div>
+    <p class="gqwhere">${esc(g.where)}</p><p class="gqtext">${esc(g.text)}</p>${g.why?`<p class="gqwhy"><b>Why Claude thinks so</b> ${esc(g.why)}</p>`:""}
+    <div class="gqacts"><button class="btn primary" data-gq="ok">✓ Right</button>${g.aid?`<button class="btn" data-gq="fix">✎ Fix it</button>`:""}<button class="btn" data-gq="ask">? Not sure · ask the client</button><button class="btn ghost" data-gq="skip">Skip</button></div>${(()=>{ const same=gq.list.slice(gq.i).filter(x=>x.aid===g.aid&&x.where.split(" · ")[0]===g.where.split(" · ")[0]).length; return same>2?`<button class="linkbtn gqall" data-gq="okall">✓ All ${same} remaining in the ${esc(g.where.split(" · ")[0])} are right</button>`:""; })()}`,true); }
+function askListHTML(){ return `<ol class="asklist">${(S.toAsk||[]).map((q,i)=>`<li><span>${esc(q.q)}</span><small>${esc(q.from)}</small><button class="btn small ghost" data-askdel="${i}" aria-label="Remove">✕</button></li>`).join("")}</ol><div class="arow" style="flex:0 1 auto"><button class="btn small" data-askcopy>Copy the questions</button></div>`; }
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-gq]"); if(b){ const g=gq.list[gq.i]; if(!g) return; const k=b.dataset.gq; S.guessDone=S.guessDone||{};
+    if(k==="ok"){ try{ g.ok&&g.ok(); }catch(err){} S.guessDone[g.key]="ok"; gq.n++; save(); }
+    if(k==="ask"){ S.toAsk=S.toAsk||[]; S.toAsk.push({q:`Is this right? ${g.text}`,from:g.where,at:Date.now()}); S.guessDone[g.key]="ask"; gq.n++; save(); }
+    if(k==="okall"){ const head=g.where.split(" · ")[0]; gq.list.slice(gq.i).filter(x=>x.aid===g.aid&&x.where.split(" · ")[0]===head).forEach(x=>{ try{ x.ok&&x.ok(); }catch(err){} S.guessDone[x.key]="ok"; gq.n++; }); save(); gq.list=gq.list.filter((x,i)=>i<gq.i||!S.guessDone[x.key]); guessShow(); try{ renderOverview(); }catch(err){} return; }
+    if(k==="fix"){ kitClose(); const go=ENG_OPEN[g.aid]; go&&go(); toast("Fix it here. Your words replace Claude's."); return; }
+    gq.i++; guessShow(); try{ renderOverview(); }catch(err){} return; }
+  const d=e.target.closest("[data-askdel]"); if(d){ (S.toAsk||[]).splice(+d.dataset.askdel,1); save(); const box=d.closest(".asklist"); if(box) box.outerHTML=askListHTML(); try{ renderOverview(); }catch(err){} return; }
+  if(e.target.closest("[data-askcopy]")){ const t=(S.toAsk||[]).map((q,i)=>`${i+1}. ${q.q}`).join("\n"); navigator.clipboard?.writeText(t).then(()=>toast("Questions copied"),()=>toast("Couldn't copy here")); return; }
+  if(e.target.closest("[data-gqopen]")) guessOpen(); if(e.target.closest("[data-askopen]")) kitOpen("Questions for the client",askListHTML(),true); });
+const _etAsk=engagementText; engagementText=function(){ const t=_etAsk.apply(this,arguments); const q=(S.toAsk||[]).map(x=>`- ${x.q}`).join("\n"); return q?`${t}\nQUESTIONS TO ASK THE CLIENT (from checking Claude's guesses):\n${q}`:t; };
+
+/* ---------- (3) the Overview leads with what matters, (4) and says what the phone is for ---------- */
+const _roTrust=renderOverview; renderOverview=function(){ _roTrust(); try{ trustPaintOverview(); }catch(e){ console.error(e); } };
+function trustPaintOverview(){ const head=document.querySelector("#viewOverview .ovhead .hhead>div"), nx=$("ovNext"); if(!head||!nx) return;
+  let meta=$("ovMeta"); if(!meta){ meta=document.createElement("div"); meta.id="ovMeta"; meta.className="ovmeta"; }
+  const after=$("ovCaveat")||$("ovSub"); if(after&&meta.previousElementSibling!==after) after.after(meta);
+  const mb=document.querySelector("#viewOverview .ovhead .meetbtn"), lg=$("ovLogo"); [mb,lg].forEach(x=>x&&x.remove());
+  meta.innerHTML=`<span class="ovmst">${stageSelHTML(stageOf(),"cur")}</span><button class="btn small" data-trusthist>↺ History</button>`;
+  if(mb){ mb.classList.add("small"); meta.prepend(mb); } if(lg) meta.appendChild(lg);
+  /* Claude's guesses and the client's questions, right under the next step */
+  const G=guessList().length, A=(S.toAsk||[]).length; let gc=$("ovGuess");
+  if(!G&&!A){ gc&&gc.remove(); } else { if(!gc){ gc=document.createElement("div"); gc.id="ovGuess"; gc.className="scard ovguess"; } if(gc.previousElementSibling!==nx) nx.after(gc);
+    gc.innerHTML=`<div><span class="onlbl">${G?"Before you rely on it":"For the client"}</span><b>${G?`Check Claude's guesses · ${G}`:`${A} question${A>1?"s":""} to ask the client`}</b><small>${G?"One at a time: Right, Fix it, or Not sure, which goes on your list of questions for the client.":"From checking Claude's guesses. They're in the 60-second brief too."}${G&&A?` ${A} question${A>1?"s":""} waiting.`:""}</small></div>
+      <div class="arow" style="flex:0 1 auto">${G?`<button class="btn primary" data-gqopen>Start</button>`:""}${A?`<button class="btn" data-askopen>The questions</button>`:""}</div>`; }
+  /* where Claude can't run, say what this view is for */
+  let nc=$("ovNoCl"); if(!document.body.classList.contains("noclaude")){ nc&&nc.remove(); } else { if(!nc){ nc=document.createElement("p"); nc.id="ovNoCl"; nc.className="noclline"; } if(nc.nextElementSibling!==nx) nx.before(nc);
+    nc.innerHTML=`Claude drafts on your computer, or in Safari here. In this view: <b>check Claude's guesses</b>, <b>present</b>, and <button class="linkbtn" data-quicknote>📝 note what happened</button>.`; }
+  const kit=$("ovKit"); if(kit&&!kit.querySelector("[data-quicknote]")){ const aft=kit.querySelector('[data-kit="debrief"]'); aft&&aft.insertAdjacentHTML("beforebegin",`<button class="btn small" data-quicknote>📝 Quick note</button>`); } }
+document.addEventListener("click",e=>{ if(e.target.closest("[data-trusthist]")) openHistory(); if(e.target.closest("[data-quicknote]")) quickNote(); });
+function quickNote(){ kitOpen("Note what happened",`<p class="kitlead">Say or type it while it's fresh. It's kept with ${esc(aidName())}, and the Debrief turns it into proposed changes later.</p>
+  <textarea id="qnText" class="tin" rows="5" placeholder="e.g. The CFO cares more about cash than growth this year."></textarea>
+  <div class="arow" style="flex:0 1 auto">${kitMic("qnText")}<button class="btn primary" data-qnsave>Save the note</button></div>`,true); setTimeout(()=>$("qnText")?.focus(),50); }
+document.addEventListener("click",e=>{ if(!e.target.closest("[data-qnsave]")) return; const t=($("qnText")?.value||"").trim(); if(!t){ $("qnText")?.focus(); return; }
+  const stamp=new Date().toLocaleDateString([], {month:"short",day:"numeric"}); S.debriefText=((S.debriefText||"").trim()?S.debriefText.trim()+"\n":"")+`[${stamp}] ${t}`; save(); kitClose(); toast("Note saved. Debrief turns it into changes."); try{ renderOverview(); }catch(err){} });
+/* (4) where Claude can't run, no Claude buttons; the panel says what this view is for */
+function noClaudeMark(){ const on=!sample; if(document.body.classList.contains("noclaude")!==on){ document.body.classList.toggle("noclaude",on); if(route==="overview") try{ renderOverview(); }catch(e){} }
+  if(route==="aid"){ const p=document.querySelector(".onepanel"); let l=$("oneNoCl"); if(!on||!p){ l&&l.remove(); return; } if(!l||!p.contains(l)){ l&&l.remove(); l=document.createElement("p"); l.id="oneNoCl"; l.className="noclline"; l.innerHTML=`Claude drafts on your computer, or in Safari here. In this view you can review, fill in by hand, <button class="linkbtn" data-gqopen>check Claude's guesses</button> and present.`; p.prepend(l); } } }
+setInterval(noClaudeMark,1200); setTimeout(noClaudeMark,300);
+/* More and ⌘K reach History, the guesses and the note */
+const _oneMoreTr=oneMoreItems; oneMoreItems=function(){ const it=_oneMoreTr(), G=guessList().length; it.unshift(["↺ History · restore points",`${rpList().length} on this device`,"history"]); if(G) it.unshift([`Check Claude's guesses · ${G}`,"Right, Fix it, or ask the client","guesses"]); it.push(["📝 Note what happened","for the debrief","note"]); return it; };
+const _oneActTr=oneAct; oneAct=function(k,anchor){ if(k==="history"){ closePop(); openHistory(); return; } if(k==="guesses"){ closePop(); guessOpen(); return; } if(k==="note"){ closePop(); quickNote(); return; } return _oneActTr(k,anchor); };
+const _cmdTr=cmdActions; cmdActions=function(){ const A=_cmdTr(); A.push({g:"Work",t:"History · restore points",run:openHistory,hint:""},{g:"Work",t:"Check Claude's guesses",run:guessOpen,hint:""},{g:"Work",t:"Note what happened",run:quickNote,hint:""}); return A; };
+
+/* ---------- (5) the guide opens once, for your first aid, then only from ? ---------- */
+const SEEN_KEYS=["aop","cp","pm","ar","uap","sp","sm"].map(k=>"ka-seen-"+k);
+function seenAll(){ try{ SEEN_KEYS.forEach(k=>localStorage.setItem(k,"1")); }catch(e){} }
+try{ if(SEEN_KEYS.some(k=>localStorage.getItem(k))) seenAll(); }catch(e){}
+const _lovClose=oneLearnClose; oneLearnClose=function(){ const r=_lovClose.apply(this,arguments); seenAll(); return r; };
 
 mountCoach();
 { const p=parseRoute(); if(p&&p.r==="aid") nav("aid",Object.assign({},p,{push:false})); else nav(p?p.r:"home",{push:false}); }
