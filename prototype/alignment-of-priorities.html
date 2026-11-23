@@ -7698,7 +7698,7 @@ function webFix(code,msg){ return ({nourl:"Add the solution's website first (e.g
   needs_reauth:"Reconnect Firecrawl in claude.ai Settings → Connectors, then try again.",not_in_manifest:"Firecrawl isn't allowed for this page. Allow it when asked, then try again.",
   approval_required:"Reading the website needs your approval: try again and choose Allow.",selection_required:"Choose which Firecrawl connector to use when claude.ai asks, then try again.",
   blocked_by_policy:"Your organization blocks Firecrawl for this page.",tool_error:`Firecrawl couldn't read the site${msg?`: ${String(msg).slice(0,120)}`:"."}`})[code]||`The website couldn't be read this time${msg?` (${String(msg).slice(0,100)})`:""}.`; }
-async function webScrape(m,url){ const r=await m.callTool(WEB_SRV,WEB_TOOL,{url,formats:["markdown"],onlyMainContent:true},{cache:{staleTime:WEB_DAY,gcTime:WEB_DAY}});
+async function webScrape(m,url){ const r=await m.callTool(WEB_SRV,WEB_TOOL,{url,formats:["markdown"],onlyMainContent:true,objective:"Read what this company says it offers, to list its solutions and capabilities"},{cache:{staleTime:WEB_DAY,gcTime:WEB_DAY}});
   const p=r&&r.payload; let md=typeof p==="string"?p:(p&&(p.markdown||(p.data&&p.data.markdown)||p.content))||"";
   if(!md&&r&&Array.isArray(r.content)) md=r.content.filter(b=>b&&b.type==="text").map(b=>b.text).join("\n"); return String(md||""); }
 async function webRead(site,say){ const url=webUrl(site); if(!url) return {err:"nourl"}; const m=await webNs(); if(!m) return {err:"nomcp"}; const host=new URL(url).hostname;
