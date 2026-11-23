@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steps on the picture · mock-up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#17264a;--blue:#2c4f9b;--plum:#8b2f5c;--plum-soft:#f6e9ef;--gold:#c9a227;--ink:#1f2430;--muted:#6b7280;--rule:#e3e6ec;--paper:#fff;--bg:#eef1f6;--ok:#2e7d4f;--warn:#c76a12;--inf:#e4efe3;--inf-ink:#3d6b3a}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Open Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.45}
+.top{background:var(--navy);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.top b{font-size:15px}.top span{opacity:.75;font-size:13px}
+.wrap{max-width:1240px;margin:0 auto;padding:18px 16px 60px}
+.intro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.intro div{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.intro h3{margin:0 0 4px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--plum)}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.seg{display:inline-flex;background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;font:600 13px "Open Sans";padding:6px 14px;border-radius:999px;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed=true]{background:var(--navy);color:#fff}
+.note{color:var(--muted);font-size:13px}
+.frame{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px;position:relative;margin:0 auto;transition:max-width .3s}
+.frame.phone{max-width:400px;padding:12px}
+.ahead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--rule);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;background:#fff;color:var(--ink)}
+.chip.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.chip.k{font-size:11px;letter-spacing:.08em;color:var(--plum);border:0;padding-right:2px}
+.ahead .grow{flex:1}
+.btn{border:1px solid var(--blue);background:#fff;color:var(--blue);font:600 13px "Open Sans";padding:7px 12px;border-radius:8px;cursor:pointer}
+.btn.p{background:var(--blue);color:#fff}.btn.plum{background:var(--plum);border-color:var(--plum);color:#fff}
+.btn.s{padding:5px 10px;font-size:12.5px}
+/* the sheet */
+.sheetbox{position:relative;overflow:visible}
+.sheet{position:relative;padding:8px 8px 14px}
+.kick{color:#b49a6a;font-weight:700;font-size:13px}
+h1.t{font-weight:300;color:var(--blue);font-size:38px;margin:0 0 10px;line-height:1.1}
+.client{position:absolute;right:14px;top:14px;color:var(--blue);font-weight:600;font-size:17px}
+.grid{display:grid;grid-template-columns:170px repeat(6,minmax(0,1fr));position:relative}
+.capbar{grid-column:2/8;background:var(--blue);color:#fff;text-align:center;font-weight:800;letter-spacing:.35em;font-size:13px;padding:6px 0}
+.capbar.dim,.inibar.dim{opacity:.35}
+.ch{padding:6px 4px 8px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;border-radius:8px;position:relative;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px}
+.ch .box{width:14px;height:14px;border:1.5px solid #9aa0ab;border-radius:3px;display:inline-grid;place-items:center;font-size:10px;color:#fff}
+.ch .box.on{background:var(--plum);border-color:var(--plum)}
+.ch.empty{color:#b9bec8;font-weight:400}
+.rh{padding:10px 10px 10px 30px;text-align:right;font-size:13px;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:flex-end;gap:8px;min-height:60px}
+.rh .box{width:14px;height:14px;border:1.5px solid #9aa0ab;border-radius:3px;display:inline-grid;place-items:center;font-size:10px;color:#fff;flex:none;position:absolute;left:8px}
+.rh .box.on{background:var(--plum);border-color:var(--plum)}
+.rh.aop{font-weight:700}
+.inibar{position:absolute;left:0;width:22px;background:var(--inf);color:var(--inf-ink);font-weight:800;font-size:12px;writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em;display:grid;place-items:center}
+.cell{display:grid;place-items:center;cursor:pointer;min-height:60px;border-top:1px solid var(--rule)}
+.row-alt{background:#f5f9f4}
+.ball{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--plum);position:relative;transition:transform .15s}
+.ball.e{border:1.5px dashed #c7ccd6}
+.ball.l{}
+.ball.m{background:linear-gradient(90deg,transparent 50%,var(--plum) 50%)}
+.ball.h{background:var(--plum)}
+.ball.cl{border-style:dashed}
+.cell:hover .ball{transform:scale(1.08)}
+.legend{display:flex;gap:16px;justify-content:flex-end;font-size:12px;color:var(--muted);margin-top:10px;align-items:center}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--plum);vertical-align:-3px;margin-right:4px}
+.legend i.m{background:linear-gradient(90deg,transparent 50%,var(--plum) 50%)}.legend i.h{background:var(--plum)}
+/* the step layer */
+.layer{position:absolute;inset:0;pointer-events:none;z-index:5}
+.dim{position:absolute;background:rgba(255,255,255,.58);transition:all .3s ease}
+.ring{position:absolute;border-radius:10px;box-shadow:0 0 0 2px var(--plum),0 8px 20px rgba(139,47,92,.16);transition:all .3s ease}
+.done{position:absolute;pointer-events:auto;width:22px;height:22px;border-radius:50%;background:var(--ok);color:#fff;border:2px solid #fff;font-size:12px;font-weight:800;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.mark{position:absolute;pointer-events:auto;border-radius:10px;cursor:pointer}
+.mark.gap{box-shadow:inset 0 0 0 2px var(--warn);background:rgba(199,106,18,.06)}
+.mark.syn{box-shadow:inset 0 0 0 2px var(--ok);background:rgba(46,125,79,.06)}
+.mark.miss{box-shadow:inset 0 0 0 2px var(--warn);border:0;background:repeating-linear-gradient(45deg,rgba(199,106,18,.07) 0 6px,transparent 6px 12px)}
+.mark b{position:absolute;right:6px;top:-11px;font-size:11px;font-weight:700;color:#fff;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.mark.gap b,.mark.miss b{background:var(--warn)}.mark.syn b{background:var(--ok)}
+/* the card */
+.card{position:absolute;pointer-events:auto;width:300px;background:#fff;border:1px solid var(--rule);border-radius:14px;box-shadow:0 14px 34px rgba(23,38,74,.22);padding:14px 14px 10px;font-size:13.5px;transition:left .3s ease,top .3s ease;z-index:6}
+.card small{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--plum);margin-right:20px}
+.card h4{margin:2px 0 6px;font-size:16px}
+.card p{margin:0 0 10px;color:#3d4350}
+.card label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:8px 0 3px}
+.card input,.card textarea{width:100%;font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;color:var(--ink)}
+.card textarea{min-height:56px;resize:vertical}
+.card .x{position:absolute;top:8px;right:8px;border:0;background:transparent;color:var(--muted);font-size:14px;cursor:pointer}
+.card .row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.card .chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 4px}
+.card .chips button{border:1px solid var(--rule);background:#f7f8fb;border-radius:999px;padding:4px 10px;font:600 12px "Open Sans";cursor:pointer}
+.card .chips button.used{background:var(--plum-soft);border-color:var(--plum);color:var(--plum)}
+.card .src{display:inline-block;font-size:11px;color:var(--blue);background:#eef2fb;border-radius:999px;padding:2px 8px;margin-top:4px}
+.card ul{margin:4px 0 8px;padding-left:18px}.card li{margin:2px 0}
+.card .nav{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--rule);padding-top:8px;margin-top:8px;gap:6px}
+.card .nav button{border:0;background:transparent;font:700 13px "Open Sans";color:var(--plum);cursor:pointer;padding:2px}
+.dots{display:flex;gap:6px}
+.dots button{width:10px;height:10px;padding:0!important;border-radius:50%;border:1.5px solid var(--muted)!important;background:transparent}
+.dots button.ok{background:var(--ok);border-color:var(--ok)!important}
+.dots button.on{background:var(--plum);border-color:var(--plum)!important;transform:scale(1.25)}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:6px 0}
+.chk input{width:auto;margin-top:3px}
+.ok{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}
+.show{border:0;background:none;color:var(--blue);font:600 12.5px "Open Sans";cursor:pointer;padding:0;text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--navy);color:#fff;padding:9px 16px;border-radius:999px;font-size:13.5px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:50}
+.toast.on{opacity:1}
+/* pins */
+.pin{position:absolute;z-index:9;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#1b1b1b;font:800 12px/22px "Open Sans";text-align:center;cursor:help;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.pin:hover::after{content:attr(data-t);position:absolute;left:28px;top:-4px;width:240px;background:#1b2440;color:#fff;font:400 12.5px/1.4 "Open Sans";padding:8px 10px;border-radius:8px;text-align:left;z-index:20}
+body.nopins .pin{display:none}
+/* phone: the card docks under the picture */
+.frame.phone .grid{grid-template-columns:88px repeat(6,minmax(0,1fr))}
+.frame.phone h1.t{font-size:24px}.frame.phone .client{font-size:12px;top:10px}
+.frame.phone .ch{font-size:9px;min-height:44px;padding:4px 1px}.frame.phone .rh{font-size:9.5px;padding:6px 4px 6px 18px;min-height:44px}.frame.phone .rh .box{left:2px;width:11px;height:11px}
+.frame.phone .cell{min-height:44px}.frame.phone .ball{width:20px;height:20px;border-width:2px}
+.frame.phone .capbar{font-size:9px;letter-spacing:.2em}.frame.phone .inibar{display:none}
+.frame.phone .card{position:relative!important;left:auto!important;top:auto!important;width:auto;margin:12px 0 0}
+.frame.phone .ahead .chip:not(.on):not(.k){display:none}
+@media (max-width:820px){.intro{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><b>Steps on the picture</b><span>A clickable mock-up of the Solutions Map · Kevin's Morgan Industries example · nothing in the app changes until you pick</span></div>
+<div class="wrap">
+  <div class="intro">
+    <div><h3>What's live today</h3>The part of the sheet for the step you're on lights up, a small coach card sits beside it, and finished parts get a ✓. The fields you fill in are still in the panel beside the sheet.</div>
+    <div><h3>What this mock-up adds</h3>You fill everything in <b>inside the card, on the picture</b>. There's no side panel. Tap one capability, initiative or ball and the card opens for <b>that one item</b>, right where it is.</div>
+    <div><h3>And the last steps</h3><b>Gaps &amp; synergies</b> and <b>Check</b> mark the sheet itself: gaps outlined in orange, synergies in green, missing pieces hatched. Tap a mark to fix it there.</div>
+  </div>
+  <div class="bar">
+    <div class="seg" role="group" aria-label="View"><button id="vDesk" aria-pressed="true">Computer</button><button id="vPhone" aria-pressed="false">Phone</button></div>
+    <div class="seg" role="group" aria-label="Notes"><button id="pinOn" aria-pressed="true">Show the thinking</button><button id="pinOff" aria-pressed="false">Hide</button></div>
+    <span class="note">Try: tap a capability header, a row, a ball · ✦ Claude · Next →</span>
+  </div>
+
+  <div class="frame" id="frame">
+    <div class="ahead">
+      <span class="chip k">HOW</span><span class="chip on">Solutions Map</span><span class="chip">Criteria</span><span class="chip">Session Plan</span>
+      <span class="grow"></span><button class="btn plum s" data-claude>✦ Claude</button><button class="btn s">Meet the client</button>
+    </div>
+    <div class="sheetbox" id="box">
+      <div class="sheet" id="sheet">
+        <div class="kick">Illustrate Innovative Solutions</div>
+        <h1 class="t">Solutions Map</h1>
+        <div class="client">Morgan Industries (MI)</div>
+        <div class="grid" id="grid"></div>
+        <div class="legend"><span><i></i>Low</span><span><i class="m"></i>Medium</span><span><i class="h"></i>High Impact</span><span>dashed = Claude's view, to confirm</span></div>
+      </div>
+      <div class="layer" id="layer"></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const INIT=["Sustainable Growth","Engage & Retain","High Performance Culture","Improve Health & Well-Being","Operational Excellence","Cost Competitiveness"];
+const AOP=[1,4,5];
+const OFFERS=[{n:"Infrastructure Services",d:"Implementation design & delivery"},{n:"Infrastructure Products",d:"Architected open, always on"},{n:"Managed Operations",d:"Run and support the platform"},{n:"Advisory",d:"Plan the roadmap with the client"}];
+const STEPS=["Capabilities","Initiatives","Impact","Gaps & synergies","Check"];
+const TEACH=["Explain and confirm an understanding of the capabilities. They start as the alignment's Solutions; Claude can read the solution's website for the rest.","Validate the “top of mind” initiatives. Tick each one the stakeholder confirms.","Map and agree the impact of each capability on each initiative. Tap a ball: empty → Low → Medium → High.","Where is there no Medium or High impact on a top-of-mind initiative (a gap)? Where do two capabilities both hit High (a synergy)?","Before you rely on it: what's still missing or unconfirmed."];
+const S={cap:[{n:"Infrastructure Services",d:"Implementation design & delivery",ok:true,src:"From the alignment"},{n:"Infrastructure Products",d:"Architected open, always on",ok:false,src:"From the alignment"},{n:"",d:""},{n:"",d:""},{n:"",d:""},{n:"",d:""}],
+  ok:[false,true,false,false,true,true], cells:{"1.0":{p:3},"1.1":{p:3},"4.0":{p:2},"4.1":{p:3},"5.0":{p:2},"5.1":{p:2}}, take:"", step:0, focus:null};
+const $=id=>document.getElementById(id);
+function done(i){ if(i===0) return S.cap.filter(c=>c.n).length>=2&&S.cap.filter(c=>c.n).every(c=>c.ok); if(i===1) return S.ok.some(Boolean); if(i===2) return Object.values(S.cells).filter(x=>x.p&&!x.cl).length>=6; if(i===3) return !!S.take.trim(); return false; }
+function named(){ return S.cap.map((c,i)=>c.n?i:-1).filter(i=>i>=0); }
+function gaps(){ return INIT.map((_,r)=>r).filter(r=>(S.ok[r]||AOP.includes(r))&&!named().some(c=>(S.cells[r+"."+c]?.p||0)>=2)); }
+function syns(){ return INIT.map((_,r)=>r).filter(r=>named().filter(c=>(S.cells[r+"."+c]?.p||0)===3).length>=2); }
+function ballCls(x){ if(!x||!x.p) return "e"; return ["","l","m","h"][x.p]+(x.cl?" cl":""); }
+function render(){ const g=$("grid"); let h=`<div></div><div class="capbar" id="capbar">CAPABILITIES</div><div></div>`;
+  S.cap.forEach((c,i)=>{ h+=`<div class="ch ${c.n?"":"empty"}" data-cap="${i}"><span class="box ${c.ok?"on":""}">${c.ok?"✓":""}</span>${c.n||"Capability "+(i+1)}</div>`; });
+  INIT.forEach((n,r)=>{ const alt=r%2?"row-alt":""; h+=`<div class="rh ${alt} ${AOP.includes(r)?"aop":""}" data-ini="${r}"><span class="box ${S.ok[r]?"on":""}">${S.ok[r]?"✓":""}</span>${n}${AOP.includes(r)?" ✓":""}</div>`;
+    S.cap.forEach((c,ci)=>{ h+=`<div class="cell ${alt}" data-cell="${r}.${ci}">${c.n?`<span class="ball ${ballCls(S.cells[r+"."+ci])}"></span>`:""}</div>`; }); });
+  g.innerHTML=h; requestAnimationFrame(paint); }
+function rectOf(els){ const box=$("box").getBoundingClientRect(); let l=1e9,t=1e9,r=-1e9,b=-1e9; els.forEach(e=>{ const x=e.getBoundingClientRect(); l=Math.min(l,x.left); t=Math.min(t,x.top); r=Math.max(r,x.right); b=Math.max(b,x.bottom); }); return {l:l-box.left-4,t:t-box.top-4,w:r-l+8,h:b-t+8,W:box.width,H:box.height}; }
+function region(i){ const q=s=>[...document.querySelectorAll(s)];
+  if(S.focus){ if(S.focus.k==="cap") return q(`[data-cap="${S.focus.i}"]`); if(S.focus.k==="ini") return q(`[data-ini="${S.focus.i}"]`); if(S.focus.k==="cell") return q(`[data-cell="${S.focus.i}"]`); }
+  if(i===0) return q("[data-cap]"); if(i===1) return q("[data-ini]"); if(i===2) return q("[data-cell]"); return null; }
+function paint(){ document.querySelectorAll("#frame>.card").forEach(c=>c.remove()); const L=$("layer"), box=$("box"), i=S.step; let h=""; const els=region(i), R=els&&els.length?rectOf(els):null, W=box.clientWidth, H=box.clientHeight;
+  if(R) h+=`<div class="dim" style="left:0;top:0;width:100%;height:${Math.max(0,R.t)}px"></div><div class="dim" style="left:0;top:${R.t+R.h}px;width:100%;height:${Math.max(0,H-R.t-R.h)}px"></div><div class="dim" style="left:0;top:${R.t}px;width:${Math.max(0,R.l)}px;height:${R.h}px"></div><div class="dim" style="left:${R.l+R.w}px;top:${R.t}px;width:${Math.max(0,W-R.l-R.w)}px;height:${R.h}px"></div><div class="ring" style="left:${R.l}px;top:${R.t}px;width:${R.w}px;height:${R.h}px"></div>`;
+  [0,1,2].forEach(k=>{ if(k===i||!done(k)) return; const r=rectOf(region.call(null,k)&&(()=>{ const f=S.focus; S.focus=null; const e=region(k); S.focus=f; return e; })()); h+=`<button class="done" style="left:${r.l+r.w-12}px;top:${r.t-9}px" data-go="${k}" title="${STEPS[k]} · done">✓</button>`; });
+  if(i===3){ gaps().forEach(r=>{ const x=rectOf([...document.querySelectorAll(`[data-ini="${r}"],[data-cell^="${r}."]`)]); h+=`<div class="mark gap" style="left:${x.l}px;top:${x.t}px;width:${x.w}px;height:${x.h}px" data-mark="gap" data-r="${r}"><b>Gap · no Medium or High</b></div>`; });
+    syns().forEach(r=>{ const x=rectOf([...document.querySelectorAll(`[data-ini="${r}"],[data-cell^="${r}."]`)]); h+=`<div class="mark syn" style="left:${x.l}px;top:${x.t}px;width:${x.w}px;height:${x.h}px" data-mark="syn" data-r="${r}"><b>Synergy</b></div>`; }); }
+  if(i===4){ const miss=checks().filter(c=>!c.ok&&c.els); miss.forEach(c=>{ const x=rectOf(c.els()); h+=`<div class="mark miss" style="left:${x.l}px;top:${x.t}px;width:${x.w}px;height:${x.h}px" data-fix="${c.go}" ${c.f?`data-focus='${JSON.stringify(c.f)}'`:""}><b>${c.short}</b></div>`; }); }
+  h+=cardHTML(); L.innerHTML=h; const card=L.querySelector(".card"); if(card) place(card,R,W,H); pins(); }
+function place(card,R,W,H){ if($("frame").classList.contains("phone")){ $("frame").appendChild(card); return; } const cw=card.offsetWidth, ch=card.offsetHeight; let x,y;
+  if(R){ if(R.l+R.w+14+cw<=W){ x=R.l+R.w+14; y=R.t; } else if(R.t+R.h+12+ch<=H){ x=Math.min(Math.max(8,R.l),W-cw-8); y=R.t+R.h+12; } else if(R.t-ch-12>=0){ x=Math.min(Math.max(8,R.l),W-cw-8); y=R.t-ch-12; } else { x=W-cw-8; y=8; } }
+  else { x=W-cw-10; y=10; } card.style.left=Math.max(6,Math.min(x,W-cw-6))+"px"; card.style.top=Math.max(6,Math.min(y,H-ch-6))+"px"; }
+function nav(){ const i=S.step; return `<div class="nav">${i>0?`<button data-go="${i-1}">←</button>`:"<span></span>"}<span class="dots">${STEPS.map((n,k)=>`<button class="${k===i?"on":done(k)?"ok":""}" data-go="${k}" title="${n}"></button>`).join("")}</span>${i<4?`<button data-go="${i+1}">Next: ${STEPS[i+1]} →</button>`:`<button data-go="0">Start over</button>`}</div>`; }
+function checks(){ const q=s=>()=>[...document.querySelectorAll(s)];
+  const unconf=S.cap.map((c,i)=>c.n&&!c.ok?i:-1).filter(i=>i>=0), dashed=Object.entries(S.cells).filter(([,x])=>x.cl), emptyC=S.cap.filter(c=>!c.n).length;
+  return [{t:"At least three capabilities named",ok:named().length>=3,short:"Name a capability",go:0,els:emptyC?q('.ch.empty'):null,f:emptyC?{k:"cap",i:S.cap.findIndex(c=>!c.n)}:null},
+    {t:"Every capability's understanding confirmed",ok:!unconf.length,short:"Confirm understanding",go:0,els:unconf.length?q(`[data-cap="${unconf[0]}"]`):null,f:unconf.length?{k:"cap",i:unconf[0]}:null},
+    {t:"Top-of-mind initiatives validated",ok:S.ok.some(Boolean),short:"Validate an initiative",go:1,els:null},
+    {t:"Claude's ratings confirmed with the client",ok:!dashed.length,short:"Confirm Claude's rating",go:2,els:dashed.length?q(`[data-cell="${dashed[0][0]}"]`):null,f:dashed.length?{k:"cell",i:dashed[0][0]}:null},
+    {t:"No gaps on top-of-mind initiatives",ok:!gaps().length,short:"Gap",go:3,els:gaps().length?q(`[data-ini="${gaps()[0]}"]`):null},
+    {t:"Key takeaways written",ok:!!S.take.trim(),short:"Write a takeaway",go:3,els:null}]; }
+function cardHTML(){ const i=S.step, f=S.focus; let b="";
+  if(f&&f.k==="cap"){ const c=S.cap[f.i]; b=`<small>Capability ${f.i+1}</small><h4>${c.n||"Name this capability"}</h4>
+    <label>Name</label><input data-capn="${f.i}" value="${c.n}" placeholder="e.g. Managed Operations">
+    <label>What it does for the client</label><textarea data-capd="${f.i}" placeholder="One line">${c.d}</textarea>
+    ${c.src?`<span class="src">${c.src}</span>`:""}
+    <div class="chk"><input type="checkbox" id="cok" data-capok="${f.i}" ${c.ok?"checked":""}><label for="cok" style="margin:0;font-weight:600;color:var(--ink)">Understanding confirmed with the stakeholder</label></div>
+    <label>From the solution's website</label><div class="chips">${OFFERS.map((o,k)=>`<button data-offer="${k}" class="${S.cap.some(x=>x.n===o.n)?"used":""}">${S.cap.some(x=>x.n===o.n)?"✓ ":"＋ "}${o.n}</button>`).join("")}</div>
+    <div class="row"><button class="btn s" data-unfocus>Done</button></div>`; }
+  else if(f&&f.k==="ini"){ const r=f.i; b=`<small>Initiative</small><h4>${INIT[r]}</h4><p>KA's meaning: ${["Growth that lasts.","Keeping customers and people committed.","A culture that consistently delivers.","Better health for the people served or employed.","Running the business reliably and efficiently.","Costs low enough to compete."][r]}${AOP.includes(r)?" <b>In your alignment.</b>":""}</p>
+    <div class="chk"><input type="checkbox" id="iok" data-iniok="${r}" ${S.ok[r]?"checked":""}><label for="iok" style="margin:0;font-weight:600;color:var(--ink)">Validated as top of mind</label></div>
+    <p class="note">Its row: ${named().map(c=>`${S.cap[c].n} <b>${["–","Low","Medium","High"][S.cells[r+"."+c]?.p||0]}</b>`).join(" · ")||"no capabilities yet"}</p>
+    <div class="row"><button class="btn s" data-unfocus>Done</button></div>`; }
+  else if(f&&f.k==="cell"){ const [r,c]=f.i.split(".").map(Number), x=S.cells[f.i]||{}; b=`<small>Impact</small><h4>${S.cap[c].n} → ${INIT[r]}</h4>
+    <div class="row">${["None","Low","Medium","High"].map((n,k)=>`<button class="btn s ${(x.p||0)===k?"p":""}" data-setp="${k}">${n}</button>`).join("")}</div>
+    ${x.cl?`<p class="note">Claude's view: ${x.why||"likely impact from the engagement"}. Tap a level to confirm or change it.</p>`:""}
+    <label>How it makes the difference (details)</label><textarea data-celld placeholder="Optional">${x.d||""}</textarea>
+    <div class="row"><button class="btn s" data-unfocus>Done</button></div>`; }
+  else if(i===0) b=`<small>Now · Capabilities</small><p>${TEACH[0]}</p><div class="row"><button class="btn p s" data-web>🌐 Read the solution's website</button><button class="btn s" data-claude>✦ Claude</button></div><p class="note">Tap any capability to fill it in right here.</p>`;
+  else if(i===1) b=`<small>Now · Initiatives</small><p>${TEACH[1]}</p><p class="note">Tap a row to validate it. Bold ones are in your alignment.</p><div class="row"><button class="btn s" data-allaop>Validate the three in the alignment</button></div>`;
+  else if(i===2) b=`<small>Now · Impact</small><p>${TEACH[2]}</p><div class="row"><button class="btn p s" data-claude>✦ Rate with Claude</button>${Object.values(S.cells).some(x=>x.cl)?`<button class="btn s" data-confirm>Confirm all with the client</button>`:""}</div><p class="note">Tap a ball for its card: level, Claude's reason, details.</p>`;
+  else if(i===3){ const G=gaps(), Y=syns(); b=`<small>Now · Gaps & synergies</small><p>Marked on the map: <span class="warn">${G.length} gap${G.length===1?"":"s"}</span> · <span class="ok">${Y.length} synerg${Y.length===1?"y":"ies"}</span>. Tap a mark to open that row.</p>
+    <label>Key takeaways</label><textarea data-take placeholder="What does the map tell us?">${S.take}</textarea>${G.length?`<div class="row"><button class="btn s" data-starter>Start from the gaps</button></div>`:""}`; }
+  else { const C=checks(); b=`<small>Now · Check</small><p>${C.filter(c=>c.ok).length} of ${C.length} ready. What's missing is hatched on the map; tap it to fix it there.</p><ul style="list-style:none;padding:0">${C.map(c=>`<li>${c.ok?`<span class="ok">✓</span>`:`<span class="warn">○</span>`} ${c.t}${c.ok?"":` <button class="show" data-fix="${c.go}" ${c.f?`data-focus='${JSON.stringify(c.f)}'`:""}>Show me</button>`}</li>`).join("")}</ul>`; }
+  return `<div class="card" role="region" aria-label="Guide"><button class="x" data-unfocus aria-label="Close">✕</button>${b}${nav()}</div>`; }
+function toast(t){ const e=$("toast"); e.textContent=t; e.classList.add("on"); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.remove("on"),2200); }
+function go(k){ S.step=+k; S.focus=null; render(); }
+document.addEventListener("click",e=>{ const t=e.target;
+  const g=t.closest("[data-go]"); if(g){ go(g.dataset.go); return; }
+  if(t.closest("[data-unfocus]")){ S.focus=null; render(); return; }
+  const cap=t.closest("[data-cap]"); if(cap&&!t.closest(".card")){ S.step=0; S.focus={k:"cap",i:+cap.dataset.cap}; render(); setTimeout(()=>{ const i=document.querySelector(`[data-capn="${cap.dataset.cap}"]`); if(i&&!i.value) i.focus(); },320); return; }
+  const ini=t.closest("[data-ini]"); if(ini&&!t.closest(".card")){ S.step=1; S.focus={k:"ini",i:+ini.dataset.ini}; render(); return; }
+  const cell=t.closest("[data-cell]"); if(cell&&cell.querySelector(".ball")&&!t.closest(".card")){ const k=cell.dataset.cell; if(S.step===2&&S.focus&&S.focus.k==="cell"&&S.focus.i===k){ const x=S.cells[k]||{p:0}; S.cells[k]={...x,p:((x.p||0)+1)%4,cl:false}; } S.step=2; S.focus={k:"cell",i:k}; render(); return; }
+  const m=t.closest("[data-mark]"); if(m){ S.focus={k:"ini",i:+m.dataset.r}; render(); return; }
+  const fx=t.closest("[data-fix]"); if(fx){ S.step=+fx.dataset.fix; S.focus=fx.dataset.focus?JSON.parse(fx.dataset.focus):null; render(); return; }
+  const o=t.closest("[data-offer]"); if(o){ const of=OFFERS[+o.dataset.offer]; if(S.cap.some(x=>x.n===of.n)) return; const at=S.cap.findIndex(x=>!x.n); if(at<0){ toast("All six are named"); return; } S.cap[at]={n:of.n,d:of.d,ok:false,src:"From the solution's website"}; S.focus={k:"cap",i:at}; render(); toast(`${of.n} added · write over anything`); return; }
+  if(t.closest("[data-web]")){ let n=0; OFFERS.forEach(of=>{ if(S.cap.some(x=>x.n===of.n)) return; const at=S.cap.findIndex(x=>!x.n); if(at>=0){ S.cap[at]={n:of.n,d:of.d,ok:false,src:"From the solution's website"}; n++; } }); render(); toast(n?`Read the website · ${n} capabilities added`:"Nothing new on the website"); return; }
+  if(t.closest("[data-claude]")){ if(S.step===2||S.step>2){ named().forEach(c=>INIT.forEach((_,r)=>{ const k=r+"."+c; if(!S.cells[k]||!S.cells[k].p){ const p=[0,1,2,1,0,2,3,0][(r*3+c*5)%8]; if(p) S.cells[k]={p,cl:true,why:["","fits part of it","clear fit","direct fit"][p]}; } })); S.step=2; S.focus=null; render(); toast("Claude rated the empty balls · dashed until confirmed"); } else { document.querySelector("[data-web]")?.click(); } return; }
+  if(t.closest("[data-confirm]")){ Object.values(S.cells).forEach(x=>x.cl=false); render(); toast("Confirmed with the client"); return; }
+  if(t.closest("[data-allaop]")){ AOP.forEach(r=>S.ok[r]=true); render(); return; }
+  const sp=t.closest("[data-setp]"); if(sp){ const k=S.focus.i; S.cells[k]={...(S.cells[k]||{}),p:+sp.dataset.setp,cl:false}; render(); return; }
+  if(t.closest("[data-starter]")){ S.take=gaps().map(r=>`No capability makes a real difference to ${INIT[r]}.`).join(" "); render(); return; }
+});
+document.addEventListener("input",e=>{ const t=e.target;
+  if(t.dataset.capn!=null){ S.cap[+t.dataset.capn].n=t.value; S.cap[+t.dataset.capn].src=t.value?"Your words":""; const v=t.value, pos=t.selectionStart; render(); setTimeout(()=>{ const n=document.querySelector(`[data-capn="${t.dataset.capn}"]`); if(n){ n.focus(); n.setSelectionRange(pos,pos); } },0); }
+  if(t.dataset.capd!=null){ S.cap[+t.dataset.capd].d=t.value; }
+  if(t.dataset.take!=null){ S.take=t.value; }
+  if(t.dataset.celld!=null&&S.focus){ const k=S.focus.i; S.cells[k]={...(S.cells[k]||{}),d:t.value}; } });
+document.addEventListener("change",e=>{ const t=e.target; if(t.dataset.capok!=null){ S.cap[+t.dataset.capok].ok=t.checked; render(); } if(t.dataset.iniok!=null){ S.ok[+t.dataset.iniok]=t.checked; render(); } });
+/* the thinking pins */
+function pins(){ document.querySelectorAll(".pin").forEach(p=>p.remove()); const box=$("box"); if($("frame").classList.contains("phone")) return;
+  const add=(x,y,t)=>{ const p=document.createElement("span"); p.className="pin"; p.textContent="i"; p.dataset.t=t; p.style.left=x+"px"; p.style.top=y+"px"; box.appendChild(p); };
+  const ring=box.querySelector(".ring"); if(ring){ add(ring.offsetLeft-10,ring.offsetTop-10,"The step lives on the picture: the part you're working on is lit, the rest fades. No 1–5 list anywhere."); }
+  const card=box.querySelector(".card"); if(card) add(card.offsetLeft+card.offsetWidth-14,card.offsetTop-12,"Everything you'd type is in this card, beside the part it's about. Tap any capability, row or ball and the card opens for that one item.");
+  const d=box.querySelector(".done"); if(d) add(d.offsetLeft+18,d.offsetTop-14,"Finished parts carry a ✓ on the sheet. Tap it to go back.");
+  const mk=box.querySelector(".mark"); if(mk) add(mk.offsetLeft-12,mk.offsetTop+4,"Gaps, synergies and missing pieces are marked on the map itself. Tap a mark to fix it there."); }
+$("vDesk").onclick=()=>{ $("frame").classList.remove("phone"); $("vDesk").setAttribute("aria-pressed","true"); $("vPhone").setAttribute("aria-pressed","false"); render(); };
+$("vPhone").onclick=()=>{ $("frame").classList.add("phone"); $("vPhone").setAttribute("aria-pressed","true"); $("vDesk").setAttribute("aria-pressed","false"); render(); };
+$("pinOn").onclick=()=>{ document.body.classList.remove("nopins"); $("pinOn").setAttribute("aria-pressed","true"); $("pinOff").setAttribute("aria-pressed","false"); };
+$("pinOff").onclick=()=>{ document.body.classList.add("nopins"); $("pinOff").setAttribute("aria-pressed","true"); $("pinOn").setAttribute("aria-pressed","false"); };
+window.addEventListener("resize",()=>requestAnimationFrame(paint));
+render();
+</script>
+</body>
+</html>
